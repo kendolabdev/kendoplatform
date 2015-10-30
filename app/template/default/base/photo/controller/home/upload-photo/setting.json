@@ -1,0 +1,11 @@
+{
+  "label": "Upload photo layout",
+  "note": "",
+  "settings": [],
+  "layouts": {
+    "render1": {
+      "label": "Default Upload Form",
+      "note": ""
+    }
+  }
+}

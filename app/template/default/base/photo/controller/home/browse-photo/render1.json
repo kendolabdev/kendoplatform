@@ -1,0 +1,20 @@
+{
+  "note": "How to customize this",
+  "settings": [
+    {
+      "plugin": "selectLayoutGridDesktop"
+    },
+    {
+      "plugin": "selectLayoutGridTablet"
+    },
+    {
+      "plugin": "selectLayoutGridMobile"
+    },
+    {
+      "plugin": "selectLayoutEndlessLoad"
+    },
+    {
+      "plugin": "selectLayoutGridSpace"
+    }
+  ]
+}

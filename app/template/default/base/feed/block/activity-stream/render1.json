@@ -1,0 +1,18 @@
+{
+  "label": "Activity Stream",
+  "note": "Activity stream list",
+  "settings": [
+    {
+      "plugin": "text",
+      "name": "title",
+      "label": "Block Title",
+      "class": "form-control"
+    },
+    {
+      "plugin": "yesno",
+      "name": "endless",
+      "label": "Endless load",
+      "value": "1"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "label": "Overlay Photos",
+  "note": "Media photo is background under text information",
+  "settings": [
+    {
+      "plugin": "selectLayoutMediaBorder"
+    },
+    {
+      "plugin": "selectLayoutMediaPosition"
+    },
+    {
+      "plugin": "selectLayoutMediaRatio"
+    }
+  ]
+}

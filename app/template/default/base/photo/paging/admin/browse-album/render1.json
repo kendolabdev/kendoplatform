@@ -1,0 +1,15 @@
+{
+  "label": "Album Item",
+  "note": "Allow configures border, media type, photo ratio of items.",
+  "settings": [
+    {
+      "plugin": "selectLayoutMediaBorder"
+    },
+    {
+      "plugin": "selectLayoutMediaPosition"
+    },
+    {
+      "plugin": "selectLayoutMediaRatio"
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+<?php
+namespace Layout\Controller\Admin;
+
+use Layout\Form\Admin\FilterLayout;
+use Picaso\Controller\AdminController;
+use Picaso\Layout\BlockParams;
+
+/**
+ * Class ManageController
+ *
+ * @package Layout\Controller\Admin
+ */
+class ManageController extends AdminController
+{
+
+    /**
+     *
+     */
+    public function actionBrowse()
+    {
+        \App::layout()->setPageName('admin_simple');
+
+        \App::layout()
+            ->setPageName('admin_simple')
+            ->setupSecondaryNavigation('admin', 'admin_appearance', 'layouts');
+
+
+        \App::assets()
+            ->setTitle(\App::text('core_layout.manage_layouts'));
+
+        $module = $this->request->getParam('module', 'core');
+
+        $filter = new FilterLayout();
+
+        $filter->isValid(['module' => $module]);
+
+        $page = 1;
+        $limit = 100;
+
+        $params = $filter->getData();
+
+        $paging = \App::layout()
+            ->loadAdminLayoutPagePaging($params, $page, $limit);
+
+        $lp = new BlockParams([
+            'base_path' => 'base/layout/controller/admin/manage/browse-layout',
+        ]);
+
+        $this->view->setScript($lp->script())
+            ->assign([
+                'filter' => $filter,
+                'paging' => $paging
+            ]);
+    }
+
+
+    /**
+     *
+     */
+    public function actionEdit()
+    {
+        \App::layout()
+            ->setPageName('admin_layout_editor');
+
+        \App::assets()
+            ->setTitle(\App::text('core_layout.edit_layout'));
+
+        $pageName = $this->request->getParam('pageName', 'core_home');
+        $screenSize = $this->request->getParam('screenSize', 'medium');
+        $templateId = $this->request->getParam('templateId', 'default');
+        $layoutAttributes = [
+            'pageName'   => $pageName,
+            'screenSize' => $screenSize,
+            'templateId' => $templateId,
+        ];
+
+
+        $layoutService = \App::layout();
+
+
+        /**
+         * just clone themes.
+         *
+         */
+
+        $layoutId = null;
+        $layout = null;
+        $layoutConfigText = null;
+        $layoutEditHtml = '';
+
+
+        $layout = $layoutService->findLayout($pageName, $templateId, $screenSize);
+
+        if ($layout)
+            $layoutId = $layout->getId();
+
+
+        if ($layoutId)
+            $layoutEditHtml = $layoutService->renderLayoutForEdit($layoutId);
+
+        $supportContainers = $layoutService->findAvailableBlocks('container', true);
+
+        $supportBlocks = $layoutService->findAvailableBlocks('block', true);
+
+        $supportSections = $layoutService->loadSupportSections();
+
+
+        \App::assets()
+            ->requirejs()
+            ->addDependency(['base/core/layout_editor']);
+
+        $this->view->assign([
+            'layout'            => $layout,
+            'pageName'          => $pageName,
+            'screenSize'        => $screenSize,
+            'templateId'        => $templateId,
+            'layoutId'          => $layoutId,
+            'layoutConfigText'  => $layoutConfigText,
+            'supportBlocks'     => $supportBlocks,
+            'supportSections'   => $supportSections,
+            'supportContainers' => $supportContainers,
+            'layoutAttrs'       => $layoutAttributes,
+            'layoutEditHtml'    => $layoutEditHtml,
+        ]);
+
+        $lp = new BlockParams([
+            'base_path' => 'base/layout/controller/admin/manage/edit-layout',
+        ]);
+
+        $this->view->setScript($lp->script());
+    }
+}

@@ -1,0 +1,11 @@
+{
+  "label": "Default style",
+  "note": "Small login form with labeled input",
+  "settings": [
+    {
+      "name": "title",
+      "label": "Block Title",
+      "class": "form-control"
+    }
+  ]
+}

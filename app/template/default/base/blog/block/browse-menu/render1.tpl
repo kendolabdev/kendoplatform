@@ -1,0 +1,1 @@
+<?php echo \App::nav()->render('blog_main', 1, 'tab', array('level0'=>'menu')); ?>

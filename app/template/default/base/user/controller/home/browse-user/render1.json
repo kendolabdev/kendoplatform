@@ -1,0 +1,21 @@
+{
+  "label": "Default",
+  "note": "Render list of members",
+  "settings": [
+    {
+      "plugin": "selectLayoutGridDesktop"
+    },
+    {
+      "plugin": "selectLayoutGridTablet"
+    },
+    {
+      "plugin": "selectLayoutGridMobile"
+    },
+    {
+      "plugin": "selectLayoutEndlessLoad"
+    },
+    {
+      "plugin": "selectLayoutGridSpace"
+    }
+  ]
+}

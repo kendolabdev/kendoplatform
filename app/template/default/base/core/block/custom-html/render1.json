@@ -1,0 +1,18 @@
+{
+  "label": "Custom html block",
+  "note": "Custom html block",
+  "settings": [
+    {
+      "plugin": "text",
+      "name": "title",
+      "note": "Block Title",
+      "class": "form-control"
+    },
+    {
+      "plugin": "textarea",
+      "name": "content",
+      "note": "Block Html Content",
+      "class": "form-control"
+    }
+  ]
+}

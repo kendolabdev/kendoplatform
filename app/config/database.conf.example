@@ -1,0 +1,21 @@
+<?php defined("PICASO") or die("Access denied"); return array (
+  'prefix' => 'picaso_',
+  'default' => 
+  array (
+    'replicate' => false,
+    'driver' => 'mysqli',
+    'charset' => 'UTF8',
+    'database' => 'picaso',
+    'user' => 'root',
+    'password' => 'namnv123',
+    'master' => 
+    array (
+      0 => 
+      array (
+        'host' => 'localhost',
+        'port' => '3306',
+        'socket' => NULL,
+      ),
+    ),
+  ),
+);

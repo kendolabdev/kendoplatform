@@ -1,0 +1,11 @@
+{
+  "label": "Placeholder form",
+  "note": "Small login form with placeholder input",
+  "settings": [
+    {
+      "name": "title",
+      "label": "Block Title",
+      "class": "form-control"
+    }
+  ]
+}

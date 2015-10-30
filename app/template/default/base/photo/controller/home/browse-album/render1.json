@@ -1,0 +1,21 @@
+{
+  "label": "Albums List",
+  "note": "You can configures space and layout grids of albums list, also enable endless -loading when users scroll page to bottoms .",
+  "settings": [
+    {
+      "plugin": "selectLayoutGridDesktop"
+    },
+    {
+      "plugin": "selectLayoutGridTablet"
+    },
+    {
+      "plugin": "selectLayoutGridMobile"
+    },
+    {
+      "plugin": "selectLayoutEndlessLoad"
+    },
+    {
+      "plugin": "selectLayoutGridSpace"
+    }
+  ]
+}
