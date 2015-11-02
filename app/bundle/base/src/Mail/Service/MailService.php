@@ -140,7 +140,7 @@ class MailService
     {
         $row = \App::table('mail.mail_translate')
             ->select('trans')
-            ->rightJoin(PICASO_TABLE_PREFIX . 'mail_template', 'tpl', 'trans.template_id=trans.template_id AND trans.language_id=:languageId', [':languageId' => $languageId], null)
+            ->rightJoin(':mail_template', 'tpl', 'trans.template_id=trans.template_id AND trans.language_id=:languageId', [':languageId' => $languageId], null)
             ->where('tpl.template_name=?', $name)
             ->toAssoc();
 

@@ -12,16 +12,28 @@
 define('PICASO', true);
 
 /**
- * Define base url
+ * Include general config
  */
-define('PICASO_BASE_DIR', '/picaso/');
+if (file_exists('config/general.conf.php')) {
+    include 'config/general.conf.php';
+} else {
 
-/**
- * base path to root etc "https://your_site/base_dir/"
- *
- * @var string
- */
-define('PICASO_BASE_URL', '/picaso/');
+    //load root document from there
+
+    $dir = str_replace('//', '/', '/' . trim(dirname(substr($_SERVER['SCRIPT_FILENAME'], strlen($_SERVER['DOCUMENT_ROOT']))), '/') . '/');
+
+    /**
+     * Define base url
+     */
+    define('PICASO_BASE_DIR', $dir);
+
+    /**
+     * base path to root etc "https://your_site/base_dir/"
+     *
+     * @var string
+     */
+    define('PICASO_BASE_URL', $dir);
+}
 
 
 // for debug only

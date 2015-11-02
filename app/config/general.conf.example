@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * Define base url
+ */
+define('PICASO_BASE_DIR', '/picaso/');
+
+/**
+ * base path to root etc "https://your_site/base_dir/"
+ *
+ * @var string
+ */
+define('PICASO_BASE_URL', '/picaso/');

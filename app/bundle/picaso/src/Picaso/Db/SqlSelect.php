@@ -268,7 +268,7 @@ class SqlSelect implements Sql
         }
 
         if (is_string($table) && substr($table, 0, 1) == ':')
-            $table = PICASO_TABLE_PREFIX . substr($table, 1);
+            $table = \App::db()->getPrefix() . substr($table, 1);
 
         $this->_join->join(self::JOIN, $table, $alias, $expression, $data);
 

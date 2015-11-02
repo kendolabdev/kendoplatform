@@ -21,7 +21,7 @@ class PermissionService implements Driver
     {
         $select = \App::table('core.acl_allow')
             ->select('allow')
-            ->join(PICASO_TABLE_PREFIX . 'acl_action', 'action', 'action.action_id=allow.action_id', null, null)
+            ->join(':acl_action', 'action', 'action.action_id=allow.action_id', null, null)
             ->where('action.group_name=?', (string)$groupName)
             ->where('allow.role_id=?', (int)$roleId);
 
