@@ -14,25 +14,10 @@ define('PICASO', true);
 /**
  * Include general config
  */
-if (file_exists('config/general.conf.php')) {
+if (!file_exists('config/general.conf.php')) {
     include 'config/general.conf.php';
 } else {
-
-    //load root document from there
-
-    $dir = str_replace('//', '/', '/' . trim(dirname(substr($_SERVER['SCRIPT_FILENAME'], strlen($_SERVER['DOCUMENT_ROOT']))), '/') . '/');
-
-    /**
-     * Define base url
-     */
-    define('PICASO_BASE_DIR', $dir);
-
-    /**
-     * base path to root etc "https://your_site/base_dir/"
-     *
-     * @var string
-     */
-    define('PICASO_BASE_URL', $dir);
+    include 'config/general.conf.php';
 }
 
 

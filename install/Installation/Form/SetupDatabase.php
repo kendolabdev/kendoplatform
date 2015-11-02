@@ -47,6 +47,15 @@ class SetupDatabase extends Form
             'value'    => '',
         ]);
 
+        if (false) {
+            // fresh installation
+            $this->addElement([
+                'plugin' => 'yesno',
+                'label'  => 'Clear tables if exists',
+                'value'  => '1',
+            ]);
+        }
+
         $this->addElement([
             'plugin'   => 'text',
             'name'     => 'usr_name',
@@ -54,6 +63,7 @@ class SetupDatabase extends Form
             'required' => true,
             'class'    => 'form-control',
         ]);
+
 
         $this->addElement([
             'plugin'   => 'text',

@@ -691,6 +691,8 @@ class InstallHandler
 
         foreach ($tables as $name => $createSql) {
 
+            // check condition clear table if exists
+            // fresh installation only
             if (array_search($prefix . $name, $listExistsTable) !== false) continue;
 
             $createSql = str_replace(':table_prefix_', $prefix, $createSql);

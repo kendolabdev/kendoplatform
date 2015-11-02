@@ -3,11 +3,11 @@
 /**
  * Define base url
  */
-define('PICASO_BASE_DIR', '/picaso/');
+define('PICASO_BASE_DIR', 'BASE_DIR_VALUE');
 
 /**
  * base path to root etc "https://your_site/base_dir/"
  *
  * @var string
  */
-define('PICASO_BASE_URL', '/picaso/');
+define('PICASO_BASE_URL', 'BASE_URL_VALUE');
