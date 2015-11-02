@@ -583,9 +583,9 @@ class AttributeService
     public function addField($data = [])
     {
         if (empty($data['field_name'])
-            or empty($data['field_code']
+            or empty($data['field_code'])
                 or empty($data['content_id'])
-                or empty($data['plugin_id']))
+                or empty($data['plugin_id'])
         )
             throw new \InvalidArgumentException("Missing parameters [field_name, field_code, content_id,plugin_id");
 
