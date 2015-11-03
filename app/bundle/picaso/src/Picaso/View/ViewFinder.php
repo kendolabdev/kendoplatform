@@ -40,7 +40,7 @@ class ViewFinder
     public function __construct()
     {
         $this->paths = [
-            $this->getDefaultName() => PICASO_TEMPLATE_PATH . '/default',
+            $this->getDefaultName() => PICASO_TEMPLATE_DIR . '/default',
         ];
 
         if (\App::request()->isMobile() && !\App::request()->isTablet()) {

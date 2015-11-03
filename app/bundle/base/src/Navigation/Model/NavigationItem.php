@@ -129,6 +129,20 @@ class NavigationItem extends Model
     /**
      * @return null|string
      */
+    public function getPhraseName(){
+       return $this->__get('phrase_name');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setPhraseName($value){
+       $this->__set('phrase_name', $value);
+    }
+
+    /**
+     * @return null|string
+     */
     public function getParentName(){
        return $this->__get('parent_name');
     }

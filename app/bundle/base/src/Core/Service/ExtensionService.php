@@ -3,6 +3,7 @@ namespace Core\Service;
 
 use Core\Model\CoreExtension;
 use Picaso\Application\InstallHandler;
+use Picaso\Hook\SimpleContainer;
 
 /**
  * Class ExtensionService
@@ -186,7 +187,6 @@ class ExtensionService
             return false;
 
 
-
         $item = $packages[ $name ];
         $serviceName = sprintf("%s.install_handler", $item['name']);
 
@@ -287,6 +287,7 @@ class ExtensionService
         return true;
 
     }
+
     /**
      * @param string $name
      *
@@ -303,5 +304,35 @@ class ExtensionService
         return $this->packages[ $name ]['version'];
     }
 
+    /**
+     *
+     */
+    public function buildJsBundle()
+    {
+        $container = new SimpleContainer([
+            'primary'   => 'primary/main',
+            'core'      => 'base/core/main',
+            'bootstrap' => 'bootstrap/main',
+        ]);
+
+        \App::hook()
+            ->notify('onBeforeBuildBundleJS', $container);
+
+        // lookup bundle
+
+        // repair bundle
+
+        $data = array_values($container->all());
+
+        $array = implode(',', array_map(function ($e) {
+            return '\'' . $e . '\'';
+        }, $data));
+
+        $content = 'requirejs([' . $array . '], function(){})';
+
+        $filename = PICASO_STATIC_DIR . '/jscript/jsmain.js';
+
+        file_put_contents($filename, $content);
+    }
 
 }

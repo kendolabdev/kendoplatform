@@ -46,252 +46,221 @@ class CoreExtension extends Model
 
     //START_TABLE_GENERATOR
 
-
+    
     /**
      * @return null|string
      */
-    public function getId()
-    {
-        return $this->__get('id');
+    public function getId(){
+       return $this->__get('id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value)
-    {
-        $this->__set('id', $value);
+    public function setId($value){
+       $this->__set('id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getExtensionType()
-    {
-        return $this->__get('extension_type');
+    public function getExtensionType(){
+       return $this->__get('extension_type');
     }
 
     /**
      * @param $value
      */
-    public function setExtensionType($value)
-    {
-        $this->__set('extension_type', $value);
+    public function setExtensionType($value){
+       $this->__set('extension_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getLoadOrder()
-    {
-        return $this->__get('load_order');
+    public function getLoadOrder(){
+       return $this->__get('load_order');
     }
 
     /**
      * @param $value
      */
-    public function setLoadOrder($value)
-    {
-        $this->__set('load_order', $value);
+    public function setLoadOrder($value){
+       $this->__set('load_order', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPath()
-    {
-        return $this->__get('path');
+    public function getPath(){
+       return $this->__get('path');
     }
 
     /**
      * @param $value
      */
-    public function setPath($value)
-    {
-        $this->__set('path', $value);
+    public function setPath($value){
+       $this->__set('path', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isActive()
-    {
-        return $this->__get('is_active');
+    public function isActive(){
+       return $this->__get('is_active');
     }
 
     /**
      * @return null|string
      */
-    public function getActive()
-    {
-        return $this->__get('is_active');
+    public function getActive(){
+       return $this->__get('is_active');
     }
 
     /**
      * @param $value
      */
-    public function setActive($value)
-    {
-        $this->__set('is_active', $value);
+    public function setActive($value){
+       $this->__set('is_active', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isSystem()
-    {
-        return $this->__get('is_system');
+    public function isSystem(){
+       return $this->__get('is_system');
     }
 
     /**
      * @return null|string
      */
-    public function getSystem()
-    {
-        return $this->__get('is_system');
+    public function getSystem(){
+       return $this->__get('is_system');
     }
 
     /**
      * @param $value
      */
-    public function setSystem($value)
-    {
-        $this->__set('is_system', $value);
+    public function setSystem($value){
+       $this->__set('is_system', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getNamespace()
-    {
-        return $this->__get('namespace');
+    public function getNamespace(){
+       return $this->__get('namespace');
     }
 
     /**
      * @param $value
      */
-    public function setNamespace($value)
-    {
-        $this->__set('namespace', $value);
+    public function setNamespace($value){
+       $this->__set('namespace', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getName()
-    {
-        return $this->__get('name');
+    public function getName(){
+       return $this->__get('name');
     }
 
     /**
      * @param $value
      */
-    public function setName($value)
-    {
-        $this->__set('name', $value);
+    public function setName($value){
+       $this->__set('name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getTitle()
-    {
-        return $this->__get('title');
+    public function getTitle(){
+       return $this->__get('title');
     }
 
     /**
      * @param $value
      */
-    public function setTitle($value)
-    {
-        $this->__set('title', $value);
+    public function setTitle($value){
+       $this->__set('title', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getAuthor()
-    {
-        return $this->__get('author');
+    public function getAuthor(){
+       return $this->__get('author');
     }
 
     /**
      * @param $value
      */
-    public function setAuthor($value)
-    {
-        $this->__set('author', $value);
+    public function setAuthor($value){
+       $this->__set('author', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getDescription()
-    {
-        return $this->__get('description');
+    public function getDescription(){
+       return $this->__get('description');
     }
 
     /**
      * @param $value
      */
-    public function setDescription($value)
-    {
-        $this->__set('description', $value);
+    public function setDescription($value){
+       $this->__set('description', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getVersion()
-    {
-        return $this->__get('version');
+    public function getVersion(){
+       return $this->__get('version');
     }
 
     /**
      * @param $value
      */
-    public function setVersion($value)
-    {
-        $this->__set('version', $value);
+    public function setVersion($value){
+       $this->__set('version', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCreatedAt()
-    {
-        return $this->__get('created_at');
+    public function getCreatedAt(){
+       return $this->__get('created_at');
     }
 
     /**
      * @param $value
      */
-    public function setCreatedAt($value)
-    {
-        $this->__set('created_at', $value);
+    public function setCreatedAt($value){
+       $this->__set('created_at', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getModifiedAt()
-    {
-        return $this->__get('modified_at');
+    public function getModifiedAt(){
+       return $this->__get('modified_at');
     }
 
     /**
      * @param $value
      */
-    public function setModifiedAt($value)
-    {
-        $this->__set('modified_at', $value);
+    public function setModifiedAt($value){
+       $this->__set('modified_at', $value);
     }
 
     /**
      * @return \Core\Model\CoreExtensionTable
      */
-    public function table()
-    {
+    public function table(){
         return \App::table('core.core_extension');
     }
     //END_TABLE_GENERATOR

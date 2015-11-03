@@ -1,0 +1,23 @@
+require([
+    'bootstrap/affix',
+    'bootstrap/alert',
+    'bootstrap/button',
+    'bootstrap/dropdown',
+    'bootstrap/collapse',
+    'bootstrap/options',
+    'bootstrap/paging',
+    'bootstrap/pushstate',
+    'bootstrap/my-tooltip',
+    'bootstrap/my-toast',
+    'bootstrap/cardhover',
+    'bootstrap/hyves',
+    'bootstrap/ajaxform',
+    'bootstrap/utils',
+    //'bootstrap/modal',
+    //'bootstrap/tooltip',
+    //'bootstrap/popover',
+    'bootstrap/scrollspy',
+    'bootstrap/tab',
+    'bootstrap/transition',
+], function () {
+});

@@ -5,6 +5,7 @@ use Picaso\Application\EventHandler;
 use Picaso\Content\HasMember;
 use Picaso\Content\Poster;
 use Picaso\Hook\HookEvent;
+use Picaso\Hook\SimpleContainer;
 use Relation\Model\Relation;
 use Relation\Model\RelationItem;
 use User\Model\User;
@@ -16,6 +17,18 @@ use User\Model\User;
  */
 class EventHandlerService extends EventHandler
 {
+    /**
+     * @param \Picaso\Hook\HookEvent $event
+     */
+    public function onBeforeBuildBundleJS(HookEvent $event)
+    {
+        $payload = $event->getPayload();
+
+        if (!$payload instanceof SimpleContainer) return;
+
+        $payload->add('relation/main', 'base/relation/main');
+    }
+
     /**
      * @param HookEvent $event
      */

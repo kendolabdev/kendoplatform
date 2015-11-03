@@ -1,0 +1,49 @@
+#layouteditor {
+  .location {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    border-width: 1px;
+    border-color: #ddd;
+    border-style: dotted;
+    &.leaf{
+      padding-top: 10px;
+      padding-bottom: 20px;
+    }
+  }
+  .section {
+    margin-bottom: $padding-large-horizontal;
+  }
+  .dragable-element-header {
+    .options {
+      display: block;
+    }
+  }
+  .section-header{
+    display:block;
+    @include clearfix();
+    margin: 0 -($grid-gutter-width/2);
+    padding: 10px;
+    background-color: #f1cebc;
+  }
+}
+.dragable-element {
+  &.dragable-container{
+    border: 1px solid #F1CEBC;
+    > .dragable-element-header{
+      background-image: linear-gradient(to bottom, #F7EDD9 0, #f3e4c4 100%);
+    }
+  }
+  border: 1px solid #BCE8F1;
+  margin-top: 10px;
+  .dragable-element-header {
+    background-image: linear-gradient(to bottom, #D9EDF7 0, #C4E3F3 100%);
+    padding: 0.5em;
+  }
+
+  .options {
+    float: right;
+    display: none;
+  }
+}
+
+

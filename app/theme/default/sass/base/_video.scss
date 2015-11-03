@@ -1,0 +1,158 @@
+
+.attachment-thumb,.attachment-media,.attachment-body.attachment-content{
+  position: relative;
+}
+
+
+
+.attachment-media {
+  @include clearfix;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+  &:hover {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+  }
+  .attachment-thumb {
+    float: left;
+    width: 100%;
+
+  }
+
+  .attachment-img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: $body-bg;
+    background-position: center;
+    display: block;
+  }
+  .attachment-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+  .attachment-duration {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+  }
+
+  .attachment-body{
+    float:left;
+  }
+
+  .attachment-body-stage{
+  }
+
+  .attachment-title {
+    padding: $padding-base-vertical $padding-base-horizontal 0
+  }
+
+  .attachment-title-stage{
+    font-weight: 500;
+    @include textTruncateFixHeight(1, $font-size-h5, $line-height-base);
+  }
+
+  .attachment-desc {
+    padding: $padding-base-vertical $padding-base-horizontal 0;
+  }
+
+  .attachment-desc-stage{
+    @include textTruncateFixHeight(2, $font-size-base, $line-height-base);
+  }
+
+  .attachment-extra {
+    padding: $padding-base-vertical $padding-base-horizontal $padding-base-horizontal;
+    text-transform: lowercase;
+    color: $text-muted;
+  }
+
+  .attachment-mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-image: url(../img/bigplay.svg);
+  }
+}
+
+.attachment-media.small{
+  .attachment-thumb{
+    width: 200px;
+  }
+  .attachment-body{
+    float:none;
+    overflow: hidden;
+  }
+}
+
+.video-view {
+  @include clearAfter();
+
+  .item-img {
+    margin: 10px 0;
+    position: relative;
+    border: 1px solid $border-color;
+
+    .ion-close {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+    .item-duration {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      background-color: black;
+      color: white;
+      padding: 5px 10px;
+    }
+  }
+
+  .item-title {
+    font-size: 150%;
+  }
+
+  .item-extra {
+    padding-bottom: 10px;
+  }
+
+  .item-desc {
+    padding-bottom: 10px;
+  }
+
+  .item-host {
+    font-size: large;
+    color: #888;
+    padding-bottom: 10px;
+  }
+
+  .item-embed {
+    background-color: darken($body-bg, 40%);
+    margin: 10px 0;
+    iframe {
+      width: 100%;
+      display: block;
+    }
+  }
+
+  .item-mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 66px;
+    background-image: url(../img/bigplay.svg);
+  }
+}
+
+/*mobile first*/
+

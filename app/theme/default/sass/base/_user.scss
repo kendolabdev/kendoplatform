@@ -1,0 +1,192 @@
+$poster-img-width-xs: 78px;
+
+.header-login{
+  float:right;
+  padding: 15px 0;
+  label,.link-label{
+    display: block;
+    color: #aaa;
+    font-weight: 400;
+    font-size: small;
+  }
+}
+.container-fluid{
+  max-width: 1190px;
+}
+.header-login-fp{
+  height: 18px;
+}
+.header-search-form{
+  padding: 30px 0;
+  .form-group{
+    margin-bottom: 0;
+  }
+}
+.header-menu-right{
+  padding: 30px 0;
+}
+.site-logo-holder{
+  padding: ($grid-gutter-width/2) 0;
+}
+.site-logo-link{
+  display: block;
+}
+.site-logo-text{
+  display: block;
+  color: white;
+  font-size: $font-size-h1;
+  line-height: 70px;
+}
+.card-poster {
+  display: -webkit-box;
+  padding: $padding-base-horizontal 0;
+  border-bottom: 1px solid $border-color;
+  width: 100%;
+
+  .item-left {
+    display: block;
+  }
+  .item-right {
+    display: -webkit-box;
+    -webkit-box-align: center;
+    padding-left: $padding-base-horizontal;
+  }
+
+  .item-center {
+    display: -webkit-box;
+    -webkit-box-flex: 1;
+    -webkit-box-align: center;
+    padding-left: $padding-base-horizontal;
+  }
+
+  .item-title {
+    @include textTruncate(1, $font-size-h4, $line-height-base);
+    color: $text-color;
+    @include clearfix;
+  }
+  .img-view {
+    width: $poster-img-width-xs;
+    height: $poster-img-width-xs;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/*timeline*/
+.user-tlh-ow {
+  position: relative
+}
+
+
+.user-cover-iw{
+  position: relative;
+  overflow: hidden;
+}
+.profile-header-overlay {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100px;
+  background: -webkit-linear-gradient(top, rgba(76, 76, 76, 0) 0%, rgba(43, 43, 43, 0.8) 100%);
+  //background: url("../img/bg-gradient-black.png") bottom left repeat-x;
+}
+
+.user-profile-ow {
+  position: absolute;
+  left: $padding-base-horizontal;
+  bottom: $padding-base-horizontal;
+}
+
+.profile-header-title{
+  left: 125px;
+  max-width: 275px;
+}
+.profile-header-title {
+  position: absolute;
+  bottom: $padding-base-horizontal;
+  display: block;
+  font-size: $font-size-h3;
+  color: white;
+  font-weight: normal;
+  line-height: $font-size-h3 * $line-height-base;
+  text-shadow: 0 0 2px rgba(0,0,0,.5);
+  text-rendering: optimizelegibility;
+
+  &:hover{
+    color: white;
+  }
+}
+
+.user-profile-ow button.ion-camera {
+  font-size: 200%;
+  color: #000000;
+  text-shadow: 1px 1px 10px rgba(255, 255, 255, 0.96);
+}
+
+.user-profile-iw {
+  position: relative;
+  border: 1px solid #aaaaaa;
+  background: #FFFFFF;
+  border-radius: 3px;
+  padding: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.user-profile-img {
+  width: 94px;
+  height: 94px;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.user-tlh-nav-ow {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+
+  @if $use-round-corner{
+    border-bottom-left-radius: $border-radius-base;
+    border-bottom-right-radius: $border-radius-base;
+  }
+
+}
+
+
+.user-cover-iw {
+  height: 240px;
+}
+
+@media (min-width: 768px){
+
+  .profile-header-title{
+    left: 205px;
+    max-width: 275px;
+  }
+
+  .user-cover-iw {
+    height: 315px;
+  }
+
+  .user-profile-ow {
+    width: 178px;
+    height: 178px;
+  }
+
+  .user-profile-img {
+    width: 170px;
+    height: 170px;
+  }
+}
+
+@media(max-width: 400px){
+  .user-block-timelineheaderblock{
+    margin-left: ($padding-large-horizontal *-1);
+    margin-right:($padding-large-horizontal *-1);
+    margin-top: ($padding-base-horizontal *-1);
+  }
+}

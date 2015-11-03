@@ -12,6 +12,13 @@
 define('PICASO', true);
 
 /**
+ * Check required version php
+ */
+if (version_compare(phpversion(), '5.4.0', '<')) {
+    exit('Required at least php 5.4');
+}
+
+/**
  * Include general config
  */
 if (!file_exists('config/general.conf.php')) {
@@ -28,18 +35,6 @@ register_shutdown_function(function () {
     }
 });
 
-/**
- * Define picaso database table prefix
- */
-define('PICASO_TABLE_PREFIX', 'picaso_');
-
-
-/**
- * Check required version php
- */
-if (version_compare(phpversion(), '5.4.0', '<')) {
-    exit('Required at least php 5.4');
-}
 
 /**
  * Is in command line mode
@@ -50,6 +45,7 @@ define('PICASO_CLI', PHP_SAPI === 'cli');
  * enabled disabled debug mode
  */
 define('PICASO_DEBUG', true);
+
 
 /**
  * Set default timezone
@@ -122,9 +118,14 @@ defined('PICASO_CONFIG_DIR') or define('PICASO_CONFIG_DIR', PICASO_ROOT_DIR . '/
 
 
 /**
+ * Static Directory
+ */
+define('PICASO_STATIC_DIR', PICASO_ROOT_DIR . '/static');
+
+/**
  *
  */
-defined('PICASO_TEMPLATE_PATH') or define('PICASO_TEMPLATE_PATH', PICASO_ROOT_DIR . '/app/template');
+defined('PICASO_TEMPLATE_DIR') or define('PICASO_TEMPLATE_DIR', PICASO_ROOT_DIR . '/app/template');
 
 /**
  * Directory separator
@@ -182,7 +183,7 @@ define('PICASO_DEFAULT_ROLE_ID', 4);
 define('PICASO_GUEST_ROLE_ID', 11);
 
 /**
- * Constant of secket key, private for your application.
+ * Constant of secret key, private for your application.
  * WARNING! Do not share secret key to anyone.
  */
 define('PICASO_SECRET_KEY', 'abx');

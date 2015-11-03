@@ -441,7 +441,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
      */
     public function getTemplateInfo($templateId)
     {
-        $file = PICASO_TEMPLATE_PATH . '/' . $templateId . '/setting.json';
+        $file = PICASO_TEMPLATE_DIR . '/' . $templateId . '/setting.json';
 
         if (!file_exists($file))
             throw new \InvalidArgumentException("Can not find template settings.");
@@ -491,10 +491,10 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
         $templateId = $this->getTemplateId();
 
-        $directory = PICASO_TEMPLATE_PATH . '/' . $templateId . '/' . $path;
+        $directory = PICASO_TEMPLATE_DIR . '/' . $templateId . '/' . $path;
 
         if (!is_dir($directory)) {
-            $directory = PICASO_TEMPLATE_PATH . '/default/' . $path;
+            $directory = PICASO_TEMPLATE_DIR . '/default/' . $path;
         }
 
         $iterator = new \DirectoryIterator ($directory);
@@ -542,7 +542,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
      */
     public function getTemplateBlockRenderSetting($path, $script, $templateId = 'default')
     {
-        $file = PICASO_TEMPLATE_PATH . '/' . $templateId . '/' . $path . '/' . $script . '.json';
+        $file = PICASO_TEMPLATE_DIR . '/' . $templateId . '/' . $path . '/' . $script . '.json';
 
         if (file_exists($file))
             return json_decode(file_get_contents($file), true);
@@ -563,7 +563,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
      */
     public function _getTemplateBlockRenderSettings($path, $templateId = 'default')
     {
-        $directory = PICASO_TEMPLATE_PATH . '/' . $templateId . '/' . $path;
+        $directory = PICASO_TEMPLATE_DIR . '/' . $templateId . '/' . $path;
 
         $iterator = new \DirectoryIterator ($directory);
 

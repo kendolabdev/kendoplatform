@@ -5,6 +5,7 @@ use Picaso\Application\EventHandler;
 use Picaso\Content\CanShare;
 use Picaso\Content\Poster;
 use Picaso\Hook\HookEvent;
+use Picaso\Hook\SimpleContainer;
 use Share\Model\Share;
 
 /**
@@ -14,6 +15,19 @@ use Share\Model\Share;
  */
 class EventHandlerService extends EventHandler
 {
+
+    /**
+     * @param \Picaso\Hook\HookEvent $event
+     */
+    public function onBeforeBuildBundleJS(HookEvent $event)
+    {
+        $payload = $event->getPayload();
+
+        if (!$payload instanceof SimpleContainer) return;
+
+        $payload->add('share/main', 'base/share/main');
+    }
+
     /**
      * @param \Picaso\Hook\HookEvent $event
      */

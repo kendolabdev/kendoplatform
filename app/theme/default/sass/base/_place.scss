@@ -1,0 +1,29 @@
+.place-att-ow {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .1) inset, 0 1px 1px rgba(0, 0, 0, .05);
+  &:hover {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 1px 5px rgba(0, 0, 0, .15)
+  }
+  .item-img {
+    border-bottom: 1px solid $border-color;
+    position: relative;
+    img {
+      max-width: 100%;
+    }
+  }
+  .item-title {
+    padding: 10px 10px 0 10px;
+    font-size: $font-size-h4;
+  }
+  .item-desc {
+    padding: 10px 10px 0 10px;
+  }
+  .item-host {
+    padding: 10px 10px 10px 10px;
+    text-transform: uppercase;
+  }
+  &:after {
+    clear: both;
+    content: " ";
+    display: block;
+  }
+}

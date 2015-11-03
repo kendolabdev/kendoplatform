@@ -4,6 +4,7 @@ namespace Notification\Service;
 use Picaso\Content\Content;
 use Picaso\Content\Poster;
 use Picaso\Hook\HookEvent;
+use Picaso\Hook\SimpleContainer;
 
 /**
  * Class EventHandlerService
@@ -12,6 +13,19 @@ use Picaso\Hook\HookEvent;
  */
 class EventHandlerService extends \Picaso\Application\EventHandler
 {
+
+    /**
+     * @param \Picaso\Hook\HookEvent $event
+     */
+    public function onBeforeBuildBundleJS(HookEvent $event)
+    {
+        $payload = $event->getPayload();
+
+        if (!$payload instanceof SimpleContainer) return;
+
+        $payload->add('notification/main', 'base/notification/main');
+    }
+
     /**
      * @param $item
      *

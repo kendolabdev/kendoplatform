@@ -1,16 +1,9 @@
 define([
-    'base/core/pushstate',
-    'base/core/tooltip',
-    'base/core/utils',
-    'base/core/toast',
-    'base/core/cardhover',
-    'base/core/hyves',
-    'base/core/ajaxform',
     'base/core/picaso',
+    'base/core/utils',
     'base/core/boot',
     'base/core/report',
-    'base/core/paging',
-    'base/core/options',
+    //'base/core/options',
     'base/core/privacy'], function () {
 
     // expander

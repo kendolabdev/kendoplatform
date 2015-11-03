@@ -94,7 +94,7 @@ class NavigationService implements NavigationLoaderInterface
      *
      * @return string
      */
-    public function render($plugin, $navId, $parentId, $active = [], $level, $params = [])
+    public function render($plugin, $navId, $parentId, $active = [], $level = 1, $params = [])
     {
         $data = \App::cache()
             ->get(['nav', $navId, $parentId], 0, function () use ($navId, $parentId) {
@@ -179,7 +179,7 @@ class NavigationService implements NavigationLoaderInterface
                 'acl'      => (string)$row->acl,
                 'event'    => (string)$row->event,
                 'module'   => $module,
-                'label'    => $module . '_nav_' . $navId . '.' . $name,
+                'label'    => 'nav.' . $row->phrase_name,
                 'type'     => (string)$row->item_type,
                 'params'   => $params,
                 'extra'    => $extra,

@@ -67,20 +67,6 @@ class EventHandlerService extends EventHandler
                 'main'            => [
                     'rel'  => 'stylesheet',
                     'href' => $staticUrl . 'static/legacy/css/main.min.css'
-                ],
-                'ionic.font'      => [
-                    'rel'  => 'stylesheet',
-                    'href' => $staticUrl . 'static/legacy/css/ionicons.min.css'
-                ],
-                'jquery.ui'       => [
-                    'rel'  => 'stylesheet',
-                    'type' => 'text/css',
-                    'href' => $staticUrl . 'static/jquery-ui/jquery-ui.min.css',
-                ],
-                'jquery.ui.theme' => [
-                    'rel'  => 'stylesheet',
-                    'type' => 'text/css',
-                    'href' => $staticUrl . 'static/jquery-ui/jquery-ui.theme.min.css',
                 ]
             ]);
 

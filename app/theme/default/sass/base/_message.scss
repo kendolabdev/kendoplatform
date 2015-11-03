@@ -1,0 +1,130 @@
+.itlv-msg-conv {
+  padding: 10px 0;
+  cursor: pointer;
+
+  + .itlv-msg-conv {
+    border-top: 1px solid $border-color;
+  }
+
+  .avatar {
+    float: left;
+    display: block;
+    background-position: center;
+    background-size: cover;
+  }
+  .info-ow {
+    overflow: hidden;
+    padding-left: 10px;
+  }
+  .profile {
+    font-weight: bold;
+    text-overflow: ellipsis;
+  }
+  .timeago {
+    display: block;
+  }
+  .subject {
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
+    line-height: 16px;
+    max-height: 16px;
+    -webkit-box-lines: single;
+  }
+
+  &.message {
+    .avatar {
+      width: 50px;
+      height: 50px;
+    }
+    .subject {
+      padding-left: 10px;
+    }
+    .datetime-others {
+      display: none;
+    }
+  }
+  &.group {
+    .avatar {
+      width: 32px;
+      height: 32px;
+      margin-right: 10px;
+    }
+    .info-ow {
+      display: none;
+    }
+    .subject {
+      clear: left;
+    }
+    .datetime-others {
+      display: block;
+      clear: left;
+      line-height: 26px;
+    }
+  }
+}
+
+#docklet-ow {
+  position: fixed;
+  bottom: 0;
+  float: right;
+  right: 10%;
+}
+
+$chat-popup-border: #d7d7d7;
+
+.chat-popup {
+  position: relative;
+  width: 260px;
+  float: right;
+
+  background-color: white;
+  @include box-shadow(0 6px 12px rgba(0, 0, 0, .175));
+
+  .recipients {
+    font-weight: bold;
+    color: white;
+  }
+  .txt {
+    color: white;
+  }
+
+  .chat-popup-header {
+    background-color: $brand-primary;
+    padding: 10px;
+    padding: 4px;
+  }
+  .chat-popup-content {
+    border: 1px solid $chat-popup-border;
+    height: 230px;
+  }
+
+  .chat-popup-footer {
+    border: 1px solid $chat-popup-border;
+    border-top-width: 0;
+    &:after {
+      clear: both;
+      content: " ";
+      display: table;
+    }
+    .edit-group {
+      padding-right: 50px;
+      textarea {
+        width: 100%;
+        border: none;
+        outline: 0;
+        resize: none;
+        padding: 4px 8px;
+      }
+    }
+    .attach-group {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      a {
+        font-size: 130%;
+        color: $text-color;
+      }
+    }
+  }
+}

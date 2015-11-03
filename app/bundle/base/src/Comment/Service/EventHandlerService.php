@@ -5,6 +5,7 @@ use Comment\Model\Comment;
 use Picaso\Application\EventHandler;
 use Picaso\Content\CanComment;
 use Picaso\Hook\HookEvent;
+use Picaso\Hook\SimpleContainer;
 
 /**
  * Class EventHandlerService
@@ -13,6 +14,18 @@ use Picaso\Hook\HookEvent;
  */
 class EventHandlerService extends EventHandler
 {
+    /**
+     * @param \Picaso\Hook\HookEvent $event
+     */
+    public function onBeforeBuildBundleJS(HookEvent $event)
+    {
+        $payload = $event->getPayload();
+
+        if (!$payload instanceof SimpleContainer) return;
+
+        $payload->add('comment/main', 'base/comment/main');
+    }
+
     /**
      * @param \Picaso\Hook\HookEvent $event
      */

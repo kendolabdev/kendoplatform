@@ -41,6 +41,7 @@ class NavigationItemTable extends DbTable
 		'sort_order'=>1,
 		'module_name'=>1,
 		'item_name'=>1,
+		'phrase_name'=>1,
 		'parent_name'=>1,
 		'item_type'=>1,
 		'event'=>1,

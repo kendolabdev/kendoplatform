@@ -1,0 +1,29 @@
+.blog-post-att-ow {
+  padding: $padding-base-horizontal;
+
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .1) inset, 0 1px 1px rgba(0, 0, 0, .05);
+  &:hover {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 1px 5px rgba(0, 0, 0, .15)
+  }
+
+  .item-info {
+
+  }
+
+  .item-title {
+    font-size: $font-size-h4;
+  }
+
+  .item-desc {
+    padding-top: $padding-xs-horizontal;
+  }
+}
+
+.item-detail {
+  &.blog-post {
+  }
+  .detail-content {
+
+  }
+  padding-bottom: $padding-large-horizontal;
+}

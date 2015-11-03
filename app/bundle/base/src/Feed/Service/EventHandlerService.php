@@ -3,18 +3,12 @@
 namespace Feed\Service;
 
 use Core\Form\PosterPrivacySetting;
-use Follow\Model\Follow;
-use Like\Model\Like;
 use Picaso\Application\EventHandler;
-use Picaso\Content\CanFollow;
-use Picaso\Content\CanLike;
-use Picaso\Content\CanShare;
 use Picaso\Content\Content;
 use Picaso\Content\Poster;
 use Picaso\Hook\HookEvent;
+use Picaso\Hook\SimpleContainer;
 use Picaso\View\View;
-use Share\Model\Share;
-use User\Model\User;
 
 /**
  * Class EventHandlerService
@@ -23,6 +17,18 @@ use User\Model\User;
  */
 class EventHandlerService extends EventHandler
 {
+
+    /**
+     * @param \Picaso\Hook\HookEvent $event
+     */
+    public function onBeforeBuildBundleJS(HookEvent $event)
+    {
+        $payload = $event->getPayload();
+
+        if (!$payload instanceof SimpleContainer) return;
+
+        $payload->add('feed/main', 'base/feed/main');
+    }
 
     /**
      * @param HookEvent $event

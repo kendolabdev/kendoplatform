@@ -5,8 +5,6 @@
 /app/package/
 /app/composer.lock
 /static/node_modules
-/static/sass/
-/static/base/
 /static/jquery-ui
 /public/
 /doc/

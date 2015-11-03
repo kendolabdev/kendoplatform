@@ -8,14 +8,13 @@ module.exports = function (grunt) {
             src: ['Gruntfile.js', 'app/module/**/*.js']
         },
         requirejs: {
-            core: {
+            build: {
                 options: {
                     baseUrl: "./jscript",
                     name: "jsmain",
                     out: "./jscript/dist/core.bundle.js",
                     paths: {
                         base: "./base",
-                        primary: './primary',
                     },
                     //optimize: "none",
                     //mainConfigFile: "./jscript/main.js"
@@ -29,5 +28,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-requirejs');
 
     // grunt.registerTask('build', ['jshint', 'requirejs']);
-    grunt.registerTask('build', ['requirejs:core']);
+    grunt.registerTask('build', ['requirejs:build']);
 };

@@ -2,6 +2,7 @@
 namespace Event\Service;
 
 use Picaso\Hook\HookEvent;
+use Picaso\Hook\SimpleContainer;
 use Picaso\View\View;
 use User\Model\User;
 
@@ -12,6 +13,19 @@ use User\Model\User;
  */
 class EventHandlerService extends \Picaso\Application\EventHandler
 {
+
+    /**
+     * @param \Picaso\Hook\HookEvent $event
+     */
+    public function onBeforeBuildBundleJS(HookEvent $event)
+    {
+        $payload = $event->getPayload();
+
+        if (!$payload instanceof SimpleContainer) return;
+
+        $payload->add('event/main', 'base/event/main');
+    }
+
     /**
      * @param $item
      *

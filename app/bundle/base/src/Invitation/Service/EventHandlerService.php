@@ -4,6 +4,7 @@ namespace Invitation\Service;
 use Picaso\Application\EventHandler;
 use Picaso\Content\Poster;
 use Picaso\Hook\HookEvent;
+use Picaso\Hook\SimpleContainer;
 use User\Model\User;
 
 /**
@@ -13,6 +14,18 @@ use User\Model\User;
  */
 class EventHandlerService extends EventHandler
 {
+
+    /**
+     * @param \Picaso\Hook\HookEvent $event
+     */
+    public function onBeforeBuildBundleJS(HookEvent $event)
+    {
+        $payload = $event->getPayload();
+
+        if (!$payload instanceof SimpleContainer) return;
+
+        $payload->add('invitation/main', 'base/invitation/main');
+    }
 
     /**
      * @param $item

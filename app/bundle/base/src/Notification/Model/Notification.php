@@ -17,6 +17,7 @@ use Picaso\Model;
 class Notification extends Model
 {
 
+
     /**
      * @return string
      */

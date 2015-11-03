@@ -13,7 +13,7 @@
             <?php echo $this->helper()->layout()->header(); ?>
         </header>
         <section id="main">
-            <div class="container">
+            <div class="container-fluid">
                 <?php echo \App::layout()->content(); ?>
             </div>
         </section>

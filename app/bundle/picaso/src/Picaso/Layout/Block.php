@@ -188,6 +188,6 @@ class Block
      */
     public function getCssClassName()
     {
-        return 'block ' . strtolower(str_replace(['\\', '.'], ['-', ''], get_class($this)));
+        return '_block ' . strtolower(str_replace(['\\', '.'], ['-', ''], str_replace('\Block','',get_class($this))));
     }
 }
