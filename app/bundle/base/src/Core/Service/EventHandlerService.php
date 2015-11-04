@@ -57,16 +57,23 @@ class EventHandlerService extends EventHandler
                 ],
             ]);
 
+
+        $themeId = \App::layout()->getThemeId();
+
+        if (!empty($_COOKIE['themeId'])) {
+            $themeId = $_COOKIE['themeId'];
+        }
+
         $assets->link()
             ->prependAll([
-                'favicon'         => [
+                'favicon' => [
                     'id'   => 'favicon',
                     'href' => $staticUrl . 'static/favicon.ico',
                     'rel'  => 'shortcut icon favicon',
                 ],
-                'main'            => [
+                'main'    => [
                     'rel'  => 'stylesheet',
-                    'href' => $staticUrl . 'static/legacy/css/main.min.css'
+                    'href' => $staticUrl . 'static/theme/' . $themeId . '/stylesheets/bundle.css'
                 ]
             ]);
 

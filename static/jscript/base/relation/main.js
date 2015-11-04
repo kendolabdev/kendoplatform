@@ -1,1 +1,1 @@
-require([],function(){});
+require(['base/relation/privacy'],function(){});

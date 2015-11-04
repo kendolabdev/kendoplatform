@@ -23,6 +23,9 @@ class HomeController extends DefaultController
 
         $lp = \App::layout()->getContentLayoutParams();
 
+        \App::layout()
+            ->setupSecondaryNavigation('group_main', null, 'group_browse');
+
         $this->view
             ->setScript($lp->script())
             ->assign([
@@ -41,6 +44,9 @@ class HomeController extends DefaultController
     public function actionMyGroup()
     {
         $page = $this->request->getParam('page', 1);
+
+        \App::layout()
+            ->setupSecondaryNavigation('group_main', null, 'group_my');
 
         $poster = \App::auth()->getViewer();
 
@@ -62,6 +68,11 @@ class HomeController extends DefaultController
                 'query'     => $query,
                 'lp'        => $lp,
             ]);
+    }
+
+    public function actionCreateGroup()
+    {
+
     }
 
 }

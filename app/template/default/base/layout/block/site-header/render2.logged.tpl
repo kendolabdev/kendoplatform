@@ -1,6 +1,6 @@
 <div class="">
     <div class="navbar-top visible-xs">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-sm-6 hidden-xs">
                     <ul class="list-flex">
@@ -52,7 +52,7 @@
     </div>
     <div class="navbar-sticky">
         <nav class="navbar navbar-default">
-            <div class="container">
+            <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
 
@@ -85,8 +85,7 @@
                             <?php echo $this->helper()->btnBearNotification(); ?>
                         </li>
                     </ul>
-                    <?php echo \App::nav()->render('dropdown', 'main', null, [], 2, ['level0'=>'nav navbar-nav
-                    navbar-right','depth' => 1,'max' => 6]); ?>
+                    <?php echo \App::nav()->render('dropdown', 'main', null, [], 2, ['level0'=>'nav navbar-nav','depth' => 1,'max' => 6]); ?>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>

@@ -1,0 +1,44 @@
+a.btn-social {
+  display: inline-block;
+  background-color: transparent;
+  border: #999 1px none;
+  line-height: $btn-social-size;
+  color: white;
+  text-shadow: none;
+  letter-spacing: 0 !important;
+  width: $btn-social-size;
+  height: $btn-social-size;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0;
+  i {
+    font-size: $btn-social-icon;
+  }
+}
+
+.btn-social{
+  &.facebook {
+    background-color: #3B5998;
+  }
+  &.twitter {
+    background-color: #00ACEE;
+  }
+  &.instagram {
+    background-color: #00ACEE;
+  }
+  &.google {
+    background-color: #DD4B39;
+  }
+  &.youtube {
+    background-color: #DD4B39;
+  }
+  &.linkedin {
+    background-color: #0E76A8;
+  }
+  &.rss {
+    background-color: #EE802F;
+  }
+  &.window {
+    background-color: cadetblue;
+  }
+}

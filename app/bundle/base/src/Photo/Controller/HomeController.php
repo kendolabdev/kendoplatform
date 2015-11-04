@@ -1,8 +1,8 @@
 <?php
 namespace Photo\Controller;
 
-use Photo\Model\Album;
 use Photo\Model\Photo;
+use Photo\Model\PhotoAlbum;
 use Photo\Service\PhotoService;
 use Picaso\Controller\DefaultController;
 
@@ -18,6 +18,9 @@ class HomeController extends DefaultController
      */
     public function actionBrowsePhoto()
     {
+        \App::layout()
+            ->setupSecondaryNavigation('photo_main', null, 'photo_browse');
+
         $page = $this->request->getParam('page', 1);
 
         $query = [];
@@ -43,6 +46,10 @@ class HomeController extends DefaultController
      */
     public function actionMyPhoto()
     {
+
+        \App::layout()
+            ->setupSecondaryNavigation('photo_main', null, 'photo_my');
+
         $poster = \App::auth()->getViewer();
 
         $page = $this->request->getParam('page', 1);
@@ -69,6 +76,10 @@ class HomeController extends DefaultController
      */
     public function actionUploadPhoto()
     {
+
+        \App::layout()
+            ->setupSecondaryNavigation('photo_main', null, 'photo_upload');
+
         $photoService = \App::photo();
 
         $lp = \App::layout()->getContentLayoutParams();
@@ -98,6 +109,10 @@ class HomeController extends DefaultController
      */
     public function actionCreateAlbum()
     {
+
+        \App::layout()
+            ->setupSecondaryNavigation('photo_main', null, 'create_album');
+
         $poster = \App::auth()->getViewer();
 
         /**
@@ -130,7 +145,7 @@ class HomeController extends DefaultController
 
             $album = $photoService->addAlbum($poster, $poster, array_merge($data, $privacy));
 
-            if (!$album instanceof Album) {
+            if (!$album instanceof PhotoAlbum) {
                 throw new \InvalidArgumentException();
             }
 
@@ -162,6 +177,10 @@ class HomeController extends DefaultController
      */
     public function actionBrowseAlbum()
     {
+
+        \App::layout()
+            ->setupSecondaryNavigation('photo_main', null, 'browse_album');
+
         $page = $this->request->getParam('page', 1);
 
         $query = [];
@@ -184,6 +203,9 @@ class HomeController extends DefaultController
      */
     public function actionMyAlbum()
     {
+        \App::layout()
+            ->setupSecondaryNavigation('photo_main', null, 'my_album');
+
         $page = $this->request->getParam('page', 1);
         $poster = \App::auth()->getViewer();
 
@@ -210,12 +232,13 @@ class HomeController extends DefaultController
      */
     public function actionViewAlbum()
     {
+
         $id = $this->request->getString('id');
 
         $album = \App::table('photo.photo_album')
             ->findById($id);
 
-        if (!$album instanceof Album) {
+        if (!$album instanceof PhotoAlbum) {
             throw new \InvalidArgumentException("Album not found");
         }
 

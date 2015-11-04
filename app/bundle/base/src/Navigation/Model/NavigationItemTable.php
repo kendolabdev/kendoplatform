@@ -49,7 +49,9 @@ class NavigationItemTable extends DbTable
 		'route'=>1,
 		'params_text'=>1,
 		'query_text'=>1,
-		'extra_text'=>1);
+		'extra_text'=>1,
+		'icon'=>1,
+		'mobile_icon'=>1);
 
     /**
      * @var array

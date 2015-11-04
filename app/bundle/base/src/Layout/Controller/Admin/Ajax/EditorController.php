@@ -131,9 +131,10 @@ class EditorController extends AjaxController
 
         $oldData = $entry->getLayoutSettings();
 
-
         $baseScriptList = [];
         $itemScriptList = [];
+
+
         $baseScript = !empty($oldData['base_script']) ? $oldData['base_script'] : 'render1';
         $itemScript = !empty($oldData['item_script']) ? $oldData['item_script'] : 'render1';
 
@@ -142,13 +143,11 @@ class EditorController extends AjaxController
             $baseScriptList = \App::layout()->getTemplateBlockRenderSettings($templateId, $layoutType, $page->getBasePath());
         }
 
-
         if (!in_array($layoutType, ['header', 'footer']) and null != $page->getItemPath()) {
             $itemScriptList = \App::layout()->getTemplateBlockRenderSettings($templateId, $layoutType, $page->getItemPath());
         }
 
-
-        if (count($baseScriptList) < 2 && count($itemScriptList) < 2) {
+        if (count($baseScriptList) < 1 && count($itemScriptList) < 1) {
             return $this->forward(null, 'open-content-setting');
         }
 
@@ -254,6 +253,7 @@ class EditorController extends AjaxController
         $itemScript = $this->request->getParam('item_script', 'render1');
         $editStep = $this->request->getParam('edit_step', '');
 
+
         $form = new LayoutEditContentSetting();
 
         $baseScriptList = \App::layout()
@@ -262,7 +262,6 @@ class EditorController extends AjaxController
         if ($layoutType == 'content' and null != $page->getItemPath()) {
             $itemScriptList = \App::layout()->getTemplateBlockRenderSettings($templateId, $layoutType, $page->getItemPath());
         }
-
 
         $pageTitle = 'Edit Block Settings';
         $pageNote = 'Select one of layout before edit settings.';
@@ -274,8 +273,8 @@ class EditorController extends AjaxController
             throw new \InvalidArgumentException();
 
 
-        if (!empty($baseScriptList[ $baseScript ]['settings'])) {
-            $baseScriptSetting = $baseScriptList[ $baseScript ]['settings'];
+        if (!empty($baseScriptList[ $baseScript ])) {
+            $baseScriptSetting = $baseScriptList[ $baseScript ];
         }
 
         $baseScriptSetting = array_merge([
@@ -288,8 +287,8 @@ class EditorController extends AjaxController
         $form->setNote($baseScriptSetting['note']);
 
 
-        if (!empty($itemScriptList[ $itemScript ]) && !empty($itemScriptList[ $itemScript ]['settings'])) {
-            $itemScriptSetting = $itemScriptList[ $itemScript ]['settings'];
+        if (!empty($itemScriptList[ $itemScript ]) && !empty($itemScriptList[ $itemScript ])) {
+            $itemScriptSetting = $itemScriptList[ $itemScript ];
         }
 
         /**
@@ -407,7 +406,7 @@ class EditorController extends AjaxController
             ]);
             $formScript = 'base/layout/dialog/layout/no-block-setting';
         } else if (count($supportScripts) == 1) {
-            $this->forward('\Layout\Controller\Ajax\EditorController', 'open-block-setting');
+            $this->forward('\Layout\Controller\Admin\Ajax\EditorController', 'open-block-setting');
         }
 
         $data = [
@@ -449,11 +448,12 @@ class EditorController extends AjaxController
         $baseScript = $this->request->getParam('base_script', 'render1');
         $form = new LayoutSupportBlockSetting();
 
-
         if (!empty($basePath)) {
             $supportScripts = \App::layout()
                 ->getTemplateSupportBlockSettings($basePath);
         }
+
+        var_dump($supportScripts);exit;
 
         if (!empty($supportScripts[ $baseScript ]['settings'])) {
             $supportSettings = $supportScripts[ $baseScript ]['settings'];

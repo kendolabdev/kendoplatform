@@ -16,6 +16,10 @@ class HomeController extends DefaultController
      */
     public function actionBrowsePage()
     {
+
+        \App::layout()
+            ->setupSecondaryNavigation('page_main', null, 'page_browse');
+
         $page = $this->request->getParam('page', 1);
 
         $query = [];
@@ -40,6 +44,9 @@ class HomeController extends DefaultController
      */
     public function actionMyPage()
     {
+        \App::layout()
+            ->setupSecondaryNavigation('page_main', null, 'page_my');
+
         $poster = \App::auth()->getViewer();
 
         $page = $this->request->getParam('page', 1);

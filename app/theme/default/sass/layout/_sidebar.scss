@@ -1,0 +1,17 @@
+$aside-left-width: 230px;
+$aside-left-bg: #ffffff;
+$use-block-box: true;
+
+.sidebar-container {
+  width: $aside-left-width;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: auto;
+  background-color: $aside-left-bg;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+.main-container{
+  padding-left:$aside-left-width;
+}

@@ -53,7 +53,12 @@ class LayoutService implements LayoutLoaderInterface, Manager
     /**
      * @var string
      */
-    protected $templateId = 'default';
+    protected $templateId;
+
+    /**
+     * @var string
+     */
+    protected $themeId;
 
     /**
      * @var string
@@ -95,6 +100,94 @@ class LayoutService implements LayoutLoaderInterface, Manager
     protected $secondaryNavigation;
 
     /**
+     * LayoutService constructor.
+     */
+    public function __construct()
+    {
+        $themeId = null;
+        if (!empty($_COOKIE['themeId'])) {
+            $themeId = $_COOKIE['themeId'];
+        }
+
+
+
+        $themeData = $this->getThemeData($themeId);
+
+        $this->setTemplateId($themeData['template_id']);
+        $this->themeId = $themeData['theme_id'];
+
+        \App::viewFinder()
+            ->setPaths($themeData['view_paths']);
+    }
+
+    /**
+     * @param $themeId
+     *
+     * @return array
+     */
+    public function getThemeData($themeId)
+    {
+        return \App::cache()
+            ->get(['layout', 'getThemeData', $themeId], 0, function () use ($themeId) {
+                return $this->_getThemeData($themeId);
+            });
+    }
+
+    /**
+     * @param $themeId
+     *
+     * @return array
+     */
+    public function _getThemeData($themeId)
+    {
+        $theme = $this->findThemeById($themeId);
+
+        if (!$theme)
+            $theme = $this->findDefaultTheme();
+
+        $template = $this->findTemplateById($theme->getTemplateId());
+
+        return [
+            'theme_id'           => $theme->getId(),
+            'parent_theme_id'    => $theme->getParentThemeId(),
+            'template_id'        => $template->getId(),
+            'parent_template_id' => $template->getParentTemplateId(),
+            'super_template_id'  => $template->getSuperTemplateId(),
+            'view_paths'         => $template->getViewFinderPaths(),
+        ];
+    }
+
+    /**
+     * @return \Layout\Model\LayoutTheme
+     */
+    public function findDefaultTheme()
+    {
+        $theme = \App::table('layout.layout_theme')
+            ->select()
+            ->where('is_default=?', 1)
+            ->one();
+
+        if (!$theme)
+            $theme = \App::table('layout.layout_theme')
+                ->select()
+                ->where('theme_id=?', 'default')
+                ->one();
+
+        return $theme;
+    }
+
+    /**
+     * @param $themeId
+     *
+     * @return \Layout\Model\LayoutTheme
+     */
+    public function findThemeById($themeId)
+    {
+        return \App::table('layout.layout_theme')
+            ->findById((string)$themeId);
+    }
+
+    /**
      * @return \Picaso\Layout\Navigation
      */
     public function getPrimaryNavigation()
@@ -134,6 +227,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
         $this->secondaryNavigation = $secondaryNavigation;
     }
 
+
     /**
      * @param string $navId
      * @param string $parentId
@@ -164,6 +258,21 @@ class LayoutService implements LayoutLoaderInterface, Manager
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getThemeId()
+    {
+        return $this->themeId;
+    }
+
+    /**
+     * @param string $themeId
+     */
+    public function setThemeId($themeId)
+    {
+        $this->themeId = $themeId;
+    }
 
     /**
      * @param array $params
@@ -509,6 +618,8 @@ class LayoutService implements LayoutLoaderInterface, Manager
             $baseName = $info->getBasename('.tpl');
             $fileName = $info->__toString();
 
+            if (strpos($baseName, '-admin')) continue;
+
             if ($baseName == $fileName) continue;
 
             // mobile version of template
@@ -583,6 +694,8 @@ class LayoutService implements LayoutLoaderInterface, Manager
             if (strpos($baseName, '.mobile')) continue;
 
             if (strpos($baseName, '.logged')) continue;
+
+            if (strpos($baseName, '-admin')) continue;
 
             $fileJson = $directory . '/' . $baseName . '.json';
 
@@ -786,15 +899,43 @@ class LayoutService implements LayoutLoaderInterface, Manager
         foreach ($sections as $section) {
             if (!$section instanceof LayoutSection) continue;
 
+            $sectionTemplate = $this->getConvertSectionTemplate($section->getSectionTemplate());
+
             $sectionId = $section->getId();
             $response['sections'][ $sectionId ] = [
                 'locations'        => $this->loadSectionData($sectionId),
-                'section_template' => $section->getSectionTemplate(),
+                'section_template' => $sectionTemplate,
                 'section_id'       => $sectionId,
             ];
         }
 
         return $response;
+    }
+
+    /**
+     * @param string $fromId
+     * @param string $templateId
+     *
+     * @return string
+     */
+    public function getConvertSectionTemplate($fromId, $templateId = null)
+    {
+        if (null == $templateId)
+            $templateId = $this->getTemplateId();
+
+        if ($templateId == 'default')
+            return $fromId;
+
+        $toId = \App::table('layout.layout_section_convert')
+            ->select()
+            ->where('template_id=?', $templateId)
+            ->where('from_id=?', $fromId)
+            ->field('to_id');
+
+        if (!empty($toId))
+            return $toId;
+
+        return $fromId;
     }
 
     /**
@@ -1848,5 +1989,13 @@ class LayoutService implements LayoutLoaderInterface, Manager
                 }
             }
         }
+    }
+
+    /**
+     * @return \Layout\Service\ThemeService
+     */
+    public function theme()
+    {
+        return \App::service('layout.theme');
     }
 }

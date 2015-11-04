@@ -55,5 +55,14 @@ class InstallHandlerService extends InstallHandler
                     ->insertIgnore($data);
             }
         }
+
+        \App::table('layout.layout_theme')
+            ->insertIgnore([
+                'theme_id'        => 'default',
+                'parent_theme_id' => '',
+                'is_active'       => 1,
+                'is_default'      => 1,
+                'variable_params' => '[]',
+            ]);
     }
 }

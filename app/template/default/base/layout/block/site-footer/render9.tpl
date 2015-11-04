@@ -1,5 +1,5 @@
 <div class="footer-layout2">
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="row">
 
@@ -103,7 +103,7 @@
 
     <!--Copyright-->
     <div class="copyright">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     &copy; <?php echo date('Y'); ?>  <?php echo $this->helper()->text('core.copyright_label');?>

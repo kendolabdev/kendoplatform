@@ -23,9 +23,9 @@ class TopPosterBlock extends Block
     {
         parent::execute();
 
-        $limit = $this->getParam('limit', 5);
+        $limit = $this->lp->get('limit', 5);
 
-        $select = \App::table('blog.post')
+        $select = \App::table('blog.blog_post')
             ->select()
             ->where('poster_type=?', 'user')// fetch user only
             ->group('poster_id')

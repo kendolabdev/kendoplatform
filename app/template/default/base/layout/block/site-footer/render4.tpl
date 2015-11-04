@@ -1,5 +1,5 @@
 <div class="footer-layout4">
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="row">
 
@@ -70,7 +70,7 @@
     </div>
 
     <div class="copyright has-social">
-        <div class="container">
+        <div class="container-fluid">
 
             <!-- Social Icons -->
             <div class="pull-right">

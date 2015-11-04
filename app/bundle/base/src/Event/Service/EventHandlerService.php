@@ -13,6 +13,17 @@ use User\Model\User;
  */
 class EventHandlerService extends \Picaso\Application\EventHandler
 {
+    /**
+     * @param \Picaso\Hook\HookEvent $event
+     */
+    public function onBeforeBuildBundleStylesheet(HookEvent $event)
+    {
+        $payload = $event->getPayload();
+
+        if (!$payload instanceof SimpleContainer) return;
+
+        $payload->add('base/event', 'base/event');
+    }
 
     /**
      * @param \Picaso\Hook\HookEvent $event

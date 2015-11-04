@@ -4,6 +4,7 @@ namespace Blog\Controller;
 
 use Blog\Form\AddPost;
 use Blog\Form\DeletePost;
+use Blog\Model\BlogPost;
 use Blog\Model\Post;
 use Blog\Service\BlogService;
 use Picaso\Controller\DefaultController;
@@ -34,6 +35,9 @@ class HomeController extends DefaultController
 
         $lp = \App::layout()->getContentLayoutParams();
 
+        \App::layout()
+            ->setupSecondaryNavigation('blog_main', null, 'blog_browse');
+
         $this->view
             ->setScript($lp->script())
             ->assign([
@@ -57,6 +61,9 @@ class HomeController extends DefaultController
             ->setTitle(\App::text('blog.my_blogs'));
 
         $page = $this->request->getParam('page', 1);
+
+        \App::layout()
+            ->setupSecondaryNavigation('blog_main', null, 'blog_my');
 
         $poster = \App::auth()->getViewer();
 
@@ -84,6 +91,9 @@ class HomeController extends DefaultController
     {
         \App::acl()->required('blog__create');
 
+        \App::layout()
+            ->setupSecondaryNavigation('blog_main', null, 'blog_import');
+
         $lp = \App::layout()->getContentLayoutParams();
 
         $this->view->setScript($lp->script());
@@ -99,6 +109,9 @@ class HomeController extends DefaultController
 
         \App::assets()
             ->setTitle(\App::text('blog.add_blog_post'));
+
+        \App::layout()
+            ->setupSecondaryNavigation('blog_main', null, 'blog_create');
 
         $poster = \App::auth()->getViewer();
 
@@ -147,9 +160,12 @@ class HomeController extends DefaultController
 
         $post = \App::blog()->findPost($id);
 
-        if (!$post instanceof Post) {
+        if (!$post instanceof BlogPost) {
             throw new \InvalidArgumentException("Could not find blog post");
         }
+
+        \App::layout()
+            ->setupSecondaryNavigation('blog_main', null, 'blog_browse');
 
         $form = \App::html()->factory('\Blog\Form\EditPost');
 

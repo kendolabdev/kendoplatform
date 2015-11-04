@@ -1,10 +1,6 @@
 define([
     'base/core/picaso',
-    'base/core/utils',
-    'base/core/boot',
-    'base/core/report',
-    //'base/core/options',
-    'base/core/privacy'], function () {
+    'base/core/boot'], function () {
 
     // expander
     $(document).on('click', '[data-toggle="expand"]', function(){

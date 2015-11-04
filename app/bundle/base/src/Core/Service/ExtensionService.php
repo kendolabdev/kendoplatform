@@ -307,7 +307,7 @@ class ExtensionService
     /**
      *
      */
-    public function buildJsBundle()
+    public function updateJsBundleConfiguration()
     {
         $container = new SimpleContainer([
             'primary'   => 'primary/main',

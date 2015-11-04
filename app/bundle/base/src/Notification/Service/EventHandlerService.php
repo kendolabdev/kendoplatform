@@ -17,6 +17,18 @@ class EventHandlerService extends \Picaso\Application\EventHandler
     /**
      * @param \Picaso\Hook\HookEvent $event
      */
+    public function onBeforeBuildBundleStylesheet(HookEvent $event)
+    {
+        $payload = $event->getPayload();
+
+        if (!$payload instanceof SimpleContainer) return;
+
+        $payload->add('base/notification', 'base/notification');
+    }
+
+    /**
+     * @param \Picaso\Hook\HookEvent $event
+     */
     public function onBeforeBuildBundleJS(HookEvent $event)
     {
         $payload = $event->getPayload();

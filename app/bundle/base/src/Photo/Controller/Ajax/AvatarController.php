@@ -100,6 +100,11 @@ class AvatarController extends AjaxController
             $poster->save();
         }
 
-        $this->response['html'] = \App::storage()->getUrlByOriginAndMaker($photo->getPhotoFileId(), 'avatar_md');
+        $html = \App::storage()->getUrlByOriginAndMaker($photo->getPhotoFileId(), 'avatar_md');
+
+        $this->response = [
+            'html'      => $html,
+            'directive' => 'reload'
+        ];
     }
 }

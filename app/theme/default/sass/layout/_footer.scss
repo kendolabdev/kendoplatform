@@ -1,0 +1,51 @@
+#footer {
+  font-weight: 300;
+  margin-top: 2*$padding-base-horizontal;
+
+  h1, h2, h3, h4, h5, h6 {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+    font-family: 'Raleway', 'Open Sans', Arial, Helvetica, sans-serif;
+  }
+  h4 {
+    font-size: 15px;
+    margin-bottom: 25px;
+    letter-spacing: 0.1em;
+  }
+
+  color: $footer-text-color;
+  background-color: $footer-holder-bg;
+
+  a {
+    color: $footer-text-color;
+  }
+  .board {
+    padding-top: 3*$padding-base-horizontal;
+    padding-bottom: 3*$padding-base-horizontal;
+  }
+  .copyright {
+    background-color: rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    padding: 25px 0;
+    font-size: 13px;
+    display: block;
+  }
+  address {
+    background: url("#{$img-path}/world-map.png") center no-repeat;
+    li {
+      margin-bottom: $padding-large-horizontal;
+
+    }
+  }
+  .explorer {
+    li {
+      padding-bottom: $padding-base-vertical;
+    }
+    li a:before {
+      content: "\f3d1";
+      display: inline-block;
+      padding-right: $padding-base-horizontal;
+      font-family: "Ionicons";
+    }
+  }
+}

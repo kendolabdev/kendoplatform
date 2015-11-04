@@ -1,5 +1,5 @@
 <div class="footer-layout3">
-    <div class="container pt-b pb-b">
+    <div class="container-fluid pt-b pb-b">
 
         <div class="row">
 
@@ -84,7 +84,7 @@
     </div>
 
     <div class="copyright">
-        <div class="container">
+        <div class="container-fluid">
             <ul class="list-inline inline-links mobile-block pull-right nomargin">
                 <li><a data-toggle="1" href="<?php echo $this->helper()->url('help_page',['page'=>'terms']);?>">
                     <?php echo $this->helper()->text('core.terms_of_service');?></a></li>

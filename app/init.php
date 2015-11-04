@@ -309,12 +309,12 @@ function _htmlattrs($array)
 }
 
 
-include_once PICASO_MODULE_DIR . '/picaso/src/Picaso/Autoload/Manager.php';
-include_once PICASO_MODULE_DIR . '/picaso/src/Picaso/Registry/Manager.php';
-include_once PICASO_MODULE_DIR . '/picaso/src/Picaso/Db/Manager.php';
-include_once PICASO_MODULE_DIR . '/picaso/src/Picaso/Session/Manager.php';
-include_once PICASO_MODULE_DIR . '/picaso/src/Picaso/ServiceManager.php';
-include_once PICASO_MODULE_DIR . '/picaso/src/Picaso/App.php';
+include_once PICASO_MODULE_DIR . '/kendo/src/Picaso/Autoload/Manager.php';
+include_once PICASO_MODULE_DIR . '/kendo/src/Picaso/Registry/Manager.php';
+include_once PICASO_MODULE_DIR . '/kendo/src/Picaso/Db/Manager.php';
+include_once PICASO_MODULE_DIR . '/kendo/src/Picaso/Session/Manager.php';
+include_once PICASO_MODULE_DIR . '/kendo/src/Picaso/ServiceManager.php';
+include_once PICASO_MODULE_DIR . '/kendo/src/Picaso/App.php';
 
 \App::load();
 

@@ -1,1 +1,1 @@
-require([],function(){});
+require(['base/report/report'],function(){});

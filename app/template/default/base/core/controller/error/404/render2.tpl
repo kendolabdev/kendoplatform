@@ -4,7 +4,3 @@
 <blockquote>
     The requested URL  was not found on this server.<br /> That’s all we know.
 </blockquote>
-
-<p class="text-warning">
-    <code><?php var_dump($exception); ?></code>
-</p>

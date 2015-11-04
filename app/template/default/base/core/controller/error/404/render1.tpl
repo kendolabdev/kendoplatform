@@ -4,7 +4,3 @@
 <blockquote>
     The link you followed may have expired, or the page may only be visible to an audience you're not in.
 </blockquote>
-
-<p class="text-warning">
-    <code><?php var_dump($exception); ?></code>
-</p>

@@ -16,7 +16,40 @@ use Picaso\Model;
  */
 class LayoutTemplate extends Model
 {
-    // PUT YOUR CODE HERE
+
+    /**
+     * @return array
+     */
+    public function getViewFinderPaths()
+    {
+        $paths = [
+            $this->getId() => PICASO_TEMPLATE_DIR . '/' . $this->getId()
+        ];
+
+        if ($this->getParentTemplateId()) {
+            $paths[ $this->getParentTemplateId() ] = PICASO_TEMPLATE_DIR . '/' . $this->getParentTemplateId();
+
+        }
+
+        if ($this->getSuperTemplateId()) {
+            $paths[ $this->getSuperTemplateId() ] = PICASO_TEMPLATE_DIR . '/' . $this->getSuperTemplateId();
+        }
+
+        return $paths;
+
+    }
+
+    /**
+     * @return LayoutTemplate
+     */
+    public function getParentTemplate()
+    {
+        if (null == $this->getParentTemplateId())
+            return null;
+
+        return \App::table('layout.layout_template')
+            ->findById($this->getParentTemplateId());
+    }
 
     //START_TABLE_GENERATOR
 

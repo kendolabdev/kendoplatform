@@ -23,12 +23,17 @@ class VideoController extends AjaxController
 
         $lp = new BlockParams($this->request->getParam('lp'));
 
+        $html = $this->partial($lp->itemScript(), [
+            'paging' => $paging,
+            'lp'     => $lp
+        ]);
+
         $this->response = [
+            'html'    => $html,
+            'pager'   => $paging->getPager(),
+            'query'   => $query,
             'hasNext' => $paging->hasNext(),
             'hasPrev' => $paging->hasPrev(),
-            'query'   => $query,
-            'pager'   => $paging->getPager(),
-            'html'    => $this->partial('base/video/paging/browse-video', ['paging' => $paging, 'lp' => $lp]),
         ];
     }
 

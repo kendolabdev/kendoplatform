@@ -17,6 +17,10 @@ class HomeController extends DefaultController
      */
     public function actionBrowseVideo()
     {
+
+        \App::layout()
+            ->setupSecondaryNavigation('video_main', null, 'video_browse');
+
         $page = $this->request->getParam('page', 1);
 
         $query = [];
@@ -40,6 +44,10 @@ class HomeController extends DefaultController
      */
     public function actionMyVideo()
     {
+
+        \App::layout()
+            ->setupSecondaryNavigation('video_main', null, 'video_my');
+
         $poster = \App::auth()->getViewer();
 
         $page = $this->request->getParam('page', 1);
@@ -64,6 +72,9 @@ class HomeController extends DefaultController
      */
     public function actionEmbedVideo()
     {
+
+        \App::layout()
+            ->setupSecondaryNavigation('video_main', null, 'video_embed');
 
         $form = new VideoFromUrl([]);
 
@@ -104,6 +115,10 @@ class HomeController extends DefaultController
      */
     public function actionUploadVideo()
     {
+
+        \App::layout()
+            ->setupSecondaryNavigation('video_main', null, 'video_create');
+
         $form = new VideoFromUrl([]);
 
         $poster = \App::auth()->getViewer();

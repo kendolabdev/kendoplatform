@@ -178,7 +178,7 @@ define(['primary/jqueryui', 'primary/rangeslider'], function () {
                 //console.log('onSlide');
                 //console.log('position: ' + position, 'value: ' + value);
                 changedZoomValue(value);
-            },
+            }
         });
     };
 

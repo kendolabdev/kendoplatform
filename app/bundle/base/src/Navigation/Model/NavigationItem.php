@@ -253,6 +253,34 @@ class NavigationItem extends Model
     }
 
     /**
+     * @return null|string
+     */
+    public function getIcon(){
+       return $this->__get('icon');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setIcon($value){
+       $this->__set('icon', $value);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getMobileIcon(){
+       return $this->__get('mobile_icon');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setMobileIcon($value){
+       $this->__set('mobile_icon', $value);
+    }
+
+    /**
      * @return \Navigation\Model\NavigationItemTable
      */
     public function table(){

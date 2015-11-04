@@ -6,6 +6,7 @@ namespace Blog\Service;
 use Picaso\Application\EventHandler;
 use Picaso\Content\Poster;
 use Picaso\Hook\HookEvent;
+use Picaso\Hook\SimpleContainer;
 use Picaso\View\View;
 
 /**
@@ -15,6 +16,18 @@ use Picaso\View\View;
  */
 class EventHandlerService extends EventHandler
 {
+
+    /**
+     * @param \Picaso\Hook\HookEvent $event
+     */
+    public function onBeforeBuildBundleStylesheet(HookEvent $event)
+    {
+        $payload = $event->getPayload();
+
+        if (!$payload instanceof SimpleContainer) return;
+
+        $payload->add('base/blog', 'base/blog');
+    }
 
     /**
      * @param $item

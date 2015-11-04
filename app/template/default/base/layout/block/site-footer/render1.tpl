@@ -1,6 +1,6 @@
 <div class="footer-layout1">
     <div class="board">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4 col-sm-6">
                     <h4 class="letter-spacing-1"><?php echo $this->helper()->text('core.about_us');?></h4>
@@ -103,7 +103,7 @@
     </div>
     <!--Copyright-->
     <div class="copyright">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     &copy; <?php echo date('Y'); ?>  <?php echo $this->helper()->text('core.copyright_label');?>

@@ -1,5 +1,5 @@
 <div class="footer-layout2">
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="row margin-top-60 margin-bottom-40 size-13">
 
@@ -120,7 +120,7 @@
     </div>
 
     <div class="copyright">
-        <div class="container">
+        <div class="container-fluid">
             <ul class="pull-right nomargin list-inline mobile-block">
                 <li><a data-toggle="1" href="<?php echo $this->helper()->url('help_page',['page'=>'terms']);?>">
                     <?php echo $this->helper()->text('core.terms_of_service');?></a></li>
