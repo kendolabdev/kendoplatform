@@ -18,6 +18,62 @@ class LayoutTheme extends Model
 {
 
     /**
+     * @param $id
+     *
+     * @return bool|string
+     */
+    protected function checkTemplateDirExists($id)
+    {
+        if (empty($id))
+            return false;
+
+        $dir = sprintf(PICASO_ROOT_DIR . '/app/theme/%s/template', $id);
+
+        if (is_dir($dir)) {
+            return $dir;
+        }
+
+        return false;
+    }
+
+    /**
+     * get views finder paths
+     *
+     * @return array
+     */
+    public function getViewFinderPaths()
+    {
+        $template = $this->getTemplate();
+
+        $paths = [];
+
+        foreach ([$this->getId(), $this->getParentThemeId()] as $id) {
+            if (false != ($dir = $this->checkTemplateDirExists($id))) {
+                $paths[] = $dir;
+            }
+        }
+
+        $morePaths = $template->getViewFinderPaths();
+
+        foreach ($morePaths as $path) {
+            $paths[] = $path;
+        }
+
+        return $paths;
+    }
+
+    /**
+     * @return LayoutTemplate
+     */
+    public function getTemplate()
+    {
+        return \App::table('layout.layout_template')
+            ->findById($this->getTemplateId());
+    }
+
+
+
+    /**
      * @return array
      */
     public function getVariables()
@@ -150,6 +206,27 @@ class LayoutTheme extends Model
      */
     public function setActive($value){
        $this->__set('is_active', $value);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function isEditing(){
+       return $this->__get('is_editing');
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getEditing(){
+       return $this->__get('is_editing');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setEditing($value){
+       $this->__set('is_editing', $value);
     }
 
     /**

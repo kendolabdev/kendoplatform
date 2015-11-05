@@ -1,4 +1,4 @@
 <a href="<?php echo $viewer->toHref();?>" title="<?php echo $title ?>" class="viewer">
-    <img src="<?php echo $avatar;?>" width="19px" height="19px"/>
+    <img src="<?php echo $avatar;?>"/>
     <?php echo $firstName;?>
 </a>

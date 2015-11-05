@@ -1,8 +1,19 @@
 .header-topbar {
   background-color: $header-topbar-bg;
   border-bottom: 1px solid $header-topbar-border-color;
+  padding: ($header-topbar-height - $input-height-small)/2 0;
 }
-
+.header-topbar .viewer a{
+  font-weight: 500;
+}
+.header-topbar .viewer img{
+  width: ($input-height-small - 4);
+  height: ($input-height-small - 4);
+  border: 1px solid $border-color;
+  @if $use-block-box{
+    @include border-radius($border-radius-small);
+  }
+}
 .header-topbar .list-flex{
   margin: 0;
   padding: 0;
@@ -18,7 +29,7 @@
     float: left;
     position: relative;
     > a {
-      line-height: $header-topbar-height;
+      line-height: $input-height-small;
       font-size: 14px;
       padding: 0 7px;
       display: block;

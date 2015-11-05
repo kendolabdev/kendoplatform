@@ -89,7 +89,14 @@ class ThemeService
      */
     public function rebuildStylesheetForAllActiveTheme()
     {
+        $themes = \App::table('layout.layout_theme')
+            ->select()
+            ->where('is_active=?', 1)
+            ->all();
 
+        foreach ($themes as $theme) {
+            $this->rebuildStylesheetForTheme($theme->getId());
+        }
     }
 
     /**

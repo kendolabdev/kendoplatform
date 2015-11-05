@@ -25,14 +25,14 @@ class ViewFinder
     protected $suffix = '.tpl';
 
     /**
-     * @var string
-     */
-    protected $mobileSuffix = '.mobile.tpl';
-
-    /**
      * @var bool
      */
     protected $checkMobile = false;
+
+    /**
+     * @var array
+     */
+    protected $scripts = [];
 
     /**
      * Default constructor
@@ -75,8 +75,26 @@ class ViewFinder
             return false;
         }
 
+        $script = trim($script, '/');
+
+        /**
+         * Retry the first time
+         */
         if ($this->checkMobile) {
-            $_script = '/' . trim($script, '/') . $this->mobileSuffix;
+            if (!empty($this->scripts[ $script . '.mobile' ])) {
+                return PICASO_ROOT_DIR . $this->scripts[ $script ] . '/' . $script . '.mobile' . $this->suffix;
+            }
+        }
+
+        if (!empty($this->scripts[ $script ])) {
+            return PICASO_ROOT_DIR . $this->scripts[ $script ] . '/' . $script . $this->suffix;
+        }
+
+        /**
+         * Retry the second time
+         */
+        if ($this->checkMobile) {
+            $_script = '/' . $script . '.mobile' . $this->suffix;
             foreach ($this->paths as $path) {
                 if (file_exists($file = $path . $_script)) {
                     return $file;
@@ -84,7 +102,7 @@ class ViewFinder
             }
         }
 
-        $_script = '/' . trim($script, '/') . $this->suffix;
+        $_script = '/' . $script . $this->suffix;
 
         foreach ($this->paths as $path) {
             if (file_exists($file = $path . $_script)) {
@@ -108,7 +126,48 @@ class ViewFinder
      */
     public function setPaths($paths)
     {
+        $paths = array_unique($paths);
+
         $this->paths = $paths;
+
+        $this->scripts = \App::cache()
+            ->get($paths, 0, function () use ($paths) {
+                return $this->_buildScriptPaths($paths);
+            });
+    }
+
+    /**
+     * @param array $paths
+     *
+     * @return array
+     */
+    public function _buildScriptPaths($paths = [])
+    {
+        $files = [];
+
+        if (empty($paths))
+            $paths = $this->paths;
+
+        foreach ($paths as $directory) {
+            $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($directory), \RecursiveIteratorIterator::CHILD_FIRST);
+
+            foreach ($iterator as $info) {
+                if (!$info->isFile()) continue;
+                if ($info->getExtension() != 'tpl') continue;
+                $pathname = $info->getPathname();
+
+                $script = trim(substr($pathname, strlen($directory)), DIRECTORY_SEPARATOR);
+
+                $script = trim(str_replace(DIRECTORY_SEPARATOR, '/', substr($script, 0, strlen($script) - 4)), '/');
+
+                if (!empty($files[ $script ])) continue;
+
+                $files[ $script ] = substr($directory, strlen(PICASO_ROOT_DIR));
+            }
+        }
+
+
+        return $files;
     }
 
     /**
@@ -138,13 +197,6 @@ class ViewFinder
         return $this->suffix;
     }
 
-    /**
-     * @return string
-     */
-    public function getMobileSuffix()
-    {
-        return $this->mobileSuffix;
-    }
 
     /**
      * @return boolean

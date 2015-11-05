@@ -48,9 +48,10 @@ class CacheFilesystem implements CacheInterface
         if (!$directory)
             $directory = PICASO_TEMP_DIR . '/cache';
 
-
-        if (!is_dir($directory) and !@mkdir($directory, 0777, true))
+        if (!is_dir($directory) and !@mkdir($directory, 0777, true)){
+            @chmod($directory,0777);
             throw new \InvalidArgumentException(sprintf('"%s" is not writable', $this->directory));
+        }
 
         $this->directory = $directory;
     }
@@ -148,7 +149,6 @@ class CacheFilesystem implements CacheInterface
                 return true;
             }
         }
-
         return false;
     }
 
@@ -183,6 +183,7 @@ class CacheFilesystem implements CacheInterface
                 @unlink($filename);
             } else if ($info->isDir()) {
                 $this->_flush($directory . '/' . $info->__toString());
+                @rmdir($directory . '/' . $info->__toString());
             }
         }
     }

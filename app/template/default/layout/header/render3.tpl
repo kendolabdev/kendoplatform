@@ -1,5 +1,5 @@
 <div class="">
-    <div class="navbar-top">
+    <div class="header-topbar">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-sm-6 hidden-xs">
@@ -31,7 +31,7 @@
                         <ul class="list-flex right">
                             <li>
                                 <a role="button" href="<?php echo $this->helper()->url('login');?>">
-                                    <i class="fa fa-lock"></i>
+                                    <i class="fa fa-sign-in"></i>
                                     Login
                                 </a>
                             </li>
@@ -47,22 +47,7 @@
             </div>
         </div>
     </div>
-    <!--<div class="navbar-rocky hidden-xs">-->
-        <!--<div class="container-fluid">-->
-            <!--<div class="row">-->
-                <!--<div class="col-md-4">-->
-                    <!--<h1>YouNet</h1>-->
-                <!--</div>-->
-                <!--<div class="col-md-4">-->
-
-                <!--</div>-->
-                <!--<div class="col-md-4">-->
-
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-    <div class="navbar-sticky">
+    <div class="header-navbar">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->

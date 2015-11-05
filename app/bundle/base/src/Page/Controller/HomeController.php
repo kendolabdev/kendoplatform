@@ -67,4 +67,12 @@ class HomeController extends DefaultController
                 'lp'        => $lp,
             ]);
     }
+
+    /**
+     *
+     */
+    public function actionCreatePage()
+    {
+
+    }
 }

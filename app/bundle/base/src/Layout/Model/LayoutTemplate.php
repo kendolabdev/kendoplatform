@@ -23,16 +23,16 @@ class LayoutTemplate extends Model
     public function getViewFinderPaths()
     {
         $paths = [
-            $this->getId() => PICASO_TEMPLATE_DIR . '/' . $this->getId()
+            PICASO_TEMPLATE_DIR . '/' . $this->getId()
         ];
 
         if ($this->getParentTemplateId()) {
-            $paths[ $this->getParentTemplateId() ] = PICASO_TEMPLATE_DIR . '/' . $this->getParentTemplateId();
+            $paths[] = PICASO_TEMPLATE_DIR . '/' . $this->getParentTemplateId();
 
         }
 
         if ($this->getSuperTemplateId()) {
-            $paths[ $this->getSuperTemplateId() ] = PICASO_TEMPLATE_DIR . '/' . $this->getSuperTemplateId();
+            $paths[] = PICASO_TEMPLATE_DIR . '/' . $this->getSuperTemplateId();
         }
 
         return $paths;

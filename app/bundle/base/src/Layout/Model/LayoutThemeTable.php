@@ -39,6 +39,7 @@ class LayoutThemeTable extends DbTable{
 		'super_theme_id'=>1,
 		'author'=>1,
 		'is_active'=>1,
+		'is_editing'=>1,
 		'is_default'=>1,
 		'variable_params'=>1,
 		'template_id'=>1,

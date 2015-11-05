@@ -72,4 +72,12 @@ class HomeController extends DefaultController
             ]);
 
     }
+
+    /**
+     *
+     */
+    public function actionCreateEvent()
+    {
+
+    }
 }

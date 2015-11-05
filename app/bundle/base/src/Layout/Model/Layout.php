@@ -101,15 +101,15 @@ class Layout extends Model
     /**
      * @return null|string
      */
-    public function getTemplateId(){
-       return $this->__get('template_id');
+    public function getThemeId(){
+       return $this->__get('theme_id');
     }
 
     /**
      * @param $value
      */
-    public function setTemplateId($value){
-       $this->__set('template_id', $value);
+    public function setThemeId($value){
+       $this->__set('theme_id', $value);
     }
 
     /**

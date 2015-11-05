@@ -1,5 +1,5 @@
 <div class="">
-    <div class="navbar-top">
+    <div class="header-topbar">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3 col-sm-4 hidden-xs">
@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <div class="navbar-sticky">
+    <div class="header-navbar">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="row">

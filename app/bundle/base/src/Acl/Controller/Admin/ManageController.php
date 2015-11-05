@@ -70,7 +70,7 @@ class ManageController extends AdminController
             'roleId'    => $roleId,
         ]);
 
-        $this->view->setScript('/base/form-edit');
+        $this->view->setScript('base/form-edit');
     }
 
     /**
@@ -89,6 +89,6 @@ class ManageController extends AdminController
             'roleId'    => $roleId,
         ]);
 
-        $this->view->setScript('/base/form-edit');
+        $this->view->setScript('base/form-edit');
     }
 }

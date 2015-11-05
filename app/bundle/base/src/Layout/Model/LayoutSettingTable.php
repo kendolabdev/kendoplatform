@@ -41,7 +41,7 @@ class LayoutSettingTable extends DbTable
 		'setting_params_text'=>1,
 		'screen_size'=>1,
 		'is_active'=>1,
-		'template_id'=>1);
+		'theme_id'=>1);
 
     /**
      * @var array

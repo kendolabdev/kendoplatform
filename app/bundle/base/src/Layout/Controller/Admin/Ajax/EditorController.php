@@ -252,22 +252,25 @@ class EditorController extends AjaxController
         $baseScript = $this->request->getParam('base_script', 'render1');
         $itemScript = $this->request->getParam('item_script', 'render1');
         $editStep = $this->request->getParam('edit_step', '');
+        $theme = \App::layout()->getEditingTheme();
+        $themeId = $theme->getId();
 
 
         $form = new LayoutEditContentSetting();
 
+
         $baseScriptList = \App::layout()
-            ->getTemplateBlockRenderSettings($templateId, $layoutType, $page->getBasePath());
+            ->getTemplateBlockRenderSettings($themeId, $layoutType, $page->getBasePath());
 
         if ($layoutType == 'content' and null != $page->getItemPath()) {
-            $itemScriptList = \App::layout()->getTemplateBlockRenderSettings($templateId, $layoutType, $page->getItemPath());
+            $itemScriptList = \App::layout()->getTemplateBlockRenderSettings($themeId, $layoutType, $page->getItemPath());
         }
 
         $pageTitle = 'Edit Block Settings';
         $pageNote = 'Select one of layout before edit settings.';
 
         $entry = \App::layout()
-            ->getLayoutSettings($layoutType, $pageName, $screenSize, $templateId);
+            ->getLayoutSettings($layoutType, $pageName, $screenSize, $themeId);
 
         if (!$entry)
             throw new \InvalidArgumentException();
@@ -392,11 +395,13 @@ class EditorController extends AjaxController
         $formScript = 'base/layout/dialog/layout/select-block-script';
         $baseScript = 'render1';
         $form = new LayoutSelectBlockScript();
+        $theme = \App::layout()->getEditingTheme();
+        $themeId = $theme->getId();
 
 
         if (!empty($basePath)) {
             $supportScripts = \App::layout()
-                ->getTemplateSupportBlockSettings($basePath);
+                ->getTemplateSupportBlockSettings($basePath, $themeId);
         }
 
         if (empty($supportScripts)) {
@@ -447,13 +452,13 @@ class EditorController extends AjaxController
         $supportSettings = [];
         $baseScript = $this->request->getParam('base_script', 'render1');
         $form = new LayoutSupportBlockSetting();
+        $theme = \App::layout()->getEditingTheme();
+        $themeId = $theme->getId();
 
         if (!empty($basePath)) {
             $supportScripts = \App::layout()
-                ->getTemplateSupportBlockSettings($basePath);
+                ->getTemplateSupportBlockSettings($basePath, $themeId);
         }
-
-        var_dump($supportScripts);exit;
 
         if (!empty($supportScripts[ $baseScript ]['settings'])) {
             $supportSettings = $supportScripts[ $baseScript ]['settings'];
@@ -518,6 +523,10 @@ class EditorController extends AjaxController
         $baseScript = $this->request->getParam('base_script', 'render1');
         $form = new LayoutSupportBlockSetting();
 
+        $theme = \App::layout()->getEditingTheme();
+        $themeId = $theme->getId();
+
+
         $blockEntry = \App::layout()
             ->findBlockById($blockId);
 
@@ -527,7 +536,7 @@ class EditorController extends AjaxController
 
         if (!empty($basePath)) {
             $supportScripts = \App::layout()
-                ->getTemplateSupportBlockSettings($basePath);
+                ->getTemplateSupportBlockSettings($basePath, $themeId);
         }
 
         if (!empty($supportScripts[ $baseScript ]['settings'])) {
@@ -595,7 +604,9 @@ class EditorController extends AjaxController
      */
     public function actionUpdateLayout()
     {
-        list($pageName, $screenSize, $templateId) = $this->request->get('pageName', 'screenSize', 'templateId');
+        list($pageName, $screenSize) = $this->request->get('pageName', 'screenSize');
+
+        $themeId = \App::layout()->getEditingThemeId();
 
         $sectionList = $this->request->getArray('sections');
 
@@ -603,10 +614,10 @@ class EditorController extends AjaxController
 
         $layoutService = \App::layout();
 
-        $layout = \App::layout()->findLayout($pageName, $templateId, $screenSize);
+        $layout = \App::layout()->findLayout($pageName, $screenSize, $themeId);
 
         if (!$layout instanceof Layout)
-            $layout = $layoutService->createLayout($pageName, $templateId, $screenSize);
+            $layout = $layoutService->createLayout($pageName, $themeId, $screenSize);
 
         if (!$layout instanceof Layout)
             throw new \InvalidArgumentException();

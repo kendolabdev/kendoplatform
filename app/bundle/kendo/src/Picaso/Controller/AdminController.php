@@ -21,8 +21,11 @@ class AdminController extends DefaultController
             throw new AdminRestrictException("Login required");
 
         \App::layout()
+            ->setThemeId('admin');
+
+        \App::layout()
             ->setMasterScript('layout/master/admin');
 
-        \App::registry()->set('is_admin',true);
+        \App::registry()->set('is_admin', true);
     }
 }

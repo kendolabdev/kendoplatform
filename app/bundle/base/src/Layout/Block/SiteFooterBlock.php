@@ -23,7 +23,7 @@ class SiteFooterBlock extends Block
         $script = $lp->script();
 
         if (\App::registry()->get('is_admin')) {
-            $script = 'base/layout/block/site-footer/render-admin';
+            $script = 'layout/footer/admin';
         }
 
         $this->view->setScript($script)

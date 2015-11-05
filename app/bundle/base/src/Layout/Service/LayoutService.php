@@ -108,16 +108,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
         if (!empty($_COOKIE['themeId'])) {
             $themeId = $_COOKIE['themeId'];
         }
-
-
-
-        $themeData = $this->getThemeData($themeId);
-
-        $this->setTemplateId($themeData['template_id']);
-        $this->themeId = $themeData['theme_id'];
-
-        \App::viewFinder()
-            ->setPaths($themeData['view_paths']);
+        $this->setThemeId($themeId);
     }
 
     /**
@@ -272,6 +263,14 @@ class LayoutService implements LayoutLoaderInterface, Manager
     public function setThemeId($themeId)
     {
         $this->themeId = $themeId;
+
+        $themeData = $this->getThemeData($themeId);
+
+        $this->setTemplateId($themeData['template_id']);
+        $this->themeId = $themeData['theme_id'];
+
+        \App::viewFinder()
+            ->setPaths($themeData['view_paths']);
     }
 
     /**
@@ -314,6 +313,55 @@ class LayoutService implements LayoutLoaderInterface, Manager
     {
         $select = \App::table('layout.layout_template')
             ->select();
+
+        if (!empty($query)) {
+            // do filter there
+        }
+
+        return $select->paging($page, $limit);
+    }
+
+    /**
+     * @return \Layout\Model\LayoutTheme
+     */
+    public function getEditingTheme()
+    {
+        $theme = \App::table('layout.layout_theme')
+            ->select()
+            ->where('is_editing=?', 1)
+            ->one();
+
+        if (empty($theme))
+            $theme = \App::table('layout.layout_theme')
+                ->select()
+                ->one();
+
+        return $theme;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getEditingThemeId()
+    {
+        return \App::layout()
+            ->getEditingTheme()
+            ->getId();
+    }
+
+    /**
+     * @param array $query
+     * @param int   $page
+     * @param int   $limit
+     *
+     * @return \Picaso\Paging\PagingInterface
+     */
+    public function loadAdminThemePaging($query = [], $page = 1, $limit = 10)
+    {
+        $select = \App::table('layout.layout_theme')
+            ->select()
+            ->where('theme_id <> ?', 'admin');
 
         if (!empty($query)) {
             // do filter there
@@ -367,13 +415,13 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
     /**
      * @param $pageName
-     * @param $templateId
      * @param $screenSize
+     * @param $themeId
      *
      * @return \Layout\Model\Layout
      * @throws \Exception
      */
-    public function findLayout($pageName, $templateId, $screenSize)
+    public function findLayout($pageName, $screenSize, $themeId)
     {
         $pageId = $this->findPageIdByPageName($pageName);
 
@@ -381,7 +429,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
             ->select('layout')
             ->where('page_id=?', $pageId)
             ->where('screen_size=?', $screenSize)
-            ->where('template_id=?', $templateId)
+            ->where('theme_id=?', $themeId)
             ->one();
     }
 
@@ -418,20 +466,20 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
     /**
      * @param string $pageName
-     * @param string $templateId
+     * @param string $themeId
      * @param string $screenSize
      * @param array  $params
      *
      * @return \Layout\Model\Layout
      */
-    public function createLayout($pageName, $templateId, $screenSize, $params = [])
+    public function createLayout($pageName, $themeId, $screenSize, $params = [])
     {
         $pageId = $this->findPageIdByPageName($pageName);
 
         $data = array_merge([
             'page_id'     => $pageId,
             'screen_size' => $screenSize,
-            'template_id' => $templateId,
+            'theme_id'    => $themeId,
             'is_active'   => 1,
         ], $params);
 
@@ -459,14 +507,14 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
     /**
      * @param string $pageName
-     * @param string $templateId
+     * @param string $themeId
      * @param string $screenSize
      *
      * @return array [layoutText: string]
      */
-    public function loadDataForRender($pageName, $templateId, $screenSize)
+    public function loadDataForRender($pageName, $themeId, $screenSize)
     {
-        $layoutId = $this->findClosestLayoutId($pageName, $screenSize, $templateId);
+        $layoutId = $this->findClosestLayoutId($pageName, $screenSize, $themeId);
 
         return $this->loadLayoutDataForRender($layoutId);
     }
@@ -477,23 +525,25 @@ class LayoutService implements LayoutLoaderInterface, Manager
      *
      * @param string $pageName
      * @param string $screenSize
-     * @param string $templateId
+     * @param string $preferThemeId
      *
      * @return int
      */
-    public function findClosestLayoutId($pageName, $screenSize, $templateId)
+    public function findClosestLayoutId($pageName, $screenSize, $preferThemeId)
     {
 
-        $templateIdList = $this->getListAncestorsTemplateId($templateId);
+
         $pageIdList = $this->getListAncestorsPageId($pageName);
+        $themeIdList = $this->getListAncestorsThemeId($preferThemeId);
+
 
         $select = \App::table('layout')
             ->select()
             ->where('page_id IN ?', $pageIdList);
 
 
-        if (!empty($templateIdList))
-            $select->where('template_id IN ?', $templateIdList);
+        if (!empty($themeIdList))
+            $select->where('theme_id IN ?', $themeIdList);
 
 
         $items = $select->toAssocs();
@@ -501,22 +551,127 @@ class LayoutService implements LayoutLoaderInterface, Manager
         $map = [];
 
         foreach ($items as $offset => $item) {
-            $map[ $item['template_id'] ][ $item['screen_size'] ][ $item['page_id'] ] = $item['layout_id'];
+            $map[ $item['theme_id'] ][ $item['screen_size'] ][ $item['page_id'] ] = $item['layout_id'];
         }
 
-        foreach ($templateIdList as $templateId) {
+        foreach ($themeIdList as $themeId) {
             foreach ([$screenSize, self::SCREEN_DESKTOP] as $size) {
                 foreach ($pageIdList as $pageId) {
-                    if (empty($map[ $templateId ])) continue;
-                    if (empty($map[ $templateId ][ $size ])) continue;
-                    if (empty($map[ $templateId ][ $size ][ $pageId ])) continue;
+                    if (empty($map[ $themeId ])) continue;
+                    if (empty($map[ $themeId ][ $size ])) continue;
+                    if (empty($map[ $themeId ][ $size ][ $pageId ])) continue;
 
-                    return $map[ $templateId ][ $size ][ $pageId ];
+                    return $map[ $themeId ][ $size ][ $pageId ];
                 }
             }
         }
 
         return null;
+    }
+
+    /**
+     * @param $pageName
+     * @param $screenSize
+     * @param $preferThemeId
+     *
+     * @return \Layout\Model\Layout|null
+     */
+    public function findClosestLayout($pageName, $screenSize, $preferThemeId)
+    {
+        $layoutId = $this->findClosestLayoutId($pageName, $screenSize, $preferThemeId);
+        if ($layoutId)
+            return $this->findLayoutById($layoutId);
+
+        return null;
+    }
+
+    /**
+     * @param \Layout\Model\Layout $layout
+     * @param string               $forThemeId
+     *
+     * @return \Layout\Model\Layout
+     */
+    public function cloneLayout($layout, $forThemeId)
+    {
+        $cloneLayout = \App::table('layout')
+            ->select()
+            ->where('theme_id=?', $forThemeId)
+            ->where('screen_size=?', $layout->getScreenSize())
+            ->where('page_id=?', $layout->getScreenSize())
+            ->one();
+
+        if (!empty($cloneLayout))
+            return $cloneLayout;
+
+        $cloneLayout = new Layout([
+            'page_id'     => $layout->getPageId(),
+            'theme_id'    => $forThemeId,
+            'screen_size' => $layout->getScreenSize(),
+            'is_active'   => 1,
+        ]);
+
+        $cloneLayout->save();
+
+        $sections = \App::table('layout.layout_section')
+            ->select()
+            ->where('layout_id=?', $layout->getId())
+            ->all();
+
+        foreach ($sections as $section) {
+            if (!$section instanceof LayoutSection) continue;
+
+            $sectionData = $section->toArray();
+
+            // Update section id
+            $sectionData['section_id'] = $this->_generateNewId();
+            $sectionData['layout_id'] = $cloneLayout->getId();
+
+            $cloneSection = new LayoutSection($sectionData);
+            $cloneSection->save();
+
+            /// checker about block
+            $blocks = \App::table('layout.layout_block')
+                ->select()
+                ->where('section_id=?', $section->getId())
+                ->all();
+
+            $mapBlockId = [];
+            // build map blocks id
+            foreach ($blocks as $block) {
+                if (!$block instanceof LayoutBlock) continue;
+
+                $mapBlockId[ $block->getId() ] = $this->_generateNewId();
+            }
+
+            foreach ($blocks as $block) {
+                if (!$block instanceof LayoutBlock) continue;
+                $blockData = $block->toArray();
+                $blockData['section_id'] = $cloneSection->getId();
+                $blockData['block_id'] = $mapBlockId[ $block->getId() ];
+                if (!empty($blockData['parent_block_id']))
+                    $blockData['parent_block_id'] = $mapBlockId[ $blockData['parent_block_id'] ];
+
+                $cloneBlock = new LayoutBlock($blockData);
+                $cloneBlock->save();
+            }
+        }
+
+        return $cloneLayout;
+    }
+
+    /**
+     * @return string
+     */
+    public function _generateNewId()
+    {
+        $seek = 'qwertyuiopasdfghjklzxcvbnm1234567890';
+        $max = strlen($seek) - 1;
+        $result = '';
+        for ($i = 0; $i < 24; ++$i) {
+            $result .= substr($seek, mt_rand(0, $max), 1);
+        }
+
+        return $result;
     }
 
     /**
@@ -562,48 +717,51 @@ class LayoutService implements LayoutLoaderInterface, Manager
      * Get template block settings.
      * This method is used to edit configure layout for main action content.
      *
-     * @param string $templateId
+     * @param string $themeId
      * @param string $layoutType
      * @param string $path
      *
      * @return array
      */
-    public function getTemplateBlockRenderSettings($templateId, $layoutType, $path)
+    public function getTemplateBlockRenderSettings($themeId, $layoutType, $path)
     {
         /**
          * Get page for content but there no update.
          */
 
         if ('header' == $layoutType)
-            $path = 'base/layout/block/site-header';
+            $path = 'layout/header';
 
 
         if ('footer' == $layoutType)
-            $path = 'base/layout/block/site-footer';
+            $path = 'layout/footer';
 
-        return $this->_getTemplateBlockRenderSettings($path, $templateId);
+        return $this->_getTemplateBlockRenderSettings($path, $themeId);
     }
 
     /**
      * Get template block settings.
      * This method is used to edit configure layout for main action content.
+     * Support get from theme but there no item from now
      *
      * @param string $path
+     * @param string $themeId
      *
      * @return array
      */
-    public function getTemplateSupportBlockSettings($path)
+    public function getTemplateSupportBlockSettings($path, $themeId)
     {
-        /**
-         * Get page for content but there no update.
-         */
+        $theme = \App::layout()
+            ->findThemeById($themeId);
 
-        $templateId = $this->getTemplateId();
+        $paths = $theme->getViewFinderPaths();
+        $directory = PICASO_TEMPLATE_DIR . '/default/' . $path;
 
-        $directory = PICASO_TEMPLATE_DIR . '/' . $templateId . '/' . $path;
-
-        if (!is_dir($directory)) {
-            $directory = PICASO_TEMPLATE_DIR . '/default/' . $path;
+        foreach ($paths as $dir) {
+            if (is_dir($path)) {
+                $directory = $dir;
+                break;
+            }
         }
 
         $iterator = new \DirectoryIterator ($directory);
@@ -618,8 +776,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
             $baseName = $info->getBasename('.tpl');
             $fileName = $info->__toString();
 
-            if (strpos($baseName, '-admin')) continue;
-
+            if (strpos($baseName, 'admin') !== false) continue;
             if ($baseName == $fileName) continue;
 
             // mobile version of template
@@ -668,13 +825,25 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
     /**
      * @param string $path
-     * @param string $templateId
+     * @param string $themeId
      *
      * @return array
      */
-    public function _getTemplateBlockRenderSettings($path, $templateId = 'default')
+    public function _getTemplateBlockRenderSettings($path, $themeId = 'default')
     {
-        $directory = PICASO_TEMPLATE_DIR . '/' . $templateId . '/' . $path;
+
+        $theme = \App::layout()
+            ->findThemeById($themeId);
+
+        $paths = $theme->getViewFinderPaths();
+        $directory = PICASO_TEMPLATE_DIR . '/default/' . $path;
+
+        foreach ($paths as $dir) {
+            if (is_dir($path)) {
+                $directory = $dir;
+                break;
+            }
+        }
 
         $iterator = new \DirectoryIterator ($directory);
 
@@ -695,7 +864,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
             if (strpos($baseName, '.logged')) continue;
 
-            if (strpos($baseName, '-admin')) continue;
+            if (strpos($baseName, 'admin') !== false) continue;
 
             $fileJson = $directory . '/' . $baseName . '.json';
 
@@ -718,14 +887,14 @@ class LayoutService implements LayoutLoaderInterface, Manager
      * @param $layoutType
      * @param $pageName
      * @param $screenSize
-     * @param $templateId
+     * @param $themeId
      *
      * @return LayoutSetting
      */
-    public function getLayoutSettings($layoutType, $pageName, $screenSize, $templateId)
+    public function getLayoutSettings($layoutType, $pageName, $screenSize, $themeId)
     {
-        if (!$templateId)
-            $templateId = self::DEFAULT_TEMPLATE_ID;
+        if (!$themeId)
+            $themeId = self::DEFAULT_TEMPLATE_ID;
 
         if (!$pageName)
             $pageName = self::PAGE_ROOT;
@@ -745,14 +914,14 @@ class LayoutService implements LayoutLoaderInterface, Manager
             ->select()
             ->where('screen_size=?', $screenSize)
             ->where('layout_type=?', $layoutType)
-            ->where('template_id=?', $templateId)
+            ->where('theme_id=?', $themeId)
             ->where('page_id=?', $page->getId());
 
         $setting = $select->one();
 
         if (!$setting) {
             $setting = new LayoutSetting([
-                'template_id'         => $templateId,
+                'theme_id'            => $themeId,
                 'layout_type'         => $layoutType,
                 'screen_size'         => $screenSize,
                 'page_id'             => $page->getId(),
@@ -779,11 +948,48 @@ class LayoutService implements LayoutLoaderInterface, Manager
     }
 
     /**
+     * @param string $themeId
+     *
+     * @return array
+     */
+    public function _getListAncestorsThemeId($themeId)
+    {
+        $theme = $this->findThemeById($themeId);
+
+        $result = [$themeId];
+
+        if ($theme->getParentThemeId()) {
+            $result[] = $theme->getParentThemeId();
+        }
+
+        if ($theme->getSuperThemeId()) {
+            $result[] = $theme->getSuperThemeId();
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param  string $themeId
+     *
+     * @return array
+     */
+    public function getListAncestorsThemeId($themeId)
+    {
+
+        return \App::cache()
+            ->get(['layout', 'getListAncestorsThemeId', $themeId], 0, function () use ($themeId) {
+                return $this->_getListAncestorsThemeId($themeId);
+            });
+
+    }
+
+    /**
      * @param $templateId
      *
      * @return array
      */
-    public function getListAncestorsTemplateId($templateId)
+    public function _getListAncestorsTemplateId($templateId)
     {
         $result = [$templateId];
 
@@ -802,6 +1008,20 @@ class LayoutService implements LayoutLoaderInterface, Manager
             $result[] = 'default';
 
         return $result;
+    }
+
+    /**
+     * @param $templateId
+     *
+     * @return array
+     */
+    public function getListAncestorsTemplateId($templateId)
+    {
+
+        return \App::cache()
+            ->get(['layout', 'getListAncestorsTemplateId', $templateId], 0, function () use ($templateId) {
+                return $this->_getListAncestorsTemplateId($templateId);
+            });
     }
 
     /**
@@ -835,6 +1055,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
         return $result;
     }
+
 
     /**
      * @param $pageName
@@ -899,7 +1120,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
         foreach ($sections as $section) {
             if (!$section instanceof LayoutSection) continue;
 
-            $sectionTemplate = $this->getConvertSectionTemplate($section->getSectionTemplate());
+            $sectionTemplate = $section->getSectionTemplate();
 
             $sectionId = $section->getId();
             $response['sections'][ $sectionId ] = [
@@ -910,32 +1131,6 @@ class LayoutService implements LayoutLoaderInterface, Manager
         }
 
         return $response;
-    }
-
-    /**
-     * @param string $fromId
-     * @param string $templateId
-     *
-     * @return string
-     */
-    public function getConvertSectionTemplate($fromId, $templateId = null)
-    {
-        if (null == $templateId)
-            $templateId = $this->getTemplateId();
-
-        if ($templateId == 'default')
-            return $fromId;
-
-        $toId = \App::table('layout.layout_section_convert')
-            ->select()
-            ->where('template_id=?', $templateId)
-            ->where('from_id=?', $fromId)
-            ->field('to_id');
-
-        if (!empty($toId))
-            return $toId;
-
-        return $fromId;
     }
 
     /**
@@ -1485,13 +1680,13 @@ class LayoutService implements LayoutLoaderInterface, Manager
     public function content()
     {
 
-        $templateId = $this->getTemplateId();
+        $themeId = $this->getThemeId();
         $pageName = $this->getPageName();
         $screenSize = $this->getScreenSize();
 
         $layoutData = \App::cache()
-            ->get(['loadDataForRender', $pageName, $templateId, $screenSize], 0, function () use ($templateId, $pageName, $screenSize) {
-                return $this->getLoader()->loadDataForRender($pageName, $templateId, $screenSize);
+            ->get(['loadDataForRender', $pageName, $themeId, $screenSize], 0, function () use ($themeId, $pageName, $screenSize) {
+                return $this->getLoader()->loadDataForRender($pageName, $themeId, $screenSize);
             });
 
 
@@ -1609,17 +1804,17 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
 
         if ('header' == $layoutType)
-            $basePath = 'base/layout/block/site-header';
+            $basePath = 'layout/header';
 
         if ('footer' == $layoutType)
-            $basePath = 'base/layout/block/site-footer';
+            $basePath = 'layout/footer';
 
 
         if ($layoutType == 'content') {
             $page = $this->findPageByName($pageName);
 
             if (!$page)
-                throw new \InvalidArgumentException();
+                throw new \InvalidArgumentException("Could not find correct page!");
 
             $basePath = $page->getBasePath();
             $itemPath = $page->getItemPath();
@@ -1658,32 +1853,35 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
         }
 
-        $templateIdList = $this->getListAncestorsTemplateId($templateId);
+        $themeIdList = $this->getListAncestorsThemeId($this->themeId);
+
 
         $select = \App::table('layout.layout_setting')
             ->select()
             ->where('layout_type=?', $layoutType)
             ->where('page_id IN ?', $pageIdList);
 
-        if (!empty($templateIdList))
-            $select->where('template_id IN ?', $templateIdList);
+
+        if (!empty($themeIdList))
+            $select->where('theme_id IN ?', $themeIdList);
+
 
         $items = $select->toAssocs();
 
         $map = [];
 
         foreach ($items as $offset => $item) {
-            $map[ $item['template_id'] ][ $item['screen_size'] ][ $item['page_id'] ] = $item['setting_params_text'];
+            $map[ $item['theme_id'] ][ $item['screen_size'] ][ $item['page_id'] ] = $item['setting_params_text'];
         }
 
-        foreach ($templateIdList as $templateId) {
+        foreach ($themeIdList as $themeId) {
             foreach ([$screenSize, self::SCREEN_DESKTOP] as $size) {
                 foreach ($pageIdList as $pageId) {
-                    if (empty($map[ $templateId ])) continue;
-                    if (empty($map[ $templateId ][ $size ])) continue;
-                    if (empty($map[ $templateId ][ $size ][ $pageId ])) continue;
+                    if (empty($map[ $themeId ])) continue;
+                    if (empty($map[ $themeId ][ $size ])) continue;
+                    if (empty($map[ $themeId ][ $size ][ $pageId ])) continue;
 
-                    return json_decode($map[ $templateId ][ $size ][ $pageId ], true);
+                    return json_decode($map[ $themeId ][ $size ][ $pageId ], true);
                 }
             }
         }
@@ -1873,7 +2071,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
         $select = \App::table('layout')
             ->select('layout')
             ->join(':layout_page', 'page', 'page.page_id=layout.page_id', null, null)
-            ->where('layout.template_id=?', 'default')
+            ->where('layout.theme_id=?', 'default')
             ->where('page.module_name IN ?', $moduleList)
             ->columns('layout.*,page.page_name');
 
@@ -1884,7 +2082,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
             $result[] = [
                 'page_name'   => $item['page_name'],
                 'screen_size' => $item['screen_size'],
-                'template_id' => $item['template_id'],
+                'theme_id'    => $item['theme_id'],
                 'listSection' => $this->_exportSectionListByLayoutId($item['layout_id']),
             ];
         }
@@ -1952,7 +2150,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
                 ->select()
                 ->where('screen_size=?', $row['screen_size'])
                 ->where('page_id=?', $page->getId())
-                ->where('template_id=?', $row['template_id'])
+                ->where('theme_id=?', $row['theme_id'])
                 ->one();
 
             if ($layout)
@@ -1961,7 +2159,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
             $layout = new Layout([
                 'screen_size' => $row['screen_size'],
                 'page_id'     => $page->getId(),
-                'template_id' => $row['template_id'],
+                'theme_id'    => $row['theme_id'],
                 'is_active'   => 1,
             ]);
 

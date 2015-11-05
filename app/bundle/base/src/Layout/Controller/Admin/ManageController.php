@@ -67,11 +67,12 @@ class ManageController extends AdminController
 
         $pageName = $this->request->getParam('pageName', 'core_home');
         $screenSize = $this->request->getParam('screenSize', 'medium');
-        $templateId = $this->request->getParam('templateId', 'default');
+        $themeId = $theme = \App::layout()->getEditingThemeId();
+
         $layoutAttributes = [
             'pageName'   => $pageName,
             'screenSize' => $screenSize,
-            'templateId' => $templateId,
+            'themeId'    => $themeId,
         ];
 
 
@@ -88,8 +89,13 @@ class ManageController extends AdminController
         $layoutConfigText = null;
         $layoutEditHtml = '';
 
+        $layout = $layoutService->findLayout($pageName, $screenSize, $themeId);
 
-        $layout = $layoutService->findLayout($pageName, $templateId, $screenSize);
+        if (!$layout) {
+            $layout = $layoutService->findClosestLayout($pageName, $screenSize, $themeId);
+            $layout = $layoutService->cloneLayout($layout, $themeId);
+            // clone layout configuration.
+        }
 
         if ($layout)
             $layoutId = $layout->getId();
@@ -113,7 +119,7 @@ class ManageController extends AdminController
             'layout'            => $layout,
             'pageName'          => $pageName,
             'screenSize'        => $screenSize,
-            'templateId'        => $templateId,
+            'themeId'           => $themeId,
             'layoutId'          => $layoutId,
             'layoutConfigText'  => $layoutConfigText,
             'supportBlocks'     => $supportBlocks,

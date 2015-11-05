@@ -39,7 +39,7 @@ class LayoutTable extends DbTable
 		'screen_size'=>1,
 		'is_active'=>1,
 		'page_id'=>1,
-		'template_id'=>1);
+		'theme_id'=>1);
 
     /**
      * @var array

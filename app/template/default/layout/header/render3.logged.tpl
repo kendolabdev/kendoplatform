@@ -1,5 +1,5 @@
 <div class="">
-    <div class="navbar-top">
+    <div class="header-topbar">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-sm-6 hidden-xs">
@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-    <div class="navbar-sticky">
+    <div class="header-navbar">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -78,8 +78,7 @@
                             </div>
                         </div>
                     </form>
-                    <?php echo \App::nav()->render('dropdown', 'main', null, [], 2, ['level0'=>'nav navbar-nav
-                    navbar-right','depth' => 1,'max' => 6]); ?>
+                    <?php echo \App::nav()->render('dropdown', 'main', null, [], 2, ['level0'=>'nav navbar-nav','depth' => 1,'max' => 6]); ?>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>

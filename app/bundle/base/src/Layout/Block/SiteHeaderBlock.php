@@ -23,7 +23,7 @@ class SiteHeaderBlock extends Block
         $script = $lp->script();
 
         if(\App::registry()->get('is_admin')){
-            $script = 'base/layout/block/site-header/render-admin';
+            $script = 'layout/header/admin';
         }
 
         if (\App::auth()->logged()) {
