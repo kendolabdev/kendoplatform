@@ -1,0 +1,8 @@
+.header-navbar {
+  border-bottom: 1px solid $header-navbar-border-color;
+  background-color: $header-navbar-bg;
+  &.transparent {
+    border-bottom-color: transparent;
+    box-shadow: none;
+  }
+}

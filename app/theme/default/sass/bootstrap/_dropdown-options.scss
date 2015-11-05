@@ -42,7 +42,6 @@ $options-profile-height: 110px;
     position: relative;
     border-bottom: 1px solid $options-border-color;
     padding: 5px $padding-large-horizontal;
-    text-align: right;
   }
 
   .options-note {
@@ -135,10 +134,11 @@ $options-profile-height: 110px;
   }
 
   .options-content {
-    min-width: 150px;
+    min-width: 210px;
     position: relative;
     margin: 0;
     padding: 0;
+    text-align: left;
   }
 
   .options-tailer {

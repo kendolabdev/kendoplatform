@@ -1,5 +1,5 @@
 <div class="">
-    <div class="navbar-top visible-xs">
+    <div class="header-topbar">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-sm-6 hidden-xs">
@@ -45,12 +45,21 @@
                                 <?php echo $this->helper()->btnTopbarViewer();?>
                             </li>
                         </ul>
+                        <form method="get" class="form-inline pull-right" action="<?php echo $searchUrl;?>">
+                            <div class="form-group form-group-sm has-feedback">
+                                <input type="text" class="form-control" value="<?php echo $q;?>" name="q" />
+                                <span class="form-control-feedback">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                            </div>
+                            <button type="submit" class="hidden" />
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="navbar-sticky">
+    <div class="header-navbar">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -63,29 +72,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand visible-xs" href="<?php echo $this->helper()->url('home');?>">YouNet</a>
+                    <a class="navbar-brand" href="<?php echo $this->helper()->url('home');?>">YouNet</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right navbar-sendber hidden-xs">
-                        <li class="viewer">
-                            <a href="#">Nam Nguyen</a>
-                        </li>
-                        <li class="beeber">
-                            <?php echo $this->helper()->btnBearAccount(); ?>
-                        </li>
-                        <li class="beeber">
-                            <?php echo $this->helper()->btnBearInvitation(); ?>
-                        </li>
-                        <li class="beeber">
-                            <?php echo $this->helper()->btnBearMessage(); ?>
-                        </li>
-                        <li class="beeber">
-                            <?php echo $this->helper()->btnBearNotification(); ?>
-                        </li>
-                    </ul>
-                    <?php echo \App::nav()->render('dropdown', 'main', null, [], 2, ['level0'=>'nav navbar-nav','depth' => 1,'max' => 6]); ?>
+                    <?php echo \App::nav()->render('dropdown', 'main', null, [], 2, ['level0'=>'nav navbar-nav navbar-right','depth' => 1,'max' => 6]); ?>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>

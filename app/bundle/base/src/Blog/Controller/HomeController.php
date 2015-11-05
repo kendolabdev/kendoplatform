@@ -41,7 +41,7 @@ class HomeController extends DefaultController
         $this->view
             ->setScript($lp->script())
             ->assign([
-                'pagingUrl' => 'ajax/blog/blog/paging',
+                'pagingUrl' => 'ajax/blog/post/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,
@@ -76,7 +76,7 @@ class HomeController extends DefaultController
         $this->view
             ->setScript($lp->script())
             ->assign([
-                'pagingUrl' => 'ajax/blog/blog/paging',
+                'pagingUrl' => 'ajax/blog/post/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,

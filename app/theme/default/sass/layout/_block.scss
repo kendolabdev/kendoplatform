@@ -1,0 +1,15 @@
+.block-header {
+  position: relative;
+}
+
+.block-header {
+  padding: $padding-small-vertical $padding-large-horizontal;
+  border-bottom: 1px solid $border-color;
+  position: relative;
+}
+
+.block-title {
+  font-size: $font-size-h4;
+  font-weight: 500;
+  position: relative;
+}

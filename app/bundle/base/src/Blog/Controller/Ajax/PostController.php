@@ -2,6 +2,7 @@
 namespace Blog\Controller\Ajax;
 
 use Picaso\Controller\AjaxController;
+use Picaso\Layout\BlockParams;
 
 
 /**
@@ -11,8 +12,6 @@ use Picaso\Controller\AjaxController;
  */
 class PostController extends AjaxController
 {
-
-
     /**
      * Paging ajax pattern
      */
@@ -24,8 +23,19 @@ class PostController extends AjaxController
 
         $paging = \App::blog()->loadPostPaging($query, $page);
 
-        $script = 'base/blog/partial/blog-post-paging';
+        $lp = new BlockParams($this->request->getParam('lp'));
 
-        $this->response['html'] = $this->partial($script, ['paging' => $paging]);
+        $html = $this->partial($lp->itemScript(), [
+            'paging' => $paging,
+            'lp'     => $lp
+        ]);
+
+        $this->response = [
+            'html'    => $html,
+            'pager'   => $paging->getPager(),
+            'query'   => $query,
+            'hasNext' => $paging->hasNext(),
+            'hasPrev' => $paging->hasPrev(),
+        ];
     }
 }

@@ -1,0 +1,14 @@
+.site-logo-holder {
+  padding: ($grid-gutter-width/2) 0;
+}
+
+.site-logo-link {
+  display: block;
+}
+
+.site-logo-text {
+  display: block;
+  color: white;
+  font-size: $font-size-h1;
+  line-height: 70px;
+}

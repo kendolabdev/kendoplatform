@@ -1,5 +1,5 @@
 (function ($, _) {
-    var debug = true,
+    var debug = false,
         toggle = '[data-hover="card"]',
         _Dialog,
         defaults = {

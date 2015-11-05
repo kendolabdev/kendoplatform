@@ -6,19 +6,13 @@ body {
   max-width: $container-max-width;
 }
 
-.navbar-top {
-  background-color: #333333;
+.location._left{
+  @media (min-width: $screen-xs-max){
+    @if $use-block-box{
+      padding-right:0;
+    }
+  }
 }
-
-.navbar-rocky {
-  background-color: #F1F2F7;
-}
-
-.navbar-sticky {
-  box-shadow: $header-sticky-bar-bg;
-  background-color: $header-sticky-bar-bg;
-}
-
 .navbar-sendber {
   padding: 0;
   > li.beeber {
@@ -610,125 +604,6 @@ a:focus {
   width: 100%;
 }
 
-.fc-ow {
-  border: 1px solid #DDDDDD;
-  @if $use-box-shadow {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  }
-  @if $use-round-corner {
-    border-radius: 4px;
-  }
-}
-
-.fc-header-ow {
-  padding: 8px 4px;
-  background: #f8f8f8;
-  border-bottom: 1px solid #DDDDDD;
-  position: relative;
-  .ajax-indicator {
-    right: 10px;
-    top: 10px;
-  }
-}
-
-.fc-body-ow {
-  padding: 4px 0;
-}
-
-.fc-footer-ow {
-  background: #f8f8f8;
-  border-top: 1px solid #DDDDDD;
-}
-
-.fc-header-tabs {
-  margin: 0;
-  padding: 0;
-}
-
-.fc-header-tabs a {
-  font-weight: bold;
-  padding: 4px 8px;
-  display: inline-block;
-  text-decoration: none;
-}
-
-.fc-footer-tools a {
-  display: inline-block;
-  padding: 7px 10px 8px;
-  cursor: pointer;
-}
-
-.fc-footer-tools a {
-  font-size: 22px;
-  color: #888;
-}
-
-.fc-footer-tools a:hover {
-  color: #444;
-  background: #e8e8e8;
-}
-
-.fc-footer-tools-right {
-  padding: 8px;
-}
-
-.fc-att-row {
-
-}
-
-.fc-att-people {
-  border-top: 1px dashed #DDDDDD;
-}
-
-.fc-att-people-input {
-  border: none;
-  outline: none;
-  width: 100%;
-  padding: 4px 12px;
-  display: inline-block;
-  width: 160px;
-}
-
-.fc-att-location {
-  border-top: 1px dashed #DDDDDD;
-  position: relative;
-}
-
-.fc-att-location-ow .token-ow div {
-  display: block;
-  background-color: #eeeeee;
-}
-
-.fc-att-location-ow .cleanup {
-  position: absolute;
-  right: 12px;
-  top: 5px;
-  cursor: pointer;
-}
-
-.fc-att-location-input {
-  border: none;
-  outline: none;
-  width: 100%;
-  padding: 4px 12px;
-}
-
-.fc-att-location-input.disabled {
-  background-color: #EEE;
-}
-
-.select-token {
-  display: inline-block;
-  padding: 2px 10px;
-  margin: 2px;
-  border: 1px solid #DDDDDD;
-  background-color: #DDD;
-  border-radius: 3px;
-  font-size: 12px;
-}
-
-/*end composer defined*/
-
 .share-control-ow {
   display: inline-block;
   width: 260px;
@@ -787,18 +662,6 @@ a:focus {
   margin-bottom: 10px;
   border-left: 3px solid #BDC7D8;
   padding-left: 10px;
-}
-
-a {
-  color: #3B5998;
-}
-
-.link {
-  color: #3B5998;
-}
-
-a:hover {
-  text-decoration: none;
 }
 
 a.profile {

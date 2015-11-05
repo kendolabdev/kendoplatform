@@ -375,6 +375,11 @@ input[type="checkbox"] {
   text-align: center;
   pointer-events: none;
 }
+.form-group-sm .form-control-feedback{
+  height: $input-height-small;
+  line-height: $input-height-small;
+  font-size: $font-size-small;
+}
 .input-lg + .form-control-feedback {
   width: $input-height-large;
   height: $input-height-large;

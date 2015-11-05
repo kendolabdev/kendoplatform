@@ -16,7 +16,7 @@
  * Define scrollToTop plugins
  */
 (function ($) {
-    var _debug = true,
+    var _debug = false,
         _key = 'scrollToTop',
         _ScrollToTop = function (ele) {
             var element = ele,

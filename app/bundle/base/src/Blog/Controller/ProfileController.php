@@ -32,7 +32,7 @@ class ProfileController extends ProfileBaseController
         $this->view
             ->setScript($lp->script())
             ->assign([
-                'pagingUrl' => 'ajax/blog/blog/paging',
+                'pagingUrl' => 'ajax/blog/post/paging',
                 'paging'    => $paging,
                 'query'     => $query,
                 'pager'     => $paging->getPager(),

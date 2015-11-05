@@ -2,7 +2,7 @@
  * Control options menu
  */
 (function ($, _) {
-    var _debug = true,
+    var _debug = false,
         _toggleOptions = '[data-toggle="options"]',
         _Dialog,
         _waitingTime = 250,

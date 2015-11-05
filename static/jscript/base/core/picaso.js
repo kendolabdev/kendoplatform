@@ -15,7 +15,6 @@
          * @param options
          */
         setOptions: function (options) {
-            console.log('setOptions', options);
             this.options = $.extend({}, this.options, options);
         },
         /**

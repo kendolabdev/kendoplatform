@@ -3,7 +3,7 @@
  */
 (function ($) {
     var Paging,
-        _debug = true,// active debug when be required
+        _debug = false,// active debug when be required
         _dataKey = 'paging';
 
     /**
