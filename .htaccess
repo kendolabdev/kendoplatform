@@ -2,7 +2,7 @@
   Options +FollowSymLinks
   RewriteEngine On
 
-  RewriteBase /picaso/
+  RewriteBase /kendoplatform/
 
   # Try to route missing files
   RewriteCond %{REQUEST_FILENAME} !-f

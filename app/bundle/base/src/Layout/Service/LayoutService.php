@@ -295,16 +295,6 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
 
     /**
-     * @return string
-     */
-    public function getEditingThemeId()
-    {
-        return \App::layout()
-            ->getEditingTheme()
-            ->getId();
-    }
-
-    /**
      * @param array $query
      * @param int   $page
      * @param int   $limit
@@ -372,24 +362,6 @@ class LayoutService implements LayoutLoaderInterface, Manager
         return $select->paging($page, $limit);
     }
 
-    /**
-     * @return \Layout\Model\LayoutTheme
-     */
-    public function getEditingTheme()
-    {
-        $theme = \App::table('layout.layout_theme')
-            ->select()
-            ->where('is_editing=?', 1)
-            ->one();
-
-        if (empty($theme))
-            $theme = \App::table('layout.layout_theme')
-                ->select()
-                ->one();
-
-        return $theme;
-    }
-
 
     /**
      * @return string
@@ -401,25 +373,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
             ->getId();
     }
 
-    /**
-     * @param array $query
-     * @param int   $page
-     * @param int   $limit
-     *
-     * @return \Picaso\Paging\PagingInterface
-     */
-    public function loadAdminThemePaging($query = [], $page = 1, $limit = 10)
-    {
-        $select = \App::table('layout.layout_theme')
-            ->select()
-            ->where('theme_id <> ?', 'admin');
 
-        if (!empty($query)) {
-            // do filter there
-        }
-
-        return $select->paging($page, $limit);
-    }
 
     /**
      * @param array $params
@@ -725,110 +679,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
         return $result;
     }
 
-    /**
-     * @param $pageName
-     * @param $screenSize
-     * @param $preferThemeId
-     *
-     * @return \Layout\Model\Layout|null
-     */
-    public function findClosestLayout($pageName, $screenSize, $preferThemeId)
-    {
-        $layoutId = $this->findClosestLayoutId($pageName, $screenSize, $preferThemeId);
-        if ($layoutId)
-            return $this->findLayoutById($layoutId);
 
-        return null;
-    }
-
-    /**
-     * @param \Layout\Model\Layout $layout
-     * @param string               $forThemeId
-     *
-     * @return \Layout\Model\Layout
-     */
-    public function cloneLayout($layout, $forThemeId)
-    {
-        $cloneLayout = \App::table('layout')
-            ->select()
-            ->where('theme_id=?', $forThemeId)
-            ->where('screen_size=?', $layout->getScreenSize())
-            ->where('page_id=?', $layout->getScreenSize())
-            ->one();
-
-        if (!empty($cloneLayout))
-            return $cloneLayout;
-
-        $cloneLayout = new Layout([
-            'page_id'     => $layout->getPageId(),
-            'theme_id'    => $forThemeId,
-            'screen_size' => $layout->getScreenSize(),
-            'is_active'   => 1,
-        ]);
-
-        $cloneLayout->save();
-
-        $sections = \App::table('layout.layout_section')
-            ->select()
-            ->where('layout_id=?', $layout->getId())
-            ->all();
-
-        foreach ($sections as $section) {
-            if (!$section instanceof LayoutSection) continue;
-
-            $sectionData = $section->toArray();
-
-            // Update section id
-            $sectionData['section_id'] = $this->_generateNewId();
-            $sectionData['layout_id'] = $cloneLayout->getId();
-
-            $cloneSection = new LayoutSection($sectionData);
-            $cloneSection->save();
-
-            /// checker about block
-            $blocks = \App::table('layout.layout_block')
-                ->select()
-                ->where('section_id=?', $section->getId())
-                ->all();
-
-            $mapBlockId = [];
-            // build map blocks id
-            foreach ($blocks as $block) {
-                if (!$block instanceof LayoutBlock) continue;
-
-                $mapBlockId[ $block->getId() ] = $this->_generateNewId();
-            }
-
-            foreach ($blocks as $block) {
-                if (!$block instanceof LayoutBlock) continue;
-                $blockData = $block->toArray();
-                $blockData['section_id'] = $cloneSection->getId();
-                $blockData['block_id'] = $mapBlockId[ $block->getId() ];
-                if (!empty($blockData['parent_block_id']))
-                    $blockData['parent_block_id'] = $mapBlockId[ $blockData['parent_block_id'] ];
-
-                $cloneBlock = new LayoutBlock($blockData);
-                $cloneBlock->save();
-            }
-        }
-
-        return $cloneLayout;
-    }
-
-    /**
-     * @return string
-     */
-    public function _generateNewId()
-    {
-        $seek = 'qwertyuiopasdfghjklzxcvbnm1234567890';
-        $max = strlen($seek) - 1;
-        $result = '';
-        for ($i = 0; $i < 24; ++$i) {
-            $result .= substr($seek, mt_rand(0, $max), 1);
-        }
-
-        return $result;
-    }
 
     /**
      * @param $templateId
@@ -1180,19 +1031,6 @@ class LayoutService implements LayoutLoaderInterface, Manager
             });
     }
 
-    /**
-     * @param $templateId
-     *
-     * @return array
-     */
-    public function getListAncestorsTemplateId($templateId)
-    {
-
-        return \App::cache()
-            ->get(['layout', 'getListAncestorsTemplateId', $templateId], 0, function () use ($templateId) {
-                return $this->_getListAncestorsTemplateId($templateId);
-            });
-    }
 
     /**
      * @param $pageName

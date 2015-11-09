@@ -1,6 +1,5 @@
 /app/config/*.conf.php
 /app/vendor/
-/app/tools/
 /app/temp/
 /app/package/
 /app/composer.lock

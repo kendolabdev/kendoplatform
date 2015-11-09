@@ -48,6 +48,8 @@ class CacheFilesystem implements CacheInterface
         if (!$directory)
             $directory = PICASO_TEMP_DIR . '/cache';
 
+
+
         if (!is_dir($directory) and !@mkdir($directory, 0777, true)){
             @chmod($directory,0777);
             throw new \InvalidArgumentException(sprintf('"%s" is not writable', $this->directory));
