@@ -5,8 +5,10 @@
     </div>
     <div class="form-group text-center">
         <?php foreach($services as $service):?>
-        <a href="<?php echo $service->getConnectUrl(array());?>"
-           class="ion-lg <?php echo $service->getIonIconClass();?>" title="<?php echo $service->getTitle();?>"></a>
+        <a href="<?php echo $service->getConnectUrl([]);?>"
+           class="btn-social <?php echo $service->getId()?>" title="<?php echo $service->getTitle();?>">
+            <i class="<?php echo $service->getIonIconClass();?>"></i>
+        </a>
         <?php endforeach; ?>
     </div>
     <hr/>

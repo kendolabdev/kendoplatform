@@ -4,11 +4,16 @@
 
 .site-logo-link {
   display: block;
+  &:hover, &:active, &:focus {
+    text-decoration: none;
+  }
 }
 
 .site-logo-text {
   display: block;
-  color: white;
-  font-size: $font-size-h1;
+  color: $header-logo-color;
+  font-size: $header-logo-font-size;
+  font-weight: $header-logo-font-weight;
   line-height: 70px;
+  text-transform: $header-log-text-transform;
 }

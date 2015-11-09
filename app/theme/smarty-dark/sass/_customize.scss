@@ -1,0 +1,4 @@
+.nav-aside-menu > li.active a {
+  background-color: darken($nav-link-hover-bg,5%);
+  border-color: $link-color;
+}

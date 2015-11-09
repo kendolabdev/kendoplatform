@@ -2,17 +2,15 @@
 // Navbars
 // --------------------------------------------------
 
-
 // Wrapper and base class
 //
 // Provide a static navbar from which we expand to create full-width, fixed, and
 // other navbar variations.
 
-
 .navbar {
   position: relative;
   min-height: $navbar-height; // Ensure a navbar always shows (e.g., without a .navbar-brand in collapsed mode)
-//  margin-bottom: $navbar-margin-bottom;
+  //  margin-bottom: $navbar-margin-bottom;
   border: 1px solid transparent;
 
   // Prevent floats from breaking the navbar
@@ -23,10 +21,9 @@
   //}
 }
 
-.navbar-sticky-admin{
+.navbar-sticky-admin {
   background-color: $navbar-inverse-bg;
 }
-
 
 // Navbar heading
 //
@@ -41,7 +38,6 @@
   }
 }
 
-
 // Navbar collapse (body)
 //
 // Group your navbar content into this for easy collapsing and expanding across
@@ -55,9 +51,9 @@
 .navbar-collapse {
   overflow-x: visible;
   padding-right: $navbar-padding-horizontal;
-  padding-left:  $navbar-padding-horizontal;
+  padding-left: $navbar-padding-horizontal;
   border-top: 1px solid transparent;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
   @include clearfix;
   -webkit-overflow-scrolling: touch;
 
@@ -103,7 +99,6 @@
   }
 }
 
-
 // Both navbar header and collapse
 //
 // When a container is present, change the behavior of the header and collapse.
@@ -113,15 +108,14 @@
   > .navbar-header,
   > .navbar-collapse {
     margin-right: -$navbar-padding-horizontal;
-    margin-left:  -$navbar-padding-horizontal;
+    margin-left: -$navbar-padding-horizontal;
 
     @media (min-width: $grid-float-breakpoint) {
       margin-right: 0;
-      margin-left:  0;
+      margin-left: 0;
     }
   }
 }
-
 
 //
 // Navbar alignment options
@@ -152,16 +146,17 @@
     border-radius: 0;
   }
 }
+
 .navbar-fixed-top {
   top: 0;
   border-width: 0 0 1px;
 }
+
 .navbar-fixed-bottom {
   bottom: 0;
   margin-bottom: 0; // override .navbar defaults
   border-width: 1px 0 0;
 }
-
 
 // Brand/project name
 
@@ -188,7 +183,6 @@
     }
   }
 }
-
 
 // Navbar toggle
 //
@@ -228,7 +222,6 @@
   }
 }
 
-
 // Navbar nav links
 //
 // Builds on top of the `.nav` components with its own modifier class to make
@@ -238,11 +231,11 @@
   margin: ($navbar-padding-vertical / 2) (-$navbar-padding-horizontal);
 
   > li > a {
-    padding-top:    10px;
+    padding-top: 10px;
     padding-bottom: 10px;
     line-height: $line-height-computed;
     font-weight: $navbar-font-weight;
-    @if $navbar-uppercase { text-transform: uppercase}
+    text-transform: $navbar-text-transform;
   }
 
   @media (max-width: $grid-float-breakpoint-max) {
@@ -277,13 +270,12 @@
     > li {
       float: left;
       > a {
-        padding-top:    $navbar-padding-vertical;
+        padding-top: $navbar-padding-vertical;
         padding-bottom: $navbar-padding-vertical;
       }
     }
   }
 }
-
 
 // Navbar form
 //
@@ -296,7 +288,7 @@
   padding: 10px $navbar-padding-horizontal;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
-  $shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.1);
+  $shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 1px 0 rgba(255, 255, 255, .1);
   @include box-shadow($shadow);
 
   // Mixin behavior for optimum display
@@ -327,7 +319,6 @@
   }
 }
 
-
 // Dropdown menus
 
 // Menu position and menu carets
@@ -335,13 +326,13 @@
   margin-top: 0;
   @include border-top-radius(0);
 }
+
 // Menu position and menu caret support for dropups via extra dropup class
 .navbar-fixed-bottom .navbar-nav > li > .dropdown-menu {
   margin-bottom: 0;
   @include border-top-radius($navbar-border-radius);
   @include border-bottom-radius(0);
 }
-
 
 // Buttons in navbars
 //
@@ -358,7 +349,6 @@
   }
 }
 
-
 // Text in navbars
 //
 // Add a class to make any element properly align itself vertically within the navbars.
@@ -372,7 +362,6 @@
     margin-right: $navbar-padding-horizontal;
   }
 }
-
 
 // Component alignment
 //
@@ -388,7 +377,7 @@
   }
   .navbar-right {
     float: right !important;
-  margin-right: -$navbar-padding-horizontal;
+    margin-right: -$navbar-padding-horizontal;
 
     ~ .navbar-right {
       margin-right: 0;
@@ -396,12 +385,12 @@
   }
 }
 
-
 // Alternate navbars
 // --------------------------------------------------
 
 // Default navbar
-.navbar-default {
+
+@mixin navbar-color-scheme-default {
   //background-color: $navbar-default-bg;
   //border-color: $navbar-default-border;
 
@@ -505,7 +494,6 @@
     }
   }
 
-
   // Links in navbars
   //
   // Add a class to ensure links outside the navbar nav are colored correctly.
@@ -534,8 +522,7 @@
 }
 
 // Inverse navbar
-
-.navbar-inverse {
+@mixin navbar-color-scheme-inverse {
   .navbar-brand {
     color: $navbar-inverse-brand-color;
     &:hover,
@@ -662,5 +649,15 @@
         color: $navbar-inverse-link-disabled-color;
       }
     }
+  }
+}
+
+
+.navbar-default {
+  @if $navbar-color-scheme == "default" {
+    @include navbar-color-scheme-default;
+  }
+  @if $navbar-color-scheme == "inverse" {
+    @include navbar-color-scheme-inverse;
   }
 }

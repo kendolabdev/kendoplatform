@@ -487,7 +487,7 @@ class HttpRequest implements Request
     /**
      * @return string
      */
-    public function getPageName()
+    public function getFullControllerName()
     {
         $temp = trim(strtolower($this->getControllerName() . '.' . $this->getActionName()), '\\');
 

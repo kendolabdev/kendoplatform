@@ -1,3 +1,7 @@
+.fc-metion-ow{
+  background: $input-bg;
+}
+
 .fc-ow {
   border: 1px solid #DDDDDD;
   @if $use-box-shadow {
@@ -21,6 +25,7 @@
 
 .fc-body-ow {
   padding: 4px 0;
+  background: $input-bg;
 }
 
 .fc-footer-ow {

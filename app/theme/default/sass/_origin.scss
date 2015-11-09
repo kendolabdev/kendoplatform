@@ -1,6 +1,6 @@
 // Core variables and mixins
-@import "customize";
 @import "variables";
+@import "variables-origin";
 @import "bootstrap/mixins";
 
 
@@ -8,3 +8,5 @@
 @import "primary";
 
 // secondary packages
+
+@import "customize";

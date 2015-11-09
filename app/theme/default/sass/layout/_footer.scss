@@ -3,22 +3,19 @@
   margin-top: 2*$padding-base-horizontal;
 
   h1, h2, h3, h4, h5, h6 {
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 600;
+    color: $footer-heading-color;
+    text-transform: $footer-heading-transform;
+    font-weight: $footer-heading-font-weight;
     font-family: 'Raleway', 'Open Sans', Arial, Helvetica, sans-serif;
   }
   h4 {
-    font-size: 15px;
+    font-size: $footer-heading-font-size;
     margin-bottom: 25px;
-    letter-spacing: 0.1em;
   }
 
   color: $footer-text-color;
-  background-color: $footer-holder-bg;
+  background-color: $footer-wrap-bg;
 
-  a {
-    color: $footer-text-color;
-  }
   .board {
     padding-top: 3*$padding-base-horizontal;
     padding-bottom: 3*$padding-base-horizontal;
@@ -48,4 +45,16 @@
       font-family: "Ionicons";
     }
   }
+  a{
+    color: $footer-text-color;
+    &:hover, &:active, &:focus{
+      color: $footer-link-hover-color;
+      text-decoration: none;
+    }
+  }
+
+  .btn-social{
+    color: $footer-social-btn-color;
+  }
+
 }

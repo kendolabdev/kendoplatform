@@ -14,6 +14,14 @@ a.btn-social {
   i {
     font-size: $btn-social-icon;
   }
+  @if $use-round-corner{
+    @include border-radius($border-radius-base);
+  }
+}
+
+.btn-social-sm{
+  width: $input-height-small;
+  height: $input-height-small;
 }
 
 .btn-social{
@@ -24,10 +32,10 @@ a.btn-social {
     background-color: #00ACEE;
   }
   &.instagram {
-    background-color: #00ACEE;
+    background-color: #446a89;
   }
   &.google {
-    background-color: #DD4B39;
+    background-color: #ca3523;
   }
   &.youtube {
     background-color: #DD4B39;
@@ -40,5 +48,8 @@ a.btn-social {
   }
   &.window {
     background-color: cadetblue;
+  }
+  &.pinterest{
+    background-color: #cb2027;
   }
 }

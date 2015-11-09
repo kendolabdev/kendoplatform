@@ -1,0 +1,19 @@
+#header{
+  height: $header-topbar-height;
+}
+.header-topbar{
+  height: $header-topbar-height + 2;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 2000;
+  box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .52);
+  border-bottom:1px solid darken($header-topbar-bg,10%);
+}
+
+.options-dialog.for-header{
+  position: fixed;
+  z-index: 2001;
+  margin-top:-5px;
+}

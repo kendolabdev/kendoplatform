@@ -56,10 +56,11 @@ body {
 
 .avatar {
   box-sizing: border-box;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  //box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.15);
+  border: $avatar-outer-border;
   display: inline-block;
+  @if $use-round-corner{
+    @include border-radius($border-radius-small);
+  }
 }
 
 .avatar span {
@@ -67,7 +68,7 @@ body {
   background-size: cover;
   background-position: center;
   display: block;
-  border: 1px solid white;
+  border: $avatar-inner-border;
 }
 
 .avatar-lg span {

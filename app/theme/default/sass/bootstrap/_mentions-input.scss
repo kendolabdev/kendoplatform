@@ -1,9 +1,6 @@
-.fc-metion-ow{
-  background: $body-bg;
-}
 .mentions-input-box {
   position: relative;
-  background: $body-bg;
+  background: $input-bg;
 }
 
 .mentions-input-box textarea, .mentions-input {
@@ -31,8 +28,8 @@
 
 .mentions-input-box .mentions-autocomplete-list {
   display: none;
-  background: #fff;
-  border: 1px solid #b2b2b2;
+  background: $input-bg;
+  border: 1px solid $border-color;
   position: absolute;
   left: 0;
   right: 0;

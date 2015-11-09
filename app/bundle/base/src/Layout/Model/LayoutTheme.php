@@ -232,6 +232,27 @@ class LayoutTheme extends Model
     /**
      * @return null|string
      */
+    public function isEditing(){
+       return $this->__get('is_editing');
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getEditing(){
+       return $this->__get('is_editing');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setEditing($value){
+       $this->__set('is_editing', $value);
+    }
+
+    /**
+     * @return null|string
+     */
     public function isDefault(){
        return $this->__get('is_default');
     }

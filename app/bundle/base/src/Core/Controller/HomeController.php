@@ -4,6 +4,7 @@ namespace Core\Controller;
 
 
 use Picaso\Content\Content;
+use Picaso\Content\Poster;
 use Picaso\Controller\DefaultController;
 use Picaso\Controller\NotFoundException;
 
@@ -26,15 +27,28 @@ class HomeController extends DefaultController
         \App::assets()
             ->title()->set(\App::text('core.home_page'));
 
-        if ($poster) {
-            \App::registry()->set('profile', $poster);
-            \App::layout()->setPageName('core_member_home');
-            \App::registry()->set('isMainFeed', true);
+        if ($poster instanceof Poster) {
+            return $this->forward(null, 'member');
         } else {
-            \App::layout()->setPageName('core_home');
+            \App::layout()->setPageName('core_home_index');
+            $this->view->setScript('/base/core/controller/home/index');
+        }
+    }
+
+    /**
+     *
+     */
+    public function actionMember()
+    {
+        $poster = \App::auth()->getViewer();
+
+        if (!$poster instanceof Poster) {
+            return $this->forward(null, 'index');
         }
 
-        $this->view->setScript('/base/core/controller/home/index');
+        \App::registry()->set('profile', $poster);
+        \App::layout()->setPageName('core_home_member');
+        \App::registry()->set('isMainFeed', true);
     }
 
     /**

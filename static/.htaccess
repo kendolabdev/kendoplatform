@@ -1,5 +1,0 @@
-# pass access control allow origin to work with font
-
-<FilesMatch ".(eot|ttf|otf|woff)">
-	Header set Access-Control-Allow-Origin "*"
-</FilesMatch>

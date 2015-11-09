@@ -1,7 +1,3 @@
-$options-bg: #f6f7f8;
-$options-border-color: rgba(0, 0, 0, .1);
-$options-cover-height: 150px;
-$options-profile-height: 110px;
 
 .item-options {
   position: absolute;
@@ -92,7 +88,7 @@ $options-profile-height: 110px;
         top: -9px;
         left: auto;
         right: -10px;
-        border-color: transparent transparent $body-bg transparent;
+        border-color: transparent transparent $options-bg transparent;
         border-width: 10px;
         border-style: solid;
       }
