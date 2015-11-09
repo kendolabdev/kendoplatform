@@ -1,0 +1,39 @@
+<?php
+namespace User\Block;
+
+use Picaso\Layout\Block;
+
+/**
+ * Class SmallRegisterBlock
+ *
+ * @package User\Block
+ */
+class SmallRegisterBlock extends Block
+{
+    /**
+     * Execute block layout
+     */
+    public function execute()
+    {
+        if (\App::auth()->logged()) {
+
+            $this->setNoRender(true);
+
+            return false;
+        }
+
+        $services = \App::table('social.social_service')
+            ->select()
+            ->where('is_active=?', 1)
+            ->order('sort_order', 1)
+            ->all();
+
+        $form = \App::html()->factory('\User\Form\UserCreateAccount');
+
+        $this->view->assign([
+            'form'        => $form,
+            'showService' => !empty($services),
+            'services'    => $services,
+        ]);
+    }
+}

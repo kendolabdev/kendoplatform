@@ -18,7 +18,5 @@
 </div>
 <?php endif; ?>
 <?php echo $form->asList(); ?>
-
 <button class="btn btn-primary" type="submit"><?php echo $this->helper()->text('user.login');?></button>
-
 <?php echo $form->close(); ?>

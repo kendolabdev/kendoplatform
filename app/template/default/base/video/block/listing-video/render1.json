@@ -1,0 +1,17 @@
+{
+  "title": "Listing Video Items",
+  "settings": {
+    "title": {
+      "name": "title",
+      "label": "Block Title",
+      "value": "Recent Videos",
+      "class": "form-control"
+    },
+    "limit": {
+      "name": "limit",
+      "label": "Limit",
+      "value": "3",
+      "class": "form-control"
+    }
+  }
+}

@@ -4,11 +4,11 @@ namespace Blog\Block;
 use Picaso\Layout\Block;
 
 /**
- * Class TopPosterBlock
+ * Class ListingPosterBlock
  *
  * @package Blog\Block
  */
-class TopPosterBlock extends Block
+class ListingPosterBlock extends Block
 {
 
     /**

@@ -1,0 +1,17 @@
+{
+  "title": "Listing Blog Items",
+  "settings": {
+    "title": {
+      "name": "title",
+      "label": "Block Title",
+      "value": "Recent Posts",
+      "class": "form-control"
+    },
+    "limit": {
+      "name": "limit",
+      "label": "Limit",
+      "value": "3",
+      "class": "form-control"
+    }
+  }
+}

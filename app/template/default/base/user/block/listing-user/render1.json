@@ -1,0 +1,17 @@
+{
+  "title": "Listing members",
+  "settings": {
+    "title": {
+      "name": "title",
+      "label": "Block Title",
+      "value": "Recent Members",
+      "class": "form-control"
+    },
+    "limit": {
+      "name": "limit",
+      "label": "Limit",
+      "value": "5",
+      "class": "form-control"
+    }
+  }
+}

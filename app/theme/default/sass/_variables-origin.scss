@@ -849,6 +849,11 @@ $dl-horizontal-offset: $component-offset-horizontal !default;
 //** Horizontal line color.
 $hr-border: $gray-lighter !default;
 
+$block-border-bottom: none !default;
+$block-title-font-size: $font-size-h4 !default;
+$block-title-font-weight: 400 !default;
+$block-title-transform: none !default;
+
 $blue: #3a5795;
 $topbar-logged-height: 52px !default;
 $topbar-bg: $brand-primary;

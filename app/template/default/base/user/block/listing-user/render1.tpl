@@ -1,4 +1,5 @@
 <?php foreach($paging->items() as $item): ?>
+<?php if(!$item) continue; ?>
 <div class="itv-list itv-list-user">
     <div class="clearfix">
         <a class="pull-left" href="<?php echo $item->toHref();?>">
@@ -12,14 +13,6 @@
                     <?php echo $this->helper()->link($item->getTitle(),
                     array('href'=>$item->toHref(),'class'=>'profile')); ?> <br/>
                     <?php echo $this->helper()->btnFriendCount($item);?>
-                </div>
-            </div>
-            <div class="pull-right">
-                <div class="_4a itv-cmd">
-                    <div class="_4ab _4p"></div>
-                    <div class="_4ab btn-friend-ow">
-                        <?php echo $profile->btnMembership();?>
-                    </div>
                 </div>
             </div>
         </div>

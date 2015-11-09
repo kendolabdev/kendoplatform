@@ -13,11 +13,6 @@ class RecentSignUpBlock extends Block
 {
 
     /**
-     * @var string
-     */
-    protected $basePath = 'base/user/block/recent-created';
-
-    /**
      * List action top of default value
      */
     public function execute()

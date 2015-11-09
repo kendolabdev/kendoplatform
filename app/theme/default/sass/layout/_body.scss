@@ -6,6 +6,13 @@ body {
   max-width: $container-max-width;
 }
 
+.location._right{
+  @media (min-width: $screen-xs-max){
+    @if $use-block-box{
+      padding-left:0;
+    }
+  }
+}
 .location._left{
   @media (min-width: $screen-xs-max){
     @if $use-block-box{
@@ -69,6 +76,9 @@ body {
   background-position: center;
   display: block;
   border: $avatar-inner-border;
+  @if $use-round-corner{
+    @include border-radius($border-radius-small);
+  }
 }
 
 .avatar-lg span {

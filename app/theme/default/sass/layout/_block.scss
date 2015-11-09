@@ -8,13 +8,20 @@
 }
 
 .block-header {
-  padding: $padding-small-vertical $padding-large-horizontal;
-  border-bottom: 1px solid $border-color;
+  @if $use-block-box{
+    margin-bottom: $padding-base-vertical;
+  } @else{
+    padding: $padding-small-vertical $padding-large-horizontal;
+
+  }
+
+  border-bottom: $block-border-bottom;
   position: relative;
 }
 
 .block-title {
-  font-size: $font-size-h4;
-  font-weight: 500;
+  font-size: $block-title-font-size;
+  text-transform: $block-title-transform;
+  font-weight: $block-title-font-weight;
   position: relative;
 }

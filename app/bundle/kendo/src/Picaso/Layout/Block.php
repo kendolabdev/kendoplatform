@@ -136,6 +136,9 @@ class Block
      */
     public function getTitle()
     {
+        if (null == $this->title) {
+            $this->title = $this->lp->get('title');
+        }
         return $this->title;
     }
 
@@ -188,6 +191,6 @@ class Block
      */
     public function getCssClassName()
     {
-        return '_block ' . strtolower(str_replace(['\\', '.'], ['-', ''], str_replace('\Block','',get_class($this))));
+        return '_block ' . strtolower(str_replace(['\\', '.'], ['-', ''], str_replace('\Block', '', get_class($this))));
     }
 }
