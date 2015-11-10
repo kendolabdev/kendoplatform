@@ -1,12 +1,10 @@
 <?php
 namespace User\Controller;
 
-use Core\Service\ProfileService;
 use Picaso\Controller\DefaultController;
 use User\Form\UserCreateAccount;
 use User\Form\UserCreateAttribute;
 use User\Form\UserCreateAvatar;
-use User\Service\UserService;
 
 /**
  * Class RegisterController

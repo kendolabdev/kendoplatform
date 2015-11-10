@@ -16,7 +16,7 @@
     <?php echo $form->open();?>
     <?php echo $form->asList();?>
     <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-sm btn-block"><?php echo $this->
+        <button type="submit" class="btn btn-primary btn-block"><?php echo $this->
             helper()->text('user.login');?>
         </button>
     </div>

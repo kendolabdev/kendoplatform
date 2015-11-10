@@ -1,9 +1,9 @@
 <div class="small-login-form">
-    <?php if($showService): ?>
-    <div class="text-center">
-        Connect With
+    <div class="help-block">
+        <?php echo $note; ?>
     </div>
-    <div class="form-group text-center">
+    <?php if($showService): ?>
+    <div class="form-group text-center hidden">
         <?php foreach($services as $service):?>
         <a href="<?php echo $service->getConnectUrl([]);?>"
            class="btn-social btn-social-sm <?php echo $service->getId()?>" title="<?php echo $service->getTitle();?>">
@@ -11,12 +11,11 @@
         </a>
         <?php endforeach; ?>
     </div>
-    <hr/>
     <?php endif; ?>
     <?php echo $form->open();?>
     <?php echo $form->asList();?>
     <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-sm btn-block"><?php echo $this->
+        <button type="submit" class="btn btn-primary btn-danger btn-block"><?php echo $this->
             helper()->text('user.login');?>
         </button>
     </div>

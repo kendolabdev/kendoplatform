@@ -4,13 +4,13 @@
     {
       "name": "title",
       "label": "Block Title",
-      "value": "Login",
+      "value": "Create new account",
       "class": "form-control"
     },
     {
       "name": "note",
-      "label": "Form Note",
-      "value": "",
+      "label": "Note",
+      "value": "It's free and always will be",
       "class": "form-control"
     }
   ]

@@ -31,6 +31,7 @@ class SmallRegisterBlock extends Block
         $form = \App::html()->factory('\User\Form\UserCreateAccount');
 
         $this->view->assign([
+            'note'        => $this->lp->get('note', ''),
             'form'        => $form,
             'showService' => !empty($services),
             'services'    => $services,

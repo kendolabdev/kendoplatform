@@ -9,22 +9,27 @@ a.btn-social {
   width: $btn-social-size;
   height: $btn-social-size;
   vertical-align: middle;
+  margin-bottom: $padding-small-vertical;
   text-align: center;
   padding: 0;
   i {
     font-size: $btn-social-icon;
   }
-  @if $use-round-corner{
+
+  @if $use-circle-btn-social {
+   @include  border-radius(50%);
+  } @else if $use-round-corner {
     @include border-radius($border-radius-base);
   }
+
 }
 
-.btn-social-sm{
+.btn-social-sm {
   width: $input-height-small;
   height: $input-height-small;
 }
 
-.btn-social{
+.btn-social {
   &.facebook {
     background-color: #3B5998;
   }
@@ -49,10 +54,10 @@ a.btn-social {
   &.window {
     background-color: cadetblue;
   }
-  &.pinterest{
+  &.pinterest {
     background-color: #cb2027;
   }
-  &.dribbble{
+  &.dribbble {
     background-color: #c93764;
   }
 }
