@@ -22,7 +22,7 @@ class SiteHeaderBlock extends Block
 
         $script = $lp->script();
 
-        if(\App::registry()->get('is_admin')){
+        if (\App::registry()->get('is_admin')) {
             $script = 'layout/header/admin';
         }
 
@@ -33,11 +33,16 @@ class SiteHeaderBlock extends Block
         $q = \App::request()->getInitiator()->getParam('q');
 
         $searchUrl = \App::routing()->getUrl('search', []);
+        $siteName = \App::setting('core', 'site_name');
+
+        if(!$siteName)
+            $siteName = 'YouNet';
 
         $this->view->setScript($script)
             ->assign([
                 'searchUrl' => $searchUrl,
                 'q'         => $q,
+                'siteName'  => $siteName,
                 'viewer'    => \App::auth()->getViewer(),
                 'logged'    => \App::auth()->logged(),
                 'contact'   => \App::setting('contact'),

@@ -1,7 +1,14 @@
+#footer .footer-legas {
+  background-color: rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+  padding: 25px 0;
+  font-size: 13px;
+  display: block;
+}
+
 #footer {
   font-weight: 300;
   margin-top: 2*$padding-base-horizontal;
-
   h1, h2, h3, h4, h5, h6 {
     color: $footer-heading-color;
     text-transform: $footer-heading-transform;
@@ -13,20 +20,14 @@
     margin-bottom: 25px;
   }
 
-  color: $footer-text-color;
+  color: $footer-link-color;
   background-color: $footer-wrap-bg;
 
   .board {
     padding-top: 3*$padding-base-horizontal;
     padding-bottom: 3*$padding-base-horizontal;
   }
-  .copyright {
-    background-color: rgba(0, 0, 0, 0.2);
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-    padding: 25px 0;
-    font-size: 13px;
-    display: block;
-  }
+
   address {
     background: url("#{$img-path}/world-map.png") center no-repeat;
     li {
@@ -46,7 +47,7 @@
     }
   }
   a{
-    color: $footer-text-color;
+    color: $footer-link-color;
     &:hover, &:active, &:focus{
       color: $footer-link-hover-color;
       text-decoration: none;

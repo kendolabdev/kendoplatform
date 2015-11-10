@@ -415,7 +415,6 @@ $navbar-inverse-toggle-hover-bg: #333 !default;
 $navbar-inverse-toggle-icon-bar-bg: #fff !default;
 $navbar-inverse-toggle-border-color: #333 !default;
 
-
 $sidebar-color-scheme: "default" !default;
 
 //== Navs
@@ -880,18 +879,21 @@ $btn-social-size: 36px !default;
 $btn-social-icon: 20px !default;
 $use-circle-btn-social: true !default;
 
+$header-topbar-large-height: 96px !default;
+$header-topbar-base-height: 40px !default;
 
 $header-topbar-bg: #fff !default;
-$header-topbar-border-color: $border-color-light !default;
+$header-topbar-border-bottom: none !default;
 $header-topbar-link-color: #777 !default;
 $header-topbar-link-hover-color: #333 !default;
-$header-topbar-height: 40px !default;
+$header-topbar-logo-color: $header-topbar-link-hover-color !default;
 
 $header-navbar-bg: #fff !default;
-$header-navbar-border-color: $border-color-light !default;
 $header-navbar-shadow: none !default;
+$header-navbar-border-bottom: none !default;
 
 $footer-text-color: $header-navbar-bg !default;
+$footer-link-color: #aaa !default;
 $footer-link-hover-color: #fff !default;
 $footer-wrap-bg: #313131 !default;
 
@@ -903,7 +905,10 @@ $footer-heading-transform: none !default;
 $footer-social-btn-color: $footer-text-color !default;
 
 $header-logo-color: $header-topbar-link-color !default;
-$header-logo-font-size: $font-size-h1;
+
+$header-logo-large-font-size: $font-size-h1;
+$header-logo-base-font-size: 24px !default;
+
 $header-logo-font-weight: 400 !default;
 $header-log-text-transform: none !default;
 

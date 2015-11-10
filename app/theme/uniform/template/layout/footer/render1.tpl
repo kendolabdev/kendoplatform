@@ -1,6 +1,6 @@
 <div class="footer-layout1">
     <!--Copyright-->
-    <div class="copyright">
+    <div class="footer-legas">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-sm-6">

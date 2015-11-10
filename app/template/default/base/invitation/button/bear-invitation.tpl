@@ -1,5 +1,4 @@
 <a role="button"
-   class="btn btn-sm"
    data-bear="ajax/invitation/invitation/reset-mitigated"
    data-toggle="options"
    data-for="for-beeber for-header right"

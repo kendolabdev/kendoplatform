@@ -1,29 +1,20 @@
-<div class="">
-    <div class="header-topbar">
+<div class="header-container members">
+    <div class="header-topbar header-topbar-large">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3 col-sm-4 hidden-xs">
                     <div class="site-logo-holder">
                         <a class="site-logo-link" href="<?php echo $this->helper()->url('home');?>">
-                            <span class="site-logo-text">YouNet</span>
+                            <span class="site-logo-text"><?php echo $siteName; ?></span>
                         </a>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 hidden-xs">
-                    <form class="header-search-form" action="<?php echo $searchUrl;?>">
-                        <div class="form-group has-feedback">
-                            <input type="text" class="form-control" placeholder="Search" value="<?php echo $q;?>" name="q" />
-                            <div class="form-control-feedback">
-                                <i class="fa fa-search"></i>
-                            </div>
-                        </div>
-                    </form>
+                    <?php echo $this->forward('layout/header/topbar-search-form');?>
                 </div>
 
                 <div class="col-md-5 col-sm-4">
-                    <div class="text-right header-menu-right">
-                        <?php echo $this->forward('layout/header/menu-user');?>
-                    </div>
+                    <?php echo $this->forward('layout/header/topbar-user-menu');?>
                 </div>
             </div>
         </div>

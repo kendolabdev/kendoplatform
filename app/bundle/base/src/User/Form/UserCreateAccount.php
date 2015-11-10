@@ -13,6 +13,7 @@ class UserCreateAccount extends Form
     {
         $this->setTitle('form_user_account.form_title');
         $this->setNote('form_user_account.form_note');
+        $this->setAction(\App::routing()->getUrl('register'));
 
         // show first name last name or display name
         $this->addElement([

@@ -1,20 +1,25 @@
 <div class="header-container members">
-    <div class="header-topbar header-topbar-large">
+    <div class="header-topbar header-topbar-base">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6 col-sm-6 hidden-xs">
+                <div class="col-md-3 col-sm-4 hidden-xs">
                     <div class="site-logo-holder">
                         <a class="site-logo-link" href="<?php echo $this->helper()->url('home');?>">
                             <span class="site-logo-text"><?php echo $siteName; ?></span>
                         </a>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-6">
-                    <?php echo $this->forward('layout/header/topbar-login-form');?>
+                <div class="col-md-4 col-sm-4 hidden-xs">
+                    <?php echo $this->forward('layout/header/topbar-search-form');?>
+                </div>
+
+                <div class="col-md-5 col-sm-4">
+                    <?php echo $this->forward('layout/header/topbar-user-menu');?>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="header-navbar">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -28,18 +33,14 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <button type="button" class="navbar-btn visible-xs pull-right">
-                            <i class="ion-ios-search"></i>
-                        </button>
                         <a class="navbar-brand visible-xs" href="<?php echo $this->helper()->url('home');?>">YouNet</a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <?php echo \App::nav()->render('dropdown', 'main',null, [], 2, ['level0'=>'nav
+                        <?php echo \App::nav()->render('dropdown', 'main', null, [], 2, ['level0'=>'nav
                         navbar-nav','depth' => 1,'max' => 6]); ?>
                     </div>
-                    <!-- /.navbar-collapse -->
                 </div>
             </div>
         </nav>

@@ -1,6 +1,6 @@
-<ul class="list-flex right logged">
-    <li class="beeber">
-        <?php echo $this->helper()->btnBearAccount(); ?>
+<ul class="header-menu-right">
+    <li class="viewer">
+        <?php echo $this->helper()->btnTopbarViewer();?>
     </li>
     <li class="beeber">
         <?php echo $this->helper()->btnBearMessage(); ?>
@@ -11,7 +11,7 @@
     <li class="beeber">
         <?php echo $this->helper()->btnBearNotification(); ?>
     </li>
-    <li class="viewer">
-        <?php echo $this->helper()->btnTopbarViewer();?>
+    <li class="beeber">
+        <?php echo $this->helper()->btnBearAccount(); ?>
     </li>
 </ul>

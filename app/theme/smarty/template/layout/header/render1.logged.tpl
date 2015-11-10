@@ -1,59 +1,14 @@
-<div class="">
-    <div class="header-topbar">
+<div class="header-container members">
+    <div class="header-topbar header-topbar-base">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-sm-6 hidden-xs">
-                    <ul class="list-flex">
-                        <li>
-                            <a role="button" target="_blank" href="<?php echo $contact['facebook'];?>" >
-                                <i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a role="button" target="_blank" href="<?php echo $contact['twitter'];?>">
-                                <i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li>
-                            <a role="button" target="_blank" href="<?php echo $contact['google'];?>">
-                                <i class="fa fa-google-plus"></i></a>
-                        </li>
-                        <li>
-                            <a role="button" target="_blank" href="<?php echo $contact['pinterest'];?>">
-                                <i class="fa fa-pinterest"></i></a>
-                        </li>
-                        <li>
-                            <a role="button" target="_blank" href="<?php echo $contact['youtube'];?>">
-                                <i class="fa fa-youtube"></i></a>
-                        </li>
-                    </ul>
+                    <?php echo $this->forward('layout/header/topbar-social-menu');?>
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <div class="text-right">
-                        <ul class="list-flex right logged">
-                            <li class="beeber">
-                                <?php echo $this->helper()->btnBearAccount(); ?>
-                            </li>
-                            <li class="beeber">
-                                <?php echo $this->helper()->btnBearMessage(); ?>
-                            </li>
-                            <li class="beeber">
-                                <?php echo $this->helper()->btnBearInvitation(); ?>
-                            </li>
-                            <li class="beeber">
-                                <?php echo $this->helper()->btnBearNotification(); ?>
-                            </li>
-                            <li class="viewer">
-                                <?php echo $this->helper()->btnTopbarViewer();?>
-                            </li>
-                        </ul>
-                        <form method="get" class="form-inline pull-right" action="<?php echo $searchUrl;?>">
-                            <div class="form-group form-group-sm has-feedback">
-                                <input type="text" class="form-control" value="<?php echo $q;?>" name="q" />
-                                <span class="form-control-feedback">
-                                    <i class="fa fa-search"></i>
-                                </span>
-                            </div>
-                            <button type="submit" class="hidden" />
-                        </form>
+                        <?php echo $this->forward('layout/header/topbar-user-menu');?>
+                        <?php echo $this->forward('layout/header/topbar-search-form');?>
                     </div>
                 </div>
             </div>

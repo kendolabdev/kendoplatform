@@ -1,5 +1,5 @@
 .header-navbar {
-  border-bottom: 1px solid $header-navbar-border-color;
+  border-bottom: $header-navbar-border-bottom;
   background-color: $header-navbar-bg;
   &.transparent {
     border-bottom-color: transparent;
