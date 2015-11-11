@@ -6,6 +6,11 @@
 class App
 {
     /**
+     * Version base
+     */
+    const VERSION = '4.1.0';
+
+    /**
      * @var \Picaso\ServiceManager
      */
     static public $manager;
@@ -14,6 +19,14 @@ class App
      * @var array
      */
     static public $cachedItem = [];
+
+    /**
+     * @return string
+     */
+    public static function version()
+    {
+        return self::VERSION;
+    }
 
     /**
      * @return string

@@ -29,6 +29,9 @@ class PageHeaderBlock extends Block
         $title = \App::layout()
             ->getPageTitle();
 
+        $note = \App::layout()
+            ->getPageNote();
+
         if (empty($title)) {
             $this->setNoRender(true);
         }
@@ -38,6 +41,7 @@ class PageHeaderBlock extends Block
         $this->view->assign([
             'buttons'  => $buttons,
             'title'    => $title,
+            'note'     => $note,
             'nav'      => $nav->getNav(),
             'parentId' => $nav->getParentId(),
             'active'   => $nav->getActive(),

@@ -17,6 +17,14 @@ class AdminStatisticBlock extends Block
     protected $basePath = 'base/core/block/admin-statistic';
 
     /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return 'Statistic';
+    }
+
+    /**
      *
      */
     public function execute()

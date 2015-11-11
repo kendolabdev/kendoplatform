@@ -18,6 +18,14 @@ class LayoutTemplate extends Model
 {
 
     /**
+     * @return null|string
+     */
+    public function getTitle()
+    {
+        return $this->getTemplateName();
+    }
+
+    /**
      * @return array
      */
     public function getViewFinderPaths()

@@ -17,14 +17,24 @@ class AdminInfoBlock extends Block
     protected $basePath = 'base/core/block/admin-info';
 
     /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return 'License Information';
+    }
+
+    /**
      *
      */
     public function execute()
     {
+        $license = \App::setting('license');
+
         $this->view->assign([
             'date'    => date('Y-m-d H:i:s'),
-            'license' => 'AAAA-BBBB-CCCC-DDD',
-            'version' => '4.0.0',
+            'license' => $license,
+            'version' => \App::version(),
         ]);
     }
 }

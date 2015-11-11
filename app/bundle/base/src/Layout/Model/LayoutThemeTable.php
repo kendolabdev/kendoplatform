@@ -44,7 +44,9 @@ class LayoutThemeTable extends DbTable{
 		'variable_params'=>1,
 		'template_id'=>1,
 		'description'=>1,
-		'screen_shorts'=>1);
+		'screen_shorts'=>1,
+		'version'=>1,
+		'vendor_id'=>1);
 
     /**
      * @var array

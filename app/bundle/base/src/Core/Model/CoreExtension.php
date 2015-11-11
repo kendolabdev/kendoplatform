@@ -258,6 +258,20 @@ class CoreExtension extends Model
     }
 
     /**
+     * @return null|string
+     */
+    public function getVendorId(){
+       return $this->__get('vendor_id');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setVendorId($value){
+       $this->__set('vendor_id', $value);
+    }
+
+    /**
      * @return \Core\Model\CoreExtensionTable
      */
     public function table(){

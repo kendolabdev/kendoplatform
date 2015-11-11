@@ -307,6 +307,34 @@ class LayoutTheme extends Model
     }
 
     /**
+     * @return null|string
+     */
+    public function getVersion(){
+       return $this->__get('version');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setVersion($value){
+       $this->__set('version', $value);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getVendorId(){
+       return $this->__get('vendor_id');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setVendorId($value){
+       $this->__set('vendor_id', $value);
+    }
+
+    /**
      * @return \Layout\Model\LayoutThemeTable
      */
     public function table(){

@@ -16,6 +16,14 @@ class AdminUpdateBlock extends Block
     protected $basePath = 'base/core/block/admin-update';
 
     /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return 'Recent News';
+    }
+
+    /**
      *
      */
     public function execute()

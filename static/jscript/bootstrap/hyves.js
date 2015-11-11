@@ -109,7 +109,7 @@
 
     $(document).on('click', '[data-toggle="hyves"]', function () {
         var ele = $(this);
-        K.modal(ele.data('remote'));
+        K.modal(ele.data('remote') || ele.data('url'));
     });
 
     /**

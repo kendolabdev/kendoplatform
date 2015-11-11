@@ -5,6 +5,8 @@ use Layout\Model\Layout;
 use Layout\Model\LayoutBlock;
 use Layout\Model\LayoutSection;
 use Layout\Model\LayoutSetting;
+use Layout\Model\LayoutTemplate;
+use Layout\Model\LayoutTheme;
 use Picaso\Layout\Block;
 use Picaso\Layout\BlockParams;
 use Picaso\Layout\BlockWrapper;
@@ -114,6 +116,11 @@ class LayoutService implements LayoutLoaderInterface, Manager
     protected $pageButtons = [];
 
     /**
+     * @var string
+     */
+    protected $pageNote  = '';
+
+    /**
      * LayoutService constructor.
      */
     public function __construct()
@@ -145,6 +152,28 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getPageNote()
+    {
+        return $this->pageNote;
+    }
+
+    /**
+     * @param string $pageNote
+     *
+     * @return LayoutService
+     */
+    public function setPageNote($pageNote)
+    {
+        $this->pageNote = $pageNote;
+
+        return $this;
+    }
+
+
 
     /**
      * @return array
@@ -2296,4 +2325,54 @@ class LayoutService implements LayoutLoaderInterface, Manager
     {
         return \App::service('layout.theme');
     }
+
+    /**
+     * @return array
+     */
+    public function getTemplateOptions()
+    {
+        $options = [];
+
+        $items = \App::table('layout.layout_template')
+            ->select()
+            ->where('template_id<>?', 'admin')
+            ->all();
+
+        foreach ($items as $item) {
+
+            if (!$item instanceof LayoutTemplate) continue;
+
+            $options[] = [
+                'label' => $item->getTitle(),
+                'value' => $item->getId(),
+            ];
+        }
+
+        return $options;
+    }
+
+    /**
+     * @return array
+     */
+    public function getThemeOptions()
+    {
+        $options = [];
+
+        $items = \App::table('layout.layout_theme')
+            ->select()
+            ->where('theme_id<>?', 'admin')
+            ->all();
+
+        foreach ($items as $item) {
+            if (!$item instanceof LayoutTheme) continue;
+
+            $options[] = [
+                'label' => $item->getTitle(),
+                'value' => $item->getId(),
+            ];
+        }
+
+        return $options;
+    }
+
 }

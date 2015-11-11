@@ -1,5 +1,3 @@
-<div><strong>System Statistic</strong></div>
-<hr />
 <?php foreach($stats as $key=>$item): ?>
 <div class="row">
     <div class="col-sm-3"><?php echo $item['label'];?></div>

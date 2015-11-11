@@ -2,9 +2,29 @@ define([
     'base/core/picaso',
     'base/core/boot'], function () {
 
+    $(document).on('click', '[data-toggle="ajax"]', function (evt) {
+        evt.preventDefault();
+
+        var $this = $(this),
+            url = $this.data('url'),
+            data = $this.data('object');
+
+        K.ajax(url, data)
+            .done(function (result) {
+                Toast.success(result.success);
+
+                if (result.directive == 'reload') {
+                    window.setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+
+                }
+            });
+    });
+
     // expander
-    $(document).on('click', '[data-toggle="expand"]', function(){
-        var $this =  $(this),
+    $(document).on('click', '[data-toggle="expand"]', function () {
+        var $this = $(this),
             $target = $($this.data('target'));
         $target.toggleClass('collapse');
     });

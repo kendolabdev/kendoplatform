@@ -48,7 +48,8 @@ class CoreExtensionTable extends DbTable
 		'description'=>1,
 		'version'=>1,
 		'created_at'=>1,
-		'modified_at'=>1);
+		'modified_at'=>1,
+		'vendor_id'=>1);
 
     /**
      * @var array
