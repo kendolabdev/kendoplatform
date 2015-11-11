@@ -16,6 +16,9 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseBlog()
     {
+        \App::layout()
+            ->setPageTitle('blog.blogs');
+
         $profile = \App::registry()->get('profile');
 
         $page = $this->request->getParam('page', 1);

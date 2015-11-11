@@ -31,6 +31,10 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowsePage()
     {
+
+        \App::layout()
+            ->setPageTitle('page.pages');
+
         $profile = \App::registry()->get('profile');
 
         $query = [

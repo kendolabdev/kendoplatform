@@ -7,20 +7,14 @@
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <div class="text-right">
-                        <ul class="list-flex right">
-                            <li>
-                                <a role="button" href="<?php echo $this->helper()->url('login');?>">
-                                    Login
-                                    <i class="fa fa-sign-in"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a role="button" href="<?php echo $this->helper()->url('register');?>">
-                                    Sign Up
-                                    <i class="fa fa-user"></i>
-                                </a>
-                            </li>
-                        </ul>
+                        <a role="button" href="<?php echo $this->helper()->url('login');?>" class="btn btn-sm">
+                            Login
+                            <i class="fa fa-sign-in"></i>
+                        </a>
+                        <a role="button" href="<?php echo $this->helper()->url('register');?>" class="btn btn-sm">
+                            Sign Up
+                            <i class="fa fa-user"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -40,11 +34,11 @@
                     </button>
                     <a class="navbar-brand" href="<?php echo $this->helper()->url('home');?>">YouNet</a>
                 </div>
-                    <?php echo \App::nav()->render('dropdown', 'main', null, [], 2, ['level0'=>'nav navbar-nav
-                    navbar-right','depth' => 1,'max' => 6]); ?>
-                </div>
-                <!-- /.navbar-collapse -->
+                <?php echo \App::nav()->render('dropdown', 'main', null, [], 2, ['level0'=>'nav navbar-nav
+                navbar-right','depth' => 1,'max' => 6]); ?>
             </div>
-        </nav>
+            <!-- /.navbar-collapse -->
     </div>
+    </nav>
+</div>
 </div>

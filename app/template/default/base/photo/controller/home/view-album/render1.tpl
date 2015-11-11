@@ -1,7 +1,4 @@
 <div class="page-heading">
-    <div class="page-title">
-        <?php echo $album->getTitle(); ?>
-    </div>
     <div class="row page-note">
         <div class="col-md-6 col-sm-6">
             <div class="btn-group">

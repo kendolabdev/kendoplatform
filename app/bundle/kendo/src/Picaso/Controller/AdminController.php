@@ -23,9 +23,6 @@ class AdminController extends DefaultController
         \App::layout()
             ->setThemeId('admin');
 
-        \App::layout()
-            ->setMasterScript('layout/master/admin');
-
         \App::registry()->set('is_admin', true);
     }
 }

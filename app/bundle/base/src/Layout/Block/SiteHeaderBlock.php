@@ -22,10 +22,6 @@ class SiteHeaderBlock extends Block
 
         $script = $lp->script();
 
-        if (\App::registry()->get('is_admin')) {
-            $script = 'layout/header/admin';
-        }
-
         if (\App::auth()->logged()) {
             $script .= '.logged';
         }
@@ -35,7 +31,7 @@ class SiteHeaderBlock extends Block
         $searchUrl = \App::routing()->getUrl('search', []);
         $siteName = \App::setting('core', 'site_name');
 
-        if(!$siteName)
+        if (!$siteName)
             $siteName = 'YouNet';
 
         $this->view->setScript($script)

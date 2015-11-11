@@ -11,6 +11,14 @@ use Picaso\Layout\Block;
  */
 class ActionContentBlock extends Block
 {
+    /**
+     * @return string
+     */
+    public function getWrapper()
+    {
+        return 'none';
+    }
+
 
     /**
      * @return string

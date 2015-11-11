@@ -2,11 +2,9 @@
     <header id="header">
         <?php echo $this->helper()->layout()->header(); ?>
     </header>
-    <section id="main">
-        <div class="container-fluid">
-            <?php echo \App::layout()->content(); ?>
-        </div>
-    </section>
+    <div id="main">
+        <?php echo \App::layout()->content(); ?>
+    </div>
     <footer id="footer">
         <?php echo $this->helper()->layout()->footer(); ?>
     </footer>

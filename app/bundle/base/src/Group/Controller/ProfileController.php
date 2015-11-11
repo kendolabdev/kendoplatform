@@ -23,6 +23,9 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseGroup()
     {
+        \App::layout()
+            ->setPageTitle('group.groups');
+
         $profile = \App::registry()->get('profile');
 
         $page = $this->request->getParam('page', 1);

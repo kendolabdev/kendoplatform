@@ -41,7 +41,8 @@ class LayoutSectionTable extends DbTable
 		'section_active'=>1,
 		'section_type'=>1,
 		'section_template'=>1,
-		'section_params_text'=>1);
+		'section_params_text'=>1,
+		'container_type'=>1);
 
     /**
      * @var array

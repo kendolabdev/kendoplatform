@@ -18,13 +18,7 @@ class BlockWrapperNone implements BlockWrapper
      */
     public function render(Block $block, $params = [])
     {
-        $title = $block->getTitle();
-        $header = '';
-        if ($title) {
-            $header = '<div class="block-header"><div class="block-title"><span>' . $title . '</span></div></div>';
-        }
-
-        return '<div class="' . $block->getCssClassName() . '">' . $header . '<div class="block-content">' . $block->getContent() . '</div></div>';
+        return '<div class="_block ' . $block->getCssClassName() . '">' . $block->getContent() . '</div>';
     }
 
 }

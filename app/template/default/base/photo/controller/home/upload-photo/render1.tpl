@@ -1,7 +1,3 @@
-<div class="page-heading">
-    <h1 class="page-title"><?php echo $this->helper()->text('photo.upload_photos');?></h1>
-</div>
-
 <form method="post" enctype="multipart/form-data">
     <input type="file" name="photos[]" accept="image/*" multiple/>
     <br/>

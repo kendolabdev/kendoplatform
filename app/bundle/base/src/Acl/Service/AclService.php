@@ -622,6 +622,7 @@ class AclService implements AclLoaderInterface
             return $defaultValue;
         }
 
+//        var_dump($this->data[ $roleId ]);
         return $this->data[ $roleId ][ $action ] == "1";
     }
 

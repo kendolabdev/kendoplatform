@@ -13,13 +13,43 @@ use Picaso\Controller\DefaultController;
  */
 class HomeController extends DefaultController
 {
+    protected function _addPageButtons(){
+        $btnPhoto = [
+            'label' => \App::text('photo.upload_photos'),
+            'icon'  => 'ion-plus',
+            'props' => [
+                'data-target' => '#upload-album-photo',
+                'role'        => 'button',
+                'class'       => 'btn btn-default btn-sm',
+                'data-toggle' => 'btn-album-upload',
+            ]
+        ];
+
+        $btnAlbum = [
+            'label' => \App::text('photo.upload_photos'),
+            'icon'  => 'ion-plus',
+            'props' => [
+                'data-target' => '#upload-new-album-photo',
+                'role'        => 'button',
+                'class'       => 'btn btn-default btn-sm',
+                'data-toggle' => 'btn-album-upload',
+            ],
+        ];
+
+        \App::layout()
+            ->setPageButtons([$btnAlbum, $btnPhoto]);
+    }
     /**
      *
      */
     public function actionBrowsePhoto()
     {
+
         \App::layout()
-            ->setupSecondaryNavigation('photo_main', null, 'photo_browse');
+            ->setupSecondaryNavigation('photo_main', null, 'photo_browse')
+            ->setPageTitle('photo.photos');
+
+        $this->_addPageButtons();
 
         $page = $this->request->getParam('page', 1);
 
@@ -48,7 +78,10 @@ class HomeController extends DefaultController
     {
 
         \App::layout()
-            ->setupSecondaryNavigation('photo_main', null, 'photo_my');
+            ->setupSecondaryNavigation('photo_main', null, 'photo_my')
+            ->setPageTitle('photo.my_photos');;
+
+        $this->_addPageButtons();
 
         $poster = \App::auth()->getViewer();
 
@@ -78,7 +111,10 @@ class HomeController extends DefaultController
     {
 
         \App::layout()
-            ->setupSecondaryNavigation('photo_main', null, 'photo_upload');
+            ->setupSecondaryNavigation('photo_main', null, 'photo_upload')
+            ->setPageTitle('photo.upload_photos');;
+
+        $this->_addPageButtons();
 
         $photoService = \App::photo();
 
@@ -111,7 +147,8 @@ class HomeController extends DefaultController
     {
 
         \App::layout()
-            ->setupSecondaryNavigation('photo_main', null, 'create_album');
+            ->setupSecondaryNavigation('photo_main', null, 'create_album')
+            ->setPageTitle('photo.create_album');;
 
         $poster = \App::auth()->getViewer();
 
@@ -179,7 +216,10 @@ class HomeController extends DefaultController
     {
 
         \App::layout()
-            ->setupSecondaryNavigation('photo_main', null, 'browse_album');
+            ->setupSecondaryNavigation('photo_main', null, 'browse_album')
+            ->setPageTitle('photo.albums');
+
+        $this->_addPageButtons();
 
         $page = $this->request->getParam('page', 1);
 
@@ -204,7 +244,10 @@ class HomeController extends DefaultController
     public function actionMyAlbum()
     {
         \App::layout()
-            ->setupSecondaryNavigation('photo_main', null, 'my_album');
+            ->setupSecondaryNavigation('photo_main', null, 'my_album')
+            ->setPageTitle('photo.my_albums');
+
+        $this->_addPageButtons();
 
         $page = $this->request->getParam('page', 1);
         $poster = \App::auth()->getViewer();
@@ -232,6 +275,10 @@ class HomeController extends DefaultController
      */
     public function actionViewAlbum()
     {
+        \App::layout()
+            ->setPageTitle('View Album');
+
+        $this->_addPageButtons();
 
         $id = $this->request->getString('id');
 
@@ -244,6 +291,9 @@ class HomeController extends DefaultController
 
         \App::assets()
             ->setTitle($album->getTitle());
+
+        \App::layout()
+            ->setPageTitle($album->getTitle());
 
         $page = $this->request->getParam('page', 1);
 

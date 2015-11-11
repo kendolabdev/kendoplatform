@@ -15,6 +15,9 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseInvitation()
     {
+        \App::layout()
+            ->setPageTitle('invitation.requests');
+
         $profile = \App::registry()->get('profile');
 
         $page = $this->request->getParam('page', 1);

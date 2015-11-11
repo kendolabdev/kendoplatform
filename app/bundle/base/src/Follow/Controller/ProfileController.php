@@ -15,6 +15,9 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseFollower()
     {
+        \App::layout()
+            ->setPageTitle('follow.followers');
+
         $profile = \App::registry()->get('profile');
 
         $page = $this->request->getParam('page', 1);
@@ -45,6 +48,9 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseFollowing()
     {
+        \App::layout()
+            ->setPageTitle('follow.following');
+
         $profile = \App::registry()->get('profile');
 
         $page = $this->request->getParam('page', 1);

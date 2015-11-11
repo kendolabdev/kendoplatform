@@ -1,10 +1,3 @@
-<div class="page-heading">
-    <h1 class="page-title"><?php echo $this->helper()->text('activity.followers');?></h1>
-
-    <div class="page-note"></div>
-</div>
-
-
 <?php if($paging->count()):?>
 
 <div class="paging"

@@ -16,6 +16,9 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowsePhoto()
     {
+        \App::layout()
+            ->setPageTitle('photo.photos');
+
         $profile = \App::registry()->get('profile');
 
         $page = $this->request->getParam('page');
@@ -82,6 +85,10 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseAlbum()
     {
+
+        \App::layout()
+            ->setPageTitle('photo.albums');
+
         $profile = \App::registry()->get('profile');
 
         $query = [

@@ -18,7 +18,8 @@ class HomeController extends DefaultController
     {
 
         \App::layout()
-            ->setupSecondaryNavigation('page_main', null, 'page_browse');
+            ->setupSecondaryNavigation('page_main', null, 'page_browse')
+            ->setPageTitle('page.pages');
 
         $page = $this->request->getParam('page', 1);
 
@@ -45,7 +46,8 @@ class HomeController extends DefaultController
     public function actionMyPage()
     {
         \App::layout()
-            ->setupSecondaryNavigation('page_main', null, 'page_my');
+            ->setupSecondaryNavigation('page_main', null, 'page_my')
+            ->setPageTitle('page.pages');
 
         $poster = \App::auth()->getViewer();
 
@@ -73,6 +75,8 @@ class HomeController extends DefaultController
      */
     public function actionCreatePage()
     {
-
+        \App::layout()
+            ->setupSecondaryNavigation('page_main', null, 'page_my')
+            ->setPageTitle('page.pages');
     }
 }

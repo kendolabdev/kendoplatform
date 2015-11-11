@@ -1,0 +1,16 @@
+$link-color: #333;
+
+$header-topbar-base-height: 44px;
+$header-topbar-large-height: 70px;
+$header-navbar-bg: #2155aa;
+
+$navbar-default-link-active-color: #fff;
+$navbar-color-scheme: "inverse";
+$navbar-inverse-color: #bbb;
+$navbar-inverse-link-color: #bbb;
+$navbar-inverse-link-hover-bg: darken($header-navbar-bg, 10%);
+$navbar-inverse-link-active-bg: darken($header-navbar-bg, 10%);
+
+
+$navbar-font-weight: 400;
+$navbar-text-transform: none;

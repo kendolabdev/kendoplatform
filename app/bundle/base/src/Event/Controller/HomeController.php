@@ -18,13 +18,15 @@ class HomeController extends DefaultController
     {
 
         \App::layout()
-            ->setupSecondaryNavigation('event_main', null, 'event_browse');
+            ->setupSecondaryNavigation('event_main', null, 'event_browse')
+            ->setPageTitle('event.events');
 
         $page = $this->request->getParam('page', 1);
 
         $query = [];
 
         $paging = \App::event()->loadEventPaging($query, $page);
+
 
         $lp = \App::layout()->getContentLayoutParams();
 
@@ -45,11 +47,17 @@ class HomeController extends DefaultController
     public function actionMyEvent()
     {
         \App::layout()
-            ->setupSecondaryNavigation('event_main', null, 'event_my');
+            ->setupSecondaryNavigation('event_main', null, 'event_my')
+            ->setPageTitle('event.events');
+
+        \App::acl()
+            ->required('is_member',false);
 
         $page = $this->request->getParam('page', 1);
 
         $poster = \App::auth()->getViewer();
+
+
 
         $query = [
             'posterId'   => $poster->getId(),
@@ -78,6 +86,8 @@ class HomeController extends DefaultController
      */
     public function actionCreateEvent()
     {
-
+        \App::layout()
+            ->setupSecondaryNavigation('event_main', null, 'event_my')
+            ->setPageTitle('event.events');
     }
 }

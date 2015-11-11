@@ -26,6 +26,9 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseEvent()
     {
+        \App::layout()
+            ->setPageTitle('event.events');
+
         $profile = \App::registry()->get('profile');
 
         $page = $this->request->getParam('page', 1);

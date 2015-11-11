@@ -18,6 +18,12 @@ class BlockWrapperDefault implements BlockWrapper
      */
     public function render(Block $block, $params = [])
     {
-        return '<div class="' . $block->getCssClassName() . '"><div class="block-content">' . $block->getContent() . '</div></div>';
+        $title = $block->getTitle();
+        $header = '';
+        if ($title) {
+            $header = '<div class="block-header"><div class="block-title"><span>' . $title . '</span></div></div>';
+        }
+
+        return '<div class="_block ' . $block->getCssClassName() . '">' . $header . '<div class="block-content">' . $block->getContent() . '</div></div>';
     }
 }

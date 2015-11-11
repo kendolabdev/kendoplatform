@@ -11,7 +11,6 @@ use Picaso\Layout\BlockWrapper;
 use Picaso\Layout\LayoutLoaderInterface;
 use Picaso\Layout\Manager;
 use Picaso\Layout\Navigation;
-use Picaso\View\View;
 
 /**
  * Class LayoutService
@@ -100,6 +99,21 @@ class LayoutService implements LayoutLoaderInterface, Manager
     protected $secondaryNavigation;
 
     /**
+     * @var string
+     */
+    protected $pageTitle;
+
+    /**
+     * @var array
+     */
+    protected $breadcrumbs = [];
+
+    /**
+     * @var array
+     */
+    protected $pageButtons = [];
+
+    /**
      * LayoutService constructor.
      */
     public function __construct()
@@ -110,6 +124,68 @@ class LayoutService implements LayoutLoaderInterface, Manager
         }
         $this->setThemeId($themeId);
     }
+
+    /**
+     * @return string
+     */
+    public function getPageTitle()
+    {
+        return $this->pageTitle;
+    }
+
+    /**
+     * @param string $pageTitle
+     * @param bool   $translated
+     *
+     * @return LayoutService
+     */
+    public function setPageTitle($pageTitle, $translated = false)
+    {
+        $this->pageTitle = $translated ? $pageTitle : \App::text($pageTitle);
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBreadcrumbs()
+    {
+        return $this->breadcrumbs;
+    }
+
+    /**
+     * @param array $breadcrumbs
+     *
+     * @return LayoutService
+     */
+    public function setBreadcrumbs($breadcrumbs)
+    {
+        $this->breadcrumbs = $breadcrumbs;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPageButtons()
+    {
+        return $this->pageButtons;
+    }
+
+    /**
+     * @param array $pageButtons
+     *
+     * @return LayoutService
+     */
+    public function setPageButtons($pageButtons)
+    {
+        $this->pageButtons = $pageButtons;
+
+        return $this;
+    }
+
 
     /**
      * @param $themeId
@@ -374,7 +450,6 @@ class LayoutService implements LayoutLoaderInterface, Manager
     }
 
 
-
     /**
      * @param array $params
      * @param int   $page
@@ -555,6 +630,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
         $map = [];
 
+        // prefer theme then page?
         foreach ($items as $offset => $item) {
             $map[ $item['theme_id'] ][ $item['screen_size'] ][ $item['page_id'] ] = $item['layout_id'];
         }
@@ -602,7 +678,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
             ->select()
             ->where('theme_id=?', $forThemeId)
             ->where('screen_size=?', $layout->getScreenSize())
-            ->where('page_id=?', $layout->getScreenSize())
+            ->where('page_id=?', $layout->getPageId())
             ->one();
 
         if (!empty($cloneLayout))
@@ -678,7 +754,6 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
         return $result;
     }
-
 
 
     /**
@@ -1122,6 +1197,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
          * load section by layout id.
          */
         $sections = $this->loadSectionsByLayoutId($layoutId);
+
         $response = ['sections' => []];
 
 
@@ -1135,6 +1211,8 @@ class LayoutService implements LayoutLoaderInterface, Manager
                 'locations'        => $this->loadSectionData($sectionId),
                 'section_template' => $sectionTemplate,
                 'section_id'       => $sectionId,
+                'section_type'     => $section->getSectionType(),
+                'container_type'   => $section->getContainerType(),
             ];
         }
 
@@ -1358,7 +1436,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
             'section_order'       => $sectionData['section_order'],
             'section_active'      => 1,
             'layout_id'           => $layoutId,
-            'section_type'        => 'section_type',
+            'section_type'        => 'main',
             'section_template'    => $sectionData['section_template'],
             'section_params_text' => '[]',
         ];
@@ -1703,11 +1781,19 @@ class LayoutService implements LayoutLoaderInterface, Manager
                 return $this->getLoader()->loadDataForRender($pageName, $themeId, $screenSize);
             });
 
-
         $response = [];
 
+
         foreach ($layoutData['sections'] as $sectionData) {
-            $response[] = $this->renderSection($sectionData);
+            $content = $this->renderSection($sectionData);
+            $sectionId = $sectionData['section_id'];
+            $sectionType = $sectionData['section_type'];
+            $containerType = $sectionData['container_type'];
+
+            if (empty($content)) continue;
+
+            $response[] = '<section class="' . $sectionType . '"><div class="' . $containerType . '" id="' . $sectionId . '">' . $content . '</div></section>';
+
         }
 
         return implode('', $response);

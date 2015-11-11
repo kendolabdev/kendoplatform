@@ -18,6 +18,9 @@ class ProfileController extends ProfileBaseController
         $profile = \App::registry()
             ->get('profile');
 
+        \App::layout()
+            ->setPageTitle('notification.notifications');
+
         $page = $this->request->getParam('page', 1);
 
         $query = [

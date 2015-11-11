@@ -1,14 +1,5 @@
 <div class="page-heading">
-    <div class="page-title">
-        Albums
-    </div>
     <div class="row page-note">
-        <div class="col-md-6 col-sm-6 col-xs-3">
-            <div class="btn-group">
-                <a class="btn btn-sm btn-default"
-                   href="<?php echo $profile->toHref(array('stuff'=>'photos'));?>">Photos</a>
-            </div>
-        </div>
         <div class="col-md-6 col-sm-6 col-xs-9 text-right">
             <div class="btn-group">
                 <a role="button"

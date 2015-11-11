@@ -16,6 +16,10 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseVideo()
     {
+
+        \App::layout()
+            ->setPageTitle('video.videos');
+
         $profile = \App::registry()->get('profile');
 
         $page = $this->request->getParam('page');

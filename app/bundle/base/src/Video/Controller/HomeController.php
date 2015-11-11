@@ -19,7 +19,8 @@ class HomeController extends DefaultController
     {
 
         \App::layout()
-            ->setupSecondaryNavigation('video_main', null, 'video_browse');
+            ->setupSecondaryNavigation('video_main', null, 'video_browse')
+            ->setPageTitle('video.videos');
 
         $page = $this->request->getParam('page', 1);
 
@@ -46,7 +47,8 @@ class HomeController extends DefaultController
     {
 
         \App::layout()
-            ->setupSecondaryNavigation('video_main', null, 'video_my');
+            ->setupSecondaryNavigation('video_main', null, 'video_my')
+            ->setPageTitle('video.videos');
 
         $poster = \App::auth()->getViewer();
 
@@ -74,7 +76,8 @@ class HomeController extends DefaultController
     {
 
         \App::layout()
-            ->setupSecondaryNavigation('video_main', null, 'video_embed');
+            ->setupSecondaryNavigation('video_main', null, 'video_embed')
+            ->setPageTitle('video.videos');
 
         $form = new VideoFromUrl([]);
 
@@ -117,7 +120,8 @@ class HomeController extends DefaultController
     {
 
         \App::layout()
-            ->setupSecondaryNavigation('video_main', null, 'video_create');
+            ->setupSecondaryNavigation('video_main', null, 'video_create')
+            ->setPageTitle('video.videos');
 
         $form = new VideoFromUrl([]);
 

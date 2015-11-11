@@ -41,7 +41,8 @@ class DefaultController implements Controller
      */
     protected function init()
     {
-        \App::layout()->setPageName($this->request->getFullControllerName());
+        \App::layout()
+            ->setPageName($this->request->getFullControllerName());
     }
 
     /**

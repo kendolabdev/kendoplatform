@@ -24,7 +24,8 @@ class HomeController extends DefaultController
         $lp = \App::layout()->getContentLayoutParams();
 
         \App::layout()
-            ->setupSecondaryNavigation('group_main', null, 'group_browse');
+            ->setupSecondaryNavigation('group_main', null, 'group_browse')
+            ->setPageTitle('group.groups');
 
         $this->view
             ->setScript($lp->script())
@@ -46,7 +47,8 @@ class HomeController extends DefaultController
         $page = $this->request->getParam('page', 1);
 
         \App::layout()
-            ->setupSecondaryNavigation('group_main', null, 'group_my');
+            ->setupSecondaryNavigation('group_main', null, 'group_my')
+            ->setPageTitle('group.groups');
 
         $poster = \App::auth()->getViewer();
 
@@ -72,7 +74,9 @@ class HomeController extends DefaultController
 
     public function actionCreateGroup()
     {
-
+        \App::layout()
+            ->setupSecondaryNavigation('group_main', null, 'group_my')
+            ->setPageTitle('group.groups');
     }
 
 }

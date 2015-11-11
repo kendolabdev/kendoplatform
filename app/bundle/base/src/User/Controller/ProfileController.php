@@ -63,6 +63,10 @@ class ProfileController extends ProfileBaseController
     public function actionViewAbout()
     {
 
+        \App::layout()
+            ->setPageTitle('core.about');
+
+
         $profile = \App::registry()->get('profile');
         $poster = \App::auth()->getUser();
         $subject = $profile;
@@ -95,6 +99,9 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseMember()
     {
+        \App::layout()
+            ->setPageTitle('user.friends');
+
         $profile = \App::registry()->get('profile');
 
 

@@ -139,6 +139,7 @@ class Block
         if (null == $this->title) {
             $this->title = $this->lp->get('title');
         }
+
         return $this->title;
     }
 
@@ -153,6 +154,14 @@ class Block
     /**
      * @return string
      */
+    public function getWrapper()
+    {
+        return $this->lp->get('wrapper', 'default');
+    }
+
+    /**
+     * @return string
+     */
     public function render()
     {
         try {
@@ -160,7 +169,7 @@ class Block
                 return '';
             }
 
-            $wrapper = 'none';
+            $wrapper = $this->getWrapper();
             $params = [];
 
             return \App::layout()->getBlockWrapper($wrapper)->render($this, $params);
@@ -191,6 +200,6 @@ class Block
      */
     public function getCssClassName()
     {
-        return '_block ' . strtolower(str_replace(['\\', '.'], ['-', ''], str_replace('\Block', '', get_class($this))));
+        return strtolower(str_replace(['\\', '.'], ['-', ''], str_replace('\Block', '', get_class($this))));
     }
 }

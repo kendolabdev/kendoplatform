@@ -294,7 +294,7 @@ function _escape($string)
 }
 
 /**
- * @param $array
+ * @param array $array
  *
  * @return string
  */

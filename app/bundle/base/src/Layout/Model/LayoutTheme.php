@@ -229,7 +229,6 @@ class LayoutTheme extends Model
        $this->__set('is_editing', $value);
     }
 
-
     /**
      * @return null|string
      */

@@ -1,7 +1,4 @@
 <div class="page-heading">
-    <a class="page-title" href="<?php echo $album->toHref();?>">
-        <span data-hover="tooltip" data-label="Back to Album"><?php echo $album->getTitle(); ?></span>
-    </a>
     <div class="page-note">
         by <a href="<?php echo $poster->toHref();?>" data-hover="card"
               data-card="<?php echo $poster->toToken();?>"><?php echo $poster->getTitle();?></a>

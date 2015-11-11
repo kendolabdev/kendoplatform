@@ -17,6 +17,10 @@ class HomeController extends DefaultController
      */
     public function actionBrowseUser()
     {
+
+        \App::layout()
+            ->setPageTitle('user.browse_members');
+
         $page = $this->request->getParam('page', 1);
 
         $query = [];

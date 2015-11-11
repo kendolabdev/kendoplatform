@@ -20,13 +20,7 @@ class SiteFooterBlock extends Block
         $lp = \App::layout()
             ->getFooterLayoutParams();
 
-        $script = $lp->script();
-
-        if (\App::registry()->get('is_admin')) {
-            $script = 'layout/footer/admin';
-        }
-
-        $this->view->setScript($script)
+        $this->view->setScript($lp->script())
             ->assign([
                 'contact' => \App::setting('contact'),
             ]);

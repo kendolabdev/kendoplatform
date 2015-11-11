@@ -5,7 +5,6 @@ namespace Blog\Controller;
 use Blog\Form\AddPost;
 use Blog\Form\DeletePost;
 use Blog\Model\BlogPost;
-use Blog\Model\Post;
 use Blog\Service\BlogService;
 use Picaso\Controller\DefaultController;
 
@@ -36,7 +35,14 @@ class HomeController extends DefaultController
         $lp = \App::layout()->getContentLayoutParams();
 
         \App::layout()
-            ->setupSecondaryNavigation('blog_main', null, 'blog_browse');
+            ->setupSecondaryNavigation('blog_main', null, 'blog_browse')
+            ->setPageTitle('blog.blogs')
+            ->setBreadcrumbs([
+                [
+                    'url'   => \App::routing()->getUrl('blogs'),
+                    'label' => 'blog.blogs',
+                ],
+            ]);
 
         $this->view
             ->setScript($lp->script())
@@ -57,13 +63,19 @@ class HomeController extends DefaultController
         \App::acl()
             ->required('blog__view');
 
-        \App::assets()
-            ->setTitle(\App::text('blog.my_blogs'));
-
         $page = $this->request->getParam('page', 1);
 
         \App::layout()
-            ->setupSecondaryNavigation('blog_main', null, 'blog_my');
+            ->setupSecondaryNavigation('blog_main', null, 'blog_my')
+            ->setPageTitle('blog.my_blogs')
+            ->setBreadcrumbs([
+                [
+                    'label' => 'blog.blogs',
+                    'url'   => \App::routing()->getUrl('blogs')],
+                [
+                    'label' => 'blog.my_blogs',
+                    'url'   => \App::routing()->getUrl('blog_my')]
+            ]);
 
         $poster = \App::auth()->getViewer();
 
@@ -92,7 +104,16 @@ class HomeController extends DefaultController
         \App::acl()->required('blog__create');
 
         \App::layout()
-            ->setupSecondaryNavigation('blog_main', null, 'blog_import');
+            ->setupSecondaryNavigation('blog_main', null, 'blog_import')
+            ->setPageTitle('blog.import_blogs')
+            ->setBreadcrumbs([
+                [
+                    'url'   => \App::routing()->getUrl('blogs'),
+                    'label' => 'blog.blogs'],
+                [
+                    'url'   => \App::routing()->getUrl('blog_my'),
+                    'label' => 'blog.import_blogs']
+            ]);
 
         $lp = \App::layout()->getContentLayoutParams();
 
@@ -107,11 +128,17 @@ class HomeController extends DefaultController
 
         \App::acl()->required('blog__create');
 
-        \App::assets()
-            ->setTitle(\App::text('blog.add_blog_post'));
-
         \App::layout()
-            ->setupSecondaryNavigation('blog_main', null, 'blog_create');
+            ->setupSecondaryNavigation('blog_main', null, 'blog_create')
+            ->setPageTitle('blog.create_blog')
+            ->setBreadcrumbs([
+                [
+                    'url'   => \App::routing()->getUrl('blogs'),
+                    'label' => 'blog.blogs'],
+                [
+                    'url'   => \App::routing()->getUrl('blog_my'),
+                    'label' => 'blog.create_blogs']
+            ]);
 
         $poster = \App::auth()->getViewer();
 
@@ -165,7 +192,8 @@ class HomeController extends DefaultController
         }
 
         \App::layout()
-            ->setupSecondaryNavigation('blog_main', null, 'blog_browse');
+            ->setupSecondaryNavigation('blog_main', null, 'blog_browse')
+            ->setPageTitle('blog.edit_blog');
 
         $form = \App::html()->factory('\Blog\Form\EditPost');
 
@@ -217,7 +245,7 @@ class HomeController extends DefaultController
 
         $post = $blogService->findPost($id);
 
-        if (!$post instanceof Post) {
+        if (!$post instanceof BlogPost) {
             throw new \InvalidArgumentException("Could not find blog post");
         }
 
@@ -243,17 +271,27 @@ class HomeController extends DefaultController
 
         \App::acl()->required('blog__view');
 
-
         $id = $this->request->getString('id');
 
         $post = \App::blog()->findPost($id);
 
-        if (!$post instanceof Post)
+        if (!$post instanceof BlogPost)
             ;
 
         \App::assets()
             ->setTitle($post->getTitle())
             ->setDescription($post->getDescription());
+
+        \App::layout()
+            ->setPageTitle($post->getTitle())
+            ->setBreadcrumbs([
+                [
+                    'url'   => \App::routing()->getUrl('blogs'),
+                    'label' => \App::text('blog.blogs'),],
+                [
+                    'url'   => \App::routing()->getUrl('blog_my'),
+                    'label' => \App::text('blog.my_blogs'),]
+            ]);
 
         $lp = \App::layout()->getContentLayoutParams();
 
