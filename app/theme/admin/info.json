@@ -1,0 +1,20 @@
+{
+    "theme_id": "admin",
+    "name": "Admin",
+    "parent_theme_id": "default",
+    "super_theme_id": "",
+    "author": "YouNet Company",
+    "is_active": "1",
+    "is_editing": "1",
+    "is_default": "1",
+    "variable_params": "",
+    "template_id": "default",
+    "description": null,
+    "screen_shorts": null,
+    "version": "1.0.0",
+    "vendor_id": "namnv@younetco.com",
+    "paths": [
+        "\/app\/theme\/admin",
+        "\/static\/theme\/admin"
+    ]
+}
