@@ -1,14 +1,14 @@
 <?php
 namespace Follow\Service;
 
-use Picaso\Application\InstallHandler;
+use Picaso\Application\ModuleInstallHandler;
 
 /**
  * Class InstallHandlerService
  *
  * @package Follow\Service
  */
-class InstallHandlerService extends InstallHandler
+class InstallHandlerService extends ModuleInstallHandler
 {
     /**
      * @var string

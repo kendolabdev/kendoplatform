@@ -2200,7 +2200,6 @@ class LayoutService implements LayoutLoaderInterface, Manager
         $select = \App::table('layout')
             ->select('layout')
             ->join(':layout_page', 'page', 'page.page_id=layout.page_id', null, null)
-            ->where('layout.theme_id=?', 'default')
             ->where('page.module_name IN ?', $moduleList)
             ->columns('layout.*,page.page_name');
 

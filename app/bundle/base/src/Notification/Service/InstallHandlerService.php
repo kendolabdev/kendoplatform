@@ -1,14 +1,14 @@
 <?php
 namespace Notification\Service;
 
-use Picaso\Application\InstallHandler;
+use Picaso\Application\ModuleInstallHandler;
 
 /**
  * Class InstallHandlerService
  *
  * @package Notification\Service
  */
-class InstallHandlerService extends InstallHandler
+class InstallHandlerService extends ModuleInstallHandler
 {
     /**
      * @var string

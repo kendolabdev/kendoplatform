@@ -1,14 +1,14 @@
 <?php
 namespace Place\Service;
 
-use Picaso\Application\InstallHandler;
+use Picaso\Application\ModuleInstallHandler;
 
 /**
  * Class InstallHandlerService
  *
  * @package Place\Service
  */
-class InstallHandlerService extends InstallHandler
+class InstallHandlerService extends ModuleInstallHandler
 {
     /**
      * @var string

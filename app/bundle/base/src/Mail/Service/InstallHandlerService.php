@@ -1,14 +1,14 @@
 <?php
 namespace Mail\Service;
 
-use Picaso\Application\InstallHandler;
+use Picaso\Application\ModuleInstallHandler;
 
 /**
  * Class InstallHandlerService
  *
  * @package Mail\Service
  */
-class InstallHandlerService extends InstallHandler
+class InstallHandlerService extends ModuleInstallHandler
 {
     /**
      * @var string
@@ -23,7 +23,7 @@ class InstallHandlerService extends InstallHandler
     /**
      *
      */
-    public function _afterExport()
+    public function afterExport()
     {
         $this->finalData['mail_adapter']
             = \App::table('mail.mail_adapter')
@@ -34,7 +34,7 @@ class InstallHandlerService extends InstallHandler
     /**
      *
      */
-    public function _afterImport()
+    public function afterImport()
     {
         if (!empty($this->finalData['mail_adapter'])) {
             foreach ($this->finalData['mail_adapter'] as $data) {

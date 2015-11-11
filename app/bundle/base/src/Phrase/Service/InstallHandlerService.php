@@ -1,14 +1,14 @@
 <?php
 namespace Phrase\Service;
 
-use Picaso\Application\InstallHandler;
+use Picaso\Application\ModuleInstallHandler;
 
 /**
  * Class InstallHandlerService
  *
  * @package Phrase\Service
  */
-class InstallHandlerService extends InstallHandler
+class InstallHandlerService extends ModuleInstallHandler
 {
     /**
      * @var string
@@ -23,7 +23,7 @@ class InstallHandlerService extends InstallHandler
     /**
      *
      */
-    public function _afterImport()
+    public function afterImport()
     {
         \App::table('phrase.phrase_language')
             ->insertIgnore([

@@ -1,14 +1,14 @@
 <?php
 namespace Storage\Service;
 
-use Picaso\Application\InstallHandler;
+use Picaso\Application\ModuleInstallHandler;
 
 /**
  * Class InstallHandlerService
  *
  * @package Storage\Service
  */
-class InstallHandlerService extends InstallHandler
+class InstallHandlerService extends ModuleInstallHandler
 {
     /**
      * @var string
@@ -24,7 +24,7 @@ class InstallHandlerService extends InstallHandler
     /**
      *
      */
-    public function _afterExport()
+    public function afterExport()
     {
         $this->finalData['storage_adapter']
             = \App::table('storage.storage_adapter')
@@ -32,7 +32,7 @@ class InstallHandlerService extends InstallHandler
             ->toAssocs();
     }
 
-    public function _afterImport()
+    public function afterImport()
     {
         if (!empty($this->finalData['storage_adapter'])) {
             foreach ($this->finalData['storage_adapter'] as $data) {

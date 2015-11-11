@@ -19,5 +19,5 @@ foreach ($themes as $theme) {
 
     file_put_contents($filename, json_encode($info,JSON_PRETTY_PRINT));
 
-    chmod($filename, 0777);
+    @chmod($filename, 0777);
 }

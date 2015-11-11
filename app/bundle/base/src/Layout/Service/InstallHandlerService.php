@@ -1,14 +1,14 @@
 <?php
 namespace Layout\Service;
 
-use Picaso\Application\InstallHandler;
+use Picaso\Application\ModuleInstallHandler;
 
 /**
  * Class InstallHandlerService
  *
  * @package Layout\Service
  */
-class InstallHandlerService extends InstallHandler
+class InstallHandlerService extends ModuleInstallHandler
 {
     /**
      * @var string
@@ -24,7 +24,7 @@ class InstallHandlerService extends InstallHandler
     /**
      *
      */
-    public function _afterExport()
+    public function afterExport()
     {
         $this->finalData['layout_template']
             = \App::table('layout.layout_template')
@@ -40,7 +40,7 @@ class InstallHandlerService extends InstallHandler
     /**
      *
      */
-    public function _afterImport()
+    public function afterImport()
     {
         if (!empty($this->finalData['layout_template'])) {
             foreach ($this->finalData['layout_template'] as $data) {

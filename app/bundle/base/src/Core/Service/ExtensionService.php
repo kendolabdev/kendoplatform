@@ -2,7 +2,7 @@
 namespace Core\Service;
 
 use Core\Model\CoreExtension;
-use Picaso\Application\InstallHandler;
+use Picaso\Application\ModuleInstallHandler;
 use Picaso\Hook\SimpleContainer;
 
 /**
@@ -140,7 +140,7 @@ class ExtensionService
 
             $service = \App::service($serviceName);
 
-            if (!$service instanceof InstallHandler) continue;
+            if (!$service instanceof ModuleInstallHandler) continue;
             $service->import();
         }
         \App::cache()
@@ -166,7 +166,7 @@ class ExtensionService
 
         $service = \App::service($serviceName);
 
-        if (!$service instanceof InstallHandler)
+        if (!$service instanceof ModuleInstallHandler)
             return true;
 
         $service->upgrade();
@@ -195,7 +195,7 @@ class ExtensionService
 
         $service = \App::service($serviceName);
 
-        if (!$service instanceof InstallHandler)
+        if (!$service instanceof ModuleInstallHandler)
             return true;
 
         $service->enable();
@@ -223,7 +223,7 @@ class ExtensionService
 
         $service = \App::service($serviceName);
 
-        if (!$service instanceof InstallHandler)
+        if (!$service instanceof ModuleInstallHandler)
             return true;
 
         $service->disable();
@@ -251,7 +251,7 @@ class ExtensionService
 
         $service = \App::service($serviceName);
 
-        if (!$service instanceof InstallHandler)
+        if (!$service instanceof ModuleInstallHandler)
             return true;
 
         $service->import();
@@ -279,7 +279,7 @@ class ExtensionService
 
         $service = \App::service($serviceName);
 
-        if (!$service instanceof InstallHandler)
+        if (!$service instanceof ModuleInstallHandler)
             return true;
 
         $service->export();

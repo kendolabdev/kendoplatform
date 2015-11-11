@@ -1,6 +1,7 @@
 <?php
 namespace Layout\Service;
 
+use Picaso\Application\Filesystem;
 use Picaso\Hook\SimpleContainer;
 
 /**
@@ -41,7 +42,7 @@ class ThemeService
      *
      * @return \Layout\Model\LayoutTheme
      */
-    public function getThemeById($themeId)
+    public function findThemeById($themeId)
     {
         return \App::table('layout.layout_theme')
             ->findById((string)$themeId);
@@ -113,7 +114,7 @@ class ThemeService
 
         $theme = \App::layout()
             ->theme()
-            ->getThemeById($themeId);
+            ->findThemeById($themeId);
 
 
         $this->updateStylesheetBundleConfiguration();
@@ -147,5 +148,44 @@ class ThemeService
         }
         fwrite($fp, $content);
         fclose($fp);
+    }
+
+    /**
+     * Export a theme
+     *
+     * @param string $themeId
+     *
+     * @return string
+     */
+    public function export($themeId)
+    {
+        $theme = $this->findThemeById($themeId);
+
+        $filesystem = new Filesystem();
+
+        $themeInfoPath = PICASO_ROOT_DIR . '/app/theme/' . $theme->getId() . '/info.json';
+        $info = json_decode(file_get_contents($themeInfoPath), true);
+
+        $destination = PICASO_TEMP_DIR . '/extension/theme-' . $theme->getId() . '-' . $theme->getVersion() . '.zip';
+
+        $paths = [];
+
+        foreach ($info['paths'] as $path) {
+            $paths[] = PICASO_ROOT_DIR . '/' . trim($path, '/');
+        }
+
+        $filesystem->buildCompress($destination, $paths);
+
+        return $destination;
+    }
+
+    /**
+     * import theme
+     *
+     * @param string $themeId
+     */
+    public function install($themeId)
+    {
+
     }
 }

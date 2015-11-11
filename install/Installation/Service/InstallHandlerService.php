@@ -1,14 +1,14 @@
 <?php
 namespace Installation\Service;
 
-use Picaso\Application\InstallHandler;
+use Picaso\Application\ModuleInstallHandler;
 
 /**
  * Class InstallHandlerService
  *
  * @package Installation\Service
  */
-class InstallHandlerService extends InstallHandler
+class InstallHandlerService extends ModuleInstallHandler
 {
 
     /**
@@ -97,19 +97,19 @@ class InstallHandlerService extends InstallHandler
         ];
     }
 
-    public function _afterExport()
+    public function afterExport()
     {
         /**
          *
          */
         foreach (\App::extensions()->getActiveModuleNames() as $module) {
             $handler = \App::service("$module.install_handler");
-            if ($handler instanceof InstallHandler)
+            if ($handler instanceof ModuleInstallHandler)
                 $handler->export();
         }
     }
 
-    public function _afterImport()
+    public function afterImport()
     {
         /**
          *
@@ -118,7 +118,7 @@ class InstallHandlerService extends InstallHandler
             $module = $data['name'];
 
             $handler = \App::service("$module.install_handler");
-            if ($handler instanceof InstallHandler)
+            if ($handler instanceof ModuleInstallHandler)
                 $handler->import();
         }
 

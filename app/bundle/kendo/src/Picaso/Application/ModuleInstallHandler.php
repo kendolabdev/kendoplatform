@@ -6,7 +6,7 @@ namespace Picaso\Application;
  *
  * @package Picaso\Application
  */
-class InstallHandler
+class ModuleInstallHandler
 {
     /**
      * @var array
@@ -101,7 +101,7 @@ class InstallHandler
     /**
      *
      */
-    protected function _beforeExport()
+    protected function beforeExport()
     {
         $this->finalData = [];
     }
@@ -109,23 +109,23 @@ class InstallHandler
     /**
      *
      */
-    protected function _doExport()
+    protected function doExport()
     {
-        $this->_exportTableStructural();
-        $this->_exportExtension();
-        $this->_exportTypes();
-        $this->_exportSetting();
-        $this->_exportPhrase();
-        $this->_exportAcl();
-        $this->_exportNavigation();
-        $this->_exportInvitation();
-        $this->_exportFeed();
-        $this->_exportNotification();
-        $this->_exportAttribute();
-        $this->_exportRelation();
-        $this->_exportLayout();
-        $this->_exportMail();
-        $this->_exportHook();
+        $this->exportTableStructural();
+        $this->exportExtension();
+        $this->exportTypes();
+        $this->exportSetting();
+        $this->exportPhrase();
+        $this->exportAcl();
+        $this->exportNavigation();
+        $this->exportInvitation();
+        $this->exportFeed();
+        $this->exportNotification();
+        $this->exportAttribute();
+        $this->exportRelation();
+        $this->exportLayout();
+        $this->exportMail();
+        $this->exportHook();
 
     }
 
@@ -140,7 +140,7 @@ class InstallHandler
     /**
      * write final data to installer with/without data from now.
      */
-    protected function _afterExport()
+    protected function afterExport()
     {
 
     }
@@ -163,10 +163,10 @@ class InstallHandler
     public function export()
     {
 
-        $this->_beforeExport();
+        $this->beforeExport();
 
-        $this->_doExport();
-        $this->_afterExport();
+        $this->doExport();
+        $this->afterExport();
         $this->updatePackageFile();
     }
 
@@ -177,9 +177,9 @@ class InstallHandler
     {
         $this->readPackageFile();
 
-        $this->_beforeImport();
-        $this->_doImport();
-        $this->_afterImport();
+        $this->beforeImport();
+        $this->doImport();
+        $this->afterImport();
     }
 
     /**
@@ -193,7 +193,7 @@ class InstallHandler
     /**
      *
      */
-    protected function _beforeImport()
+    protected function beforeImport()
     {
 
     }
@@ -201,29 +201,29 @@ class InstallHandler
     /**
      *
      */
-    protected function _doImport()
+    protected function doImport()
     {
-        $this->_importTableStructural();
-        $this->_importExtension();
-        $this->_importTypes();
-        $this->_importSetting();
-        $this->_importPhrase();
-        $this->_importAcl();
-        $this->_importNavigation();
-        $this->_importInvitation();
-        $this->_importFeed();
-        $this->_importNotification();
-        $this->_importAttribute();
-        $this->_importRelation();
-        $this->_importLayout();
-        $this->_importMail();
-        $this->_importHook();
+        $this->importTableStructural();
+        $this->importExtension();
+        $this->importTypes();
+        $this->importSetting();
+        $this->importPhrase();
+        $this->importAcl();
+        $this->importNavigation();
+        $this->importInvitation();
+        $this->importFeed();
+        $this->importNotification();
+        $this->importAttribute();
+        $this->importRelation();
+        $this->importLayout();
+        $this->importMail();
+        $this->importHook();
     }
 
     /**
      *
      */
-    public function _exportHook()
+    public function exportHook()
     {
         $this->finalData['core_hook']
             = \App::core()->hook()
@@ -233,7 +233,7 @@ class InstallHandler
     /**
      *
      */
-    public function _importHook()
+    public function importHook()
     {
         if (!empty($this->finalData['core_hook'])) {
             foreach ($this->finalData['core_hook'] as $data) {
@@ -247,7 +247,7 @@ class InstallHandler
     /**
      *
      */
-    public function _exportMail()
+    public function exportMail()
     {
         $this->finalData['mail_template']
             = \App::mail()->getListTemplateByModuleName($this->getModuleList());
@@ -256,7 +256,7 @@ class InstallHandler
     /**
      *
      */
-    public function _importMail()
+    public function importMail()
     {
         if (!empty($this->finalData['mail_template'])) {
             foreach ($this->finalData['mail_template'] as $data) {
@@ -270,7 +270,7 @@ class InstallHandler
     /**
      *
      */
-    public function _exportLayout()
+    public function exportLayout()
     {
         $this->finalData['layout_support_block']
             = \App::layout()->getListSupportBlockByModuleName($this->getModuleList());
@@ -286,7 +286,7 @@ class InstallHandler
     /**
      *
      */
-    public function _importLayout()
+    public function importLayout()
     {
         if (!empty($this->finalData['layout_support_block'])) {
             foreach ($this->finalData['layout_support_block'] as $data) {
@@ -311,7 +311,7 @@ class InstallHandler
     /**
      *
      */
-    protected function _afterImport()
+    protected function afterImport()
     {
         $this->finalData = [];
     }
@@ -319,7 +319,7 @@ class InstallHandler
     /**
      *
      */
-    public function _exportRelation()
+    public function exportRelation()
     {
         $this->finalData['relation_type']
             = \App::relation()->getListRelationTypeByModuleName($this->getModuleList());
@@ -328,7 +328,7 @@ class InstallHandler
     /**
      *
      */
-    public function _importRelation()
+    public function importRelation()
     {
         if (!empty($this->finalData['relation_type'])) {
             foreach ($this->finalData['relation_type'] as $data) {
@@ -342,7 +342,7 @@ class InstallHandler
     /**
      *
      */
-    public function _exportFeed()
+    public function exportFeed()
     {
         $this->finalData['feed_type']
             = \App::feed()->getListTypeByModuleName($this->getModuleList());
@@ -351,7 +351,7 @@ class InstallHandler
     /**
      *
      */
-    public function _exportExtension()
+    public function exportExtension()
     {
         $this->finalData['core_extension']
             = \App::core()->extension()
@@ -361,7 +361,7 @@ class InstallHandler
     /**
      *
      */
-    public function _importExtension()
+    public function importExtension()
     {
         if (!empty($this->finalData['core_extension'])) {
             foreach ($this->finalData['core_extension'] as $data) {
@@ -377,7 +377,7 @@ class InstallHandler
     /**
      *
      */
-    public function _importFeed()
+    public function importFeed()
     {
         if (!empty($this->finalData['feed_type'])) {
             foreach ($this->finalData['feed_type'] as $data) {
@@ -390,7 +390,7 @@ class InstallHandler
     /**
      *
      */
-    public function _exportNotification()
+    public function exportNotification()
     {
         $this->finalData['notification_type']
             = \App::notification()->getListTypeByModuleName($this->getModuleList());
@@ -399,7 +399,7 @@ class InstallHandler
     /**
      *
      */
-    public function _importNotification()
+    public function importNotification()
     {
         if (!empty($this->finalData['notification_type'])) {
             foreach ($this->finalData['notification_type'] as $data) {
@@ -412,7 +412,7 @@ class InstallHandler
     /**
      *
      */
-    public function _exportInvitation()
+    public function exportInvitation()
     {
         $this->finalData['invitation_type']
             = \App::invitation()->getListTypeByModuleName($this->getModuleList());
@@ -422,7 +422,7 @@ class InstallHandler
     /**
      *
      */
-    public function _importInvitation()
+    public function importInvitation()
     {
         if (!empty($this->finalData['invitation_type'])) {
             foreach ($this->finalData['invitation_type'] as $data) {
@@ -435,7 +435,7 @@ class InstallHandler
     /**
      *
      */
-    public function _exportTypes()
+    public function exportTypes()
     {
         $this->finalData['core_type']
             = \App::core()->getListTypeByModuleName($this->getModuleList());
@@ -444,7 +444,7 @@ class InstallHandler
     /**
      *
      */
-    public function _importTypes()
+    public function importTypes()
     {
         /**
          * insert types
@@ -460,7 +460,7 @@ class InstallHandler
     /**
      *
      */
-    public function _exportAttribute()
+    public function exportAttribute()
     {
         $this->finalData['attribute_plugin']
             = \App::attribute()->getListPluginByModuleName($this->getModuleList());
@@ -469,7 +469,7 @@ class InstallHandler
     /**
      *
      */
-    public function _importAttribute()
+    public function importAttribute()
     {
         // insert attribute plugins
         if (!empty($this->finalData['attribute_plugin'])) {
@@ -483,7 +483,7 @@ class InstallHandler
     /**
      *
      */
-    public function _exportNavigation()
+    public function exportNavigation()
     {
         $this->finalData['navigation'] =
             \App::nav()->getListNavigationByModuleName($this->getModuleList());
@@ -495,7 +495,7 @@ class InstallHandler
     /**
      *
      */
-    public function _importNavigation()
+    public function importNavigation()
     {
         // insert attribute plugins
         if (!empty($this->finalData['navigation'])) {
@@ -517,7 +517,7 @@ class InstallHandler
     /**
      *
      */
-    public function _exportAcl()
+    public function exportAcl()
     {
         $this->finalData['acl_role']
             = \App::acl()->getListRoleByModuleName($this->getModuleList());
@@ -535,7 +535,7 @@ class InstallHandler
     /**
      *
      */
-    public function _importAcl()
+    public function importAcl()
     {
         if (!empty($this->finalData['acl_role'])) {
             foreach ($this->finalData['acl_role'] as $data) {
@@ -567,7 +567,7 @@ class InstallHandler
     /**
      *
      */
-    public function _exportSetting()
+    public function exportSetting()
     {
         $this->finalData['setting_action']
             = \App::settings()->getActionListByModuleName($this->getModuleList());
@@ -581,7 +581,7 @@ class InstallHandler
     /**
      *
      */
-    public function _importSetting()
+    public function importSetting()
     {
 
         if (!empty($this->finalData['setting_action'])) {
@@ -601,7 +601,7 @@ class InstallHandler
     /**
      *
      */
-    public function _exportPhrase()
+    public function exportPhrase()
     {
         $this->finalData['phrase']
             = \App::phrase()->getListPhraseByModuleName($this->getModuleList());
@@ -610,7 +610,7 @@ class InstallHandler
     /**
      *
      */
-    public function _importPhrase()
+    public function importPhrase()
     {
         if (!empty($this->finalData['phrase'])) {
             foreach ($this->finalData['phrase'] as $data) {
@@ -626,7 +626,7 @@ class InstallHandler
     /**
      * @return array
      */
-    public function _exportTableStructural()
+    public function exportTableStructural()
     {
         $db = \App::db();
 
@@ -675,7 +675,7 @@ class InstallHandler
     /**
      *
      */
-    public function _importTableStructural()
+    public function importTableStructural()
     {
 
         $tables = $this->finalData['tables'];

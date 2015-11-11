@@ -1,14 +1,14 @@
 <?php
 namespace Social\Service;
 
-use Picaso\Application\InstallHandler;
+use Picaso\Application\ModuleInstallHandler;
 
 /**
  * Class InstallHandlerService
  *
  * @package Social\Service
  */
-class InstallHandlerService extends InstallHandler
+class InstallHandlerService extends ModuleInstallHandler
 {
     /**
      * @var string
@@ -23,7 +23,7 @@ class InstallHandlerService extends InstallHandler
     /**
      *
      */
-    public function _afterExport()
+    public function afterExport()
     {
         $this->finalData['social_service']
             = \App::table('social.social_service')
@@ -34,7 +34,7 @@ class InstallHandlerService extends InstallHandler
     /**
      *
      */
-    public function _afterImport()
+    public function afterImport()
     {
 
         if (!empty($this->finalData['social_service'])) {

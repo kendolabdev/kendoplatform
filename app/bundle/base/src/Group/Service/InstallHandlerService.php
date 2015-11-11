@@ -1,7 +1,7 @@
 <?php
 namespace Group\Service;
 
-use Picaso\Application\InstallHandler;
+use Picaso\Application\ModuleInstallHandler;
 
 
 /**
@@ -9,7 +9,7 @@ use Picaso\Application\InstallHandler;
  *
  * @package Group\Service
  */
-class InstallHandlerService extends InstallHandler
+class InstallHandlerService extends ModuleInstallHandler
 {
     /**
      * @var string
