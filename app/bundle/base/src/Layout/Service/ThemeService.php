@@ -2,6 +2,7 @@
 namespace Layout\Service;
 
 use Picaso\Application\Filesystem;
+use Picaso\Application\ThemeInstallHandler;
 use Picaso\Hook\SimpleContainer;
 
 /**
@@ -81,8 +82,6 @@ class ThemeService
         $filename = PICASO_ROOT_DIR . '/app/theme/default/sass/_styles.scss';
 
         file_put_contents($filename, $newContent);
-
-        chmod($filename, 0777);
     }
 
     /**
@@ -161,22 +160,9 @@ class ThemeService
     {
         $theme = $this->findThemeById($themeId);
 
-        $filesystem = new Filesystem();
+        $handler = new ThemeInstallHandler();
 
-        $themeInfoPath = PICASO_ROOT_DIR . '/app/theme/' . $theme->getId() . '/info.json';
-        $info = json_decode(file_get_contents($themeInfoPath), true);
-
-        $destination = PICASO_TEMP_DIR . '/extension/theme-' . $theme->getId() . '-' . $theme->getVersion() . '.zip';
-
-        $paths = [];
-
-        foreach ($info['paths'] as $path) {
-            $paths[] = PICASO_ROOT_DIR . '/' . trim($path, '/');
-        }
-
-        $filesystem->buildCompress($destination, $paths);
-
-        return $destination;
+        $handler->export($theme);
     }
 
     /**

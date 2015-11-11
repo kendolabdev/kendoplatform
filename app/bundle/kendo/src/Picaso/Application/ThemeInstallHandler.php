@@ -11,7 +11,7 @@ class ThemeInstallHandler
     /**
      * @var array
      */
-    protected $final = [];
+    protected $finalData = [];
 
     /**
      * @var \Layout\Model\LayoutTheme
@@ -28,6 +28,7 @@ class ThemeInstallHandler
         $this->beforeExport();
         $this->doExport();
         $this->afterExport();
+        $this->updatePackageFile();
         $this->archive();
     }
 
@@ -55,9 +56,12 @@ class ThemeInstallHandler
 
     }
 
+    /**
+     *
+     */
     protected function exportLayoutTheme()
     {
-        $this->final['info'] = $this->theme->toArray();
+        $this->finalData['info'] = $this->theme->toArray();
     }
 
     /**
@@ -65,7 +69,8 @@ class ThemeInstallHandler
      */
     protected function exporLayout()
     {
-
+        $this->finalData['layout_data'] =
+            \App::layout()->exportLayoutData([], [$this->getTheme()->getId()]);
     }
 
     /**
@@ -87,36 +92,55 @@ class ThemeInstallHandler
     /**
      * @return array
      */
-    public function getFinal()
+    public function getFinalData()
     {
-        return $this->final;
+        return $this->finalData;
     }
 
     /**
-     * @param array $final
+     * @param array $finalData
      */
-    public function setFinal($final)
+    public function setFinalData($finalData)
     {
-        $this->final = $final;
+        $this->finalData = $finalData;
     }
 
+    /**
+     *
+     */
+    protected function updatePackageFile()
+    {
+        $theme = $this->getTheme();
+
+        $filename = PICASO_ROOT_DIR . "/app/theme/" . $theme->getId() . "/package.json";
+
+        if (!is_writable($dir = dirname($filename)))
+            throw new \RuntimeException("Could not write to $dir");
+
+        file_put_contents($filename, json_encode($this->finalData, JSON_PRETTY_PRINT));
+
+        @chmod($filename, 0777);
+    }
+
+    /**
+     * @return string
+     */
     protected function archive()
     {
 
         $theme = $this->getTheme();
 
-        $filesystem = new Filesystem();
+        $themeId = $theme->getId();
 
-        $themeInfoPath = PICASO_ROOT_DIR . '/app/theme/' . $theme->getId() . '/info.json';
-        $info = json_decode(file_get_contents($themeInfoPath), true);
+        $filesystem = new Filesystem();
 
         $destination = PICASO_TEMP_DIR . '/extension/theme-' . $theme->getId() . '-' . $theme->getVersion() . '.zip';
 
-        $paths = [];
+        $paths = [
+            PICASO_ROOT_DIR . '/app/theme/' . $themeId,
+            PICASO_ROOT_DIR . '/static/theme/' . $themeId
 
-        foreach ($info['paths'] as $path) {
-            $paths[] = PICASO_ROOT_DIR . '/' . trim($path, '/');
-        }
+        ];
 
         $filesystem->buildCompress($destination, $paths);
 

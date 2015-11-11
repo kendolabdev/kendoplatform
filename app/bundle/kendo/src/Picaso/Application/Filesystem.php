@@ -49,6 +49,8 @@ class Filesystem
         }
         $zip->close();
 
+        @chmod($destination, 0777);
+
         return true;
     }
 

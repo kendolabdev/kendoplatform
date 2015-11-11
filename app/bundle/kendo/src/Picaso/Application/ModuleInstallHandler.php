@@ -279,7 +279,7 @@ class ModuleInstallHandler
             = \App::layout()->getListPageByModuleName($this->getModuleList());
 
         $this->finalData['layout_data'] =
-            \App::layout()->exportLayoutDataByModuleName($this->getModuleList());
+            \App::layout()->exportLayoutData($this->getModuleList());
 
     }
 

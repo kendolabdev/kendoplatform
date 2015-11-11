@@ -118,7 +118,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
     /**
      * @var string
      */
-    protected $pageNote  = '';
+    protected $pageNote = '';
 
     /**
      * LayoutService constructor.
@@ -172,7 +172,6 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
         return $this;
     }
-
 
 
     /**
@@ -2191,17 +2190,25 @@ class LayoutService implements LayoutLoaderInterface, Manager
     }
 
     /**
-     * @param $moduleList
+     * @param array $moduleList
+     * @param array $themeList
      *
      * @return array
      */
-    public function exportLayoutDataByModuleName($moduleList)
+    public function exportLayoutData($moduleList = [], $themeList = [])
     {
         $select = \App::table('layout')
             ->select('layout')
             ->join(':layout_page', 'page', 'page.page_id=layout.page_id', null, null)
-            ->where('page.module_name IN ?', $moduleList)
             ->columns('layout.*,page.page_name');
+
+        if (!empty($moduleList)) {
+            $select->where('page.module_name IN ?', $moduleList);
+        }
+
+        if (!empty($themeList)) {
+            $select->where('theme_id IN ?', $themeList);
+        }
 
         $result = [];
 

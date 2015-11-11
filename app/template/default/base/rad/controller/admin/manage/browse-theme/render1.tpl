@@ -4,10 +4,16 @@
 
     <div>Version: <?php echo $item->getVersion(); ?></div>
     <h5 class="">
-        <a role="button" class="btn btn-xs btn-info">
-            Rebuild CSS
+        <a role="button"
+           class="btn btn-xs btn-info"
+           data-toggle="ajax"
+           data-url="admin/layout/ajax/theme/rebuild?id=<?php echo $item->getId();?>">
+           Rebuild CSS
         </a>
-        <a role="button" class="btn btn-xs btn-primary">
+        <a role="button"
+           class="btn btn-xs btn-primary"
+           data-toggle="ajax"
+           data-url="admin/layout/ajax/theme/export?id=<?php echo $item->getId();?>">
             Export
         </a>
     </h5>

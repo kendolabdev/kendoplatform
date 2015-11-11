@@ -2,14 +2,17 @@ $link-color: #333;
 
 $header-topbar-base-height: 44px;
 $header-topbar-large-height: 70px;
-$header-navbar-bg: #0c0c0c;
+$header-navbar-bg: #337ab7;
+
+
+$navbar-height: 50px;
 
 $navbar-default-link-active-color: #fff;
 $navbar-color-scheme: "inverse";
-$navbar-inverse-color: #bbb;
-$navbar-inverse-link-color: #bbb;
-$navbar-inverse-link-hover-bg: darken($header-navbar-bg, 10%);
-$navbar-inverse-link-active-bg: darken($header-navbar-bg, 10%);
+$navbar-inverse-color: #ccc;
+$navbar-inverse-link-color: #ccc;
+$navbar-inverse-link-hover-bg: darken($header-navbar-bg, 5%);
+$navbar-inverse-link-active-bg: darken($header-navbar-bg, 15%);
 
 
 $navbar-font-weight: 400;

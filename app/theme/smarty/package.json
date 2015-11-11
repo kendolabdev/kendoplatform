@@ -1,0 +1,18 @@
+{
+    "info": {
+        "theme_id": "smarty",
+        "name": "Smarty",
+        "parent_theme_id": "default",
+        "super_theme_id": "",
+        "author": "YouNet Company",
+        "is_active": "1",
+        "is_editing": "0",
+        "is_default": "0",
+        "variable_params": "",
+        "template_id": "default",
+        "description": null,
+        "screen_shorts": null,
+        "version": "1.0.0",
+        "vendor_id": "namnv@younetco.com"
+    }
+}
