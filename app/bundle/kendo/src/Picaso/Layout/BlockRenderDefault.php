@@ -7,7 +7,7 @@ namespace Picaso\Layout;
  *
  * @package Picaso\Layout
  */
-class BlockWrapperDefault implements BlockWrapper
+class BlockRenderDefault implements BlockRender
 {
 
     /**

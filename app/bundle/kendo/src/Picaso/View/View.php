@@ -2,6 +2,8 @@
 
 namespace Picaso\View;
 
+use Picaso\Layout\BlockParams;
+
 /**
  * Class View
  *
@@ -139,12 +141,15 @@ class View
     }
 
     /**
-     * @param string $script
+     * @param string|BlockParams $script
      *
      * @return View
      */
     public function setScript($script)
     {
+        if ($script instanceof BlockParams)
+            $script = $script->script();
+
         $this->script = $script;
 
         return $this;

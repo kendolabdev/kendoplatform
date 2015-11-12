@@ -41,7 +41,7 @@ class ManageController extends AdminController
             'base_path' => 'base/navigation/controller/admin/manage/browse-navigation',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'paging'    => $paging,
                 'query'     => $query,
@@ -64,7 +64,7 @@ class ManageController extends AdminController
         ]);
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([]);
     }
 

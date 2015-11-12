@@ -44,7 +44,7 @@ class SettingController extends AdminController
         ]);
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'form' => $form,
             ]);
@@ -76,7 +76,7 @@ class SettingController extends AdminController
             ->loadAdminNotificationTypePaging($query, $page, $limit);
 
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'lp'     => $lp,
                 'paging' => $paging,
@@ -107,7 +107,12 @@ class SettingController extends AdminController
             \App::routing()->redirect('admin', ['stuff' => 'notification/setting/type']);
         }
 
-        $this->view->setScript('base/form-edit')
+        $lp = new BlockParams([
+            'base_path'=> 'layout/partial/form-edit'
+        ]);
+
+        $this->view
+            ->setScript($lp)
             ->assign([
                 'form' => $form,
             ]);

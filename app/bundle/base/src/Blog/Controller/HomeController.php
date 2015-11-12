@@ -45,7 +45,7 @@ class HomeController extends DefaultController
             ]);
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/blog/post/paging',
                 'paging'    => $paging,
@@ -86,7 +86,7 @@ class HomeController extends DefaultController
         $lp = \App::layout()->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/blog/post/paging',
                 'paging'    => $paging,
@@ -117,7 +117,7 @@ class HomeController extends DefaultController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script());
+        $this->view->setScript($lp);
     }
 
     /**
@@ -152,9 +152,8 @@ class HomeController extends DefaultController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign(['form' => $form]);
 
 
@@ -298,7 +297,7 @@ class HomeController extends DefaultController
         \App::registry()
             ->set('about', $post);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'post' => $post,
             ]);

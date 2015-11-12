@@ -4,6 +4,7 @@ namespace Photo\Controller\Admin;
 
 use Photo\Form\Admin\PhotoSetting;
 use Picaso\Controller\AdminController;
+use Picaso\Layout\BlockParams;
 
 /**
  * Class SettingController
@@ -31,7 +32,12 @@ class SettingController extends AdminController
             $form->load();
         }
 
-        $this->view->setScript('base/form-edit')
+        $lp = new BlockParams([
+            'base_path'=> 'layout/partial/form-edit'
+        ]);
+
+        $this->view
+            ->setScript($lp)
             ->assign([
                 'form' => $form,
             ]);

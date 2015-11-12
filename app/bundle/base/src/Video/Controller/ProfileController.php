@@ -34,7 +34,7 @@ class ProfileController extends ProfileBaseController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/video/video/paging',
                 'paging'    => $paging,

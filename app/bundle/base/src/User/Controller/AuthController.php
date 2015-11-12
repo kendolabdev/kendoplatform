@@ -77,7 +77,7 @@ class AuthController extends DefaultController
             ->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'form'             => $form,
                 'social'           => $social,
@@ -124,7 +124,7 @@ class AuthController extends DefaultController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script());
+        $this->view->setScript($lp);
 
     }
 

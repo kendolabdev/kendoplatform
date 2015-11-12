@@ -48,7 +48,7 @@ class TemplateController extends AdminController
         ]);
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'filter' => $filter,
                 'paging' => $paging,
@@ -87,10 +87,14 @@ class TemplateController extends AdminController
             $form->setData($template);
         }
 
-        $this->view->assign([
-            'form' => $form,
+        $lp = new BlockParams([
+            'base_path'=> 'layout/partial/form-edit'
         ]);
 
-        $this->view->setScript('base/form-edit');
+        $this->view
+            ->setScript($lp)
+            ->assign([
+                'form' => $form,
+            ]);
     }
 }

@@ -39,6 +39,10 @@ class PermissionController extends AdminController
         $groupId = $this->request->getParam('groupId', 'core');
         $roleId = $this->request->getParam('roleId', null);
 
+        \App::layout()
+            ->setPageFilter($filter)
+            ->setPageTitle('core.manage_permission');
+
         if ($forward) {
             $filter->removeElement('groupId');
         }
@@ -54,7 +58,6 @@ class PermissionController extends AdminController
 
         $group = \App::acl()->findGroupById($groupId);
         $role = \App::acl()->findRoleById($roleId);
-
         $formClass = $group->getFormClass();
 
         $form = \App::html()->factory($formClass, ['role' => $role]);
@@ -71,10 +74,10 @@ class PermissionController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/acl/controller/admin/permission/edit-permission',
+            'base_path' => 'layout/partial/form-edit',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form'    => $form,
                 'filter'  => $filter,

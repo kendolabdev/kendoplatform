@@ -58,12 +58,12 @@ class ManageController extends AdminController
             ->loadAdminCatalogPaging($query, $page);
 
         $lp = new BlockParams([
-            'base_path' => 'base/attribute/controller/admin/manage/browse-catalog',
+            'base_path' => 'layout/facade/paging-more',
             'item_path' => 'base/attribute/paging/admin/browse-catalog',
             //            'item_script' => 'render2',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'query'     => $query,
                 'paging'    => $paging,
@@ -95,10 +95,10 @@ class ManageController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-edit',
+            'base_path' => 'layout/partial/form-edit',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
                 'lp'   => $lp,
@@ -121,7 +121,7 @@ class ManageController extends AdminController
             'base_path' => 'base/attribute/controller/admin/manage/setting',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'listSection' => $listSection,
                 'catalog'     => $catalog,
@@ -153,7 +153,7 @@ class ManageController extends AdminController
             'base_path' => 'base/attribute/controller/admin/manage/add-section',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'paging'    => $paging,
                 'catalog'   => $catalog,
@@ -196,10 +196,10 @@ class ManageController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-edit',
+            'base_path' => 'layout/partial/form-edit',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
                 'lp'   => $lp,
@@ -240,10 +240,10 @@ class ManageController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-edit',
+            'base_path' => 'layout/partial/form-edit',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
                 'lp'   => $lp,

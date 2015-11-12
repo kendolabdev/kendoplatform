@@ -63,7 +63,7 @@ class ManageController extends AdminController
             'item_path' => 'base/report/paging/admin/browse-report',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'filter'    => $filter,
                 'lp'        => $lp,

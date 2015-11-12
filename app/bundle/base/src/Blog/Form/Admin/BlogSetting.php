@@ -15,9 +15,6 @@ class BlogSetting extends BaseSettingForm
      */
     protected function init()
     {
-        $this->setTitle('blog_setting.form_title');
-        $this->setNote('blog_setting.form_note');
-
         $this->addElement([
             'plugin'        => 'radio',
             'name'          => 'blog__browsing_mode',

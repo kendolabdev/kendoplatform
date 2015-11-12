@@ -54,7 +54,7 @@ class CategoryController extends AdminController
             'item_path' => 'base/help/paging/admin/browse-category',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'lp'        => $lp,
                 'paging'    => $paging,
@@ -79,10 +79,10 @@ class CategoryController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-edit',
+            'base_path' => 'layout/partial/form-edit',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
             ]);
@@ -122,10 +122,10 @@ class CategoryController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-edit',
+            'base_path' => 'layout/partial/form-edit',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
             ]);
@@ -163,10 +163,10 @@ class CategoryController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-delete',
+            'base_path' => 'layout/partial/form-delete',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
             ]);

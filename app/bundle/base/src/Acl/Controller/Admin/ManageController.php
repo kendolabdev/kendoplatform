@@ -2,6 +2,7 @@
 namespace Acl\Controller\Admin;
 
 use Acl\Form\Admin\FilterPermission;
+use Core\Form\Admin\CorePermission;
 use Picaso\Controller\AdminController;
 use Picaso\Layout\BlockParams;
 
@@ -51,7 +52,7 @@ class ManageController extends AdminController
         ]);
 
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'page'   => $page,
                 'paging' => $paging,
@@ -76,7 +77,12 @@ class ManageController extends AdminController
             'roleId'    => $roleId,
         ]);
 
-        $this->view->setScript('base/form-edit');
+        $lp = new BlockParams([
+            'base_path'=> 'layout/partial/form-edit'
+        ]);
+
+        $this->view
+            ->setScript($lp);
     }
 
     /**
@@ -87,14 +93,18 @@ class ManageController extends AdminController
         $roleId = 4;
         $groupName = 'core';
 
-        $form = \App::html()->factory('\Core\Form\Admin\Permission', []);
+        $form = new CorePermission();
 
-        $this->view->assign([
-            'form'      => $form,
-            'groupName' => $groupName,
-            'roleId'    => $roleId,
+        $lp = new BlockParams([
+            'base_path' => 'layout/partial/form-edit'
         ]);
 
-        $this->view->setScript('base/form-edit');
+        $this->view
+            ->setScript($lp)
+            ->assign([
+                'form'      => $form,
+                'groupName' => $groupName,
+                'roleId'    => $roleId,
+            ]);
     }
 }

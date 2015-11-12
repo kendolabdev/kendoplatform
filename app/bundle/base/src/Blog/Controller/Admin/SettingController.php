@@ -3,6 +3,7 @@ namespace Blog\Controller\Admin;
 
 use Blog\Form\Admin\BlogSetting;
 use Picaso\Controller\AdminController;
+use Picaso\Layout\BlockParams;
 
 /**
  * Class SettingController
@@ -18,11 +19,13 @@ class SettingController extends AdminController
     public function actionEdit()
     {
 
+        $form = new BlogSetting([]);
+
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageTitle('blog.manage_settings')
+            ->setPageNote('These settings affected to all members')
             ->setupSecondaryNavigation('admin', 'blog_extension', 'blog_settings');
-
-        $form = new BlogSetting([]);
 
         if ($this->request->isPost() && $form->isValid($_POST)) {
             $form->save();
@@ -32,10 +35,15 @@ class SettingController extends AdminController
             $form->load();
         }
 
-        $this->view->setScript('base/form-edit')
+        $lp = new BlockParams([
+            'base_path'=> 'layout/partial/form-edit'
+        ]);
+
+        $this->view
+            ->setScript($lp)
             ->assign([
                 'form' => $form,
-            ]);;
+            ]);
 
     }
 }

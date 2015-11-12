@@ -55,7 +55,7 @@ class HomeController extends DefaultController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->setData([
                 'pagingUrl' => 'ajax/help/category/paging',
                 'paging'    => $paging,
@@ -82,7 +82,7 @@ class HomeController extends DefaultController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'category'  => $category,
                 'paging'    => $paging,
@@ -112,7 +112,7 @@ class HomeController extends DefaultController
             ->loadPostPaging($query, $page = 1, $limit = 10);
 
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'topic'     => $topic,
                 'paging'    => $paging,
@@ -142,7 +142,7 @@ class HomeController extends DefaultController
         $topic = $post->getTopic();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'lp'    => $lp,
                 'item'  => $post,
@@ -163,7 +163,7 @@ class HomeController extends DefaultController
         $lp = \App::layout()->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign(['item' => $page]);
     }
 

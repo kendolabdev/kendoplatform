@@ -59,11 +59,11 @@ class SectionController extends AdminController
             ->loadAdminSectionPaging($query, $page);
 
         $lp = new BlockParams([
-            'base_path' => 'base/attribute/controller/admin/section/browse-section',
+            'base_path' => 'layout/facade/paging-more',
             'item_path' => 'base/attribute/paging/admin/browse-section'
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'query'     => $query,
                 'paging'    => $paging,
@@ -89,7 +89,7 @@ class SectionController extends AdminController
             'base_path' => 'base/attribute/controller/admin/section/setting',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'section'   => $section,
                 'sectionId' => $sectionId,
@@ -121,7 +121,7 @@ class SectionController extends AdminController
             'base_path' => 'base/attribute/controller/admin/section/add-field',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'lp'        => $lp,
                 'paging'    => $paging,
@@ -175,10 +175,10 @@ class SectionController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-edit',
+            'base_path' => 'layout/partial/form-edit',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
                 'lp'   => $lp,
@@ -221,10 +221,10 @@ class SectionController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-edit',
+            'base_path' => 'layout/partial/form-edit',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
                 'lp'   => $lp,
@@ -263,10 +263,10 @@ class SectionController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-edit',
+            'base_path' => 'layout/partial/form-edit',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
                 'lp'   => $lp,

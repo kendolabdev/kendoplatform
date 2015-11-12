@@ -13,9 +13,9 @@ class PageHeaderBlock extends Block
     /**
      * @return string
      */
-    public function getWrapper()
+    public function getRenderer()
     {
-        return 'none';
+        return 'unit';
     }
 
     /**

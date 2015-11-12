@@ -16,4 +16,4 @@
     </div>
 </div>
 
-<?php echo $this->forward('layout/decorator/paging-more');?>
+<?php echo $this->forward('layout/facade/paging-more/render1');?>

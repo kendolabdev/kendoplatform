@@ -22,7 +22,7 @@ class SearchController extends DefaultController
             ->getContentLayoutParams();
 
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([]);
     }
 }

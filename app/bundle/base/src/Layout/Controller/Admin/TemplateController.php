@@ -44,7 +44,7 @@ class TemplateController extends AdminController
         ]);
 
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->setData(['paging' => $paging]);
     }
 }

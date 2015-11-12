@@ -46,7 +46,7 @@ class ManageController extends AdminController
         ]);
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/group/group/paging',
                 'lp'        => $lp,

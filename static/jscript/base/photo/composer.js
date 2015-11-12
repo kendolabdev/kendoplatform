@@ -15,8 +15,6 @@
                 .closest('form')
                 .find(input.data('preview'));
 
-        console.log(url);
-
         input.closest('form').on('clean', function () {
             outer.find('.fc-att-photo-item-ow').remove();
         });

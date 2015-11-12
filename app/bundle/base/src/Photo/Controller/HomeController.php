@@ -61,7 +61,7 @@ class HomeController extends DefaultController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/photo/photo/paging',
                 'paging'    => $paging,
@@ -95,7 +95,7 @@ class HomeController extends DefaultController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/photo/photo/paging',
                 'paging'    => $paging,
@@ -136,7 +136,7 @@ class HomeController extends DefaultController
             }
         }
 
-        $this->view->setScript($lp->script());
+        $this->view->setScript($lp);
     }
 
 
@@ -202,7 +202,7 @@ class HomeController extends DefaultController
             ->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'profile' => $poster,
                 'form'    => $form,
@@ -229,7 +229,7 @@ class HomeController extends DefaultController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/photo/album/paging',
                 'paging'    => $paging,
@@ -261,7 +261,7 @@ class HomeController extends DefaultController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/photo/album/paging',
                 'paging'    => $paging,
@@ -305,7 +305,7 @@ class HomeController extends DefaultController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/photo/photo/paging',
                 'paging'    => $paging,
@@ -378,7 +378,7 @@ class HomeController extends DefaultController
         $lp = \App::layout()->getContentLayoutParams();
 
         if ($mode == 'spotlight') {
-            $this->view->setScript($lp->script());
+            $this->view->setScript($lp);
             $html = $this->view->render();
 
             $photoSrc = $photo->getPhoto('origin');
@@ -397,6 +397,6 @@ class HomeController extends DefaultController
             exit;
         }
 
-        $this->view->setScript($lp->script());
+        $this->view->setScript($lp);
     }
 }

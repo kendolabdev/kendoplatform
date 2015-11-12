@@ -37,13 +37,13 @@ class ManageController extends AdminController
             ->loadAdminPostPaging($query, $page);
 
         $lp = new BlockParams([
-            'base_path' => 'base/blog/controller/admin/manage/browse-post',
+            'base_path' => 'layout/facade/paging-more',
             'item_path' => 'base/blog/paging/admin/browse-post',
             'endless'   => 1,
         ]);
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'filter'    => $filter,
                 'pagingUrl' => 'admin/blog/ajax/manage/paging',

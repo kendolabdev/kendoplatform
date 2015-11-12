@@ -30,7 +30,7 @@ class HomeController extends DefaultController
         $lp = \App::layout()->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/page/page/paging',
                 'paging'    => $paging,
@@ -60,7 +60,7 @@ class HomeController extends DefaultController
         $lp = \App::layout()->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/page/page/paging',
                 'paging'    => $paging,

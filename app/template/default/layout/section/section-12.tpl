@@ -9,9 +9,14 @@
     </div>
     <?php endif; ?>
     <div class="row">
-        <!--main-->
+        <div class="col-lg-12 col-md-12 col-sm-12 location node _top" data-location="top">
+            <?php echo !empty($top)? $top: ''; ?>
+        </div>
         <div class="col-md-12 col-sm-12 location node _main" data-location="main">
             <?php echo !empty($main)? $main: ''; ?>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 location node _bottom" data-location="bottom">
+            <?php echo !empty($bottom)? $bottom: ''; ?>
         </div>
     </div>
 </div>

@@ -33,7 +33,7 @@ class ProfileController extends ProfileBaseController
             ->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/invitation/invitation/paging',
                 'paging'    => $paging,

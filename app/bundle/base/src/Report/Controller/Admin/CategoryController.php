@@ -52,7 +52,7 @@ class CategoryController extends AdminController
         ]);
 
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'lp'        => $lp,
                 'query'     => $query,
@@ -96,7 +96,7 @@ class CategoryController extends AdminController
             'base_path' => 'base/report/controller/admin/category/create-category',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'lp'   => $lp,
                 'form' => $form,
@@ -131,7 +131,7 @@ class CategoryController extends AdminController
         ]);
 
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'lp'   => $lp,
                 'form' => $form,

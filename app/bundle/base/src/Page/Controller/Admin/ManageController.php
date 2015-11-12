@@ -47,7 +47,7 @@ class ManageController extends AdminController
         ]);
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/page/page/paging',
                 'lp'        => $lp,
@@ -93,7 +93,12 @@ class ManageController extends AdminController
             $form->load();
         }
 
-        $this->view->setScript('base/form-edit')
+        $lp = new BlockParams([
+            'base_path'=> 'layout/partial/form-edit'
+        ]);
+
+        $this->view
+            ->setScript($lp)
             ->assign([
                 'form' => $form,
             ]);

@@ -50,7 +50,7 @@ class MaintenanceController extends DefaultController
             ->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([]);
     }
 }

@@ -40,7 +40,7 @@ class ProfileController extends ProfileBaseController
         $lp = \App::layout()->getContentLayoutParams();
 
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/group/group/paging',
                 'paging'    => $paging,
@@ -70,7 +70,7 @@ class ProfileController extends ProfileBaseController
         $lp = \App::layout()->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/group/member/paging',
                 'paging'    => $paging,

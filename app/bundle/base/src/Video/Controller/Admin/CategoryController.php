@@ -50,7 +50,7 @@ class CategoryController extends AdminController
             'item_path' => 'base/video/paging/admin/browse-category',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'lp'        => $lp,
                 'query'     => $query,
@@ -67,7 +67,7 @@ class CategoryController extends AdminController
     {
         $form = new CreateVideoCategory();
 
-        $lp = new BlockParams(['base_path' => 'base/core/form-edit']);
+        $lp = new BlockParams(['base_path' => 'layout/partial/form-edit']);
 
         if ($this->request->isPost() && $form->isValid($_POST)) {
             $data = $form->getData();
@@ -79,7 +79,7 @@ class CategoryController extends AdminController
             \App::routing()->redirect('admin', ['stuff' => 'video/category/browse']);
         }
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
                 'lp'   => $lp,
@@ -114,9 +114,9 @@ class CategoryController extends AdminController
             \App::routing()->redirect('admin', ['stuff' => 'video/category/browse']);
         }
 
-        $lp = new BlockParams(['base_path' => 'base/core/form-edit']);
+        $lp = new BlockParams(['base_path' => 'layout/partial/form-edit']);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign(['form' => $form, 'lp' => $lp]);
 
     }
@@ -145,9 +145,9 @@ class CategoryController extends AdminController
             \App::routing()->redirect('admin', ['stuff' => 'video/category/browse']);
         }
 
-        $lp = new BlockParams(['base_path' => 'base/core/form-delete']);
+        $lp = new BlockParams(['base_path' => 'layout/partial/form-delete']);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign(['form' => $form, 'lp' => $lp]);
 
     }

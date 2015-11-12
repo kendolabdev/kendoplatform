@@ -45,7 +45,7 @@ class ThemeController extends AdminController
             'base_path' => 'base/layout/controller/admin/theme/browse-theme',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->setData(['paging' => $paging]);
     }
 
@@ -97,8 +97,15 @@ class ThemeController extends AdminController
                 ->redirect('admin', ['stuff' => 'layout/theme/browse']);
         }
 
-        $this->view->setScript('base/form-edit')
-            ->assign(['form' => $form]);
+        $lp = new BlockParams([
+            'base_path'=> 'layout/partial/form-edit'
+        ]);
+
+        $this->view
+            ->setScript($lp)
+            ->assign([
+                'form' => $form,
+            ]);
     }
 
 }

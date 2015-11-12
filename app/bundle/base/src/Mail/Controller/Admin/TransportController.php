@@ -35,7 +35,7 @@ class TransportController extends AdminController
         $paging = \App::mail()
             ->loadAdminTransportPaging($query, 1, 100);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'paging' => $paging,
                 'lp'     => $lp,
@@ -79,8 +79,12 @@ class TransportController extends AdminController
             $form->load();
         }
 
+        $lp = new BlockParams([
+            'base_path'=> 'layout/partial/form-edit'
+        ]);
+
         $this->view
-            ->setScript('base/form-edit')
+            ->setScript($lp)
             ->assign([
                 'form' => $form,
             ]);

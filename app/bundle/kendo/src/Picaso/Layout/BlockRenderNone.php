@@ -7,7 +7,7 @@ namespace Picaso\Layout;
  *
  * @package Picaso\Layout
  */
-class BlockWrapperNone implements BlockWrapper
+class BlockRenderNone implements BlockRender
 {
 
     /**
@@ -18,7 +18,7 @@ class BlockWrapperNone implements BlockWrapper
      */
     public function render(Block $block, $params = [])
     {
-        return '<div class="_block ' . $block->getCssClassName() . '">' . $block->getContent() . '</div>';
+        return $block->getContent();
     }
 
 }

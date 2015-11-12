@@ -54,7 +54,6 @@ class SuggestField extends HtmlElement implements FormField
 
         $this->beforeRender();
 
-
         $tokens = [];
 
         if (!empty($values)) {
@@ -68,7 +67,7 @@ class SuggestField extends HtmlElement implements FormField
             }
         }
 
-        return \App::viewHelper()->partial('/layout/form/suggest-field', [
+        return \App::viewHelper()->partial('/layout/partial/form-render/suggest-field', [
             'attrs'    => $this->_flat($this->attributes),
             'name'     => $this->getName(),
             'multiple' => $this->isMultiple(),

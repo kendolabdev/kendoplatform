@@ -51,7 +51,7 @@ class ManageController extends AdminController
 
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'filter'    => $filter,
                 'pagingUrl' => 'ajax/user/admin/user/paging',

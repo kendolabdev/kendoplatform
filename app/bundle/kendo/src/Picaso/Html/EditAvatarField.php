@@ -1,8 +1,6 @@
 <?php
 namespace Picaso\Html;
 
-use Picaso\View\View;
-
 /**
  * Class EditAvatarField
  *
@@ -79,6 +77,6 @@ class EditAvatarField extends HtmlElement implements FormField
         }
 
         return \App::viewHelper()
-            ->partial('layout/form/edit-avatar-field', $data);
+            ->partial('layout/partial/form-render/edit-avatar-field', $data);
     }
 }

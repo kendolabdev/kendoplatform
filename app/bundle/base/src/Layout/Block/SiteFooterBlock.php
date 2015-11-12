@@ -20,7 +20,7 @@ class SiteFooterBlock extends Block
         $lp = \App::layout()
             ->getFooterLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'contact' => \App::setting('contact'),
             ]);

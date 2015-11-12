@@ -56,11 +56,11 @@ class FieldController extends AdminController
             ->loadAdminFieldPaging($query, $page);
 
         $lp = new BlockParams([
-            'base_path' => 'base/attribute/controller/admin/field/browse-field',
+            'base_path' => 'layout/facade/paging-more',
             'item_path' => 'base/attribute/paging/admin/browse-field'
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'query'     => $query,
                 'paging'    => $paging,
@@ -92,10 +92,10 @@ class FieldController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-edit',
+            'base_path' => 'layout/partial/form-edit',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
                 'lp'   => $lp,
@@ -144,10 +144,10 @@ class FieldController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-edit',
+            'base_path' => 'layout/partial/form-edit',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
                 'lp'   => $lp,
@@ -190,10 +190,10 @@ class FieldController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-edit',
+            'base_path' => 'layout/partial/form-edit',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
                 'lp'   => $lp,
@@ -233,10 +233,10 @@ class FieldController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-edit',
+            'base_path' => 'layout/partial/form-delete',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
                 'lp'   => $lp,
@@ -261,7 +261,7 @@ class FieldController extends AdminController
             'item_path' => 'base/attribute/paging/admin/browse-option'
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'query'     => $query,
                 'paging'    => $paging,

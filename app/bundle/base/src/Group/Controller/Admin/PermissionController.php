@@ -43,10 +43,10 @@ class PermissionController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/acl/controller/admin/permission/edit-permission',
+            'base_path' => 'layout/partial/form-edit',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form'   => $form,
                 'filter' => $filter,

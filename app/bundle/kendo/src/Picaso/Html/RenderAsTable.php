@@ -15,7 +15,7 @@ class RenderAsTable implements RenderInterface
     /**
      * @var string
      */
-    private $script = 'layout/form/as-table';
+    private $script = 'layout/partial/form-render/as-table';
 
     /**
      * @param HtmlElement $form
@@ -29,11 +29,11 @@ class RenderAsTable implements RenderInterface
 
         $form->beforeRender();
 
-        return (new View($this->getScript(), [
-            'form'    => $form,
-            'options' => $options,
-            'render'  => $this,
-        ]))->render();
+        return \App::viewHelper()
+            ->partial($this->getScript(),
+                ['form'    => $form,
+                 'options' => $options,
+                 'render'  => $this]);
     }
 
     /**

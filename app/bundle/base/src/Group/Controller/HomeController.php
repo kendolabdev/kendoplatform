@@ -28,7 +28,7 @@ class HomeController extends DefaultController
             ->setPageTitle('group.groups');
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/group/group/paging',
                 'paging'    => $paging,
@@ -62,7 +62,7 @@ class HomeController extends DefaultController
         $lp = \App::layout()->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/group/group/paging',
                 'paging'    => $paging,

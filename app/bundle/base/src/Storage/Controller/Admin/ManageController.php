@@ -34,7 +34,7 @@ class ManageController extends AdminController
             'base_path' => 'base/storage/controller/admin/manage/browse-storage',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'paging'    => $paging,
                 'pagingUrl' => 'admin/storage/ajax/manage/paging',
@@ -65,11 +65,15 @@ class ManageController extends AdminController
 
         $form = new SelectStorage([]);
 
-        $this->view->assign([
-            'form' => $form,
+        $lp = new BlockParams([
+            'base_path'=> 'layout/partial/form-edit'
         ]);
 
-        $this->view->setScript('base/form-edit');
+        $this->view
+            ->setScript($lp)
+            ->assign([
+                'form' => $form,
+            ]);
     }
 
     /**
@@ -87,11 +91,15 @@ class ManageController extends AdminController
 
         $form = \App::html()->factory($adapter->getAdminForm());
 
-        $this->view->assign([
-            'form' => $form,
+        $lp = new BlockParams([
+            'base_path'=> 'layout/partial/form-edit'
         ]);
 
-        $this->view->setScript('/base/form-edit');
+        $this->view
+            ->setScript($lp)
+            ->assign([
+                'form' => $form,
+            ]);
 
     }
 
@@ -112,10 +120,14 @@ class ManageController extends AdminController
 
         $form = \App::html()->factory($adapter->getAdminForm());
 
-        $this->view->assign([
-            'form' => $form,
+        $lp = new BlockParams([
+            'base_path'=> 'layout/partial/form-edit'
         ]);
 
-        $this->view->setScript('base/form-edit');
+        $this->view
+            ->setScript($lp)
+            ->assign([
+                'form' => $form,
+            ]);
     }
 }

@@ -23,7 +23,7 @@ class HomeController extends DefaultController
             ->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script());
+            ->setScript($lp);
     }
 
     /**
@@ -49,7 +49,7 @@ class HomeController extends DefaultController
         $lp = \App::layout()
             ->getContentLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'bundles' => $dataBundles['bundles'],
             ]);

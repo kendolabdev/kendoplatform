@@ -110,7 +110,7 @@ class RegisterController extends DefaultController
             }
         }
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
                 'lp'   => $lp,

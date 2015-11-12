@@ -92,7 +92,7 @@ class ManageController extends AdminController
 
         }
 
-        $this->view->setScript('base/core/form-edit/render1')
+        $this->view->setScript('layout/partial/form-edit/render1')
             ->assign(['form' => $form]);
     }
 
@@ -116,7 +116,7 @@ class ManageController extends AdminController
 
         }
 
-        $this->view->setScript('base/core/form-edit/render1')
+        $this->view->setScript('layout/partial/form-edit/render1')
             ->assign(['form' => $form]);
     }
 }

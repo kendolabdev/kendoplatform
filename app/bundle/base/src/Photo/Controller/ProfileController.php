@@ -32,7 +32,7 @@ class ProfileController extends ProfileBaseController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/photo/photo/paging',
                 'paging'    => $paging,
@@ -67,7 +67,7 @@ class ProfileController extends ProfileBaseController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/photo/photo/paging',
                 'profile'   => $profile,
@@ -102,7 +102,7 @@ class ProfileController extends ProfileBaseController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/photo/album/paging',
                 'paging'    => $paging,

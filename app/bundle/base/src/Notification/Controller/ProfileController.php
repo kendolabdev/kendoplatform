@@ -35,7 +35,7 @@ class ProfileController extends ProfileBaseController
             ->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/notification/notification/paging',
                 'paging'    => $paging,

@@ -30,7 +30,7 @@ class ManageController extends AdminController
             'base_path' => '/base/subscription/controller/admin/manage/browse-subscription'
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([]);
     }
 }

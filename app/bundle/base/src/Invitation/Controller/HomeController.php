@@ -33,7 +33,7 @@ class HomeController extends DefaultController
             ->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'lp'      => $lp,
                 'profile' => $viewer,

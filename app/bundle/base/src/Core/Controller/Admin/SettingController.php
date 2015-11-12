@@ -1,6 +1,7 @@
 <?php
 namespace Core\Controller\Admin;
 
+use Picaso\Layout\BlockParams;
 use Setting\Form\Admin\BaseSettingForm;
 use Picaso\Controller\AdminController;
 
@@ -17,8 +18,6 @@ class SettingController extends AdminController
 
         \App::layout()
             ->setPageName('admin_edit');
-
-        $this->view->setScript('base/form-edit');
     }
 
     /**
@@ -70,9 +69,15 @@ class SettingController extends AdminController
             $form->load();
         }
 
-        $this->view->assign([
-            'form' => $form,
+        $lp = new BlockParams([
+            'base_path'=> 'layout/partial/form-edit'
         ]);
+
+        $this->view
+            ->setScript($lp)
+            ->assign([
+                'form' => $form,
+            ]);
 
     }
 }

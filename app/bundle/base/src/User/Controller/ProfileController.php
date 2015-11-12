@@ -51,7 +51,7 @@ class ProfileController extends ProfileBaseController
             ->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'form' => $form,
             ]);
@@ -88,7 +88,7 @@ class ProfileController extends ProfileBaseController
          */
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'aboutHtml' => $aboutHtml,
             ]);
@@ -120,7 +120,7 @@ class ProfileController extends ProfileBaseController
         $lp = \App::layout()->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/user/friend/paging',
                 'paging'    => $paging,

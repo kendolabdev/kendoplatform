@@ -47,7 +47,7 @@ class ManageController extends AdminController
             'base_path' => 'base/layout/controller/admin/manage/browse-layout',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'filter' => $filter,
                 'paging' => $paging
@@ -134,6 +134,6 @@ class ManageController extends AdminController
             'base_path' => 'base/layout/controller/admin/manage/edit-layout',
         ]);
 
-        $this->view->setScript($lp->script());
+        $this->view->setScript($lp);
     }
 }

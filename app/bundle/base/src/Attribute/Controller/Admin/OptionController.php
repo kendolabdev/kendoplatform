@@ -51,11 +51,11 @@ class OptionController extends AdminController
             ->loadAdminOptionPaging($query, $page);
 
         $lp = new BlockParams([
-            'base_path' => 'base/attribute/controller/admin/option/browse-option',
+            'base_path' => 'layout/facade/paging-more',
             'item_path' => 'base/attribute/paging/admin/browse-option'
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'query'     => $query,
                 'paging'    => $paging,
@@ -93,10 +93,10 @@ class OptionController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-edit',
+            'base_path' => 'layout/partial/form-edit',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
                 'lp'   => $lp,
@@ -139,10 +139,10 @@ class OptionController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-edit',
+            'base_path' => 'layout/partial/form-edit',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
                 'lp'   => $lp,
@@ -182,10 +182,10 @@ class OptionController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/core/form-delete',
+            'base_path' => 'layout/partial/form-delete',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
                 'lp'   => $lp,

@@ -59,7 +59,7 @@ class HomeController extends DefaultController
             ->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'items' => $paging,
             ]);
@@ -97,7 +97,7 @@ class HomeController extends DefaultController
             ->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'items' => $paging,
             ]);
@@ -122,7 +122,7 @@ class HomeController extends DefaultController
             ->getContentLayoutParams();
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'items' => $paging,
             ]);

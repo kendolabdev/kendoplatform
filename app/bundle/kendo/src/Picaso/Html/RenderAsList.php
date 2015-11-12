@@ -15,7 +15,7 @@ class RenderAsList implements RenderInterface
     /**
      * @var string
      */
-    private $script = 'layout/form/as-list';
+    private $script = 'layout/partial/form-render/as-list';
 
     /**
      * @param HtmlElement $form
@@ -29,11 +29,11 @@ class RenderAsList implements RenderInterface
 
         $form->beforeRender();
 
-        return (new View($this->getScript(), [
-            'form'    => $form,
-            'options' => $options,
-            'render'  => $this,
-        ]))->render();
+        return \App::viewHelper()
+            ->partial($this->getScript(),
+                ['form'    => $form,
+                 'options' => $options,
+                 'render'  => $this]);
     }
 
     /**

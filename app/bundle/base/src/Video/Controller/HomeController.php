@@ -30,7 +30,7 @@ class HomeController extends DefaultController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/video/video/paging',
                 'paging'    => $paging,
@@ -60,7 +60,7 @@ class HomeController extends DefaultController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/video/video/paging',
                 'paging'    => $paging,
@@ -107,7 +107,7 @@ class HomeController extends DefaultController
             }
         }
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
             ]);
@@ -147,7 +147,7 @@ class HomeController extends DefaultController
 
         }
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'form' => $form,
             ]);
@@ -173,7 +173,7 @@ class HomeController extends DefaultController
 
         $lp = \App::layout()->getContentLayoutParams();
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'video'  => $video,
                 'poster' => $video->getPoster(),

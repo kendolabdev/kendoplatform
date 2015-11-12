@@ -88,7 +88,7 @@ class DefaultController implements Controller
         $lp = \App::layout()
             ->getContentLayoutParams();
 
-        $this->view->setScript($lp->script());
+        $this->view->setScript($lp);
     }
 
     /**

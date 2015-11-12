@@ -66,7 +66,7 @@ class ErrorController extends DefaultController
         \App::layout()
             ->setPageName($pageName);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign(['exception' => $exception]);
 
     }

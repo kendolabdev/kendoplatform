@@ -43,7 +43,7 @@ class AclService implements AclLoaderInterface
     public function findGroupById($id)
     {
         return \App::table('acl.acl_group')
-            ->findById((int)$id);
+            ->findById($id);
     }
 
     /**

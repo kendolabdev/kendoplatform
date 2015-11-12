@@ -60,7 +60,7 @@ class GeneralController extends AdminController
             'item_path' => 'base/report/paging/admin/browse-general-report',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'lp'        => $lp,
                 'paging'    => $paging,

@@ -33,6 +33,6 @@ class LanguageController extends AdminController
             'base_path' => 'base/phrase/controller/admin/language/browse-language',
         ]);
 
-        $this->view->setScript($lp->script());
+        $this->view->setScript($lp);
     }
 }

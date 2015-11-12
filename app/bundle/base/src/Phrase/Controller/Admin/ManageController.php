@@ -51,7 +51,7 @@ class ManageController extends AdminController
             'item_path' => 'base/phrase/paging/admin/browse-phrase',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'pagingUrl' => 'ajax/core/phrase/paging',
                 'query'     => $query,
@@ -102,6 +102,6 @@ class ManageController extends AdminController
             'base_path' => 'base/phrase/controller/admin/manage/import',
         ]);
 
-        $this->view->setScript($lp->script());
+        $this->view->setScript($lp);
     }
 }

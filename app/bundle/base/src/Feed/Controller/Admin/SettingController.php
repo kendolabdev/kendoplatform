@@ -44,7 +44,7 @@ class SettingController extends BaseController
         ]);
 
         $this->view
-            ->setScript($lp->script())
+            ->setScript($lp)
             ->assign([
                 'form' => $form,
             ]);
@@ -73,7 +73,7 @@ class SettingController extends BaseController
             'base_path' => 'base/feed/controller/admin/setting/browse-type',
         ]);
 
-        $this->view->setScript($lp->script())
+        $this->view->setScript($lp)
             ->assign([
                 'filter' => $filter,
                 'paging' => $paging,
@@ -107,7 +107,12 @@ class SettingController extends BaseController
             \App::routing()->redirect('admin', ['stuff' => 'feed/setting/type']);
         }
 
-        $this->view->setScript('base/form-edit')
+        $lp = new BlockParams([
+            'base_path'=> 'layout/partial/form-edit'
+        ]);
+
+        $this->view
+            ->setScript($lp)
             ->assign([
                 'form' => $form,
             ]);

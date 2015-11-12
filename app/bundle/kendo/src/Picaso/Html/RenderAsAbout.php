@@ -15,7 +15,7 @@ class RenderAsAbout implements RenderInterface
     /**
      * @var string
      */
-    private $script = 'layout/form/as-about';
+    private $script = 'layout/partial/form-render/as-about';
 
     /**
      * @param HtmlElement $form
