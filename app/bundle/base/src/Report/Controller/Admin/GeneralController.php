@@ -17,8 +17,18 @@ class GeneralController extends AdminController
      */
     protected function onBeforeRender()
     {
+        $deleteButton = [
+            'label' => 'report.delete_all',
+            'props' => [
+                'class' => 'btn btn-sm btn-danger',
+                'href'  => '?delete=all',
+            ]
+        ];
+
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageTitle('report.general_reports')
+            ->setPageButtons([$deleteButton])
             ->setupSecondaryNavigation('admin', 'admin_report', 'general_reports');
     }
 
@@ -28,6 +38,10 @@ class GeneralController extends AdminController
     public function actionBrowse()
     {
         $filter = new FilterReport();
+
+        \App::layout()
+            ->setPageFilter($filter)
+            ->setPageTitle('report.general_reports');
 
         $filter->isValid([
             'aboutType' => $this->request->getParam('aboutType'),

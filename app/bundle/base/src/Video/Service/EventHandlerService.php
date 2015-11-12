@@ -83,7 +83,7 @@ class EventHandlerService extends EventHandler
 
         $stats['video'] = [
             'label' => \App::text('video.videos'),
-            'value' => \App::service('video')->getActiveVideoCount(),
+            'value' => \App::video()->getActiveVideoCount(),
         ];
 
         $payload->__set('stats', $stats);

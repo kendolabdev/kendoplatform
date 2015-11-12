@@ -23,7 +23,7 @@ class InstallHandlerService extends ModuleInstallHandler
     /**
      *
      */
-    public function afterImport()
+    public function afterInstall()
     {
         \App::table('core.core_uid_generator')
             ->insertIgnore(['uid' => 1000]);

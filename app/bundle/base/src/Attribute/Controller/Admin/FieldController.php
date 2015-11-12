@@ -32,6 +32,17 @@ class FieldController extends AdminController
      */
     public function actionBrowse()
     {
+        \App::layout()
+            ->setPageTitle('attribute.manage_fields')
+            ->setPageButtons([
+                [
+                    'label' => 'attribute.add_new_field',
+                    'props' => [
+                        'href'   => \App::routing()->getUrl('admin', ['stuff' => 'attribute/field/create']),
+                        'class' => 'btn btn-sm btn-danger'
+                    ]]
+            ]);
+
         $page = 1;
         $filter = new FilterAttributeField();
 

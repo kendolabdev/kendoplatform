@@ -1,9 +1,3 @@
-<form method="get">
-    <div class="page-heading">
-        <h1 class="page-title">Manage Languages</h1>
-    </div>
-</form>
-
 <table class="table">
     <thead>
     <tr>

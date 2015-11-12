@@ -7,7 +7,7 @@
             <?php if(!empty($buttons)): ?>
             <div class="btn-group">
                 <?php foreach($buttons as $button): ?>
-                <a <?php echo _htmlattrs($button['props']);?>><i class="<?php echo $button['icon'];?>"></i> <?php echo $button['label'];?></a>
+                <a <?php echo _htmlattrs($button['props']);?>><i class="<?php echo $button['icon'];?>"></i> <?php echo $this->helper()->text($button['label']);?></a>
                 <?php endforeach; ?>
             </div>
             <?php endif; ?>
@@ -17,5 +17,12 @@
     <div class="page-note">
         <?php echo $note; ?>
     </div>
+    <?php endif; ?>
+    <?php if(!empty($filter)): ?>
+    <?php \App::registry()->set('prefer_dropdown_button',true); ?>
+    <div class="page-filter">
+        <?php echo $filter->asSearch(); ?>
+    </div>
+    <?php \App::registry()->set('prefer_dropdown_button',false); ?>
     <?php endif; ?>
 </div>

@@ -22,12 +22,16 @@ class ManageController extends AdminController
     public function actionBrowse()
     {
 
+        $filter = new FilterUser();
+
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageTitle('user.manage_members')
+            ->setPageFilter($filter)
             ->setupSecondaryNavigation('admin', 'admin_manage_member', 'user_manage');
 
         $page = $this->request->getParam('page', 1);
-        $filter = new FilterUser();
+
 
         $filter->setData($this->request->getParams());
 

@@ -20,11 +20,13 @@ class ManageController extends AdminController
     public function actionBrowse()
     {
 
+        $filter = new FilterEvent();
+
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageTitle('event.manage_events')
+            ->setPageFilter($filter)
             ->setupSecondaryNavigation('admin', 'event_extension', 'event_manage');
-
-        $filter = new FilterEvent();
 
         $filter->isValid($this->request->getParams());
 

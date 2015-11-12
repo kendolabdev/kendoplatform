@@ -66,7 +66,7 @@ class EventHandlerService extends EventHandler
 
         $stats['blog'] = [
             'label' => \App::text('blog.blogs'),
-            'value' => \App::service('blog')->getActiveBlogCount(),
+            'value' => \App::blog()->getActiveBlogCount(),
         ];
 
         $payload->__set('stats', $stats);

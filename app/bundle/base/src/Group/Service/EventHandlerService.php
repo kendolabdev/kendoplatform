@@ -93,7 +93,7 @@ class EventHandlerService extends EventHandler
 
         $stats['group'] = [
             'label' => \App::text('group.groups'),
-            'value' => \App::service('group')->getAdminStatisticCount(),
+            'value' => \App::group()->getAdminStatisticCount(),
         ];
 
         $payload->__set('stats', $stats);

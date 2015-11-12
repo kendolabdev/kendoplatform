@@ -8,12 +8,12 @@
            class="btn btn-xs btn-info"
            data-toggle="ajax"
            data-url="admin/layout/ajax/theme/rebuild?id=<?php echo $item->getId();?>">
-           Rebuild CSS
+            Rebuild CSS
         </a>
         <a role="button"
            class="btn btn-xs btn-primary"
            data-toggle="ajax"
-           data-url="admin/layout/ajax/theme/export?id=<?php echo $item->getId();?>">
+           data-url="admin/core/ajax/extension/export?id=<?php echo $item->getId();?>">
             Export
         </a>
     </h5>

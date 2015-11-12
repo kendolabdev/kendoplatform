@@ -1,18 +1,37 @@
 {
-    "info": {
+    "extension": {
+        "id": "66",
+        "extension_type": "theme",
+        "name": "theme_smarty-dark",
+        "load_order": "99",
+        "path": "\/app\/theme\/smarty-dark",
+        "is_active": "1",
+        "is_system": "1",
+        "namespace": "\/theme\/smarty-dark",
+        "title": "Theme Smarty - Dark",
+        "author": "YouNet Company",
+        "description": "",
+        "version": "1.0.0",
+        "latest_version": "1.0.0",
+        "created_at": "2015-04-25 08:29:51",
+        "modified_at": "2015-04-25 08:29:51",
+        "vendor_id": "namnv@younetco.com",
+        "install_path": null,
+        "install_handler": null
+    },
+    "theme": {
         "theme_id": "smarty-dark",
         "name": "Smarty - Dark",
+        "extension_name": "theme_smarty-dark",
         "parent_theme_id": "smarty",
         "super_theme_id": "default",
-        "author": "YouNet Company",
         "is_active": "1",
         "is_editing": "0",
         "is_default": "0",
         "variable_params": "",
         "template_id": "default",
         "description": null,
-        "screen_shorts": null,
-        "version": "1.0.0",
-        "vendor_id": "namnv@younetco.com"
-    }
+        "screen_shorts": null
+    },
+    "layout_data": []
 }

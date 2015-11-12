@@ -38,12 +38,12 @@ class ThemeController extends AdminController
             ->setTitle(\App::text('core_layout.manage_templates'));
 
         $paging = \App::layout()
+            ->setPageTitle('layout.manage_themes')
             ->loadAdminThemePaging($query, $page, $limit);
 
         $lp = new BlockParams([
             'base_path' => 'base/layout/controller/admin/theme/browse-theme',
         ]);
-
 
         $this->view->setScript($lp->script())
             ->setData(['paging' => $paging]);

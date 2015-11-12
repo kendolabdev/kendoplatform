@@ -5,7 +5,6 @@ namespace Attribute\Controller\Admin;
 use Attribute\Form\Admin\CreateAttributeOption;
 use Attribute\Form\Admin\DeleteAttributeField;
 use Attribute\Form\Admin\DeleteAttributeOption;
-use Attribute\Form\Admin\EditAttributeField;
 use Attribute\Form\Admin\EditAttributeOption;
 use Picaso\Controller\AdminController;
 use Picaso\Layout\BlockParams;
@@ -32,6 +31,18 @@ class OptionController extends AdminController
      */
     public function actionBrowse()
     {
+
+        \App::layout()
+            ->setPageTitle('attribute.manage_options')
+            ->setPageButtons([
+                [
+                    'label' => 'attribute.add_new_option',
+                    'props' => [
+                        'href'   => \App::routing()->getUrl('admin', ['stuff' => 'attribute/option/create']),
+                        'class' => 'btn btn-sm btn-danger'
+                    ]]
+            ]);
+
         $page = 1;
         $fieldId = $this->request->getParam('fieldId');
         $query = ['field' => $fieldId];

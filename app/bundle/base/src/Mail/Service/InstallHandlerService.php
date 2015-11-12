@@ -34,7 +34,7 @@ class InstallHandlerService extends ModuleInstallHandler
     /**
      *
      */
-    public function afterImport()
+    public function afterInstall()
     {
         if (!empty($this->finalData['mail_adapter'])) {
             foreach ($this->finalData['mail_adapter'] as $data) {

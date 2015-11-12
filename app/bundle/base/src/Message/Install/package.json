@@ -1,1 +1,161 @@
-{"tables":{"message_conversation":"CREATE TABLE `:table_prefix_message_conversation` (\n  `conversation_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `title` varchar(100) DEFAULT '',\n  `from_id` varchar(20) DEFAULT NULL,\n  `to_id` bigint(20) DEFAULT NULL,\n  `last_message_id` bigint(20) DEFAULT '0',\n  `created_at` datetime NOT NULL,\n  PRIMARY KEY (`conversation_id`),\n  KEY `from_id` (`from_id`,`to_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8","message_message":"CREATE TABLE `:table_prefix_message_message` (\n  `message_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `type_id` enum('message','group','chat') NOT NULL DEFAULT 'message',\n  `reply_message_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'used to reply function, do not used in to chat',\n  `conversation_id` bigint(20) unsigned NOT NULL,\n  `poster_id` bigint(20) unsigned NOT NULL,\n  `poster_type` varchar(32) NOT NULL DEFAULT '',\n  `created_at` datetime NOT NULL,\n  `subject` varchar(200) DEFAULT NULL,\n  `content` text,\n  PRIMARY KEY (`message_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8","message_recipient":"CREATE TABLE `:table_prefix_message_recipient` (\n  `recipient_id` bigint(20) unsigned NOT NULL,\n  `conversation_id` bigint(20) unsigned NOT NULL,\n  `is_active` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `recipient_type` varchar(32) NOT NULL,\n  `history_message_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'used to clear history function',\n  `unread_count` smallint(4) unsigned NOT NULL DEFAULT '0',\n  `last_message_id` bigint(20) unsigned NOT NULL DEFAULT '0',\n  `modified_at` datetime NOT NULL,\n  PRIMARY KEY (`conversation_id`,`recipient_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8"},"core_extension":[{"id":"37","extension_type":"module","load_order":"10","path":"\/base\/src\/Message","is_active":"1","is_system":"1","namespace":"Message","name":"message","title":"Message","author":"YouNet Company","description":"Message &amp; Chat module","version":"1.0.1","created_at":"2015-04-25 08:29:51","modified_at":"2015-04-25 08:29:51"}],"core_type":[],"setting_action":[],"setting_value":[],"phrase":[],"acl_role":[],"acl_group":[{"group_id":"message","module_name":"message","group_title":"Message Permissions","group_description":"Message Permissions","sort_order":"6","form_class":"\\Message\\Form\\Admin\\MessagePermission"}],"acl_action":[{"module_name":"message","group_name":"message","action_name":"chat","comment":"Chat"},{"module_name":"message","group_name":"message","action_name":"send_message","comment":"Send Message"}],"acl_allow_data":[],"navigation":[],"navigation_item":[{"item_id":"190","nav_id":"admin","is_active":"1","sort_order":"102","module_name":"message","item_name":"message","phrase_name":"messages","parent_name":"admin_permission_edit","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"acl\/permission\/edit\",\"groupId\":\"message\",\"t\":\"message\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null}],"invitation_type":[],"feed_type":[],"notification_type":[],"attribute_plugin":[],"relation_type":[],"layout_support_block":[],"layout_page":[{"page_id":"63","page_name":"message_home","parent_page_name":"core_default","module_name":"message","item_module_name":"message","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"","item_path":""},{"page_id":"138","page_name":"message_home_inbox_message","parent_page_name":"core_default","module_name":"message","item_module_name":"message","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"","item_path":""},{"page_id":"141","page_name":"message_ajax_bear_dialog","parent_page_name":"core_default","module_name":"message","item_module_name":"message","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/message\/dialog\/bear-message","item_path":"base\/message\/paging\/browse-message"},{"page_id":"144","page_name":"message_home_compose_message","parent_page_name":"core_default","module_name":"message","item_module_name":"message","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/message\/controller\/home\/compose-message","item_path":""}],"layout_data":[],"mail_template":[],"core_hook":[{"id":"173","event_name":"onBeforeBuildBundleJS","service_name":"message.event_handler","load_order":"85","module_name":"message"},{"id":"174","event_name":"onMenuMainMessages","service_name":"message.event_handler","load_order":"86","module_name":"message"},{"id":"183","event_name":"onBeforeBuildBundleStylesheet","service_name":"message.event_handler","load_order":"93","module_name":"message"}]}
+{
+    "tables": {
+        "message_conversation": "CREATE TABLE `:table_prefix_message_conversation` (\n  `conversation_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `title` varchar(100) DEFAULT '',\n  `from_id` varchar(20) DEFAULT NULL,\n  `to_id` bigint(20) DEFAULT NULL,\n  `last_message_id` bigint(20) DEFAULT '0',\n  `created_at` datetime NOT NULL,\n  PRIMARY KEY (`conversation_id`),\n  KEY `from_id` (`from_id`,`to_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+        "message_message": "CREATE TABLE `:table_prefix_message_message` (\n  `message_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `type_id` enum('message','group','chat') NOT NULL DEFAULT 'message',\n  `reply_message_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'used to reply function, do not used in to chat',\n  `conversation_id` bigint(20) unsigned NOT NULL,\n  `poster_id` bigint(20) unsigned NOT NULL,\n  `poster_type` varchar(32) NOT NULL DEFAULT '',\n  `created_at` datetime NOT NULL,\n  `subject` varchar(200) DEFAULT NULL,\n  `content` text,\n  PRIMARY KEY (`message_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+        "message_recipient": "CREATE TABLE `:table_prefix_message_recipient` (\n  `recipient_id` bigint(20) unsigned NOT NULL,\n  `conversation_id` bigint(20) unsigned NOT NULL,\n  `is_active` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `recipient_type` varchar(32) NOT NULL,\n  `history_message_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'used to clear history function',\n  `unread_count` smallint(4) unsigned NOT NULL DEFAULT '0',\n  `last_message_id` bigint(20) unsigned NOT NULL DEFAULT '0',\n  `modified_at` datetime NOT NULL,\n  PRIMARY KEY (`conversation_id`,`recipient_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8"
+    },
+    "core_extension": [
+        {
+            "id": "37",
+            "extension_type": "module",
+            "name": "message",
+            "load_order": "10",
+            "path": "\/app\/bundle\/base\/src\/Message",
+            "is_active": "1",
+            "is_system": "1",
+            "namespace": "Message",
+            "title": "Message",
+            "author": "YouNet Company",
+            "description": "Message &amp; Chat module",
+            "version": "1.0.1",
+            "created_at": "2015-04-25 08:29:51",
+            "modified_at": "2015-04-25 08:29:51",
+            "vendor_id": "namnv@younetco.com",
+            "install_path": "\/app\/bundle\/base\/src\/Message\/Service\/InstallHandlerService.php",
+            "install_handler": "\\Message\\Service\\InstallHandlerService"
+        }
+    ],
+    "core_type": [],
+    "setting_action": [],
+    "setting_value": [],
+    "phrase": [],
+    "acl_role": [],
+    "acl_group": [
+        {
+            "group_id": "message",
+            "module_name": "message",
+            "group_title": "Message Permissions",
+            "group_description": "Message Permissions",
+            "sort_order": "6",
+            "form_class": "\\Message\\Form\\Admin\\MessagePermission"
+        }
+    ],
+    "acl_action": [
+        {
+            "module_name": "message",
+            "group_name": "message",
+            "action_name": "chat",
+            "comment": "Chat"
+        },
+        {
+            "module_name": "message",
+            "group_name": "message",
+            "action_name": "send_message",
+            "comment": "Send Message"
+        }
+    ],
+    "acl_allow_data": [],
+    "navigation": [],
+    "navigation_item": [
+        {
+            "item_id": "190",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "102",
+            "module_name": "message",
+            "item_name": "message",
+            "phrase_name": "messages",
+            "parent_name": "admin_permission_edit",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"acl\/permission\/edit\",\"groupId\":\"message\",\"t\":\"message\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        }
+    ],
+    "invitation_type": [],
+    "feed_type": [],
+    "notification_type": [],
+    "attribute_plugin": [],
+    "relation_type": [],
+    "layout_support_block": [],
+    "layout_page": [
+        {
+            "page_id": "63",
+            "page_name": "message_home",
+            "parent_page_name": "core_default",
+            "module_name": "message",
+            "item_module_name": "message",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "",
+            "item_path": ""
+        },
+        {
+            "page_id": "138",
+            "page_name": "message_home_inbox_message",
+            "parent_page_name": "core_default",
+            "module_name": "message",
+            "item_module_name": "message",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "",
+            "item_path": ""
+        },
+        {
+            "page_id": "141",
+            "page_name": "message_ajax_bear_dialog",
+            "parent_page_name": "core_default",
+            "module_name": "message",
+            "item_module_name": "message",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/message\/dialog\/bear-message",
+            "item_path": "base\/message\/paging\/browse-message"
+        },
+        {
+            "page_id": "144",
+            "page_name": "message_home_compose_message",
+            "parent_page_name": "core_default",
+            "module_name": "message",
+            "item_module_name": "message",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/message\/controller\/home\/compose-message",
+            "item_path": ""
+        }
+    ],
+    "layout_data": [],
+    "mail_template": [],
+    "core_hook": [
+        {
+            "id": "173",
+            "event_name": "onBeforeBuildBundleJS",
+            "service_name": "message.event_handler",
+            "load_order": "85",
+            "module_name": "message"
+        },
+        {
+            "id": "174",
+            "event_name": "onMenuMainMessages",
+            "service_name": "message.event_handler",
+            "load_order": "86",
+            "module_name": "message"
+        },
+        {
+            "id": "183",
+            "event_name": "onBeforeBuildBundleStylesheet",
+            "service_name": "message.event_handler",
+            "load_order": "93",
+            "module_name": "message"
+        }
+    ]
+}

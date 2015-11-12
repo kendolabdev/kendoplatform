@@ -65,11 +65,11 @@ class Manager
 
         foreach ($data as $name => $value) {
 
-            $autoload->addNamespace($value['namespace'], PICASO_MODULE_DIR . $value['path']);
+            $autoload->addNamespace($value['namespace'], PICASO_ROOT_DIR . $value['path']);
 
             $class = '\\' . $value['namespace'] . '\\Module';
 
-            $file = PICASO_MODULE_DIR . $value['path'] . '/Module.php';
+            $file = PICASO_ROOT_DIR . $value['path'] . '/Module.php';
 
             include_once $file;
 

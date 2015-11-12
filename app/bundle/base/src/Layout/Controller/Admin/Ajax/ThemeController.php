@@ -15,36 +15,34 @@ class ThemeController extends AjaxController
      */
     public function actionRebuild()
     {
-        $id = $this->request->getParam('id', 'default');
+        $id = $this->request->getParam('id');
 
         try {
+            $ext = \App::core()
+                ->extension()
+                ->findExensionById($id);
+
+            if (!$ext->isTheme())
+                throw new \InvalidArgumentException("Invalid theme id");
+
+            $theme = \App::layout()
+                ->theme()
+                ->findThemeByExtensionName($ext->getName());
+
+            if (!$theme) {
+                $ext->delete();
+                throw new \InvalidArgumentException("Invalid theme");
+            }
+
+
             \App::layout()
                 ->theme()
-                ->rebuildStylesheetForTheme($id);
-            $this->response = [
-                'directive' => 'reload',
-                'success'   => 'Rebuild theme ' . $id
-            ];
-        } catch (\Exception $e) {
-            $this->response = [
-                'directive' => 'error',
-                'message'   => $e->getMessage()
-            ];
-        }
-    }
+                ->rebuildStylesheetForTheme($theme->getId());
 
-    public function actionExport()
-    {
-        $id = $this->request->getParam('id', 'default');
-
-        try {
-            \App::layout()
-                ->theme()
-                ->export($id);
 
             $this->response = [
-                'directive' => 'reload',
-                'success'   => 'Exported theme ' . $id
+                'directive' => 'success',
+                'message'   => 'Rebuild theme ' . $theme->getTitle(),
             ];
         } catch (\Exception $e) {
             $this->response = [

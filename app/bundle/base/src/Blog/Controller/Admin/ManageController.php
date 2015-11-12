@@ -19,14 +19,14 @@ class ManageController extends AdminController
      */
     public function actionBrowse()
     {
+        $filter = new FilterBlogPost();
+
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageFilter($filter)
+            ->setPageTitle('blog.manage_blogs')
             ->setupSecondaryNavigation('admin', 'blog_extension', 'blog_manage');
 
-        /**
-         *
-         */
-        $filter = new FilterBlogPost();
 
         $filter->isValid($this->request->getParams());
 

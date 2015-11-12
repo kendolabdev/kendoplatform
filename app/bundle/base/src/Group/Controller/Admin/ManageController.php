@@ -19,13 +19,13 @@ class ManageController extends AdminController
      */
     public function actionBrowse()
     {
+        $filter = new FilterGroup();
 
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageTitle('group.manage_groups')
+            ->setPageFilter($filter)
             ->setupSecondaryNavigation('admin', 'group_extension', 'group_manage');
-
-
-        $filter = new FilterGroup();
 
         $filter->isValid($this->request->getParams());
 

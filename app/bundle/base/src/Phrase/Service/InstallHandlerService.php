@@ -23,7 +23,7 @@ class InstallHandlerService extends ModuleInstallHandler
     /**
      *
      */
-    public function afterImport()
+    public function afterInstall()
     {
         \App::table('phrase.phrase_language')
             ->insertIgnore([

@@ -109,7 +109,7 @@ class InstallHandlerService extends ModuleInstallHandler
         }
     }
 
-    public function afterImport()
+    public function afterInstall()
     {
         /**
          *
@@ -119,7 +119,7 @@ class InstallHandlerService extends ModuleInstallHandler
 
             $handler = \App::service("$module.install_handler");
             if ($handler instanceof ModuleInstallHandler)
-                $handler->import();
+                $handler->install();
         }
 
     }

@@ -2,7 +2,7 @@
 namespace Rad\Controller\Admin;
 
 use Picaso\Controller\AdminController;
-use Rad\Form\Admin\CreateExtension;
+use Rad\Form\Admin\CreateModule;
 use Rad\Form\Admin\CreateTheme;
 
 /**
@@ -12,24 +12,39 @@ use Rad\Form\Admin\CreateTheme;
  */
 class ManageController extends AdminController
 {
+
+    /**
+     * @return string
+     */
+    protected function getVendorId(){
+        return 'namnv@younetco.com';
+    }
     /**
      * Browse admin tools
      */
-    public function actionBrowseExtension()
+    public function actionBrowseModule()
     {
         \App::layout()
-            ->setupSecondaryNavigation('admin', 'admin_rad', 'admin_rad_browse_extension')
-            ->setPageTitle('Your Extensions');
+            ->setupSecondaryNavigation('admin', 'admin_rad', 'admin_rad_browse_module')
+            ->setPageTitle('Your Modules');
+
+        /**
+         * kendo platform author
+         */
+        $vendorId = $this->getVendorId();
 
 
         $paging = \App::table('core.core_extension')
             ->select()
-            ->where('vendor_id=?', 'namnv@younetco.com')
+            ->where('extension_type=?', 'module')
+            ->where('vendor_id=?', $vendorId)
             ->paging(1, 1000);
 
         $this->view
-            ->setScript('base/rad/controller/admin/manage/browse-extension/render1')
-            ->assign(['paging' => $paging]);
+            ->setScript('base/rad/controller/admin/manage/browse-module/render1')
+            ->assign([
+                'paging' => $paging,
+            ]);
     }
 
     /**
@@ -41,29 +56,32 @@ class ManageController extends AdminController
             ->setupSecondaryNavigation('admin', 'admin_rad', 'admin_rad_browse_theme')
             ->setPageTitle('Your Themes');
 
+        $vendorId = $this->getVendorId();
 
-        $paging = \App::table('layout.layout_theme')
+        $themes = \App::table('core.core_extension')
             ->select()
-            ->where('vendor_id=?', 'namnv@younetco.com')
+            ->where('extension_type=?', 'theme')
+            ->where('vendor_id=?', $vendorId)
             ->paging(1, 1000);
+
 
         $this->view
             ->setScript('base/rad/controller/admin/manage/browse-theme/render1')
-            ->assign(['paging' => $paging]);
+            ->assign(['paging' => $themes]);
     }
 
     /**
      *
      */
-    public function actionCreateExtension()
+    public function actionCreateModule()
     {
 
-        $form = new CreateExtension();
+        $form = new CreateModule();
 
         \App::layout()
-            ->setupSecondaryNavigation('admin', 'admin_rad', 'admin_rad_create_extension')
-            ->setPageTitle('Create new extension')
-            ->setPageNote('Start create new extension');
+            ->setupSecondaryNavigation('admin', 'admin_rad', 'admin_rad_create_module')
+            ->setPageTitle('Create Module')
+            ->setPageNote('Start create new module');
 
 
         if ($this->request->isGet()) {
@@ -86,7 +104,7 @@ class ManageController extends AdminController
 
         \App::layout()
             ->setupSecondaryNavigation('admin', 'admin_rad', 'admin_rad_create_theme')
-            ->setPageTitle('Create new theme');
+            ->setPageTitle('Create Theme');
 
         $form = new CreateTheme();
 

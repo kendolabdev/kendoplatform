@@ -31,8 +31,21 @@ class ManageController extends AdminController
      */
     public function actionBrowse()
     {
-        $page = 1;
         $filter = new FilterAttributeCatalog();
+
+        \App::layout()
+            ->setPageTitle('attribute.manage_catalogs')
+            ->setPageFilter($filter)
+            ->setPageButtons([
+                [
+                    'label' => 'attribute.add_new_catalogs',
+                    'props' => [
+                        'href'   => \App::routing()->getUrl('admin', ['stuff' => 'attribute/manage/create']),
+                        'class' => 'btn btn-sm btn-danger'
+                    ]]
+            ]);
+
+        $page = 1;
         $contentId = $this->request->getParam('content_id', 'user');
 
         $filter->isValid([
@@ -45,9 +58,9 @@ class ManageController extends AdminController
             ->loadAdminCatalogPaging($query, $page);
 
         $lp = new BlockParams([
-            'base_path'   => 'base/attribute/controller/admin/manage/browse-catalog',
-            'item_path'   => 'base/attribute/paging/admin/browse-catalog',
-//            'item_script' => 'render2',
+            'base_path' => 'base/attribute/controller/admin/manage/browse-catalog',
+            'item_path' => 'base/attribute/paging/admin/browse-catalog',
+            //            'item_script' => 'render2',
         ]);
 
         $this->view->setScript($lp->script())
@@ -221,9 +234,9 @@ class ManageController extends AdminController
                 ->flush();
 
             \App::routing()->redirect('admin', [
-                    'stuff'      => 'attribute/manage/browse',
-                    'content_id' => $entry->getContentId()
-                ]);
+                'stuff'      => 'attribute/manage/browse',
+                'content_id' => $entry->getContentId()
+            ]);
         }
 
         $lp = new BlockParams([

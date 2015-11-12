@@ -64,7 +64,7 @@ class EventHandlerService extends EventHandler
 
         $stats['page'] = [
             'label' => \App::text('page.pages'),
-            'value' => \App::service('page')->getActivePageCount(),
+            'value' => \App::page()->getActivePageCount(),
         ];
 
         $payload->__set('stats', $stats);

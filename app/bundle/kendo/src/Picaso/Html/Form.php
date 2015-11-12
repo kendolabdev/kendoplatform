@@ -96,6 +96,16 @@ class Form extends HtmlCollection
      *
      * @return string
      */
+    public function asSearch($options = [])
+    {
+        return $this->renderElements('asSearch', $options);
+    }
+
+    /**
+     * @param array $options
+     *
+     * @return string
+     */
     public function asList($options = [])
     {
         return $this->renderElements('asList', $options);
@@ -133,10 +143,17 @@ class Form extends HtmlCollection
     }
 
     /**
+     * @param array $attrs
+     *
      * @return string
      */
-    public function open()
+    public function open($attrs = [])
     {
+        if (!empty($attrs)){
+            foreach($attrs as $key=>$value){
+                $this->setAttribute($key, $value);
+            }
+        }
         return '<form ' . $this->_flat($this->attributes) . '>';
     }
 

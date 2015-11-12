@@ -74,7 +74,7 @@ class EventHandlerService extends \Picaso\Application\EventHandler
 
         $stats['event'] = [
             'label' => \App::text('event.events'),
-            'value' => \App::service('event')->getEventCount(),
+            'value' => \App::event()->getEventCount(),
         ];
 
         $payload->__set('stats', $stats);

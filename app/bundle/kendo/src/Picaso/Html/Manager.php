@@ -16,6 +16,7 @@ class Manager
         'asList'  => '\Picaso\Html\RenderAsList',
         'asTable' => '\Picaso\Html\RenderAsTable',
         'asAbout' => '\Picaso\Html\RenderAsAbout',
+        'asSearch'=> '\Picaso\Html\RenderAsSearch',
     ];
 
     private $plugins = [

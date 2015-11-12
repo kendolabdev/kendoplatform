@@ -22,12 +22,13 @@ class ManageController extends AdminController
      */
     public function actionBrowse()
     {
+        $filter = new FilterPhoto();
 
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageTitle('photo.manage_photos')
+            ->setPageFilter($filter)
             ->setupSecondaryNavigation('admin', 'photo_extension', 'photo_manage');
-
-        $filter = new FilterPhoto();
 
         $filter->isValid($this->request->getParams());
 

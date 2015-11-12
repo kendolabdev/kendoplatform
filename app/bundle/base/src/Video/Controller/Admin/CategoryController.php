@@ -19,9 +19,18 @@ class CategoryController extends AdminController
      */
     protected function onBeforeRender()
     {
+        $createButton = [
+            'label' => 'core.create_new_category',
+            'props' => [
+                'class' => 'btn btn-sm btn-danger',
+                'href'  => \App::routing()->getUrl('admin', ['stuff' => 'video/category/create']),
+            ]
+        ];
 
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageTitle('video.manage_categories')
+            ->setPageButtons([$createButton])
             ->setupSecondaryNavigation('admin', 'video_extension', 'video_category');
     }
 

@@ -17,8 +17,19 @@ class CategoryController extends AdminController
 
     protected function onBeforeRender()
     {
+
+        $createButton = [
+            'label' => 'core.create_new_category',
+            'props' => [
+                'class' => 'btn btn-sm btn-primary',
+                'href'  => \App::routing()->getUrl('admin', ['stuff' => 'help/category/create']),
+            ]
+        ];
+
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageButtons($createButton)
+            ->setPageTitle('core.manage_categories')
             ->setupSecondaryNavigation('admin', 'admin_help', 'manage_category');
     }
 
@@ -27,6 +38,9 @@ class CategoryController extends AdminController
      */
     public function actionBrowse()
     {
+
+        \App::layout()
+            ->setPageTitle('core.manage_categories');
 
         $page = $this->request->getParam('page', 1);
         $limit = 10;

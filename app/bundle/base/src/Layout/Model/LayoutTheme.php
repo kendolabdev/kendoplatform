@@ -148,6 +148,20 @@ class LayoutTheme extends Model
     /**
      * @return null|string
      */
+    public function getExtensionName(){
+       return $this->__get('extension_name');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setExtensionName($value){
+       $this->__set('extension_name', $value);
+    }
+
+    /**
+     * @return null|string
+     */
     public function getParentThemeId(){
        return $this->__get('parent_theme_id');
     }
@@ -171,20 +185,6 @@ class LayoutTheme extends Model
      */
     public function setSuperThemeId($value){
        $this->__set('super_theme_id', $value);
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getAuthor(){
-       return $this->__get('author');
-    }
-
-    /**
-     * @param $value
-     */
-    public function setAuthor($value){
-       $this->__set('author', $value);
     }
 
     /**
@@ -304,34 +304,6 @@ class LayoutTheme extends Model
      */
     public function setScreenShorts($value){
        $this->__set('screen_shorts', $value);
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getVersion(){
-       return $this->__get('version');
-    }
-
-    /**
-     * @param $value
-     */
-    public function setVersion($value){
-       $this->__set('version', $value);
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getVendorId(){
-       return $this->__get('vendor_id');
-    }
-
-    /**
-     * @param $value
-     */
-    public function setVendorId($value){
-       $this->__set('vendor_id', $value);
     }
 
     /**

@@ -1,1 +1,812 @@
-{"tables":{"photo":"CREATE TABLE `:table_prefix_photo` (\n  `photo_id` bigint(20) unsigned NOT NULL,\n  `album_id` bigint(20) unsigned NOT NULL DEFAULT '0',\n  `collection_id` bigint(20) unsigned DEFAULT '0',\n  `poster_id` bigint(20) unsigned NOT NULL,\n  `user_id` bigint(20) unsigned NOT NULL,\n  `parent_id` bigint(20) unsigned NOT NULL,\n  `parent_user_id` bigint(20) unsigned NOT NULL,\n  `poster_type` varchar(32) NOT NULL,\n  `parent_type` varchar(32) NOT NULL DEFAULT 'user',\n  `photo_file_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime NOT NULL,\n  `modified_at` datetime NOT NULL,\n  `follow_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `comment_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `like_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `title` varchar(100) DEFAULT NULL,\n  `content` varchar(500) DEFAULT NULL,\n  `privacy_type` bigint(20) unsigned NOT NULL DEFAULT '1',\n  `privacy_value` bigint(20) unsigned NOT NULL DEFAULT '1',\n  `privacy_text` text,\n  `story` text,\n  `share_count` int(10) unsigned DEFAULT '0',\n  `people_count` int(10) unsigned NOT NULL DEFAULT '0',\n  `place_type` varchar(32) DEFAULT NULL,\n  `place_id` bigint(20) DEFAULT NULL,\n  PRIMARY KEY (`photo_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8","photo_album":"CREATE TABLE `:table_prefix_photo_album` (\n  `album_id` bigint(20) unsigned NOT NULL,\n  `poster_id` bigint(20) NOT NULL,\n  `user_id` bigint(20) unsigned NOT NULL,\n  `parent_id` int(11) unsigned NOT NULL,\n  `parent_user_id` bigint(20) unsigned NOT NULL,\n  `story` text,\n  `album_type` varchar(32) NOT NULL DEFAULT 'upload',\n  `poster_type` varchar(32) NOT NULL,\n  `parent_type` varchar(32) NOT NULL DEFAULT '',\n  `photo_file_id` int(11) NOT NULL DEFAULT '0',\n  `name` varchar(100) NOT NULL DEFAULT '',\n  `content` text,\n  `created_at` datetime NOT NULL,\n  `modified_at` datetime NOT NULL,\n  `follow_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `comment_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `like_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `photo_count` int(10) unsigned NOT NULL DEFAULT '0',\n  `privacy_type` bigint(20) unsigned NOT NULL DEFAULT '1',\n  `privacy_value` bigint(20) unsigned NOT NULL DEFAULT '1',\n  `privacy_text` text,\n  `people_count` int(10) unsigned NOT NULL DEFAULT '0',\n  `place_id` bigint(20) unsigned DEFAULT '0',\n  `place_type` varchar(32) DEFAULT NULL,\n  `share_count` int(10) unsigned DEFAULT '0',\n  PRIMARY KEY (`album_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8","photo_category":"CREATE TABLE `:table_prefix_photo_category` (\n  `category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,\n  `category_name` varchar(50) NOT NULL DEFAULT '',\n  PRIMARY KEY (`category_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8","photo_collection":"CREATE TABLE `:table_prefix_photo_collection` (\n  `collection_id` bigint(20) unsigned NOT NULL,\n  `story` text,\n  `poster_id` bigint(20) NOT NULL,\n  `user_id` bigint(20) unsigned NOT NULL,\n  `parent_id` int(11) unsigned NOT NULL,\n  `parent_user_id` bigint(20) unsigned NOT NULL,\n  `poster_type` varchar(32) NOT NULL,\n  `parent_type` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',\n  `photo_file_id` int(11) NOT NULL DEFAULT '0',\n  `created_at` datetime NOT NULL,\n  `modified_at` datetime NOT NULL,\n  `follow_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `comment_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `like_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `photo_count` int(10) unsigned NOT NULL DEFAULT '0',\n  `album_id` bigint(20) unsigned DEFAULT '0',\n  `content` text,\n  `privacy_type` bigint(20) unsigned NOT NULL DEFAULT '1',\n  `privacy_value` bigint(20) unsigned NOT NULL DEFAULT '1',\n  `privacy_text` text,\n  `people_count` int(10) unsigned NOT NULL DEFAULT '0',\n  `place_id` bigint(20) unsigned DEFAULT '0',\n  `place_type` varchar(32) DEFAULT NULL,\n  `share_count` int(10) unsigned NOT NULL DEFAULT '0',\n  PRIMARY KEY (`collection_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8","photo_cover":"CREATE TABLE `:table_prefix_photo_cover` (\n  `object_id` bigint(20) unsigned NOT NULL,\n  `object_type` varchar(32) NOT NULL DEFAULT '',\n  `photo_id` bigint(20) NOT NULL,\n  `photo_file_id` bigint(20) NOT NULL,\n  `position_top` smallint(4) NOT NULL DEFAULT '0',\n  `created_at` datetime DEFAULT NULL,\n  PRIMARY KEY (`object_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8"},"core_extension":[{"id":"8","extension_type":"module","load_order":"10","path":"\/base\/src\/Photo","is_active":"1","is_system":"1","namespace":"Photo","name":"photo","title":"Photos","author":"YouNet Company","description":"Photo - Core module","version":"1.0.1","created_at":"2015-04-25 08:29:51","modified_at":"2015-04-25 08:29:51"}],"core_type":[{"type_id":"photo","name":"photo","is_poster":"0","module_name":"photo","has_attribute_catalog":"0"},{"type_id":"photo.photo_album","name":"Photo Albums","is_poster":"0","module_name":"photo","has_attribute_catalog":"0"}],"setting_action":[{"module_name":"photo","action_group":"photo","action_name":"browsing_mode"},{"module_name":"photo","action_group":"photo","action_name":"browsing_filter"}],"setting_value":{"photo":{"browsing_mode":"0","browsing_filter":"1"}},"phrase":[{"module_name":"photo","is_active":"0","phrase_group":"nav","phrase_name":"photos","default_value":"Photos"},{"module_name":"photo","is_active":"0","phrase_group":"nav","phrase_name":"browse_photos","default_value":"Browse Photos"},{"module_name":"photo","is_active":"0","phrase_group":"nav","phrase_name":"browse_albums","default_value":"Browse Albums"},{"module_name":"photo","is_active":"0","phrase_group":"nav","phrase_name":"my_photos","default_value":"My Photos"},{"module_name":"photo","is_active":"0","phrase_group":"nav","phrase_name":"my_albums","default_value":"My Albums"},{"module_name":"photo","is_active":"0","phrase_group":"nav","phrase_name":"create_album","default_value":"Create Album"},{"module_name":"photo","is_active":"0","phrase_group":"nav","phrase_name":"upload_photo","default_value":"Upload Photo"}],"acl_role":[],"acl_group":[{"group_id":"photo","module_name":"photo","group_title":"Photo Permissions","group_description":"Photo Permissions","sort_order":"3","form_class":"\\Photo\\Form\\Admin\\PhotoPermission"}],"acl_action":[{"module_name":"photo","group_name":"album","action_name":"limit","comment":"Limit total album"},{"module_name":"photo","group_name":"photo","action_name":"limit","comment":"Limit total upload photos"},{"module_name":"photo","group_name":"album","action_name":"limit_photo","comment":"Limit total photo per albums"},{"module_name":"photo","group_name":"photo","action_name":"view","comment":"View Photos"},{"module_name":"photo","group_name":"album","action_name":"view","comment":"View Albums"},{"module_name":"photo","group_name":"album","action_name":"create","comment":"Create Album"},{"module_name":"photo","group_name":"photo","action_name":"create","comment":"Create Photo"},{"module_name":"photo","group_name":"album","action_name":"edit","comment":"Edit Album"},{"module_name":"photo","group_name":"photo","action_name":"edit","comment":"Edit Photo"},{"module_name":"photo","group_name":"album","action_name":"delete","comment":"Delete Album"},{"module_name":"photo","group_name":"photo","action_name":"delete","comment":"Delete Photo"},{"module_name":"photo","group_name":"photo","action_name":"max_size","comment":"Max upload photo size"},{"module_name":"photo","group_name":"photo","action_name":"edit_cover","comment":"Edit Cover"},{"module_name":"photo","group_name":"photo","action_name":"edit_avatar","comment":"Edit Avatar"},{"module_name":"photo","group_name":"photo","action_name":"photo_tab_exists","comment":"View Photos"},{"module_name":"photo","group_name":"photo","action_name":"photo_tab_view","comment":"View Photos"}],"acl_allow_data":[],"navigation":[],"navigation_item":[{"item_id":"37","nav_id":"main","is_active":"1","sort_order":"10","module_name":"photo","item_name":"main_photo","phrase_name":"photos","parent_name":null,"item_type":"route","event":null,"acl":"photo__view","route":"photos","params_text":null,"query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"38","nav_id":"photo_main","is_active":"1","sort_order":"99","module_name":"photo","item_name":"photo_browse","phrase_name":"browse_photos","parent_name":null,"item_type":"route","event":null,"acl":null,"route":"photos","params_text":null,"query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"39","nav_id":"photo_main","is_active":"1","sort_order":"100","module_name":"photo","item_name":"album_browse","phrase_name":"browse_albums","parent_name":null,"item_type":"route","event":null,"acl":null,"route":"albums","params_text":null,"query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"40","nav_id":"photo_main","is_active":"1","sort_order":"101","module_name":"photo","item_name":"photo_my","phrase_name":"my_photos","parent_name":null,"item_type":"route","event":null,"acl":null,"route":"photo_my","params_text":null,"query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"41","nav_id":"photo_main","is_active":"1","sort_order":"102","module_name":"photo","item_name":"album_my","phrase_name":"my_albums","parent_name":null,"item_type":"route","event":null,"acl":null,"route":"album_my","params_text":null,"query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"42","nav_id":"photo_main","is_active":"1","sort_order":"103","module_name":"photo","item_name":"album_add","phrase_name":"create_album","parent_name":null,"item_type":"route","event":null,"acl":null,"route":"album_add","params_text":null,"query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"43","nav_id":"photo_main","is_active":"1","sort_order":"104","module_name":"photo","item_name":"uploads","phrase_name":"upload_photo","parent_name":null,"item_type":"route","event":null,"acl":null,"route":"photo_uploads","params_text":null,"query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"67","nav_id":"admin","is_active":"1","sort_order":"103","module_name":"photo","item_name":"photo_extension","phrase_name":"photos","parent_name":"admin_extension","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"photo\/manage\/browse\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"119","nav_id":"admin","is_active":"1","sort_order":"102","module_name":"photo","item_name":"photo","phrase_name":"photos","parent_name":"admin_permission_edit","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"acl\/permission\/edit\",\"groupId\":\"photo\",\"t\":\"photo\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"140","nav_id":"profile","is_active":"1","sort_order":"1","module_name":"photo","item_name":"photos","phrase_name":"photos","parent_name":null,"item_type":"event","event":"onProfileMenuItemPhotos","acl":"","route":"profile","params_text":null,"query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"147","nav_id":"profile","is_active":"0","sort_order":"1","module_name":"photo","item_name":"albums","phrase_name":"albums","parent_name":null,"item_type":"event","event":"onProfileMenuItemAlbums","acl":"","route":"profile","params_text":null,"query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"184","nav_id":"admin","is_active":"1","sort_order":"8","module_name":"photo","item_name":"photo_settings","phrase_name":"photos","parent_name":"admin_setting","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"core\/setting\/general\",\"name\": \"photo.admin.photo-setting\",\"t\":\"photo_settings\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"199","nav_id":"admin","is_active":"1","sort_order":"99","module_name":"photo","item_name":"photo_manage","phrase_name":"manage","parent_name":"photo_extension","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"photo\/manage\/browse\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"200","nav_id":"admin","is_active":"1","sort_order":"99","module_name":"photo","item_name":"album_manage","phrase_name":"manage","parent_name":"photo_extension","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"photo\/album\/browse\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"206","nav_id":"admin","is_active":"1","sort_order":"99","module_name":"photo","item_name":"photo_settings","phrase_name":"settings","parent_name":"photo_extension","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"photo\/setting\/edit\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"207","nav_id":"admin","is_active":"1","sort_order":"99","module_name":"photo","item_name":"photo_permission","phrase_name":"permission","parent_name":"photo_extension","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"photo\/permission\/edit\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"221","nav_id":"admin","is_active":"1","sort_order":"99","module_name":"photo","item_name":"photo_category","phrase_name":"crategories","parent_name":"photo_extension","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"photo\/category\/browse\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null}],"invitation_type":[],"feed_type":[{"id":"2","is_active":"1","feed_type":"photo_add","module_name":"photo","show_on_public":"0","show_on_parent":"1","show_on_poster":"0","show_on_main":"1","can_share":"1","can_like":"1","can_comment":"1","show_on_tagged":"1"},{"id":"10","is_active":"1","feed_type":"photo_upload_collection","module_name":"photo","show_on_public":"0","show_on_parent":"1","show_on_poster":"0","show_on_main":"1","can_share":"1","can_like":"1","can_comment":"1","show_on_tagged":"1"},{"id":"11","is_active":"1","feed_type":"photo_upload","module_name":"photo","show_on_public":"0","show_on_parent":"1","show_on_poster":"0","show_on_main":"1","can_share":"1","can_like":"1","can_comment":"1","show_on_tagged":"1"}],"notification_type":[],"attribute_plugin":[],"relation_type":[],"layout_support_block":[{"support_block_id":"16","block_name":"Photo -Browse Menu","block_class":"\\Photo\\Block\\BrowseMenuBlock","base_path":"base\/photo\/block\/browse-menu","item_path":null,"module_name":"photo","support_block_params_text":"[]","block_type":"block","editor_class":"\\Layout\\ViewHelper\\BaseBlockEditor"}],"layout_page":[{"page_id":"6","page_name":"photo_home_upload_photo","parent_page_name":"photo_home_browse_photo","module_name":"photo","item_module_name":"core","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/photo\/controller\/home\/upload-photo","item_path":""},{"page_id":"68","page_name":"photo_home_browse_photo","parent_page_name":"core_default","module_name":"photo","item_module_name":"photo","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/photo\/controller\/home\/browse-photo","item_path":"base\/photo\/paging\/browse-photo"},{"page_id":"86","page_name":"photo_home_view_photo","parent_page_name":"core_default","module_name":"photo","item_module_name":"photo","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/photo\/controller\/home\/view-photo","item_path":""},{"page_id":"106","page_name":"photo_home_browse_album","parent_page_name":"photo_home_browse_photo","module_name":"photo","item_module_name":"photo","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/photo\/controller\/home\/browse-album","item_path":"base\/photo\/paging\/browse-album"},{"page_id":"107","page_name":"photo_home_my_album","parent_page_name":"photo_home_browse_photo","module_name":"photo","item_module_name":"photo","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/photo\/controller\/home\/my-album","item_path":"base\/photo\/paging\/browse-album"},{"page_id":"130","page_name":"photo_home_create_album","parent_page_name":"photo_home_browse_photo","module_name":"photo","item_module_name":"photo","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/photo\/controller\/home\/my-album","item_path":"base\/photo\/paging\/browse-album"},{"page_id":"131","page_name":"photo_home_view_album","parent_page_name":"core_default","module_name":"photo","item_module_name":"photo","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/photo\/controller\/home\/my-album","item_path":"base\/photo\/paging\/album-photo"},{"page_id":"132","page_name":"photo_home_my_photo","parent_page_name":"photo_home_browse_photo","module_name":"photo","item_module_name":"photo","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/photo\/controller\/home\/my-photo","item_path":"base\/photo\/paging\/browse-photo"},{"page_id":"139","page_name":"photo_home_view_photo_spotlight","parent_page_name":"core_default","module_name":"photo","item_module_name":"photo","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/photo\/controller\/home\/view-photo-spotlight","item_path":""}],"layout_data":[{"page_name":"photo_home_view_photo","screen_size":"desktop","theme_id":"default","listSection":[{"section_id":"bhktxwtzb","section_order":"0","section_active":"1","section_type":"section_type","section_template":"3.9","section_params_text":"[]","listBlock":[{"block_id":"boombdaq","parent_block_id":"","section_id":"bhktxwtzb","node_id":"main","leaf_id":"","support_block_id":"4","block_order":"0","block_params_text":"[]","block_class":"\\Core\\Block\\ActionContentBlock"}]}]},{"page_name":"photo_home_browse_photo","screen_size":"desktop","theme_id":"default","listSection":[{"section_id":"blepyzwsh","section_order":"0","section_active":"1","section_type":"section_type","section_template":"3.9","section_params_text":"[]","listBlock":[{"block_id":"bomcpfymt","parent_block_id":"","section_id":"blepyzwsh","node_id":"main","leaf_id":"","support_block_id":"4","block_order":"0","block_params_text":"[]","block_class":"\\Core\\Block\\ActionContentBlock"},{"block_id":"bzmkumwlu","parent_block_id":"","section_id":"blepyzwsh","node_id":"left","leaf_id":"","support_block_id":"30","block_order":"0","block_params_text":"[]","block_class":"\\Core\\Block\\AsideMenuBlock"}]}]},{"page_name":"photo_home_browse_album","screen_size":"desktop","theme_id":"default","listSection":[{"section_id":"bkjhukmee","section_order":"0","section_active":"1","section_type":"section_type","section_template":"3.9","section_params_text":"[]","listBlock":[{"block_id":"beelafdrq","parent_block_id":"","section_id":"bkjhukmee","node_id":"main","leaf_id":"","support_block_id":"4","block_order":"0","block_params_text":"{\"base_script\":\"render1\",\"\":null}","block_class":"\\Core\\Block\\ActionContentBlock"},{"block_id":"bzsftcssy","parent_block_id":"","section_id":"bkjhukmee","node_id":"left","leaf_id":"","support_block_id":"30","block_order":"0","block_params_text":"[]","block_class":"\\Core\\Block\\AsideMenuBlock"}]}]}],"mail_template":[],"core_hook":[{"id":"124","event_name":"onBeforeBuildBundleJS","service_name":"photo.event_handler","load_order":"36","module_name":"photo"},{"id":"125","event_name":"onRenderActivityComposerHeader","service_name":"photo.event_handler","load_order":"37","module_name":"photo"},{"id":"126","event_name":"onRenderActivityComposerFooter","service_name":"photo.event_handler","load_order":"38","module_name":"photo"},{"id":"127","event_name":"onProfileMenuItemPhotos","service_name":"photo.event_handler","load_order":"39","module_name":"photo"},{"id":"128","event_name":"onProfileMenuItemAlbums","service_name":"photo.event_handler","load_order":"40","module_name":"photo"},{"id":"129","event_name":"onAdminStatisticBlockRender","service_name":"photo.event_handler","load_order":"41","module_name":"photo"},{"id":"130","event_name":"onCompleteCreatePoster","service_name":"photo.event_handler","load_order":"42","module_name":"photo"},{"id":"180","event_name":"onBeforeBuildBundleStylesheet","service_name":"photo.event_handler","load_order":"41","module_name":"photo"}]}
+{
+    "tables": {
+        "photo": "CREATE TABLE `:table_prefix_photo` (\n  `photo_id` bigint(20) unsigned NOT NULL,\n  `album_id` bigint(20) unsigned NOT NULL DEFAULT '0',\n  `collection_id` bigint(20) unsigned DEFAULT '0',\n  `poster_id` bigint(20) unsigned NOT NULL,\n  `user_id` bigint(20) unsigned NOT NULL,\n  `parent_id` bigint(20) unsigned NOT NULL,\n  `parent_user_id` bigint(20) unsigned NOT NULL,\n  `poster_type` varchar(32) NOT NULL,\n  `parent_type` varchar(32) NOT NULL DEFAULT 'user',\n  `photo_file_id` bigint(20) unsigned NOT NULL,\n  `created_at` datetime NOT NULL,\n  `modified_at` datetime NOT NULL,\n  `follow_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `comment_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `like_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `title` varchar(100) DEFAULT NULL,\n  `content` varchar(500) DEFAULT NULL,\n  `privacy_type` bigint(20) unsigned NOT NULL DEFAULT '1',\n  `privacy_value` bigint(20) unsigned NOT NULL DEFAULT '1',\n  `privacy_text` text,\n  `story` text,\n  `share_count` int(10) unsigned DEFAULT '0',\n  `people_count` int(10) unsigned NOT NULL DEFAULT '0',\n  `place_type` varchar(32) DEFAULT NULL,\n  `place_id` bigint(20) DEFAULT NULL,\n  PRIMARY KEY (`photo_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+        "photo_album": "CREATE TABLE `:table_prefix_photo_album` (\n  `album_id` bigint(20) unsigned NOT NULL,\n  `poster_id` bigint(20) NOT NULL,\n  `user_id` bigint(20) unsigned NOT NULL,\n  `parent_id` int(11) unsigned NOT NULL,\n  `parent_user_id` bigint(20) unsigned NOT NULL,\n  `story` text,\n  `album_type` varchar(32) NOT NULL DEFAULT 'upload',\n  `poster_type` varchar(32) NOT NULL,\n  `parent_type` varchar(32) NOT NULL DEFAULT '',\n  `photo_file_id` int(11) NOT NULL DEFAULT '0',\n  `name` varchar(100) NOT NULL DEFAULT '',\n  `content` text,\n  `created_at` datetime NOT NULL,\n  `modified_at` datetime NOT NULL,\n  `follow_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `comment_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `like_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `photo_count` int(10) unsigned NOT NULL DEFAULT '0',\n  `privacy_type` bigint(20) unsigned NOT NULL DEFAULT '1',\n  `privacy_value` bigint(20) unsigned NOT NULL DEFAULT '1',\n  `privacy_text` text,\n  `people_count` int(10) unsigned NOT NULL DEFAULT '0',\n  `place_id` bigint(20) unsigned DEFAULT '0',\n  `place_type` varchar(32) DEFAULT NULL,\n  `share_count` int(10) unsigned DEFAULT '0',\n  PRIMARY KEY (`album_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+        "photo_category": "CREATE TABLE `:table_prefix_photo_category` (\n  `category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,\n  `category_name` varchar(50) NOT NULL DEFAULT '',\n  PRIMARY KEY (`category_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+        "photo_collection": "CREATE TABLE `:table_prefix_photo_collection` (\n  `collection_id` bigint(20) unsigned NOT NULL,\n  `story` text,\n  `poster_id` bigint(20) NOT NULL,\n  `user_id` bigint(20) unsigned NOT NULL,\n  `parent_id` int(11) unsigned NOT NULL,\n  `parent_user_id` bigint(20) unsigned NOT NULL,\n  `poster_type` varchar(32) NOT NULL,\n  `parent_type` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',\n  `photo_file_id` int(11) NOT NULL DEFAULT '0',\n  `created_at` datetime NOT NULL,\n  `modified_at` datetime NOT NULL,\n  `follow_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `comment_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `like_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `photo_count` int(10) unsigned NOT NULL DEFAULT '0',\n  `album_id` bigint(20) unsigned DEFAULT '0',\n  `content` text,\n  `privacy_type` bigint(20) unsigned NOT NULL DEFAULT '1',\n  `privacy_value` bigint(20) unsigned NOT NULL DEFAULT '1',\n  `privacy_text` text,\n  `people_count` int(10) unsigned NOT NULL DEFAULT '0',\n  `place_id` bigint(20) unsigned DEFAULT '0',\n  `place_type` varchar(32) DEFAULT NULL,\n  `share_count` int(10) unsigned NOT NULL DEFAULT '0',\n  PRIMARY KEY (`collection_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+        "photo_cover": "CREATE TABLE `:table_prefix_photo_cover` (\n  `object_id` bigint(20) unsigned NOT NULL,\n  `object_type` varchar(32) NOT NULL DEFAULT '',\n  `photo_id` bigint(20) NOT NULL,\n  `photo_file_id` bigint(20) NOT NULL,\n  `position_top` smallint(4) NOT NULL DEFAULT '0',\n  `created_at` datetime DEFAULT NULL,\n  PRIMARY KEY (`object_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8"
+    },
+    "core_extension": [
+        {
+            "id": "8",
+            "extension_type": "module",
+            "name": "photo",
+            "load_order": "10",
+            "path": "\/app\/bundle\/base\/src\/Photo",
+            "is_active": "1",
+            "is_system": "1",
+            "namespace": "Photo",
+            "title": "Photos",
+            "author": "YouNet Company",
+            "description": "Photo - Core module",
+            "version": "1.0.1",
+            "created_at": "2015-04-25 08:29:51",
+            "modified_at": "2015-04-25 08:29:51",
+            "vendor_id": "namnv@younetco.com",
+            "install_path": "\/app\/bundle\/base\/src\/Photo\/Service\/InstallHandlerService.php",
+            "install_handler": "\\Photo\\Service\\InstallHandlerService"
+        }
+    ],
+    "core_type": [
+        {
+            "type_id": "photo",
+            "name": "photo",
+            "is_poster": "0",
+            "module_name": "photo",
+            "has_attribute_catalog": "0"
+        },
+        {
+            "type_id": "photo.photo_album",
+            "name": "Photo Albums",
+            "is_poster": "0",
+            "module_name": "photo",
+            "has_attribute_catalog": "0"
+        }
+    ],
+    "setting_action": [
+        {
+            "module_name": "photo",
+            "action_group": "photo",
+            "action_name": "browsing_mode"
+        },
+        {
+            "module_name": "photo",
+            "action_group": "photo",
+            "action_name": "browsing_filter"
+        }
+    ],
+    "setting_value": {
+        "photo": {
+            "browsing_mode": "0",
+            "browsing_filter": "1"
+        }
+    },
+    "phrase": [
+        {
+            "module_name": "photo",
+            "is_active": "0",
+            "phrase_group": "nav",
+            "phrase_name": "photos",
+            "default_value": "Photos"
+        },
+        {
+            "module_name": "photo",
+            "is_active": "0",
+            "phrase_group": "nav",
+            "phrase_name": "browse_photos",
+            "default_value": "Browse Photos"
+        },
+        {
+            "module_name": "photo",
+            "is_active": "0",
+            "phrase_group": "nav",
+            "phrase_name": "browse_albums",
+            "default_value": "Browse Albums"
+        },
+        {
+            "module_name": "photo",
+            "is_active": "0",
+            "phrase_group": "nav",
+            "phrase_name": "my_photos",
+            "default_value": "My Photos"
+        },
+        {
+            "module_name": "photo",
+            "is_active": "0",
+            "phrase_group": "nav",
+            "phrase_name": "my_albums",
+            "default_value": "My Albums"
+        },
+        {
+            "module_name": "photo",
+            "is_active": "0",
+            "phrase_group": "nav",
+            "phrase_name": "create_album",
+            "default_value": "Create Album"
+        },
+        {
+            "module_name": "photo",
+            "is_active": "0",
+            "phrase_group": "nav",
+            "phrase_name": "upload_photo",
+            "default_value": "Upload Photo"
+        }
+    ],
+    "acl_role": [],
+    "acl_group": [
+        {
+            "group_id": "photo",
+            "module_name": "photo",
+            "group_title": "Photo Permissions",
+            "group_description": "Photo Permissions",
+            "sort_order": "3",
+            "form_class": "\\Photo\\Form\\Admin\\PhotoPermission"
+        }
+    ],
+    "acl_action": [
+        {
+            "module_name": "photo",
+            "group_name": "album",
+            "action_name": "limit",
+            "comment": "Limit total album"
+        },
+        {
+            "module_name": "photo",
+            "group_name": "photo",
+            "action_name": "limit",
+            "comment": "Limit total upload photos"
+        },
+        {
+            "module_name": "photo",
+            "group_name": "album",
+            "action_name": "limit_photo",
+            "comment": "Limit total photo per albums"
+        },
+        {
+            "module_name": "photo",
+            "group_name": "photo",
+            "action_name": "view",
+            "comment": "View Photos"
+        },
+        {
+            "module_name": "photo",
+            "group_name": "album",
+            "action_name": "view",
+            "comment": "View Albums"
+        },
+        {
+            "module_name": "photo",
+            "group_name": "album",
+            "action_name": "create",
+            "comment": "Create Album"
+        },
+        {
+            "module_name": "photo",
+            "group_name": "photo",
+            "action_name": "create",
+            "comment": "Create Photo"
+        },
+        {
+            "module_name": "photo",
+            "group_name": "album",
+            "action_name": "edit",
+            "comment": "Edit Album"
+        },
+        {
+            "module_name": "photo",
+            "group_name": "photo",
+            "action_name": "edit",
+            "comment": "Edit Photo"
+        },
+        {
+            "module_name": "photo",
+            "group_name": "album",
+            "action_name": "delete",
+            "comment": "Delete Album"
+        },
+        {
+            "module_name": "photo",
+            "group_name": "photo",
+            "action_name": "delete",
+            "comment": "Delete Photo"
+        },
+        {
+            "module_name": "photo",
+            "group_name": "photo",
+            "action_name": "max_size",
+            "comment": "Max upload photo size"
+        },
+        {
+            "module_name": "photo",
+            "group_name": "photo",
+            "action_name": "edit_cover",
+            "comment": "Edit Cover"
+        },
+        {
+            "module_name": "photo",
+            "group_name": "photo",
+            "action_name": "edit_avatar",
+            "comment": "Edit Avatar"
+        },
+        {
+            "module_name": "photo",
+            "group_name": "photo",
+            "action_name": "photo_tab_exists",
+            "comment": "View Photos"
+        },
+        {
+            "module_name": "photo",
+            "group_name": "photo",
+            "action_name": "photo_tab_view",
+            "comment": "View Photos"
+        }
+    ],
+    "acl_allow_data": [],
+    "navigation": [],
+    "navigation_item": [
+        {
+            "item_id": "37",
+            "nav_id": "main",
+            "is_active": "1",
+            "sort_order": "10",
+            "module_name": "photo",
+            "item_name": "main_photo",
+            "phrase_name": "photos",
+            "parent_name": null,
+            "item_type": "route",
+            "event": null,
+            "acl": "photo__view",
+            "route": "photos",
+            "params_text": null,
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "38",
+            "nav_id": "photo_main",
+            "is_active": "1",
+            "sort_order": "99",
+            "module_name": "photo",
+            "item_name": "photo_browse",
+            "phrase_name": "browse_photos",
+            "parent_name": null,
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "photos",
+            "params_text": null,
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "39",
+            "nav_id": "photo_main",
+            "is_active": "1",
+            "sort_order": "100",
+            "module_name": "photo",
+            "item_name": "album_browse",
+            "phrase_name": "browse_albums",
+            "parent_name": null,
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "albums",
+            "params_text": null,
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "40",
+            "nav_id": "photo_main",
+            "is_active": "1",
+            "sort_order": "101",
+            "module_name": "photo",
+            "item_name": "photo_my",
+            "phrase_name": "my_photos",
+            "parent_name": null,
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "photo_my",
+            "params_text": null,
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "41",
+            "nav_id": "photo_main",
+            "is_active": "1",
+            "sort_order": "102",
+            "module_name": "photo",
+            "item_name": "album_my",
+            "phrase_name": "my_albums",
+            "parent_name": null,
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "album_my",
+            "params_text": null,
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "42",
+            "nav_id": "photo_main",
+            "is_active": "1",
+            "sort_order": "103",
+            "module_name": "photo",
+            "item_name": "album_add",
+            "phrase_name": "create_album",
+            "parent_name": null,
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "album_add",
+            "params_text": null,
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "43",
+            "nav_id": "photo_main",
+            "is_active": "1",
+            "sort_order": "104",
+            "module_name": "photo",
+            "item_name": "uploads",
+            "phrase_name": "upload_photo",
+            "parent_name": null,
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "photo_uploads",
+            "params_text": null,
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "67",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "103",
+            "module_name": "photo",
+            "item_name": "photo_extension",
+            "phrase_name": "photos",
+            "parent_name": "admin_extension",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"photo\/manage\/browse\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "119",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "102",
+            "module_name": "photo",
+            "item_name": "photo",
+            "phrase_name": "photos",
+            "parent_name": "admin_permission_edit",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"acl\/permission\/edit\",\"groupId\":\"photo\",\"t\":\"photo\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "140",
+            "nav_id": "profile",
+            "is_active": "1",
+            "sort_order": "1",
+            "module_name": "photo",
+            "item_name": "photos",
+            "phrase_name": "photos",
+            "parent_name": null,
+            "item_type": "event",
+            "event": "onProfileMenuItemPhotos",
+            "acl": "",
+            "route": "profile",
+            "params_text": null,
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "147",
+            "nav_id": "profile",
+            "is_active": "0",
+            "sort_order": "1",
+            "module_name": "photo",
+            "item_name": "albums",
+            "phrase_name": "albums",
+            "parent_name": null,
+            "item_type": "event",
+            "event": "onProfileMenuItemAlbums",
+            "acl": "",
+            "route": "profile",
+            "params_text": null,
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "184",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "8",
+            "module_name": "photo",
+            "item_name": "photo_settings",
+            "phrase_name": "photos",
+            "parent_name": "admin_setting",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"core\/setting\/general\",\"name\": \"photo.admin.photo-setting\",\"t\":\"photo_settings\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "199",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "99",
+            "module_name": "photo",
+            "item_name": "photo_manage",
+            "phrase_name": "manage",
+            "parent_name": "photo_extension",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"photo\/manage\/browse\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "200",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "99",
+            "module_name": "photo",
+            "item_name": "album_manage",
+            "phrase_name": "manage",
+            "parent_name": "photo_extension",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"photo\/album\/browse\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "206",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "99",
+            "module_name": "photo",
+            "item_name": "photo_settings",
+            "phrase_name": "settings",
+            "parent_name": "photo_extension",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"photo\/setting\/edit\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "207",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "99",
+            "module_name": "photo",
+            "item_name": "photo_permission",
+            "phrase_name": "permission",
+            "parent_name": "photo_extension",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"photo\/permission\/edit\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "221",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "99",
+            "module_name": "photo",
+            "item_name": "photo_category",
+            "phrase_name": "crategories",
+            "parent_name": "photo_extension",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"photo\/category\/browse\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        }
+    ],
+    "invitation_type": [],
+    "feed_type": [
+        {
+            "id": "2",
+            "is_active": "1",
+            "feed_type": "photo_add",
+            "module_name": "photo",
+            "show_on_public": "0",
+            "show_on_parent": "1",
+            "show_on_poster": "0",
+            "show_on_main": "1",
+            "can_share": "1",
+            "can_like": "1",
+            "can_comment": "1",
+            "show_on_tagged": "1"
+        },
+        {
+            "id": "10",
+            "is_active": "1",
+            "feed_type": "photo_upload_collection",
+            "module_name": "photo",
+            "show_on_public": "0",
+            "show_on_parent": "1",
+            "show_on_poster": "0",
+            "show_on_main": "1",
+            "can_share": "1",
+            "can_like": "1",
+            "can_comment": "1",
+            "show_on_tagged": "1"
+        },
+        {
+            "id": "11",
+            "is_active": "1",
+            "feed_type": "photo_upload",
+            "module_name": "photo",
+            "show_on_public": "0",
+            "show_on_parent": "1",
+            "show_on_poster": "0",
+            "show_on_main": "1",
+            "can_share": "1",
+            "can_like": "1",
+            "can_comment": "1",
+            "show_on_tagged": "1"
+        }
+    ],
+    "notification_type": [],
+    "attribute_plugin": [],
+    "relation_type": [],
+    "layout_support_block": [
+        {
+            "support_block_id": "33",
+            "block_name": "Photo - Listing items",
+            "block_class": "\\Photo\\Block\\ListingPhotoItemBlock",
+            "base_path": "base\/photo\/block\/listing-photo",
+            "item_path": null,
+            "module_name": "photo",
+            "support_block_params_text": "[]",
+            "block_type": "block",
+            "editor_class": "\\Layout\\ViewHelper\\BaseBlockEditor"
+        }
+    ],
+    "layout_page": [
+        {
+            "page_id": "6",
+            "page_name": "photo_home_upload_photo",
+            "parent_page_name": "photo_home_browse_photo",
+            "module_name": "photo",
+            "item_module_name": "core",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/photo\/controller\/home\/upload-photo",
+            "item_path": ""
+        },
+        {
+            "page_id": "68",
+            "page_name": "photo_home_browse_photo",
+            "parent_page_name": "core_default",
+            "module_name": "photo",
+            "item_module_name": "photo",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/photo\/controller\/home\/browse-photo",
+            "item_path": "base\/photo\/paging\/browse-photo"
+        },
+        {
+            "page_id": "86",
+            "page_name": "photo_home_view_photo",
+            "parent_page_name": "core_default",
+            "module_name": "photo",
+            "item_module_name": "photo",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/photo\/controller\/home\/view-photo",
+            "item_path": ""
+        },
+        {
+            "page_id": "106",
+            "page_name": "photo_home_browse_album",
+            "parent_page_name": "photo_home_browse_photo",
+            "module_name": "photo",
+            "item_module_name": "photo",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/photo\/controller\/home\/browse-album",
+            "item_path": "base\/photo\/paging\/browse-album"
+        },
+        {
+            "page_id": "107",
+            "page_name": "photo_home_my_album",
+            "parent_page_name": "photo_home_browse_photo",
+            "module_name": "photo",
+            "item_module_name": "photo",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/photo\/controller\/home\/my-album",
+            "item_path": "base\/photo\/paging\/browse-album"
+        },
+        {
+            "page_id": "130",
+            "page_name": "photo_home_create_album",
+            "parent_page_name": "photo_home_browse_photo",
+            "module_name": "photo",
+            "item_module_name": "photo",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/photo\/controller\/home\/create-album",
+            "item_path": ""
+        },
+        {
+            "page_id": "131",
+            "page_name": "photo_home_view_album",
+            "parent_page_name": "core_default",
+            "module_name": "photo",
+            "item_module_name": "photo",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/photo\/controller\/home\/my-album",
+            "item_path": "base\/photo\/paging\/album-photo"
+        },
+        {
+            "page_id": "132",
+            "page_name": "photo_home_my_photo",
+            "parent_page_name": "photo_home_browse_photo",
+            "module_name": "photo",
+            "item_module_name": "photo",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/photo\/controller\/home\/my-photo",
+            "item_path": "base\/photo\/paging\/browse-photo"
+        },
+        {
+            "page_id": "139",
+            "page_name": "photo_home_view_photo_spotlight",
+            "parent_page_name": "core_default",
+            "module_name": "photo",
+            "item_module_name": "photo",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/photo\/controller\/home\/view-photo-spotlight",
+            "item_path": ""
+        }
+    ],
+    "layout_data": [
+        {
+            "page_name": "photo_home_view_photo",
+            "screen_size": "desktop",
+            "theme_id": "default",
+            "listSection": [
+                {
+                    "section_id": "bhktxwtzb",
+                    "section_order": "0",
+                    "section_active": "1",
+                    "section_type": "main",
+                    "section_template": "3.9",
+                    "section_params_text": "[]",
+                    "container_type": "container-fluid",
+                    "listBlock": [
+                        {
+                            "block_id": "boombdaq",
+                            "parent_block_id": "",
+                            "section_id": "bhktxwtzb",
+                            "node_id": "main",
+                            "leaf_id": "",
+                            "support_block_id": "4",
+                            "block_order": "0",
+                            "block_params_text": "[]",
+                            "block_class": "\\Core\\Block\\ActionContentBlock"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "mail_template": [],
+    "core_hook": [
+        {
+            "id": "124",
+            "event_name": "onBeforeBuildBundleJS",
+            "service_name": "photo.event_handler",
+            "load_order": "36",
+            "module_name": "photo"
+        },
+        {
+            "id": "125",
+            "event_name": "onRenderActivityComposerHeader",
+            "service_name": "photo.event_handler",
+            "load_order": "37",
+            "module_name": "photo"
+        },
+        {
+            "id": "126",
+            "event_name": "onRenderActivityComposerFooter",
+            "service_name": "photo.event_handler",
+            "load_order": "38",
+            "module_name": "photo"
+        },
+        {
+            "id": "127",
+            "event_name": "onProfileMenuItemPhotos",
+            "service_name": "photo.event_handler",
+            "load_order": "39",
+            "module_name": "photo"
+        },
+        {
+            "id": "128",
+            "event_name": "onProfileMenuItemAlbums",
+            "service_name": "photo.event_handler",
+            "load_order": "40",
+            "module_name": "photo"
+        },
+        {
+            "id": "129",
+            "event_name": "onAdminStatisticBlockRender",
+            "service_name": "photo.event_handler",
+            "load_order": "41",
+            "module_name": "photo"
+        },
+        {
+            "id": "130",
+            "event_name": "onCompleteCreatePoster",
+            "service_name": "photo.event_handler",
+            "load_order": "42",
+            "module_name": "photo"
+        },
+        {
+            "id": "180",
+            "event_name": "onBeforeBuildBundleStylesheet",
+            "service_name": "photo.event_handler",
+            "load_order": "41",
+            "module_name": "photo"
+        }
+    ]
+}

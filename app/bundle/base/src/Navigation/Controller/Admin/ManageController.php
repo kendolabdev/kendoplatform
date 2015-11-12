@@ -21,6 +21,7 @@ class ManageController extends AdminController
 
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageTitle('core.manage_navigations')
             ->setupSecondaryNavigation('admin', 'admin_navigation', 'navigation');
     }
 

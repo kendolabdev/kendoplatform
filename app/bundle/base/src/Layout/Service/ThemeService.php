@@ -1,8 +1,6 @@
 <?php
 namespace Layout\Service;
 
-use Picaso\Application\Filesystem;
-use Picaso\Application\ThemeInstallHandler;
 use Picaso\Hook\SimpleContainer;
 
 /**
@@ -12,6 +10,18 @@ use Picaso\Hook\SimpleContainer;
  */
 class ThemeService
 {
+    /**
+     * @param string $name
+     *
+     * @return \Layout\Model\LayoutTheme
+     */
+    public function findThemeByExtensionName($name)
+    {
+        return \App::table('layout.layout_theme')
+            ->select()
+            ->where('extension_name=?', (string)$name)
+            ->one();
+    }
 
     /**
      * @return \Layout\Model\LayoutTheme
@@ -147,31 +157,5 @@ class ThemeService
         }
         fwrite($fp, $content);
         fclose($fp);
-    }
-
-    /**
-     * Export a theme
-     *
-     * @param string $themeId
-     *
-     * @return string
-     */
-    public function export($themeId)
-    {
-        $theme = $this->findThemeById($themeId);
-
-        $handler = new ThemeInstallHandler();
-
-        $handler->export($theme);
-    }
-
-    /**
-     * import theme
-     *
-     * @param string $themeId
-     */
-    public function install($themeId)
-    {
-
     }
 }

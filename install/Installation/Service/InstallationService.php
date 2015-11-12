@@ -16,7 +16,7 @@ class InstallationService
     public function import()
     {
         $handler = new InstallHandlerService();
-        $handler->import();
+        $handler->install();
     }
 
     /**

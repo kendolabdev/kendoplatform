@@ -12,12 +12,13 @@ class AlbumController extends AdminController
      */
     public function actionBrowse()
     {
+        $filter = new FilterPhotoAlbum();
 
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageTitle('photo.manage_albums')
+            ->setPageFilter($filter)
             ->setupSecondaryNavigation('admin', 'photo_extension', 'album_manage');
-
-        $filter = new FilterPhotoAlbum();
 
         $filter->isValid($this->request->getParams());
 

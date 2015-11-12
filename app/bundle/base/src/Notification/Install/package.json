@@ -1,1 +1,162 @@
-{"tables":{"notification":"CREATE TABLE `:table_prefix_notification` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `type_id` varchar(50) NOT NULL DEFAULT '',\n  `poster_id` bigint(20) unsigned NOT NULL,\n  `user_id` bigint(20) unsigned NOT NULL,\n  `parent_id` bigint(20) unsigned NOT NULL,\n  `parent_user_id` bigint(20) unsigned NOT NULL,\n  `poster_type` varchar(32) NOT NULL DEFAULT '',\n  `parent_type` varchar(32) NOT NULL DEFAULT '',\n  `about_id` bigint(20) unsigned DEFAULT NULL,\n  `about_type` varchar(32) DEFAULT '',\n  `created_at` datetime NOT NULL,\n  `read` tinyint(1) unsigned NOT NULL DEFAULT '0',\n  `mitigated` tinyint(1) unsigned NOT NULL DEFAULT '0',\n  `params` text,\n  `atom_type` varchar(32) DEFAULT NULL,\n  `atom_id` bigint(20) unsigned DEFAULT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8","notification_subscribe":"CREATE TABLE `:table_prefix_notification_subscribe` (\n  `poster_id` bigint(11) unsigned NOT NULL,\n  `about_id` bigint(11) unsigned NOT NULL,\n  `poster_type` varchar(50) NOT NULL DEFAULT '',\n  `about_type` varchar(50) NOT NULL DEFAULT '',\n  `created_at` datetime NOT NULL,\n  PRIMARY KEY (`poster_id`,`about_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='POSTER follow OBJECT'","notification_type":"CREATE TABLE `:table_prefix_notification_type` (\n  `id` varchar(100) NOT NULL DEFAULT '',\n  `handler` varchar(100) DEFAULT NULL,\n  `is_active` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `is_push` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `is_mail` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `is_sms` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `module_name` varchar(32) NOT NULL DEFAULT 'core',\n  `notification_group` varchar(50) NOT NULL DEFAULT 'activity',\n  `user_edit` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8"},"core_extension":[{"id":"32","extension_type":"module","load_order":"10","path":"\/base\/src\/Notification","is_active":"1","is_system":"1","namespace":"Notification","name":"notification","title":"Notification","author":"YouNet Company","description":"Notification - Core module","version":"1.0.1","created_at":"2015-04-25 08:29:51","modified_at":"2015-04-25 08:29:51"}],"core_type":[],"setting_action":[],"setting_value":[],"phrase":[],"acl_role":[],"acl_group":[],"acl_action":[],"acl_allow_data":[],"navigation":[],"navigation_item":[{"item_id":"62","nav_id":"admin","is_active":"1","sort_order":"4","module_name":"notification","item_name":"admin_setting_notification","phrase_name":"notification","parent_name":"admin_setting","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"notification\/setting\/edit\",\"name\": \"notification.admin.notification-setting\",\"t\":\"admin_setting_notification\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null}],"invitation_type":[],"feed_type":[],"notification_type":[],"attribute_plugin":[],"relation_type":[],"layout_support_block":[],"layout_page":[{"page_id":"128","page_name":"notification_home_browse_notification","parent_page_name":"core_default","module_name":"notification","item_module_name":"notification","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/notification\/controller\/home\/browse-notification","item_path":"base\/notification\/paging\/browse-notification"},{"page_id":"140","page_name":"notification_ajax_bear_dialog","parent_page_name":"core_default","module_name":"notification","item_module_name":"notification","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/notification\/dialog\/bear-notification","item_path":"base\/notification\/paging\/browse-notification"},{"page_id":"142","page_name":"invitation_ajax_bear_dialog","parent_page_name":"core_default","module_name":"notification","item_module_name":"notification","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/invitation\/dialog\/bear-invitation","item_path":"base\/invitation\/paging\/browse-invitation"}],"layout_data":[],"mail_template":[],"core_hook":[{"id":"159","event_name":"onBeforeBuildBundleJS","service_name":"notification.event_handler","load_order":"71","module_name":"notification"},{"id":"160","event_name":"onMenuMainNotifications","service_name":"notification.event_handler","load_order":"72","module_name":"notification"},{"id":"161","event_name":"onProfileMenuItemNotifications","service_name":"notification.event_handler","load_order":"73","module_name":"notification"},{"id":"162","event_name":"onAfterInsertContent","service_name":"notification.event_handler","load_order":"74","module_name":"notification"},{"id":"163","event_name":"onAfterDeleteContent","service_name":"notification.event_handler","load_order":"75","module_name":"notification"},{"id":"164","event_name":"onAfterInsertPoster","service_name":"notification.event_handler","load_order":"76","module_name":"notification"},{"id":"165","event_name":"onAfterDeletePoster","service_name":"notification.event_handler","load_order":"77","module_name":"notification"},{"id":"166","event_name":"onAcceptMembershipRequest","service_name":"notification.event_handler","load_order":"78","module_name":"notification"}]}
+{
+    "tables": {
+        "notification": "CREATE TABLE `:table_prefix_notification` (\n  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n  `type_id` varchar(50) NOT NULL DEFAULT '',\n  `poster_id` bigint(20) unsigned NOT NULL,\n  `user_id` bigint(20) unsigned NOT NULL,\n  `parent_id` bigint(20) unsigned NOT NULL,\n  `parent_user_id` bigint(20) unsigned NOT NULL,\n  `poster_type` varchar(32) NOT NULL DEFAULT '',\n  `parent_type` varchar(32) NOT NULL DEFAULT '',\n  `about_id` bigint(20) unsigned DEFAULT NULL,\n  `about_type` varchar(32) DEFAULT '',\n  `created_at` datetime NOT NULL,\n  `read` tinyint(1) unsigned NOT NULL DEFAULT '0',\n  `mitigated` tinyint(1) unsigned NOT NULL DEFAULT '0',\n  `params` text,\n  `atom_type` varchar(32) DEFAULT NULL,\n  `atom_id` bigint(20) unsigned DEFAULT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+        "notification_subscribe": "CREATE TABLE `:table_prefix_notification_subscribe` (\n  `poster_id` bigint(11) unsigned NOT NULL,\n  `about_id` bigint(11) unsigned NOT NULL,\n  `poster_type` varchar(50) NOT NULL DEFAULT '',\n  `about_type` varchar(50) NOT NULL DEFAULT '',\n  `created_at` datetime NOT NULL,\n  PRIMARY KEY (`poster_id`,`about_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='POSTER follow OBJECT'",
+        "notification_type": "CREATE TABLE `:table_prefix_notification_type` (\n  `id` varchar(100) NOT NULL DEFAULT '',\n  `handler` varchar(100) DEFAULT NULL,\n  `is_active` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `is_push` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `is_mail` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `is_sms` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `module_name` varchar(32) NOT NULL DEFAULT 'core',\n  `notification_group` varchar(50) NOT NULL DEFAULT 'activity',\n  `user_edit` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8"
+    },
+    "core_extension": [
+        {
+            "id": "32",
+            "extension_type": "module",
+            "name": "notification",
+            "load_order": "10",
+            "path": "\/app\/bundle\/base\/src\/Notification",
+            "is_active": "1",
+            "is_system": "1",
+            "namespace": "Notification",
+            "title": "Notification",
+            "author": "YouNet Company",
+            "description": "Notification - Core module",
+            "version": "1.0.1",
+            "created_at": "2015-04-25 08:29:51",
+            "modified_at": "2015-04-25 08:29:51",
+            "vendor_id": "namnv@younetco.com",
+            "install_path": "\/app\/bundle\/base\/src\/Notification\/Service\/InstallHandlerService.php",
+            "install_handler": "\\Notification\\Service\\InstallHandlerService"
+        }
+    ],
+    "core_type": [],
+    "setting_action": [],
+    "setting_value": [],
+    "phrase": [],
+    "acl_role": [],
+    "acl_group": [],
+    "acl_action": [],
+    "acl_allow_data": [],
+    "navigation": [],
+    "navigation_item": [
+        {
+            "item_id": "62",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "4",
+            "module_name": "notification",
+            "item_name": "admin_setting_notification",
+            "phrase_name": "notification",
+            "parent_name": "admin_setting",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"notification\/setting\/edit\",\"name\": \"notification.admin.notification-setting\",\"t\":\"admin_setting_notification\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        }
+    ],
+    "invitation_type": [],
+    "feed_type": [],
+    "notification_type": [],
+    "attribute_plugin": [],
+    "relation_type": [],
+    "layout_support_block": [],
+    "layout_page": [
+        {
+            "page_id": "128",
+            "page_name": "notification_home_browse_notification",
+            "parent_page_name": "core_default",
+            "module_name": "notification",
+            "item_module_name": "notification",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/notification\/controller\/home\/browse-notification",
+            "item_path": "base\/notification\/paging\/browse-notification"
+        },
+        {
+            "page_id": "140",
+            "page_name": "notification_ajax_bear_dialog",
+            "parent_page_name": "core_default",
+            "module_name": "notification",
+            "item_module_name": "notification",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/notification\/dialog\/bear-notification",
+            "item_path": "base\/notification\/paging\/browse-notification"
+        },
+        {
+            "page_id": "142",
+            "page_name": "invitation_ajax_bear_dialog",
+            "parent_page_name": "core_default",
+            "module_name": "notification",
+            "item_module_name": "notification",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/invitation\/dialog\/bear-invitation",
+            "item_path": "base\/invitation\/paging\/browse-invitation"
+        }
+    ],
+    "layout_data": [],
+    "mail_template": [],
+    "core_hook": [
+        {
+            "id": "159",
+            "event_name": "onBeforeBuildBundleJS",
+            "service_name": "notification.event_handler",
+            "load_order": "71",
+            "module_name": "notification"
+        },
+        {
+            "id": "160",
+            "event_name": "onMenuMainNotifications",
+            "service_name": "notification.event_handler",
+            "load_order": "72",
+            "module_name": "notification"
+        },
+        {
+            "id": "161",
+            "event_name": "onProfileMenuItemNotifications",
+            "service_name": "notification.event_handler",
+            "load_order": "73",
+            "module_name": "notification"
+        },
+        {
+            "id": "162",
+            "event_name": "onAfterInsertContent",
+            "service_name": "notification.event_handler",
+            "load_order": "74",
+            "module_name": "notification"
+        },
+        {
+            "id": "163",
+            "event_name": "onAfterDeleteContent",
+            "service_name": "notification.event_handler",
+            "load_order": "75",
+            "module_name": "notification"
+        },
+        {
+            "id": "164",
+            "event_name": "onAfterInsertPoster",
+            "service_name": "notification.event_handler",
+            "load_order": "76",
+            "module_name": "notification"
+        },
+        {
+            "id": "165",
+            "event_name": "onAfterDeletePoster",
+            "service_name": "notification.event_handler",
+            "load_order": "77",
+            "module_name": "notification"
+        },
+        {
+            "id": "166",
+            "event_name": "onAcceptMembershipRequest",
+            "service_name": "notification.event_handler",
+            "load_order": "78",
+            "module_name": "notification"
+        }
+    ]
+}

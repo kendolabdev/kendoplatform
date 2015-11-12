@@ -10,14 +10,22 @@ foreach ($themes as $theme) {
 
     $info = $theme->toArray();
 
-    $info['paths'] = [
-        "/app/theme/" . $theme->getId(),
-        "/static/theme/" . $theme->getId(),
-    ];
+    $extension = new \Core\Model\CoreExtension([
+        'name'           => $theme->getId(),
+        'title'          => 'Theme ' . $theme->getName(),
+        'author'         => $theme->getAuthor(),
+        'vendor_id'      => $theme->getVendorId(),
+        'description'    => (string)$theme->getDescription(),
+        'version'        => $theme->getVersion(),
+        'is_active'      => $theme->isActive(),
+        'is_default'     => $theme->isDefault(),
+        'extension_type' => 'theme',
+        'path'           => '/theme/' . $theme->getId(),
+        'namespace'      => '/theme/' . $theme->getId(),
+        'is_system'      => 1,
+        'created_at'     => '2015-04-25 08:29:51',
+        'modified_at'    => '2015-04-25 08:29:51',
+    ]);
 
-    $filename = PICASO_ROOT_DIR . "/app/theme/" . $theme->getId() . "/info.json";
-
-    file_put_contents($filename, json_encode($info,JSON_PRETTY_PRINT));
-
-    @chmod($filename, 0777);
+    $extension->save();
 }

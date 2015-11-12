@@ -21,11 +21,7 @@ class CoreExtension extends Model
      */
     public function canUpgrade()
     {
-        $version = \App::core()
-            ->extension()
-            ->getPackageVersion($this->getName());
-
-        return version_compare($this->getVersion(), $version, '<');
+        return version_compare($this->getVersion(), $this->getLatestVersion(), '<');
     }
 
     /**
@@ -42,6 +38,30 @@ class CoreExtension extends Model
     public function canEnable()
     {
         return $this->isActive() == false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTheme()
+    {
+        return $this->getExtensionType() == 'theme';
+    }
+
+    /**
+     * @return bool
+     */
+    public function isModule()
+    {
+        return $this->getExtensionType() == 'module';
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLibrary()
+    {
+        return $this->getExtensionType() == 'library';
     }
 
     //START_TABLE_GENERATOR
@@ -73,6 +93,20 @@ class CoreExtension extends Model
      */
     public function setExtensionType($value){
        $this->__set('extension_type', $value);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getName(){
+       return $this->__get('name');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setName($value){
+       $this->__set('name', $value);
     }
 
     /**
@@ -162,20 +196,6 @@ class CoreExtension extends Model
     /**
      * @return null|string
      */
-    public function getName(){
-       return $this->__get('name');
-    }
-
-    /**
-     * @param $value
-     */
-    public function setName($value){
-       $this->__set('name', $value);
-    }
-
-    /**
-     * @return null|string
-     */
     public function getTitle(){
        return $this->__get('title');
     }
@@ -232,6 +252,20 @@ class CoreExtension extends Model
     /**
      * @return null|string
      */
+    public function getLatestVersion(){
+       return $this->__get('latest_version');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setLatestVersion($value){
+       $this->__set('latest_version', $value);
+    }
+
+    /**
+     * @return null|string
+     */
     public function getCreatedAt(){
        return $this->__get('created_at');
     }
@@ -269,6 +303,55 @@ class CoreExtension extends Model
      */
     public function setVendorId($value){
        $this->__set('vendor_id', $value);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getInstallPath(){
+       return $this->__get('install_path');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setInstallPath($value){
+       $this->__set('install_path', $value);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getInstallHandler(){
+       return $this->__get('install_handler');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setInstallHandler($value){
+       $this->__set('install_handler', $value);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function isInstalled(){
+       return $this->__get('is_installed');
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getInstalled(){
+       return $this->__get('is_installed');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setInstalled($value){
+       $this->__set('is_installed', $value);
     }
 
     /**

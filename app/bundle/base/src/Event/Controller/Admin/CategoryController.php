@@ -18,8 +18,18 @@ class CategoryController extends AdminController
 
     protected function onBeforeRender()
     {
+        $createButton = [
+            'label' => 'core.create_new_category',
+            'props' => [
+                'class' => 'btn btn-sm btn-primary',
+                'href'  => \App::routing()->getUrl('admin', ['stuff' => 'photo/category/create']),
+            ]
+        ];
+
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageTitle('event.manage_categories')
+            ->setPageButtons([$createButton])
             ->setupSecondaryNavigation('admin', 'event_extension', 'event_category');
     }
 

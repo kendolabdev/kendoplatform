@@ -14,11 +14,13 @@ class PermissionController extends AdminController
      */
     public function actionEdit()
     {
+        $filter = new FilterAclRole();
+
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageTitle('blog.manage_permission')
+            ->setPageFilter($filter)
             ->setupSecondaryNavigation('admin', 'blog_extension', 'blog_permission');
-
-        $filter = new FilterAclRole();
 
         $roleId = $this->request->getParam('roleId', PICASO_DEFAULT_ROLE_ID);
 

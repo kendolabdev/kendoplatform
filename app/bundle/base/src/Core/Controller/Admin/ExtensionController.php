@@ -17,7 +17,8 @@ class ExtensionController extends AdminController
     public function actionBrowse()
     {
         \App::layout()->setPageName('admin_simple')
-            ->setupSecondaryNavigation('admin', 'admin_manage_extension', 'manage_package');
+            ->setupSecondaryNavigation('admin', 'admin_manage_package', 'manage_package')
+            ->setPageTitle('core.your_packages');
 
         if ($this->request->isPost() && !empty($_POST['select_packages'])) {
             \App::core()->extension()->doInstallPackages($_POST['select_packages']);
@@ -62,27 +63,32 @@ class ExtensionController extends AdminController
                         $item->save();
                         break;
                 }
-                \App::cache()->flush();
+                \App::cache()
+                    ->flush();
             }
         }
 
         $page = 1;
         $limit = 1000;
 
-        $paging = \App::table('core.core_extension')
+        $modules = \App::table('core.core_extension')
             ->select()
-            ->where('is_system=?', 1)
+            ->where('extension_type=?', 'module')
+            ->where('is_installed=?', 1)
+            ->order('is_system', -1)
             ->paging($page, $limit);
 
-        $paging2 = \App::table('core.core_extension')
+        $themes = \App::table('core.core_extension')
             ->select()
-            ->where('is_system=?', 0)
+            ->where('extension_type=?', 'theme')
+            ->where('is_installed=?', 1)
+            ->order('is_system', -1)
             ->paging($page, $limit);
 
 
         $this->view->assign([
-            'paging'         => $paging,
-            'paging2'        => $paging2,
+            'modules'        => $modules,
+            'themes'         => $themes,
             'isEmptyPackage' => empty($packages),
             'packages'       => $packages
         ]);
@@ -96,7 +102,8 @@ class ExtensionController extends AdminController
     public function actionConnect()
     {
         \App::layout()->setPageName('admin_simple')
-            ->setupSecondaryNavigation('admin', 'admin_manage_extension', 'picaso_connect');
+            ->setPageTitle('core.connect_store')
+            ->setupSecondaryNavigation('admin', 'admin_manage_package', 'picaso_connect');
 
         $this->view->setScript('/base/core/controller/admin/extension/connect-extension');
     }
@@ -108,7 +115,8 @@ class ExtensionController extends AdminController
     {
 
         \App::layout()->setPageName('admin_simple')
-            ->setupSecondaryNavigation('admin', 'admin_manage_extension', 'import_package');
+            ->setPageTitle('core.upload_packages')
+            ->setupSecondaryNavigation('admin', 'admin_manage_package', 'import_package');
 
         $form = \App::html()->factory('\Core\Form\Admin\ImportExtension');
 
@@ -130,7 +138,7 @@ class ExtensionController extends AdminController
 
         \App::registry()->set('subnav', [
             'navId'    => 'admin',
-            'parentId' => 'admin_manage_extension',
+            'parentId' => 'admin_manage_package',
         ]);
     }
 }

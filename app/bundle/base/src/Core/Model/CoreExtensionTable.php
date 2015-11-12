@@ -37,19 +37,23 @@ class CoreExtensionTable extends DbTable
     protected $column = array(
 		'id'=>1,
 		'extension_type'=>1,
+		'name'=>1,
 		'load_order'=>1,
 		'path'=>1,
 		'is_active'=>1,
 		'is_system'=>1,
 		'namespace'=>1,
-		'name'=>1,
 		'title'=>1,
 		'author'=>1,
 		'description'=>1,
 		'version'=>1,
+		'latest_version'=>1,
 		'created_at'=>1,
 		'modified_at'=>1,
-		'vendor_id'=>1);
+		'vendor_id'=>1,
+		'install_path'=>1,
+		'install_handler'=>1,
+		'is_installed'=>1);
 
     /**
      * @var array

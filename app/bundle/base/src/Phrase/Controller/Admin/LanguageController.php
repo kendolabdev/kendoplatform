@@ -18,6 +18,7 @@ class LanguageController extends AdminController
     {
 
         \App::layout()->setPageName('admin_simple')
+            ->setPageTitle('core.manage_languages')
             ->setupSecondaryNavigation('admin', 'admin_language', 'languages');
 
         $items = \App::table('phrase.phrase_language')

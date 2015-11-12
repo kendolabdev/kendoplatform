@@ -20,11 +20,13 @@ class ManageController extends AdminController
      */
     public function actionBrowse()
     {
+        $filter = new FilterPage();
+
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageFilter($filter)
+            ->setPageTitle('page.manage_pages')
             ->setupSecondaryNavigation('admin', 'page_extension', 'page_manage');
-
-        $filter = new FilterPage();
 
         $filter->isValid($this->request->getParams());
 

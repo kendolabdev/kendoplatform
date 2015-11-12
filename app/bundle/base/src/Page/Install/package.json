@@ -1,1 +1,745 @@
-{"tables":{"page":"CREATE TABLE `:table_prefix_page` (\n  `page_id` bigint(20) unsigned NOT NULL,\n  `is_published` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `is_active` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `is_approved` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `user_id` bigint(20) unsigned NOT NULL,\n  `poster_id` bigint(20) unsigned NOT NULL,\n  `parent_id` bigint(20) NOT NULL,\n  `parent_user_id` bigint(20) NOT NULL,\n  `photo_file_id` int(11) DEFAULT NULL,\n  `poster_type` varchar(32) NOT NULL DEFAULT '',\n  `parent_type` varchar(32) NOT NULL DEFAULT '',\n  `name` varchar(100) NOT NULL DEFAULT '',\n  `profile_name` varchar(100) DEFAULT NULL,\n  `slug` varchar(100) DEFAULT NULL,\n  `created_at` datetime NOT NULL,\n  `modified_at` datetime NOT NULL,\n  `comment_count` int(11) unsigned DEFAULT '0',\n  `like_count` int(11) unsigned DEFAULT '0',\n  `member_count` int(11) unsigned DEFAULT '0',\n  `share_count` int(11) unsigned DEFAULT '0',\n  `privacy_type` bigint(20) unsigned NOT NULL DEFAULT '0',\n  `privacy_value` bigint(20) unsigned NOT NULL DEFAULT '0',\n  `place_id` bigint(20) unsigned DEFAULT '0',\n  `role_id` int(10) unsigned NOT NULL DEFAULT '12',\n  `place_type` varchar(32) DEFAULT '',\n  `follow_count` int(11) unsigned DEFAULT '0',\n  PRIMARY KEY (`page_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8","page_category":"CREATE TABLE `:table_prefix_page_category` (\n  `category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,\n  `category_name` varchar(50) NOT NULL DEFAULT '',\n  PRIMARY KEY (`category_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8"},"core_extension":[{"id":"6","extension_type":"module","load_order":"10","path":"\/base\/src\/Page","is_active":"1","is_system":"0","namespace":"Page","name":"page","title":"Pages","author":"YouNet Company","description":"Pages","version":"1.0.1","created_at":"2015-04-25 08:29:51","modified_at":"2015-04-25 08:29:51"}],"core_type":[{"type_id":"page","name":"Pages","is_poster":"1","module_name":"page","has_attribute_catalog":"1"}],"setting_action":[{"module_name":"page","action_group":"relations","action_name":"page"},{"module_name":"page","action_group":"page","action_name":"browsing_mode"},{"module_name":"page","action_group":"page","action_name":"browsing_filter"}],"setting_value":{"relations":{"page":[1,2,5,4,0]},"page":{"browsing_mode":"1","browsing_filter":"1"}},"phrase":[{"module_name":"page","is_active":"0","phrase_group":"nav","phrase_name":"pages","default_value":"Pages"}],"acl_role":[{"role_type":"page","is_system":"1","title":"default page","parent_role":"0","is_super":"0","is_admin":"0","is_moderator":"0","is_staff":"0","is_member":"1","is_guest":"0","module_name":"page"}],"acl_group":[{"group_id":"page","module_name":"page","group_title":"Page Permissions","group_description":"Page Permissions","sort_order":"7","form_class":"\\Page\\Form\\Admin\\PagePermission"}],"acl_action":[{"module_name":"page","group_name":"page","action_name":"page_tab_view","comment":"Can view profile tab"},{"module_name":"page","group_name":"page","action_name":"edit","comment":""},{"module_name":"page","group_name":"page","action_name":"view","comment":""},{"module_name":"page","group_name":"page","action_name":"delete","comment":""},{"module_name":"page","group_name":"page","action_name":"create","comment":""},{"module_name":"page","group_name":"page","action_name":"limit","comment":""},{"module_name":"page","group_name":"page","action_name":"page_tab_exists","comment":"Can has profile tab"},{"module_name":"page","group_name":"page","action_name":"privacy_option","comment":""}],"acl_allow_data":[],"navigation":[],"navigation_item":[{"item_id":"5","nav_id":"main","is_active":"1","sort_order":"9","module_name":"page","item_name":"main_page","phrase_name":"pages","parent_name":null,"item_type":"route","event":null,"acl":"page__view","route":"pages","params_text":null,"query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"31","nav_id":"page_main","is_active":"1","sort_order":"99","module_name":"page","item_name":"page_browse","phrase_name":"browse_pages","parent_name":null,"item_type":"route","event":null,"acl":null,"route":"pages","params_text":null,"query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"32","nav_id":"page_main","is_active":"1","sort_order":"100","module_name":"page","item_name":"page_my","phrase_name":"my_pages","parent_name":null,"item_type":"route","event":null,"acl":null,"route":"page_my","params_text":null,"query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"33","nav_id":"page_main","is_active":"1","sort_order":"100","module_name":"page","item_name":"page_add","phrase_name":"create_page","parent_name":null,"item_type":"route","event":null,"acl":null,"route":"page_add","params_text":null,"query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"66","nav_id":"admin","is_active":"1","sort_order":"102","module_name":"page","item_name":"page_extension","phrase_name":"pages","parent_name":"admin_extension","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"page\/manage\/browse\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"116","nav_id":"admin","is_active":"1","sort_order":"102","module_name":"page","item_name":"page","phrase_name":"pages","parent_name":"admin_permission_edit","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"acl\/permission\/edit\",\"groupId\":\"page\",\"t\":\"page\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"143","nav_id":"profile","is_active":"1","sort_order":"1","module_name":"page","item_name":"pages","phrase_name":"pages","parent_name":null,"item_type":"event","event":"onProfileMenuItemPages","acl":"","route":"profile","params_text":null,"query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"186","nav_id":"admin","is_active":"1","sort_order":"8","module_name":"page","item_name":"page_settings","phrase_name":"pages","parent_name":"admin_setting","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"core\/setting\/general\",\"name\": \"page.admin.page-setting\",\"t\":\"page_settings\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"196","nav_id":"admin","is_active":"1","sort_order":"99","module_name":"page","item_name":"page_manage","phrase_name":"manage","parent_name":"page_extension","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"page\/manage\/browse\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"211","nav_id":"admin","is_active":"1","sort_order":"99","module_name":"page","item_name":"page_category","phrase_name":"categories","parent_name":"page_extension","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"page\/category\/browse\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"212","nav_id":"admin","is_active":"1","sort_order":"99","module_name":"page","item_name":"page_settings","phrase_name":"settings","parent_name":"page_extension","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"page\/setting\/edit\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null},{"item_id":"213","nav_id":"admin","is_active":"1","sort_order":"99","module_name":"page","item_name":"page_permission","phrase_name":"permission","parent_name":"page_extension","item_type":"route","event":null,"acl":null,"route":"admin","params_text":"{\"stuff\":\"page\/permission\/edit\"}","query_text":null,"extra_text":null,"icon":null,"mobile_icon":null}],"invitation_type":[],"feed_type":[{"id":"5","is_active":"1","feed_type":"page_add","module_name":"page","show_on_public":"0","show_on_parent":"1","show_on_poster":"0","show_on_main":"0","can_share":"1","can_like":"1","can_comment":"1","show_on_tagged":"1"}],"notification_type":[],"attribute_plugin":[],"relation_type":[{"parent_type":"page","relation_type":"0","type_id":"10","relation_name":"Private","is_build":"0","description":"Page owner","module_name":"page"},{"parent_type":"page","relation_type":"6","type_id":"11","relation_name":"Admin","is_build":"1","description":"Page admin","module_name":"page"},{"parent_type":"page","relation_type":"7","type_id":"12","relation_name":"Officer","is_build":"1","description":"page editor","module_name":"page"}],"layout_support_block":[{"support_block_id":"19","block_name":"Page -Browse Menu","block_class":"\\Page\\Block\\BrowseMenuBlock","base_path":"base\/page\/block\/browse-menu","item_path":null,"module_name":"page","support_block_params_text":"[]","block_type":"block","editor_class":"\\Layout\\ViewHelper\\BaseBlockEditor"}],"layout_page":[{"page_id":"29","page_name":"page_profile_home","parent_page_name":"user_profile_home","module_name":"page","item_module_name":"core","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"","item_path":""},{"page_id":"30","page_name":"page_profile_view_about","parent_page_name":"page_profile_home","module_name":"page","item_module_name":"core","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/page\/controller\/profile\/view-about","item_path":""},{"page_id":"31","page_name":"page_profile_browse_photo","parent_page_name":"page_profile_home","module_name":"page","item_module_name":"photo","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/photo\/controller\/profile\/browse-photo","item_path":"base\/photo\/paging\/profile-browse-photo"},{"page_id":"32","page_name":"page_profile_browse_video","parent_page_name":"page_profile_home","module_name":"page","item_module_name":"video","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/video\/controller\/profile\/browse-video","item_path":"base\/video\/paging\/profile-browse-video"},{"page_id":"33","page_name":"page_profile_browse_group","parent_page_name":"page_profile_home","module_name":"page","item_module_name":"group","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/group\/controller\/profile\/browse-group","item_path":"base\/group\/paging\/profile-browse-group"},{"page_id":"34","page_name":"page_profile_browse_blog","parent_page_name":"page_profile_home","module_name":"page","item_module_name":"blog","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/blog\/controller\/profile\/browse-blog","item_path":"base\/blog\/paging\/profile-browse-blog"},{"page_id":"35","page_name":"page_profile_browse_event","parent_page_name":"page_profile_home","module_name":"page","item_module_name":"eevnt","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/event\/controller\/profile\/browse-event","item_path":"base\/event\/paging\/profile-browse-event"},{"page_id":"36","page_name":"page_profile_browse_page","parent_page_name":"page_profile_home","module_name":"page","item_module_name":"page","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/page\/controller\/profile\/browse-group","item_path":""},{"page_id":"37","page_name":"page_profile_browse_member","parent_page_name":"page_profile_home","module_name":"page","item_module_name":"core","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/user\/controller\/profile\/browse-member","item_path":"base\/user\/paging\/profile-browse-member"},{"page_id":"57","page_name":"page_profile_timeline","parent_page_name":"user_profile_timeline","module_name":"page","item_module_name":"feed","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"","item_path":""},{"page_id":"60","page_name":"page_profile_browse_album","parent_page_name":"page_profile_home","module_name":"page","item_module_name":"photo","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/photo\/controller\/profile\/browse-album","item_path":"base\/photo\/paging\/profile-browse-album"},{"page_id":"71","page_name":"page_home_browse_page","parent_page_name":"core_default","module_name":"page","item_module_name":"page","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/page\/controller\/home\/browse-page","item_path":"base\/page\/paging\/browse-page"},{"page_id":"72","page_name":"page_home_create_page","parent_page_name":"core_default","module_name":"page","item_module_name":"page","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/page\/controller\/home\/create-page","item_path":""},{"page_id":"81","page_name":"page_home_my_page","parent_page_name":"core_default","module_name":"page","item_module_name":"page","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/page\/controller\/home\/my-page","item_path":"base\/page\/paging\/browse-page"},{"page_id":"93","page_name":"page_profile_browse_following","parent_page_name":"page_profile_home","module_name":"page","item_module_name":"follow","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/follow\/controller\/profile\/browse-following","item_path":"base\/follow\/paging\/profile-browse-following"},{"page_id":"94","page_name":"page_profile_browse_follower","parent_page_name":"page_profile_home","module_name":"page","item_module_name":"follow","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/follow\/controller\/profile\/browse-follower","item_path":"base\/follow\/paging\/profile-browse-follower"},{"page_id":"102","page_name":"page_profile_browse_notification","parent_page_name":"page_profile_home","module_name":"page","item_module_name":"notification","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/notification\/controller\/profile\/browse-notification","item_path":"base\/notification\/paging\/profile-browse-notification"},{"page_id":"104","page_name":"page_profile_browse_like","parent_page_name":"page_profile_home","module_name":"page","item_module_name":"like","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/like\/controller\/profile\/browse-like","item_path":"base\/like\/paging\/profile-browse-like"},{"page_id":"122","page_name":"page_profile_view_album","parent_page_name":"page_profile_home","module_name":"page","item_module_name":"photo","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/photo\/controller\/profile\/view-album","item_path":"base\/photo\/paging\/profile-album-photo"},{"page_id":"125","page_name":"page_profile_browse_invitation","parent_page_name":"page_profile_home","module_name":"page","item_module_name":"invitation","page_params_text":null,"page_condition":null,"is_admin":"0","base_path":"base\/invitation\/controller\/profile\/browse-invitation","item_path":"base\/invitation\/paging\/profile-browse-invitation"}],"layout_data":[{"page_name":"page_profile_timeline","screen_size":"desktop","theme_id":"default","listSection":[{"section_id":"bmyssyhae","section_order":"0","section_active":"1","section_type":"section_type","section_template":"9.3-3.9","section_params_text":"[]","listBlock":[{"block_id":"bguwcpwrn","parent_block_id":"","section_id":"bmyssyhae","node_id":"main","leaf_id":"","support_block_id":"6","block_order":"0","block_params_text":"[]","block_class":"\\Feed\\Block\\ActivityComposerBlock"},{"block_id":"bpywqbqvd","parent_block_id":"","section_id":"bmyssyhae","node_id":"main","leaf_id":"","support_block_id":"7","block_order":"1","block_params_text":"[]","block_class":"\\Feed\\Block\\ActivityStreamBlock"},{"block_id":"bzimgvnss","parent_block_id":"","section_id":"bmyssyhae","node_id":"top","leaf_id":"","support_block_id":"9","block_order":"0","block_params_text":"[]","block_class":"\\User\\Block\\TimelineHeaderBlock"}]}]}],"mail_template":[],"core_hook":[{"id":"119","event_name":"onProfileMenuItemPages","service_name":"page.event_handler","load_order":"31","module_name":"page"},{"id":"120","event_name":"onAdminStatisticBlockRender","service_name":"page.event_handler","load_order":"32","module_name":"page"}]}
+{
+    "tables": {
+        "page": "CREATE TABLE `:table_prefix_page` (\n  `page_id` bigint(20) unsigned NOT NULL,\n  `is_published` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `is_active` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `is_approved` tinyint(1) unsigned NOT NULL DEFAULT '1',\n  `user_id` bigint(20) unsigned NOT NULL,\n  `poster_id` bigint(20) unsigned NOT NULL,\n  `parent_id` bigint(20) NOT NULL,\n  `parent_user_id` bigint(20) NOT NULL,\n  `photo_file_id` int(11) DEFAULT NULL,\n  `poster_type` varchar(32) NOT NULL DEFAULT '',\n  `parent_type` varchar(32) NOT NULL DEFAULT '',\n  `name` varchar(100) NOT NULL DEFAULT '',\n  `profile_name` varchar(100) DEFAULT NULL,\n  `slug` varchar(100) DEFAULT NULL,\n  `created_at` datetime NOT NULL,\n  `modified_at` datetime NOT NULL,\n  `comment_count` int(11) unsigned DEFAULT '0',\n  `like_count` int(11) unsigned DEFAULT '0',\n  `member_count` int(11) unsigned DEFAULT '0',\n  `share_count` int(11) unsigned DEFAULT '0',\n  `privacy_type` bigint(20) unsigned NOT NULL DEFAULT '0',\n  `privacy_value` bigint(20) unsigned NOT NULL DEFAULT '0',\n  `place_id` bigint(20) unsigned DEFAULT '0',\n  `role_id` int(10) unsigned NOT NULL DEFAULT '12',\n  `place_type` varchar(32) DEFAULT '',\n  `follow_count` int(11) unsigned DEFAULT '0',\n  PRIMARY KEY (`page_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+        "page_category": "CREATE TABLE `:table_prefix_page_category` (\n  `category_id` int(11) unsigned NOT NULL AUTO_INCREMENT,\n  `category_name` varchar(50) NOT NULL DEFAULT '',\n  PRIMARY KEY (`category_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8"
+    },
+    "core_extension": [
+        {
+            "id": "6",
+            "extension_type": "module",
+            "name": "page",
+            "load_order": "10",
+            "path": "\/app\/bundle\/base\/src\/Page",
+            "is_active": "1",
+            "is_system": "0",
+            "namespace": "Page",
+            "title": "Pages",
+            "author": "YouNet Company",
+            "description": "Pages",
+            "version": "1.0.1",
+            "created_at": "2015-04-25 08:29:51",
+            "modified_at": "2015-04-25 08:29:51",
+            "vendor_id": "namnv@younetco.com",
+            "install_path": "\/app\/bundle\/base\/src\/Page\/Service\/InstallHandlerService.php",
+            "install_handler": "\\Page\\Service\\InstallHandlerService"
+        }
+    ],
+    "core_type": [
+        {
+            "type_id": "page",
+            "name": "Pages",
+            "is_poster": "1",
+            "module_name": "page",
+            "has_attribute_catalog": "1"
+        }
+    ],
+    "setting_action": [
+        {
+            "module_name": "page",
+            "action_group": "relations",
+            "action_name": "page"
+        },
+        {
+            "module_name": "page",
+            "action_group": "page",
+            "action_name": "browsing_mode"
+        },
+        {
+            "module_name": "page",
+            "action_group": "page",
+            "action_name": "browsing_filter"
+        }
+    ],
+    "setting_value": {
+        "relations": {
+            "page": [
+                1,
+                2,
+                5,
+                4,
+                0
+            ]
+        },
+        "page": {
+            "browsing_mode": "1",
+            "browsing_filter": "1"
+        }
+    },
+    "phrase": [
+        {
+            "module_name": "page",
+            "is_active": "0",
+            "phrase_group": "nav",
+            "phrase_name": "pages",
+            "default_value": "Pages"
+        }
+    ],
+    "acl_role": [
+        {
+            "role_type": "page",
+            "is_system": "1",
+            "title": "default page",
+            "parent_role": "0",
+            "is_super": "0",
+            "is_admin": "0",
+            "is_moderator": "0",
+            "is_staff": "0",
+            "is_member": "1",
+            "is_guest": "0",
+            "module_name": "page"
+        }
+    ],
+    "acl_group": [
+        {
+            "group_id": "page",
+            "module_name": "page",
+            "group_title": "Page Permissions",
+            "group_description": "Page Permissions",
+            "sort_order": "7",
+            "form_class": "\\Page\\Form\\Admin\\PagePermission"
+        }
+    ],
+    "acl_action": [
+        {
+            "module_name": "page",
+            "group_name": "page",
+            "action_name": "page_tab_view",
+            "comment": "Can view profile tab"
+        },
+        {
+            "module_name": "page",
+            "group_name": "page",
+            "action_name": "edit",
+            "comment": ""
+        },
+        {
+            "module_name": "page",
+            "group_name": "page",
+            "action_name": "view",
+            "comment": ""
+        },
+        {
+            "module_name": "page",
+            "group_name": "page",
+            "action_name": "delete",
+            "comment": ""
+        },
+        {
+            "module_name": "page",
+            "group_name": "page",
+            "action_name": "create",
+            "comment": ""
+        },
+        {
+            "module_name": "page",
+            "group_name": "page",
+            "action_name": "limit",
+            "comment": ""
+        },
+        {
+            "module_name": "page",
+            "group_name": "page",
+            "action_name": "page_tab_exists",
+            "comment": "Can has profile tab"
+        },
+        {
+            "module_name": "page",
+            "group_name": "page",
+            "action_name": "privacy_option",
+            "comment": ""
+        }
+    ],
+    "acl_allow_data": [],
+    "navigation": [],
+    "navigation_item": [
+        {
+            "item_id": "5",
+            "nav_id": "main",
+            "is_active": "1",
+            "sort_order": "9",
+            "module_name": "page",
+            "item_name": "main_page",
+            "phrase_name": "pages",
+            "parent_name": null,
+            "item_type": "route",
+            "event": null,
+            "acl": "page__view",
+            "route": "pages",
+            "params_text": null,
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "31",
+            "nav_id": "page_main",
+            "is_active": "1",
+            "sort_order": "99",
+            "module_name": "page",
+            "item_name": "page_browse",
+            "phrase_name": "browse_pages",
+            "parent_name": null,
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "pages",
+            "params_text": null,
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "32",
+            "nav_id": "page_main",
+            "is_active": "1",
+            "sort_order": "100",
+            "module_name": "page",
+            "item_name": "page_my",
+            "phrase_name": "my_pages",
+            "parent_name": null,
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "page_my",
+            "params_text": null,
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "33",
+            "nav_id": "page_main",
+            "is_active": "1",
+            "sort_order": "100",
+            "module_name": "page",
+            "item_name": "page_add",
+            "phrase_name": "create_page",
+            "parent_name": null,
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "page_add",
+            "params_text": null,
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "66",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "102",
+            "module_name": "page",
+            "item_name": "page_extension",
+            "phrase_name": "pages",
+            "parent_name": "admin_extension",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"page\/manage\/browse\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "116",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "102",
+            "module_name": "page",
+            "item_name": "page",
+            "phrase_name": "pages",
+            "parent_name": "admin_permission_edit",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"acl\/permission\/edit\",\"groupId\":\"page\",\"t\":\"page\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "143",
+            "nav_id": "profile",
+            "is_active": "1",
+            "sort_order": "1",
+            "module_name": "page",
+            "item_name": "pages",
+            "phrase_name": "pages",
+            "parent_name": null,
+            "item_type": "event",
+            "event": "onProfileMenuItemPages",
+            "acl": "",
+            "route": "profile",
+            "params_text": null,
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "186",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "8",
+            "module_name": "page",
+            "item_name": "page_settings",
+            "phrase_name": "pages",
+            "parent_name": "admin_setting",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"core\/setting\/general\",\"name\": \"page.admin.page-setting\",\"t\":\"page_settings\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "196",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "99",
+            "module_name": "page",
+            "item_name": "page_manage",
+            "phrase_name": "manage",
+            "parent_name": "page_extension",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"page\/manage\/browse\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "211",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "99",
+            "module_name": "page",
+            "item_name": "page_category",
+            "phrase_name": "categories",
+            "parent_name": "page_extension",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"page\/category\/browse\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "212",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "99",
+            "module_name": "page",
+            "item_name": "page_settings",
+            "phrase_name": "settings",
+            "parent_name": "page_extension",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"page\/setting\/edit\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        },
+        {
+            "item_id": "213",
+            "nav_id": "admin",
+            "is_active": "1",
+            "sort_order": "99",
+            "module_name": "page",
+            "item_name": "page_permission",
+            "phrase_name": "permission",
+            "parent_name": "page_extension",
+            "item_type": "route",
+            "event": null,
+            "acl": null,
+            "route": "admin",
+            "params_text": "{\"stuff\":\"page\/permission\/edit\"}",
+            "query_text": null,
+            "extra_text": null,
+            "icon": null,
+            "mobile_icon": null
+        }
+    ],
+    "invitation_type": [],
+    "feed_type": [
+        {
+            "id": "5",
+            "is_active": "1",
+            "feed_type": "page_add",
+            "module_name": "page",
+            "show_on_public": "0",
+            "show_on_parent": "1",
+            "show_on_poster": "0",
+            "show_on_main": "0",
+            "can_share": "1",
+            "can_like": "1",
+            "can_comment": "1",
+            "show_on_tagged": "1"
+        }
+    ],
+    "notification_type": [],
+    "attribute_plugin": [],
+    "relation_type": [
+        {
+            "parent_type": "page",
+            "relation_type": "0",
+            "type_id": "10",
+            "relation_name": "Private",
+            "is_build": "0",
+            "description": "Page owner",
+            "module_name": "page"
+        },
+        {
+            "parent_type": "page",
+            "relation_type": "6",
+            "type_id": "11",
+            "relation_name": "Admin",
+            "is_build": "1",
+            "description": "Page admin",
+            "module_name": "page"
+        },
+        {
+            "parent_type": "page",
+            "relation_type": "7",
+            "type_id": "12",
+            "relation_name": "Officer",
+            "is_build": "1",
+            "description": "page editor",
+            "module_name": "page"
+        }
+    ],
+    "layout_support_block": [],
+    "layout_page": [
+        {
+            "page_id": "29",
+            "page_name": "page_profile_home",
+            "parent_page_name": "user_profile_home",
+            "module_name": "page",
+            "item_module_name": "core",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "",
+            "item_path": ""
+        },
+        {
+            "page_id": "30",
+            "page_name": "page_profile_view_about",
+            "parent_page_name": "page_profile_home",
+            "module_name": "page",
+            "item_module_name": "core",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/page\/controller\/profile\/view-about",
+            "item_path": ""
+        },
+        {
+            "page_id": "31",
+            "page_name": "page_profile_browse_photo",
+            "parent_page_name": "page_profile_home",
+            "module_name": "page",
+            "item_module_name": "photo",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/photo\/controller\/profile\/browse-photo",
+            "item_path": "base\/photo\/paging\/profile-browse-photo"
+        },
+        {
+            "page_id": "32",
+            "page_name": "page_profile_browse_video",
+            "parent_page_name": "page_profile_home",
+            "module_name": "page",
+            "item_module_name": "video",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/video\/controller\/profile\/browse-video",
+            "item_path": "base\/video\/paging\/profile-browse-video"
+        },
+        {
+            "page_id": "33",
+            "page_name": "page_profile_browse_group",
+            "parent_page_name": "page_profile_home",
+            "module_name": "page",
+            "item_module_name": "group",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/group\/controller\/profile\/browse-group",
+            "item_path": "base\/group\/paging\/profile-browse-group"
+        },
+        {
+            "page_id": "34",
+            "page_name": "page_profile_browse_blog",
+            "parent_page_name": "page_profile_home",
+            "module_name": "page",
+            "item_module_name": "blog",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/blog\/controller\/profile\/browse-blog",
+            "item_path": "base\/blog\/paging\/profile-browse-blog"
+        },
+        {
+            "page_id": "35",
+            "page_name": "page_profile_browse_event",
+            "parent_page_name": "page_profile_home",
+            "module_name": "page",
+            "item_module_name": "eevnt",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/event\/controller\/profile\/browse-event",
+            "item_path": "base\/event\/paging\/profile-browse-event"
+        },
+        {
+            "page_id": "36",
+            "page_name": "page_profile_browse_page",
+            "parent_page_name": "page_profile_home",
+            "module_name": "page",
+            "item_module_name": "page",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/page\/controller\/profile\/browse-group",
+            "item_path": ""
+        },
+        {
+            "page_id": "37",
+            "page_name": "page_profile_browse_member",
+            "parent_page_name": "page_profile_home",
+            "module_name": "page",
+            "item_module_name": "core",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/user\/controller\/profile\/browse-member",
+            "item_path": "base\/user\/paging\/profile-browse-member"
+        },
+        {
+            "page_id": "57",
+            "page_name": "page_profile_timeline",
+            "parent_page_name": "user_profile_timeline",
+            "module_name": "page",
+            "item_module_name": "feed",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "",
+            "item_path": ""
+        },
+        {
+            "page_id": "60",
+            "page_name": "page_profile_browse_album",
+            "parent_page_name": "page_profile_home",
+            "module_name": "page",
+            "item_module_name": "photo",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/photo\/controller\/profile\/browse-album",
+            "item_path": "base\/photo\/paging\/profile-browse-album"
+        },
+        {
+            "page_id": "71",
+            "page_name": "page_home_browse_page",
+            "parent_page_name": "core_default",
+            "module_name": "page",
+            "item_module_name": "page",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/page\/controller\/home\/browse-page",
+            "item_path": "base\/page\/paging\/browse-page"
+        },
+        {
+            "page_id": "72",
+            "page_name": "page_home_create_page",
+            "parent_page_name": "core_default",
+            "module_name": "page",
+            "item_module_name": "page",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/page\/controller\/home\/create-page",
+            "item_path": ""
+        },
+        {
+            "page_id": "81",
+            "page_name": "page_home_my_page",
+            "parent_page_name": "core_default",
+            "module_name": "page",
+            "item_module_name": "page",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/page\/controller\/home\/my-page",
+            "item_path": "base\/page\/paging\/browse-page"
+        },
+        {
+            "page_id": "93",
+            "page_name": "page_profile_browse_following",
+            "parent_page_name": "page_profile_home",
+            "module_name": "page",
+            "item_module_name": "follow",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/follow\/controller\/profile\/browse-following",
+            "item_path": "base\/follow\/paging\/profile-browse-following"
+        },
+        {
+            "page_id": "94",
+            "page_name": "page_profile_browse_follower",
+            "parent_page_name": "page_profile_home",
+            "module_name": "page",
+            "item_module_name": "follow",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/follow\/controller\/profile\/browse-follower",
+            "item_path": "base\/follow\/paging\/profile-browse-follower"
+        },
+        {
+            "page_id": "102",
+            "page_name": "page_profile_browse_notification",
+            "parent_page_name": "page_profile_home",
+            "module_name": "page",
+            "item_module_name": "notification",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/notification\/controller\/profile\/browse-notification",
+            "item_path": "base\/notification\/paging\/profile-browse-notification"
+        },
+        {
+            "page_id": "104",
+            "page_name": "page_profile_browse_like",
+            "parent_page_name": "page_profile_home",
+            "module_name": "page",
+            "item_module_name": "like",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/like\/controller\/profile\/browse-like",
+            "item_path": "base\/like\/paging\/profile-browse-like"
+        },
+        {
+            "page_id": "122",
+            "page_name": "page_profile_view_album",
+            "parent_page_name": "page_profile_home",
+            "module_name": "page",
+            "item_module_name": "photo",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/photo\/controller\/profile\/view-album",
+            "item_path": "base\/photo\/paging\/profile-album-photo"
+        },
+        {
+            "page_id": "125",
+            "page_name": "page_profile_browse_invitation",
+            "parent_page_name": "page_profile_home",
+            "module_name": "page",
+            "item_module_name": "invitation",
+            "page_params_text": null,
+            "page_condition": null,
+            "is_admin": "0",
+            "base_path": "base\/invitation\/controller\/profile\/browse-invitation",
+            "item_path": "base\/invitation\/paging\/profile-browse-invitation"
+        }
+    ],
+    "layout_data": [
+        {
+            "page_name": "page_profile_timeline",
+            "screen_size": "desktop",
+            "theme_id": "default",
+            "listSection": [
+                {
+                    "section_id": "bmyssyhae",
+                    "section_order": "0",
+                    "section_active": "1",
+                    "section_type": "main",
+                    "section_template": "9.3-4.8",
+                    "section_params_text": "[]",
+                    "container_type": "container-fluid",
+                    "listBlock": [
+                        {
+                            "block_id": "bguwcpwrn",
+                            "parent_block_id": "",
+                            "section_id": "bmyssyhae",
+                            "node_id": "main",
+                            "leaf_id": "",
+                            "support_block_id": "6",
+                            "block_order": "0",
+                            "block_params_text": "[]",
+                            "block_class": "\\Feed\\Block\\ActivityComposerBlock"
+                        },
+                        {
+                            "block_id": "bpywqbqvd",
+                            "parent_block_id": "",
+                            "section_id": "bmyssyhae",
+                            "node_id": "main",
+                            "leaf_id": "",
+                            "support_block_id": "7",
+                            "block_order": "1",
+                            "block_params_text": "[]",
+                            "block_class": "\\Feed\\Block\\ActivityStreamBlock"
+                        },
+                        {
+                            "block_id": "bzimgvnss",
+                            "parent_block_id": "",
+                            "section_id": "bmyssyhae",
+                            "node_id": "top",
+                            "leaf_id": "",
+                            "support_block_id": "9",
+                            "block_order": "0",
+                            "block_params_text": "[]",
+                            "block_class": "\\User\\Block\\TimelineHeaderBlock"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "mail_template": [],
+    "core_hook": [
+        {
+            "id": "119",
+            "event_name": "onProfileMenuItemPages",
+            "service_name": "page.event_handler",
+            "load_order": "31",
+            "module_name": "page"
+        },
+        {
+            "id": "120",
+            "event_name": "onAdminStatisticBlockRender",
+            "service_name": "page.event_handler",
+            "load_order": "32",
+            "module_name": "page"
+        }
+    ]
+}

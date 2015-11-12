@@ -1,11 +1,3 @@
-<div class="page-heading">
-    <h1 class="page-title">
-        Manage Navigations
-    </h1>
-
-    <div class="page-note"></div>
-</div>
-
 <table class="table">
     <thead>
     <tr>

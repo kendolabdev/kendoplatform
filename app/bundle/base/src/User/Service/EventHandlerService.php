@@ -100,7 +100,7 @@ class EventHandlerService extends EventHandler
 
         $stats['user'] = [
             'label' => \App::text('user.members'),
-            'value' => \App::service('user')->getActiveUserCount(),
+            'value' => \App::user()->getActiveUserCount(),
         ];
 
         $payload->__set('stats', $stats);

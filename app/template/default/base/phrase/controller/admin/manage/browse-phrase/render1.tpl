@@ -1,18 +1,3 @@
-<div class="page-heading">
-    <div class="page-title">
-        Manage Phrases
-    </div>
-    <div class="page-note">
-        <form class="form form-inline">
-            <?php echo $filter->asList();?>
-            <div class="form-group">
-                <br/>
-                <button type="submit" class="btn btn-warning">Search</button>
-            </div>
-        </form>
-    </div>
-</div>
-
 <?php if($paging->count()):?>
 <div class="paging"
      ride="paging"

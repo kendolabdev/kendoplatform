@@ -1,18 +1,67 @@
 {
-    "info": {
+    "extension": {
+        "id": "64",
+        "extension_type": "theme",
+        "name": "theme_linkedin",
+        "load_order": "99",
+        "path": "\/app\/theme\/linkedin",
+        "is_active": "1",
+        "is_system": "1",
+        "namespace": "\/theme\/linkedin",
+        "title": "Theme LinkedIn",
+        "author": "YouNet Company",
+        "description": "",
+        "version": "1.0.0",
+        "latest_version": "1.0.0",
+        "created_at": "2015-04-25 08:29:51",
+        "modified_at": "2015-04-25 08:29:51",
+        "vendor_id": "namnv@younetco.com",
+        "install_path": null,
+        "install_handler": null
+    },
+    "theme": {
         "theme_id": "linkedin",
         "name": "LinkedIn",
+        "extension_name": "theme_linkedin",
         "parent_theme_id": "default",
         "super_theme_id": "",
-        "author": "YouNet Company",
         "is_active": "1",
         "is_editing": "0",
         "is_default": "0",
         "variable_params": "",
         "template_id": "default",
         "description": null,
-        "screen_shorts": null,
-        "version": "1.0.0",
-        "vendor_id": "namnv@younetco.com"
-    }
+        "screen_shorts": null
+    },
+    "layout_data": [
+        {
+            "page_name": "core_home_index",
+            "screen_size": "desktop",
+            "theme_id": "linkedin",
+            "listSection": [
+                {
+                    "section_id": "brxoryghg",
+                    "section_order": "0",
+                    "section_active": "1",
+                    "section_type": "main",
+                    "section_template": "4-4-4",
+                    "section_params_text": "[]",
+                    "container_type": "container-fluid",
+                    "listBlock": [
+                        {
+                            "block_id": "bdlnrxkwl",
+                            "parent_block_id": "",
+                            "section_id": "brxoryghg",
+                            "node_id": "main",
+                            "leaf_id": "",
+                            "support_block_id": "32",
+                            "block_order": "0",
+                            "block_params_text": "{\"base_script\":\"render1\",\"title\":\"Be great at what you do\",\"note\":\"Get started - it's free.\"}",
+                            "block_class": "\\User\\Block\\SmallRegisterBlock"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }

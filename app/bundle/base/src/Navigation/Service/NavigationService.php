@@ -179,7 +179,7 @@ class NavigationService implements NavigationLoaderInterface
                 'acl'      => (string)$row->acl,
                 'event'    => (string)$row->event,
                 'module'   => $module,
-                'label'    => 'nav.' . $row->phrase_name,
+                'label'    => $row->phrase_name,
                 'type'     => (string)$row->item_type,
                 'params'   => $params,
                 'extra'    => $extra,

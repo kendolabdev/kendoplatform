@@ -32,7 +32,7 @@ class InstallHandlerService extends ModuleInstallHandler
             ->toAssocs();
     }
 
-    public function afterImport()
+    public function afterInstall()
     {
         if (!empty($this->finalData['storage_adapter'])) {
             foreach ($this->finalData['storage_adapter'] as $data) {

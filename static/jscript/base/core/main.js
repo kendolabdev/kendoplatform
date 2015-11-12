@@ -11,13 +11,19 @@ define([
 
         K.ajax(url, data)
             .done(function (result) {
-                Toast.success(result.success);
-
-                if (result.directive == 'reload') {
-                    window.setTimeout(function () {
+                switch (result.directive) {
+                    case 'success':
+                        Toast.success(result.message);
+                        break;
+                    case 'error':
+                        Toast.error(result.message);
+                        break;
+                    case 'warning':
+                        Toast.warning(result.message);
+                        break;
+                    case 'reload':
                         window.location.reload();
-                    }, 1000);
-
+                        break;
                 }
             });
     });

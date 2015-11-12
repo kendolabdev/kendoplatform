@@ -32,6 +32,9 @@ class PageHeaderBlock extends Block
         $note = \App::layout()
             ->getPageNote();
 
+        $filter = \App::layout()
+            ->getPageFilter();
+
         if (empty($title)) {
             $this->setNoRender(true);
         }
@@ -45,6 +48,7 @@ class PageHeaderBlock extends Block
             'nav'      => $nav->getNav(),
             'parentId' => $nav->getParentId(),
             'active'   => $nav->getActive(),
+            'filter'   => $filter,
         ]);
     }
 }

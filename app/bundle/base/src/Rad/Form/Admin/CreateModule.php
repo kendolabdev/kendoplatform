@@ -4,13 +4,13 @@ namespace Rad\Form\Admin;
 use Picaso\Html\Form;
 
 /**
- * Create new extension
+ * Create new module
  *
- * Class CreateExtension
+ * Class CreateModule
  *
  * @package Rad\Form\Admin
  */
-class CreateExtension extends Form
+class CreateModule extends Form
 {
     /**
      * initialize
@@ -18,8 +18,8 @@ class CreateExtension extends Form
     protected function init()
     {
 
-        $this->setTitle('Create Extension');
-        $this->setNote('Start develope a new extension by following information');
+        $this->setTitle('Create Module');
+        $this->setNote('Start develope a new module by following information');
 
         $this->addElement([
             'plugin' => 'text',

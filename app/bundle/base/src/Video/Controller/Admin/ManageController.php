@@ -22,11 +22,13 @@ class ManageController extends AdminController
      */
     public function actionBrowse()
     {
+        $filter = new FilterVideo();
+
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageTitle('video.manage_videos')
+            ->setPageFilter($filter)
             ->setupSecondaryNavigation('admin', 'video_extension', 'video_manage');
-
-        $filter = new FilterVideo();
 
         $filter->isValid($this->request->getParams());
 

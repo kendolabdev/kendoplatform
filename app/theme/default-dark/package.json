@@ -1,18 +1,107 @@
 {
-    "info": {
+    "extension": {
+        "id": "62",
+        "extension_type": "theme",
+        "name": "theme_default-dark",
+        "load_order": "99",
+        "path": "\/app\/theme\/default-dark",
+        "is_active": "1",
+        "is_system": "1",
+        "namespace": "\/theme\/default-dark",
+        "title": "Theme Default - Dark",
+        "author": "YouNet Company",
+        "description": "",
+        "version": "1.0.0",
+        "latest_version": "1.0.0",
+        "created_at": "2015-04-25 08:29:51",
+        "modified_at": "2015-04-25 08:29:51",
+        "vendor_id": "namnv@younetco.com",
+        "install_path": null,
+        "install_handler": null
+    },
+    "theme": {
         "theme_id": "default-dark",
         "name": "Default - Dark",
+        "extension_name": "theme_default-dark",
         "parent_theme_id": "default",
         "super_theme_id": "",
-        "author": "YouNet Company",
         "is_active": "1",
         "is_editing": "0",
         "is_default": "0",
         "variable_params": "",
         "template_id": "default",
         "description": null,
-        "screen_shorts": null,
-        "version": "1.0.0",
-        "vendor_id": "namnv@younetco.com"
-    }
+        "screen_shorts": null
+    },
+    "layout_data": [
+        {
+            "page_name": "core_default",
+            "screen_size": "desktop",
+            "theme_id": "default-dark",
+            "listSection": [
+                {
+                    "section_id": "bgdfazren",
+                    "section_order": "0",
+                    "section_active": "1",
+                    "section_type": "main",
+                    "section_template": "3.9",
+                    "section_params_text": "[]",
+                    "container_type": "container-fluid",
+                    "listBlock": [
+                        {
+                            "block_id": "bnranujyd",
+                            "parent_block_id": "",
+                            "section_id": "bgdfazren",
+                            "node_id": "main",
+                            "leaf_id": "",
+                            "support_block_id": "36",
+                            "block_order": "0",
+                            "block_params_text": "[]",
+                            "block_class": "\\Layout\\Block\\PageHeaderBlock"
+                        },
+                        {
+                            "block_id": "bvjtrfqfq",
+                            "parent_block_id": "",
+                            "section_id": "bgdfazren",
+                            "node_id": "main",
+                            "leaf_id": "",
+                            "support_block_id": "4",
+                            "block_order": "1",
+                            "block_params_text": "[]",
+                            "block_class": "\\Core\\Block\\ActionContentBlock"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "page_name": "core_home_index",
+            "screen_size": "desktop",
+            "theme_id": "default-dark",
+            "listSection": [
+                {
+                    "section_id": "bcztwnrlj",
+                    "section_order": "0",
+                    "section_active": "1",
+                    "section_type": "main",
+                    "section_template": "8.4",
+                    "section_params_text": "[]",
+                    "container_type": "container-fluid",
+                    "listBlock": [
+                        {
+                            "block_id": "brpfoytmi",
+                            "parent_block_id": "",
+                            "section_id": "bcztwnrlj",
+                            "node_id": "right",
+                            "leaf_id": "",
+                            "support_block_id": "32",
+                            "block_order": "0",
+                            "block_params_text": "{\"base_script\":\"render1\",\"title\":\"Create new account\",\"note\":\"It's free and always will be\"}",
+                            "block_class": "\\User\\Block\\SmallRegisterBlock"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }

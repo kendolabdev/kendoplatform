@@ -3,6 +3,7 @@ namespace Core\Service;
 
 use Core\Model\CoreExtension;
 use Picaso\Application\ModuleInstallHandler;
+use Picaso\Application\ThemeInstallHandler;
 use Picaso\Hook\SimpleContainer;
 
 /**
@@ -17,6 +18,32 @@ class ExtensionService
      * @var array
      */
     protected $packages = [];
+
+    /**
+     * @param string $id
+     *
+     * @return \Core\Model\CoreExtension
+     */
+    public function findExensionById($id)
+    {
+        return \App::table('core.core_extension')
+            ->select()
+            ->where('id=?', (string)$id)
+            ->one();
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return \Core\Model\CoreExtension
+     */
+    public function findExtensionByName($name)
+    {
+        return \App::table('core.core_extension')
+            ->select()
+            ->where('name=?', (string)$name)
+            ->one();
+    }
 
     /**
      * @return array
@@ -141,7 +168,7 @@ class ExtensionService
             $service = \App::service($serviceName);
 
             if (!$service instanceof ModuleInstallHandler) continue;
-            $service->import();
+            $service->install();
         }
         \App::cache()
             ->flush();
@@ -254,30 +281,61 @@ class ExtensionService
         if (!$service instanceof ModuleInstallHandler)
             return true;
 
-        $service->import();
+        $service->install();
 
         return true;
 
     }
 
     /**
-     * @param $name
+     * @param \Core\Model\CoreExtension $extension
+     */
+    public function export($extension)
+    {
+        if ($extension->isModule()) {
+            $this->exportModule($extension);
+        } else if ($extension->isTheme()) {
+            $this->exportTheme($extension);
+        } else if ($extension->isLibrary()) {
+
+        }
+    }
+
+    /**
+     * Export a theme
+     *
+     * @param \Core\Model\CoreExtension $extension
+     *
+     * @return string
+     */
+    public function exportTheme($extension)
+    {
+
+        $handler = new ThemeInstallHandler();
+
+        $handler->export($extension);
+    }
+
+    /**
+     * @param \Core\Model\CoreExtension $extension
      *
      * @return bool
      */
-    public function exportPackage($name)
+    public function exportModule($extension)
     {
-        $packages = $this->collectListPackageInformation();
-        if (empty($packages[ $name ]))
-            return false;
 
-        $item = $packages[ $name ];
-        $serviceName = sprintf("%s.install_handler", $item['name']);
+        $path = $extension->getInstallPath();
 
-        \App::autoload()
-            ->addNamespace($item['namespace'], PICASO_MODULE_DIR . $item['path']);
 
-        $service = \App::service($serviceName);
+        if (!empty($path))
+            include_once PICASO_ROOT_DIR . $path;
+
+        $class = $extension->getInstallHandler();
+
+        if (!empty($class))
+            $service = new $class;
+        else
+            $service = new ModuleInstallHandler();
 
         if (!$service instanceof ModuleInstallHandler)
             return true;

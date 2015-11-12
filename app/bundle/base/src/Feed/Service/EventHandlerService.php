@@ -113,22 +113,22 @@ class EventHandlerService extends EventHandler
         $stats = $payload->__get('stats');
 
         $stats['comment'] = [
-            'label' => \App::text('comments'),
+            'label' => \App::text('core.comments'),
             'value' => \App::comment()->getAdminStatisticCount(),
         ];
 
         $stats['like'] = [
-            'label' => \App::text('likes'),
+            'label' => \App::text('core.likes'),
             'value' => \App::like()->getAdminStatisticCount(),
         ];
 
         $stats['share'] = [
-            'label' => \App::text('share'),
+            'label' => \App::text('core.shares'),
             'value' => \App::share()->getAdminStatisticCount(),
         ];
 
         $stats['feed'] = [
-            'label' => \App::text('feed'),
+            'label' => \App::text('core.feeds'),
             'value' => \App::feed()->getAdminStatisticCount(),
         ];
 

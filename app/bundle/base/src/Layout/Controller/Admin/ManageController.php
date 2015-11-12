@@ -18,19 +18,20 @@ class ManageController extends AdminController
      */
     public function actionBrowse()
     {
-        \App::layout()->setPageName('admin_simple');
+        $filter = new FilterLayout();
 
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageTitle('layout.manage_layouts')
+            ->setPageFilter($filter)
             ->setupSecondaryNavigation('admin', 'admin_appearance', 'layouts');
-
 
         \App::assets()
             ->setTitle(\App::text('core_layout.manage_layouts'));
 
         $module = $this->request->getParam('module', 'core');
 
-        $filter = new FilterLayout();
+
 
         $filter->isValid(['module' => $module]);
 

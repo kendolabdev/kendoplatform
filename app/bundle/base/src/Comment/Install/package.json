@@ -1,1 +1,75 @@
-{"tables":{"comment":"CREATE TABLE `:table_prefix_comment` (\n  `comment_id` bigint(20) unsigned NOT NULL,\n  `poster_id` bigint(20) unsigned NOT NULL,\n  `user_id` bigint(20) unsigned NOT NULL,\n  `parent_id` bigint(20) unsigned NOT NULL,\n  `parent_user_id` bigint(20) unsigned NOT NULL,\n  `about_id` bigint(20) unsigned NOT NULL,\n  `about_type` varchar(32) NOT NULL DEFAULT '',\n  `poster_type` varchar(32) NOT NULL DEFAULT '',\n  `parent_type` varchar(32) NOT NULL,\n  `like_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `content` text NOT NULL,\n  `created_at` datetime NOT NULL,\n  `attachment_type` varchar(32) DEFAULT NULL,\n  `attachment_id` bigint(20) unsigned DEFAULT '0',\n  PRIMARY KEY (`comment_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8"},"core_extension":[{"id":"28","extension_type":"module","load_order":"6","path":"\/base\/src\/Comment","is_active":"1","is_system":"1","namespace":"Comment","name":"comment","title":"Comment","author":"YouNet Company","description":"Comment - Core module","version":"1.0.1","created_at":"2015-04-25 08:29:51","modified_at":"2015-04-25 08:29:51"}],"core_type":[],"setting_action":[],"setting_value":[],"phrase":[],"acl_role":[],"acl_group":[],"acl_action":[],"acl_allow_data":[],"navigation":[],"navigation_item":[],"invitation_type":[],"feed_type":[],"notification_type":[],"attribute_plugin":[],"relation_type":[],"layout_support_block":[],"layout_page":[],"layout_data":[],"mail_template":[],"core_hook":[{"id":"94","event_name":"onBeforeBuildBundleJS","service_name":"comment.event_handler","load_order":"6","module_name":"comment"},{"id":"95","event_name":"onAfterInsertComment","service_name":"comment.event_handler","load_order":"7","module_name":"comment"},{"id":"96","event_name":"onAfterDeleteComment","service_name":"comment.event_handler","load_order":"8","module_name":"comment"},{"id":"176","event_name":"onBeforeBuildBundleStylesheet","service_name":"comment.event_handler","load_order":"7","module_name":"comment"}]}
+{
+    "tables": {
+        "comment": "CREATE TABLE `:table_prefix_comment` (\n  `comment_id` bigint(20) unsigned NOT NULL,\n  `poster_id` bigint(20) unsigned NOT NULL,\n  `user_id` bigint(20) unsigned NOT NULL,\n  `parent_id` bigint(20) unsigned NOT NULL,\n  `parent_user_id` bigint(20) unsigned NOT NULL,\n  `about_id` bigint(20) unsigned NOT NULL,\n  `about_type` varchar(32) NOT NULL DEFAULT '',\n  `poster_type` varchar(32) NOT NULL DEFAULT '',\n  `parent_type` varchar(32) NOT NULL,\n  `like_count` int(11) unsigned NOT NULL DEFAULT '0',\n  `content` text NOT NULL,\n  `created_at` datetime NOT NULL,\n  `attachment_type` varchar(32) DEFAULT NULL,\n  `attachment_id` bigint(20) unsigned DEFAULT '0',\n  PRIMARY KEY (`comment_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8"
+    },
+    "core_extension": [
+        {
+            "id": "28",
+            "extension_type": "module",
+            "name": "comment",
+            "load_order": "6",
+            "path": "\/app\/bundle\/base\/src\/Comment",
+            "is_active": "1",
+            "is_system": "1",
+            "namespace": "Comment",
+            "title": "Comment",
+            "author": "YouNet Company",
+            "description": "Comment - Core module",
+            "version": "1.0.1",
+            "created_at": "2015-04-25 08:29:51",
+            "modified_at": "2015-04-25 08:29:51",
+            "vendor_id": "namnv@younetco.com",
+            "install_path": "\/app\/bundle\/base\/src\/Comment\/Service\/InstallHandlerService.php",
+            "install_handler": "\\Comment\\Service\\InstallHandlerService"
+        }
+    ],
+    "core_type": [],
+    "setting_action": [],
+    "setting_value": [],
+    "phrase": [],
+    "acl_role": [],
+    "acl_group": [],
+    "acl_action": [],
+    "acl_allow_data": [],
+    "navigation": [],
+    "navigation_item": [],
+    "invitation_type": [],
+    "feed_type": [],
+    "notification_type": [],
+    "attribute_plugin": [],
+    "relation_type": [],
+    "layout_support_block": [],
+    "layout_page": [],
+    "layout_data": [],
+    "mail_template": [],
+    "core_hook": [
+        {
+            "id": "94",
+            "event_name": "onBeforeBuildBundleJS",
+            "service_name": "comment.event_handler",
+            "load_order": "6",
+            "module_name": "comment"
+        },
+        {
+            "id": "95",
+            "event_name": "onAfterInsertComment",
+            "service_name": "comment.event_handler",
+            "load_order": "7",
+            "module_name": "comment"
+        },
+        {
+            "id": "96",
+            "event_name": "onAfterDeleteComment",
+            "service_name": "comment.event_handler",
+            "load_order": "8",
+            "module_name": "comment"
+        },
+        {
+            "id": "176",
+            "event_name": "onBeforeBuildBundleStylesheet",
+            "service_name": "comment.event_handler",
+            "load_order": "7",
+            "module_name": "comment"
+        }
+    ]
+}

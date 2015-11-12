@@ -17,8 +17,18 @@ class ManageController extends AdminController
 {
     protected function onBeforeRender()
     {
+        $createButton = [
+            'label' => 'help.create_new_post',
+            'props' => [
+                'class' => 'btn btn-sm btn-primary',
+                'href'  => \App::routing()->getUrl('admin', ['stuff' => 'help/manage/create']),
+            ],
+        ];
+
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageTitle('help.manage_posts')
+            ->setPageButtons([$createButton])
             ->setupSecondaryNavigation('admin', 'admin_help', 'manage_post');
     }
 
@@ -27,10 +37,15 @@ class ManageController extends AdminController
      */
     public function actionBrowse()
     {
+        $filter = new FilterHelpPost();
+
+        \App::layout()
+            ->setPageTitle('help.manage_posts')
+            ->setPageFilter($filter);
 
         $page = $this->request->getParam('page', 1);
         $limit = 10;
-        $filter = new FilterHelpPost();
+
 
         $filter->isValid([
             'topic' => $this->request->getParam('topic'),

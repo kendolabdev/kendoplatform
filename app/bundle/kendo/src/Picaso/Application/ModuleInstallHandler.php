@@ -150,7 +150,7 @@ class ModuleInstallHandler
      */
     public function updatePackageFile()
     {
-        $content = json_encode($this->finalData);
+        $content = json_encode($this->finalData, JSON_PRETTY_PRINT);
 
         $file = $this->getPackageFilePath();
 
@@ -164,7 +164,6 @@ class ModuleInstallHandler
     {
 
         $this->beforeExport();
-
         $this->doExport();
         $this->afterExport();
         $this->updatePackageFile();
@@ -173,13 +172,13 @@ class ModuleInstallHandler
     /**
      * Import data
      */
-    public function import()
+    public function install()
     {
         $this->readPackageFile();
 
-        $this->beforeImport();
-        $this->doImport();
-        $this->afterImport();
+        $this->beforeInstall();
+        $this->doInstall();
+        $this->afterInstall();
     }
 
     /**
@@ -193,7 +192,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    protected function beforeImport()
+    protected function beforeInstall()
     {
 
     }
@@ -201,29 +200,29 @@ class ModuleInstallHandler
     /**
      *
      */
-    protected function doImport()
+    protected function doInstall()
     {
-        $this->importTableStructural();
-        $this->importExtension();
-        $this->importTypes();
-        $this->importSetting();
-        $this->importPhrase();
-        $this->importAcl();
-        $this->importNavigation();
-        $this->importInvitation();
-        $this->importFeed();
-        $this->importNotification();
-        $this->importAttribute();
-        $this->importRelation();
-        $this->importLayout();
-        $this->importMail();
-        $this->importHook();
+        $this->installTableStructural();
+        $this->installExtension();
+        $this->installTypes();
+        $this->installSetting();
+        $this->installPhrase();
+        $this->installAcl();
+        $this->installNavigation();
+        $this->installInvitation();
+        $this->installFeed();
+        $this->installNotification();
+        $this->installAttribute();
+        $this->installRelation();
+        $this->installLayout();
+        $this->installMail();
+        $this->installHook();
     }
 
     /**
      *
      */
-    public function exportHook()
+    protected function exportHook()
     {
         $this->finalData['core_hook']
             = \App::core()->hook()
@@ -233,7 +232,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function importHook()
+    protected function installHook()
     {
         if (!empty($this->finalData['core_hook'])) {
             foreach ($this->finalData['core_hook'] as $data) {
@@ -247,7 +246,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function exportMail()
+    protected function exportMail()
     {
         $this->finalData['mail_template']
             = \App::mail()->getListTemplateByModuleName($this->getModuleList());
@@ -256,7 +255,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function importMail()
+    protected function installMail()
     {
         if (!empty($this->finalData['mail_template'])) {
             foreach ($this->finalData['mail_template'] as $data) {
@@ -270,7 +269,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function exportLayout()
+    protected function exportLayout()
     {
         $this->finalData['layout_support_block']
             = \App::layout()->getListSupportBlockByModuleName($this->getModuleList());
@@ -286,7 +285,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function importLayout()
+    protected function installLayout()
     {
         if (!empty($this->finalData['layout_support_block'])) {
             foreach ($this->finalData['layout_support_block'] as $data) {
@@ -311,7 +310,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    protected function afterImport()
+    protected function afterInstall()
     {
         $this->finalData = [];
     }
@@ -319,7 +318,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function exportRelation()
+    protected function exportRelation()
     {
         $this->finalData['relation_type']
             = \App::relation()->getListRelationTypeByModuleName($this->getModuleList());
@@ -328,7 +327,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function importRelation()
+    protected function installRelation()
     {
         if (!empty($this->finalData['relation_type'])) {
             foreach ($this->finalData['relation_type'] as $data) {
@@ -342,7 +341,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function exportFeed()
+    protected function exportFeed()
     {
         $this->finalData['feed_type']
             = \App::feed()->getListTypeByModuleName($this->getModuleList());
@@ -351,7 +350,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function exportExtension()
+    protected function exportExtension()
     {
         $this->finalData['core_extension']
             = \App::core()->extension()
@@ -361,7 +360,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function importExtension()
+    protected function installExtension()
     {
         if (!empty($this->finalData['core_extension'])) {
             foreach ($this->finalData['core_extension'] as $data) {
@@ -377,7 +376,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function importFeed()
+    protected function installFeed()
     {
         if (!empty($this->finalData['feed_type'])) {
             foreach ($this->finalData['feed_type'] as $data) {
@@ -390,7 +389,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function exportNotification()
+    protected function exportNotification()
     {
         $this->finalData['notification_type']
             = \App::notification()->getListTypeByModuleName($this->getModuleList());
@@ -399,7 +398,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function importNotification()
+    protected function installNotification()
     {
         if (!empty($this->finalData['notification_type'])) {
             foreach ($this->finalData['notification_type'] as $data) {
@@ -412,7 +411,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function exportInvitation()
+    protected function exportInvitation()
     {
         $this->finalData['invitation_type']
             = \App::invitation()->getListTypeByModuleName($this->getModuleList());
@@ -422,7 +421,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function importInvitation()
+    protected function installInvitation()
     {
         if (!empty($this->finalData['invitation_type'])) {
             foreach ($this->finalData['invitation_type'] as $data) {
@@ -435,7 +434,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function exportTypes()
+    protected function exportTypes()
     {
         $this->finalData['core_type']
             = \App::core()->getListTypeByModuleName($this->getModuleList());
@@ -444,7 +443,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function importTypes()
+    protected function installTypes()
     {
         /**
          * insert types
@@ -460,7 +459,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function exportAttribute()
+    protected function exportAttribute()
     {
         $this->finalData['attribute_plugin']
             = \App::attribute()->getListPluginByModuleName($this->getModuleList());
@@ -469,7 +468,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function importAttribute()
+    protected function installAttribute()
     {
         // insert attribute plugins
         if (!empty($this->finalData['attribute_plugin'])) {
@@ -483,7 +482,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function exportNavigation()
+    protected function exportNavigation()
     {
         $this->finalData['navigation'] =
             \App::nav()->getListNavigationByModuleName($this->getModuleList());
@@ -495,7 +494,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function importNavigation()
+    protected function installNavigation()
     {
         // insert attribute plugins
         if (!empty($this->finalData['navigation'])) {
@@ -517,7 +516,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function exportAcl()
+    protected function exportAcl()
     {
         $this->finalData['acl_role']
             = \App::acl()->getListRoleByModuleName($this->getModuleList());
@@ -535,7 +534,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function importAcl()
+    protected function installAcl()
     {
         if (!empty($this->finalData['acl_role'])) {
             foreach ($this->finalData['acl_role'] as $data) {
@@ -567,7 +566,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function exportSetting()
+    protected function exportSetting()
     {
         $this->finalData['setting_action']
             = \App::settings()->getActionListByModuleName($this->getModuleList());
@@ -581,7 +580,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function importSetting()
+    protected function installSetting()
     {
 
         if (!empty($this->finalData['setting_action'])) {
@@ -601,7 +600,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function exportPhrase()
+    protected function exportPhrase()
     {
         $this->finalData['phrase']
             = \App::phrase()->getListPhraseByModuleName($this->getModuleList());
@@ -610,7 +609,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function importPhrase()
+    protected function installPhrase()
     {
         if (!empty($this->finalData['phrase'])) {
             foreach ($this->finalData['phrase'] as $data) {
@@ -626,7 +625,7 @@ class ModuleInstallHandler
     /**
      * @return array
      */
-    public function exportTableStructural()
+    protected function exportTableStructural()
     {
         $db = \App::db();
 
@@ -675,7 +674,7 @@ class ModuleInstallHandler
     /**
      *
      */
-    public function importTableStructural()
+    protected function installTableStructural()
     {
 
         $tables = $this->finalData['tables'];
@@ -704,7 +703,7 @@ class ModuleInstallHandler
     /**
      * @return array
      */
-    public function getErrors()
+    protected function getErrors()
     {
         return $this->errors;
     }
@@ -712,7 +711,7 @@ class ModuleInstallHandler
     /**
      * @param array $errors
      */
-    public function setErrors($errors)
+    protected function setErrors($errors)
     {
         $this->errors = $errors;
     }
@@ -720,7 +719,7 @@ class ModuleInstallHandler
     /**
      * @return array
      */
-    public function getSuccess()
+    protected function getSuccess()
     {
         return $this->success;
     }
@@ -728,7 +727,7 @@ class ModuleInstallHandler
     /**
      * @param array $success
      */
-    public function setSuccess($success)
+    protected function setSuccess($success)
     {
         $this->success = $success;
     }
@@ -736,7 +735,7 @@ class ModuleInstallHandler
     /**
      * @return array
      */
-    public function getWarnings()
+    protected function getWarnings()
     {
         return $this->warnings;
     }
@@ -744,7 +743,7 @@ class ModuleInstallHandler
     /**
      * @param array $warnings
      */
-    public function setWarnings($warnings)
+    protected function setWarnings($warnings)
     {
         $this->warnings = $warnings;
     }
@@ -752,7 +751,7 @@ class ModuleInstallHandler
     /**
      * @param $msg
      */
-    public function addWarning($msg)
+    protected function addWarning($msg)
     {
         $this->warnings[] = $msg;
     }
@@ -760,7 +759,7 @@ class ModuleInstallHandler
     /**
      * @param $msg
      */
-    public function addError($msg)
+    protected function addError($msg)
     {
         $this->errors[] = $msg;
     }
@@ -768,7 +767,7 @@ class ModuleInstallHandler
     /**
      * @param $msg
      */
-    public function addSuccess($msg)
+    protected function addSuccess($msg)
     {
         $this->success[] = $msg;
     }

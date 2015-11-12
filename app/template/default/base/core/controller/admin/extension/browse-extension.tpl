@@ -1,8 +1,3 @@
-<div class="page-heading">
-    <h1 class="page-title">Manage Packages</h1>
-    <p class="page-note">All installed packages</p>
-</div>
-
 <?php if($isEmptyPackage == false): ?>
 <h5>Available Packages</h5>
 <form method="post">
@@ -28,15 +23,15 @@
 <?php endif; ?>
 
 <div class="">
-    <h5 data-toggle="expand" data-target="#list_system_package">System Package
+    <h5 data-toggle="expand" data-target="#list_system_package">Modules
         <button class="btn btn-xs btn-info pull-right">
             <i class="ion-more"></i>
         </button></h5>
     <p class="help-block">
-        You could not disable system package
+        Installed modules
     </p>
     <ul class="list-unstyled collapse" id="list_system_package">
-        <?php foreach($paging->items() as $item): ?>
+        <?php foreach($modules->items() as $item): ?>
         <li class="">
             <h5><?php echo $item->getTitle(); ?>
                 <small>
@@ -70,16 +65,16 @@
 </div>
 <hr/>
 <div class="">
-    <h5 data-toggle="expand" data-target="#list_extend_package">Extends Package
+    <h5 data-toggle="expand" data-target="#list_extend_package">Themes
         <button class="btn btn-xs btn-info pull-right">
             <i class="ion-more"></i>
         </button>
     </h5>
     <p class="help-block">
-        You can enable/disable packages.
+        You can enable/disable themes.
     </p>
     <ul class="list-unstyled collapse" id="list_extend_package">
-        <?php foreach($paging2->items() as $item): ?>
+        <?php foreach($themes->items() as $item): ?>
         <li class="">
             <h5><?php echo $item->getTitle(); ?>
                 <small>

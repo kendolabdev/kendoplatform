@@ -1,12 +1,13 @@
 <?php
 namespace Picaso\Application;
+use Layout\Model\LayoutTheme;
 
 /**
  * Class ThemeInstallHandler
  *
  * @package Picaso\Application
  */
-class ThemeInstallHandler
+class ThemeInstallHandler implements InstallHandler
 {
     /**
      * @var array
@@ -19,11 +20,40 @@ class ThemeInstallHandler
     protected $theme;
 
     /**
-     * @param \Layout\Model\LayoutTheme $theme
+     * @var \Core\Model\CoreExtension
      */
-    public function export($theme)
+    protected $extension;
+
+    /**
+     * @return \Core\Model\CoreExtension
+     */
+    public function getExtension()
     {
-        $this->theme = $theme;
+        return $this->extension;
+    }
+
+    /**
+     * @param \Core\Model\CoreExtension $extension
+     */
+    public function setExtension($extension)
+    {
+        $this->extension = $extension;
+    }
+
+    /**
+     * @param \Core\Model\CoreExtension $extension
+     *
+     */
+    public function export($extension)
+    {
+        $this->extension = $extension;
+
+        $this->theme = \App::layout()
+            ->theme()
+            ->findThemeByExtensionName($extension->getName());
+
+        if (!$this->theme)
+            throw new \InvalidArgumentException("Invalid Theme");
 
         $this->beforeExport();
         $this->doExport();
@@ -45,7 +75,9 @@ class ThemeInstallHandler
      */
     protected function doExport()
     {
+        $this->exportExtension();
         $this->exportLayoutTheme();
+        $this->exportLayoutData();
     }
 
     /**
@@ -61,13 +93,25 @@ class ThemeInstallHandler
      */
     protected function exportLayoutTheme()
     {
-        $this->finalData['info'] = $this->theme->toArray();
+
+        $this->finalData['theme'] = $this->theme->toArray();
+
+    }
+
+    /**
+     * export extension data
+     */
+    protected function exportExtension()
+    {
+        $extension =  $this->getExtension();
+
+        $this->finalData['extension'] = $extension->toArray();
     }
 
     /**
      * Export layout from database
      */
-    protected function exporLayout()
+    protected function exportLayoutData()
     {
         $this->finalData['layout_data'] =
             \App::layout()->exportLayoutData([], [$this->getTheme()->getId()]);
@@ -152,6 +196,35 @@ class ThemeInstallHandler
      */
     public function install()
     {
+        $filename = PICASO_ROOT_DIR . '/app/theme/' . $themeId . '/package.json';
+        $this->finalData = json_decode(file_get_contents($filename), true);
+
+        $this->beforeInstall();
+        $this->doInstall();
+        $this->afterInstall();
+    }
+
+    /**
+     *
+     */
+    protected function beforeInstall()
+    {
+
+    }
+
+    /**
+     *
+     */
+    protected function doInstall()
+    {
+
+    }
+
+    /**
+     *
+     */
+    protected function afterInstall()
+    {
 
     }
 
@@ -159,6 +232,30 @@ class ThemeInstallHandler
      *
      */
     public function uninstall()
+    {
+
+    }
+
+    /**
+     *
+     */
+    public function upgrade()
+    {
+
+    }
+
+    /**
+     *
+     */
+    public function enable()
+    {
+
+    }
+
+    /**
+     *
+     */
+    public function disable()
     {
 
     }

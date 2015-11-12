@@ -74,16 +74,70 @@ class SelectField extends HtmlElement implements FormField
     {
         $this->beforeRender();
 
-        return '<select ' . $this->_flat($this->attributes) . '>' . $this->optionsToHtml() . '</select>';
+        if (\App::registry()->get('prefer_dropdown_button')) {
+            return $this->toButtonHtml();
+        } else {
+            return $this->toOptionsHtml();
+        }
     }
 
     /**
      * @return string
      */
-    public function optionsToHtml()
+    public function toButtonHtml()
     {
         $response = [];
 
+        if (!$this->isRequired()) {
+            $response[] = '<li><a role="button">' . $this->placeholder . '</a></li>';
+        }
+
+        $bntLabel = $this->getLabel();
+
+        $trans = \App::trans();
+
+        $optionTextKey = $this->getOptionTextKey();
+
+        $selectedLablel = \App::text('core.all');
+
+        foreach ($this->options as $item) {
+            $value = $item['value'];
+            $label = isset($item['label']) ? $item['label'] : '';
+
+            if ($optionTextKey) {
+                if (empty($label) || $label == 1) {
+                    $label = $trans->text($optionTextKey . $value);
+                } else {
+                    $label = $trans->text($optionTextKey . $label);
+                }
+            }
+
+            $attrs = [
+                'value' => $value,
+                'label' => $label,
+            ];
+
+            if ($value == $this->value) {
+                $attrs['selected'] = 'selected';
+                $selectedLablel = $label;
+            }
+            $response[] = '<li role="presentation"><a role="button" ' . $this->_flat($attrs) . '>' . $label . '</a>';
+        }
+
+        $bntLabel .= ': ' . $selectedLablel;
+
+
+        $before = '<div class="dropdown-control"><button data-toggle="dropdown" class="btn btn-sm btn-default">' . $bntLabel . ' <span class="caret"></span></button>';
+
+        return $before . '<ul class="dropdown-menu">' . implode(PHP_EOL, $response) . '</ul></div>';
+    }
+
+    /**
+     * @return string
+     */
+    public function toOptionsHtml()
+    {
+        $response = [];
 
         if (!$this->isRequired()) {
             $response[] = '<option value="">' . $this->placeholder . '</option>';
@@ -116,7 +170,7 @@ class SelectField extends HtmlElement implements FormField
             $response[] = '<option ' . $this->_flat($attrs) . '>' . $label . '</option>';
         }
 
-        return implode(PHP_EOL, $response);
+        return '<select ' . $this->_flat($this->attributes) . '>' . implode(PHP_EOL, $response) . '</select>';
     }
 
     /**
@@ -132,7 +186,7 @@ class SelectField extends HtmlElement implements FormField
      */
     public function setRequired($required)
     {
-        $this->required = $required?true:false;
+        $this->required = $required ? true : false;
     }
 
     /**

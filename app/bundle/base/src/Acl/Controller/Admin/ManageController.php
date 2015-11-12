@@ -15,6 +15,7 @@ class ManageController extends AdminController
     protected function onBeforeRender()
     {
         \App::layout()->setPageName('admin_simple')
+            ->setPageTitle('core.manage_roles')
             ->setupSecondaryNavigation('admin', 'admin_permission', 'roles');
 
         \App::assets()
@@ -27,9 +28,14 @@ class ManageController extends AdminController
     public function actionBrowse()
     {
 
+        $filter = new FilterPermission([]);
+
+        \App::layout()
+            ->setPageTitle('core.manage_roles')
+            ->setPageFilter($filter);
+
         $roleType = $this->request->getParam('roleType', 'user');
 
-        $filter = new FilterPermission([]);
 
         $filter->isValid(['roleType' => $roleType]);
 

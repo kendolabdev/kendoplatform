@@ -35,18 +35,16 @@ class LayoutThemeTable extends DbTable{
     protected $column = array(
 		'theme_id'=>1,
 		'name'=>1,
+		'extension_name'=>1,
 		'parent_theme_id'=>1,
 		'super_theme_id'=>1,
-		'author'=>1,
 		'is_active'=>1,
 		'is_editing'=>1,
 		'is_default'=>1,
 		'variable_params'=>1,
 		'template_id'=>1,
 		'description'=>1,
-		'screen_shorts'=>1,
-		'version'=>1,
-		'vendor_id'=>1);
+		'screen_shorts'=>1);
 
     /**
      * @var array

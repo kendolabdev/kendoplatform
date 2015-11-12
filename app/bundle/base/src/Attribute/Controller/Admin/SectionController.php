@@ -30,8 +30,22 @@ class SectionController extends AdminController
      */
     public function actionBrowse()
     {
-        $page = 1;
         $filter = new FilterAttributeSection();
+
+        \App::layout()
+            ->setPageTitle('attribute.manage_sections')
+            ->setPageFilter($filter)
+            ->setPageButtons([
+                [
+                    'label' => 'attribute.add_new_section',
+                    'props' => [
+                        'href'   => \App::routing()->getUrl('admin', ['stuff' => 'attribute/section/create']),
+                        'class' => 'btn btn-sm btn-danger'
+                    ]]
+            ]);
+
+        $page = 1;
+
         $contentId = $this->request->getParam('content_id', 'user');
 
         $filter->isValid([

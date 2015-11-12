@@ -40,7 +40,7 @@ class InstallHandlerService extends ModuleInstallHandler
     /**
      *
      */
-    public function afterImport()
+    public function afterInstall()
     {
         if (!empty($this->finalData['layout_template'])) {
             foreach ($this->finalData['layout_template'] as $data) {

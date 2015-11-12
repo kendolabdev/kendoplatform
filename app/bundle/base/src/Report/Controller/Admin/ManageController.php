@@ -18,8 +18,19 @@ class ManageController extends AdminController
      */
     protected function onBeforeRender()
     {
+        $deleteButton = [
+            'label' => 'report.delete_all',
+            'props' => [
+                'class' => 'btn btn-sm btn-danger',
+                'href'  => '?delete=all',
+            ]
+        ];
+
+
         \App::layout()
             ->setPageName('admin_simple')
+            ->setPageTitle('core.abuse_reports')
+            ->setPageButtons([$deleteButton])
             ->setupSecondaryNavigation('admin', 'admin_report', 'abuse_reports');
     }
 
@@ -29,6 +40,10 @@ class ManageController extends AdminController
     public function actionBrowse()
     {
         $filter = new FilterReport();
+
+        \App::layout()
+            ->setPageTitle('core.abuse_reports')
+            ->setPageFilter($filter);
 
         $filter->isValid([
             'category'  => $this->request->getParam('category'),

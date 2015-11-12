@@ -75,7 +75,6 @@ class LayoutService implements LayoutLoaderInterface, Manager
      */
     protected $masterScript = 'layout/master/default';
 
-
     /**
      * @var array
      */
@@ -121,6 +120,11 @@ class LayoutService implements LayoutLoaderInterface, Manager
     protected $pageNote = '';
 
     /**
+     * @var \Picaso\Html\Form
+     */
+    protected $pageFilter;
+
+    /**
      * LayoutService constructor.
      */
     public function __construct()
@@ -130,6 +134,26 @@ class LayoutService implements LayoutLoaderInterface, Manager
             $themeId = $_COOKIE['themeId'];
         }
         $this->setThemeId($themeId);
+    }
+
+    /**
+     * @return \Picaso\Html\Form
+     */
+    public function getPageFilter()
+    {
+        return $this->pageFilter;
+    }
+
+    /**
+     * @param \Picaso\Html\Form $pageFilter
+     *
+     * @return LayoutService
+     */
+    public function setPageFilter($pageFilter)
+    {
+        $this->pageFilter = $pageFilter;
+
+        return $this;
     }
 
     /**
