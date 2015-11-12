@@ -9,7 +9,7 @@ use Layout\Model\LayoutTemplate;
 use Layout\Model\LayoutTheme;
 use Picaso\Layout\Block;
 use Picaso\Layout\BlockParams;
-use Picaso\Layout\BlockWrapper;
+use Picaso\Layout\BlockRender;
 use Picaso\Layout\LayoutLoaderInterface;
 use Picaso\Layout\Manager;
 use Picaso\Layout\Navigation;
@@ -78,16 +78,16 @@ class LayoutService implements LayoutLoaderInterface, Manager
     /**
      * @var array
      */
-    protected $blockWrappers = [
-        'none'    => '\Picaso\Layout\BlockWrapperNone',
-        'default' => '\Picaso\Layout\BlockWrapperDefault',
-        'panel'   => '\Picaso\Layout\BlockWrapperPanel',
+    protected $blockRenders = [
+        'none'    => '\Picaso\Layout\BlockRenderNone',
+        'default' => '\Picaso\Layout\BlockRenderDefault',
+        'unit'    => '\Picaso\Layout\BlockRenderUnit',
     ];
 
     /**
      * @var array
      */
-    protected $blockWrapperInstances = [];
+    protected $blockRenderInstances = [];
 
     /**
      * @var \Picaso\Layout\Navigation
@@ -1763,17 +1763,17 @@ class LayoutService implements LayoutLoaderInterface, Manager
     /**
      * @return array
      */
-    public function getBlockWrappers()
+    public function getBlockRenders()
     {
-        return $this->blockWrappers;
+        return $this->blockRenders;
     }
 
     /**
-     * @param array $blockWrappers
+     * @param array $blockRenders
      */
-    public function setBlockWrappers($blockWrappers)
+    public function setBlockRenders($blockRenders)
     {
-        $this->blockWrappers = $blockWrappers;
+        $this->blockRenders = $blockRenders;
     }
 
     /**
@@ -1782,12 +1782,12 @@ class LayoutService implements LayoutLoaderInterface, Manager
      *
      * @return LayoutService
      */
-    public function addBlockWrapper($name, $class)
+    public function addBlockRender($name, $class)
     {
-        $this->blockWrappers[ $name ] = $class;
+        $this->blockRenders[ $name ] = $class;
 
         // try to unset old objects
-        unset($this->blockWrapperInstances[ $name ]);
+        unset($this->blockRenderInstances[ $name ]);
 
         return $this;
     }
@@ -1795,27 +1795,27 @@ class LayoutService implements LayoutLoaderInterface, Manager
     /**
      * @param string $name
      *
-     * @return BlockWrapper
+     * @return BlockRender
      */
-    public function getBlockWrapper($name)
+    public function getBlockRender($name)
     {
 
-        if (!isset($this->blockWrapperInstances[ $name ])) {
+        if (!isset($this->blockRenderInstances[ $name ])) {
             $class = null;
-            if (isset($this->blockWrappers[ $name ])) {
-                $class = $this->blockWrappers[ $name ];
+            if (isset($this->blockRenders[ $name ])) {
+                $class = $this->blockRenders[ $name ];
             }
 
 
             if (!$class or !class_exists($class)) {
-                $class = '\Picaso\Layout\BlockWrapperDefault';
+                $class = '\Picaso\Layout\BlockRenderNone';
             }
 
-            $this->blockWrapperInstances[ $name ] = new $class;
+            $this->blockRenderInstances[ $name ] = new $class;
 
         }
 
-        return $this->blockWrapperInstances[ $name ];
+        return $this->blockRenderInstances[ $name ];
     }
 
     /**
