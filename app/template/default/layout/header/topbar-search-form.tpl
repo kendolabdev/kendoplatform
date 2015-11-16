@@ -1,4 +1,4 @@
-<form method="get" class="form-inline header-search-form" action="<?php echo $searchUrl;?>">
+<form method="get" class="header-search-form" action="<?php echo $searchUrl;?>">
     <div class="form-group form-group-sm has-feedback">
         <input type="text" class="form-control" value="<?php echo $q;?>" name="q"/>
                                 <span class="form-control-feedback">

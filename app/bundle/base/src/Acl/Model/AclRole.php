@@ -18,6 +18,30 @@ class AclRole extends Model
 {
 
     /**
+     * @return array
+     */
+    public function getListAncestorId()
+    {
+        $result = [$this->getId()];
+        $item = $this;
+
+        while (null != ($item = $item->getParentRole())) {
+            $result[] = $item->getId();
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return \Acl\Model\AclRole
+     */
+    public function getParentRole()
+    {
+        return \App::table('acl.acl_role')
+            ->findById($this->getParentRoleId());
+    }
+
+    /**
      * @return string
      */
     public function __toString()
@@ -54,6 +78,20 @@ class AclRole extends Model
      */
     public function setRoleId($value){
        $this->__set('role_id', $value);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getParentRoleId(){
+       return $this->__get('parent_role_id');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setParentRoleId($value){
+       $this->__set('parent_role_id', $value);
     }
 
     /**
@@ -122,20 +160,6 @@ class AclRole extends Model
     /**
      * @return null|string
      */
-    public function getParentRole(){
-       return $this->__get('parent_role');
-    }
-
-    /**
-     * @param $value
-     */
-    public function setParentRole($value){
-       $this->__set('parent_role', $value);
-    }
-
-    /**
-     * @return null|string
-     */
     public function isSuper(){
        return $this->__get('is_super');
     }
@@ -194,27 +218,6 @@ class AclRole extends Model
      */
     public function setModerator($value){
        $this->__set('is_moderator', $value);
-    }
-
-    /**
-     * @return null|string
-     */
-    public function isStaff(){
-       return $this->__get('is_staff');
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getStaff(){
-       return $this->__get('is_staff');
-    }
-
-    /**
-     * @param $value
-     */
-    public function setStaff($value){
-       $this->__set('is_staff', $value);
     }
 
     /**

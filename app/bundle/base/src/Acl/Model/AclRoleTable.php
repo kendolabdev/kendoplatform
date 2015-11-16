@@ -36,15 +36,14 @@ class AclRoleTable extends DbTable
      */
     protected $column = array(
 		'role_id'=>1,
+		'parent_role_id'=>1,
 		'role_type'=>1,
 		'is_system'=>1,
 		'module_name'=>1,
 		'title'=>1,
-		'parent_role'=>1,
 		'is_super'=>1,
 		'is_admin'=>1,
 		'is_moderator'=>1,
-		'is_staff'=>1,
 		'is_member'=>1,
 		'is_guest'=>1);
 

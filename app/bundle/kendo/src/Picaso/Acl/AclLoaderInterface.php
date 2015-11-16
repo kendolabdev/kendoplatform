@@ -11,11 +11,6 @@ interface AclLoaderInterface
 {
 
     /**
-     * @return array
-     */
-    public function loadAll();
-
-    /**
      * @param $roleId
      *
      * @return array

@@ -363,6 +363,6 @@ class UserService implements Manager
      */
     public function getDefaultRoleId()
     {
-        return 5;
+        return 4;
     }
 }

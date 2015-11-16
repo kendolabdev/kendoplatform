@@ -21,19 +21,40 @@ class AclService implements AclLoaderInterface
 {
 
     /**
-     * @var string
+     * @var AclLoaderInterface
      */
-    const ALLOW_TABLE = 'acl_allow';
+    protected $loader;
 
     /**
-     * @var string
+     * @var array
      */
-    const ACTION_TABLE = 'acl_action';
+    protected $data = [];
 
     /**
-     * @var string
+     * @var bool
      */
-    const ROLE_TALE = 'acl_role';
+    protected $debug = false;
+
+
+    /**
+     * @ignore
+     */
+    public function __construct()
+    {
+
+    }
+
+    /**
+     * Reset acl load status but default user id.
+     * WARNING: Call this method after changed acl configuration.
+     *
+     */
+    public function reset()
+    {
+        $this->data = [];
+        $this->loader = null;
+    }
+
 
     /**
      * @param string $id
@@ -58,42 +79,15 @@ class AclService implements AclLoaderInterface
     }
 
     /**
-     * @return array
-     */
-    public function loadAll()
-    {
-        $select = $this->getSelect();
-
-        $response = [];
-
-        foreach ($select->toAssocs() as $row) {
-            $data = json_decode($row['value'], 1);
-            $key = $row['group_name'] . '.' . $row['action_name'];
-            $role = (int)$row['role_id'];
-
-            // strict check
-            if (empty($response[ $role ])) {
-                $response[ $role ] = [];
-            }
-
-            $response[ $role ][ $key ] = @$data['val'];
-        }
-
-        return $response;
-    }
-
-    /**
      * @return SqlSelect
      */
     protected function getSelect()
     {
 
-        $db = \App::db();
-
-        return (new SqlSelect($db->getMaster()))
-            ->from($db->getName(self::ALLOW_TABLE), 'allow', 'allow.value, allow.role_id')
-            ->join($db->getName(self::ACTION_TABLE), 'action',
-                'action.action_id = allow.action_id', null, 'group_name, action_name');
+        return \App::table('acl.acl_allow')
+            ->select('allow')
+            ->join(':acl_action', 'action', 'action.action_id=allow.action_id', null, null)
+            ->columns('group_name, action_name,allow.*');
     }
 
     /**
@@ -104,35 +98,8 @@ class AclService implements AclLoaderInterface
      */
     public function loadForEdit($roleId, $groups)
     {
-        $roleItem = \App::table('acl.acl_role')
-            ->findById($roleId);
 
-        if (empty($roleItem)) {
-            throw new \InvalidArgumentException("Role $roleId is not valid.");
-        }
-
-        /**
-         * You may ned to load if not admin & super
-         * if(!$roleItem->isAdmin() && !$roleItem->isSuper()){}
-         *
-         */
-
-        if (empty($groups)) return [];
-
-
-        $select = $this->getSelect()
-            ->where('allow.role_id=?', (int)$roleId)
-            ->where('action.group_name IN ?', $groups);
-
-        $response = [];
-
-        foreach ($select->toAssocs() as $row) {
-            $data = json_decode($row['value'], 1);
-            $key = $row['group_name'] . '__' . $row['action_name'];
-            $response[ $key ] = @$data['val'];
-        }
-
-        return $response;
+        return $this->loadForRole($roleId);
     }
 
     /**
@@ -150,6 +117,47 @@ class AclService implements AclLoaderInterface
 
 
     /**
+     * @param string $roleId
+     *
+     * @return array
+     */
+    protected function getFlatValForRoleId($roleId)
+    {
+        return \App::cache()
+            ->get(['acl', '_getMapForRoleId', $roleId], 0,
+                function () use ($roleId) {
+                    $response = [];
+                    $select = $this->getSelect()
+                        ->where('allow.role_id =?', $roleId);
+
+                    foreach ($select->toAssocs() as $row) {
+                        $data = json_decode($row['value'], 1);
+                        $key = $row['group_name'] . '__' . $row['action_name'];
+                        $response[ $key ] = @$data['val'];
+                    }
+
+                    return $response;
+                });
+    }
+
+    /**
+     * @return int
+     */
+    protected function countAllAction()
+    {
+        return \App::cache()
+            ->get(['acl', 'countAllAction'], 0, function () {
+                return \App::table('acl.acl_action')
+                    ->select()
+                    ->columns('group_name, action_name')
+                    ->count();
+            });
+    }
+
+
+    /**
+     * Support multiple level role configuration.
+     *
      * @param int $roleId
      *
      * @return array
@@ -159,27 +167,26 @@ class AclService implements AclLoaderInterface
         $roleItem = \App::table('acl.acl_role')
             ->findById($roleId);
 
-        if (empty($roleItem))
+        if (!$roleItem instanceof AclRole)
             throw new \InvalidArgumentException("Role $roleId is not valid.");
 
-
+        $listRoleId = $roleItem->getListAncestorId();
         /**
          * You may ned to load if not admin & super
          * if(!$roleItem->isAdmin() && !$roleItem->isSuper()){}
          *
          */
 
-        $select = $this->getSelect()->where('allow.role_id=?', (int)$roleId);
-
         $response = [];
 
-        foreach ($select->toAssocs() as $row) {
-            $data = json_decode($row['value'], 1);
-            $key = $row['group_name'] . '__' . $row['action_name'];
-            $response[ $key ] = @$data['val'];
-        }
+        $total =  $this->countAllAction();
 
-        if (!$roleItem instanceof AclRole) ;
+        foreach ($listRoleId as $id) {
+            $response = array_merge($this->getFlatValForRoleId($id), $response);
+
+            if(count($response) == $total) break;
+
+        }
 
         /**
          * override these value for security check.
@@ -187,7 +194,6 @@ class AclService implements AclLoaderInterface
         $response['is_super'] = $roleItem->isSuper();
         $response['is_admin'] = $roleItem->isAdmin();
         $response['is_moderator'] = $roleItem->isModerator();
-        $response['is_staff'] = $roleItem->isStaff();
         $response['is_member'] = $roleItem->isMember();
         $response['is_guest'] = $roleItem->isGuest();
 
@@ -243,8 +249,6 @@ class AclService implements AclLoaderInterface
      */
     public function saveForRole($roleId, $postData)
     {
-
-
         $data = [];
 
         foreach ($postData as $name => $value) {
@@ -254,7 +258,6 @@ class AclService implements AclLoaderInterface
 
             if (empty($data[ $group ]))
                 $data[ $group ] = [];
-
 
             $data[ $group ][ $key ] = $value;
         }
@@ -302,11 +305,14 @@ class AclService implements AclLoaderInterface
             $row->save();
         }
 
+
+        $this->reset();
+
         /**
          * forget cached value
          */
         \App::cache()
-            ->forget(['acl', 'loadForRole', $roleId]);
+            ->flush();
     }
 
     /**
@@ -453,46 +459,6 @@ class AclService implements AclLoaderInterface
         return $options;
     }
 
-    /**
-     * @var AclLoaderInterface
-     */
-    protected $loader;
-
-    /**
-     * @var array
-     */
-    protected $data = [];
-
-    /**
-     * @var array
-     */
-    protected $userRoles = [];
-
-    /**
-     * @var bool
-     */
-    protected $debug = false;
-
-
-    /**
-     * @ignore
-     */
-    public function __construct()
-    {
-
-    }
-
-    /**
-     * Reset acl load status but default user id.
-     * WARNING: Call this method after changed acl configuration.
-     *
-     */
-    public function reset()
-    {
-        $this->data = [];
-        $this->loader = null;
-        $this->userRoles = [];
-    }
 
     /**
      * @param int $roleId
