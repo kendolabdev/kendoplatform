@@ -18,6 +18,8 @@ class FilterPermission extends Form
     {
         parent::init();
 
+        $this->setMethod('get');
+
         $roleOptions = \App::acl()->getRoleOptions();
         $groupOptions = \App::acl()->getGroupOptions();
 

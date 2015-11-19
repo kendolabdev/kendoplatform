@@ -1,5 +1,6 @@
 define([
     'base/core/picaso',
+    'base/core/control',
     'base/core/boot'], function () {
 
     $(document).on('click', '[data-toggle="ajax"]', function (evt) {

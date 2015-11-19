@@ -1,19 +1,19 @@
 <?php
-namespace Core\Block;
+namespace Layout\Block;
 
 use Picaso\Layout\Block;
 
 /**
- * Class AdminAsideMenu
+ * Class SidebarMenuBlock
  *
- * @package Core\Block
+ * @package Layout\Block
  */
-class AsideMenuBlock extends Block
+class SidebarMenuBlock extends Block
 {
     /**
      * @var string
      */
-    protected $basePath = 'base/core/block/aside-menu';
+    protected $basePath = 'base/layout/block/sidebar-menu';
 
     /**
      * @return string

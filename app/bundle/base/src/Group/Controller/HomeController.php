@@ -1,6 +1,7 @@
 <?php
 namespace Group\Controller;
 
+use Group\Form\FilterGroup;
 use Picaso\Controller\DefaultController;
 
 /**
@@ -16,6 +17,8 @@ class HomeController extends DefaultController
      */
     public function actionBrowseGroup()
     {
+        $filter = new FilterGroup();
+
         $page = $this->request->getParam('page', 1);
         $query = [];
 
@@ -25,6 +28,7 @@ class HomeController extends DefaultController
 
         \App::layout()
             ->setupSecondaryNavigation('group_main', null, 'group_browse')
+            ->setPageFilter($filter)
             ->setPageTitle('group.groups');
 
         $this->view

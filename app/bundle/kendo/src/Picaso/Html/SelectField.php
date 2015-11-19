@@ -94,6 +94,9 @@ class SelectField extends HtmlElement implements FormField
 
         $bntLabel = $this->getLabel();
 
+        $name = $this->getName();
+        $selectedValue = $this->getValue();
+
         $trans = \App::trans();
 
         $optionTextKey = $this->getOptionTextKey();
@@ -121,13 +124,16 @@ class SelectField extends HtmlElement implements FormField
                 $attrs['selected'] = 'selected';
                 $selectedLablel = $label;
             }
-            $response[] = '<li role="presentation"><a role="button" ' . $this->_flat($attrs) . '>' . $label . '</a>';
+            $response[] = '<li role="presentation">
+                    <a data-control="select-option" role="button" ' . $this->_flat($attrs) . '>' . $label . '</a>';
         }
 
-        $bntLabel .= ': ' . $selectedLablel;
-
-
-        $before = '<div class="dropdown-control"><button data-toggle="dropdown" class="btn btn-sm btn-default">' . $bntLabel . ' <span class="caret"></span></button>';
+        $before = '<div class="dropdown-control">' .
+            '<input type="hidden" class="hidden" name="' . $name . '" value="' . $selectedValue . '" />' .
+            '<button data-toggle="dropdown" class="btn btn-sm btn-default">' .
+            '<span class="txt-prefix">' . $bntLabel . ' : </span>' .
+            '<span class="txt-label">' . $selectedLablel . '</span>' .
+            ' <span class="caret"></span></button>';
 
         return $before . '<ul class="dropdown-menu">' . implode(PHP_EOL, $response) . '</ul></div>';
     }

@@ -533,7 +533,7 @@ class AclService implements AclLoaderInterface
      *
      * @return bool
      */
-    public function authorizeFor(Poster $parent = null, $action, $defaultValue = true)
+    public function authorizeFor(Poster $parent = null, $action, $defaultValue = false)
     {
         if (!$this->_authorize($roleId = null != $parent ? $parent->getRoleId() : PICASO_GUEST_ROLE_ID, $action, $defaultValue))
             return false;
@@ -549,7 +549,7 @@ class AclService implements AclLoaderInterface
      *
      * @return false|true
      */
-    public function authorize($action, $defaultValue = true)
+    public function authorize($action, $defaultValue = false)
     {
         return $this->_authorize(\App::auth()->getRoleId(), $action, $defaultValue);
     }
@@ -564,7 +564,7 @@ class AclService implements AclLoaderInterface
      *
      * @return true|false
      */
-    private function _authorize($roleId, $action, $defaultValue = true)
+    private function _authorize($roleId, $action, $defaultValue = false)
     {
 
 
@@ -692,7 +692,7 @@ class AclService implements AclLoaderInterface
      *
      * @return true
      */
-    public function required($action, $defaultValue = true)
+    public function required($action, $defaultValue = false)
     {
         if (!$this->authorize($action, $defaultValue)) {
             throw new AuthorizationRestrictException();

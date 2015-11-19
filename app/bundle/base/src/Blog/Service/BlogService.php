@@ -243,9 +243,10 @@ class BlogService
     public function getAdminCategoryOptions()
     {
         return \App::cache()
-            ->get(['blog', 'getAdminCategoryOptions'], 0, function () {
-                return $this->_getAdminCategoryOptions();
-            });
+            ->get(['blog', 'getAdminCategoryOptions'], 0,
+                function () {
+                    return $this->_getAdminCategoryOptions();
+                });
     }
 
     /**
@@ -253,7 +254,8 @@ class BlogService
      */
     private function _getAdminCategoryOptions()
     {
-        $select = \App::table('blog.blog_category')->select()
+        $select = \App::table('blog.blog_category')
+            ->select()
             ->order('category_name', 1);
 
         $items = $select->all();
@@ -261,8 +263,14 @@ class BlogService
         $options = [];
 
         foreach ($items as $item) {
-            if (!$item instanceof BlogCategory) continue;
-            $options[] = ['value' => $item->getId(), 'label' => $item->getTitle()];
+
+            if (!$item instanceof BlogCategory)
+                continue;
+
+            $options[] = [
+                'value' => $item->getId(),
+                'label' => $item->getTitle()
+            ];
         }
 
         return $options;
@@ -273,11 +281,11 @@ class BlogService
      */
     public function getCategoryOptions()
     {
-
         return \App::cache()
-            ->get(['blog', 'getCategoryOptions'], 0, function () {
-                return $this->_getCategoryOptions();
-            });
+            ->get(['blog', 'getCategoryOptions'], 0,
+                function () {
+                    return $this->_getCategoryOptions();
+                });
 
     }
 
@@ -287,18 +295,25 @@ class BlogService
      */
     private function _getCategoryOptions()
     {
-        $select = \App::table('blog.blog_category')->select()
+        $select = \App::table('blog.blog_category')
+            ->select()
             ->order('category_name', 1);
 
         $items = $select->all();
 
-        $options = [];
+        $result = [];
 
         foreach ($items as $item) {
-            if (!$item instanceof BlogCategory) continue;
-            $options[] = ['value' => $item->getId(), 'label' => $item->getTitle()];
+
+            if (!$item instanceof BlogCategory)
+                continue;
+
+            $result[] = [
+                'value' => $item->getId(),
+                'label' => $item->getTitle()
+            ];
         }
 
-        return $options;
+        return $result;
     }
 }

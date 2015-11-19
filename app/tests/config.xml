@@ -1,7 +1,10 @@
-<phpunit bootstrap="src/autoload.php">
+<phpunit bootstrap="./bootstrap.php">
     <testsuites>
-        <testsuite name="money">
-            <directory>tests</directory>
+        <testsuite name="base">
+            <directory suffix="Test.php">base</directory>
+            <exclude>
+                <file>BaseTestCase.php</file>
+            </exclude>
         </testsuite>
     </testsuites>
 </phpunit>

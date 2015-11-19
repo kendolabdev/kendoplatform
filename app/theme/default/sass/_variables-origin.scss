@@ -4,10 +4,10 @@ $use-box-shadow: true !default;
 $use-block-box: true !default;
 
 $wrap-bg: #fff !default;
-$grid-gutter-sm: 2px !default;
+$grid-gutter-sm: em(2px) !default;
 $img-path: "../../default/images" !default;
 $brand-note: #9197a3 !default;
-$container-max-width: 1190px !default;
+$container-max-width: em(1190px) !default;
 
 $border-color-light: #f1f1f1 !default;
 

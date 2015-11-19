@@ -4,6 +4,7 @@ namespace Blog\Controller;
 
 use Blog\Form\AddPost;
 use Blog\Form\DeletePost;
+use Blog\Form\FilterBlogPost;
 use Blog\Model\BlogPost;
 use Blog\Service\BlogService;
 use Picaso\Controller\DefaultController;
@@ -24,6 +25,8 @@ class HomeController extends DefaultController
         \App::acl()
             ->required('blog__view');
 
+        $filter = new FilterBlogPost();
+
         $page = $this->request->getParam('page', 1);
 
         $paging = \App::blog()->loadPostPaging([], $page);
@@ -37,6 +40,7 @@ class HomeController extends DefaultController
         \App::layout()
             ->setupSecondaryNavigation('blog_main', null, 'blog_browse')
             ->setPageTitle('blog.blogs')
+            ->setPageFilter($filter)
             ->setBreadcrumbs([
                 [
                     'url'   => \App::routing()->getUrl('blogs'),

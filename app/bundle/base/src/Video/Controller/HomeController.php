@@ -2,6 +2,7 @@
 namespace Video\Controller;
 
 use Picaso\Controller\DefaultController;
+use Video\Form\Admin\FilterVideo;
 use Video\Form\VideoFromUrl;
 use Video\Model\Video;
 
@@ -18,8 +19,11 @@ class HomeController extends DefaultController
     public function actionBrowseVideo()
     {
 
+        $filter = new FilterVideo();
+
         \App::layout()
             ->setupSecondaryNavigation('video_main', null, 'video_browse')
+            ->setPageFilter($filter)
             ->setPageTitle('video.videos');
 
         $page = $this->request->getParam('page', 1);

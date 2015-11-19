@@ -3,6 +3,7 @@
 namespace User\Controller;
 
 use Picaso\Controller\DefaultController;
+use User\Form\FilterUser;
 
 /**
  * Class HomeController
@@ -18,7 +19,10 @@ class HomeController extends DefaultController
     public function actionBrowseUser()
     {
 
+        $filter = new FilterUser();
+
         \App::layout()
+            ->setPageFilter($filter)
             ->setPageTitle('user.browse_members');
 
         $page = $this->request->getParam('page', 1);
