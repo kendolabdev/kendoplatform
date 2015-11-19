@@ -2,6 +2,7 @@
 
 namespace Page\Controller;
 
+use Page\Form\FilterPage;
 use Picaso\Controller\DefaultController;
 
 /**
@@ -16,9 +17,11 @@ class HomeController extends DefaultController
      */
     public function actionBrowsePage()
     {
+        $filter  = new FilterPage();
 
         \App::layout()
             ->setupSecondaryNavigation('page_main', null, 'page_browse')
+            ->setPageFilter($filter)
             ->setPageTitle('page.pages');
 
         $page = $this->request->getParam('page', 1);

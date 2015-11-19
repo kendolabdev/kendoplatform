@@ -1,6 +1,7 @@
 <?php
 namespace Event\Controller;
 
+use Event\Form\FilterEvent;
 use Picaso\Controller\DefaultController;
 
 /**
@@ -16,9 +17,11 @@ class HomeController extends DefaultController
      */
     public function actionBrowseEvent()
     {
+        $filter  = new FilterEvent();
 
         \App::layout()
             ->setupSecondaryNavigation('event_main', null, 'event_browse')
+            ->setPageFilter($filter)
             ->setPageTitle('event.events');
 
         $page = $this->request->getParam('page', 1);

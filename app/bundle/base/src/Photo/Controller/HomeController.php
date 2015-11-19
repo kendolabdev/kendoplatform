@@ -1,6 +1,8 @@
 <?php
 namespace Photo\Controller;
 
+use Photo\Form\FilterAlbum;
+use Photo\Form\FilterPhoto;
 use Photo\Model\Photo;
 use Photo\Model\PhotoAlbum;
 use Photo\Service\PhotoService;
@@ -13,7 +15,8 @@ use Picaso\Controller\DefaultController;
  */
 class HomeController extends DefaultController
 {
-    protected function _addPageButtons(){
+    protected function _addPageButtons()
+    {
         $btnPhoto = [
             'label' => \App::text('photo.upload_photos'),
             'icon'  => 'ion-plus',
@@ -39,14 +42,18 @@ class HomeController extends DefaultController
         \App::layout()
             ->setPageButtons([$btnAlbum, $btnPhoto]);
     }
+
     /**
      *
      */
     public function actionBrowsePhoto()
     {
 
+        $filter = new FilterPhoto();
+
         \App::layout()
             ->setupSecondaryNavigation('photo_main', null, 'photo_browse')
+            ->setPageFilter($filter)
             ->setPageTitle('photo.photos');
 
         $this->_addPageButtons();
@@ -214,9 +221,11 @@ class HomeController extends DefaultController
      */
     public function actionBrowseAlbum()
     {
+        $filter = new FilterAlbum();
 
         \App::layout()
             ->setupSecondaryNavigation('photo_main', null, 'browse_album')
+            ->setPageFilter($filter)
             ->setPageTitle('photo.albums');
 
         $this->_addPageButtons();
