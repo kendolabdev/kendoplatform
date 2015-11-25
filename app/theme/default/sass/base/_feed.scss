@@ -14,8 +14,8 @@
 
 .fc-header-ow {
   padding: 8px 4px;
-  background: #f8f8f8;
-  border-bottom: 1px solid #DDDDDD;
+  background: $body-bg;
+  border-bottom: 1px solid $input-border;
   position: relative;
   .ajax-indicator {
     right: 10px;
@@ -29,8 +29,8 @@
 }
 
 .fc-footer-ow {
-  background: #f8f8f8;
-  border-top: 1px solid #DDDDDD;
+  background: $body-bg;
+  border-top: 1px solid $input-border;
 }
 
 .fc-header-tabs {

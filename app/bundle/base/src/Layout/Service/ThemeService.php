@@ -1,6 +1,7 @@
 <?php
 namespace Layout\Service;
 
+use Layout\Model\LayoutTheme;
 use Picaso\Hook\SimpleContainer;
 
 /**
@@ -107,6 +108,20 @@ class ThemeService
         foreach ($themes as $theme) {
             $this->rebuildStylesheetForTheme($theme->getId());
         }
+    }
+
+    /**
+     * @param \Layout\Model\LayoutTheme $theme
+     */
+    public function setDefaultTheme(LayoutTheme $theme)
+    {
+        \App::table('layout.layout_theme')
+            ->update(['is_default' => 0])
+            ->where('theme_id <> ?', $theme->getId())
+            ->execute();
+
+        $theme->setDefault(1);
+        $theme->save();
     }
 
     /**

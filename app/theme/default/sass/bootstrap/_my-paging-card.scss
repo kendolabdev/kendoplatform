@@ -332,7 +332,7 @@
 
   .card-footer-stage {
     padding: 0 $padding-base-horizontal;
-    background-color: #F6F7F8;
+    background-color: darken($body-bg, 2%);
     //border-top: 1px solid #E1E2E3;
   }
 

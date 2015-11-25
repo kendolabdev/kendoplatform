@@ -36,7 +36,7 @@
 
   .options-header {
     position: relative;
-    border-bottom: 1px solid $options-border-color;
+    border-bottom: 1px solid $dropdown-border;
     padding: 5px $padding-large-horizontal;
   }
 
@@ -44,10 +44,10 @@
     display: block;
     clear: both;
     font-weight: normal;
+    font-size: $font-size-small;
     line-height: $line-height-base;
-    font-size: $font-size-h6;
-    color: $list-group-disabled-text-color;
-    white-space: nowrap; // prevent links from randomly breaking onto new lines
+    color: $dropdown-header-color;
+    white-space: nowrap; // as with > li > a
   }
 
   &.up {
@@ -59,14 +59,14 @@
       bottom: -9px;
       left: auto;
       right: 15px;
-      border-color: $options-border-color transparent transparent transparent;
+      border-color: $dropdown-border transparent transparent transparent;
       border-width: 10px;
       border-style: solid;
       div {
         top: -11px;
         left: auto;
         right: -10px;
-        border-color: $options-bg transparent transparent transparent;
+        border-color: $dropdown-bg transparent transparent transparent;
         border-width: 10px;
         border-style: solid;
       }
@@ -81,14 +81,14 @@
       top: -10px;
       left: auto;
       right: 15px;
-      border-color: transparent transparent $options-border-color transparent;
+      border-color: transparent transparent $dropdown-border transparent;
       border-width: 10px;
       border-style: solid;
       div {
         top: -9px;
         left: auto;
         right: -10px;
-        border-color: transparent transparent $options-bg transparent;
+        border-color: transparent transparent $dropdown-bg transparent;
         border-width: 10px;
         border-style: solid;
       }
@@ -122,8 +122,8 @@
   .options-stageout {
     border-radius: 2px;
     background-clip: border-box;
-    background: #ffffff;
-    border: 1px solid $options-border-color;
+    background: $dropdown-bg;
+    border: 1px solid $dropdown-border;
     box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
     position: relative;
     overflow: visible;
@@ -141,7 +141,7 @@
     position: absolute;
     width: 0;
     height: 0;
-    border-bottom: 10px solid $options-border-color;
+    border-bottom: 10px solid $dropdown-border;
     div {
       position: absolute;
       width: 0;
@@ -183,6 +183,10 @@
 
   }
 
+  .options-menu{
+    padding: 0;
+  }
+
   .options-profile-photo {
     float: left;
     width: $options-profile-height;
@@ -191,7 +195,7 @@
     overflow: hidden;
     left: 10px;
     top: $options-cover-height - ($options-profile-height/2);
-    border: 1px solid $options-border-color;
+    border: 1px solid $dropdown-border;
     padding: 2px;
     border-radius: 2px;
     background: $body-bg;

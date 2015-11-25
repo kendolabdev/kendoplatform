@@ -1,7 +1,3 @@
-body {
-  background-color: $wrap-bg;
-}
-
 .container-fluid {
   max-width: $container-max-width;
 }
@@ -830,5 +826,15 @@ a.noope {
   }
   .no-editing {
     display: none;
+  }
+}
+
+.nav-aside-menu{
+  > li >a{
+    color: $text-color;
+    &:hover, &:focus{
+      background: transparent;
+      color: $link-hover-color;
+    }
   }
 }

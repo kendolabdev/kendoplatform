@@ -1,19 +1,31 @@
-$use-block-box: true;
-$use-round-corner: true;
+$use-block-box: false;
+$use-round-corner: false;
 $navbar-font-weight: 400;
 
+//
+//$wrap-bg: #212121;
+//$body-bg: #212121;
+//$border-color: #666;
+//$input-bg: #212121;
+//$text-color: #666;
+//
+//$header-topbar-bg: rgba(0, 0, 0, 0.05);
+//$header-topbar-border-bottom: none;
+//$header-topbar-link-color: #aaa;
+//$header-topbar-link-hover-color: #fff;
 
-$wrap-bg: #333;
-$body-bg: #999;
-$border-color: #666;
+//$header-navbar-bg: #333;
+//$header-navbar-border-bottom: none;
 
-$header-topbar-bg: #333;
-$header-topbar-border-bottom: none;
-$header-topbar-link-color: #aaa;
-$header-topbar-link-hover-color: #fff;
+//$navbar-color-scheme: "inverse";
 
-$header-navbar-bg: #111;
-$header-navbar-border-bottom: none;
 
-$navbar-color-scheme: "inverse";
+//$input-height-base: 40px;
+//
+//$link-color: #aaa;
+//$brand-primary: #1ABC9C;
 
+
+// import bootswatch
+
+@import "bootswatch";
