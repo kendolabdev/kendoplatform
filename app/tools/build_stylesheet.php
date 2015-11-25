@@ -7,7 +7,7 @@ echo "Start execute theme ", PHP_EOL;
 App::cache()
     ->flush();
 
-$themeId =  'default-dark';
+$themeId =  'default';
 
 $theme = \App::layout()
     ->theme()
