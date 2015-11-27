@@ -26,7 +26,7 @@ class HomeController extends DefaultController
             ->paging(1, 100);
 
         $this->view
-            ->setScript('base/layout/controller/home/select-theme/render1')
+            ->setScript('base/layout/controller/home/select-theme/view')
             ->assign(['paging' => $paging]);
     }
 }

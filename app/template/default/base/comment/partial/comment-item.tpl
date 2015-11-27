@@ -29,7 +29,7 @@
                 </span>
             </div>
         </div>
-        <?php if(\App::auth()->logged()): ?>
+        <?php if(\App::authService()->logged()): ?>
         <a role="button"
            class="btn btn-xs comment-options"
            data-toggle="options"

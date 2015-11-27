@@ -1,3 +1,4 @@
+<?php foreach($paging->items() as $item): extract($item, EXTR_OVERWRITE);?>
 <div class="col-md-12 card-wrap card-feed feed-stream" data-id="<?php echo $feed->getId();?>">
     <div data-feedId="<?php echo $feed->getId(); ?>" class="card-stage feed-item fs-ow">
         <div class="card-content">
@@ -107,3 +108,4 @@
         </div>
     </div>
 </div>
+<?php endforeach; ?>

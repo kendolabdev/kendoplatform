@@ -81,7 +81,7 @@ class BlockParams
      *
      * @return string
      */
-    public function script($default = 'render1')
+    public function script($default = 'view')
     {
         $name = !empty($this->params['base_script']) ? $this->params['base_script'] : $default;
 
@@ -93,7 +93,7 @@ class BlockParams
      *
      * @return string
      */
-    public function itemScript($default = 'render1')
+    public function itemScript($default = 'view')
     {
         $name = !empty($this->params['item_script']) ? $this->params['item_script'] : $default;
 

@@ -24,7 +24,7 @@ class LayoutSupportBlockSetting extends Form
         $this->addElement([
             'plugin'   => 'hidden',
             'name'     => 'base_script',
-            'value'    => 'render1',
+            'value'    => 'view',
             'required' => true,
         ]);
     }

@@ -21,9 +21,9 @@ class BlockRenderDefault implements BlockRender
         $title = $block->getTitle();
         $header = '';
         if ($title) {
-            $header = '<div class="block-header"><div class="block-title"><span>' . $title . '</span></div></div>';
+            $header = '<div class="_block-header"><div class="_block-title"><span>' . $title . '</span></div></div>';
         }
 
-        return '<div class="_block ' . $block->getCssClassName() . '">' . $header . '<div class="block-content">' . $block->getContent() . '</div></div>';
+        return '<div class="_block ' . $block->getCssClassName() . '">' . $header . '<div class="_block-body">' . $block->getContent() . '</div></div>';
     }
 }

@@ -14,13 +14,13 @@ foreach ($paths as $directory)
     {
         if (!$info->isFile()) continue;
         if ($info->getExtension() != 'tpl') continue;
-        if ($info->getBaseName() != 'render1.tpl') continue;
+        if ($info->getBaseName() != 'render1.logged.tpl') continue;
 
 
         echo dirname($info->getPathName()), PHP_EOL;
 
-        copy($info->getPath() . '/render1.tpl', $info->getPath(). '/view.tpl');
-        unlink($info->getPath() . '/render1.tpl');
+        copy($info->getPath() . '/render1.logged.tpl', $info->getPath(). '/view.logged.tpl');
+        unlink($info->getPath() . '/render1.logged.tpl');
 
         echo $from =  dirname($info->getPath()), PHP_EOL;
 

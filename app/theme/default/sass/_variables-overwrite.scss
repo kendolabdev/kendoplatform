@@ -75,6 +75,10 @@ $navbar-text-transform: none !default;
 $navbar-color-mode: "default" !default;
 $sidebar-color-mode: "default" !default;
 
+@if not $use-round-corner{
+  $panel-border-radius: 0;
+}
+
 @if not $input-border-radius-flag{
   $input-border-radius-base: 0;
   $input-border-radius-small: 0;

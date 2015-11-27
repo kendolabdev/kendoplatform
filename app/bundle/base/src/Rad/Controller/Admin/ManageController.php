@@ -41,7 +41,7 @@ class ManageController extends AdminController
             ->paging(1, 1000);
 
         $this->view
-            ->setScript('base/rad/controller/admin/manage/browse-module/render1')
+            ->setScript('base/rad/controller/admin/manage/browse-module/view')
             ->assign([
                 'paging' => $paging,
             ]);
@@ -66,7 +66,7 @@ class ManageController extends AdminController
 
 
         $this->view
-            ->setScript('base/rad/controller/admin/manage/browse-theme/render1')
+            ->setScript('base/rad/controller/admin/manage/browse-theme/view')
             ->assign(['paging' => $themes]);
     }
 
@@ -92,7 +92,7 @@ class ManageController extends AdminController
 
         }
 
-        $this->view->setScript('layout/partial/form-edit/render1')
+        $this->view->setScript('layout/partial/form-edit/view')
             ->assign(['form' => $form]);
     }
 
@@ -116,7 +116,7 @@ class ManageController extends AdminController
 
         }
 
-        $this->view->setScript('layout/partial/form-edit/render1')
+        $this->view->setScript('layout/partial/form-edit/view')
             ->assign(['form' => $form]);
     }
 }

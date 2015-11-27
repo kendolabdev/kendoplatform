@@ -19,12 +19,12 @@ class LayoutEditContentSetting extends Form
         $this->addElement([
             'plugin' => 'hidden',
             'name'   => 'base_script',
-            'value'  => 'render1'
+            'value'  => 'view'
         ]);
         $this->addElement([
             'plugin' => 'hidden',
             'name'   => 'item_script',
-            'value'  => 'render1',
+            'value'  => 'view',
         ]);
     }
 }

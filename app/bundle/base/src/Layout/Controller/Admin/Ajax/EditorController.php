@@ -135,8 +135,8 @@ class EditorController extends AjaxController
         $itemScriptList = [];
 
 
-        $baseScript = !empty($oldData['base_script']) ? $oldData['base_script'] : 'render1';
-        $itemScript = !empty($oldData['item_script']) ? $oldData['item_script'] : 'render1';
+        $baseScript = !empty($oldData['base_script']) ? $oldData['base_script'] : 'view';
+        $itemScript = !empty($oldData['item_script']) ? $oldData['item_script'] : 'view';
 
 
         if (in_array($layoutType, ['header', 'footer']) or null != $page->getBasePath()) {
@@ -249,8 +249,8 @@ class EditorController extends AjaxController
         $itemScriptList = [];
         $baseScriptSetting = [];
 
-        $baseScript = $this->request->getParam('base_script', 'render1');
-        $itemScript = $this->request->getParam('item_script', 'render1');
+        $baseScript = $this->request->getParam('base_script', 'view');
+        $itemScript = $this->request->getParam('item_script', 'view');
         $editStep = $this->request->getParam('edit_step', '');
         $theme = \App::layoutService()->getEditingTheme();
         $themeId = $theme->getId();
@@ -393,7 +393,7 @@ class EditorController extends AjaxController
 
         $supportScripts = [];
         $formScript = 'base/layout/dialog/layout/select-block-script';
-        $baseScript = 'render1';
+        $baseScript = 'view';
         $form = new LayoutSelectBlockScript();
         $theme = \App::layoutService()->getEditingTheme();
         $themeId = $theme->getId();
@@ -450,7 +450,7 @@ class EditorController extends AjaxController
         $supportScripts = [];
         $formScript = 'base/layout/dialog/layout/open-block-setting';
         $supportSettings = [];
-        $baseScript = $this->request->getParam('base_script', 'render1');
+        $baseScript = $this->request->getParam('base_script', 'view');
         $form = new LayoutSupportBlockSetting();
         $theme = \App::layoutService()->getEditingTheme();
         $themeId = $theme->getId();
@@ -520,7 +520,7 @@ class EditorController extends AjaxController
         $supportScripts = [];
         $formScript = 'base/layout/dialog/layout/open-block-setting';
         $supportSettings = [];
-        $baseScript = $this->request->getParam('base_script', 'render1');
+        $baseScript = $this->request->getParam('base_script', 'view');
         $form = new LayoutSupportBlockSetting();
 
         $theme = \App::layoutService()->getEditingTheme();

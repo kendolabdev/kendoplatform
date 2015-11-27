@@ -23,7 +23,7 @@ class LayoutSelectBlockScript extends Form
         $this->addElement([
             'plugin'   => 'radio',
             'name'     => 'base_script',
-            'value'    => 'render1',
+            'value'    => 'view',
             'required' => true,
             'options'  => [],
         ]);
