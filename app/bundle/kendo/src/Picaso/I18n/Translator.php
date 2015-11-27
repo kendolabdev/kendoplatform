@@ -50,7 +50,7 @@ class Translator
     public function getLoader()
     {
         if (null == $this->loader) {
-            $this->loader = \App::phrase();
+            $this->loader = \App::phraseService();
         }
 
         return $this->loader;

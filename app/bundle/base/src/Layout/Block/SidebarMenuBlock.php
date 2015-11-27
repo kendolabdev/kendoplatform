@@ -27,7 +27,7 @@ class SidebarMenuBlock extends Block
      */
     public function execute()
     {
-        $nav = \App::layout()
+        $nav = \App::layoutService()
             ->getSecondaryNavigation();
 
         if (!$nav->getNav()) {

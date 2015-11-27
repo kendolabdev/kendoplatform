@@ -23,7 +23,7 @@ class CreateAttributeField extends Form
             'plugin'   => 'select',
             'name'     => 'content_id',
             'required' => true,
-            'options'  => \App::attribute()->loadContentTypeOptions(),
+            'options'  => \App::catalogService()->loadContentTypeOptions(),
             'label'    => 'For Content Type',
             'class'    => 'form-control',
             'value'    => 'user',
@@ -35,7 +35,7 @@ class CreateAttributeField extends Form
             'name'     => 'plugin_id',
             'label'    => 'Presentation',
             'class'    => 'form-control',
-            'options'  => \App::attribute()->loadAdminPluginOptions(),
+            'options'  => \App::catalogService()->loadAdminPluginOptions(),
             'value'    => 'text',
         ]);
 

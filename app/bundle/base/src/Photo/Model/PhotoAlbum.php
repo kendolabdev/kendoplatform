@@ -76,7 +76,7 @@ class PhotoAlbum extends Model implements
         $params['id'] = $this->getId();
         $params['slug'] = \App::toSlug($this->getTitle());
 
-        return \App::routing()->getUrl('photo_album_view', $params);
+        return \App::routingService()->getUrl('photo_album_view', $params);
     }
 
     /**

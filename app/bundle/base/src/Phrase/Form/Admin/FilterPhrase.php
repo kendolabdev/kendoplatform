@@ -24,7 +24,7 @@ class FilterPhrase extends Form
             'class'  => 'form-control',
         ]);
 
-        $langOptions = \App::phrase()->getLanguageOptions();
+        $langOptions = \App::phraseService()->getLanguageOptions();
 
         $this->addElement([
             'plugin'   => 'select',

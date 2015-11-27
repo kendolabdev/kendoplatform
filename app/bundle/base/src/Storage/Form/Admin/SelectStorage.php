@@ -19,7 +19,7 @@ class SelectStorage extends Form
 
         $this->setMethod('get');
 
-        $this->setAction(\App::routing()->getUrl('admin', ['stuff' => 'storage/manage/create']));
+        $this->setAction(\App::routingService()->getUrl('admin', ['stuff' => 'storage/manage/create']));
 
         $this->setTitle('core_form_storage_select.form_title');
 

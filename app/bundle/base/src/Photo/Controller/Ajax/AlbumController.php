@@ -19,7 +19,7 @@ class AlbumController extends AjaxController
         $page = $this->request->getParam('page', 1);
         $query = $this->request->getArray('query');
 
-        $paging = \App::photo()->loadAlbumPaging($query, $page);
+        $paging = \App::photoService()->loadAlbumPaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 

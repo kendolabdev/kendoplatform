@@ -56,7 +56,7 @@ class ReportController extends AjaxController
 
         $about = \App::find($aboutType, $aboutId);
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         // validate content
 
@@ -72,7 +72,7 @@ class ReportController extends AjaxController
         ];
 
 
-        \App::report()->addReport($poster, $about, $data);
+        \App::reportService()->addReport($poster, $about, $data);
 
         $this->response = [
             'directive' => 'close',

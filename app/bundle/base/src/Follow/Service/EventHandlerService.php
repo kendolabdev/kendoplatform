@@ -35,7 +35,7 @@ class EventHandlerService extends EventHandler
      */
     public function onProfileMenuItemFollowers($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if (!$profile instanceof Poster)
             return false;
@@ -43,7 +43,7 @@ class EventHandlerService extends EventHandler
         if (!$profile->authorize('activity__follower_tab_exists'))
             return false;
 
-        if (!\App::acl()->pass($profile, 'activity__follower_tab_view'))
+        if (!\App::aclService()->pass($profile, 'activity__follower_tab_view'))
             return false;
 
         $item['href'] = $profile->toHref(['stuff' => 'followers']);
@@ -58,7 +58,7 @@ class EventHandlerService extends EventHandler
      */
     public function onProfileMenuItemFollowing($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if (!$profile instanceof Poster)
             return false;
@@ -66,7 +66,7 @@ class EventHandlerService extends EventHandler
         if (!$profile->authorize('activity__following_tab_exists'))
             return false;
 
-        if (!\App::acl()->pass($profile, 'activity__following_tab_view'))
+        if (!\App::aclService()->pass($profile, 'activity__following_tab_view'))
             return false;
 
         if (!$profile->viewerIsParent())
@@ -96,7 +96,7 @@ class EventHandlerService extends EventHandler
 
         if (!$poster instanceof Poster) return;
 
-        \App::notification()->notify('item_followed', $poster, $poster);
+        \App::notificationService()->notify('item_followed', $poster, $poster);
 
     }
 
@@ -126,13 +126,13 @@ class EventHandlerService extends EventHandler
 
         if (!$parent instanceof Poster or !$poster instanceof Poster) return;
 
-        \App::follow()->add($poster, $parent);
+        \App::followService()->add($poster, $parent);
 
         /**
          * 2 ways friends for required.
          */
         if ($parent instanceof User && $poster instanceof User) {
-            \App::follow()->add($parent, $poster);
+            \App::followService()->add($parent, $poster);
         }
     }
 }

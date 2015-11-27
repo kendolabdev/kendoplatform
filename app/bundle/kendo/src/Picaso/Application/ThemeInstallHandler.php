@@ -48,7 +48,7 @@ class ThemeInstallHandler implements InstallHandler
     {
         $this->extension = $extension;
 
-        $this->theme = \App::layout()
+        $this->theme = \App::layoutService()
             ->theme()
             ->findThemeByExtensionName($extension->getName());
 
@@ -114,7 +114,7 @@ class ThemeInstallHandler implements InstallHandler
     protected function exportLayoutData()
     {
         $this->finalData['layout_data'] =
-            \App::layout()->exportLayoutData([], [$this->getTheme()->getId()]);
+            \App::layoutService()->exportLayoutData([], [$this->getTheme()->getId()]);
     }
 
     /**

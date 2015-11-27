@@ -3,8 +3,8 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php echo \App::assets()->header(); ?>
-    <?php echo \App::assets()->headCode(); ?>
+    <?php echo \App::assetService()->header(); ?>
+    <?php echo \App::assetService()->headCode(); ?>
 </head>
 <body>
 <div id="site-wrap">
@@ -14,7 +14,7 @@
                 <?php echo $this->helper()->layout()->header(); ?>
             </header>
             <div id="main">
-                <?php echo \App::layout()->content(); ?>
+                <?php echo \App::layoutService()->content(); ?>
             </div>
             <footer id="footer">
                 <?php echo $this->helper()->layout()->footer(); ?>
@@ -27,9 +27,9 @@
 </section>
 <a role="button" id="scrolltop" class="fade" ride="scrollToTop"></a>
 <input type="hidden" id="dirty" value="0"/>
-<?php echo \App::assets()->footer(); ?>
-<?php echo \App::assets()->requirejs(); ?>
-<?php echo \App::assets()->bottomCode(); ?>
+<?php echo \App::assetService()->footer(); ?>
+<?php echo \App::assetService()->requirejs(); ?>
+<?php echo \App::assetService()->bottomCode(); ?>
 <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>-->
 </body>
 </html>

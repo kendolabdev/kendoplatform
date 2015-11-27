@@ -15,3 +15,13 @@ This repository is used to manage issues and source code and may be **Private** 
 
 
 
+## Modify repository
+
+Leafo/Compiler::importFile
+
+```
+$pi = pathinfo($path);
+array_push($this->importPaths, $pi['dirname']);
+$this->compileChildren($tree->children, $out);
+array_pop($this->importPaths);
+```

@@ -139,7 +139,7 @@ class Event extends Model implements
     {
         $params['profileId'] = $this->getId();
 
-        return \App::routing()->getUrl('event_profile', $params);
+        return \App::routingService()->getUrl('event_profile', $params);
     }
 
 

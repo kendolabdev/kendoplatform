@@ -80,15 +80,15 @@ class FeedController extends AjaxController
 
         $feed = \App::find($type, $id);
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         if (!$feed instanceof Feed)
             throw new \InvalidArgumentException();
 
 
-        \App::feed()->toggleHidden($viewer->getId(), $feed->getId());
+        \App::feedService()->toggleHidden($viewer->getId(), $feed->getId());
 
-        $hidden = \App::feed()->isHidden($viewer->getId(), $feed->getId());
+        $hidden = \App::feedService()->isHidden($viewer->getId(), $feed->getId());
 
         $this->response = [
             'html' => $this->partial('base/feed/partial/toggle-hidden', ['hidden' => $hidden])
@@ -106,7 +106,7 @@ class FeedController extends AjaxController
 
         $profile = \App::find($profileType, $profileId);
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         if (!$feed instanceof Feed)
             throw new \InvalidArgumentException();
@@ -114,7 +114,7 @@ class FeedController extends AjaxController
         if (!$profile->viewerIsPoster($viewer))
             throw new \InvalidArgumentException();
 
-        \App::feed()->hideOnTimeline($profile, $feed);
+        \App::feedService()->hideOnTimeline($profile, $feed);
 
         $this->response = [
             'html' => '',
@@ -131,16 +131,16 @@ class FeedController extends AjaxController
 
         $feed = \App::find($type, $id);
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         if (!$feed instanceof Feed)
             throw new \InvalidArgumentException();
 
         $about = $feed->getAbout();
 
-        \App::notification()->toggleSubscribe($viewer, $about);
+        \App::notificationService()->toggleSubscribe($viewer, $about);
 
-        $subscribed = \App::notification()->isSubscribed($viewer, $about);
+        $subscribed = \App::notificationService()->isSubscribed($viewer, $about);
 
         $this->response = [
             'html' => $this->partial('base/feed/partial/toggle-subscribe', ['subscribed' => $subscribed])
@@ -153,7 +153,7 @@ class FeedController extends AjaxController
      */
     public function actionPost()
     {
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         $parent = \App::find($this->request->getString('profileType'), $this->request->getInt('profileId'));
 
@@ -235,7 +235,7 @@ class FeedController extends AjaxController
             'isMainFeed'  => $this->request->getString('isMainFeed', false),
         ];
 
-        $followService = \App::follow();
+        $followService = \App::followService();
 
         if (!$feed instanceof Feed) ;
 
@@ -247,7 +247,7 @@ class FeedController extends AjaxController
         if (!$poster instanceof Poster) ;
 
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         if (!$viewer)
             return new AuthorizationRestrictException("Login required");
@@ -255,8 +255,8 @@ class FeedController extends AjaxController
 
         $about = $feed->getAbout();
 
-        $vars['subscribed'] = \App::notification()->isSubscribed($viewer, $about) ? 1 : 0;
-        $vars['hidden'] = \App::feed()->isHidden($viewer->getId(), $feed->getId()) ? 1 : 0;
+        $vars['subscribed'] = \App::notificationService()->isSubscribed($viewer, $about) ? 1 : 0;
+        $vars['hidden'] = \App::feedService()->isHidden($viewer->getId(), $feed->getId()) ? 1 : 0;
 
         if (!$context['isMainFeed'] && !$parent->viewerIsPoster()) {
             $vars['canHideTimeline'] = true;
@@ -323,7 +323,7 @@ class FeedController extends AjaxController
             throw new \InvalidArgumentException();
         }
 
-        \App::feed()->removeFeed($feed);
+        \App::feedService()->removeFeed($feed);
     }
 
     /**
@@ -338,7 +338,7 @@ class FeedController extends AjaxController
         $query['maxId'] = $maxId;
         $query['mode'] = $mode;
 
-        $paging = \App::feed()->loadFeedPaging($query);
+        $paging = \App::feedService()->loadFeedPaging($query);
 
         $this->response['count'] = $paging->count();
         $this->response['html'] = $this->partial('/base/feed/controller/ajax/feed/load-feeds', [
@@ -371,10 +371,10 @@ class FeedController extends AjaxController
         $story = $about->getStory();
 
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
         $canControlPrivacy = true;
 
-        $privacyButton = \App::html()->create([
+        $privacyButton = \App::htmlService()->create([
             'plugin'    => 'privacyButton',
             'name'      => 'privacy',
             'forParent' => $parent,
@@ -385,7 +385,7 @@ class FeedController extends AjaxController
             'valign'    => 'dropup',
         ]);
 
-        $privacy = \App::relation()->getRelationOptionForSelect($parent, $poster, 'share_status');
+        $privacy = \App::relationService()->getRelationOptionForSelect($parent, $poster, 'share_status');
 
 
         $this->response['html'] = \App::viewHelper()->partial('/base/feed/partial/edit-feed-inline', [

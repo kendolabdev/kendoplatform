@@ -66,7 +66,7 @@ class LinkController extends AjaxController
         $data = null;
 
         try {
-            $data = \App::video()->parseFromUrl($url);
+            $data = \App::videoService()->parseFromUrl($url);
 
             $data = $data->toArray();
 
@@ -77,11 +77,11 @@ class LinkController extends AjaxController
         }
 
         if (empty($data)) {
-            $data = \App::link()->parseEmbedly($url);
+            $data = \App::linkService()->parseEmbedly($url);
         }
 
         if (empty($data)) {
-            $data = \App::link()->parseUrl($url);
+            $data = \App::linkService()->parseUrl($url);
         }
 
         return $data;

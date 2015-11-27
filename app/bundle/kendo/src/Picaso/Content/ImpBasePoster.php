@@ -17,6 +17,6 @@ Trait ImpBasePoster
      */
     public function authorize($action, $defaultValue = true)
     {
-        return \App::acl()->authorizeFor($this, $action, $defaultValue);
+        return \App::aclService()->authorizeFor($this, $action, $defaultValue);
     }
 }

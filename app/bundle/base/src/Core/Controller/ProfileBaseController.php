@@ -28,13 +28,13 @@ class ProfileBaseController extends DefaultController
     {
         parent::init();
 
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         list($profileType, $profileId) = $this->request->get('profileType', 'profileId');
 
         if (empty($profile) && empty($profileType)) {
-            $profile = \App::auth()->getViewer();
-            \App::registry()->set('profile', $profile);
+            $profile = \App::authService()->getViewer();
+            \App::registryService()->set('profile', $profile);
         }
 
         if (null == $profile) {
@@ -49,7 +49,7 @@ class ProfileBaseController extends DefaultController
                     ->where('profile_name=?', (string)$profileId)
                     ->one();
             }
-            \App::registry()->set('profile', $profile);
+            \App::registryService()->set('profile', $profile);
         }
 
         /**
@@ -57,10 +57,10 @@ class ProfileBaseController extends DefaultController
          */
         $actionName = preg_replace('#\W+#m', '_', strtolower($this->request->getActionName()));
 
-        \App::assets()
+        \App::assetService()
             ->setTitle($profile->getTitle());
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName($profile->getType() . '_profile_' . $actionName);
     }
 

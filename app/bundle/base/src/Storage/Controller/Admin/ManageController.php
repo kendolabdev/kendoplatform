@@ -20,14 +20,14 @@ class ManageController extends AdminController
      */
     public function actionBrowse()
     {
-        \App::layout()->setPageName('admin_simple')
+        \App::layoutService()->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_storage', 'browse');
 
         $limit = 100;
         $page = 1;
         $query = [];
 
-        $paging = \App::storage()
+        $paging = \App::storageService()
             ->loadAdminPagingStorage($query, $page, $limit);
 
         $lp = new BlockParams([
@@ -48,7 +48,7 @@ class ManageController extends AdminController
      */
     public function actionTransfer()
     {
-        \App::layout()->setPageName('admin_simple')
+        \App::layoutService()->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_storage', 'transfer');
 
         $this->view->setScript('/base/core/controller/admin/storage/transfer-storage');
@@ -59,7 +59,7 @@ class ManageController extends AdminController
      */
     public function actionCreate()
     {
-        \App::layout()->setPageName('admin_simple')
+        \App::layoutService()->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_storage', 'add');
 
 
@@ -81,15 +81,15 @@ class ManageController extends AdminController
      */
     public function actionCreateComplete()
     {
-        \App::layout()->setPageName('admin_simple')
+        \App::layoutService()->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_storage', 'browse');
 
         $type = $this->request->getString('adapter', 'local');
 
-        $adapter = \App::storage()
+        $adapter = \App::storageService()
             ->findAdapterByType($type);
 
-        $form = \App::html()->factory($adapter->getAdminForm());
+        $form = \App::htmlService()->factory($adapter->getAdminForm());
 
         $lp = new BlockParams([
             'base_path'=> 'layout/partial/form-edit'
@@ -108,17 +108,17 @@ class ManageController extends AdminController
      */
     public function actionEdit()
     {
-        \App::layout()->setPageName('admin_simple')
+        \App::layoutService()->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_storage', 'browse');
 
         $id = $this->request->getInt('id', 1);
 
-        $item = \App::storage()->findStorageById($id);
+        $item = \App::storageService()->findStorageById($id);
 
-        $adapter = \App::storage()
+        $adapter = \App::storageService()
             ->findAdapterByType($item->getAdapter());
 
-        $form = \App::html()->factory($adapter->getAdminForm());
+        $form = \App::htmlService()->factory($adapter->getAdminForm());
 
         $lp = new BlockParams([
             'base_path'=> 'layout/partial/form-edit'

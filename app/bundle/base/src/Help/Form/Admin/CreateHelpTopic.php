@@ -25,7 +25,7 @@ class CreateHelpTopic extends Form
             'label'    => 'Category',
             'class'    => 'form-control',
             'required' => true,
-            'options'  => \App::help()->loadAdminCategoryOptions(),
+            'options'  => \App::helpService()->loadAdminCategoryOptions(),
         ]);
 
         $this->addElement([

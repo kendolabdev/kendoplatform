@@ -24,9 +24,9 @@ class LikeController extends AjaxController
             throw new \InvalidArgumentException();
         }
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
-        $likeService = \App::like();
+        $likeService = \App::likeService();
 
         $likeService->toggle($poster, $about);
 
@@ -49,9 +49,9 @@ class LikeController extends AjaxController
         if (!$about instanceof CanLike)
             throw new \InvalidArgumentException();
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
-        $likeService = \App::like();
+        $likeService = \App::likeService();
 
         $likeService->toggle($poster, $about);
 
@@ -83,11 +83,11 @@ class LikeController extends AjaxController
 
         $context = $this->request->getString('context', 'label');
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
-        $likeService = \App::like();
+        $likeService = \App::likeService();
 
-        $followService = \App::follow();
+        $followService = \App::followService();
 
         $likeService->add($viewer, $object);
 
@@ -121,11 +121,11 @@ class LikeController extends AjaxController
 
         $context = $this->request->getString('context', 'label');
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
-        $likeService = \App::like();
+        $likeService = \App::likeService();
 
-        $followService = \App::follow();
+        $followService = \App::followService();
 
         $likeService->remove($viewer, $object);
 
@@ -162,10 +162,10 @@ class LikeController extends AjaxController
             'aboutType' => $about->getType(),
         ];
 
-        $paging = \App::like()
+        $paging = \App::likeService()
             ->loadLikedThisPaging($query, $page);
 
-        $lp = \App::layout()
+        $lp = \App::layoutService()
             ->getContentLayoutParams('like_ajax_dialog_liked_this');
 
         $lp->set('endless', true);
@@ -187,7 +187,7 @@ class LikeController extends AjaxController
         $page = $this->request->getParam('page', 1);
         $query = $this->request->getArray('query');
 
-        $paging = \App::like()->loadLikedThisPaging($query, $page);
+        $paging = \App::likeService()->loadLikedThisPaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 

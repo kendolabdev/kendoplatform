@@ -66,7 +66,7 @@ class ThemeService
     public function getDefaultThemeId()
     {
 
-        return \App::cache()
+        return \App::cacheService()
             ->get(['layout.theme', 'getDefaultThemeId'], 0, function () {
                 return $this->_getDefaultThemeId();
             });
@@ -131,12 +131,12 @@ class ThemeService
     {
 
         if (empty($themeId)) {
-            $themeId = \App::layout()
+            $themeId = \App::layoutService()
                 ->theme()
                 ->getDefaultThemeId();
         }
 
-        $theme = \App::layout()
+        $theme = \App::layoutService()
             ->theme()
             ->findThemeById($themeId);
 
@@ -144,7 +144,7 @@ class ThemeService
         $this->updateStylesheetBundleConfiguration();
         $variables = $theme->getVariables();
 
-        $sass = \App::sass();
+        $sass = \App::styleService();
 
         $content = $sass->compile(
             null, $variables, [

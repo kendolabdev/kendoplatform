@@ -40,7 +40,7 @@ class EventHandlerService extends EventHandler
             return;
         }
 
-        \App::relation()->buildRelationsForPoster($payload);
+        \App::relationService()->buildRelationsForPoster($payload);
 
         \App::values()->mergeValues($payload, [
             'share_status' => RELATION_TYPE_ANYONE,
@@ -117,13 +117,13 @@ class EventHandlerService extends EventHandler
 
         if (!$parent instanceof Poster or !$poster instanceof Poster) return;
 
-        \App::relation()->addRelationItem($parent, $poster, RELATION_TYPE_MEMBER);
+        \App::relationService()->addRelationItem($parent, $poster, RELATION_TYPE_MEMBER);
 
         /**
          * 2 ways friends for required.
          */
         if ($parent instanceof User && $poster instanceof User) {
-            \App::relation()->addRelationItem($poster, $parent, RELATION_TYPE_MEMBER);
+            \App::relationService()->addRelationItem($poster, $parent, RELATION_TYPE_MEMBER);
         }
     }
 
@@ -137,13 +137,13 @@ class EventHandlerService extends EventHandler
 
         if (!$poster instanceof Poster or !$parent instanceof Poster) return;
 
-        \App::relation()->clearRelationItem($parent, $poster);
+        \App::relationService()->clearRelationItem($parent, $poster);
 
         /**
          * 2 ways membership need to required to clear
          */
         if ($poster instanceof User && $parent instanceof User) {
-            \App::relation()->clearRelationItem($poster, $parent);
+            \App::relationService()->clearRelationItem($poster, $parent);
 
         }
     }

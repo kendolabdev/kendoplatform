@@ -1,5 +1,6 @@
-$header-topbar-content-padding-base: (($header-topbar-base-height - $input-height-small)/2) !default;
-$header-topbar-content-padding-large: (($header-topbar-large-height - $input-height-small)/2) !default;
+$header-topbar-input-size: 39px;
+$header-topbar-content-padding-base: (($header-topbar-base-height - $header-topbar-input-size)/2) !default;
+$header-topbar-content-padding-large: (($header-topbar-large-height - $header-topbar-input-size)/2) !default;
 
 .header-topbar {
   & {
@@ -50,9 +51,10 @@ $header-topbar-content-padding-large: (($header-topbar-large-height - $input-hei
       font-weight: 500;
     }
     img {
-      width: ($input-height-small - 4);
-      height: ($input-height-small - 4);
+      width: ($header-topbar-input-size - 3);
+      height: ($header-topbar-input-size - 3);
       border: 1px solid $border-color;
+      margin-right: $padding-base-vertical;
       @if $use-block-box {
         @include border-radius($border-radius-small);
       }
@@ -69,7 +71,7 @@ $header-topbar-content-padding-large: (($header-topbar-large-height - $input-hei
       float:left;
       position: relative;
       >a {
-        line-height: $input-height-small;
+        line-height: $header-topbar-input-size;
         font-size: 14px;
         padding: 0 7px;
         display: block;
@@ -118,8 +120,8 @@ $header-topbar-content-padding-large: (($header-topbar-large-height - $input-hei
       float: left;
       position: relative;
       > a {
-        line-height: $input-height-small;
-        font-size: 14px;
+        line-height: $header-topbar-input-size;
+        font-size: $font-size-base;
         padding: 0 7px;
         display: block;
         text-align: center;

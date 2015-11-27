@@ -34,7 +34,7 @@ class PosterNotificationTypeSetting extends Form
     public function getPoster()
     {
         if (null == $this->poster) {
-            $this->poster = \App::auth()->getUser();
+            $this->poster = \App::authService()->getUser();
         }
 
         return $this->poster;
@@ -74,7 +74,7 @@ class PosterNotificationTypeSetting extends Form
         $this->setTitle('form_notification_setting.form_title');
         $this->setNote('form_notification_setting.form_note');
 
-        $groups = \App::notification()
+        $groups = \App::notificationService()
             ->getListTypeGroup();
 
         /**
@@ -82,7 +82,7 @@ class PosterNotificationTypeSetting extends Form
          */
         foreach ($groups as $group) {
             $options = [];
-            $items = \App::notification()
+            $items = \App::notificationService()
                 ->getListTypeByGroup($group);
 
             $item = null;

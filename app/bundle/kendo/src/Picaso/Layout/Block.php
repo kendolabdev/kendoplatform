@@ -172,7 +172,7 @@ class Block
             $wrapper = $this->getRenderer();
             $params = [];
 
-            return \App::layout()->getBlockRender($wrapper)->render($this, $params);
+            return \App::layoutService()->getBlockRender($wrapper)->render($this, $params);
         } catch (\RuntimeException $ex) {
             return $ex->getMessage();
         }

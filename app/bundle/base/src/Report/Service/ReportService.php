@@ -20,7 +20,7 @@ class ReportService
      */
     public function loadCategoryOptions()
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['report', 'loadCateoryOptions', ''], 0, function () {
                 return $this->_loadCategoryOptions();
             });

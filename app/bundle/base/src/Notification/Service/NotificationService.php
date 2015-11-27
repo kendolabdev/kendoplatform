@@ -93,7 +93,7 @@ class NotificationService
      */
     public function getListTypeGroup()
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get([], 0, function () {
                 return $this->_getListTypeGroup();
             });
@@ -273,7 +273,7 @@ class NotificationService
         }
 
         if (!$isValid)
-            $select->where('parent_id=?', (string)\App::auth()->getId());
+            $select->where('parent_id=?', (string)\App::authService()->getId());
 
 
         return $select->paging($page, $limit);
@@ -288,7 +288,7 @@ class NotificationService
     public function getUnreadNotificationCount(Poster $parent = null)
     {
         if (null == $parent)
-            $parent = \App::auth()->getViewer();
+            $parent = \App::authService()->getViewer();
 
 
         if (!$parent instanceof Poster)
@@ -309,7 +309,7 @@ class NotificationService
     public function getUnmitigatedNotificationCount(Poster $parent = null)
     {
         if (null == $parent)
-            $parent = \App::auth()->getViewer();
+            $parent = \App::authService()->getViewer();
 
 
         if (!$parent instanceof Poster)
@@ -328,7 +328,7 @@ class NotificationService
     public function clearMitigatedNotificationState(Poster $parent = null)
     {
         if (null == $parent)
-            $parent = \App::auth()->getViewer();
+            $parent = \App::authService()->getViewer();
 
 
         if (!$parent instanceof Poster)

@@ -19,7 +19,7 @@ class AuthLoginSmall extends Form
     {
         $this->setMethod('post');
 
-        $this->setAction(\App::routing()->getUrl('login'));
+        $this->setAction(\App::routingService()->getUrl('login'));
 
         $this->addElement([
             'plugin'      => 'email',

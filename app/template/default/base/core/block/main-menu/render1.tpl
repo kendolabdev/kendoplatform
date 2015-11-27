@@ -13,7 +13,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <?php echo \App::nav()->render('main', 2, 'dropdown', array('level0'=>'nav navbar-nav')); ?>
+            <?php echo \App::navigationService()->render('main', 2, 'dropdown', array('level0'=>'nav navbar-nav')); ?>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

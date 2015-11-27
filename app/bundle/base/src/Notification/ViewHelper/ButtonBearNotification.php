@@ -14,9 +14,9 @@ class ButtonBearNotification
      */
     public function __invoke()
     {
-        if (!\App::auth()->logged()) return '';
+        if (!\App::authService()->logged()) return '';
 
-        $number = \App::notification()
+        $number = \App::notificationService()
             ->getUnmitigatedNotificationCount();
 
         return \App::viewHelper()->partial('base/notification/button/bear-notification', [

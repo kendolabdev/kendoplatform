@@ -18,9 +18,9 @@ class ThemeController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layout()->setPageName('admin_simple');
+        \App::layoutService()->setPageName('admin_simple');
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_appearance', 'themes');
     }
@@ -34,10 +34,10 @@ class ThemeController extends AdminController
         $limit = 100;
         $page = 1;
 
-        \App::assets()
+        \App::assetService()
             ->setTitle(\App::text('core_layout.manage_templates'));
 
-        $paging = \App::layout()
+        $paging = \App::layoutService()
             ->setPageTitle('layout.manage_themes')
             ->loadAdminThemePaging($query, $page, $limit);
 
@@ -56,7 +56,7 @@ class ThemeController extends AdminController
     {
 
         $id = $this->request->getParam('id', 'default');
-        $theme = \App::layout()->findThemeById($id);
+        $theme = \App::layoutService()->findThemeById($id);
 
         $form = new LayoutEditTheme();
 
@@ -90,10 +90,10 @@ class ThemeController extends AdminController
                     ->execute();
             }
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()
+            \App::routingService()
                 ->redirect('admin', ['stuff' => 'layout/theme/browse']);
         }
 

@@ -65,7 +65,7 @@ class AttributeField extends Model implements UniqueId
      */
     public function getPlugin()
     {
-        return \App::attribute()
+        return \App::catalogService()
             ->findPluginById($this->getPluginId());
     }
 
@@ -122,7 +122,7 @@ class AttributeField extends Model implements UniqueId
         }
 
         if ($plugin->isPredefined()) {
-            $element['options'] = \App::attribute()
+            $element['options'] = \App::catalogService()
                 ->loadOptionByFieldId($this->getId());
         }
 

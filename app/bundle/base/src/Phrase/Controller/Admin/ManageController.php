@@ -20,7 +20,7 @@ class ManageController extends AdminController
     {
         $filter = new FilterPhrase();
 
-        \App::layout()->setPageName('admin_simple')
+        \App::layoutService()->setPageName('admin_simple')
             ->setPageFilter($filter)
             ->setPageTitle('core.manage_phrases')
             ->setupSecondaryNavigation('admin', 'admin_language', 'translation');
@@ -43,7 +43,7 @@ class ManageController extends AdminController
 
         $page = $this->request->getParam('page', 1);
 
-        $paging = \App::phrase()
+        $paging = \App::phraseService()
             ->loadAdminPhrasePaging($query, $page);
 
         $lp = new BlockParams([
@@ -94,7 +94,7 @@ class ManageController extends AdminController
      */
     public function actionImport()
     {
-        \App::layout()->setPageName('admin_simple')
+        \App::layoutService()->setPageName('admin_simple')
             ->setPageTitle('phrase.import_phrases')
             ->setupSecondaryNavigation('admin', 'admin_language', 'import');
 

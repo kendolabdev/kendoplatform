@@ -24,7 +24,7 @@ class PhotoCover extends Model
     public function getPhoto($maker)
     {
         if ($this->getPhotoFileId() > 0) {
-            if (null != ($src = \App::storage()
+            if (null != ($src = \App::storageService()
                     ->getUrlByOriginAndMaker($this->getPhotoFileId(), $maker))
             ) {
                 return $src;

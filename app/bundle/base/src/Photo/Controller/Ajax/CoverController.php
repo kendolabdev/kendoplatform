@@ -23,9 +23,9 @@ class CoverController extends AjaxController
             throw new \InvalidArgumentException("Could not set cover for current subject");
         }
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
-        \App::photo()->removeCover($parent);
+        \App::photoService()->removeCover($parent);
 
         $this->response = [];
     }
@@ -47,19 +47,19 @@ class CoverController extends AjaxController
             throw new \InvalidArgumentException("Could not set cover for current subject");
         }
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if (!$parent)
             throw new \InvalidArgumentException("Could not find parent");
 
 
-        $photoService = \App::photo();
+        $photoService = \App::photoService();
 
         if ($fileId) {
             $album = $photoService->getSingletonAlbum($parent);
 
             if ($uploaded) {
-                $fileId = \App::photo()->processSinglePhotoUploadFromTemporary($fileId);
+                $fileId = \App::photoService()->processSinglePhotoUploadFromTemporary($fileId);
 
                 $photo = $photoService->addPhoto($fileId, $poster, $parent, $album, $params = []);
                 $photoService->setCover($parent, $photo, $positionTop);

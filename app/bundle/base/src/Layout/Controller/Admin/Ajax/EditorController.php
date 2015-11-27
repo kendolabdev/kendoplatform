@@ -55,7 +55,7 @@ class EditorController extends AjaxController
     {
         $sectionId = $this->request->getParam('sectionId');
 
-        $section = \App::layout()
+        $section = \App::layoutService()
             ->findLayoutSectionById($sectionId);
 
         $section->delete();
@@ -74,7 +74,7 @@ class EditorController extends AjaxController
 
         $isContainer = 0;
 
-        $supportBlock = \App::layout()->findSupportBlockById($supportBlockId);
+        $supportBlock = \App::layoutService()->findSupportBlockById($supportBlockId);
 
         if ($supportBlock->getBlockType() == 'container') {
             $isContainer = 1;
@@ -117,13 +117,13 @@ class EditorController extends AjaxController
         if (!$layoutType)
             $layoutType = 'content';
 
-        $page = \App::layout()
+        $page = \App::layoutService()
             ->findPageByName($pageName);
 
         if (!$page)
             throw new \InvalidArgumentException("Page does not exists");
 
-        $entry = \App::layout()
+        $entry = \App::layoutService()
             ->getLayoutSettings($layoutType, $pageName, $screenSize, $templateId);
 
         if (!$entry)
@@ -140,11 +140,11 @@ class EditorController extends AjaxController
 
 
         if (in_array($layoutType, ['header', 'footer']) or null != $page->getBasePath()) {
-            $baseScriptList = \App::layout()->getTemplateBlockRenderSettings($templateId, $layoutType, $page->getBasePath());
+            $baseScriptList = \App::layoutService()->getTemplateBlockRenderSettings($templateId, $layoutType, $page->getBasePath());
         }
 
         if (!in_array($layoutType, ['header', 'footer']) and null != $page->getItemPath()) {
-            $itemScriptList = \App::layout()->getTemplateBlockRenderSettings($templateId, $layoutType, $page->getItemPath());
+            $itemScriptList = \App::layoutService()->getTemplateBlockRenderSettings($templateId, $layoutType, $page->getItemPath());
         }
 
         if (count($baseScriptList) < 1 && count($itemScriptList) < 1) {
@@ -199,19 +199,19 @@ class EditorController extends AjaxController
         if (!$layoutType)
             $layoutType = 'content';
 
-        $page = \App::layout()
+        $page = \App::layoutService()
             ->findPageByName($pageName);
 
         if (!$page)
             throw new \InvalidArgumentException("Page does not exists");
 
-        $entry = \App::layout()
+        $entry = \App::layoutService()
             ->getLayoutSettings($layoutType, $pageName, $screenSize, $templateId);
 
         if ($entry)
             $entry->delete();
 
-        \App::cache()
+        \App::cacheService()
             ->flush();
 
         $this->response = [
@@ -239,7 +239,7 @@ class EditorController extends AjaxController
         if (!$layoutType)
             $layoutType = 'content';
 
-        $page = \App::layout()
+        $page = \App::layoutService()
             ->findPageByName($pageName);
 
         if (!$page)
@@ -252,24 +252,24 @@ class EditorController extends AjaxController
         $baseScript = $this->request->getParam('base_script', 'render1');
         $itemScript = $this->request->getParam('item_script', 'render1');
         $editStep = $this->request->getParam('edit_step', '');
-        $theme = \App::layout()->getEditingTheme();
+        $theme = \App::layoutService()->getEditingTheme();
         $themeId = $theme->getId();
 
 
         $form = new LayoutEditContentSetting();
 
 
-        $baseScriptList = \App::layout()
+        $baseScriptList = \App::layoutService()
             ->getTemplateBlockRenderSettings($themeId, $layoutType, $page->getBasePath());
 
         if ($layoutType == 'content' and null != $page->getItemPath()) {
-            $itemScriptList = \App::layout()->getTemplateBlockRenderSettings($themeId, $layoutType, $page->getItemPath());
+            $itemScriptList = \App::layoutService()->getTemplateBlockRenderSettings($themeId, $layoutType, $page->getItemPath());
         }
 
         $pageTitle = 'Edit Block Settings';
         $pageNote = 'Select one of layout before edit settings.';
 
-        $entry = \App::layout()
+        $entry = \App::layoutService()
             ->getLayoutSettings($layoutType, $pageName, $screenSize, $themeId);
 
         if (!$entry)
@@ -326,7 +326,7 @@ class EditorController extends AjaxController
             $entry->save();
             // update content layout with correct information
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
             $this->response = [
@@ -378,7 +378,7 @@ class EditorController extends AjaxController
         list($eid, $supportBlockId, $blockId) = $this->request->get('eid', 'supportBlockId', 'blockId');
         list($pageName, $templateId, $screenSize) = $this->request->get('pageName', 'templateId', 'screenSize');
 
-        $supportBlock = \App::layout()->findSupportBlockById($supportBlockId);
+        $supportBlock = \App::layoutService()->findSupportBlockById($supportBlockId);
 
         /**
          * moved select block script instead
@@ -395,12 +395,12 @@ class EditorController extends AjaxController
         $formScript = 'base/layout/dialog/layout/select-block-script';
         $baseScript = 'render1';
         $form = new LayoutSelectBlockScript();
-        $theme = \App::layout()->getEditingTheme();
+        $theme = \App::layoutService()->getEditingTheme();
         $themeId = $theme->getId();
 
 
         if (!empty($basePath)) {
-            $supportScripts = \App::layout()
+            $supportScripts = \App::layoutService()
                 ->getTemplateSupportBlockSettings($basePath, $themeId);
         }
 
@@ -443,7 +443,7 @@ class EditorController extends AjaxController
         list($eid, $supportBlockId, $blockId) = $this->request->get('eid', 'supportBlockId', 'blockId');
         list($pageName, $templateId, $screenSize) = $this->request->get('pageName', 'templateId', 'screenSize');
 
-        $supportBlock = \App::layout()->findSupportBlockById($supportBlockId);
+        $supportBlock = \App::layoutService()->findSupportBlockById($supportBlockId);
 
         $basePath = $supportBlock->getBasePath();
 
@@ -452,11 +452,11 @@ class EditorController extends AjaxController
         $supportSettings = [];
         $baseScript = $this->request->getParam('base_script', 'render1');
         $form = new LayoutSupportBlockSetting();
-        $theme = \App::layout()->getEditingTheme();
+        $theme = \App::layoutService()->getEditingTheme();
         $themeId = $theme->getId();
 
         if (!empty($basePath)) {
-            $supportScripts = \App::layout()
+            $supportScripts = \App::layoutService()
                 ->getTemplateSupportBlockSettings($basePath, $themeId);
         }
 
@@ -473,7 +473,7 @@ class EditorController extends AjaxController
             $form->addElements($supportSettings);
         }
 
-        $blockEntry = \App::layout()
+        $blockEntry = \App::layoutService()
             ->findBlockById($blockId);
 
 
@@ -513,7 +513,7 @@ class EditorController extends AjaxController
         list($eid, $supportBlockId, $blockId) = $this->request->get('eid', 'supportBlockId', 'blockId');
         list($pageName, $templateId, $screenSize) = $this->request->get('pageName', 'templateId', 'screenSize');
 
-        $supportBlock = \App::layout()->findSupportBlockById($supportBlockId);
+        $supportBlock = \App::layoutService()->findSupportBlockById($supportBlockId);
 
         $basePath = $supportBlock->getBasePath();
 
@@ -523,11 +523,11 @@ class EditorController extends AjaxController
         $baseScript = $this->request->getParam('base_script', 'render1');
         $form = new LayoutSupportBlockSetting();
 
-        $theme = \App::layout()->getEditingTheme();
+        $theme = \App::layoutService()->getEditingTheme();
         $themeId = $theme->getId();
 
 
-        $blockEntry = \App::layout()
+        $blockEntry = \App::layoutService()
             ->findBlockById($blockId);
 
 
@@ -535,7 +535,7 @@ class EditorController extends AjaxController
             throw new \InvalidArgumentException("Could not find block, you must save layout before edit each block");
 
         if (!empty($basePath)) {
-            $supportScripts = \App::layout()
+            $supportScripts = \App::layoutService()
                 ->getTemplateSupportBlockSettings($basePath, $themeId);
         }
 
@@ -584,7 +584,7 @@ class EditorController extends AjaxController
     public function actionElementWrapperSetting()
     {
 
-        $form = \App::html()->factory('\Layout\Form\Block\BlockWrapperSetting');
+        $form = \App::htmlService()->factory('\Layout\Form\Block\BlockWrapperSetting');
 
         $form->setData($_POST);
 
@@ -606,15 +606,15 @@ class EditorController extends AjaxController
     {
         list($pageName, $screenSize) = $this->request->get('pageName', 'screenSize');
 
-        $themeId = \App::layout()->getEditingThemeId();
+        $themeId = \App::layoutService()->getEditingThemeId();
 
         $sectionList = $this->request->getArray('sections');
 
         // delete old section list if not exists in this case.
 
-        $layoutService = \App::layout();
+        $layoutService = \App::layoutService();
 
-        $layout = \App::layout()->findLayout($pageName, $screenSize, $themeId);
+        $layout = \App::layoutService()->findLayout($pageName, $screenSize, $themeId);
 
         if (!$layout instanceof Layout)
             $layout = $layoutService->createLayout($pageName, $themeId, $screenSize);

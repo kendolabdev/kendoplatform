@@ -138,7 +138,7 @@ class AuthStorage implements AuthStorageInterface
         }
 
 
-        \App::auth()
+        \App::authService()
             ->setUser($userEntry);
 
         $viewerEntry = null;
@@ -154,7 +154,7 @@ class AuthStorage implements AuthStorageInterface
             $viewerEntry = $userEntry;
         }
 
-        \App::auth()
+        \App::authService()
             ->setViewer($viewerEntry);
 
         // process user by entry then process load but there are nothing to loose fromt this touch

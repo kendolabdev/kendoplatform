@@ -327,7 +327,7 @@ include_once PICASO_MODULE_DIR . '/kendo/src/Picaso/App.php';
  */
 function _screen($desktop, $tablet, $mobile)
 {
-    return \App::request()->isMobile() ? (\App::request()->isTablet() ? $tablet : $mobile) : $desktop;
+    return \App::requestService()->isMobile() ? (\App::requestService()->isTablet() ? $tablet : $mobile) : $desktop;
 }
 
 /**

@@ -42,4 +42,4 @@
         </div>
     </div>
 </form>
-<?php echo \App::assets()->requirejs()->renderScriptHtml(); ?>
+<?php echo \App::assetService()->requirejs()->renderScriptHtml(); ?>

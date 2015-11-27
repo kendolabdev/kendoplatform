@@ -77,7 +77,7 @@ class Share extends Model implements UniqueId,
         $params['id'] = $this->getId();
         $params['type'] = $this->getType();
 
-        return \App::routing()->getUrl('feed_detail', $params);
+        return \App::routingService()->getUrl('feed_detail', $params);
     }
 
     /**

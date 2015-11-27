@@ -106,7 +106,7 @@ class MessageService
     public function getUnreadConversationCount(Poster $parent = null)
     {
         if (null == $parent) {
-            $parent = \App::auth()->getViewer();
+            $parent = \App::authService()->getViewer();
         }
 
         if (!$parent instanceof Poster) return 0;
@@ -518,8 +518,8 @@ class MessageService
             ->select()
             ->where('conversation_id=?', $convId);
 
-        if (\App::auth()->getId() > 0) {
-            $select->where('recipient_id<>?', \App::auth()->getId());
+        if (\App::authService()->getId() > 0) {
+            $select->where('recipient_id<>?', \App::authService()->getId());
         }
 
         $pairs = $select->toPairs('recipient_id', 'recipient_type');
@@ -550,7 +550,7 @@ class MessageService
      */
     public function loadMessagePaging($query = [], $page = 1, $limit = 12)
     {
-        $parentId = !empty($query['parentId']) ? $query['parentId'] : \App::auth()->getId();
+        $parentId = !empty($query['parentId']) ? $query['parentId'] : \App::authService()->getId();
 
         $messageIdList = \App::table('message.recipient')
             ->select()

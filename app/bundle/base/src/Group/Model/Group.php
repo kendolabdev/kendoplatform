@@ -139,7 +139,7 @@ class Group extends Model implements
     {
         $params['profileId'] = $this->getId();
 
-        return \App::routing()->getUrl('group_profile', $params);
+        return \App::routingService()->getUrl('group_profile', $params);
     }
 
 

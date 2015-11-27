@@ -57,7 +57,7 @@ class EventHandlerService extends EventHandler
          * check to notify any subscribed members about this post
          */
 
-        \App::notification()
+        \App::notificationService()
             ->notify('item_commented', $cmt->getPoster(), $about, ['id' => $cmt->getId()]);
 
     }

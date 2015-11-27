@@ -16,7 +16,7 @@ class SettingController extends AdminController
     {
         parent::init();
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_edit');
     }
 
@@ -29,7 +29,7 @@ class SettingController extends AdminController
         $active = $this->request->getParam('t', 'admin_setting_general');
 
 
-        \App::layout()->setupSecondaryNavigation('admin', 'admin_setting', $active);
+        \App::layoutService()->setupSecondaryNavigation('admin', 'admin_setting', $active);
 
         $this->forward(null, 'edit');
     }
@@ -55,7 +55,7 @@ class SettingController extends AdminController
         if (!class_exists($class))
             throw new \InvalidArgumentException();
 
-        $form = \App::html()->factory($class);
+        $form = \App::htmlService()->factory($class);
 
 
         if (!$form instanceof BaseSettingForm)

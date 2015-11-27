@@ -14,7 +14,7 @@ class SidebarFilterBlock extends Block
 
     public function execute()
     {
-        $filter = \App::layout()
+        $filter = \App::layoutService()
             ->getPageFilter();
 
         if (!$filter instanceof Form) {

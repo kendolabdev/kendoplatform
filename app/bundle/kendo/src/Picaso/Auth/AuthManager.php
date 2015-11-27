@@ -62,10 +62,10 @@ class AuthManager
 
         if ($result->isValid()) {
             $this->store($result);
-            \App::auth()->setViewer($result->getUser());
+            \App::authService()->setViewer($result->getUser());
         } else {
             $this->forget();
-            \App::auth()->setViewer(null);
+            \App::authService()->setViewer(null);
         }
 
         return $result;
@@ -181,7 +181,7 @@ class AuthManager
         }
 
 
-        \App::auth()
+        \App::authService()
             ->setUser($userEntry);
 
         // process user by entry then process load but there are nothing to loose fromt this touch

@@ -100,7 +100,7 @@ class UserService implements Manager
     public function loadUserPaging($query = [], $page = 1, $limit = 12)
     {
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         if (!empty($query)) {
 
@@ -147,7 +147,7 @@ class UserService implements Manager
      */
     public function membership()
     {
-        return \App::relation();
+        return \App::relationService();
     }
 
     /**
@@ -231,7 +231,7 @@ class UserService implements Manager
     {
 
         if (empty($enctypes)) {
-            $enctypes = \App::auth()->getSupportHashTypes();
+            $enctypes = \App::authService()->getSupportHashTypes();
         }
 
         if (is_string($enctypes)) {
@@ -345,7 +345,7 @@ class UserService implements Manager
             ]);
         }
 
-        $hashGenerator = \App::auth()->getHashGenerator($encrypt_type);
+        $hashGenerator = \App::authService()->getHashGenerator($encrypt_type);
 
         $salt = $hashGenerator->getSalt();
         $hash = $hashGenerator->getHash($password, $salt);

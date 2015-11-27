@@ -15,7 +15,7 @@ class HookService
      */
     public function loadAllHooks()
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['HookService', 'load'], 0, function () {
                 return $this->_loadAllHooks();
             });

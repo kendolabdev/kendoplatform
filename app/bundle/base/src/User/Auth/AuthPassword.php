@@ -57,7 +57,7 @@ class AuthPassword implements AuthInterface
 
         $userId = $user->getId();
 
-        $enctypes = \App::auth()->getSupportHashTypes();
+        $enctypes = \App::authService()->getSupportHashTypes();
 
         $rows = \App::table('user.user_auth_password')
             ->select()
@@ -67,7 +67,7 @@ class AuthPassword implements AuthInterface
             ->toAssocs();
 
         foreach ($rows as $row) {
-            $hash = \App::auth()->getHashGenerator($row['enctype']);
+            $hash = \App::authService()->getHashGenerator($row['enctype']);
 
             if ($hash->getHash($credentital, $row['salt']) == $row['hash']) {
                 return new AuthResult(AuthResult::SUCCESS, $user);

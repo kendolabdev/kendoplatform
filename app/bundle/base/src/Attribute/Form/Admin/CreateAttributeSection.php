@@ -24,7 +24,7 @@ class CreateAttributeSection extends Form
             'plugin'   => 'select',
             'name'     => 'content_id',
             'required' => true,
-            'options'  => \App::attribute()->loadContentTypeOptions(),
+            'options'  => \App::catalogService()->loadContentTypeOptions(),
             'label'    => 'For Content Type',
             'class'    => 'form-control',
             'value'    => 'user',

@@ -20,7 +20,7 @@ class HomeController extends DefaultController
     {
         parent::init();
 
-        if (!\App::auth()->logged()) {
+        if (!\App::authService()->logged()) {
             throw new AuthException("Login Required");
         }
     }
@@ -31,7 +31,7 @@ class HomeController extends DefaultController
      */
     public function actionUnreadMessage()
     {
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         $messageIdList = \App::table('message.recipient')
             ->select()
@@ -55,7 +55,7 @@ class HomeController extends DefaultController
             ->where('message_id IN ?', $messageIdList)
             ->all();
 
-        $lp = \App::layout()
+        $lp = \App::layoutService()
             ->getContentLayoutParams();
 
         $this->view
@@ -70,7 +70,7 @@ class HomeController extends DefaultController
      */
     public function actionInboxMessage()
     {
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         $messageIdList = \App::table('message.recipient')
             ->select()
@@ -93,7 +93,7 @@ class HomeController extends DefaultController
             ->where('message_id IN ?', $messageIdList)
             ->all();
 
-        $lp = \App::layout()
+        $lp = \App::layoutService()
             ->getContentLayoutParams();
 
         $this->view
@@ -108,7 +108,7 @@ class HomeController extends DefaultController
      */
     public function actionSentMessage()
     {
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         /**
          * Select message
@@ -118,7 +118,7 @@ class HomeController extends DefaultController
             ->where('poster_id=?', $viewer->getId())
             ->all();
 
-        $lp = \App::layout()
+        $lp = \App::layoutService()
             ->getContentLayoutParams();
 
         $this->view
@@ -134,7 +134,7 @@ class HomeController extends DefaultController
     public function actionComposeMessage()
     {
 
-        $form = \App::html()->factory('\Message\Form\ComposeMessage');
+        $form = \App::htmlService()->factory('\Message\Form\ComposeMessage');
 
 
         $recipientType = $this->request->getParam('recipientType');
@@ -151,7 +151,7 @@ class HomeController extends DefaultController
             'form' => $form,
         ]);
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if ($this->request->isGet()) {
 
@@ -164,7 +164,7 @@ class HomeController extends DefaultController
             $form->setData($values);
         }
 
-        $messageService = \App::message();
+        $messageService = \App::messageService();
 
         if ($this->request->isPost() && $form->isValid($_POST)) {
             $data = $form->getData();
@@ -197,7 +197,7 @@ class HomeController extends DefaultController
 
             $messageService->addMessage($poster, $users, $subject, $content);
 
-            \App::routing()->redirect('message_inbox');
+            \App::routingService()->redirect('message_inbox');
         }
 
         $this->prepareRenderByContentLayoutParams();

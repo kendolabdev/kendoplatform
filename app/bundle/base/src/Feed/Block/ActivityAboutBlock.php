@@ -18,7 +18,7 @@ class ActivityAboutBlock extends Block
     public function execute()
     {
 
-        $about = \App::registry()->get('about');
+        $about = \App::registryService()->get('about');
 
         if (!$about) {
             $id = $this->getParam('id');
@@ -36,7 +36,7 @@ class ActivityAboutBlock extends Block
             return;
         }
 
-        $data = \App::feed()->loadAboutBundles($about);
+        $data = \App::feedService()->loadAboutBundles($about);
 
         $this->view->setData($data);
     }

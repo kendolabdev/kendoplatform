@@ -17,7 +17,7 @@ class SiteFooterBlock extends Block
      */
     public function execute()
     {
-        $lp = \App::layout()
+        $lp = \App::layoutService()
             ->getFooterLayoutParams();
 
         $this->view->setScript($lp)

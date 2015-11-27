@@ -19,8 +19,8 @@ class ButtonChat
     {
 
         if (!$item instanceof Poster) return '';
-        if (!\App::auth()->logged()) return '';
-        if (!\App::acl()->pass($item, 'message.chat')) return '';
+        if (!\App::authService()->logged()) return '';
+        if (!\App::aclService()->pass($item, 'message.chat')) return '';
 
         return \App::viewHelper()->partial('base/message/partial/button-chat', [
             'item'  => $item,

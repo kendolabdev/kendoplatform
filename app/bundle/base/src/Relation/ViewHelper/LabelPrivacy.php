@@ -59,7 +59,7 @@ class LabelPrivacy
             'value'   => $value,
             'icon'    => $icon,
             'isOwner' => $isOwner,
-            'label'   => \App::text('core.shared') . ' : ' . \App::relation()->getPrivacyLabel($about),
+            'label'   => \App::text('core.shared') . ' : ' . \App::relationService()->getPrivacyLabel($about),
         ]);
     }
 

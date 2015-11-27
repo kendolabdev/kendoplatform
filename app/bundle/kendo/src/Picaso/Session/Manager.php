@@ -19,7 +19,7 @@ class Manager
      */
     public function __construct()
     {
-        $class = \App::registry()->get('SessionHandler', '\Core\Session\FileSaveHandler');
+        $class = \App::registryService()->get('SessionHandler', '\Core\Session\FileSaveHandler');
 
         $handler = new $class;
 

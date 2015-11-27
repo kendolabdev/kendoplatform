@@ -50,6 +50,6 @@
         <div class="header-ow">
             <a class="ion-close" data-toggle="spotlight-close"></a>
         </div>
-        <?php echo \App::layout()->renderBlock('\Activity\Block\ActivityAboutBlock',['about'=> $photo]); ?>
+        <?php echo \App::layoutService()->renderBlock('\Activity\Block\ActivityAboutBlock',['about'=> $photo]); ?>
     </div>
 </div>

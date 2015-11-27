@@ -36,7 +36,7 @@ class EventHandlerService extends EventHandler
      */
     public function onProfileMenuItemBlogs($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if (!$profile instanceof Poster)
             return false;
@@ -44,7 +44,7 @@ class EventHandlerService extends EventHandler
         if (!$profile->authorize('blog__blog_tab_exists'))
             return false;
 
-        if (!\App::acl()->pass($profile, 'blog__blog_tab_view'))
+        if (!\App::aclService()->pass($profile, 'blog__blog_tab_view'))
             return false;
 
         $item['href'] = $profile->toHref(['stuff' => 'blogs']);
@@ -66,7 +66,7 @@ class EventHandlerService extends EventHandler
 
         $stats['blog'] = [
             'label' => \App::text('blog.blogs'),
-            'value' => \App::blog()->getActiveBlogCount(),
+            'value' => \App::blogService()->getActiveBlogCount(),
         ];
 
         $payload->__set('stats', $stats);

@@ -84,7 +84,7 @@ class GoogleAdapter implements SocialLoginAdapterInterface
             $host = 'localhost';
         }
 
-        $detailUrl = \App::routing()->getUrl('oauth_callback', [
+        $detailUrl = \App::routingService()->getUrl('oauth_callback', [
             'service' => 'google'
         ]);
 

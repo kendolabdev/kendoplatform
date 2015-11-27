@@ -19,10 +19,10 @@ class ButtonReport
     public function __invoke($item, $reported = null, $type = 'btn')
     {
 
-        if (!\App::auth()->logged()) return '';
+        if (!\App::authService()->logged()) return '';
         if ($item->viewerIsPoster()) return '';
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if (null === $reported) {
         }

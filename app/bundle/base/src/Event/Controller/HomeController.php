@@ -19,7 +19,7 @@ class HomeController extends DefaultController
     {
         $filter  = new FilterEvent();
 
-        \App::layout()
+        \App::layoutService()
             ->setupSecondaryNavigation('event_main', null, 'event_browse')
             ->setPageFilter($filter)
             ->setPageTitle('event.events');
@@ -28,10 +28,10 @@ class HomeController extends DefaultController
 
         $query = [];
 
-        $paging = \App::event()->loadEventPaging($query, $page);
+        $paging = \App::eventService()->loadEventPaging($query, $page);
 
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
@@ -49,16 +49,16 @@ class HomeController extends DefaultController
      */
     public function actionMyEvent()
     {
-        \App::layout()
+        \App::layoutService()
             ->setupSecondaryNavigation('event_main', null, 'event_my')
             ->setPageTitle('event.events');
 
-        \App::acl()
+        \App::aclService()
             ->required('is_member',false);
 
         $page = $this->request->getParam('page', 1);
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
 
 
@@ -68,9 +68,9 @@ class HomeController extends DefaultController
 
         ];
 
-        $paging = \App::event()->loadEventPaging($query, $page);
+        $paging = \App::eventService()->loadEventPaging($query, $page);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
@@ -89,7 +89,7 @@ class HomeController extends DefaultController
      */
     public function actionCreateEvent()
     {
-        \App::layout()
+        \App::layoutService()
             ->setupSecondaryNavigation('event_main', null, 'event_my')
             ->setPageTitle('event.events');
     }

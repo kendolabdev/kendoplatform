@@ -22,7 +22,7 @@ class FieldController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_attribute', 'admin_attribute_field');
     }
@@ -32,13 +32,13 @@ class FieldController extends AdminController
      */
     public function actionBrowse()
     {
-        \App::layout()
+        \App::layoutService()
             ->setPageTitle('attribute.manage_fields')
             ->setPageButtons([
                 [
                     'label' => 'attribute.add_new_field',
                     'props' => [
-                        'href'   => \App::routing()->getUrl('admin', ['stuff' => 'attribute/field/create']),
+                        'href'   => \App::routingService()->getUrl('admin', ['stuff' => 'attribute/field/create']),
                         'class' => 'btn btn-sm btn-danger'
                     ]]
             ]);
@@ -52,7 +52,7 @@ class FieldController extends AdminController
 
         $query = $filter->getData();
 
-        $paging = \App::attribute()
+        $paging = \App::catalogService()
             ->loadAdminFieldPaging($query, $page);
 
         $lp = new BlockParams([
@@ -80,13 +80,13 @@ class FieldController extends AdminController
         if ($this->request->isPost() && $form->isValid($_POST)) {
             $data = $form->getData();
 
-            \App::attribute()
+            \App::catalogService()
                 ->addField($data);
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', [
+            \App::routingService()->redirect('admin', [
                 'stuff'   => 'attribute/field/browse',
                 'content' => $data['content_type']]);
         }
@@ -109,7 +109,7 @@ class FieldController extends AdminController
     {
         $id = $this->request->getParam('fieldId');
 
-        $entry = \App::attribute()
+        $entry = \App::catalogService()
             ->findFieldById($id);
 
         $plugin = $entry->getPlugin();
@@ -134,10 +134,10 @@ class FieldController extends AdminController
 
             $form->save();
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', [
+            \App::routingService()->redirect('admin', [
                 'stuff'      => 'attribute/field/browse',
                 'content_id' => $entry->getContentId(),
             ]);
@@ -161,7 +161,7 @@ class FieldController extends AdminController
     {
         $id = $this->request->getParam('fieldId');
 
-        $entry = \App::attribute()
+        $entry = \App::catalogService()
             ->findFieldById($id);
 
 
@@ -181,10 +181,10 @@ class FieldController extends AdminController
 
             $entry->save();
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', [
+            \App::routingService()->redirect('admin', [
                 'stuff'      => 'attribute/field/browse',
                 'content_id' => $entry->getContentId()]);
         }
@@ -207,7 +207,7 @@ class FieldController extends AdminController
     {
         $id = $this->request->getParam('fieldId');
 
-        $entry = \App::attribute()
+        $entry = \App::catalogService()
             ->findFieldById($id);
 
 
@@ -224,10 +224,10 @@ class FieldController extends AdminController
 
             $entry->delete();
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', [
+            \App::routingService()->redirect('admin', [
                 'stuff'      => 'attribute/field/browse',
                 'content_id' => $entry->getContentId()]);
         }
@@ -253,7 +253,7 @@ class FieldController extends AdminController
 
         $query = ['field' => $fieldId];
 
-        $paging = \App::attribute()
+        $paging = \App::catalogService()
             ->loadAdminOptionPaging($query, $page);
 
         $lp = new BlockParams([

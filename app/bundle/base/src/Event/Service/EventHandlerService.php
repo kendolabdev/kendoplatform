@@ -44,7 +44,7 @@ class EventHandlerService extends \Picaso\Application\EventHandler
      */
     public function onProfileMenuItemEvents($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if (!$profile instanceof User)
             return false;
@@ -53,7 +53,7 @@ class EventHandlerService extends \Picaso\Application\EventHandler
             return false;
 
 
-        if (!\App::acl()->pass($profile, 'event__event_tab_view'))
+        if (!\App::aclService()->pass($profile, 'event__event_tab_view'))
             return false;
 
         $item['href'] = $profile->toHref(['stuff' => 'events']);
@@ -74,7 +74,7 @@ class EventHandlerService extends \Picaso\Application\EventHandler
 
         $stats['event'] = [
             'label' => \App::text('event.events'),
-            'value' => \App::event()->getEventCount(),
+            'value' => \App::eventService()->getEventCount(),
         ];
 
         $payload->__set('stats', $stats);

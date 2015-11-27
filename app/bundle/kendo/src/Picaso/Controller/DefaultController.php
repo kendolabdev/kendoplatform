@@ -41,7 +41,7 @@ class DefaultController implements Controller
      */
     protected function init()
     {
-        \App::layout()
+        \App::layoutService()
             ->setPageName($this->request->getFullControllerName());
     }
 
@@ -85,7 +85,7 @@ class DefaultController implements Controller
      */
     public function prepareRenderByContentLayoutParams()
     {
-        $lp = \App::layout()
+        $lp = \App::layoutService()
             ->getContentLayoutParams();
 
         $this->view->setScript($lp);
@@ -185,7 +185,7 @@ class DefaultController implements Controller
      */
     public function redirect($name, $params = null)
     {
-        return \App::routing()->redirect($name, $params);
+        return \App::routingService()->redirect($name, $params);
     }
 
     /**
@@ -195,7 +195,7 @@ class DefaultController implements Controller
      */
     public function redirectToUrl($url)
     {
-        return \App::routing()->redirectToUrl($url);
+        return \App::routingService()->redirectToUrl($url);
     }
 
     /**
@@ -203,7 +203,7 @@ class DefaultController implements Controller
      */
     protected function passNetworkBrowseMode()
     {
-        if (\App::auth()->logged())
+        if (\App::authService()->logged())
             return true;
 
         return \App::setting('core', 'network_mode') ? false : true;

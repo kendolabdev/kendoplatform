@@ -13,7 +13,7 @@ class ManageController extends AjaxController
     {
         $catalogId = $this->request->getParam('catalogId');
         $sectionId = $this->request->getParam('id');
-        $attribute = \App::attribute();
+        $attribute = \App::catalogService();
         $catalog = $attribute->findCatalogById($catalogId);
         $section = $attribute->findSectionById($sectionId);
 
@@ -35,7 +35,7 @@ class ManageController extends AjaxController
     {
         $catalogId = $this->request->getParam('catalogId');
         $sectionId = $this->request->getParam('id');
-        $attribute = \App::attribute();
+        $attribute = \App::catalogService();
 
         $attribute->removeSectionMap($catalogId, $sectionId);
 

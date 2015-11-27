@@ -21,7 +21,7 @@ class PermissionController extends AdminController
     {
         $filter = new FilterAclRole();
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setPageTitle('user.manage_permission')
             ->setPageFilter($filter)
@@ -34,7 +34,7 @@ class PermissionController extends AdminController
             'roleId' => $roleId,
         ]);
 
-        $role = \App::acl()->findRoleById($roleId);
+        $role = \App::aclService()->findRoleById($roleId);
 
         $form = new UserPermission(['role' => $role]);
 

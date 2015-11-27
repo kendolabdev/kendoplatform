@@ -46,7 +46,7 @@ class EventHandlerService extends EventHandler
      */
     public function onMenuMainMessages($item)
     {
-        if (!\App::auth()->logged())
+        if (!\App::authService()->logged())
             return false;
 
         $item['class'] = 'visible-xs ni-message';

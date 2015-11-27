@@ -35,16 +35,14 @@
 
 .separate-cmd {
   > a + a:before {
-    content: "\000B7";
+    content: $separator-middot;
     color: inherit;
-    padding: 0 3px;
     display: inline-block;
     text-align: center;
   }
   > span + span:before {
-    content: "\000B7";
+    content: $separator-middot;
     color: inherit;
-    padding-right: 4px;
     display: inline-block;
     text-align: left;
   }
@@ -598,7 +596,7 @@ a:focus {
 .nav-inline {
   > li {
     float: left;
-    border-right: 1px solid #eee;
+    border-right: 1px solid $border-color;
   }
 }
 

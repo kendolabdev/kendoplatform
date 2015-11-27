@@ -23,11 +23,11 @@ class ButtonBlock
     {
 
         if (!$item instanceof User) return '';
-        if (!\App::auth()->logged()) return '';
-        if (!\App::acl()->authorize('core.block_other')) return '';
-        if (\App::auth()->getId() == $item->getId()) return '';
+        if (!\App::authService()->logged()) return '';
+        if (!\App::aclService()->authorize('core.block_other')) return '';
+        if (\App::authService()->getId() == $item->getId()) return '';
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if (null === $blocking) {
             $service = \App::service('core.block');

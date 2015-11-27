@@ -63,7 +63,7 @@ class RenderAsDropDownMenu extends RenderPlugin
     {
         foreach ($this->items as $offset => $item) {
             if ($item['acl']) {
-                if (false == \App::acl()->authorize($item['acl'])) {
+                if (false == \App::aclService()->authorize($item['acl'])) {
                     unset($this->items[ $offset ]);
                     continue;
                 }
@@ -136,7 +136,7 @@ class RenderAsDropDownMenu extends RenderPlugin
         if ($item['type'] == 'separator') {
             return '<li class="divider"></li>';
         } else if ($item['type'] == 'route') {
-            $item['href'] = \App::routing()->getUrl($item['route'], $item['params']);
+            $item['href'] = \App::routingService()->getUrl($item['route'], $item['params']);
         }
 
         if (is_string($item)) {
@@ -145,7 +145,7 @@ class RenderAsDropDownMenu extends RenderPlugin
 
         if (empty($item['href'])) {
             if (!empty($item['route'])) {
-                $href = \App::routing()->getUrl($item['route'], $item['params']);
+                $href = \App::routingService()->getUrl($item['route'], $item['params']);
             }
         } else {
             $href = $item['href'];

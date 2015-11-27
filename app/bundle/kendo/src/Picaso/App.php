@@ -54,7 +54,7 @@ class App
     /**
      * @return \Invitation\Service\InvitationService
      */
-    public static function invitation()
+    public static function invitationService()
     {
         return self::$manager->getService('invitation');
     }
@@ -62,23 +62,15 @@ class App
     /**
      * @return \Notification\Service\NotificationService
      */
-    public static function notification()
+    public static function notificationService()
     {
         return self::$manager->getService('notification');
     }
 
     /**
-     * @return \Relation\Service\RelationService
-     */
-    public static function membership()
-    {
-        return \App::relation();
-    }
-
-    /**
      * @return \Message\Service\MessageService
      */
-    public static function message()
+    public static function messageService()
     {
         return App::service('message');
     }
@@ -106,7 +98,7 @@ class App
     /**
      * @return \Feed\Service\FeedService
      */
-    public static function feed()
+    public static function feedService()
     {
         return self::$manager->getService('feed');
     }
@@ -114,7 +106,7 @@ class App
     /**
      * @return \Tag\Service\TagService
      */
-    public static function tag()
+    public static function tagService()
     {
         return self::$manager->getService('tag');
     }
@@ -148,7 +140,7 @@ class App
     /**
      * @return \Mail\Service\MailService
      */
-    public static function mail()
+    public static function mailService()
     {
         return \App::$manager->getService('mail');
     }
@@ -186,7 +178,7 @@ class App
     /**
      * @return \Acl\Service\AclService
      */
-    public static function acl()
+    public static function aclService()
     {
         return self::$manager->getService('acl');
     }
@@ -202,7 +194,7 @@ class App
     /**
      * @return \Picaso\Session\Manager
      */
-    public static function session()
+    public static function sessionService()
     {
         return self::$manager->getService('session');
     }
@@ -210,7 +202,7 @@ class App
     /**
      * @return \Picaso\Paging\Manager
      */
-    public static function paging()
+    public static function pagingService()
     {
         return self::$manager->getService('paging');
     }
@@ -226,7 +218,7 @@ class App
     /**
      * @return \Picaso\Cache\Manager
      */
-    public static function cache()
+    public static function cacheService()
     {
         return self::$manager->getService('cache');
 
@@ -235,7 +227,7 @@ class App
     /**
      * @return \Picaso\Log\Manager
      */
-    public static function logger()
+    public static function logService()
     {
         return self::$manager->getService('log');
     }
@@ -243,7 +235,7 @@ class App
     /**
      * @return \Storage\Service\StorageService
      */
-    public static function storage()
+    public static function storageService()
     {
         return self::$manager->getService('storage');
     }
@@ -258,13 +250,13 @@ class App
      */
     public static function table($alias)
     {
-        return self::content()->getTable($alias);
+        return self::contentService()->getTable($alias);
     }
 
     /**
      * @return \Picaso\Content\Manager
      */
-    public static function content()
+    public static function contentService()
     {
         return self::$manager->getService('content');
     }
@@ -272,7 +264,7 @@ class App
     /**
      * @return \Link\Service\LinkService
      */
-    public static function link()
+    public static function linkService()
     {
         return self::$manager->getService('link');
     }
@@ -280,7 +272,7 @@ class App
     /**
      * @return \Blog\Service\BlogService
      */
-    public static function blog()
+    public static function blogService()
     {
         return self::$manager->getService('blog');
     }
@@ -288,7 +280,7 @@ class App
     /**
      * @return \Core\Service\CoreService
      */
-    public static function core()
+    public static function coreService()
     {
         return self::$manager->getService('core');
     }
@@ -296,7 +288,7 @@ class App
     /**
      * @return \Group\Service\GroupService
      */
-    public static function group()
+    public static function groupService()
     {
         return self::$manager->getService('group');
     }
@@ -304,7 +296,7 @@ class App
     /**
      * @return \Video\Service\VideoService
      */
-    public static function video()
+    public static function videoService()
     {
         return self::$manager->getService('video');
     }
@@ -312,7 +304,7 @@ class App
     /**
      * @return \Photo\Service\PhotoService
      */
-    public static function photo()
+    public static function photoService()
     {
         return self::$manager->getService('photo');
     }
@@ -320,7 +312,7 @@ class App
     /**
      * @return \Page\Service\PageService
      */
-    public static function page()
+    public static function pageService()
     {
         return self::$manager->getService('page');
     }
@@ -328,7 +320,7 @@ class App
     /**
      * @return \Event\Service\EventService
      */
-    public static function event()
+    public static function eventService()
     {
         return self::$manager->getService('event');
     }
@@ -336,7 +328,7 @@ class App
     /**
      * @return \User\Service\UserService
      */
-    public static function user()
+    public static function userService()
     {
         return self::$manager->getService('user');
     }
@@ -352,13 +344,13 @@ class App
      */
     public static function setting($group, $name = null, $defaultValue = null)
     {
-        return self::settings()->get($group, $name, $defaultValue);
+        return self::settingService()->get($group, $name, $defaultValue);
     }
 
     /**
      * @return \Captcha\Service\CaptchaService
      */
-    public static function captcha()
+    public static function captchaService()
     {
         return \App::service('captcha');
     }
@@ -368,7 +360,7 @@ class App
      *
      * @return \Setting\Service\SettingService
      */
-    public static function settings()
+    public static function settingService()
     {
         return self::$manager->getService('setting');
     }
@@ -376,7 +368,7 @@ class App
     /**
      * @return \Picaso\Request\Manager
      */
-    public static function request()
+    public static function requestService()
     {
         return self::$manager->getService('request');
     }
@@ -401,7 +393,7 @@ class App
             return self::$cachedItem[ $key ];
 
 
-        $result = self::content()->getTable($alias)->findById($id);
+        $result = self::contentService()->getTable($alias)->findById($id);
 
         if ($reuse && $result)
             self::$cachedItem[ $key ] = $result;
@@ -414,7 +406,7 @@ class App
     /**
      * @return \Help\Service\HelpService
      */
-    public static function help()
+    public static function helpService()
     {
         return self::$manager->getService('help');
     }
@@ -422,7 +414,7 @@ class App
     /**
      * @return \Like\Service\LikeService
      */
-    public static function like()
+    public static function likeService()
     {
         return self::$manager->getService('like');
     }
@@ -430,7 +422,7 @@ class App
     /**
      * @return \Follow\Service\FollowService
      */
-    public static function follow()
+    public static function followService()
     {
         return self::$manager->getService('follow');
     }
@@ -438,7 +430,7 @@ class App
     /**
      * @return \Phrase\Service\PhraseService
      */
-    public static function phrase()
+    public static function phraseService()
     {
         return self::$manager->getService('phrase');
     }
@@ -446,7 +438,7 @@ class App
     /**
      * @return \Comment\Service\CommentService
      */
-    public static function comment()
+    public static function commentService()
     {
         return self::$manager->getService('comment');
     }
@@ -454,7 +446,7 @@ class App
     /**
      * @return \Search\Service\SearchService
      */
-    public function search()
+    public function searchService()
     {
         return self::$manager->getService('search');
     }
@@ -462,7 +454,7 @@ class App
     /**
      * @return \Share\Service\ShareService
      */
-    public static function share()
+    public static function shareService()
     {
         return self::$manager->getService('share');
     }
@@ -486,7 +478,7 @@ class App
     /**
      * @return \Picaso\Routing\Manager
      */
-    public static function routing()
+    public static function routingService()
     {
         return self::$manager->getService('routing');
     }
@@ -518,7 +510,7 @@ class App
     /**
      * @return \Picaso\Assets\Manager
      */
-    public static function assets()
+    public static function assetService()
     {
         return self::$manager->getService('assets');
     }
@@ -526,7 +518,7 @@ class App
     /**
      * @return \Navigation\Service\NavigationService
      */
-    public static function nav()
+    public static function navigationService()
     {
         return self::$manager->getService('navigation');
     }
@@ -534,7 +526,7 @@ class App
     /**
      * @return \Picaso\Html\Manager
      */
-    public static function html()
+    public static function htmlService()
     {
         return self::$manager->getService('html');
     }
@@ -557,7 +549,7 @@ class App
     /**
      * @return \Layout\Service\LayoutService
      */
-    public static function layout()
+    public static function layoutService()
     {
         return self::$manager->getService('layout');
     }
@@ -565,7 +557,7 @@ class App
     /**
      * @return \Picaso\Registry\Manager
      */
-    public static function registry()
+    public static function registryService()
     {
         return self::$manager->getService('registry');
     }
@@ -573,7 +565,7 @@ class App
     /**
      * @return \Picaso\Image\Manager
      */
-    public static function image()
+    public static function imageService()
     {
         return self::$manager->getService('image');
     }
@@ -604,7 +596,7 @@ class App
     /**
      * @return \Picaso\Validator\Manager
      */
-    public static function validator()
+    public static function validationService()
     {
         return self::$manager->getService('validator');
     }
@@ -612,7 +604,7 @@ class App
     /**
      * @return \Picaso\Auth\Manager
      */
-    public static function auth()
+    public static function authService()
     {
         return self::$manager->getService('auth');
     }
@@ -620,7 +612,7 @@ class App
     /**
      * @return \Relation\Service\RelationService
      */
-    public static function relation()
+    public static function relationService()
     {
         return self::$manager->getService('relation');
     }
@@ -628,7 +620,7 @@ class App
     /**
      * @return \Picaso\Sass\Manager
      */
-    public static function sass()
+    public static function styleService()
     {
         return self::$manager->getService('sass');
     }
@@ -644,7 +636,7 @@ class App
     /**
      * @return Social\Service\SocialService
      */
-    public static function social()
+    public static function socialService()
     {
         return self::$manager->getService('social');
     }
@@ -660,7 +652,7 @@ class App
     /**
      * @return \Attribute\Service\AttributeService
      */
-    public static function attribute()
+    public static function catalogService()
     {
         return self::$manager->getService('attribute');
     }
@@ -669,7 +661,7 @@ class App
     /**
      * @return \Report\Service\ReportService
      */
-    public static function report()
+    public static function reportService()
     {
         return self::$manager->getService('report');
     }

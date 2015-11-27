@@ -17,14 +17,14 @@ class CategoryController extends AjaxController
     {
         $id = $this->request->getParam('id');
 
-        $cat = \App::report()->findCategoryById($id);
+        $cat = \App::reportService()->findCategoryById($id);
 
         if (!$cat)
             throw new \InvalidArgumentException("Could not find category");
 
         $cat->delete();
 
-        \App::cache()
+        \App::cacheService()
             ->flush();
 
         $this->response = [

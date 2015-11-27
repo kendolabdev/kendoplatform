@@ -25,7 +25,7 @@ class GeneralController extends AdminController
             ]
         ];
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setPageTitle('report.general_reports')
             ->setPageButtons([$deleteButton])
@@ -39,7 +39,7 @@ class GeneralController extends AdminController
     {
         $filter = new FilterReport();
 
-        \App::layout()
+        \App::layoutService()
             ->setPageFilter($filter)
             ->setPageTitle('report.general_reports');
 
@@ -52,7 +52,7 @@ class GeneralController extends AdminController
         $page = $this->request->getParam('page');
         $limit = 10;
 
-        $paging = \App::report()
+        $paging = \App::reportService()
             ->loadAdminGeneralReportPaging($query, $page, $limit);
 
         $lp = new BlockParams([

@@ -31,7 +31,7 @@ class StorageFileTmp extends Model
      */
     public function getUrl()
     {
-        return \App::storage()->getStorage($this->getStorageId())->getUrl($this->getPath());
+        return \App::storageService()->getStorage($this->getStorageId())->getUrl($this->getPath());
     }
 
     //START_TABLE_GENERATOR

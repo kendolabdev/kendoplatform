@@ -18,8 +18,8 @@ class LinkLikeComment
      */
     function __invoke($item, $isLiked = null)
     {
-        if ($isLiked === null && \App::auth()->logged()) {
-            $isLiked = \App::like()->isLiked(\App::auth()->getViewer(), $item);
+        if ($isLiked === null && \App::authService()->logged()) {
+            $isLiked = \App::likeService()->isLiked(\App::authService()->getViewer(), $item);
         }
 
         return strtr('<a role="button" data-toggle="like-comment-toggle" data-object=\':obj\'>:text</a>', [

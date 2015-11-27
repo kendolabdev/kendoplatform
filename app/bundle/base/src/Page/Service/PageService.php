@@ -81,7 +81,7 @@ class PageService
 
             $select->where('poster_id=?', $posterId);
 
-            if ($posterId == \App::auth()->getId()) {
+            if ($posterId == \App::authService()->getId()) {
 
                 $isOwner = true;
             }
@@ -93,7 +93,7 @@ class PageService
 
             $select->where('user_id=?', $userId);
 
-            if ($userId == \App::auth()->getUserId()) {
+            if ($userId == \App::authService()->getUserId()) {
                 $isOwner = true;
             }
         }
@@ -165,7 +165,7 @@ class PageService
     public function getCategoryOptions()
     {
 
-        return \App::cache()
+        return \App::cacheService()
             ->get(['page', 'getCategoryOptions'], 0, function () {
                 return $this->_getCategoryOptions();
             });

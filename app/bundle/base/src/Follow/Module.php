@@ -17,7 +17,7 @@ class Module extends \Picaso\Application\Module
                 'btnFollow' => '\Follow\ViewHelper\ButtonFollow',
             ]);
 
-        $routing = \App::routing();
+        $routing = \App::routingService();
 
         $routing->getRoute('profile')
             ->addFilter(new FilterStuff([

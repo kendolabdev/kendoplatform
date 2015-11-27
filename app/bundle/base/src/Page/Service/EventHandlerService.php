@@ -35,7 +35,7 @@ class EventHandlerService extends EventHandler
      */
     public function onProfileMenuItemPages($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if (!$profile instanceof User)
             return false;
@@ -43,7 +43,7 @@ class EventHandlerService extends EventHandler
         if (!$profile->authorize('page__page_tab_exists'))
             return false;
 
-        if (!\App::acl()->pass($profile, 'page__page_tab_view'))
+        if (!\App::aclService()->pass($profile, 'page__page_tab_view'))
             return false;
 
         $item['href'] = $profile->toHref(['stuff' => 'pages']);
@@ -64,7 +64,7 @@ class EventHandlerService extends EventHandler
 
         $stats['page'] = [
             'label' => \App::text('page.pages'),
-            'value' => \App::page()->getActivePageCount(),
+            'value' => \App::pageService()->getActivePageCount(),
         ];
 
         $payload->__set('stats', $stats);

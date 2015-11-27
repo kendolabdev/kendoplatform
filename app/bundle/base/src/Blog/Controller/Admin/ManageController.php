@@ -21,7 +21,7 @@ class ManageController extends AdminController
     {
         $filter = new FilterBlogPost();
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setPageFilter($filter)
             ->setPageTitle('blog.manage_blogs')
@@ -33,7 +33,7 @@ class ManageController extends AdminController
         $page = $this->request->getParam('page', 1);
         $query = $filter->getData();
 
-        $paging = \App::blog()
+        $paging = \App::blogService()
             ->loadAdminPostPaging($query, $page);
 
         $lp = new BlockParams([

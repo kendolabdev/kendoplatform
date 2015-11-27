@@ -110,7 +110,7 @@ $poster-img-width-xs: 78px;
 }
 
 .user-tlh-nav-ow {
-  background-color: #f8f8f8;
+  background-color: $navbar-default-bg;
   border: 1px solid #ddd;
 
   @if $use-round-corner{

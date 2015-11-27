@@ -49,7 +49,7 @@ class EventHandlerService extends EventHandler
 
         $payload = $event->getPayload();
 
-        if (false == \App::auth()->logged()) return;
+        if (false == \App::authService()->logged()) return;
 
         if (!$payload instanceof Poster) return;
 
@@ -66,11 +66,11 @@ class EventHandlerService extends EventHandler
 
         $payload = $event->getPayload();
 
-        if (false == \App::auth()->logged()) return;
+        if (false == \App::authService()->logged()) return;
 
         if (!$payload instanceof Poster) return;
 
-        if (!\App::acl()->pass($payload, 'activity__checkin')) return;
+        if (!\App::aclService()->pass($payload, 'activity__checkin')) return;
 
         $content = \App::viewHelper()->partial('base/feed/partial/composer-footer-add-place');
 
@@ -84,7 +84,7 @@ class EventHandlerService extends EventHandler
      */
     public function onProfileMenuItemTimeline($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if (!$profile instanceof Poster)
             return false;
@@ -92,7 +92,7 @@ class EventHandlerService extends EventHandler
         if (!$profile->authorize('activity__timeline_tab_exists'))
             return false;
 
-        if (!\App::acl()->pass($profile, 'activity__timeline_tab_view'))
+        if (!\App::aclService()->pass($profile, 'activity__timeline_tab_view'))
             return false;
 
 
@@ -114,22 +114,22 @@ class EventHandlerService extends EventHandler
 
         $stats['comment'] = [
             'label' => \App::text('core.comments'),
-            'value' => \App::comment()->getAdminStatisticCount(),
+            'value' => \App::commentService()->getAdminStatisticCount(),
         ];
 
         $stats['like'] = [
             'label' => \App::text('core.likes'),
-            'value' => \App::like()->getAdminStatisticCount(),
+            'value' => \App::likeService()->getAdminStatisticCount(),
         ];
 
         $stats['share'] = [
             'label' => \App::text('core.shares'),
-            'value' => \App::share()->getAdminStatisticCount(),
+            'value' => \App::shareService()->getAdminStatisticCount(),
         ];
 
         $stats['feed'] = [
             'label' => \App::text('core.feeds'),
-            'value' => \App::feed()->getAdminStatisticCount(),
+            'value' => \App::feedService()->getAdminStatisticCount(),
         ];
 
         $payload->__set('stats', $stats);

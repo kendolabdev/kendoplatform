@@ -50,7 +50,7 @@ class InvitationService
         }
 
         if (!$isValid) {
-            $select->where('parent_id=?', (string)\App::auth()->getId());
+            $select->where('parent_id=?', (string)\App::authService()->getId());
         }
 
         return $select->paging($page, $limit);
@@ -64,7 +64,7 @@ class InvitationService
     public function getUnreadRequestCount(Poster $parent = null)
     {
         if (null == $parent) {
-            $parent = \App::auth()->getViewer();
+            $parent = \App::authService()->getViewer();
         }
 
         if (!$parent instanceof Poster) return 0;
@@ -84,7 +84,7 @@ class InvitationService
     public function getUnmitigatedNotificationCount(Poster $parent = null)
     {
         if (null == $parent)
-            $parent = \App::auth()->getViewer();
+            $parent = \App::authService()->getViewer();
 
 
         if (!$parent instanceof Poster)
@@ -103,7 +103,7 @@ class InvitationService
     public function clearMitigatedNotificationState(Poster $parent = null)
     {
         if (null == $parent)
-            $parent = \App::auth()->getViewer();
+            $parent = \App::authService()->getViewer();
 
 
         if (!$parent instanceof Poster)

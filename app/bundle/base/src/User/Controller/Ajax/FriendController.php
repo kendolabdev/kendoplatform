@@ -24,7 +24,7 @@ class FriendController extends AjaxController
             ->select()
             ->limit(20, 0);
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if ($poster != null) {
             $select->where('user_id<>?', $poster->getId());
@@ -55,7 +55,7 @@ class FriendController extends AjaxController
 
         $ctx = $this->request->getParam('ctx', 'btn');
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         if (!$friend instanceof User) {
             throw new \InvalidArgumentException("friendId is not user");
@@ -84,7 +84,7 @@ class FriendController extends AjaxController
 
         $friend = \App::find('user', $friendId);
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         if (!$friend instanceof User) {
             throw new \InvalidArgumentException("friendId is not user");
@@ -106,7 +106,7 @@ class FriendController extends AjaxController
      */
     public function getFriendService()
     {
-        return \App::relation();
+        return \App::relationService();
     }
 
     /**
@@ -159,9 +159,9 @@ class FriendController extends AjaxController
 
         $item = \App::find('user', $id);
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
-        $membership = \App::user()->membership()->getMembershipStatus($viewer, $item);
+        $membership = \App::userService()->membership()->getMembershipStatus($viewer, $item);
 
         $this->response = [
             'html' => $this->partial('base/user/partial/membership-options', [

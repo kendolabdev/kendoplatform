@@ -20,7 +20,7 @@ class GeneralReportController extends AjaxController
         $page = $this->request->getParam('page', 1);
         $query = $this->request->getArray('query');
 
-        $paging = \App::report()->loadAdminGeneralReportPaging($query, $page);
+        $paging = \App::reportService()->loadAdminGeneralReportPaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 

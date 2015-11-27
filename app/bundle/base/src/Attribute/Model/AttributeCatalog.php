@@ -65,7 +65,7 @@ class AttributeCatalog extends Model implements UniqueId
      */
     public function getListSection()
     {
-        return \App::attribute()
+        return \App::catalogService()
             ->getListSectionByCatalogId($this->getId());
     }
 

@@ -17,7 +17,7 @@ Trait ImpCanTagPeople
     {
         if (!$this instanceof CanTagPeople) ;
 
-        return \App::tag()->loadPeople($this, $limit);
+        return \App::tagService()->loadPeople($this, $limit);
     }
 
     /**
@@ -26,7 +26,7 @@ Trait ImpCanTagPeople
     public function setPeople($people)
     {
         if ($this instanceof CanTagPeople) {
-            $total = \App::tag()->tagPeople($this, $people);
+            $total = \App::tagService()->tagPeople($this, $people);
             $this->setPeopleCount($total);
         }
     }

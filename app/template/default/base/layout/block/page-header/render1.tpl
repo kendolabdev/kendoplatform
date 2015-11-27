@@ -14,6 +14,6 @@
         </div>
     </div>
     <div class="hidden">
-        <?php echo \App::nav()->render('tab', $nav, $parentId, $active, 2, ['level0'=>'nav nav-tabs']); ?>
+        <?php echo \App::navigationService()->render('tab', $nav, $parentId, $active, 2, ['level0'=>'nav nav-tabs']); ?>
     </div>
 </div>

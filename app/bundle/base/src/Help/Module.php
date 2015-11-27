@@ -7,7 +7,7 @@ class Module extends \Picaso\Application\Module
     public function start()
     {
 
-        $routing = \App::routing();
+        $routing = \App::routingService();
 
         $routing->addRoute('help_page', [
             'uri'      => 'help/page/<page>',

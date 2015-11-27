@@ -22,7 +22,7 @@ class ManageController extends AdminController
     {
         $filter = new FilterPage();
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setPageFilter($filter)
             ->setPageTitle('page.manage_pages')
@@ -34,7 +34,7 @@ class ManageController extends AdminController
         $limit = 24;
         $query = $filter->getData();
 
-        $paging = \App::page()
+        $paging = \App::pageService()
             ->loadPagePaging($query, $page, $limit);
 
         $lp = new BlockParams([
@@ -63,7 +63,7 @@ class ManageController extends AdminController
     public function actionBrowseCategory()
     {
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'page_extension', 'page_category');
 
@@ -76,7 +76,7 @@ class ManageController extends AdminController
     public function actionSettings()
     {
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'page_extension', 'page_settings');
 
@@ -110,7 +110,7 @@ class ManageController extends AdminController
      */
     public function actionPermission()
     {
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'page_extension', 'page_permission');
 

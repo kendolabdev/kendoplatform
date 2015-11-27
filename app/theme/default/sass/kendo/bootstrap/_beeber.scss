@@ -1,8 +1,7 @@
 // define beeber box
 
-$beeber-border-color: #d7d7d7 !default;
-$beeber-footer-bg-color: #f8f8f8 !default;
-$beeber-header-height: 32px;
+$dropdown-header-bg: darken($dropdown-bg,5%) !default;
+$input-height-base: 32px;
 $beeber-top-width: 320px;
 
 $beeber-top-width-small: 200px;
@@ -98,19 +97,20 @@ $beeber-top-left: (($beeber-top-width)-40px);
   }
 
   .card-beeber-header {
-    border-bottom: 1px solid $beeber-border-color;
-    line-height: $beeber-header-height;
-    height: $beeber-header-height;
+    border-bottom: 1px solid $dropdown-border;
+    line-height: $input-height-base;
+    height: $input-height-base;
     overflow: hidden;
     padding: 0 $padding-base-horizontal;
     background-clip: padding-box;
+    background: $dropdown-header-bg;
   }
 
   .card-beeber-footer {
-    border-top: 1px solid $beeber-border-color;
-    background-color: $beeber-footer-bg-color;
-    line-height: $beeber-header-height;
-    height: $beeber-header-height;
+    border-top: 1px solid $dropdown-border;
+    background-color: $dropdown-header-bg;
+    line-height: $input-height-base;
+    height: $input-height-base;
     overflow: hidden;
     padding: 0 $padding-base-horizontal;
     background-clip: padding-box;

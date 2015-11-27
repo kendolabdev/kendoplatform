@@ -108,7 +108,7 @@ class BlogService
 
             $select->where('t.poster_id=?', $posterId);
 
-            if ($posterId == \App::auth()->getId()) {
+            if ($posterId == \App::authService()->getId()) {
                 $isOwner = true;
             }
         }
@@ -119,7 +119,7 @@ class BlogService
 
             $select->where('t.user_id=?', $userId);
 
-            if ($userId == \App::auth()->getUserId()) {
+            if ($userId == \App::authService()->getUserId()) {
                 $isOwner = true;
             }
         }
@@ -139,7 +139,7 @@ class BlogService
                 case 0:
                     break;
                 case 1:
-                    $select->where(\App::follow()->getFollowingConditionForQuery(\App::auth()->getId(), 't'), null);
+                    $select->where(\App::followService()->getFollowingConditionForQuery(\App::authService()->getId(), 't'), null);
                     break;
             }
         }
@@ -147,10 +147,10 @@ class BlogService
         if (!$isOwner) {
             switch (\App::setting('blog', 'browsing_filter')) {
                 case 0:
-                    $select->where(\App::relation()->getPrivacyConditionForQuery(\App::auth()->getId(), 't'), null);
+                    $select->where(\App::relationService()->getPrivacyConditionForQuery(\App::authService()->getId(), 't'), null);
                     break;
                 case 1:
-                    if (\App::auth()->logged())
+                    if (\App::authService()->logged())
                         $select->where('t.privacy_type IN ?', [1, 2]);
                     else
                         $select->where('t.privacy_type = ?', 1);
@@ -242,7 +242,7 @@ class BlogService
      */
     public function getAdminCategoryOptions()
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['blog', 'getAdminCategoryOptions'], 0,
                 function () {
                     return $this->_getAdminCategoryOptions();
@@ -281,7 +281,7 @@ class BlogService
      */
     public function getCategoryOptions()
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['blog', 'getCategoryOptions'], 0,
                 function () {
                     return $this->_getCategoryOptions();

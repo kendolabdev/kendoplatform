@@ -85,7 +85,7 @@ class VideoService
 
             $select->where('poster_id=?', $posterId);
 
-            if ($posterId == \App::auth()->getId()) {
+            if ($posterId == \App::authService()->getId()) {
 
                 $isOwner = true;
             }
@@ -97,7 +97,7 @@ class VideoService
 
             $select->where('user_id=?', $userId);
 
-            if ($userId == \App::auth()->getUserId()) {
+            if ($userId == \App::authService()->getUserId()) {
                 $isOwner = true;
             }
         }
@@ -199,7 +199,7 @@ class VideoService
             $video->save();
         }
 
-        $feed = \App::feed()->addItemFeed('video_shared', $video);
+        $feed = \App::feedService()->addItemFeed('video_shared', $video);
 
         return $feed;
     }
@@ -327,7 +327,7 @@ class VideoService
     public function getCategoryOptions()
     {
 
-        return \App::cache()
+        return \App::cacheService()
             ->get(['video', 'getCategoryOptions'], 0, function () {
                 return $this->_getCategoryOptions();
             });

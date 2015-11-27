@@ -17,18 +17,18 @@ class SiteHeaderBlock extends Block
      */
     public function execute()
     {
-        $lp = \App::layout()
+        $lp = \App::layoutService()
             ->getHeaderLayoutParams();
 
         $script = $lp->script();
 
-        if (\App::auth()->logged()) {
+        if (\App::authService()->logged()) {
             $script .= '.logged';
         }
 
-        $q = \App::request()->getInitiator()->getParam('q');
+        $q = \App::requestService()->getInitiator()->getParam('q');
 
-        $searchUrl = \App::routing()->getUrl('search', []);
+        $searchUrl = \App::routingService()->getUrl('search', []);
         $siteName = \App::setting('core', 'site_name');
 
         if (!$siteName)
@@ -39,8 +39,8 @@ class SiteHeaderBlock extends Block
                 'searchUrl' => $searchUrl,
                 'q'         => $q,
                 'siteName'  => $siteName,
-                'viewer'    => \App::auth()->getViewer(),
-                'logged'    => \App::auth()->logged(),
+                'viewer'    => \App::authService()->getViewer(),
+                'logged'    => \App::authService()->logged(),
                 'contact'   => \App::setting('contact'),
             ]);
     }

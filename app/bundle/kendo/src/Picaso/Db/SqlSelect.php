@@ -223,7 +223,7 @@ class SqlSelect implements Sql
      */
     public function paging($page, $limit)
     {
-        return \App::paging()->factory($this)->paging($page, $limit);
+        return \App::pagingService()->factory($this)->paging($page, $limit);
     }
 
     /**

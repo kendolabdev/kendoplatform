@@ -16,10 +16,10 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowsePhoto()
     {
-        \App::layout()
+        \App::layoutService()
             ->setPageTitle('photo.photos');
 
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         $page = $this->request->getParam('page');
 
@@ -28,9 +28,9 @@ class ProfileController extends ProfileBaseController
             'parentType' => $profile->getType(),
         ];
 
-        $paging = \App::photo()->loadPhotoPaging($query, $page);
+        $paging = \App::photoService()->loadPhotoPaging($query, $page);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
@@ -49,7 +49,7 @@ class ProfileController extends ProfileBaseController
      */
     public function actionViewAlbum()
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         $albumId = $this->request->getParam('albumId');
 
@@ -63,9 +63,9 @@ class ProfileController extends ProfileBaseController
             'parentType' => $profile->getType(),
         ];
 
-        $paging = \App::photo()->loadPhotoPaging($query, $page);
+        $paging = \App::photoService()->loadPhotoPaging($query, $page);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
@@ -86,10 +86,10 @@ class ProfileController extends ProfileBaseController
     public function actionBrowseAlbum()
     {
 
-        \App::layout()
+        \App::layoutService()
             ->setPageTitle('photo.albums');
 
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         $query = [
             'parentId'   => $profile->getId(),
@@ -98,9 +98,9 @@ class ProfileController extends ProfileBaseController
 
         $page = $this->request->getParam('page', 1);
 
-        $paging = \App::photo()->loadAlbumPaging($query, $page);
+        $paging = \App::photoService()->loadAlbumPaging($query, $page);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([

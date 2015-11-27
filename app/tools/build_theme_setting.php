@@ -13,10 +13,6 @@ foreach ($themes as $theme) {
     $extension = new \Core\Model\CoreExtension([
         'name'           => $theme->getId(),
         'title'          => 'Theme ' . $theme->getName(),
-        'author'         => $theme->getAuthor(),
-        'vendor_id'      => $theme->getVendorId(),
-        'description'    => (string)$theme->getDescription(),
-        'version'        => $theme->getVersion(),
         'is_active'      => $theme->isActive(),
         'is_default'     => $theme->isDefault(),
         'extension_type' => 'theme',

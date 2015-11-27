@@ -15,13 +15,13 @@ class Module extends \Picaso\Application\Module
      */
     public function start()
     {
-        \App::routing()->getRoute('profile')
+        \App::routingService()->getRoute('profile')
             ->addFilter(new FilterStuff([
                 'stuff'      => 'requests',
                 'controller' => '\Invitation\Controller\ProfileController',
                 'action'     => 'browse-invitation']));
 
-        \App::routing()->addRoute('requests', [
+        \App::routingService()->addRoute('requests', [
             'uri'      => 'requests',
             'defaults' => [
                 'controller' => '\Invitation\Controller\HomeController',

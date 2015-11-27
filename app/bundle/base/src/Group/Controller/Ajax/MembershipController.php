@@ -28,13 +28,13 @@ class MembershipController extends AjaxController
             throw new \InvalidArgumentException("Invalid group");
         }
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if (!$poster instanceof Poster) {
             throw new \InvalidArgumentException("Only member can member of request");
         }
 
-        \App::group()->membership()->{$method}($poster, $group);
+        \App::groupService()->membership()->{$method}($poster, $group);
 
         $this->response['html'] = $group->btnMembership();
 
@@ -70,13 +70,13 @@ class MembershipController extends AjaxController
             throw new \InvalidArgumentException("Invalid group");
         }
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if (!$poster instanceof Poster) {
             throw new \InvalidArgumentException("Only member can member of request");
         }
 
-        $groupService = \App::group();
+        $groupService = \App::groupService();
 
 
         $groupService->membership()->{$method}($item, $group);

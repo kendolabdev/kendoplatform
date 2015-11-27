@@ -44,7 +44,7 @@ class ShareController extends AjaxController
             $about = $origin;
         }
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         /**
          * throw new content exception, you share none attachable content
@@ -111,7 +111,7 @@ class ShareController extends AjaxController
         $privacyType = 1;
         $privacyValue = 1;
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
         $profile = null;
         $profileString = $this->request->getString('profile');
 
@@ -130,7 +130,7 @@ class ShareController extends AjaxController
 
         $about = \App::find($type, $id);
 
-        $feed = \App::share()->add($contentTxt, $poster, $profile, $about, $privacyType, $privacyValue);
+        $feed = \App::shareService()->add($contentTxt, $poster, $profile, $about, $privacyType, $privacyValue);
 
 
         $this->response = ['code' => 200, 'feedId' => $feed->getId()];
@@ -150,7 +150,7 @@ class ShareController extends AjaxController
             'sharedId'   => $about->getId(),
         ];
 
-        $paging = \App::feed()
+        $paging = \App::feedService()
             ->loadFeedPaging($query);
 
         $data = [

@@ -21,7 +21,7 @@ class FilterAttributeCatalog extends Form
             'plugin'   => 'select',
             'name'     => 'content_id',
             'required' => true,
-            'options'  => \App::attribute()->loadContentTypeOptions(),
+            'options'  => \App::catalogService()->loadContentTypeOptions(),
             'label'    => 'Content Type',
             'class'    => 'form-control',
             'value'    => 'user',

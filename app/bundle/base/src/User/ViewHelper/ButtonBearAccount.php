@@ -15,7 +15,7 @@ class ButtonBearAccount
      */
     public function __invoke()
     {
-        if (!\App::auth()->logged()) return '';
+        if (!\App::authService()->logged()) return '';
 
         return \App::viewHelper()->partial('base/user/button/bear-account', []);
     }

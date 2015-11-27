@@ -22,7 +22,7 @@ class ButtonUpdateCoverEditing
     {
         if (!$item instanceof HasCover) return '';
         if (!$item instanceof Poster) return '';
-        if (!\App::auth()->logged()) return '';
+        if (!\App::authService()->logged()) return '';
         if (!$item->viewerIsParent()) return '';
 
 

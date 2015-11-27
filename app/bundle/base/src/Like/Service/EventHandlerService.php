@@ -37,7 +37,7 @@ class EventHandlerService extends EventHandler
      */
     public function onProfileMenuItemLikes($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if ($profile instanceof User)
             return false;
@@ -48,7 +48,7 @@ class EventHandlerService extends EventHandler
         if (!$profile->authorize('activity__like_tab_exists'))
             return false;
 
-        if (!\App::acl()->pass($profile, 'activity__like_tab_view'))
+        if (!\App::aclService()->pass($profile, 'activity__like_tab_view'))
             return false;
 
         $item['href'] = $profile->toHref(['stuff' => 'likes']);
@@ -71,7 +71,7 @@ class EventHandlerService extends EventHandler
         if ($about instanceof CanLike)
             $about->modify('like_count', 'like_count+1');
 
-        \App::notification()->notify('item_liked', $like->getPoster(), $about);
+        \App::notificationService()->notify('item_liked', $like->getPoster(), $about);
 
     }
 

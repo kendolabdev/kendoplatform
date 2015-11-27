@@ -20,13 +20,13 @@ class SettingsController extends DefaultController
     {
         parent::init();
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('user_settings');
 
-        if (!\App::auth()->logged())
+        if (!\App::authService()->logged())
             throw new AuthorizationRestrictException("");
 
-        $this->view->assign(['viewer' => \App::auth()->getViewer()]);
+        $this->view->assign(['viewer' => \App::authService()->getViewer()]);
     }
 
 
@@ -43,7 +43,7 @@ class SettingsController extends DefaultController
      */
     public function actionPrivacy()
     {
-        $form = new PosterPrivacySetting(['poster' => \App::auth()->getUser()]);
+        $form = new PosterPrivacySetting(['poster' => \App::authService()->getUser()]);
 
 
         $this->view->setScript('base/user/controller/settings/edit-user-privacy')
@@ -56,7 +56,7 @@ class SettingsController extends DefaultController
     public function actionNotification()
     {
 
-        $user = \App::auth()->getUser();
+        $user = \App::authService()->getUser();
 
         $form = new PosterNotificationTypeSetting(['poster' => $user]);
 
@@ -96,7 +96,7 @@ class SettingsController extends DefaultController
      */
     public function actionBlock()
     {
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         if (null == $viewer) {
             // required login

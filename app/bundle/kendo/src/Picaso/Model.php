@@ -212,7 +212,7 @@ class Model
     {
         if ($this instanceof UniqueId) {
             if (!$this->getId()) {
-                $this->setId(\App::content()->nextId());
+                $this->setId(\App::contentService()->nextId());
             }
         }
 

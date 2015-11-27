@@ -16,11 +16,11 @@ class MessageController extends AjaxController
 
     public function actionCompose()
     {
-        $form = \App::html()->factory('\Message\Form\ComposeMessage');
+        $form = \App::htmlService()->factory('\Message\Form\ComposeMessage');
 
         $recipient = null;
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if ($this->request->isPost() && empty($_POST['send'])) {
 
@@ -38,7 +38,7 @@ class MessageController extends AjaxController
             $form->setData($values);
         }
 
-        $messageService = \App::message();
+        $messageService = \App::messageService();
 
 
         if ($this->request->isPost() && !empty($_POST['send']) && $form->isValid($_POST)) {
@@ -73,7 +73,7 @@ class MessageController extends AjaxController
 
             $messageService->addMessage($poster, $users, $subject, $content);
 
-            \App::routing()->redirect('message_inbox');
+            \App::routingService()->redirect('message_inbox');
 
         }
 
@@ -87,15 +87,15 @@ class MessageController extends AjaxController
      */
     public function actionBearDialog()
     {
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         $page = $this->request->getParam('page', 1);
         $query = $this->request->getArray('query');
 
-        $paging = \App::message()
+        $paging = \App::messageService()
             ->loadMessagePaging($query, $page);
 
-        $lp = \App::layout()
+        $lp = \App::layoutService()
             ->getContentLayoutParams('message_ajax_bear_dialog');
 
         $this->response = [

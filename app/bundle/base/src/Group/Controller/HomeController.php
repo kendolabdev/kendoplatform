@@ -22,11 +22,11 @@ class HomeController extends DefaultController
         $page = $this->request->getParam('page', 1);
         $query = [];
 
-        $paging = \App::group()->loadGroupPaging($query, $page);
+        $paging = \App::groupService()->loadGroupPaging($query, $page);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
-        \App::layout()
+        \App::layoutService()
             ->setupSecondaryNavigation('group_main', null, 'group_browse')
             ->setPageFilter($filter)
             ->setPageTitle('group.groups');
@@ -50,20 +50,20 @@ class HomeController extends DefaultController
     {
         $page = $this->request->getParam('page', 1);
 
-        \App::layout()
+        \App::layoutService()
             ->setupSecondaryNavigation('group_main', null, 'group_my')
             ->setPageTitle('group.groups');
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         $query = [
             'posterId'   => $poster->getId(),
             'posterType' => $poster->getType(),
         ];
 
-        $paging = \App::group()->loadGroupPaging($query, $page);
+        $paging = \App::groupService()->loadGroupPaging($query, $page);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
@@ -78,7 +78,7 @@ class HomeController extends DefaultController
 
     public function actionCreateGroup()
     {
-        \App::layout()
+        \App::layoutService()
             ->setupSecondaryNavigation('group_main', null, 'group_my')
             ->setPageTitle('group.groups');
     }

@@ -15,7 +15,7 @@ class SmallRegisterBlock extends Block
      */
     public function execute()
     {
-        if (\App::auth()->logged()) {
+        if (\App::authService()->logged()) {
 
             $this->setNoRender(true);
 
@@ -28,7 +28,7 @@ class SmallRegisterBlock extends Block
             ->order('sort_order', 1)
             ->all();
 
-        $form = \App::html()->factory('\User\Form\UserCreateAccount');
+        $form = \App::htmlService()->factory('\User\Form\UserCreateAccount');
 
         $this->view->assign([
             'note'        => $this->lp->get('note', ''),

@@ -1,6 +1,6 @@
 <div class="header-container">
     <div class="header-navbar">
-        <nav class="navbar navbar-default">
+        <nav class="navbar">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -12,8 +12,8 @@
                     </button>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <?php echo \App::nav()->render('dropdown','admin',null,[], 1 ); ?>
-                    <?php echo \App::nav()->render('dropdown','admin_right',null, [], 2, ['level0'=>'nav navbar-nav
+                    <?php echo \App::navigationService()->render('dropdown','admin',null,[], 1 ); ?>
+                    <?php echo \App::navigationService()->render('dropdown','admin_right',null, [], 2, ['level0'=>'nav navbar-nav
                     navbar-right']); ?>
                 </div>
             </div>

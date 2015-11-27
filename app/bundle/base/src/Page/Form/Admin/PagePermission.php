@@ -29,7 +29,7 @@ class PagePermission extends BasePermission
          * Privacy options
          */
         if (!$role->isGuest() && $role->getModuleName() == 'page') {
-            $relationTypes = \App::relation()->getAllSystemRelationType('page');
+            $relationTypes = \App::relationService()->getAllSystemRelationType('page');
 
             $privacyOptions = [
                 ['value' => RELATION_TYPE_ANYONE, 'label' => \App::text('core.public'),],

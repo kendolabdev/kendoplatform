@@ -45,11 +45,11 @@ class AuthController extends DefaultController
                 'remember'   => isset($data['remember']) ? $data['remember'] : false
             ];
 
-            $result = \App::auth()->login($driver, $params);
+            $result = \App::authService()->login($driver, $params);
 
             if ($result->isValid()) {
 
-                \App::auth()->store($result->getUser(), null, false);
+                \App::authService()->store($result->getUser(), null, false);
 
                 // try location redirect then exists
                 return $this->redirect('home');
@@ -71,9 +71,9 @@ class AuthController extends DefaultController
 
         $enableSocialAuth = \App::setting('login', 'social_auth');
 
-        $social = \App::social()->getListAuth();
+        $social = \App::socialService()->getListAuth();
 
-        $lp = \App::layout()
+        $lp = \App::layoutService()
             ->getContentLayoutParams();
 
         $this->view
@@ -87,7 +87,7 @@ class AuthController extends DefaultController
 
     public function actionLogout()
     {
-        \App::auth()->logout();
+        \App::authService()->logout();
 
         return $this->redirect('home');
     }
@@ -106,9 +106,9 @@ class AuthController extends DefaultController
             // could not login as this poster
         }
 
-        \App::auth()->saveViewer($poster);
+        \App::authService()->saveViewer($poster);
 
-        \App::routing()->redirectToUrl($poster->toHref());
+        \App::routingService()->redirectToUrl($poster->toHref());
     }
 
     /**
@@ -122,7 +122,7 @@ class AuthController extends DefaultController
             'form' => $form
         ]);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view->setScript($lp);
 

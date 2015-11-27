@@ -356,7 +356,7 @@ class LinkService
         if ($needUpdate) {
             $link->save();
         }
-        $feed = \App::feed()->addItemFeed('update_status', $link);
+        $feed = \App::feedService()->addItemFeed('update_status', $link);
 
         return $feed;
     }

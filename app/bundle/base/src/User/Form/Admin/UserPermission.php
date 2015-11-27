@@ -32,7 +32,7 @@ class UserPermission extends BasePermission
          * Add privacy options
          */
         if (!$role->isGuest() && $role->getModuleName() == 'user') {
-            $relationTypes = \App::relation()->getAllSystemRelationType('user');
+            $relationTypes = \App::relationService()->getAllSystemRelationType('user');
 
             $privacyOptions = [
                 ['value' => RELATION_TYPE_ANYONE, 'label' => \App::text('core.public'),],

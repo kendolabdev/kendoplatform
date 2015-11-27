@@ -2,9 +2,9 @@
 
 include '../init.php';
 
-App::cache()
+App::cacheService()
     ->flush();
 
-\App::layout()
+\App::layoutService()
     ->theme()
     ->rebuildStylesheetForTheme('admin');

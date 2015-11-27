@@ -22,9 +22,9 @@ class ButtonMessage
     {
 
         if (!$item instanceof User) return '';
-        if (!\App::auth()->logged()) return '';
-        if (!\App::acl()->pass($item, 'message.send_message')) return '';
-        if (\App::auth()->getId() == $item->getId()) return '';
+        if (!\App::authService()->logged()) return '';
+        if (!\App::aclService()->pass($item, 'message.send_message')) return '';
+        if (\App::authService()->getId() == $item->getId()) return '';
 
         switch ($type) {
             case 'menu':

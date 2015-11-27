@@ -23,7 +23,7 @@ class BlockController extends AjaxController
 
         $object = \App::find($type, $id);
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         $blockService = \App::service('core.block');
 
@@ -47,7 +47,7 @@ class BlockController extends AjaxController
 
         $object = \App::find($this->request->getString('type'), $this->request->getInt('id'));
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         $blockService = \App::service('core.block');
 
@@ -65,7 +65,7 @@ class BlockController extends AjaxController
     {
         $object = \App::find($this->request->getString('type'), $this->request->getInt('id'));
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         $blockService = \App::service('core.block');
 

@@ -21,7 +21,7 @@ class GroupController extends AjaxController
 
         $lp = new BlockParams($lp);
 
-        $paging = \App::group()->loadGroupPaging($query, $page);
+        $paging = \App::groupService()->loadGroupPaging($query, $page);
 
 
         $html = $this->partial($lp->script(), ['paging' => $paging]);

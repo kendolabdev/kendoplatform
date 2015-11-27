@@ -34,7 +34,7 @@ class HorizontalContainer extends Block
             $grid = $grids[ $offset ];
             $response[] = '<div class="col-md-' . $grid . ' col-sm-' . $grid . '">';
             foreach ($blocks as $blockData) {
-                $response[] = \App::layout()->renderBlock($blockData['block_class'], $blockData);
+                $response[] = \App::layoutService()->renderBlock($blockData['block_class'], $blockData);
             }
             $response [] = '</div>';
 

@@ -51,7 +51,7 @@ class PhraseService implements PhraseLoaderInterface
      */
     public function load($language)
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['phrase', 'load', 'language'], 0, function () use ($language) {
                 return $this->_load($language);
             });
@@ -99,7 +99,7 @@ class PhraseService implements PhraseLoaderInterface
      */
     public function getLanguageOptions()
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['phrase', 'getLanguageOptions', ''], 0, function () {
                 return $this->_getLanguageOptions();
             });

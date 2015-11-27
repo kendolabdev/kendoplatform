@@ -49,4 +49,4 @@
 </div>
 
 
-<?php echo \App::layout()->renderBlock('\Activity\Block\ActivityAbout',['about'=> $photo]); ?>
+<?php echo \App::layoutService()->renderBlock('\Activity\Block\ActivityAbout',['about'=> $photo]); ?>

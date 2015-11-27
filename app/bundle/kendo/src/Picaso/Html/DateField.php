@@ -81,7 +81,7 @@ class DateField extends HtmlElement implements FormField
      */
     public function toHtml()
     {
-        $yearField = \App::html()->create([
+        $yearField = \App::htmlService()->create([
             'plugin'      => 'select',
             'name'        => $this->getName() . '[year]',
             'options'     => $this->getYearOptions(),
@@ -92,7 +92,7 @@ class DateField extends HtmlElement implements FormField
             'placeholder' => 'core.year',
         ]);
 
-        $monthField = \App::html()->create([
+        $monthField = \App::htmlService()->create([
             'plugin'      => 'select',
             'name'        => $this->getName() . '[month]',
             'options'     => $this->getMonthOptions(),
@@ -103,7 +103,7 @@ class DateField extends HtmlElement implements FormField
             'placeholder' => 'core.month',
         ]);
 
-        $dayField = \App::html()->create([
+        $dayField = \App::htmlService()->create([
             'plugin'      => 'select',
             'name'        => $this->getName() . '[day]',
             'options'     => $this->getMonthOptions(),

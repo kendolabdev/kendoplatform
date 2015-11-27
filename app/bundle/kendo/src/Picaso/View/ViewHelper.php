@@ -160,7 +160,7 @@ class ViewHelper
         }
 
         if ($route) {
-            $attributes['href'] = \App::routing()->getUrl($route, $params, $hash);
+            $attributes['href'] = \App::routingService()->getUrl($route, $params, $hash);
         }
 
         return '<a ' . $this->_flat($attributes) . '>' . $label . '</a>';
@@ -185,7 +185,7 @@ class ViewHelper
         }
 
         if ($route) {
-            $attributes['href'] = \App::routing()->getUrl($route, $params, $hash);
+            $attributes['href'] = \App::routingService()->getUrl($route, $params, $hash);
 
         }
 
@@ -210,7 +210,7 @@ class ViewHelper
      */
     public static function content()
     {
-        return \App::request()->getInitiator()->getResponse();
+        return \App::requestService()->getInitiator()->getResponse();
     }
 
     /**
@@ -272,7 +272,7 @@ class ViewHelper
      */
     public static function nav()
     {
-        return \App::nav();
+        return \App::navigationService();
     }
 
     /**
@@ -280,7 +280,7 @@ class ViewHelper
      */
     public function request()
     {
-        return \App::request();
+        return \App::requestService();
     }
 
     /**
@@ -288,7 +288,7 @@ class ViewHelper
      */
     public function html()
     {
-        return \App::html();
+        return \App::htmlService();
     }
 
     /**
@@ -296,7 +296,7 @@ class ViewHelper
      */
     public function acl()
     {
-        return \App::acl();
+        return \App::aclService();
     }
 
     /**
@@ -304,7 +304,7 @@ class ViewHelper
      */
     public function routing()
     {
-        return \App::routing();
+        return \App::routingService();
     }
 
     /**
@@ -334,7 +334,7 @@ class ViewHelper
      */
     public function layout()
     {
-        return \App::layout();
+        return \App::layoutService();
     }
 
     /**
@@ -355,7 +355,7 @@ class ViewHelper
      */
     public function url($route, $params = [])
     {
-        return \App::routing()->getUrl($route, $params);
+        return \App::routingService()->getUrl($route, $params);
     }
 
     /**
@@ -405,7 +405,7 @@ class ViewHelper
      */
     public function isMobile()
     {
-        return \App::request()->isMobile();
+        return \App::requestService()->isMobile();
     }
 
     /**
@@ -413,7 +413,7 @@ class ViewHelper
      */
     public function isTablet()
     {
-        return \App::request()->isTablet();
+        return \App::requestService()->isTablet();
     }
 
     /**
@@ -421,7 +421,7 @@ class ViewHelper
      */
     public function auth()
     {
-        return \App::auth();
+        return \App::authService();
     }
 
     /**

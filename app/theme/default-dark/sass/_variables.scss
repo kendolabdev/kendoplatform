@@ -1,13 +1,25 @@
 $use-block-box: false;
 $use-round-corner: false;
 $navbar-font-weight: 400;
+$navbar-color-mode: "inverse";
+$input-border-radius-flag: false;
+$btn-border-radius-flag: false;
 
 //
 //$wrap-bg: #212121;
 //$body-bg: #212121;
 //$border-color: #666;
-//$input-bg: #212121;
 //$text-color: #666;
+//$input-color: $text-color;
+//$input-bg: transparent;
+//$input-border: $text-color;
+//$input-border-focus: lighten($input-border, 40%);
+//$input-focus-shadow-flag: true;
+//$input-border-radius-flag: false;
+//$input-color-placeholder: lighten($input-color, 20%);
+//$btn-border-radius-flag: true;
+
+
 //
 //$header-topbar-bg: rgba(0, 0, 0, 0.05);
 //$header-topbar-border-bottom: none;
@@ -17,15 +29,10 @@ $navbar-font-weight: 400;
 //$header-navbar-bg: #333;
 //$header-navbar-border-bottom: none;
 
-//$navbar-color-scheme: "inverse";
+//$navbar-color-mode: "inverse";
 
 
 //$input-height-base: 40px;
 //
 //$link-color: #aaa;
 //$brand-primary: #1ABC9C;
-
-
-// import bootswatch
-
-@import "bootswatch";

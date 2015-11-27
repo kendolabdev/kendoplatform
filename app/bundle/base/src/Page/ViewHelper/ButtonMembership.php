@@ -18,17 +18,17 @@ class ButtonMembership
     function __invoke($item)
     {
 
-        if (!\App::auth()->logged())
+        if (!\App::authService()->logged())
             return '';
 
         if (!$item instanceof Content)
             return '';
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
-        $likeStatus = \App::like()->getLikeStatus($viewer, $item->getId());
+        $likeStatus = \App::likeService()->getLikeStatus($viewer, $item->getId());
 
-        $followStatus = \App::follow()->getFollowStatus($viewer, $item->getId());
+        $followStatus = \App::followService()->getFollowStatus($viewer, $item->getId());
 
         return \App::viewHelper()->partial('base/page/button/button-membership', [
             'item'         => $item,

@@ -1,0 +1,92 @@
+$use-round-corner: true !default;
+$use-box-shadow: true !default;
+$use-block-box: true !default;
+
+$wrap-bg: $body-bg !default;
+$grid-gutter-sm: 2px !default;
+$img-path: "../../default/images" !default;
+$brand-note: #9197a3 !default;
+$container-max-width: 1190px !default;
+
+$border-color-light: #f1f1f1 !default;
+$block-border-bottom: none !default;
+$block-title-font-size: $font-size-h4 !default;
+$block-title-font-weight: 400 !default;
+$block-title-transform: none !default;
+
+$blue: #3a5795;
+$border-color: #eee !default;
+$field-avatar-size: 100px !default;
+// define avatar size
+
+$avatar-xs: 24px !default;
+$avatar-xs: 24px !default;
+$avatar-sm: 32px !default;
+$avatar-md: 50px !default;
+$avatar-lg: 100px !default;
+$avatar-border-width: 1px !default;
+
+$avatar-outer-border: 1px solid $border-color !default;
+$avatar-inner-border: none !default;
+
+$btn-social-size: 36px !default;
+$btn-social-icon: 20px !default;
+$use-circle-btn-social: true !default;
+
+$header-topbar-large-height: 96px !default;
+$header-topbar-base-height: 40px !default;
+
+$header-topbar-bg: $body-bg !default;
+$header-topbar-border-bottom: none !default;
+$header-topbar-link-color: $link-color !default;
+$header-topbar-link-hover-color: $link-hover-color !default;
+$header-topbar-logo-color: $header-topbar-link-hover-color !default;
+
+$header-navbar-shadow: none !default;
+$header-navbar-border-bottom: none !default;
+
+$footer-text-color: darken($text-color,10%) !default;
+$footer-link-color: $link-color !default;
+$footer-link-hover-color: $link-hover-color !default;
+$footer-wrap-bg: darken($body-bg,10%) !default;
+
+$footer-heading-font-size: $font-size-h4 !default;
+$footer-heading-font-weight: 400 !default;
+$footer-heading-transform: none !default;
+$footer-heading-color: #aaa !default;
+$footer-heading-transform: none !default;
+
+$footer-social-btn-color: $footer-text-color !default;
+$header-logo-color: $header-topbar-link-color !default;
+$header-logo-large-font-size: $font-size-h1 !default;
+
+$header-logo-base-font-size: 24px !default;
+$header-logo-font-weight: 400 !default;
+$header-log-text-transform: none !default;
+$options-cover-height: 150px !default;
+$options-profile-height: 110px !default;
+
+$input-shadow-flag: true !default;
+$input-focus-shadow-flag: true !default;
+$input-border-radius-flag: true !default;
+$btn-border-radius-flag: true !default;
+
+$navbar-text-transform: none !default;
+$navbar-color-mode: "default" !default;
+$sidebar-color-mode: "default" !default;
+
+@if not $input-border-radius-flag{
+  $input-border-radius-base: 0;
+  $input-border-radius-small: 0;
+  $input-border-radius-large: 0;
+}
+
+@if not $btn-border-radius-flag {
+  $btn-border-radius-base: 0;
+  $btn-border-radius-small: 0;
+  $btn-border-radius-large: 0;
+}
+
+
+$dropdown-line-height: $line-height-base !default;
+$separator-middot: '\a0\b7\a0';

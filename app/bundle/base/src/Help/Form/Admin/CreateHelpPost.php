@@ -22,7 +22,7 @@ class CreateHelpPost extends Form
             'label'    => 'Topic',
             'class'    => 'form-control',
             'required' => true,
-            'options'  => \App::help()->loadAdminTopicOptions(),
+            'options'  => \App::helpService()->loadAdminTopicOptions(),
         ]);
 
         $this->addElement([

@@ -33,8 +33,8 @@ class EventHandlerService extends EventHandler
         $options = [
             'baseUrl'   => PICASO_BASE_URL,
             'staticUrl' => $staticUrl,
-            'logged'    => \App::auth()->logged(),
-            'isUser'    => \App::auth()->isUser()
+            'logged'    => \App::authService()->logged(),
+            'isUser'    => \App::authService()->isUser()
         ];
 
         $require->prependScript('options', 'K.setOptions(' . json_encode($options) . ')');
@@ -46,7 +46,7 @@ class EventHandlerService extends EventHandler
      */
     public function onBeforeRenderAssetsHeader()
     {
-        $assets = \App::assets();
+        $assets = \App::assetService();
 
         $staticUrl = \App::staticBaseUrl();
 
@@ -58,7 +58,7 @@ class EventHandlerService extends EventHandler
             ]);
 
 
-        $themeId = \App::layout()->getThemeId();
+        $themeId = \App::layoutService()->getThemeId();
 
         if (!empty($_COOKIE['themeId'])) {
             $themeId = $_COOKIE['themeId'];

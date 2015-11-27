@@ -129,11 +129,11 @@ class Page extends Model implements
     {
         if (null != $this->getProfileName()) {
             $params['name'] = $this->getProfileName();
-            return \App::routing()->getUrl('page_slug', $params);
+            return \App::routingService()->getUrl('page_slug', $params);
         } else {
             $params['profileId'] = $this->getId();
 
-            return \App::routing()->getUrl('page_profile', $params);
+            return \App::routingService()->getUrl('page_profile', $params);
         }
     }
 

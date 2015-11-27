@@ -12,9 +12,9 @@ class ButtonTopbarViewer
      */
     public function __invoke()
     {
-        if (!\App::auth()->logged()) return '';
+        if (!\App::authService()->logged()) return '';
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
         $title = $viewer->getTitle();
         $firstName = $title;
         $avatar = $viewer->getPhoto('avatar_sm');

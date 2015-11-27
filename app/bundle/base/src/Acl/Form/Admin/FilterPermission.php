@@ -20,8 +20,8 @@ class FilterPermission extends Form
 
         $this->setMethod('get');
 
-        $roleOptions = \App::acl()->getRoleOptions();
-        $groupOptions = \App::acl()->getGroupOptions();
+        $roleOptions = \App::aclService()->getRoleOptions();
+        $groupOptions = \App::aclService()->getGroupOptions();
 
         $this->addElement([
             'plugin'   => 'select',

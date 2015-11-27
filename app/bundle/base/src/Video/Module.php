@@ -23,7 +23,7 @@ class Module extends \Picaso\Application\Module
 
     private function routing()
     {
-        $routing = \App::routing();
+        $routing = \App::routingService();
 
         $routing->addRoute('videos', [
             'uri'      => 'videos',

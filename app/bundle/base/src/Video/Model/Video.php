@@ -76,7 +76,7 @@ class Video extends Model implements
      */
     public function getEmbedCode($context)
     {
-        return \App::video()->getEmbedCode($this, $context);
+        return \App::videoService()->getEmbedCode($this, $context);
     }
 
     /**
@@ -133,7 +133,7 @@ class Video extends Model implements
         $params['id'] = $this->getId();
         $params['slug'] = \App::toSlug($this->getTitle());
 
-        return \App::routing()->getUrl('video_view', $params);
+        return \App::routingService()->getUrl('video_view', $params);
     }
 
 

@@ -36,11 +36,11 @@ class EventHandlerService extends EventHandler
 
         $payload = $event->getPayload();
 
-        if (false == \App::auth()->logged()) return;
+        if (false == \App::authService()->logged()) return;
 
         if (!$payload instanceof Poster) return;
 
-        if (!\App::acl()->pass($payload, 'video__create')) return;
+        if (!\App::aclService()->pass($payload, 'video__create')) return;
 
         $content = \App::viewHelper()->partial('base/video/partial/composer-header-upload-video');
 
@@ -54,7 +54,7 @@ class EventHandlerService extends EventHandler
      */
     public function onProfileMenuItemVideos($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if (!$profile instanceof Poster)
             return false;
@@ -62,7 +62,7 @@ class EventHandlerService extends EventHandler
         if (!$profile->authorize('video__video_tab_exists'))
             return false;
 
-        if (!\App::acl()->pass($profile, 'video__video_tab_view'))
+        if (!\App::aclService()->pass($profile, 'video__video_tab_view'))
             return false;
 
         $item['href'] = $profile->toHref(['stuff' => 'videos']);
@@ -83,7 +83,7 @@ class EventHandlerService extends EventHandler
 
         $stats['video'] = [
             'label' => \App::text('video.videos'),
-            'value' => \App::video()->getActiveVideoCount(),
+            'value' => \App::videoService()->getActiveVideoCount(),
         ];
 
         $payload->__set('stats', $stats);

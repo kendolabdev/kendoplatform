@@ -25,6 +25,6 @@ class ActionContentBlock extends Block
      */
     public function getContent()
     {
-        return \App::request()->getInitiator()->getResponse();
+        return \App::requestService()->getInitiator()->getResponse();
     }
 }

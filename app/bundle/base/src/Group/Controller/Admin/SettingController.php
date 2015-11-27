@@ -18,7 +18,7 @@ class SettingController extends AdminController
     public function actionEdit()
     {
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'group_extension', 'group_settings');
 

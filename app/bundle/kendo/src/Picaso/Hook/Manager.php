@@ -152,7 +152,7 @@ class Manager
     {
         $this->setLoaded(true);
 
-        return \App::cache()
+        return \App::cacheService()
             ->get(['picaso', 'hook', 'loadAllEvents'], 0, function () {
                 return $this->_loadAllHookEventFromDatabase();
             });

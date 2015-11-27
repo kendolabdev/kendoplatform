@@ -18,7 +18,7 @@ class CommentController extends AjaxController
     {
         list($eid, $id) = $this->request->get('eid', 'id');
 
-        $cmt = \App::comment()->findComment($id);
+        $cmt = \App::commentService()->findComment($id);
 
         $this->response = [
             'html' => $this->partial('base/comment/partial/comment-options', [
@@ -40,7 +40,7 @@ class CommentController extends AjaxController
             throw new \InvalidArgumentException();
         }
 
-        \App::comment()->remove($cmt);
+        \App::commentService()->remove($cmt);
 
         $this->response = [
             'code' => 200,
@@ -54,7 +54,7 @@ class CommentController extends AjaxController
     {
         $item = \App::find($this->request->getString('type'), $this->request->getInt('id'));
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
         $parent = $poster;
 
         /**
@@ -117,7 +117,7 @@ class CommentController extends AjaxController
         /**
          * TODO check privacy
          */
-        $comment = \App::comment()->add($poster, $item, $commentTxt, $params);
+        $comment = \App::commentService()->add($poster, $item, $commentTxt, $params);
 
         $html = $this->partial('base/comment/partial/comment-item', [
             'comment'    => $comment,
@@ -153,14 +153,14 @@ class CommentController extends AjaxController
          * + else where of others
          */
 
-        $comments = \App::comment()->getCommentList($about, 0, 0, null, $excludes);
+        $comments = \App::commentService()->getCommentList($about, 0, 0, null, $excludes);
 
         $order = \App::setting('activity', 'comment_sort');
 
         $this->response['html'] = \App::viewHelper()->partial('base/comment/partial/comment-list', [
             'comments' => $comments,
             'about'    => $about,
-            'viewer'   => \App::auth()->getViewer(),
+            'viewer'   => \App::authService()->getViewer(),
         ]);
 
         $this->response['order'] = $order;

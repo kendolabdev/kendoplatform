@@ -15,10 +15,10 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseInvitation()
     {
-        \App::layout()
+        \App::layoutService()
             ->setPageTitle('invitation.requests');
 
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         $page = $this->request->getParam('page', 1);
 
@@ -27,9 +27,9 @@ class ProfileController extends ProfileBaseController
             'parentType' => $profile->getType(),
         ];
 
-        $paging = \App::invitation()->loadInvitationPaging($query, $page);
+        $paging = \App::invitationService()->loadInvitationPaging($query, $page);
 
-        $lp = \App::layout()
+        $lp = \App::layoutService()
             ->getContentLayoutParams();
 
         $this->view

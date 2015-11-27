@@ -20,13 +20,13 @@ class ManageController extends AdminController
     {
         $filter = new FilterLayout();
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setPageTitle('layout.manage_layouts')
             ->setPageFilter($filter)
             ->setupSecondaryNavigation('admin', 'admin_appearance', 'layouts');
 
-        \App::assets()
+        \App::assetService()
             ->setTitle(\App::text('core_layout.manage_layouts'));
 
         $module = $this->request->getParam('module', 'core');
@@ -40,7 +40,7 @@ class ManageController extends AdminController
 
         $params = $filter->getData();
 
-        $paging = \App::layout()
+        $paging = \App::layoutService()
             ->loadAdminLayoutPagePaging($params, $page, $limit);
 
         $lp = new BlockParams([
@@ -60,15 +60,15 @@ class ManageController extends AdminController
      */
     public function actionEdit()
     {
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_layout_editor');
 
-        \App::assets()
+        \App::assetService()
             ->setTitle(\App::text('core_layout.edit_layout'));
 
         $pageName = $this->request->getParam('pageName', 'core_home');
         $screenSize = $this->request->getParam('screenSize', 'medium');
-        $themeId = $theme = \App::layout()->getEditingThemeId();
+        $themeId = $theme = \App::layoutService()->getEditingThemeId();
 
         $layoutAttributes = [
             'pageName'   => $pageName,
@@ -77,7 +77,7 @@ class ManageController extends AdminController
         ];
 
 
-        $layoutService = \App::layout();
+        $layoutService = \App::layoutService();
 
 
         /**
@@ -112,7 +112,7 @@ class ManageController extends AdminController
         $supportSections = $layoutService->loadSupportSections();
 
 
-        \App::assets()
+        \App::assetService()
             ->requirejs()
             ->addDependency(['base/core/layout_editor']);
 

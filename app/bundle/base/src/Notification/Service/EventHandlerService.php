@@ -45,7 +45,7 @@ class EventHandlerService extends \Picaso\Application\EventHandler
      */
     public function onMenuMainNotifications($item)
     {
-        if (!\App::auth()->logged())
+        if (!\App::authService()->logged())
             return false;
 
         $item['class'] = 'visible-xs ni-notification';
@@ -60,7 +60,7 @@ class EventHandlerService extends \Picaso\Application\EventHandler
      */
     public function onProfileMenuItemNotifications($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if (!$profile instanceof Poster) return false;
 
@@ -83,7 +83,7 @@ class EventHandlerService extends \Picaso\Application\EventHandler
 
         $poster = $about->getPoster();
 
-        \App::notification()
+        \App::notificationService()
             ->subscribe($poster, $about);
     }
 
@@ -97,7 +97,7 @@ class EventHandlerService extends \Picaso\Application\EventHandler
 
         if (!$about instanceof Content) return;
 
-        \App::notification()
+        \App::notificationService()
             ->removeAllByAbout($about);
     }
 
@@ -122,7 +122,7 @@ class EventHandlerService extends \Picaso\Application\EventHandler
 
         if (!$poster instanceof Poster) return;
 
-        \App::notification()
+        \App::notificationService()
             ->removeAllByPoster($poster);
     }
 
@@ -136,7 +136,7 @@ class EventHandlerService extends \Picaso\Application\EventHandler
 
         if (!$parent instanceof Poster or !$poster instanceof Poster) return;
 
-        \App::notification()->addAcceptMembershipNotification($parent, $poster);
+        \App::notificationService()->addAcceptMembershipNotification($parent, $poster);
 
     }
 }

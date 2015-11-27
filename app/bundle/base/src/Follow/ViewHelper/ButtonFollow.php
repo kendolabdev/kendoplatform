@@ -21,14 +21,14 @@ class ButtonFollow
     function __invoke($item, $following = null, $ctx = 'btn')
     {
         if (!$item instanceof Poster) return '';
-        if (!\App::auth()->logged()) return '';
-        if (!\App::acl()->pass($item, 'activity.follow')) return '';
-        if (\App::auth()->getId() == $item->getId()) return '';
+        if (!\App::authService()->logged()) return '';
+        if (!\App::aclService()->pass($item, 'activity.follow')) return '';
+        if (\App::authService()->getId() == $item->getId()) return '';
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if (null === $following) {
-            $following = \App::follow()->getFollowStatus($poster, $item->getId());
+            $following = \App::followService()->getFollowStatus($poster, $item->getId());
         }
 
         $script = 'base/follow/partial/button-follow';

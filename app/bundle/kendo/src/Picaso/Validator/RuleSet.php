@@ -30,7 +30,7 @@ class RuleSet implements ValidateInterface
     public function __construct($array)
     {
         foreach ($array as $name => $params) {
-            $this->rules[] = \App::validator()->build($name, $params);
+            $this->rules[] = \App::validationService()->build($name, $params);
         }
     }
 

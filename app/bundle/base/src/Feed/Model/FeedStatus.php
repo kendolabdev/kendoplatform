@@ -93,7 +93,7 @@ class FeedStatus extends Model
 
         $params['id'] = $this->getId();
 
-        return \App::routing()->getRoute('feed_detail', $params);
+        return \App::routingService()->getRoute('feed_detail', $params);
     }
 
     /**

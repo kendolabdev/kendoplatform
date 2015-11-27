@@ -18,7 +18,7 @@ class ListingBlogItemBlock extends Block
     {
         $limit = $this->lp->get('limit', 5);
 
-        $paging = \App::blog()
+        $paging = \App::blogService()
             ->loadPostPaging([], 1, $limit);
 
         $this->view->assign([

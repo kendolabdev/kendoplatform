@@ -24,7 +24,7 @@ class ManageController extends AdminController
     {
         $filter = new FilterVideo();
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setPageTitle('video.manage_videos')
             ->setPageFilter($filter)
@@ -36,7 +36,7 @@ class ManageController extends AdminController
         $limit = 24;
         $query = $filter->getData();
 
-        $paging = \App::video()
+        $paging = \App::videoService()
             ->loadVideoPaging($query, $page, $limit);
 
         $lp = new BlockParams([

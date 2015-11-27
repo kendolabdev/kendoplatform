@@ -20,7 +20,7 @@ class HelpService
      */
     public function loadAdminTopicOptions()
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['HelpService', 'loadAdminTopicOptions', ''], 0, function () {
                 return $this->_loadTopicOptions();
             });
@@ -31,7 +31,7 @@ class HelpService
      */
     public function loadAdminCategoryOptions()
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['HelpService', 'loadAdminCategoryOptions', ''], 0, function () {
                 return $this->_loadCategoryOptions();
             });

@@ -35,7 +35,7 @@ Trait ImpHasPrivacy
             $this->__set('privacy_type', $type);
             $this->__set('privacy_value', $value);
 
-            \App::feed()->updatePrivacy($this);
+            \App::feedService()->updatePrivacy($this);
         }
 
         $privacy[ $name ] = ['type' => $type, 'value' => $value];

@@ -20,14 +20,14 @@ class ButtonMembership
     function __invoke($item, $membership = null, $type = 'btn')
     {
         if (!$item instanceof User) return '';
-        if (!\App::auth()->isUser()) return '';
-        if (!\App::acl()->pass($item, 'user.request_friends')) return '';
-        if (\App::auth()->getId() == $item->getId()) return '';
+        if (!\App::authService()->isUser()) return '';
+        if (!\App::aclService()->pass($item, 'user.request_friends')) return '';
+        if (\App::authService()->getId() == $item->getId()) return '';
 
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
-        $membership = \App::user()->membership()->getMembershipStatus($viewer, $item);
+        $membership = \App::userService()->membership()->getMembershipStatus($viewer, $item);
 
         $script = 'base/user/button/button-membership';
 

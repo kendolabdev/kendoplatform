@@ -39,7 +39,7 @@ class BasePermission extends Form
      */
     public function load()
     {
-        $data = \App::acl()->getLoader()->loadForEdit($this->getRole()->getId(), $this->getGroups());
+        $data = \App::aclService()->getLoader()->loadForEdit($this->getRole()->getId(), $this->getGroups());
 
         $this->setData($data);
     }
@@ -67,7 +67,7 @@ class BasePermission extends Form
     {
         $data = $this->getData();
 
-        \App::acl()->getLoader()->saveForRole($this->getRole()->getId(), $data);
+        \App::aclService()->getLoader()->saveForRole($this->getRole()->getId(), $data);
     }
 
     /**

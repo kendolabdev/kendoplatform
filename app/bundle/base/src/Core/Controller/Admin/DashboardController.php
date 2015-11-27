@@ -16,10 +16,10 @@ class DashboardController extends AdminController
      */
     public function actionIndex()
     {
-        \App::assets()
+        \App::assetService()
             ->setTitle('Admin dashboard');
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_dashboard');
     }
 }

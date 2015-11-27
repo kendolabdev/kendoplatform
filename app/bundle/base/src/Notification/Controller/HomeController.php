@@ -16,16 +16,16 @@ class HomeController extends DefaultController
      */
     public function actionBrowseNotification()
     {
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         $query = [];
 
         $page = $this->request->getParam('page', 1);
 
-        $paging = \App::notification()
+        $paging = \App::notificationService()
             ->loadNotificationPaging($query, $page, 10);
 
-        $lp = \App::layout()
+        $lp = \App::layoutService()
             ->getContentLayoutParams();
 
         $this->view

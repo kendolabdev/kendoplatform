@@ -7,9 +7,9 @@
 // Provide a static navbar from which we expand to create full-width, fixed, and
 // other navbar variations.
 
-.navbar {
+.sidebar {
   position: relative;
-  min-height: $navbar-height; // Ensure a navbar always shows (e.g., without a .navbar-brand in collapsed mode)
+  min-height: $navbar-height; // Ensure a navbar always shows (e.g., without a .sidebar-brand in collapsed mode)
   //  margin-bottom: $navbar-margin-bottom;
   border: 1px solid transparent;
 
@@ -21,21 +21,17 @@
   //}
 }
 
-.navbar-sticky-admin {
+.sidebar-sticky-admin {
   background-color: $navbar-inverse-bg;
 }
 
 // Navbar heading
 //
-// Groups `.navbar-brand` and `.navbar-toggle` into a single component for easy
+// Groups `.sidebar-brand` and `.sidebar-toggle` into a single component for easy
 // styling of responsive aspects.
 
-.navbar-header {
+.sidebar-header {
   @include clearfix;
-
-  @media (min-width: $grid-float-breakpoint) {
-    float: left;
-  }
 }
 
 // Navbar collapse (body)
@@ -48,7 +44,7 @@
 // vertically and include a `max-height` to overflow in case you have too much
 // content for the user's viewport.
 
-.navbar-collapse {
+.sidebar-collapse {
   overflow-x: visible;
   padding-right: $navbar-padding-horizontal;
   padding-left: $navbar-padding-horizontal;
@@ -79,18 +75,18 @@
 
     // Undo the collapse side padding for navbars with containers to ensure
     // alignment of right-aligned contents.
-    .navbar-fixed-top &,
-    .navbar-static-top &,
-    .navbar-fixed-bottom & {
+    .sidebar-fixed-top &,
+    .sidebar-static-top &,
+    .sidebar-fixed-bottom & {
       padding-left: 0;
       padding-right: 0;
     }
   }
 }
 
-.navbar-fixed-top,
-.navbar-fixed-bottom {
-  .navbar-collapse {
+.sidebar-fixed-top,
+.sidebar-fixed-bottom {
+  .sidebar-collapse {
     max-height: $navbar-collapse-max-height;
 
     @media (max-device-width: $screen-xs-min) and (orientation: landscape) {
@@ -105,8 +101,8 @@
 
 .container,
 .container-fluid {
-  > .navbar-header,
-  > .navbar-collapse {
+  > .sidebar-header,
+  > .sidebar-collapse {
     margin-right: -$navbar-padding-horizontal;
     margin-left: -$navbar-padding-horizontal;
 
@@ -117,50 +113,9 @@
   }
 }
 
-//
-// Navbar alignment options
-//
-// Display the navbar across the entirety of the page or fixed it to the top or
-// bottom of the page.
-
-// Static top (unfixed, but 100% wide) navbar
-.navbar-static-top {
-  z-index: $zindex-navbar;
-  border-width: 0 0 1px;
-
-  @media (min-width: $grid-float-breakpoint) {
-    border-radius: 0;
-  }
-}
-
-// Fix the top/bottom navbars when screen real estate supports it
-.navbar-fixed-top,
-.navbar-fixed-bottom {
-  position: fixed;
-  right: 0;
-  left: 0;
-  z-index: $zindex-navbar-fixed;
-
-  // Undo the rounded corners
-  @media (min-width: $grid-float-breakpoint) {
-    border-radius: 0;
-  }
-}
-
-.navbar-fixed-top {
-  top: 0;
-  border-width: 0 0 1px;
-}
-
-.navbar-fixed-bottom {
-  bottom: 0;
-  margin-bottom: 0; // override .navbar defaults
-  border-width: 1px 0 0;
-}
-
 // Brand/project name
 
-.navbar-brand {
+.sidebar-brand {
   float: left;
   padding: $navbar-padding-vertical $navbar-padding-horizontal;
   font-size: $font-size-large;
@@ -177,8 +132,8 @@
   }
 
   @media (min-width: $grid-float-breakpoint) {
-    .navbar > .container &,
-    .navbar > .container-fluid & {
+    .sidebar > .container &,
+    .sidebar > .container-fluid & {
       margin-left: -$navbar-padding-horizontal;
     }
   }
@@ -186,10 +141,10 @@
 
 // Navbar toggle
 //
-// Custom button for toggling the `.navbar-collapse`, powered by the collapse
+// Custom button for toggling the `.sidebar-collapse`, powered by the collapse
 // JavaScript plugin.
 
-.navbar-toggle {
+.sidebar-toggle {
   position: relative;
   float: right;
   margin-right: $navbar-padding-horizontal;
@@ -227,7 +182,7 @@
 // Builds on top of the `.nav` components with its own modifier class to make
 // the nav the full height of the horizontal nav (above 768px).
 
-.navbar-nav {
+.sidebar-nav {
   margin: ($navbar-padding-vertical / 2) (-$navbar-padding-horizontal);
 
   > li > a {
@@ -261,20 +216,6 @@
       }
     }
   }
-
-  // Uncollapse the nav
-  @media (min-width: $grid-float-breakpoint) {
-    float: left;
-    margin: 0;
-
-    > li {
-      float: left;
-      > a {
-        padding-top: $navbar-padding-vertical;
-        padding-bottom: $navbar-padding-vertical;
-      }
-    }
-  }
 }
 
 // Navbar form
@@ -282,7 +223,7 @@
 // Extension of the `.form-inline` with some extra flavor for optimum display in
 // our navbars.
 
-.navbar-form {
+.sidebar-form {
   margin-left: -$navbar-padding-horizontal;
   margin-right: -$navbar-padding-horizontal;
   padding: 10px $navbar-padding-horizontal;
@@ -322,13 +263,13 @@
 // Dropdown menus
 
 // Menu position and menu carets
-.navbar-nav > li > .dropdown-menu {
+.sidebar-nav > li > .dropdown-menu {
   margin-top: 0;
   @include border-top-radius(0);
 }
 
 // Menu position and menu caret support for dropups via extra dropup class
-.navbar-fixed-bottom .navbar-nav > li > .dropdown-menu {
+.sidebar-fixed-bottom .sidebar-nav > li > .dropdown-menu {
   margin-bottom: 0;
   @include border-top-radius($navbar-border-radius);
   @include border-bottom-radius(0);
@@ -338,7 +279,7 @@
 //
 // Vertically center a button within a navbar (when *not* in a form).
 
-.navbar-btn {
+.sidebar-btn {
   @include navbar-vertical-align($input-height-base);
 
   &.btn-sm {
@@ -353,7 +294,7 @@
 //
 // Add a class to make any element properly align itself vertically within the navbars.
 
-.navbar-text {
+.sidebar-text {
   @include navbar-vertical-align($line-height-computed);
 
   @media (min-width: $grid-float-breakpoint) {
@@ -372,14 +313,14 @@
 // Declared after the navbar components to ensure more specificity on the margins.
 
 @media (min-width: $grid-float-breakpoint) {
-  .navbar-left {
+  .sidebar-left {
     float: left !important;
   }
-  .navbar-right {
+  .sidebar-right {
     float: right !important;
     margin-right: -$navbar-padding-horizontal;
 
-    ~ .navbar-right {
+    ~ .sidebar-right {
       margin-right: 0;
     }
   }
@@ -390,11 +331,11 @@
 
 // Default navbar
 
-@mixin navbar-color-scheme-default {
+@mixin sidebar-color-mode-default {
   //background-color: $navbar-default-bg;
   //border-color: $navbar-default-border;
 
-  .navbar-brand {
+  .sidebar-brand {
     color: $navbar-default-brand-color;
     &:hover,
     &:focus {
@@ -403,11 +344,11 @@
     }
   }
 
-  .navbar-text {
+  .sidebar-text {
     color: $navbar-default-color;
   }
 
-  .navbar-nav {
+  .sidebar-nav {
     > li > a {
       color: $navbar-default-link-color;
 
@@ -435,7 +376,7 @@
     }
   }
 
-  .navbar-toggle {
+  .sidebar-toggle {
     border-color: $navbar-default-toggle-border-color;
     &:hover,
     &:focus {
@@ -446,13 +387,13 @@
     }
   }
 
-  .navbar-collapse,
-  .navbar-form {
+  .sidebar-collapse,
+  .sidebar-form {
     border-color: $navbar-default-border;
   }
 
   // Dropdown menu items
-  .navbar-nav {
+  .sidebar-nav {
     // Remove background color from open dropdown
     > .open > a {
       &,
@@ -498,7 +439,7 @@
   //
   // Add a class to ensure links outside the navbar nav are colored correctly.
 
-  .navbar-link {
+  .sidebar-link {
     color: $navbar-default-link-color;
     &:hover {
       color: $navbar-default-link-hover-color;
@@ -522,8 +463,8 @@
 }
 
 // Inverse navbar
-@mixin navbar-color-scheme-inverse {
-  .navbar-brand {
+@mixin sidebar-color-mode-inverse {
+  .sidebar-brand {
     color: $navbar-inverse-brand-color;
     &:hover,
     &:focus {
@@ -532,11 +473,11 @@
     }
   }
 
-  .navbar-text {
+  .sidebar-text {
     color: $navbar-inverse-color;
   }
 
-  .navbar-nav {
+  .sidebar-nav {
     > li > a {
       color: $navbar-inverse-link-color;
 
@@ -565,7 +506,7 @@
   }
 
   // Darken the responsive nav toggle
-  .navbar-toggle {
+  .sidebar-toggle {
     border-color: $navbar-inverse-toggle-border-color;
     &:hover,
     &:focus {
@@ -576,13 +517,13 @@
     }
   }
 
-  .navbar-collapse,
-  .navbar-form {
+  .sidebar-collapse,
+  .sidebar-form {
     border-color: darken($navbar-inverse-bg, 7%);
   }
 
   // Dropdowns
-  .navbar-nav {
+  .sidebar-nav {
     > .open > a {
       &,
       &:hover,
@@ -629,7 +570,7 @@
     }
   }
 
-  .navbar-link {
+  .sidebar-link {
     color: $navbar-inverse-link-color;
     &:hover {
       color: $navbar-inverse-link-hover-color;
@@ -652,12 +593,13 @@
   }
 }
 
-
-.navbar-default {
-  @if $navbar-color-scheme == "default" {
-    @include navbar-color-scheme-default;
+.sidebar-default {
+  @if $sidebar-color-mode == "default" {
+    @include sidebar-color-mode-default;
   }
-  @if $navbar-color-scheme == "inverse" {
-    @include navbar-color-scheme-inverse;
+  @if $sidebar-color-mode == "inverse" {
+    @include sidebar-color-mode-default;
   }
 }
+
+

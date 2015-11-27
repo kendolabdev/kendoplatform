@@ -23,7 +23,7 @@ class ListingPhotoItemBlock extends Block
     {
         $limit = $this->lp->get('limit', 5);
 
-        $paging = \App::photo()
+        $paging = \App::photoService()
             ->loadPhotoPaging([], 1, $limit);
 
         $this->view->assign([

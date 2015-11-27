@@ -46,7 +46,7 @@ class EventHandlerService extends EventHandler
      */
     public function onProfileMenuItemRequests($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if (!$profile instanceof Poster) return false;
 
@@ -64,7 +64,7 @@ class EventHandlerService extends EventHandler
      */
     public function onMenuMainInvitations($item)
     {
-        if (!\App::auth()->logged())
+        if (!\App::authService()->logged())
             return false;
 
         $item['class'] = 'visible-xs ni-invitation';
@@ -82,13 +82,13 @@ class EventHandlerService extends EventHandler
 
         if (!$parent instanceof Poster or !$poster instanceof Poster) return;
 
-        \App::notification()->addAcceptMembershipNotification($parent, $poster);
+        \App::notificationService()->addAcceptMembershipNotification($parent, $poster);
 
-        \App::invitation()
+        \App::invitationService()
             ->removeMembershipRequest($poster, $parent);
 
         if ($parent instanceof User)
-            \App::invitation()
+            \App::invitationService()
                 ->removeMembershipRequest($parent, $poster);
     }
 
@@ -106,7 +106,7 @@ class EventHandlerService extends EventHandler
 
         if (!$poster instanceof Poster or !$parent instanceof Poster) return;
 
-        \App::invitation()
+        \App::invitationService()
             ->addMembershipRequest($poster, $parent);
     }
 }

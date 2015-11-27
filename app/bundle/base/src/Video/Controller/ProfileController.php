@@ -17,10 +17,10 @@ class ProfileController extends ProfileBaseController
     public function actionBrowseVideo()
     {
 
-        \App::layout()
+        \App::layoutService()
             ->setPageTitle('video.videos');
 
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         $page = $this->request->getParam('page');
 
@@ -30,9 +30,9 @@ class ProfileController extends ProfileBaseController
         ];
 
         // paging group is belong to this owner.
-        $paging = \App::video()->loadVideoPaging($query, $page);
+        $paging = \App::videoService()->loadVideoPaging($query, $page);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([

@@ -13,9 +13,9 @@ class ButtonBearInvitation
      */
     public function __invoke()
     {
-        if (!\App::auth()->logged()) return '';
+        if (!\App::authService()->logged()) return '';
 
-        $number = \App::invitation()
+        $number = \App::invitationService()
             ->getUnmitigatedNotificationCount();
 
         return \App::viewHelper()->partial('base/invitation/button/bear-invitation', [

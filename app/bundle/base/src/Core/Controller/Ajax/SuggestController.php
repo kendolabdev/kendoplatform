@@ -21,7 +21,7 @@ class SuggestController extends AjaxController
             ->select()
             ->limit(20, 0);
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if ($poster != null) {
             $select->where('user_id<>?', $poster->getId());
@@ -29,7 +29,7 @@ class SuggestController extends AjaxController
 
         $q = $this->request->getString('q');
 
-        $ids = \App::relation()->getMemberIdList($poster, 'user');
+        $ids = \App::relationService()->getMemberIdList($poster, 'user');
 
         if (empty($ids)) {
             $ids = [0];

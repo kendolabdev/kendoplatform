@@ -239,7 +239,7 @@ class Route implements RouteInterface
         }
 
         if ($this->forwarder) {
-            $delegate = \App::routing()->getRoute($this->forwarder);
+            $delegate = \App::routingService()->getRoute($this->forwarder);
 
             $result = $delegate->filter($params);
         }

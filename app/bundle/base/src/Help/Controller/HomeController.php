@@ -50,10 +50,10 @@ class HomeController extends DefaultController
 
         $page = $this->request->getParam('page', 1);
 
-        $paging = \App::help()
+        $paging = \App::helpService()
             ->loadCategoryPaging($query, $page);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->setData([
@@ -72,15 +72,15 @@ class HomeController extends DefaultController
     {
         $slug = $this->request->getParam('category');
 
-        $category = \App::help()
+        $category = \App::helpService()
             ->findCategory($slug);
 
         $query = ['category' => $category->getId()];
 
-        $paging = \App::help()
+        $paging = \App::helpService()
             ->loadTopicPaging($query, $page = 1, $limit = 10);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
@@ -99,16 +99,16 @@ class HomeController extends DefaultController
     {
         $slug = $this->request->getParam('topic');
 
-        $topic = \App::help()
+        $topic = \App::helpService()
             ->findTopic($slug);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $query = [
             'topic' => $topic->getId(),
         ];
 
-        $paging = \App::help()
+        $paging = \App::helpService()
             ->loadPostPaging($query, $page = 1, $limit = 10);
 
 
@@ -129,7 +129,7 @@ class HomeController extends DefaultController
     {
         $slug = $this->request->getParam('post');
 
-        $post = \App::help()->findPost($slug);
+        $post = \App::helpService()->findPost($slug);
 
         if (!$post) {
             $this->forward(null, 'index');
@@ -137,7 +137,7 @@ class HomeController extends DefaultController
             return;
         }
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $topic = $post->getTopic();
 
@@ -154,13 +154,13 @@ class HomeController extends DefaultController
     {
         $slug = $this->request->getParam('page');
 
-        $page = \App::help()
+        $page = \App::helpService()
             ->findPage($slug);
 
         if (!$page)
             return $this->forward(null, 'index');
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)

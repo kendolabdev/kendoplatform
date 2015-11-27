@@ -21,11 +21,11 @@ class ManageController extends AdminController
             'label' => 'help.create_new_post',
             'props' => [
                 'class' => 'btn btn-sm btn-primary',
-                'href'  => \App::routing()->getUrl('admin', ['stuff' => 'help/manage/create']),
+                'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'help/manage/create']),
             ],
         ];
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setPageTitle('help.manage_posts')
             ->setPageButtons([$createButton])
@@ -39,7 +39,7 @@ class ManageController extends AdminController
     {
         $filter = new FilterHelpPost();
 
-        \App::layout()
+        \App::layoutService()
             ->setPageTitle('help.manage_posts')
             ->setPageFilter($filter);
 
@@ -55,7 +55,7 @@ class ManageController extends AdminController
         $query = $filter->getData();
 
 
-        $paging = \App::help()
+        $paging = \App::helpService()
             ->loadAdminPostPaging($query, $page, $limit);
 
         $lp = new BlockParams([
@@ -80,10 +80,10 @@ class ManageController extends AdminController
         if ($this->request->isPost() && $form->isValid($_POST)) {
             $data = $form->getData();
 
-            \App::help()
+            \App::helpService()
                 ->addHelpPost($data);
 
-            \App::routing()->redirect('admin', [
+            \App::routingService()->redirect('admin', [
                 'stuff' => 'help/manage/browse',
                 'topic' => $data['topic_id'],
             ]);
@@ -104,7 +104,7 @@ class ManageController extends AdminController
 
         $id = $this->request->getParam('id');
 
-        $entry = \App::help()
+        $entry = \App::helpService()
             ->findPostById($id);
 
 
@@ -123,7 +123,7 @@ class ManageController extends AdminController
             $entry->setFromArray($data);
             $entry->save();
 
-            \App::routing()->redirect('admin', [
+            \App::routingService()->redirect('admin', [
                 'stuff' => 'help/manage/browse',
                 'topic' => $entry->getTopicId(),
             ]);
@@ -148,7 +148,7 @@ class ManageController extends AdminController
         $form = new DeleteHelpPost();
         $id = $this->request->getParam('id');
 
-        $entry = \App::help()
+        $entry = \App::helpService()
             ->findPostById($id);
 
 
@@ -164,9 +164,9 @@ class ManageController extends AdminController
 
             $entry->delete();
 
-            \App::cache()->flush();
+            \App::cacheService()->flush();
 
-            \App::routing()->redirect('admin', [
+            \App::routingService()->redirect('admin', [
                 'stuff'    => 'help/manage/browse',
                 'category' => $entry->getTopicId()
             ]);

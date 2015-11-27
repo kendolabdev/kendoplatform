@@ -115,7 +115,7 @@ class Manager
         if (file_exists($file = PICASO_CONFIG_DIR . '/module.conf.php'))
             return include $file;
 
-        return \App::cache()
+        return \App::cacheService()
             ->get(['picaso', 'application', 'loadEnableModules'], 0, function () {
                 return $this->_loadEnableModulesFromDatabase();
             });

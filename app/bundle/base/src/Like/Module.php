@@ -20,7 +20,7 @@ class Module extends \Picaso\Application\Module
                 'listLikeSample' => '\Like\ViewHelper\ListLikeSample',
             ]);
 
-        $routing = \App::routing();
+        $routing = \App::routingService();
 
         $routing->getRoute('profile')
             ->addFilter(new FilterStuff([

@@ -58,7 +58,7 @@ class EventHandlerService extends EventHandler
             $about->modify('share_count', 'share_count+1');
 
 
-        \App::notification()->notify('item_shared', $poster, $share);
+        \App::notificationService()->notify('item_shared', $poster, $share);
 
     }
 

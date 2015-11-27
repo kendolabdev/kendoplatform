@@ -22,11 +22,11 @@ class CategoryController extends AdminController
             'label' => 'core.create_new_category',
             'props' => [
                 'class' => 'btn btn-sm btn-danger',
-                'href'  => \App::routing()->getUrl('admin', ['stuff' => 'blog/category/create']),
+                'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'blog/category/create']),
             ]
         ];
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setPageTitle('blog.manage_categories')
             ->setPageButtons([$createButton])
@@ -43,7 +43,7 @@ class CategoryController extends AdminController
         $query = [];
         $page = 1;
 
-        $paging = \App::blog()->loadAdminCategoryPaging($query, $page);
+        $paging = \App::blogService()->loadAdminCategoryPaging($query, $page);
 
 
         $lp = new BlockParams([
@@ -72,12 +72,12 @@ class CategoryController extends AdminController
 
         if ($this->request->isPost() && $form->isValid($_POST)) {
             $data = $form->getData();
-            \App::blog()->addCategory($data);
+            \App::blogService()->addCategory($data);
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', ['stuff' => 'blog/category/browse']);
+            \App::routingService()->redirect('admin', ['stuff' => 'blog/category/browse']);
         }
 
         $this->view->setScript($lp)
@@ -91,7 +91,7 @@ class CategoryController extends AdminController
     {
         $id = $this->request->getParam('id');
 
-        $entry = \App::blog()->findCategoryById($id);
+        $entry = \App::blogService()->findCategoryById($id);
 
         if (!$entry)
             throw new \InvalidArgumentException("Category does not exists");
@@ -109,10 +109,10 @@ class CategoryController extends AdminController
 
             $entry->save();
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', ['stuff' => 'blog/category/browse']);
+            \App::routingService()->redirect('admin', ['stuff' => 'blog/category/browse']);
         }
 
         $lp = new BlockParams(['base_path' => 'layout/partial/form-edit']);
@@ -126,7 +126,7 @@ class CategoryController extends AdminController
     {
         $id = $this->request->getParam('id');
 
-        $entry = \App::blog()->findCategoryById($id);
+        $entry = \App::blogService()->findCategoryById($id);
 
         if (!$entry)
             throw new \InvalidArgumentException("Category does not exists");
@@ -140,10 +140,10 @@ class CategoryController extends AdminController
         if ($this->request->isPost() && $form->isValid($_POST)) {
             $entry->delete();
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', ['stuff' => 'blog/category/browse']);
+            \App::routingService()->redirect('admin', ['stuff' => 'blog/category/browse']);
         }
 
         $lp = new BlockParams(['base_path' => 'layout/partial/form-delete']);

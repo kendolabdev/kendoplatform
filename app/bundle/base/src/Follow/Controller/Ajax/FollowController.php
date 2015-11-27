@@ -24,11 +24,11 @@ class FollowController extends AjaxController
 
         $object = \App::find($type, $id);
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if (!$object instanceof Poster) ;
 
-        \App::follow()->toggle($poster, $object);
+        \App::followService()->toggle($poster, $object);
 
         $this->response['html'] = \App::viewHelper()->btnFollow($object, null, $ctx);
     }
@@ -42,9 +42,9 @@ class FollowController extends AjaxController
 
         $item = \App::find($type, $id);
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
-        $followService = \App::follow();
+        $followService = \App::followService();
 
         if ($item instanceof Poster) {
             $poster = $item;
@@ -86,9 +86,9 @@ class FollowController extends AjaxController
     {
         $object = \App::find($this->request->getString('type'), $this->request->getInt('id'));
 
-        $followService = \App::follow();
+        $followService = \App::followService();
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if (!$object instanceof Poster) ;
 
@@ -104,9 +104,9 @@ class FollowController extends AjaxController
     {
         $object = \App::find($this->request->getString('type'), $this->request->getInt('id'));
 
-        $followService = \App::follow();
+        $followService = \App::followService();
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if (!$object instanceof Poster) ;
 

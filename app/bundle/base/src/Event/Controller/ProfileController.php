@@ -26,10 +26,10 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseEvent()
     {
-        \App::layout()
+        \App::layoutService()
             ->setPageTitle('event.events');
 
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         $page = $this->request->getParam('page', 1);
 
@@ -38,10 +38,10 @@ class ProfileController extends ProfileBaseController
             'parentType' => $profile->getType(),
         ];
 
-        $paging = \App::event()
+        $paging = \App::eventService()
             ->loadEventPaging($query, $page);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
@@ -59,7 +59,7 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseMember()
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if (!$profile instanceof Poster)
             throw new \InvalidArgumentException();
@@ -71,9 +71,9 @@ class ProfileController extends ProfileBaseController
 
         $page = $this->request->getParam('page', 1);
 
-        $paging = \App::relation()->loadMemberPaging($query, $page);
+        $paging = \App::relationService()->loadMemberPaging($query, $page);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)

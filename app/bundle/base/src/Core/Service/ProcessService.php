@@ -349,7 +349,7 @@ class ProcessService
          * now create step from in this case
          */
         if ($step->isCustom() && $step->getCustomForm()) {
-            return \App::html()->factory($step->getCustomForm(), [
+            return \App::htmlService()->factory($step->getCustomForm(), [
                 'contentType' => $step->getProcessId(),
                 'actionType'  => $step->getStepNumber(),
                 'title'       => $step->getTitle(),

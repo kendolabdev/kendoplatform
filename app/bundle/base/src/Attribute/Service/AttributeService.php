@@ -50,7 +50,7 @@ class AttributeService
      */
     public function loadFieldIdConfig($contentId = 'user')
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['attribute', 'loadFieldIdConfig', $contentId], 0, function () use ($contentId) {
                 return $this->_loadFieldIdConfig($contentId);
             });
@@ -185,7 +185,7 @@ class AttributeService
      */
     public function loadInternalListFieldByCatalogId($catalogId)
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['attribute', 'loadInternalListFieldByCatalogId', $catalogId], 0, function () use ($catalogId) {
                 return $this->_loadInternalListFieldByCatalogId($catalogId);
             });
@@ -760,7 +760,7 @@ class AttributeService
      */
     public function loadContentTypeOptions()
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['attribute', 'loadContentTypeOptions'], 0, function () {
                 return $this->_loadContentTypeOptions();
             });
@@ -797,7 +797,7 @@ class AttributeService
      */
     public function loadAdminCatalogOptions()
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['attribute', '_loadAdminCatalogOptions'], 0, function () {
                 return $this->_loadAdminCatalogOptions();
             });
@@ -832,7 +832,7 @@ class AttributeService
      */
     public function loadAdminPluginOptions()
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['attribute', 'loadAdminPluginOptions'], 0, function () {
                 return $this->_loadAdminPluginOptions();
             });

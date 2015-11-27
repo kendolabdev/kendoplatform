@@ -2,7 +2,7 @@
 
 include '../init.php';
 
-\App::layout()
+\App::layoutService()
     ->theme()
     ->export('default');
 

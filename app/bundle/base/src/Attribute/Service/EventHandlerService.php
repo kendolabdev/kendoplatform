@@ -28,7 +28,7 @@ class EventHandlerService extends EventHandler
 
         if (!$item instanceof HasAttribute) return;
 
-        \App::attribute()
+        \App::catalogService()
             ->updateItemAttribute($item, $data);
     }
 }

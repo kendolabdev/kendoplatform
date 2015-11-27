@@ -20,7 +20,7 @@ class SectionController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_attribute', 'admin_attribute_section');
     }
@@ -32,14 +32,14 @@ class SectionController extends AdminController
     {
         $filter = new FilterAttributeSection();
 
-        \App::layout()
+        \App::layoutService()
             ->setPageTitle('attribute.manage_sections')
             ->setPageFilter($filter)
             ->setPageButtons([
                 [
                     'label' => 'attribute.add_new_section',
                     'props' => [
-                        'href'   => \App::routing()->getUrl('admin', ['stuff' => 'attribute/section/create']),
+                        'href'   => \App::routingService()->getUrl('admin', ['stuff' => 'attribute/section/create']),
                         'class' => 'btn btn-sm btn-danger'
                     ]]
             ]);
@@ -55,7 +55,7 @@ class SectionController extends AdminController
 
         $query = $filter->getData();
 
-        $paging = \App::attribute()
+        $paging = \App::catalogService()
             ->loadAdminSectionPaging($query, $page);
 
         $lp = new BlockParams([
@@ -80,7 +80,7 @@ class SectionController extends AdminController
     {
         $sectionId = $this->request->getParam('sectionId');
 
-        $section = \App::attribute()
+        $section = \App::catalogService()
             ->findSectionById($sectionId);
 
         $listField = $section->getListField();
@@ -104,7 +104,7 @@ class SectionController extends AdminController
     {
         $sectionId = $this->request->getParam('sectionId');
 
-        $section = \App::attribute()
+        $section = \App::catalogService()
             ->findSectionById($sectionId);
 
         $excludes = $section->getListFieldId();
@@ -114,7 +114,7 @@ class SectionController extends AdminController
             'content_id' => $section->getContentId(),
         ];
 
-        $paging = \App::attribute()
+        $paging = \App::catalogService()
             ->loadAdminFieldPaging($query, 1, 1000);
 
         $lp = new BlockParams([
@@ -138,12 +138,12 @@ class SectionController extends AdminController
     {
         $form = new CreateAttributeSection();
 
-        $attribute = \App::attribute();
+        $attribute = \App::catalogService();
         $catalog = null;
         $catalogId = $this->request->getParam('catalogId');
 
         if ($catalogId)
-            $catalog = \App::attribute()
+            $catalog = \App::catalogService()
                 ->findCatalogById($catalogId);
 
         if ($catalog)
@@ -160,7 +160,7 @@ class SectionController extends AdminController
             if ($catalog)
                 $attribute->addSectionMap($catalog->getId(), $section->getId());
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
             $params = [
@@ -171,7 +171,7 @@ class SectionController extends AdminController
             if ($catalog)
                 $params['catalogId'] = $catalog->getId();
 
-            \App::routing()->redirect('admin', $params);
+            \App::routingService()->redirect('admin', $params);
         }
 
         $lp = new BlockParams([
@@ -192,7 +192,7 @@ class SectionController extends AdminController
     {
         $id = $this->request->getParam('sectionId');
 
-        $entry = \App::attribute()
+        $entry = \App::catalogService()
             ->findSectionById($id);
 
 
@@ -212,10 +212,10 @@ class SectionController extends AdminController
 
             $entry->save();
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', [
+            \App::routingService()->redirect('admin', [
                 'stuff'   => 'attribute/section/browse',
                 'content' => $data['content_type']]);
         }
@@ -238,7 +238,7 @@ class SectionController extends AdminController
     {
         $id = $this->request->getParam('sectionId');
 
-        $entry = \App::attribute()
+        $entry = \App::catalogService()
             ->findSectionById($id);
 
 
@@ -255,10 +255,10 @@ class SectionController extends AdminController
 
             $entry->delete();
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', [
+            \App::routingService()->redirect('admin', [
                 'stuff' => 'attribute/section/browse']);
         }
 

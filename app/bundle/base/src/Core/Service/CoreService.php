@@ -12,7 +12,7 @@ class CoreService
      */
     public function loadTypeOptions()
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['core', 'loadTypeOptions'], 0, function () {
                 return $this->_loadTypeOptions();
             });

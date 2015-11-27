@@ -55,10 +55,10 @@ Trait ImpBaseContent
      */
     public function viewerIsPoster()
     {
-        if (!\App::auth()->logged())
+        if (!\App::authService()->logged())
             return false;
 
-        return (bool)array_intersect([\App::auth()->getId(), \App::auth()->getUserId()],
+        return (bool)array_intersect([\App::authService()->getId(), \App::authService()->getUserId()],
             [$this->getId(), $this->getPosterId(), $this->getUserId()]);
     }
 
@@ -67,10 +67,10 @@ Trait ImpBaseContent
      */
     public function viewerIsParent()
     {
-        if (!\App::auth()->logged())
+        if (!\App::authService()->logged())
             return false;
 
-        return (bool)array_intersect([\App::auth()->getId(), \App::auth()->getUserId()],
+        return (bool)array_intersect([\App::authService()->getId(), \App::authService()->getUserId()],
             [$this->getId(), $this->getParentId(), $this->getParentUserId()]);
     }
 
@@ -79,10 +79,10 @@ Trait ImpBaseContent
      */
     public function viewerIsPosterOrParent()
     {
-        if (!\App::auth()->logged())
+        if (!\App::authService()->logged())
             return false;
 
-        return (bool)array_intersect([\App::auth()->getId(), \App::auth()->getUserId()],
+        return (bool)array_intersect([\App::authService()->getId(), \App::authService()->getUserId()],
             [$this->getId(), $this->getparentId(), $this->getParentUserId(), $this->getUserId(), $this->getPosterId()]);
     }
 

@@ -74,7 +74,7 @@ class SelectField extends HtmlElement implements FormField
     {
         $this->beforeRender();
 
-        if (\App::registry()->get('prefer_dropdown_button')) {
+        if (\App::registryService()->get('prefer_dropdown_button')) {
             return $this->toButtonHtml();
         } else {
             return $this->toOptionsHtml();

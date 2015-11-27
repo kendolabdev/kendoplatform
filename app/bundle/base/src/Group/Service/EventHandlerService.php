@@ -52,7 +52,7 @@ class EventHandlerService extends EventHandler
 
         $parent = $invitation->getParent();
 
-        \App::relation()->acceptMembershipRequest($poster, $parent, false);
+        \App::relationService()->acceptMembershipRequest($poster, $parent, false);
     }
 
     /**
@@ -62,7 +62,7 @@ class EventHandlerService extends EventHandler
      */
     public function onProfileMenuItemGroups($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
 
         if (!$profile instanceof User)
@@ -71,7 +71,7 @@ class EventHandlerService extends EventHandler
         if (!$profile->authorize('group__group_tab_exists'))
             return false;
 
-        if (!\App::acl()->pass($profile, 'group__group_tab_view'))
+        if (!\App::aclService()->pass($profile, 'group__group_tab_view'))
             return false;
 
         $item['href'] = $profile->toHref(['stuff' => 'groups']);
@@ -93,7 +93,7 @@ class EventHandlerService extends EventHandler
 
         $stats['group'] = [
             'label' => \App::text('group.groups'),
-            'value' => \App::group()->getAdminStatisticCount(),
+            'value' => \App::groupService()->getAdminStatisticCount(),
         ];
 
         $payload->__set('stats', $stats);

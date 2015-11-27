@@ -23,10 +23,10 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseGroup()
     {
-        \App::layout()
+        \App::layoutService()
             ->setPageTitle('group.groups');
 
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         $page = $this->request->getParam('page', 1);
 
@@ -35,9 +35,9 @@ class ProfileController extends ProfileBaseController
             'parentType' => $profile->getType(),
         ];
 
-        $paging = \App::group()->loadGroupPaging($query, $page);
+        $paging = \App::groupService()->loadGroupPaging($query, $page);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
 
         $this->view->setScript($lp)
@@ -56,7 +56,7 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseMember()
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         $query = [
             'parentId'   => $profile->getId(),
@@ -65,9 +65,9 @@ class ProfileController extends ProfileBaseController
 
         $page = $this->request->getParam('page', 1);
 
-        $paging = \App::relation()->loadMemberPaging($query, $page);
+        $paging = \App::relationService()->loadMemberPaging($query, $page);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
@@ -78,7 +78,7 @@ class ProfileController extends ProfileBaseController
                 'query'     => $query,
                 'profile'   => $profile,
                 'isOwner'   => $profile->viewerIsParent(),
-                'lp'        => \App::layout()->getContentLayoutParams(),
+                'lp'        => \App::layoutService()->getContentLayoutParams(),
             ]);
     }
 }

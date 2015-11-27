@@ -280,7 +280,7 @@ class HttpRequest implements Request
     {
 
         if (!$this->getControllerName()) {
-            \App::routing()->match($this);
+            \App::routingService()->match($this);
         }
 
         $step = 0;

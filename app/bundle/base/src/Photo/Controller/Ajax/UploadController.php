@@ -16,9 +16,9 @@ class UploadController extends AjaxController
     public function actionTemp()
     {
 
-        $inputFile = \App::storage()->getUploadFile('fileUpload', ['accepts' => 'photo']);
+        $inputFile = \App::storageService()->getUploadFile('fileUpload', ['accepts' => 'photo']);
 
-        $temp = \App::storage()->saveToTemporary($inputFile);
+        $temp = \App::storageService()->saveToTemporary($inputFile);
 
         $this->response = [
             'id'         => $temp->getId(),

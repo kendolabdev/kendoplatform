@@ -54,7 +54,7 @@ class InstallationService
      */
     public function createSuperAdminAccount($data)
     {
-        $user = \App::user()
+        $user = \App::userService()
             ->addUser($data);
 
         $user->setRoleId(1);

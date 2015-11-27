@@ -20,7 +20,7 @@ class EventController extends AjaxController
 
         $page = $this->request->getParam('page', 1);
 
-        $paging = \App::event()->loadEventPaging($query, $page);
+        $paging = \App::eventService()->loadEventPaging($query, $page);
 
         $this->response = [
             'hasNext' => $paging->hasNext(),

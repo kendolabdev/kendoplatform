@@ -20,7 +20,7 @@ class SmallLoginFormBlock extends Block
      */
     public function execute()
     {
-        if (\App::auth()->logged()) {
+        if (\App::authService()->logged()) {
 
             $this->setNoRender(true);
 
@@ -33,7 +33,7 @@ class SmallLoginFormBlock extends Block
             ->order('sort_order', 1)
             ->all();
 
-        $form = \App::html()->factory('\User\Form\AuthLoginSmall');
+        $form = \App::htmlService()->factory('\User\Form\AuthLoginSmall');
 
         $this->view->assign([
             'form'        => $form,

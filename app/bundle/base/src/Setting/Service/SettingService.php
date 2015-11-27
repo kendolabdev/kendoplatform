@@ -105,7 +105,7 @@ class SettingService implements Manager
     {
         if ($this->loaded) return;
 
-        $this->data = \App::cache()
+        $this->data = \App::cacheService()
             ->get(['setting', 'load'], 0, function () {
                 return $this->_load();
             });
@@ -207,7 +207,7 @@ class SettingService implements Manager
             }
         }
 
-        \App::cache()
+        \App::cacheService()
             ->flush();
     }
 

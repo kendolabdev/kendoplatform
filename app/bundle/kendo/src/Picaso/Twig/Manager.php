@@ -34,10 +34,10 @@ class Manager
             }));
 
             $this->env->addFunction(new \Twig_SimpleFunction('feed_context', function (Feed $item) {
-                $profile = \App::registry()->get('profile');
+                $profile = \App::registryService()->get('profile');
 
                 if ($profile && $profile instanceof Poster) {
-                    $isMainFeed = \App::registry()->get('isMainFeed');
+                    $isMainFeed = \App::registryService()->get('isMainFeed');
 
                     if ($isMainFeed && $item->getParentId() == $item->getPosterId()) return '';
 

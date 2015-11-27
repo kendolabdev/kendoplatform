@@ -43,7 +43,7 @@ class EventHandlerService extends EventHandler
 
         $parent = $invitation->getParent();
 
-        \App::relation()->acceptMembershipRequest($poster, $parent, false);
+        \App::relationService()->acceptMembershipRequest($poster, $parent, false);
     }
 
     /**
@@ -54,7 +54,7 @@ class EventHandlerService extends EventHandler
 
         $payload = $event->getPayload();
 
-        if (false == \App::auth()->logged()) return;
+        if (false == \App::authService()->logged()) return;
 
         if (!$payload instanceof Poster) return;
 
@@ -70,7 +70,7 @@ class EventHandlerService extends EventHandler
      */
     public function onProfileMenuItemMembers($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if ($profile instanceof User)
             return false;
@@ -100,7 +100,7 @@ class EventHandlerService extends EventHandler
 
         $stats['user'] = [
             'label' => \App::text('user.members'),
-            'value' => \App::user()->getActiveUserCount(),
+            'value' => \App::userService()->getActiveUserCount(),
         ];
 
         $payload->__set('stats', $stats);
@@ -114,7 +114,7 @@ class EventHandlerService extends EventHandler
      */
     public function onProfileMenuItemAbout($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         $item['href'] = $profile->toHref(['stuff' => 'about']);
 
@@ -128,7 +128,7 @@ class EventHandlerService extends EventHandler
      */
     public function onProfileMenuItemFriends($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if (!$profile instanceof User)
             return false;
@@ -136,7 +136,7 @@ class EventHandlerService extends EventHandler
         if (!$profile->authorize('user__friend_tab_exists'))
             return false;
 
-        if (!\App::acl()->pass($profile, 'user__friend_tab_view'))
+        if (!\App::aclService()->pass($profile, 'user__friend_tab_view'))
             return false;
 
         $item['href'] = $profile->toHref(['stuff' => 'friends']);

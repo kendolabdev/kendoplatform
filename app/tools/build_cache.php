@@ -2,5 +2,5 @@
 
 include '../init.php';
 
-\App::cache()
+\App::cacheService()
     ->flush();

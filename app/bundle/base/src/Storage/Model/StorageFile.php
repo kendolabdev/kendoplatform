@@ -22,7 +22,7 @@ class StorageFile extends Model
      */
     public function getUrl()
     {
-        return \App::storage()
+        return \App::storageService()
             ->getStorage($this->getStorageId())
             ->getUrl($this->getPath());
     }

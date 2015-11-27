@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="header-navbar">
-        <nav class="navbar navbar-default">
+        <nav class="navbar">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -32,7 +32,7 @@
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <?php echo \App::nav()->render('dropdown', 'main', null, [], 2, ['level0'=>'nav navbar-nav navbar-right','depth' => 1,'max' => 6]); ?>
+                    <?php echo \App::navigationService()->render('dropdown', 'main', null, [], 2, ['level0'=>'nav navbar-nav navbar-right','depth' => 1,'max' => 6]); ?>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>

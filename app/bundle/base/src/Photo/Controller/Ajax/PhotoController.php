@@ -26,7 +26,7 @@ class PhotoController extends AjaxController
         if (!$photo instanceof Photo)
             throw new \InvalidArgumentException(\App::text('photo.invalid_photo'));
 
-        \App::photo()->makeAlbumCover($photo);
+        \App::photoService()->makeAlbumCover($photo);
 
         $this->response = [
             'html'    => '',
@@ -46,7 +46,7 @@ class PhotoController extends AjaxController
         $data = [
             'eid'    => $eid,
             'item'   => $item,
-            'viewer' => \App::auth()->getViewer()
+            'viewer' => \App::authService()->getViewer()
         ];
 
         $this->response = [
@@ -62,22 +62,22 @@ class PhotoController extends AjaxController
         list($albumId, $photoTemp) = $this->request->get('album_id', 'photoTemp');
         list($albumName, $albumDesc, $newAlbum, $context) = $this->request->get('name', 'description', 'new_album', 'context');
 
-        $photoService = \App::photo();
+        $photoService = \App::photoService();
 
         $album = null;
         $parent = null;
         $poster = null;
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if (null == $parent) {
             $parent = $poster;
         }
 
-        $privacy = \App::relation()->getRelationFromDataForSave($_POST, ['view', 'comment']);
+        $privacy = \App::relationService()->getRelationFromDataForSave($_POST, ['view', 'comment']);
 
         if ($newAlbum) {
-            $album = \App::photo()->addAlbum($poster, $parent, array_merge([
+            $album = \App::photoService()->addAlbum($poster, $parent, array_merge([
                 'name'        => $albumName,
                 'description' => $albumDesc,
             ], $privacy));
@@ -130,7 +130,7 @@ class PhotoController extends AjaxController
      */
     private function createAlbumSelectField()
     {
-        $posterId = \App::auth()->getId();
+        $posterId = \App::authService()->getId();
 
         $albums = \App::table('photo.photo_album')
             ->select()
@@ -145,11 +145,11 @@ class PhotoController extends AjaxController
         }
 
         if (empty($options)) {
-            $album = \App::photo()->getSingletonAlbum(\App::auth()->getViewer());
+            $album = \App::photoService()->getSingletonAlbum(\App::authService()->getViewer());
             $options[] = ['value' => $album->getId(), 'label' => $album->getTitle()];
         }
 
-        $albumSelect = \App::html()->create([
+        $albumSelect = \App::htmlService()->create([
             'plugin'   => 'select',
             'name'     => 'album_id',
             'required' => true,
@@ -182,14 +182,14 @@ class PhotoController extends AjaxController
         }
 
         if ($albumId) {
-            $album = \App::photo()->findAlbumById($albumId);
+            $album = \App::photoService()->findAlbumById($albumId);
 
             if ($album instanceof PhotoAlbum) {
 //                $modalTitle = $album->getTitle();
             }
         }
 
-        $formAlbum = \App::html()->factory('\Photo\Form\CreateAlbum', []);
+        $formAlbum = \App::htmlService()->factory('\Photo\Form\CreateAlbum', []);
 
         if ($formAlbum->hasElement('photos')) {
             $formAlbum->removeElement('photos');
@@ -245,7 +245,7 @@ class PhotoController extends AjaxController
         $page = $this->request->getParam('page', 1);
         $query = $this->request->getArray('query');
 
-        $paging = \App::photo()->loadPhotoPaging($query, $page);
+        $paging = \App::photoService()->loadPhotoPaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 
@@ -282,7 +282,7 @@ class PhotoController extends AjaxController
         if (!$photo->viewerIsPosterOrParent())
             throw new AuthorizationRestrictException("You don't have permission to delete this photo");
 
-        if (!\App::acl()->authorize('photo__delete'))
+        if (!\App::aclService()->authorize('photo__delete'))
             throw new AuthorizationRestrictException("You don't have permission to delete this photo");
 
 

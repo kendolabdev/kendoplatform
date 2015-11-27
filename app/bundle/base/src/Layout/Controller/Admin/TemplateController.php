@@ -17,9 +17,9 @@ class TemplateController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layout()->setPageName('admin_simple');
+        \App::layoutService()->setPageName('admin_simple');
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_appearance', 'templates');
     }
@@ -33,10 +33,10 @@ class TemplateController extends AdminController
         $limit = 100;
         $page = 1;
 
-        \App::assets()
+        \App::assetService()
             ->setTitle(\App::text('core_layout.manage_templates'));
 
-        $paging = \App::layout()
+        $paging = \App::layoutService()
             ->loadAdminTemplatePaging($query, $page, $limit);
 
         $lp = new BlockParams([

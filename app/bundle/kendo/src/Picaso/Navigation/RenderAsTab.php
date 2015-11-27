@@ -60,7 +60,7 @@ class RenderAsTab extends RenderPlugin
     {
 
         if ($item['acl']) {
-            if (false == \App::acl()->authorize($item['acl'])) {
+            if (false == \App::aclService()->authorize($item['acl'])) {
                 return '';
             }
         }
@@ -70,9 +70,9 @@ class RenderAsTab extends RenderPlugin
         if ($item['type'] == 'separator') {
             return '<li class="divider"></li>';
         } else if ($item['type'] == 'route') {
-            $href = \App::routing()->getUrl($item['route'], $item['params']);
+            $href = \App::routingService()->getUrl($item['route'], $item['params']);
         } else if ($item['type'] == 'plugin') {
-            $item = \App::nav()->signal($item['event'], $item);
+            $item = \App::navigationService()->signal($item['event'], $item);
         }
 
         $label = \App::i18n()->getTranslator()->text($item['label']);

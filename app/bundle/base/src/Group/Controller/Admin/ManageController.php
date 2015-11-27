@@ -21,7 +21,7 @@ class ManageController extends AdminController
     {
         $filter = new FilterGroup();
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setPageTitle('group.manage_groups')
             ->setPageFilter($filter)
@@ -33,7 +33,7 @@ class ManageController extends AdminController
         $limit = 24;
         $query = $filter->getData();
 
-        $paging = \App::group()
+        $paging = \App::groupService()
             ->loadGroupPaging($query, $page, $limit);
 
         $lp = new BlockParams([

@@ -32,7 +32,7 @@ class FilterEvent extends Form
             'name'    => 'category',
             'label'   => 'Category',
             'class'   => 'form-control',
-            'options' => \App::blog()->getCategoryOptions(),
+            'options' => \App::blogService()->getCategoryOptions(),
         ]);
 
         $this->addElement([

@@ -19,7 +19,7 @@ class VideoController extends AjaxController
 
         $query = $this->request->getArray('query');
 
-        $paging = \App::video()->loadVideoPaging($query, $page);
+        $paging = \App::videoService()->loadVideoPaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 

@@ -8,7 +8,7 @@ class IndevController extends DefaultController
 
     public function actionIndex()
     {
-        \App::assets()
+        \App::assetService()
             ->requirejs()
             ->addDependency('primary/jquery.cropit')
             ->addScript('cropit', 'new CropIt(".cropit-container")');

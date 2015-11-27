@@ -20,7 +20,7 @@ class SearchFormBlock extends Block
      */
     public function execute()
     {
-        $form = \App::html()->factory('\Blog\Form\SearchBlog', []);
+        $form = \App::htmlService()->factory('\Blog\Form\SearchBlog', []);
 
         $this->view->assign([
             'form' => $form,

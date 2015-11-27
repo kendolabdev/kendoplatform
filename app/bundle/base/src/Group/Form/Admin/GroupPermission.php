@@ -29,7 +29,7 @@ class GroupPermission extends BasePermission
          * Add privacy options
          */
         if (!$role->isGuest() && $role->getModuleName() == 'group') {
-            $relationTypes = \App::relation()->getAllSystemRelationType('group');
+            $relationTypes = \App::relationService()->getAllSystemRelationType('group');
 
             $privacyOptions = [
                 ['value' => RELATION_TYPE_ANYONE, 'label' => \App::text('core.public'),],

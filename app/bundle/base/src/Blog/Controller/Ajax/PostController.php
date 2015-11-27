@@ -21,7 +21,7 @@ class PostController extends AjaxController
 
         $query = $this->request->getArray('query');
 
-        $paging = \App::blog()->loadPostPaging($query, $page);
+        $paging = \App::blogService()->loadPostPaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 

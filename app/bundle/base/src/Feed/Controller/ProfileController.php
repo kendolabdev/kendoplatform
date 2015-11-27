@@ -16,14 +16,14 @@ class ProfileController extends ProfileBaseController
      */
     public function actionTimeline()
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
-        if (!\App::acl()
+        if (!\App::aclService()
             ->pass($profile, 'profile__view_timeline', true)) ;
 
         $title = \App::text('core.$profile_profile_page', ['$profile' => $profile->getTitle()]);
 
-        \App::assets()->title()
+        \App::assetService()->title()
             ->set($title);
     }
 }

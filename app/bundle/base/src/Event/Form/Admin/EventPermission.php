@@ -29,7 +29,7 @@ class EventPermission extends BasePermission
          * Add privacy options fields
          */
         if (!$role->isGuest() && $role->getModuleName() == 'event') {
-            $relationTypes = \App::relation()->getAllSystemRelationType('event');
+            $relationTypes = \App::relationService()->getAllSystemRelationType('event');
 
             $privacyOptions = [
                 ['value' => RELATION_TYPE_ANYONE, 'label' => \App::text('core.public'),],

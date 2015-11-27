@@ -92,7 +92,7 @@ class FilterProfileSlug implements FilterInterface
         if (!$profile instanceof Poster)
             return false;
 
-        \App::registry()->set('profile', $profile);
+        \App::registryService()->set('profile', $profile);
 
         return array_merge($this->extra, [
             'profileId'   => $profile->getId(),

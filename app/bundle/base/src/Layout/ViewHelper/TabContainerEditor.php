@@ -24,7 +24,7 @@ class TabContainerEditor
 
         if (!empty($data['locations']) && !empty($data['locations']['pos0'])) {
             foreach ($data['locations']['pos0'] as $blockData) {
-                $content .= \App::layout()->renderBlockForEdit($blockData);
+                $content .= \App::layoutService()->renderBlockForEdit($blockData);
             }
         }
 

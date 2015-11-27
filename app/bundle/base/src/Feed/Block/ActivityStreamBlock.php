@@ -22,16 +22,16 @@ class ActivityStreamBlock extends Block
 
         $profileId = null;
         $profileType = null;
-        $hashtag = \App::registry()->get('activity_hashtag');
+        $hashtag = \App::registryService()->get('activity_hashtag');
         $posterId = null;
         $posterType = null;
         $sharedId = null;
         $sharedType = null;
 
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if ($profile instanceof Poster) {
             $profileId = $profile->getId();
@@ -43,7 +43,7 @@ class ActivityStreamBlock extends Block
             $posterId = $poster->getId();
         }
 
-        $shared = \App::registry()
+        $shared = \App::registryService()
             ->get('activity_shared');
 
         if ($shared instanceof Content) {
@@ -52,7 +52,7 @@ class ActivityStreamBlock extends Block
         }
 
         $query = [
-            'isMainFeed'  => \App::registry()->get('isMainFeed') ? 1 : 0,
+            'isMainFeed'  => \App::registryService()->get('isMainFeed') ? 1 : 0,
             'profileId'   => $profileId,
             'profileType' => $profileType,
             'posterId'    => $posterId,
@@ -62,9 +62,9 @@ class ActivityStreamBlock extends Block
             'sharedType'  => $sharedType,
         ];
 
-        $paging = \App::feed()->loadFeedPaging($query);
+        $paging = \App::feedService()->loadFeedPaging($query);
 
-        $containerId = \App::registry()->get('composerTargetId');
+        $containerId = \App::registryService()->get('composerTargetId');
 
         $this->view->assign([
             'query'       => $query,

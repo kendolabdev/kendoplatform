@@ -246,7 +246,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
      */
     public function getThemeData($themeId)
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['layout', 'getThemeData', $themeId], 0, function () use ($themeId) {
                 return $this->_getThemeData($themeId);
             });
@@ -490,7 +490,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
      */
     public function getEditingThemeId()
     {
-        return \App::layout()
+        return \App::layoutService()
             ->getEditingTheme()
             ->getId();
     }
@@ -879,7 +879,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
      */
     public function getTemplateSupportBlockSettings($path, $themeId)
     {
-        $theme = \App::layout()
+        $theme = \App::layoutService()
             ->findThemeById($themeId);
 
         $paths = $theme->getViewFinderPaths();
@@ -960,7 +960,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
     public function _getTemplateBlockRenderSettings($path, $themeId = 'default')
     {
 
-        $theme = \App::layout()
+        $theme = \App::layoutService()
             ->findThemeById($themeId);
 
         $paths = $theme->getViewFinderPaths();
@@ -1105,7 +1105,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
     public function getListAncestorsThemeId($themeId)
     {
 
-        return \App::cache()
+        return \App::cacheService()
             ->get(['layout', 'getListAncestorsThemeId', $themeId], 0, function () use ($themeId) {
                 return $this->_getListAncestorsThemeId($themeId);
             });
@@ -1146,7 +1146,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
     public function getListAncestorsTemplateId($templateId)
     {
 
-        return \App::cache()
+        return \App::cacheService()
             ->get(['layout', 'getListAncestorsTemplateId', $templateId], 0, function () use ($templateId) {
                 return $this->_getListAncestorsTemplateId($templateId);
             });
@@ -1713,7 +1713,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
             $masterScript = $this->getMasterScript();
         }
 
-        $request = \App::request()->getInitiator();
+        $request = \App::requestService()->getInitiator();
 
         return \App::viewHelper()->partial($masterScript,
             [
@@ -1822,7 +1822,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
         $pageName = $this->getPageName();
         $screenSize = $this->getScreenSize();
 
-        $layoutData = \App::cache()
+        $layoutData = \App::cacheService()
             ->get(['loadDataForRender', $pageName, $themeId, $screenSize], 0, function () use ($themeId, $pageName, $screenSize) {
                 return $this->getLoader()->loadDataForRender($pageName, $themeId, $screenSize);
             });
@@ -1927,7 +1927,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
         if (!$templateId)
             $templateId = $this->getTemplateId();
 
-        return \App::cache()->get(['layoutParams', $templateId, $pageName, $screenSize, $layoutType],
+        return \App::cacheService()->get(['layoutParams', $templateId, $pageName, $screenSize, $layoutType],
             0, function () use ($templateId, $pageName, $screenSize, $layoutType) {
                 return $this->_getLayoutParams($templateId, $pageName, $screenSize, $layoutType);
             });
@@ -2081,9 +2081,9 @@ class LayoutService implements LayoutLoaderInterface, Manager
     {
         if (!$this->screenSize) {
 
-            if (\App::request()->isTablet()) {
+            if (\App::requestService()->isTablet()) {
                 $this->screenSize = self::SCREEN_DESKTOP;
-            } else if (\App::request()->isMobile()) {
+            } else if (\App::requestService()->isMobile()) {
                 $this->screenSize = self::SCREEN_MOBILE;
             } else {
                 $this->screenSize = self::SCREEN_DESKTOP;

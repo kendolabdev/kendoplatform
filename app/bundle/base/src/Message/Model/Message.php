@@ -22,7 +22,7 @@ class Message extends Model
      */
     public function getOtherRecipients()
     {
-        return \App::message()->getOtherRecipients($this->getConversationId());
+        return \App::messageService()->getOtherRecipients($this->getConversationId());
     }
 
     //START_TABLE_GENERATOR

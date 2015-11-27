@@ -23,11 +23,11 @@ class CategoryController extends AdminController
             'label' => 'core.create_new_category',
             'props' => [
                 'class' => 'btn btn-sm btn-primary',
-                'href'  => \App::routing()->getUrl('admin', ['stuff' => 'report/category/create']),
+                'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'report/category/create']),
             ]
         ];
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setPageButtons([$createButton])
             ->setPageTitle('core.manage_categories')
@@ -43,7 +43,7 @@ class CategoryController extends AdminController
         $limit = 100;
         $page = 1;
 
-        $paging = \App::report()
+        $paging = \App::reportService()
             ->loadAdminCategoryPaging($query, $page, $limit);
 
         $lp = new BlockParams([
@@ -68,7 +68,7 @@ class CategoryController extends AdminController
     public function actionEdit()
     {
         $id = $this->request->getParam('id');
-        $cat = \App::report()
+        $cat = \App::reportService()
             ->findCategoryById($id);
 
         if (!$cat)
@@ -85,10 +85,10 @@ class CategoryController extends AdminController
             $cat->setFromArray($data);
             $cat->save();
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()
+            \App::routingService()
                 ->redirect('admin', ['stuff' => 'report/category/browse']);
         }
 
@@ -116,12 +116,12 @@ class CategoryController extends AdminController
 
             $data = $form->getData();
 
-            \App::report()->addCategory($data);
+            \App::reportService()->addCategory($data);
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()
+            \App::routingService()
                 ->redirect('admin', ['stuff' => 'report/category/browse']);
 
         }

@@ -39,14 +39,14 @@ class GeneralReportController extends AjaxController
     {
         list($message) = $this->request->get('message');
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if (!$poster instanceof Poster) ;
 
         $params = [
         ];
 
-        \App::report()->addGeneralReport($poster, $message, $params);
+        \App::reportService()->addGeneralReport($poster, $message, $params);
 
         $this->response = [
             'directive' => 'close',

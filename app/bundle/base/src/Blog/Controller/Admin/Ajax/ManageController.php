@@ -23,7 +23,7 @@ class ManageController extends AjaxController
 
         $query = $this->request->getArray('query');
 
-        $paging = \App::blog()->loadAdminPostPaging($query, $page);
+        $paging = \App::blogService()->loadAdminPostPaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 
@@ -38,7 +38,7 @@ class ManageController extends AjaxController
     {
         $id = $this->request->getParam('id');
         $eid = $this->request->getParam('eid');
-        $entry = \App::blog()->findPostById($id);
+        $entry = \App::blogService()->findPostById($id);
 
         if (!$entry)
             throw new \InvalidArgumentException("Entry not found");
@@ -61,7 +61,7 @@ class ManageController extends AjaxController
     {
         $id = $this->request->getParam('id');
 
-        $entry = \App::blog()->findPostById($id);
+        $entry = \App::blogService()->findPostById($id);
 
         if (!$entry)
             throw new \InvalidArgumentException("Entry not found");
@@ -78,7 +78,7 @@ class ManageController extends AjaxController
     {
         $id = $this->request->getParam('id');
 
-        $entry = \App::blog()->findPostById($id);
+        $entry = \App::blogService()->findPostById($id);
 
         if (!$entry)
             throw new \InvalidArgumentException("Entry not found");

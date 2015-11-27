@@ -16,7 +16,7 @@ class PhraseController extends AjaxController
         $page = $this->request->getParam('page', 1);
         $query = $this->request->getArray('query');
 
-        $paging = \App::phrase()->loadAdminPhrasePaging($query, $page);
+        $paging = \App::phraseService()->loadAdminPhrasePaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 

@@ -23,7 +23,7 @@ class CardhoverController extends AjaxController
 
         $subject = \App::find('user', $id);
 
-        $followService = \App::follow();
+        $followService = \App::followService();
 
         if (!$subject instanceof User) {
             throw new \InvalidArgumentException();
@@ -31,7 +31,7 @@ class CardhoverController extends AjaxController
 
         $cover = $subject->getCover();
 
-        $canFriend = \App::auth()->getType() == 'user';
+        $canFriend = \App::authService()->getType() == 'user';
         $canMessage = true;
         $canChat = false;
         $canFollow = false;
@@ -40,7 +40,7 @@ class CardhoverController extends AjaxController
         $coverPhotoUrl = null;
         $coverPositionTop = null;
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
 
         if ($viewer && $subject) {
@@ -48,7 +48,7 @@ class CardhoverController extends AjaxController
 
         }
 
-        if (\App::auth()->logged() && \App::auth()->getId() != $subject->getId()) {
+        if (\App::authService()->logged() && \App::authService()->getId() != $subject->getId()) {
             $isFollowing = $followService->isFollowed($viewer, $subject);
 
 
@@ -61,8 +61,8 @@ class CardhoverController extends AjaxController
             $canMessage = true;
             $canChat = true;
 
-            $friendStatus = \App::relation()
-                ->getMembershipStatus(\App::auth()->getViewer(), $subject);
+            $friendStatus = \App::relationService()
+                ->getMembershipStatus(\App::authService()->getViewer(), $subject);
         }
 
 

@@ -15,11 +15,11 @@ class ManageController extends AdminController
 {
     protected function onBeforeRender()
     {
-        \App::layout()->setPageName('admin_simple')
+        \App::layoutService()->setPageName('admin_simple')
             ->setPageTitle('core.manage_roles')
             ->setupSecondaryNavigation('admin', 'admin_permission', 'roles');
 
-        \App::assets()
+        \App::assetService()
             ->title()->set(\App::text('core.manage_permissions'));
     }
 
@@ -31,7 +31,7 @@ class ManageController extends AdminController
 
         $filter = new FilterPermission([]);
 
-        \App::layout()
+        \App::layoutService()
             ->setPageTitle('core.manage_roles')
             ->setPageFilter($filter);
 
@@ -69,7 +69,7 @@ class ManageController extends AdminController
         $roleId = 4;
         $groupName = 'core';
 
-        $form = \App::html()->factory('\Core\Form\Admin\Permission', []);
+        $form = \App::htmlService()->factory('\Core\Form\Admin\Permission', []);
 
         $this->view->assign([
             'form'      => $form,

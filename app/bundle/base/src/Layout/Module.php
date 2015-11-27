@@ -13,7 +13,7 @@ class Module extends \Picaso\Application\Module
      */
     public function start()
     {
-        \App::routing()
+        \App::routingService()
             ->addRoute('layout_theme', [
                 'uri'      => 'layout/select-theme',
                 'defaults' => [

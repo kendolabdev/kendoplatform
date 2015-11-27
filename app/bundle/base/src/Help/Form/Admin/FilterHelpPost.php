@@ -28,7 +28,7 @@ class FilterHelpPost extends Form
             'name'    => 'topic',
             'label'   => 'Topic',
             'class'   => 'form-control',
-            'options' => \App::help()->loadAdminTopicOptions(),
+            'options' => \App::helpService()->loadAdminTopicOptions(),
         ]);
     }
 }

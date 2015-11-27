@@ -33,7 +33,7 @@ class SocialService extends Model
     {
         $params['service'] = $this->getId();
 
-        return \App::routing()->getUrl('connect', $params);
+        return \App::routingService()->getUrl('connect', $params);
     }
 
     /**

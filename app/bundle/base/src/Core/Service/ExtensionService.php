@@ -170,7 +170,7 @@ class ExtensionService
             if (!$service instanceof ModuleInstallHandler) continue;
             $service->install();
         }
-        \App::cache()
+        \App::cacheService()
             ->flush();
     }
 

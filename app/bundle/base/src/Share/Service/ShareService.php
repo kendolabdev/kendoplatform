@@ -82,7 +82,7 @@ class ShareService
 
         $share->save();
 
-        $feed = \App::feed()->addItemFeed('share', $share);
+        $feed = \App::feedService()->addItemFeed('share', $share);
 
         $share->setFeedId($feed->getId());
         $share->save();

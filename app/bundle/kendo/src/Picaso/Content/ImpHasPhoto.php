@@ -18,13 +18,13 @@ Trait ImpHasPhoto
         if (!$this instanceof HasPhoto) return '';
 
         if ($this->getPhotoFileId() > 0) {
-            if (null != ($src = \App::storage()
+            if (null != ($src = \App::storageService()
                     ->getUrlByOriginAndMaker($this->getPhotoFileId(), $maker))
             ) {
                 return $src;
             }
         }
 
-        return \App::assets()->getUrl('/static/nophoto/' . $this->getType() . '_' . $maker . '.jpg');
+        return \App::assetService()->getUrl('/static/nophoto/' . $this->getType() . '_' . $maker . '.jpg');
     }
 }

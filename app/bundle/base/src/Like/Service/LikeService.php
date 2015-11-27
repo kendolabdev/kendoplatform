@@ -157,7 +157,7 @@ class LikeService
     {
 
         if (null == $poster)
-            $poster = \App::auth()->getViewer();
+            $poster = \App::authService()->getViewer();
 
         $isLiked = false;
 

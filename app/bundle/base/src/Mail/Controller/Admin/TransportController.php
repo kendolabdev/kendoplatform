@@ -17,8 +17,8 @@ class TransportController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layout()->setPageName('admin_simple');
-        \App::layout()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_manage_mail');
+        \App::layoutService()->setPageName('admin_simple');
+        \App::layoutService()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_manage_mail');
     }
 
     /**
@@ -32,7 +32,7 @@ class TransportController extends AdminController
 
         $query = [];
 
-        $paging = \App::mail()
+        $paging = \App::mailService()
             ->loadAdminTransportPaging($query, 1, 100);
 
         $this->view->setScript($lp)
@@ -63,7 +63,7 @@ class TransportController extends AdminController
         if (!class_exists($class))
             throw new \InvalidArgumentException();
 
-        $form = \App::html()->factory($class);
+        $form = \App::htmlService()->factory($class);
 
 
         if (!$form instanceof BaseSettingForm)
@@ -71,7 +71,7 @@ class TransportController extends AdminController
 
         if ($this->request->isPost() && $form->isValid($_POST)) {
             $form->save();
-            \App::routing()->redirect('admin', ['stuff' => 'mail/transport/browse']);
+            \App::routingService()->redirect('admin', ['stuff' => 'mail/transport/browse']);
 
         }
 

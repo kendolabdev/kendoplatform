@@ -43,7 +43,7 @@ class ViewFinder
             'default' => PICASO_TEMPLATE_DIR . '/default',
         ];
 
-        if (\App::request()->isMobile() && !\App::request()->isTablet()) {
+        if (\App::requestService()->isMobile() && !\App::requestService()->isTablet()) {
             $this->checkMobile = true;
         }
     }
@@ -130,7 +130,7 @@ class ViewFinder
 
         $this->paths = $paths;
 
-        $this->scripts = \App::cache()
+        $this->scripts = \App::cacheService()
             ->get($paths, 0, function () use ($paths) {
                 return $this->_buildScriptPaths($paths);
             });

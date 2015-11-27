@@ -17,7 +17,7 @@ class HomeController extends DefaultController
     {
         if ($this->request->isPost() && !empty($_POST['theme_id'])) {
             @setcookie('themeId', $_POST['theme_id'], time() + 365 * 86400, '/');
-            \App::routing()->redirect('home');
+            \App::routingService()->redirect('home');
         }
 
         $paging = \App::table('layout.layout_theme')

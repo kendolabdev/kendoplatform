@@ -62,7 +62,7 @@ class BlogPost extends Model implements UniqueId,
     {
         $params['id'] = $this->getId();
 
-        return \App::routing()->getUrl('blog_view', $params);
+        return \App::routingService()->getUrl('blog_view', $params);
     }
 
     /**

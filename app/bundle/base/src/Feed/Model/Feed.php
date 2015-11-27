@@ -93,7 +93,7 @@ class Feed extends Model implements Content\UniqueId
     {
         $params['id'] = $this->getId();
 
-        return \App::routing()->getUrl('feed_view', $params);
+        return \App::routingService()->getUrl('feed_view', $params);
     }
 
     /**

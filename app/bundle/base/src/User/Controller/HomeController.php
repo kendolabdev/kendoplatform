@@ -21,7 +21,7 @@ class HomeController extends DefaultController
 
         $filter = new FilterUser();
 
-        \App::layout()
+        \App::layoutService()
             ->setPageFilter($filter)
             ->setPageTitle('user.browse_members');
 
@@ -29,9 +29,9 @@ class HomeController extends DefaultController
 
         $query = [];
 
-        $paging = \App::user()->loadUserPaging($query, $page);
+        $paging = \App::userService()->loadUserPaging($query, $page);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
@@ -53,9 +53,9 @@ class HomeController extends DefaultController
 
         $query = [];
 
-        $paging = \App::user()->loadUserPaging($query, $page);
+        $paging = \App::userService()->loadUserPaging($query, $page);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)

@@ -15,9 +15,9 @@ class ButtonBearMessage
      */
     function __invoke()
     {
-        if (!\App::auth()->logged()) return '';
+        if (!\App::authService()->logged()) return '';
 
-        $number = \App::message()->getUnreadConversationCount();
+        $number = \App::messageService()->getUnreadConversationCount();
 
         return \App::viewHelper()->partial('base/message/button/bear-message', [
             'number' => $number,

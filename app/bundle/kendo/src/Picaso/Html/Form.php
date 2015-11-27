@@ -129,7 +129,7 @@ class Form extends HtmlCollection
      */
     public function renderElements($plugin, $options = [])
     {
-        return \App::html()->render($plugin, $this, $options);
+        return \App::htmlService()->render($plugin, $this, $options);
     }
 
     /**

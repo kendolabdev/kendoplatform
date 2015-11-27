@@ -121,7 +121,7 @@ class UserController extends AjaxController
 
         $query = $this->request->getArray('query');
 
-        $paging = \App::user()->loadAdminUserPaging($query, $page);
+        $paging = \App::userService()->loadAdminUserPaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 

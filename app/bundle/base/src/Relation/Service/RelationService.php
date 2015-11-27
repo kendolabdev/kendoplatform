@@ -39,7 +39,7 @@ class RelationService
     public function getPrivacyConditionForQuery($viewerId = null, $alias = 'f')
     {
         if (null == $viewerId) {
-            $viewerId = (string)\App::auth()->getId();
+            $viewerId = (string)\App::authService()->getId();
         }
 
         return strtr("(:alias.privacy_type in (:public,:registered) OR (:alias.poster_id=:viewerId) OR (:alias.privacy_value=:viewerId) OR (:alias.privacy_value IN ( SELECT relation_id FROM :prefix_relation_item WHERE poster_id=:viewerId UNION SELECT relation_id FROM :prefix_relation WHERE parent_id=:viewerId)))", [
@@ -577,7 +577,7 @@ class RelationService
      */
     public function getPrivacyOptions(Poster $poster, Poster $parent, $accepts = [], $excludes = [])
     {
-        $typeIdList = \App::acl()->allow(sprintf('%s__privacy_option', $parent->getType()), [1, 2, 0]);
+        $typeIdList = \App::aclService()->allow(sprintf('%s__privacy_option', $parent->getType()), [1, 2, 0]);
 
         if (empty($typeIdList)) {
             return [];
@@ -724,7 +724,7 @@ class RelationService
             ];
         }
 
-        $item = \App::relation()->findById($relationId);
+        $item = \App::relationService()->findById($relationId);
 
         if (!$item instanceof Relation)
             return [
@@ -1385,7 +1385,7 @@ class RelationService
             return $response;
         }
 
-        $relationList = \App::relation()->getListRelationTypeForPoster($posterId, $parentIdList);
+        $relationList = \App::relationService()->getListRelationTypeForPoster($posterId, $parentIdList);
 
         foreach ($relationList as $id => $type) {
             if ($response[ $id ] == 0) {
@@ -1480,7 +1480,7 @@ class RelationService
             return $response;
         }
 
-        $relationList = \App::relation()->getListRelationTypeForParent($posterIdList, $parentId);
+        $relationList = \App::relationService()->getListRelationTypeForParent($posterIdList, $parentId);
 
         foreach ($relationList as $id => $type) {
             if ($response[ $id ] == 0) {
@@ -1557,7 +1557,7 @@ class RelationService
             return RELATION_TYPE_OWNER;
         }
 
-        $highestRelation = \App::relation()->getListRelationType($posterId, $parentId);
+        $highestRelation = \App::relationService()->getListRelationType($posterId, $parentId);
 
         if ($highestRelation) {
             return $highestRelation;

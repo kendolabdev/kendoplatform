@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $form->isValid($_POST)) {
 
     $handler->createSuperAdminAccount($data);
 
-    \App::cache()
+    \App::cacheService()
         ->flush();
 
     header('location:?_step=complete');

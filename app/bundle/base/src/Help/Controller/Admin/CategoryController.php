@@ -22,11 +22,11 @@ class CategoryController extends AdminController
             'label' => 'core.create_new_category',
             'props' => [
                 'class' => 'btn btn-sm btn-primary',
-                'href'  => \App::routing()->getUrl('admin', ['stuff' => 'help/category/create']),
+                'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'help/category/create']),
             ]
         ];
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setPageButtons($createButton)
             ->setPageTitle('core.manage_categories')
@@ -39,14 +39,14 @@ class CategoryController extends AdminController
     public function actionBrowse()
     {
 
-        \App::layout()
+        \App::layoutService()
             ->setPageTitle('core.manage_categories');
 
         $page = $this->request->getParam('page', 1);
         $limit = 10;
         $query = [];
 
-        $paging = \App::help()
+        $paging = \App::helpService()
             ->loadCategoryPaging($query, $page, $limit);
 
         $lp = new BlockParams([
@@ -70,10 +70,10 @@ class CategoryController extends AdminController
         if ($this->request->isPost() && $form->isValid($_POST)) {
             $data = $form->getData();
 
-            \App::help()
+            \App::helpService()
                 ->addHelpCategory($data);
 
-            \App::routing()->redirect('admin', [
+            \App::routingService()->redirect('admin', [
                 'stuff' => 'help/category/browse',
             ]);
         }
@@ -96,7 +96,7 @@ class CategoryController extends AdminController
         $form = new EditHelpCategory();
         $id = $this->request->getParam('id');
 
-        $entry = \App::help()
+        $entry = \App::helpService()
             ->findCategoryById($id);
 
 
@@ -114,9 +114,9 @@ class CategoryController extends AdminController
             $entry->setFromArray($data);
             $entry->save();
 
-            \App::cache()->flush();
+            \App::cacheService()->flush();
 
-            \App::routing()->redirect('admin', [
+            \App::routingService()->redirect('admin', [
                 'stuff' => 'help/category/browse',
             ]);
         }
@@ -139,7 +139,7 @@ class CategoryController extends AdminController
         $form = new DeleteHelpCategory();
         $id = $this->request->getParam('id');
 
-        $entry = \App::help()
+        $entry = \App::helpService()
             ->findCategoryById($id);
 
 
@@ -155,9 +155,9 @@ class CategoryController extends AdminController
 
             $entry->delete();
 
-            \App::cache()->flush();
+            \App::cacheService()->flush();
 
-            \App::routing()->redirect('admin', [
+            \App::routingService()->redirect('admin', [
                 'stuff' => 'help/category/browse',
             ]);
         }

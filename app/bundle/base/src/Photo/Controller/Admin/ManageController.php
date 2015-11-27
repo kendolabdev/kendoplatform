@@ -24,7 +24,7 @@ class ManageController extends AdminController
     {
         $filter = new FilterPhoto();
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setPageTitle('photo.manage_photos')
             ->setPageFilter($filter)
@@ -36,7 +36,7 @@ class ManageController extends AdminController
         $limit = 24;
         $query = $filter->getData();
 
-        $paging = \App::photo()
+        $paging = \App::photoService()
             ->loadPhotoPaging($query, $page, $limit);
 
         $lp = new BlockParams([

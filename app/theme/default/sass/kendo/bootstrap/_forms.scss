@@ -2,7 +2,6 @@
 // Forms
 // --------------------------------------------------
 
-
 // Normalize non-controls
 //
 // Restyle and baseline non-control form elements.
@@ -37,7 +36,6 @@ label {
   line-height: 1.1;
 }
 
-
 // Normalize form controls
 //
 // While most of our form styles require extra classes, some basic normalization
@@ -53,7 +51,8 @@ input[type="search"] {
 input[type="radio"],
 input[type="checkbox"] {
   margin: 2px 0 0;
-  margin-top: 1px \9; // IE8-9
+  margin-top: 1px \9
+; // IE8-9
   line-height: normal;
 }
 
@@ -90,7 +89,6 @@ output {
   color: $input-color;
 }
 
-
 // Common form controls
 //
 // Shared size and type resets for form controls. Apply `.form-control` to any
@@ -124,11 +122,12 @@ output {
   background-color: $input-bg;
   background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
   border: 1px solid $input-border;
-  @if $use-round-corner{
-      border-radius: $input-border-radius; // Note: This has no effect on <select>s in some browsers, due to the limited  stylability of <select>s in CSS.
+  border-radius: $input-border-radius-base; // Note: This has no effect on <select>s in some browsers, due to the limited  stylability of <select>s in CSS.
+
+  @if $input-shadow-flag {
+    @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, .075));
   }
 
-  @include box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
   @include transition(border-color ease-in-out .15s, box-shadow ease-in-out .15s);
 
   // Customize the `:focus` state to imitate native WebKit styles.
@@ -162,7 +161,6 @@ textarea.form-control {
   height: auto;
 }
 
-
 // Search inputs in iOS
 //
 // This overrides the extra rounded corners on search inputs in iOS so that our
@@ -173,7 +171,6 @@ textarea.form-control {
 input[type="search"] {
   -webkit-appearance: none;
 }
-
 
 // Special styles for iOS temporal inputs
 //
@@ -201,7 +198,6 @@ input[type="search"] {
   }
 }
 
-
 // Form groups
 //
 // Designed to help with the organization and spacing of vertical forms. For
@@ -210,7 +206,6 @@ input[type="search"] {
 .form-group {
   margin-bottom: $form-group-margin-bottom;
 }
-
 
 // Checkboxes and radios
 //
@@ -231,13 +226,15 @@ input[type="search"] {
     cursor: pointer;
   }
 }
+
 .radio input[type="radio"],
 .radio-inline input[type="radio"],
 .checkbox input[type="checkbox"],
 .checkbox-inline input[type="checkbox"] {
   position: absolute;
   margin-left: -20px;
-  margin-top: 4px \9;
+  margin-top: 4px \9
+;
 }
 
 .radio + .radio,
@@ -256,6 +253,7 @@ input[type="search"] {
   font-weight: normal;
   cursor: pointer;
 }
+
 .radio-inline + .radio-inline,
 .checkbox-inline + .checkbox-inline {
   margin-top: 0;
@@ -274,6 +272,7 @@ input[type="checkbox"] {
     cursor: $cursor-disabled;
   }
 }
+
 // These classes are used directly on <label>s
 .radio-inline,
 .checkbox-inline {
@@ -282,6 +281,7 @@ input[type="checkbox"] {
     cursor: $cursor-disabled;
   }
 }
+
 // These classes are used on elements with <label> descendants
 .radio,
 .checkbox {
@@ -292,7 +292,6 @@ input[type="checkbox"] {
     }
   }
 }
-
 
 // Static form control text
 //
@@ -313,7 +312,6 @@ input[type="checkbox"] {
     padding-right: 0;
   }
 }
-
 
 // Form control sizing
 //
@@ -351,7 +349,6 @@ input[type="checkbox"] {
   }
 }
 
-
 // Form control feedback states
 //
 // Apply contextual and semantic states to individual form controls.
@@ -365,6 +362,7 @@ input[type="checkbox"] {
     padding-right: ($input-height-base * 1.25);
   }
 }
+
 // Feedback icon (requires .glyphicon classes)
 .form-control-feedback {
   position: absolute;
@@ -378,16 +376,19 @@ input[type="checkbox"] {
   text-align: center;
   pointer-events: none;
 }
-.form-group-sm .form-control-feedback{
+
+.form-group-sm .form-control-feedback {
   height: $input-height-small;
   line-height: $input-height-small;
   font-size: $font-size-small;
 }
+
 .input-lg + .form-control-feedback {
   width: $input-height-large;
   height: $input-height-large;
   line-height: $input-height-large;
 }
+
 .input-sm + .form-control-feedback {
   width: $input-height-small;
   height: $input-height-small;
@@ -398,9 +399,11 @@ input[type="checkbox"] {
 .has-success {
   @include form-control-validation($state-success-text, $state-success-text, $state-success-bg);
 }
+
 .has-warning {
   @include form-control-validation($state-warning-text, $state-warning-text, $state-warning-bg);
 }
+
 .has-error {
   @include form-control-validation($state-danger-text, $state-danger-text, $state-danger-bg);
 }
@@ -409,13 +412,12 @@ input[type="checkbox"] {
 .has-feedback label {
 
   & ~ .form-control-feedback {
-     top: ($line-height-computed + 5); // Height of the `label` and its margin
+    top: ($line-height-computed + 5); // Height of the `label` and its margin
   }
   &.sr-only ~ .form-control-feedback {
-     top: 0;
+    top: 0;
   }
 }
-
 
 // Help text
 //
@@ -428,7 +430,6 @@ input[type="checkbox"] {
   margin-bottom: 10px;
   color: lighten($text-color, 25%); // lighten the text some for contrast
 }
-
 
 // Inline forms
 //
@@ -511,12 +512,11 @@ input[type="checkbox"] {
     }
   }
 }
+
 // [converter] extracted as `@mixin form-inline` for libsass compatibility
 .form-inline {
   @include form-inline;
 }
-
-
 
 // Horizontal forms
 //
@@ -583,5 +583,13 @@ input[type="checkbox"] {
         padding-top: ($padding-small-vertical + 1);
       }
     }
+  }
+}
+
+// Unset input border radius base if not set.
+@if ($input-border-radius-base == 0){
+  select {
+    -webkit-appearance: none;
+    border-radius: 0;
   }
 }

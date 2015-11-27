@@ -22,15 +22,15 @@ class HomeController extends DefaultController
     public function actionIndex()
     {
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
-        \App::assets()
+        \App::assetService()
             ->title()->set(\App::text('core.home_page'));
 
         if ($poster instanceof Poster) {
             return $this->forward(null, 'member');
         } else {
-            \App::layout()->setPageName('core_home_index');
+            \App::layoutService()->setPageName('core_home_index');
             $this->view->setScript('/base/core/controller/home/index');
         }
     }
@@ -40,15 +40,15 @@ class HomeController extends DefaultController
      */
     public function actionMember()
     {
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         if (!$poster instanceof Poster) {
             return $this->forward(null, 'index');
         }
 
-        \App::registry()->set('profile', $poster);
-        \App::layout()->setPageName('core_home_member');
-        \App::registry()->set('isMainFeed', true);
+        \App::registryService()->set('profile', $poster);
+        \App::layoutService()->setPageName('core_home_member');
+        \App::registryService()->set('isMainFeed', true);
     }
 
     /**
@@ -65,6 +65,6 @@ class HomeController extends DefaultController
             throw new NotFoundException();
         }
 
-        \App::routing()->redirectToUrl($item->toHref());
+        \App::routingService()->redirectToUrl($item->toHref());
     }
 }

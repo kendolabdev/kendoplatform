@@ -50,7 +50,7 @@ class ConnectController extends DefaultController
 
         $url = $adapter->getLoginUrl([]);
 
-        \App::routing()->redirectToUrl($url);
+        \App::routingService()->redirectToUrl($url);
     }
 
     public function actionCallback()
@@ -71,12 +71,12 @@ class ConnectController extends DefaultController
         $url = null;
 
         if ($token) {
-            $url = \App::routing()->getUrl('oauth_success', ['service' => $service]);
+            $url = \App::routingService()->getUrl('oauth_success', ['service' => $service]);
         } else {
-            $url = \App::routing()->getUrl('oauth_failure', ['service' => $service]);
+            $url = \App::routingService()->getUrl('oauth_failure', ['service' => $service]);
 
         }
-        \App::routing()->redirectToUrl($url);
+        \App::routingService()->redirectToUrl($url);
     }
 
 
@@ -124,9 +124,9 @@ class ConnectController extends DefaultController
             if ($user instanceof User) {
                 $this->getUserService()->addRemoteUser($user, $me['remote_uid'], $me['remote_service']);
 
-                \App::auth()->store($user, null, false);
+                \App::authService()->store($user, null, false);
 
-                \App::routing()->redirect('home');
+                \App::routingService()->redirect('home');
 
             }
         }
@@ -138,8 +138,8 @@ class ConnectController extends DefaultController
         $gotoRegister = true;
 
 
-        if (\App::auth()->logged()) {
-            $this->getUserService()->addRemoteUser(\App::auth()->getUser(), $me['remote_uid'], $me['remote_service']);
+        if (\App::authService()->logged()) {
+            $this->getUserService()->addRemoteUser(\App::authService()->getUser(), $me['remote_uid'], $me['remote_service']);
 
             // try location redirect then exists
             return $this->redirect('home');
@@ -156,14 +156,14 @@ class ConnectController extends DefaultController
 
                 if ($user) {
                     // try to logged in with current user result
-                    $result = \App::auth()->login('remote', [
+                    $result = \App::authService()->login('remote', [
                         'identity'   => $me['remote_uid'],
                         'credential' => $me['remote_service'],
                     ]);
 
                     if ($result->isValid()) {
 
-                        \App::auth()->store($result->getUser(), null, false);
+                        \App::authService()->store($result->getUser(), null, false);
 
                         // try location redirect then exists
                         return $this->redirect('home');

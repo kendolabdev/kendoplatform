@@ -132,7 +132,7 @@ class Manager
                 unset($params[ Request::CONTROLLER_KEY ], $params[ Request::ACTION_KEY ]);
                 $request->setParams($params);
 
-                \App::request()->setRouting($name, $params);
+                \App::requestService()->setRouting($name, $params);
 
                 return true;
             }
@@ -168,7 +168,7 @@ class Manager
     {
         if (IS_AJAX_LOAD_STATE) {
 
-            $require = \App::assets()
+            $require = \App::assetService()
                 ->requirejs();
 
             $require->addScript('redirect', sprintf('replacePage("%s")', $url));

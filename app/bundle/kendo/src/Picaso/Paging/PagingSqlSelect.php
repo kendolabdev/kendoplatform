@@ -222,13 +222,13 @@ class PagingSqlSelect implements PagingInterface
     public function getUrl($pageNumber)
     {
         if (null == $this->routeName) {
-            list($this->routeName, $this->routeParams) = \App::request()->getRouting();
+            list($this->routeName, $this->routeParams) = \App::requestService()->getRouting();
         }
         $params = $this->routeParams;
 
         $params['page'] = $pageNumber;
 
-        return \App::routing()->getUrl($this->routeName, $params);
+        return \App::routingService()->getUrl($this->routeName, $params);
     }
 
     /**
@@ -248,7 +248,7 @@ class PagingSqlSelect implements PagingInterface
      */
     public function toHtml($name = 'nextPrev', $options = [])
     {
-        return \App::paging()->getRender($name, ['paging' => $this], $this)->render();
+        return \App::pagingService()->getRender($name, ['paging' => $this], $this)->render();
     }
 
     /**

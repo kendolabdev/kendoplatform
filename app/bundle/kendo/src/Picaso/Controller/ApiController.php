@@ -126,7 +126,7 @@ class ApiController implements Controller
      */
     public function redirect($name, $params = null)
     {
-        return \App::routing()->redirect($name, $params);
+        return \App::routingService()->redirect($name, $params);
     }
 
     /**
@@ -136,6 +136,6 @@ class ApiController implements Controller
      */
     public function redirectToUrl($url)
     {
-        return \App::routing()->redirectToUrl($url);
+        return \App::routingService()->redirectToUrl($url);
     }
 }

@@ -44,7 +44,7 @@ class PrivacyController extends AjaxController
      */
     public function actionEditPrivacyOptions()
     {
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         list($type, $id, $eid) = $this->request->get('type', 'id', 'eid');
         list($accepts, $excludes) = $this->request->get('accepts', 'excludes');
@@ -60,7 +60,7 @@ class PrivacyController extends AjaxController
 
         $forAction = $this->request->getParam('forAction', 'share_status');
 
-        $options = \App::relation()
+        $options = \App::relationService()
             ->getPrivacyOptions($poster, $parent, $accepts, $excludes);
 
         $note = \App::text('core.privacy_note_for_' . $forAction);
@@ -80,7 +80,7 @@ class PrivacyController extends AjaxController
      */
     public function actionOptions()
     {
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         list($parentType, $parentId, $eid) = $this->request->get('parentType', 'parentId', 'eid');
         list($accepts, $excludes) = $this->request->get('accepts', 'excludes');
@@ -94,7 +94,7 @@ class PrivacyController extends AjaxController
 
         $forAction = $this->request->getParam('forAction', 'share_status');
 
-        $options = \App::relation()
+        $options = \App::relationService()
             ->getPrivacyOptions($poster, $parent, $accepts, $excludes);
 
         $note = \App::text('core.privacy_note_for_' . $forAction);
@@ -130,7 +130,7 @@ class PrivacyController extends AjaxController
             return;
         }
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         // check parent is belong to poster
 
@@ -141,15 +141,15 @@ class PrivacyController extends AjaxController
         $privacyValue = $privacy['value'];
         $privacyType = $privacy['type'];
 
-        if (\App::relation()->isGenericRelationType($privacyType)) {
+        if (\App::relationService()->isGenericRelationType($privacyType)) {
             $privacyValue = $privacyType;
         } else if ($privacyType < RELATION_TYPE_CUSTOM) {
-            $relation = \App::relation()->findList($parent, $privacyType, true);
+            $relation = \App::relationService()->findList($parent, $privacyType, true);
 
             $privacyValue = $relation->getId();
         } else {
             // find by relation id
-            $relation = \App::relation()->findById($privacyValue);
+            $relation = \App::relationService()->findById($privacyValue);
 
             if (!$relation) {
                 throw new \InvalidArgumentException("Invalid privacy value");

@@ -21,24 +21,24 @@ class ActivityComposerBlock extends Block
      */
     public function execute()
     {
-        if (!\App::auth()->logged()) {
+        if (!\App::authService()->logged()) {
             $this->view->setNoRender(true);
 
             return;
         }
 
-        $profile = \App::registry()->get('profile');
-        $viewer = \App::auth()->getViewer();
+        $profile = \App::registryService()->get('profile');
+        $viewer = \App::authService()->getViewer();
 
         if (!$profile) {
-            $profile = \App::auth()->getViewer();
+            $profile = \App::authService()->getViewer();
         }
 
         /**
          * check privacy of profile with current viewer
          */
 
-        if (!\App::acl()->pass($profile, 'activity__update_status')) {
+        if (!\App::aclService()->pass($profile, 'activity__update_status')) {
             $this->setNoRender(true);
 
             return;
@@ -55,7 +55,7 @@ class ActivityComposerBlock extends Block
             $canControlPrivacy = true;
         }
 
-        $privacyButton = \App::html()->create([
+        $privacyButton = \App::htmlService()->create([
             'plugin'    => 'privacyButton',
             'name'      => 'privacy',
             'forParent' => $profile,
@@ -71,11 +71,11 @@ class ActivityComposerBlock extends Block
         $footerHtml = \App::hook()
             ->notify('onRenderActivityComposerFooter', $profile)->getResponseHtml();
 
-        $privacy = \App::relation()->getRelationOptionForSelect($profile, $viewer, 'share_status');
+        $privacy = \App::relationService()->getRelationOptionForSelect($profile, $viewer, 'share_status');
 
         $targetId = uniqid('stream');
 
-        \App::registry()->set('composerTargetId', $targetId);
+        \App::registryService()->set('composerTargetId', $targetId);
 
         $this->view->assign([
             'headerHtml'        => $headerHtml,

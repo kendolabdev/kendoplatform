@@ -52,7 +52,7 @@ class HtmlCollection extends HtmlElement implements FormField
     public function addElement($element)
     {
         if (is_array($element)) {
-            $element = \App::html()->create($element);
+            $element = \App::htmlService()->create($element);
         }
         $this->byNames[ $element->getName() ] = $element;
     }
@@ -65,7 +65,7 @@ class HtmlCollection extends HtmlElement implements FormField
      */
     public function addElements(array $elements)
     {
-        $html = \App::html();
+        $html = \App::htmlService();
 
         foreach ($elements as $element) {
             if (is_array($element)) {

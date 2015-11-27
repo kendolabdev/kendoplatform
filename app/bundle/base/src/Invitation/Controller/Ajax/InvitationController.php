@@ -18,9 +18,9 @@ class InvitationController extends AjaxController
      */
     public function actionResetMitigated()
     {
-        $parent = \App::auth()->getViewer();
+        $parent = \App::authService()->getViewer();
 
-        \App::invitation()
+        \App::invitationService()
             ->clearMitigatedNotificationState($parent);
 
     }
@@ -61,14 +61,14 @@ class InvitationController extends AjaxController
      */
     public function actionBearDialog()
     {
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         $page = $this->request->getParam('page', 1);
         $query = $this->request->getArray('query');
 
-        $paging = \App::invitation()->loadInvitationPaging($query, $page);
+        $paging = \App::invitationService()->loadInvitationPaging($query, $page);
 
-        $lp = \App::layout()
+        $lp = \App::layoutService()
             ->getContentLayoutParams('invitation_ajax_bear_dialog');
 
         $this->response = [

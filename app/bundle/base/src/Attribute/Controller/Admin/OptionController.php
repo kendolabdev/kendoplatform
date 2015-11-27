@@ -21,7 +21,7 @@ class OptionController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_attribute', 'admin_attribute_field');
     }
@@ -32,13 +32,13 @@ class OptionController extends AdminController
     public function actionBrowse()
     {
 
-        \App::layout()
+        \App::layoutService()
             ->setPageTitle('attribute.manage_options')
             ->setPageButtons([
                 [
                     'label' => 'attribute.add_new_option',
                     'props' => [
-                        'href'   => \App::routing()->getUrl('admin', ['stuff' => 'attribute/option/create']),
+                        'href'   => \App::routingService()->getUrl('admin', ['stuff' => 'attribute/option/create']),
                         'class' => 'btn btn-sm btn-danger'
                     ]]
             ]);
@@ -47,7 +47,7 @@ class OptionController extends AdminController
         $fieldId = $this->request->getParam('fieldId');
         $query = ['field' => $fieldId];
 
-        $paging = \App::attribute()
+        $paging = \App::catalogService()
             ->loadAdminOptionPaging($query, $page);
 
         $lp = new BlockParams([
@@ -81,13 +81,13 @@ class OptionController extends AdminController
         if ($this->request->isPost() && $form->isValid($_POST)) {
             $data = $form->getData();
 
-            \App::attribute()
+            \App::catalogService()
                 ->addFieldOption($data);
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', [
+            \App::routingService()->redirect('admin', [
                 'stuff'   => 'attribute/option/browse',
                 'fieldId' => $data['field_id']]);
         }
@@ -110,7 +110,7 @@ class OptionController extends AdminController
     {
         $id = $this->request->getParam('id');
 
-        $entry = \App::attribute()
+        $entry = \App::catalogService()
             ->findOptionById($id);
 
 
@@ -130,10 +130,10 @@ class OptionController extends AdminController
 
             $entry->save();
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', [
+            \App::routingService()->redirect('admin', [
                 'stuff'   => 'attribute/option/browse',
                 'fieldId' => $data['field_id']]);
         }
@@ -156,7 +156,7 @@ class OptionController extends AdminController
     {
         $id = $this->request->getParam('id');
 
-        $entry = \App::attribute()
+        $entry = \App::catalogService()
             ->findOptionById($id);
         
         if (!$entry)
@@ -172,10 +172,10 @@ class OptionController extends AdminController
 
             $entry->delete();
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', [
+            \App::routingService()->redirect('admin', [
                 'stuff'   => 'attribute/option/browse',
                 'fieldId' => $entry->getFieldId(),
             ]);

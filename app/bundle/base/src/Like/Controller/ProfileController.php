@@ -15,7 +15,7 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseLike()
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         $page = $this->request->getParam('page', 1);
 
@@ -24,9 +24,9 @@ class ProfileController extends ProfileBaseController
             'parentType' => $profile->getType(),
         ];
 
-        $paging = \App::like()->loadLikePaging($query, $page);
+        $paging = \App::likeService()->loadLikePaging($query, $page);
 
-        $lp = \App::layout()->getContentLayoutParams();
+        $lp = \App::layoutService()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)

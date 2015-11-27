@@ -80,7 +80,7 @@ class GroupService
 
             $select->where('poster_id=?', $posterId);
 
-            if ($posterId == \App::auth()->getId()) {
+            if ($posterId == \App::authService()->getId()) {
 
                 $isOwner = true;
             }
@@ -92,7 +92,7 @@ class GroupService
 
             $select->where('user_id=?', $userId);
 
-            if ($userId == \App::auth()->getUserId()) {
+            if ($userId == \App::authService()->getUserId()) {
                 $isOwner = true;
             }
         }
@@ -159,7 +159,7 @@ class GroupService
      */
     public function membership()
     {
-        return \App::relation();
+        return \App::relationService();
     }
 
     /**
@@ -168,7 +168,7 @@ class GroupService
     public function getCategoryOptions()
     {
 
-        return \App::cache()
+        return \App::cacheService()
             ->get(['group', 'getCategoryOptions'], 0, function () {
                 return $this->_getCategoryOptions();
             });

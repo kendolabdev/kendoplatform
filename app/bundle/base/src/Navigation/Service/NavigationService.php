@@ -96,7 +96,7 @@ class NavigationService implements NavigationLoaderInterface
      */
     public function render($plugin, $navId, $parentId, $active = [], $level = 1, $params = [])
     {
-        $data = \App::cache()
+        $data = \App::cacheService()
             ->get(['nav', $navId, $parentId], 0, function () use ($navId, $parentId) {
                 return $this->getLoader()->load($navId, $parentId);
             });

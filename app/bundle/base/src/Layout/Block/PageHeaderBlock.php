@@ -23,23 +23,23 @@ class PageHeaderBlock extends Block
      */
     public function execute()
     {
-        $nav = \App::layout()
+        $nav = \App::layoutService()
             ->getSecondaryNavigation();
 
-        $title = \App::layout()
+        $title = \App::layoutService()
             ->getPageTitle();
 
-        $note = \App::layout()
+        $note = \App::layoutService()
             ->getPageNote();
 
-        $filter = \App::layout()
+        $filter = \App::layoutService()
             ->getPageFilter();
 
         if (empty($title)) {
             $this->setNoRender(true);
         }
 
-        $buttons = \App::layout()->getPageButtons();
+        $buttons = \App::layoutService()->getPageButtons();
 
         $this->view->assign([
             'buttons'  => $buttons,

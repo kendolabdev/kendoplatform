@@ -30,7 +30,7 @@ class CardhoverController extends AjaxController
 
         $cover = $subject->getCover();
 
-        $canFriend = \App::auth()->getType() == 'user';
+        $canFriend = \App::authService()->getType() == 'user';
         $canMessage = false;
         $canChat = false;
         $canFollow = false;
@@ -44,11 +44,11 @@ class CardhoverController extends AjaxController
             $coverPositionTop = $cover->getPositionTop() . 'px';
         }
 
-        $viewer = \App::auth()->getViewer();
+        $viewer = \App::authService()->getViewer();
 
         if ($viewer && $subject) {
             $canFollow = true;
-            $followService = \App::follow();
+            $followService = \App::followService();
             $isFollowing = $followService->isFollowed($viewer, $subject);
         }
 

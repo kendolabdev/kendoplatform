@@ -13,7 +13,7 @@ class AuthController extends AjaxController
     public function actionLoginDialog()
     {
         $form = new AuthLoginSmall();
-        $social = \App::social()->getListAuth();
+        $social = \App::socialService()->getListAuth();
         $enableSocialAuth = \App::setting('login', 'social_auth');
 
         $this->response['html'] = $this->partial('base/user/dialog/login', ['form' => $form, 'social' => $social, 'enableSocialAuth' => $enableSocialAuth]);

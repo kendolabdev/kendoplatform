@@ -3,10 +3,10 @@
         <?php echo $this->helper()->layout()->header(); ?>
     </header>
     <div id="main">
-        <?php echo \App::layout()->content(); ?>
+        <?php echo \App::layoutService()->content(); ?>
     </div>
     <footer id="footer">
         <?php echo $this->helper()->layout()->footer(); ?>
     </footer>
 </div>
-<?php echo \App::assets()->requirejs()->renderScriptHtml(); ?>
+<?php echo \App::assetService()->requirejs()->renderScriptHtml(); ?>

@@ -460,7 +460,7 @@ class HtmlElement
             return true;
         }
 
-        $rule = \App::validator()->factory($this->rules);
+        $rule = \App::validationService()->factory($this->rules);
 
         $isValid = $rule->isValid($value);
 

@@ -21,7 +21,7 @@ Trait ImpHasCover
      */
     public function getCoverService()
     {
-        return \App::photo();
+        return \App::photoService();
     }
 
     /**

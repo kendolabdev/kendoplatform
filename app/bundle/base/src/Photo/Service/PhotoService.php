@@ -122,7 +122,7 @@ class PhotoService
 
             $select->where('t.poster_id=?', $posterId);
 
-            if ($posterId == \App::auth()->getId()) {
+            if ($posterId == \App::authService()->getId()) {
 
                 $isOwner = true;
             }
@@ -134,7 +134,7 @@ class PhotoService
 
             $select->where('t.user_id=?', $userId);
 
-            if ($userId == \App::auth()->getUserId()) {
+            if ($userId == \App::authService()->getUserId()) {
                 $isOwner = true;
             }
         }
@@ -177,7 +177,7 @@ class PhotoService
                 case 0:
                     break;
                 case 1:
-                    $select->where(\App::follow()->getFollowingConditionForQuery(\App::auth()->getId(), 't'), null);
+                    $select->where(\App::followService()->getFollowingConditionForQuery(\App::authService()->getId(), 't'), null);
                     break;
             }
         }
@@ -185,10 +185,10 @@ class PhotoService
         if (!$isOwner) {
             switch (\App::setting('photo', 'browsing_filter')) {
                 case 0:
-                    $select->where(\App::relation()->getPrivacyConditionForQuery(\App::auth()->getId(), 't'), null);
+                    $select->where(\App::relationService()->getPrivacyConditionForQuery(\App::authService()->getId(), 't'), null);
                     break;
                 case 1:
-                    if (\App::auth()->logged())
+                    if (\App::authService()->logged())
                         $select->where('t.privacy_type IN ?', [1, 2]);
                     else
                         $select->where('t.privacy_type = ?', 1);
@@ -227,7 +227,7 @@ class PhotoService
 
             $select->where('t.poster_id=?', $posterId);
 
-            if ($posterId == \App::auth()->getId()) {
+            if ($posterId == \App::authService()->getId()) {
 
                 $isOwner = true;
             }
@@ -239,7 +239,7 @@ class PhotoService
 
             $select->where('t.user_id=?', $userId);
 
-            if ($userId == \App::auth()->getUserId()) {
+            if ($userId == \App::authService()->getUserId()) {
                 $isOwner = true;
             }
         }
@@ -260,7 +260,7 @@ class PhotoService
                 case 0:
                     break;
                 case 1:
-                    $select->where(\App::follow()->getFollowingConditionForQuery(\App::auth()->getId(), 't'), null);
+                    $select->where(\App::followService()->getFollowingConditionForQuery(\App::authService()->getId(), 't'), null);
                     break;
             }
         }
@@ -268,10 +268,10 @@ class PhotoService
         if (!$isOwner) {
             switch (\App::setting('photo', 'browsing_filter')) {
                 case 0:
-                    $select->where(\App::relation()->getPrivacyConditionForQuery(\App::auth()->getId(), 't'), null);
+                    $select->where(\App::relationService()->getPrivacyConditionForQuery(\App::authService()->getId(), 't'), null);
                     break;
                 case 1:
-                    if (\App::auth()->logged())
+                    if (\App::authService()->logged())
                         $select->where('t.privacy_type IN ?', [1, 2]);
                     else
                         $select->where('t.privacy_type = ?', 1);
@@ -325,7 +325,7 @@ class PhotoService
 
         // process to add feed
 
-        $activityService = \App::feed();
+        $activityService = \App::feedService();
 
         if ($object instanceof PhotoCollection) {
             $feed = $activityService->addItemFeed('update_status', $object);
@@ -361,7 +361,7 @@ class PhotoService
         $people = $request->getArray('people');
 
         if (!empty($people)) {
-            $peopleCount = \App::tag()->tagPeople($object, $people);
+            $peopleCount = \App::tagService()->tagPeople($object, $people);
             $object->setPeopleCount($peopleCount);
             $shouldUpdate = true;
         }
@@ -565,7 +565,7 @@ class PhotoService
          * load file info from temp
          */
 
-        $storage = \App::storage();
+        $storage = \App::storageService();
 
 
         $info = $storage->getTempInputFileList($tempIdList);
@@ -589,7 +589,7 @@ class PhotoService
          * load file info from temp
          */
 
-        $storage = \App::storage();
+        $storage = \App::storageService();
 
         $info = $storage->getTempInputFileList([$tempId]);
 
@@ -617,7 +617,7 @@ class PhotoService
             'maxSize' => 10485760, // 10 Mb
         ];
 
-        $fileList = \App::storage()->getUploadFileList($fileName, $options);
+        $fileList = \App::storageService()->getUploadFileList($fileName, $options);
 
 
         return $this->processUploadPhotos($fileList, $thumbs);
@@ -643,13 +643,13 @@ class PhotoService
 
         $fileData = [];
         $uploadTemporaryDir = PICASO_UPLOAD_DIR . '/';
-        $imageService = \App::image();
+        $imageService = \App::imageService();
 
         $path = $inputFile->getPath();
 
         $alloc = [];
 
-        $pathTemp = \App::storage()->getPathPattern('photo', null, '.jpg');
+        $pathTemp = \App::storageService()->getPathPattern('photo', null, '.jpg');
 
         $dir = dirname($uploadTemporaryDir . $pathTemp);
 
@@ -713,7 +713,7 @@ class PhotoService
 
         if (!empty($fileData)) {
 
-            $storage = \App::storage();
+            $storage = \App::storageService();
 
             $response = $storage->saveAllProcessedPhoto($fileData, $uploadTemporaryDir);
 
@@ -751,15 +751,15 @@ class PhotoService
         $thumbs = $this->getDefaultAvatarThumbsSettings();
 
         $uploadTemporaryDir = PICASO_UPLOAD_DIR . '/';
-        $imageService = \App::image();
+        $imageService = \App::imageService();
 
-        $file = \App::storage()->getFileItem($photoFileId, 'origin');
+        $file = \App::storageService()->getFileItem($photoFileId, 'origin');
 
         $path = $file->getUrl();
 
         $alloc = [];
 
-        $pathTemp = \App::storage()->getPathPattern('photo', null, '.jpg');
+        $pathTemp = \App::storageService()->getPathPattern('photo', null, '.jpg');
 
         $dir = dirname($uploadTemporaryDir . $pathTemp);
 
@@ -805,13 +805,13 @@ class PhotoService
 
         $makers = array_keys($alloc);
 
-        \App::storage()->removeByOriginIdAndMakerList($photoFileId, $makers);
+        \App::storageService()->removeByOriginIdAndMakerList($photoFileId, $makers);
 
 
         if (empty($alloc))
             throw new \InvalidArgumentException("Could not process avatar");
 
-        return \App::storage()->saveAllProcessedPhotoByOriginId($photoFileId, $alloc, $uploadTemporaryDir);
+        return \App::storageService()->saveAllProcessedPhotoByOriginId($photoFileId, $alloc, $uploadTemporaryDir);
 
     }
 
@@ -834,7 +834,7 @@ class PhotoService
 
         $photo = null;
         $parent = $poster;
-        $album = \App::photo()->getSingletonAlbum($parent);
+        $album = \App::photoService()->getSingletonAlbum($parent);
 
         if (!empty($cropit['photoId'])) {
             $photo = \App::find('photo', $cropit['photoId']);
@@ -842,17 +842,17 @@ class PhotoService
 
             $photoTemp = $cropit['tempId'];
 
-            $fileId = \App::photo()->processSinglePhotoUploadFromTemporary($photoTemp);
+            $fileId = \App::photoService()->processSinglePhotoUploadFromTemporary($photoTemp);
 
             $addParams = array_merge([], ['type' => 1, 'value' => 1]);
 
-            $photo = \App::photo()->addPhoto($fileId, $poster, $parent, $album, $addParams);
+            $photo = \App::photoService()->addPhoto($fileId, $poster, $parent, $album, $addParams);
         }
 
         if (!$photo instanceof Photo)
             throw new \InvalidArgumentException(\App::text('photo.can_not_update_avatar'));
 
-        $response = \App::photo()->processAvatar($parent, $photo->getPhotoFileId(), $options);
+        $response = \App::photoService()->processAvatar($parent, $photo->getPhotoFileId(), $options);
 
         if (empty($response))
             throw new \InvalidArgumentException(\App::text('photo.can_not_update_avatar'));
@@ -880,7 +880,7 @@ class PhotoService
 
         $fileData = [];
         $uploadTemporaryDir = PICASO_UPLOAD_DIR . '/';
-        $imageService = \App::image();
+        $imageService = \App::imageService();
 
         foreach ($fileList->getFiles() as $file) {
 
@@ -888,7 +888,7 @@ class PhotoService
 
             $alloc = [];
 
-            $pathTemp = \App::storage()->getPathPattern('photo', null, '.jpg');
+            $pathTemp = \App::storageService()->getPathPattern('photo', null, '.jpg');
 
             $dir = dirname($uploadTemporaryDir . $pathTemp);
 
@@ -958,7 +958,7 @@ class PhotoService
 
         if (!empty($fileData)) {
 
-            $storage = \App::storage();
+            $storage = \App::storageService();
 
             $response = $storage->saveAllProcessedPhoto($fileData, $uploadTemporaryDir);
 
@@ -1170,11 +1170,11 @@ class PhotoService
 
                 $firstPhoto = $photoList[0];
 
-                $feed = \App::feed()->addItemFeed('photo_upload', $firstPhoto);
+                $feed = \App::feedService()->addItemFeed('photo_upload', $firstPhoto);
 
             } else if ($totalPhoto > 1) {
 
-                $feed = \App::feed()->addItemFeed('photo_upload_collection', $collection, ['count' => $totalPhoto]);
+                $feed = \App::feedService()->addItemFeed('photo_upload_collection', $collection, ['count' => $totalPhoto]);
             }
         }
 
@@ -1369,7 +1369,7 @@ class PhotoService
     public function getCategoryOptions()
     {
 
-        return \App::cache()
+        return \App::cacheService()
             ->get(['photo', 'getCategoryOptions'], 0, function () {
                 return $this->_getCategoryOptions();
             });

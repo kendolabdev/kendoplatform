@@ -70,9 +70,9 @@ class AvatarController extends AjaxController
         ];
 
         $photo = null;
-        $poster = \App::auth()->getViewer();
-        $parent = \App::auth()->getViewer();
-        $album = \App::photo()->getSingletonAlbum($parent);
+        $poster = \App::authService()->getViewer();
+        $parent = \App::authService()->getViewer();
+        $album = \App::photoService()->getSingletonAlbum($parent);
 
         if (!empty($cropit['photoId'])) {
             $photo = \App::find('photo', $cropit['photoId']);
@@ -80,17 +80,17 @@ class AvatarController extends AjaxController
 
             $photoTemp = $cropit['tempId'];
 
-            $fileId = \App::photo()->processSinglePhotoUploadFromTemporary($photoTemp);
+            $fileId = \App::photoService()->processSinglePhotoUploadFromTemporary($photoTemp);
 
             $addParams = array_merge([], ['type' => 1, 'value' => 1]);
 
-            $photo = \App::photo()->addPhoto($fileId, $poster, $parent, $album, $addParams);
+            $photo = \App::photoService()->addPhoto($fileId, $poster, $parent, $album, $addParams);
         }
 
         if (!$photo instanceof Photo)
             throw new \InvalidArgumentException(\App::text('photo.can_not_update_avatar'));
 
-        $response = \App::photo()->processAvatar($parent, $photo->getPhotoFileId(), $options);
+        $response = \App::photoService()->processAvatar($parent, $photo->getPhotoFileId(), $options);
 
         if (empty($response))
             throw new \InvalidArgumentException(\App::text('photo.can_not_update_avatar'));
@@ -100,7 +100,7 @@ class AvatarController extends AjaxController
             $poster->save();
         }
 
-        $html = \App::storage()->getUrlByOriginAndMaker($photo->getPhotoFileId(), 'avatar_md');
+        $html = \App::storageService()->getUrlByOriginAndMaker($photo->getPhotoFileId(), 'avatar_md');
 
         $this->response = [
             'html'      => $html,

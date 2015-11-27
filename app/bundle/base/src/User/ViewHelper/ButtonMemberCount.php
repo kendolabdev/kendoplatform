@@ -23,7 +23,7 @@ class ButtonMemberCount
 
         // count friend of user.
         if (null == $count) {
-            $count = \App::relation()->getMemberCount($user);
+            $count = \App::relationService()->getMemberCount($user);
         }
 
         if ($count == 0) {

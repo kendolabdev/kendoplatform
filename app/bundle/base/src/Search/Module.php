@@ -14,7 +14,7 @@ class Module extends \Picaso\Application\Module
      */
     public function start()
     {
-        \App::routing()
+        \App::routingService()
             ->addRoute('search', [
                 'uri'      => 'search',
                 'defaults' => [

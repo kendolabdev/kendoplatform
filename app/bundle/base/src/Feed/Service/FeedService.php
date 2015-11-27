@@ -167,7 +167,7 @@ class FeedService
     public function getFeedTypeShowOnTarget($type, $excludes = null)
     {
 
-        $data = \App::cache()
+        $data = \App::cacheService()
             ->get(['getFeedTypeShowOnTarget', $type], 0, function () use ($type) {
                 return $this->_getFeedTypShowOnTarget($type);
             });
@@ -415,7 +415,7 @@ class FeedService
     {
         $tagTable = \App::table('feed.feed_hashtag')->getName();
 
-        $relationCondition = \App::relation()->getPrivacyConditionForQuery($viewer->getId(), 'f');
+        $relationCondition = \App::relationService()->getPrivacyConditionForQuery($viewer->getId(), 'f');
 
         $select = \App::table('feed')
             ->select('f')
@@ -454,9 +454,9 @@ class FeedService
      */
     public function getMainFeedSelect(Poster $viewer, $query)
     {
-        $followIdList = \App::follow()->getFollowedIdList($viewer->getId());
+        $followIdList = \App::followService()->getFollowedIdList($viewer->getId());
 
-        $relationCondition = \App::relation()->getPrivacyConditionForQuery($viewer->getId(), 'f');
+        $relationCondition = \App::relationService()->getPrivacyConditionForQuery($viewer->getId(), 'f');
 
         $select = \App::table('feed')
             ->select('f')
@@ -605,7 +605,7 @@ class FeedService
     public function getSharedFeedSelect(Poster $viewer, $about, $options)
     {
 
-        $relationCondition = \App::relation()->getPrivacyConditionForQuery($viewer->getId(), 'f');
+        $relationCondition = \App::relationService()->getPrivacyConditionForQuery($viewer->getId(), 'f');
 
         $select = \App::table('share')
             ->select('f')
@@ -697,7 +697,7 @@ class FeedService
      */
     public function getProfileFeedSelect(Poster $profile, Poster $viewer, $query)
     {
-        $relationCondition = \App::relation()->getPrivacyConditionForQuery($viewer->getId(), 'f');
+        $relationCondition = \App::relationService()->getPrivacyConditionForQuery($viewer->getId(), 'f');
 
         $select = \App::table('feed.feed_stream')
             ->select('f')
@@ -915,7 +915,7 @@ class FeedService
 
         $this->putFeedToStream($feed, $poster, $parent, $peopletag);
 
-        \App::notification()->subscribe($poster, $about);
+        \App::notificationService()->subscribe($poster, $about);
 
         return $feed;
     }
@@ -1145,7 +1145,7 @@ class FeedService
         }
 
         if (empty($viewer))
-            $viewer = \App::auth()->getViewer();
+            $viewer = \App::authService()->getViewer();
 
         if ($profile) {
             $profileId = $profile->getId();
@@ -1179,8 +1179,8 @@ class FeedService
         }
 
         $limitCommentCount = (int)\App::setting('activity', 'comment_limit', 3);
-        $commentService = \App::comment();
-        $likeService = \App::like();
+        $commentService = \App::commentService();
+        $likeService = \App::likeService();
 
 
         /**
@@ -1259,7 +1259,7 @@ class FeedService
             ];
         }
 
-        $paging = \App::paging()->factory($bundles);
+        $paging = \App::pagingService()->factory($bundles);
 
         $paging->noLimit();
 
@@ -1276,10 +1276,10 @@ class FeedService
     {
         $limitCommentCount = 3;
         $remainCommentCount = 0;
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
-        $commentService = \App::comment();
-        $likeService = \App::like();
+        $commentService = \App::commentService();
+        $likeService = \App::likeService();
 
         if ($about instanceof CanComment) {
             if ($about->getCommentCount() > $limitCommentCount) {

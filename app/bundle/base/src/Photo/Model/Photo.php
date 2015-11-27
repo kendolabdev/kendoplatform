@@ -95,7 +95,7 @@ class Photo extends Model implements
         $params['id'] = $this->getId();
         $params['slug'] = \App::toSlug($this->getTitle());
 
-        return \App::routing()->getUrl('photo_view', $params);
+        return \App::routingService()->getUrl('photo_view', $params);
     }
 
     /**

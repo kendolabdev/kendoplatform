@@ -225,7 +225,7 @@ class ModuleInstallHandler
     protected function exportHook()
     {
         $this->finalData['core_hook']
-            = \App::core()->hook()
+            = \App::coreService()->hook()
             ->getListHookByModuleName($this->getModuleList());
     }
 
@@ -249,7 +249,7 @@ class ModuleInstallHandler
     protected function exportMail()
     {
         $this->finalData['mail_template']
-            = \App::mail()->getListTemplateByModuleName($this->getModuleList());
+            = \App::mailService()->getListTemplateByModuleName($this->getModuleList());
     }
 
     /**
@@ -272,13 +272,13 @@ class ModuleInstallHandler
     protected function exportLayout()
     {
         $this->finalData['layout_support_block']
-            = \App::layout()->getListSupportBlockByModuleName($this->getModuleList());
+            = \App::layoutService()->getListSupportBlockByModuleName($this->getModuleList());
 
         $this->finalData['layout_page']
-            = \App::layout()->getListPageByModuleName($this->getModuleList());
+            = \App::layoutService()->getListPageByModuleName($this->getModuleList());
 
         $this->finalData['layout_data'] =
-            \App::layout()->exportLayoutData($this->getModuleList());
+            \App::layoutService()->exportLayoutData($this->getModuleList());
 
     }
 
@@ -303,7 +303,7 @@ class ModuleInstallHandler
         }
 
         if (!empty($this->finalData['layout_data'])) {
-            \App::layout()->importLayoutData($this->finalData['layout_data']);
+            \App::layoutService()->importLayoutData($this->finalData['layout_data']);
         }
     }
 
@@ -321,7 +321,7 @@ class ModuleInstallHandler
     protected function exportRelation()
     {
         $this->finalData['relation_type']
-            = \App::relation()->getListRelationTypeByModuleName($this->getModuleList());
+            = \App::relationService()->getListRelationTypeByModuleName($this->getModuleList());
     }
 
     /**
@@ -344,7 +344,7 @@ class ModuleInstallHandler
     protected function exportFeed()
     {
         $this->finalData['feed_type']
-            = \App::feed()->getListTypeByModuleName($this->getModuleList());
+            = \App::feedService()->getListTypeByModuleName($this->getModuleList());
     }
 
     /**
@@ -353,7 +353,7 @@ class ModuleInstallHandler
     protected function exportExtension()
     {
         $this->finalData['core_extension']
-            = \App::core()->extension()
+            = \App::coreService()->extension()
             ->getListExtensionByModuleName($this->getModuleList());
     }
 
@@ -392,7 +392,7 @@ class ModuleInstallHandler
     protected function exportNotification()
     {
         $this->finalData['notification_type']
-            = \App::notification()->getListTypeByModuleName($this->getModuleList());
+            = \App::notificationService()->getListTypeByModuleName($this->getModuleList());
     }
 
     /**
@@ -414,7 +414,7 @@ class ModuleInstallHandler
     protected function exportInvitation()
     {
         $this->finalData['invitation_type']
-            = \App::invitation()->getListTypeByModuleName($this->getModuleList());
+            = \App::invitationService()->getListTypeByModuleName($this->getModuleList());
     }
 
 
@@ -437,7 +437,7 @@ class ModuleInstallHandler
     protected function exportTypes()
     {
         $this->finalData['core_type']
-            = \App::core()->getListTypeByModuleName($this->getModuleList());
+            = \App::coreService()->getListTypeByModuleName($this->getModuleList());
     }
 
     /**
@@ -462,7 +462,7 @@ class ModuleInstallHandler
     protected function exportAttribute()
     {
         $this->finalData['attribute_plugin']
-            = \App::attribute()->getListPluginByModuleName($this->getModuleList());
+            = \App::catalogService()->getListPluginByModuleName($this->getModuleList());
     }
 
     /**
@@ -485,10 +485,10 @@ class ModuleInstallHandler
     protected function exportNavigation()
     {
         $this->finalData['navigation'] =
-            \App::nav()->getListNavigationByModuleName($this->getModuleList());
+            \App::navigationService()->getListNavigationByModuleName($this->getModuleList());
 
         $this->finalData['navigation_item']
-            = \App::nav()->getListItemByModuleName($this->getModuleList());
+            = \App::navigationService()->getListItemByModuleName($this->getModuleList());
     }
 
     /**
@@ -519,16 +519,16 @@ class ModuleInstallHandler
     protected function exportAcl()
     {
         $this->finalData['acl_role']
-            = \App::acl()->getListRoleByModuleName($this->getModuleList());
+            = \App::aclService()->getListRoleByModuleName($this->getModuleList());
 
         $this->finalData['acl_group']
-            = \App::acl()->getListGroupByModuleName($this->getModuleList());
+            = \App::aclService()->getListGroupByModuleName($this->getModuleList());
 
         $this->finalData['acl_action']
-            = \App::acl()->getListActionByModuleName($this->getModuleList());
+            = \App::aclService()->getListActionByModuleName($this->getModuleList());
 
         $this->finalData['acl_allow_data']
-            = \App::acl()->exportAclAllowData($this->getModuleList());
+            = \App::aclService()->exportAclAllowData($this->getModuleList());
     }
 
     /**
@@ -559,7 +559,7 @@ class ModuleInstallHandler
         }
 
         if (!empty($this->finalData['acl_allow_data'])) {
-            \App::acl()->importAclAllowData($this->finalData['acl_allow_data']);
+            \App::aclService()->importAclAllowData($this->finalData['acl_allow_data']);
         }
     }
 
@@ -569,10 +569,10 @@ class ModuleInstallHandler
     protected function exportSetting()
     {
         $this->finalData['setting_action']
-            = \App::settings()->getActionListByModuleName($this->getModuleList());
+            = \App::settingService()->getActionListByModuleName($this->getModuleList());
 
         $this->finalData['setting_value']
-            = \App::settings()->getSettingListByModuleName($this->getModuleList());
+            = \App::settingService()->getSettingListByModuleName($this->getModuleList());
 
     }
 
@@ -592,7 +592,7 @@ class ModuleInstallHandler
         }
 
         if (!empty($this->finalData['setting_value'])) {
-            \App::settings()
+            \App::settingService()
                 ->save($this->finalData['setting_value']);
         }
     }
@@ -603,7 +603,7 @@ class ModuleInstallHandler
     protected function exportPhrase()
     {
         $this->finalData['phrase']
-            = \App::phrase()->getListPhraseByModuleName($this->getModuleList());
+            = \App::phraseService()->getListPhraseByModuleName($this->getModuleList());
     }
 
     /**

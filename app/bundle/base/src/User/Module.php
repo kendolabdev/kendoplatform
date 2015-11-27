@@ -21,7 +21,7 @@ class Module extends \Picaso\Application\Module
     {
         $this->routing();
 
-        \App::auth()->restore();
+        \App::authService()->restore();
 
         \App::viewHelper()->addClassMaps([
             'btnFriendCount'    => '\User\ViewHelper\ButtonMemberCount',
@@ -45,7 +45,7 @@ class Module extends \Picaso\Application\Module
 
     private function routing()
     {
-        $routing = \App::routing();
+        $routing = \App::routingService();
 
         $routing->addRoute('members', [
             'uri'      => 'members',

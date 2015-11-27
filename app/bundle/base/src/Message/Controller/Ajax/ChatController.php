@@ -26,7 +26,7 @@ class ChatController extends AjaxController
             throw new \InvalidArgumentException("Could not find person");
         }
 
-        $poster = \App::auth()->getViewer();
+        $poster = \App::authService()->getViewer();
 
         $this->response['html'] = \App::viewHelper()->partial('/base/message/partial/chat-popup', [
             'person' => $person,

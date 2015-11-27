@@ -17,7 +17,7 @@ class PermissionController extends AdminController
 
     public function actionEdit()
     {
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'group_extension', 'group_permission');
 
@@ -29,7 +29,7 @@ class PermissionController extends AdminController
             'roleId' => $roleId,
         ]);
 
-        $role = \App::acl()->findRoleById($roleId);
+        $role = \App::aclService()->findRoleById($roleId);
 
         $form = new PagePermission(['role' => $role]);
 

@@ -109,7 +109,7 @@ class AclService implements AclLoaderInterface
      */
     public function loadForRole($roleId)
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['acl', 'loadForRole', $roleId], 0, function () use ($roleId) {
                 return $this->_loadForRole($roleId);
             });
@@ -123,7 +123,7 @@ class AclService implements AclLoaderInterface
      */
     protected function getFlatValForRoleId($roleId)
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['acl', '_getMapForRoleId', $roleId], 0,
                 function () use ($roleId) {
                     $response = [];
@@ -145,7 +145,7 @@ class AclService implements AclLoaderInterface
      */
     protected function countAllAction()
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['acl', 'countAllAction'], 0, function () {
                 return \App::table('acl.acl_action')
                     ->select()
@@ -311,7 +311,7 @@ class AclService implements AclLoaderInterface
         /**
          * forget cached value
          */
-        \App::cache()
+        \App::cacheService()
             ->flush();
     }
 
@@ -352,7 +352,7 @@ class AclService implements AclLoaderInterface
      */
     public function getRoleOptions($type = null)
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['acl.role', 'getRoleOptions', $type], 0, function () use ($type) {
                 return $this->_getRoleOptions($type);
             });
@@ -390,7 +390,7 @@ class AclService implements AclLoaderInterface
      */
     public function getGroupOptions()
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['acl.acl', 'getGroupOptions', null], 0, function () {
                 return $this->_getGroupOptions();
             });
@@ -427,7 +427,7 @@ class AclService implements AclLoaderInterface
      */
     public function getRoleTypeOptions()
     {
-        return \App::cache()
+        return \App::cacheService()
             ->get(['acl.acl', 'getRoleTypeOptions', null], 0, function () {
                 return $this->_getRoleTypeOptions();
             });
@@ -489,7 +489,7 @@ class AclService implements AclLoaderInterface
     public function getLoader()
     {
         if (null == $this->loader) {
-            $this->loader = \App::service(\App::registry()->get('AclLoader', 'acl.acl'));
+            $this->loader = \App::service(\App::registryService()->get('AclLoader', 'acl.acl'));
         }
 
         return $this->loader;
@@ -513,7 +513,7 @@ class AclService implements AclLoaderInterface
      */
     public function allow($action, $defaultValue = true)
     {
-        $roleId = \App::auth()->getRoleId();
+        $roleId = \App::authService()->getRoleId();
 
         if (!isset($this->data[ $roleId ])) {
             $this->data[ $roleId ] = $this->getLoader()->loadForRole($roleId);
@@ -551,7 +551,7 @@ class AclService implements AclLoaderInterface
      */
     public function authorize($action, $defaultValue = false)
     {
-        return $this->_authorize(\App::auth()->getRoleId(), $action, $defaultValue);
+        return $this->_authorize(\App::authService()->getRoleId(), $action, $defaultValue);
     }
 
     /**
@@ -604,7 +604,7 @@ class AclService implements AclLoaderInterface
     {
 
 
-        $viewerId = \App::auth()->getId();
+        $viewerId = \App::authService()->getId();
         $parentId = $content->getParentId();
         $isRegistered = $viewerId > 0;
 
@@ -634,7 +634,7 @@ class AclService implements AclLoaderInterface
         /**
          * load relation between theme.
          */
-        $list = \App::relation()->getListRelationIdBetween($parentId, $viewerId);
+        $list = \App::relationService()->getListRelationIdBetween($parentId, $viewerId);
 
         /**
          * check membership of viewer & content
@@ -647,7 +647,7 @@ class AclService implements AclLoaderInterface
          */
 
         if (RELATION_TYPE_MEMBER_OF_MEMBER == $type) {
-            return \App::relation()->isMemberOfMember($parentId, $viewerId);
+            return \App::relationService()->isMemberOfMember($parentId, $viewerId);
         }
 
         return false;

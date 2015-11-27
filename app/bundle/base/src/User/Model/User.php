@@ -135,11 +135,11 @@ class User extends Model implements
         if ($this->getProfileName()) {
             $params['name'] = $this->getProfileName();
 
-            return \App::routing()->getUrl('user_slug', $params);
+            return \App::routingService()->getUrl('user_slug', $params);
         } else {
             $params['profileId'] = $this->getId();
 
-            return \App::routing()->getUrl('user_profile', $params);
+            return \App::routingService()->getUrl('user_profile', $params);
         }
 
 

@@ -23,11 +23,11 @@ class CategoryController extends AdminController
             'label' => 'core.create_new_category',
             'props' => [
                 'class' => 'btn btn-sm btn-danger',
-                'href'  => \App::routing()->getUrl('admin', ['stuff' => 'video/category/create']),
+                'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'video/category/create']),
             ]
         ];
 
-        \App::layout()
+        \App::layoutService()
             ->setPageName('admin_simple')
             ->setPageTitle('video.manage_categories')
             ->setPageButtons([$createButton])
@@ -42,7 +42,7 @@ class CategoryController extends AdminController
         $query = [];
         $page = 1;
 
-        $paging = \App::video()->loadAdminCategoryPaging($query, $page);
+        $paging = \App::videoService()->loadAdminCategoryPaging($query, $page);
 
 
         $lp = new BlockParams([
@@ -71,12 +71,12 @@ class CategoryController extends AdminController
 
         if ($this->request->isPost() && $form->isValid($_POST)) {
             $data = $form->getData();
-            \App::video()->addCategory($data);
+            \App::videoService()->addCategory($data);
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', ['stuff' => 'video/category/browse']);
+            \App::routingService()->redirect('admin', ['stuff' => 'video/category/browse']);
         }
 
         $this->view->setScript($lp)
@@ -90,7 +90,7 @@ class CategoryController extends AdminController
     {
         $id = $this->request->getParam('id');
 
-        $entry = \App::video()->findCategoryById($id);
+        $entry = \App::videoService()->findCategoryById($id);
 
         if (!$entry)
             throw new \InvalidArgumentException("Category does not exists");
@@ -108,10 +108,10 @@ class CategoryController extends AdminController
 
             $entry->save();
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', ['stuff' => 'video/category/browse']);
+            \App::routingService()->redirect('admin', ['stuff' => 'video/category/browse']);
         }
 
         $lp = new BlockParams(['base_path' => 'layout/partial/form-edit']);
@@ -125,7 +125,7 @@ class CategoryController extends AdminController
     {
         $id = $this->request->getParam('id');
 
-        $entry = \App::video()->findCategoryById($id);
+        $entry = \App::videoService()->findCategoryById($id);
 
         if (!$entry)
             throw new \InvalidArgumentException("Category does not exists");
@@ -139,10 +139,10 @@ class CategoryController extends AdminController
         if ($this->request->isPost() && $form->isValid($_POST)) {
             $entry->delete();
 
-            \App::cache()
+            \App::cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', ['stuff' => 'video/category/browse']);
+            \App::routingService()->redirect('admin', ['stuff' => 'video/category/browse']);
         }
 
         $lp = new BlockParams(['base_path' => 'layout/partial/form-delete']);

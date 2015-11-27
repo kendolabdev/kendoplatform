@@ -50,7 +50,7 @@ class EventHandlerService extends EventHandler
 
         $payload = $event->getPayload();
 
-        if (false == \App::auth()->logged()) return;
+        if (false == \App::authService()->logged()) return;
 
         if (!$payload instanceof Content) return;
 
@@ -69,7 +69,7 @@ class EventHandlerService extends EventHandler
 
         $payload = $event->getPayload();
 
-        if (false == \App::auth()->logged()) return;
+        if (false == \App::authService()->logged()) return;
 
         if (!$payload instanceof Poster) return;
 
@@ -85,7 +85,7 @@ class EventHandlerService extends EventHandler
      */
     public function onProfileMenuItemPhotos($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if (!$profile instanceof Poster)
             return false;
@@ -93,10 +93,10 @@ class EventHandlerService extends EventHandler
         if (!$profile->authorize('photo__photo_tab_exists'))
             return false;
 
-        if (!\App::acl()->pass($profile, 'photo__photo_tab_view'))
+        if (!\App::aclService()->pass($profile, 'photo__photo_tab_view'))
             return false;
 
-        if (!\App::acl()->authorize('photo__view'))
+        if (!\App::aclService()->authorize('photo__view'))
             return false;
 
         $item['href'] = $profile->toHref(['stuff' => 'photos']);
@@ -111,7 +111,7 @@ class EventHandlerService extends EventHandler
      */
     public function onProfileMenuItemAlbums($item)
     {
-        $profile = \App::registry()->get('profile');
+        $profile = \App::registryService()->get('profile');
 
         if (!$profile instanceof Poster)
             return false;
@@ -119,7 +119,7 @@ class EventHandlerService extends EventHandler
         if (!$profile->authorize('photo__photo_tab_exists'))
             return false;
 
-        if (!\App::acl()->pass($profile, 'photo__photo_tab_view'))
+        if (!\App::aclService()->pass($profile, 'photo__photo_tab_view'))
             return false;
 
         $item['href'] = $profile->toHref(['stuff' => 'albums']);
@@ -140,12 +140,12 @@ class EventHandlerService extends EventHandler
 
         $stats['photo'] = [
             'label' => \App::text('photo.photos'),
-            'value' => \App::photo()->getPhotoCount(),
+            'value' => \App::photoService()->getPhotoCount(),
         ];
 
         $stats['album'] = [
             'label' => \App::text('photo.albums'),
-            'value' => \App::photo()->getAlbumCount(),
+            'value' => \App::photoService()->getAlbumCount(),
         ];
 
         $payload->__set('stats', $stats);
@@ -161,7 +161,7 @@ class EventHandlerService extends EventHandler
         $data = $event->get('data', []);
 
         if (!empty($data['avatar']))
-            \App::photo()
+            \App::photoService()
                 ->setPosterAvatar($poster, $data['avatar']);
     }
 }

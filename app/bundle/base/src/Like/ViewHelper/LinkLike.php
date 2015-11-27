@@ -17,11 +17,11 @@ class LinkLike
      */
     function __invoke($item, $liked = null)
     {
-        if (false == \App::auth()->logged())
+        if (false == \App::authService()->logged())
             $liked = false;
 
         if (null === $liked)
-            $liked = \App::like()->isLiked(\App::auth()->getViewer(), $item);
+            $liked = \App::likeService()->isLiked(\App::authService()->getViewer(), $item);
 
         return strtr('<a role="button" data-toggle="btn-like" data-object=\':obj\'>:text</a>', [
             ':obj'  => $item->toTokenJson(),
