@@ -39,9 +39,11 @@ class AddPost extends Form
             'required'    => 1,
             'class'       => 'form-control'
         ]);
+
         $this->addElement([
             'plugin'      => 'textarea',
             'name'        => 'content',
+            'htmlEditor'  => true,
             'label'       => 'blog_form.content_label',
             'note'        => 'blog_form.content_note',
             'placeholder' => 'blog_form.content_placeholder',

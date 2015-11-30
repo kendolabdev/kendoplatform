@@ -1,7 +1,7 @@
 define([
     'primary/jquery.min',
     'primary/underscore.min',
-    //'primary/bootstrap.min',
+    'primary/domready',
     'primary/jquery.ac',
     'primary/jquery.dropdown',
     'primary/jquery.elastic',

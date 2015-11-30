@@ -1,3 +1,4 @@
+/static/jscript/kendo/components
 /app/config/*.conf.php
 /app/vendor/
 /app/tools/vendor/

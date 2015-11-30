@@ -19,10 +19,10 @@
     </div>
     <?php endif; ?>
     <?php if(!empty($filter)): ?>
-    <?php \App::registry()->set('prefer_dropdown_button',true); ?>
+    <?php \App::registryService()->set('prefer_dropdown_button',true); ?>
     <div class="page-filter">
         <?php echo $filter->asSearch(); ?>
     </div>
-    <?php \App::registry()->set('prefer_dropdown_button',false); ?>
+    <?php \App::registryService()->set('prefer_dropdown_button',false); ?>
     <?php endif; ?>
 </div>

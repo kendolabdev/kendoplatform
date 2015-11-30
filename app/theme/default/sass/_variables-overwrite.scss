@@ -77,6 +77,8 @@ $sidebar-color-mode: "default" !default;
 
 @if not $use-round-corner{
   $panel-border-radius: 0;
+  $border-radius-base: 0;
+  $list-group-border-radius: 0;
 }
 
 @if not $input-border-radius-flag{
@@ -91,6 +93,6 @@ $sidebar-color-mode: "default" !default;
   $btn-border-radius-large: 0;
 }
 
-
+$navbar-font-weight: 400 !default;
 $dropdown-line-height: $line-height-base !default;
 $separator-middot: '\a0\b7\a0';

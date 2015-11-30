@@ -120,7 +120,7 @@
     position: absolute;
   }
   .options-stageout {
-    border-radius: 2px;
+    border-radius: $border-radius-base;
     background-clip: border-box;
     background: $dropdown-bg;
     border: 1px solid $dropdown-border;
@@ -197,7 +197,7 @@
     top: $options-cover-height - ($options-profile-height/2);
     border: 1px solid $dropdown-border;
     padding: 2px;
-    border-radius: 2px;
+    border-radius:$border-radius-base;
     background: $body-bg;
     a {
       overflow: hidden;
