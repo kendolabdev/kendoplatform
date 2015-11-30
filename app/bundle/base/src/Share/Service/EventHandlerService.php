@@ -2,6 +2,7 @@
 namespace Share\Service;
 
 use Picaso\Application\EventHandler;
+use Picaso\Assets\Requirejs;
 use Picaso\Content\CanShare;
 use Picaso\Content\Poster;
 use Picaso\Hook\HookEvent;
@@ -35,9 +36,9 @@ class EventHandlerService extends EventHandler
     {
         $payload = $event->getPayload();
 
-        if (!$payload instanceof SimpleContainer) return;
+        if (!$payload instanceof Requirejs) return;
 
-        $payload->add('share/main', 'base/share/main');
+        $payload->addDependency(['base/share/main']);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Core\Service;
 use Core\Model\CoreExtension;
 use Picaso\Application\ModuleInstallHandler;
 use Picaso\Application\ThemeInstallHandler;
+use Picaso\Assets\Requirejs;
 use Picaso\Hook\SimpleContainer;
 
 /**
@@ -367,30 +368,50 @@ class ExtensionService
      */
     public function updateJsBundleConfiguration()
     {
-        $container = new SimpleContainer([
-            'primary'   => 'primary/main',
-            'core'      => 'base/core/main',
-            'bootstrap' => 'bootstrap/main',
-        ]);
+
+        $requirejs = new Requirejs();
+
+        $requirejs->addPaths([
+            'jquery'=> 'kendo/jquery/jquery',
+            'bootstrap'=> 'kendo/bootstrap/bootstrap',
+            'jqueryui'=> 'kendo/jquery-ui/jqueryui',
+            'underscore'=> 'kendo/underscore/underscore.min'
+        ])
+            ->shim('bootstrap',['jquery'],'bootstrap')
+            ->shim('jqueryui',['jquery'],'jqueryui')
+            ->shim('underscore',['jquery'],'_')
+            ->addDependency([
+                'jquery',
+                'underscore',
+                'bootstrap',
+                'jqueryui',
+                'kendo/platform/main',
+                'kendo/jquery-base/main'
+            ]);
 
         \App::hook()
-            ->notify('onBeforeBuildBundleJS', $container);
+            ->notify('onBeforeBuildBundleJS', $requirejs);
 
-        // lookup bundle
 
-        // repair bundle
+        $config = [
+            'baseUrl' => './jscript',
+            'paths'   => $requirejs->getPaths(),
+            'bundles' => $requirejs->getBundles(),
+            'shim'    => $requirejs->getShim(),
+        ];
 
-        $data = array_values($container->all());
+        $content = 'requirejs.config(' . json_encode($config, JSON_PRETTY_PRINT) . ');';
 
-        $array = implode(',', array_map(function ($e) {
-            return '\'' . $e . '\'';
-        }, $data));
+        $dependency = json_encode(array_values($requirejs->getDependency()),JSON_PRETTY_PRINT);
 
-        $content = 'requirejs([' . $array . '], function(){})';
+        $script =  'require(' . $dependency . ', function(){});';
+
 
         $filename = PICASO_STATIC_DIR . '/jscript/jsmain.js';
 
-        file_put_contents($filename, $content);
+        file_put_contents($filename, $content . PHP_EOL . $script);
+
+        // run grunt build to rebuild scripts.
     }
 
 }

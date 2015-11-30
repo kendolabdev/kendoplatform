@@ -1,6 +1,7 @@
 <?php
 namespace Notification\Service;
 
+use Picaso\Assets\Requirejs;
 use Picaso\Content\Content;
 use Picaso\Content\Poster;
 use Picaso\Hook\HookEvent;
@@ -33,9 +34,9 @@ class EventHandlerService extends \Picaso\Application\EventHandler
     {
         $payload = $event->getPayload();
 
-        if (!$payload instanceof SimpleContainer) return;
+        if (!$payload instanceof Requirejs) return;
 
-        $payload->add('notification/main', 'base/notification/main');
+        $payload->addDependency(['base/notification/main']);
     }
 
     /**

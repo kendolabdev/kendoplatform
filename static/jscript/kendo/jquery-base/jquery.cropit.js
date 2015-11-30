@@ -1,4 +1,4 @@
-define(['primary/jqueryui', 'primary/rangeslider'], function () {
+define(['jqueryui'], function () {
 
     var CropIt,
         _debug = true,

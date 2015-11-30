@@ -126,7 +126,7 @@ class Requirejs implements Collection
         $config = ['deps' => $deps];
 
         if (!empty($export))
-            $configs['exports'] = $export;
+            $config['exports'] = $export;
 
         $this->_shim[ $name ] = $config;
 
@@ -314,9 +314,10 @@ class Requirejs implements Collection
     }
 
     /**
+     * @param array $configs
      * @return string
      */
-    public function renderConfig()
+    public function renderConfig($configs = [])
     {
         \App::hook()
             ->notify('onRequirejsRender', $this);

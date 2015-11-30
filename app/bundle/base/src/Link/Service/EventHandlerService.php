@@ -2,6 +2,7 @@
 namespace Link\Service;
 
 use Picaso\Application\EventHandler;
+use Picaso\Assets\Requirejs;
 use Picaso\Hook\HookEvent;
 use Picaso\Hook\SimpleContainer;
 
@@ -10,16 +11,15 @@ use Picaso\Hook\SimpleContainer;
  *
  * @package Link\Service
  */
-class EventHandlerService extends EventHandler
-{
+class EventHandlerService extends EventHandler {
     /**
      * @param \Picaso\Hook\HookEvent $event
      */
-    public function onBeforeBuildBundleStylesheet(HookEvent $event)
-    {
+    public function onBeforeBuildBundleStylesheet(HookEvent $event) {
         $payload = $event->getPayload();
 
-        if (!$payload instanceof SimpleContainer) return;
+        if (!$payload instanceof SimpleContainer)
+            return;
 
         $payload->add('base/link', 'base/link');
     }
@@ -27,12 +27,12 @@ class EventHandlerService extends EventHandler
     /**
      * @param \Picaso\Hook\HookEvent $event
      */
-    public function onBeforeBuildBundleJS(HookEvent $event)
-    {
+    public function onBeforeBuildBundleJS(HookEvent $event) {
         $payload = $event->getPayload();
 
-        if (!$payload instanceof SimpleContainer) return;
+        if (!$payload instanceof Requirejs)
+            return;
 
-        $payload->add('link/main', 'base/link/main');
+        $payload->addDependency(['base/link/main']);
     }
 }

@@ -3,6 +3,7 @@ namespace Comment\Service;
 
 use Comment\Model\Comment;
 use Picaso\Application\EventHandler;
+use Picaso\Assets\Requirejs;
 use Picaso\Content\CanComment;
 use Picaso\Hook\HookEvent;
 use Picaso\Hook\SimpleContainer;
@@ -33,9 +34,9 @@ class EventHandlerService extends EventHandler
     {
         $payload = $event->getPayload();
 
-        if (!$payload instanceof SimpleContainer) return;
+        if (!$payload instanceof Requirejs) return;
 
-        $payload->add('comment/main', 'base/comment/main');
+        $payload->addDependency(['base/comment/main']);
     }
 
     /**

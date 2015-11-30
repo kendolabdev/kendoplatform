@@ -1,6 +1,7 @@
 <?php
 namespace Event\Service;
 
+use Picaso\Assets\Requirejs;
 use Picaso\Hook\HookEvent;
 use Picaso\Hook\SimpleContainer;
 use Picaso\View\View;
@@ -32,9 +33,9 @@ class EventHandlerService extends \Picaso\Application\EventHandler
     {
         $payload = $event->getPayload();
 
-        if (!$payload instanceof SimpleContainer) return;
+        if (!$payload instanceof Requirejs) return;
 
-        $payload->add('event/main', 'base/event/main');
+        $payload->addDependency(['base/event/main']);
     }
 
     /**

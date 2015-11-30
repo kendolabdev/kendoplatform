@@ -3,6 +3,7 @@ namespace Follow\Service;
 
 use Follow\Model\Follow;
 use Picaso\Application\EventHandler;
+use Picaso\Assets\Requirejs;
 use Picaso\Content\CanFollow;
 use Picaso\Content\Poster;
 use Picaso\Hook\HookEvent;
@@ -23,9 +24,9 @@ class EventHandlerService extends EventHandler
     {
         $payload = $event->getPayload();
 
-        if (!$payload instanceof SimpleContainer) return;
+        if (!$payload instanceof Requirejs) return;
 
-        $payload->add('follow/main', 'base/follow/main');
+        $payload->addDependency(['base/follow/main']);
     }
 
     /**

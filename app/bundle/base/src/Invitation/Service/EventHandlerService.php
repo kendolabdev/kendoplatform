@@ -2,6 +2,7 @@
 namespace Invitation\Service;
 
 use Picaso\Application\EventHandler;
+use Picaso\Assets\Requirejs;
 use Picaso\Content\Poster;
 use Picaso\Hook\HookEvent;
 use Picaso\Hook\SimpleContainer;
@@ -34,9 +35,9 @@ class EventHandlerService extends EventHandler
     {
         $payload = $event->getPayload();
 
-        if (!$payload instanceof SimpleContainer) return;
+        if (!$payload instanceof Requirejs) return;
 
-        $payload->add('invitation/main', 'base/invitation/main');
+        $payload->addDependency(['base/invitation/main']);
     }
 
     /**

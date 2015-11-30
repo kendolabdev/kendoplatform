@@ -4,6 +4,7 @@ namespace Like\Service;
 
 use Like\Model\Like;
 use Picaso\Application\EventHandler;
+use Picaso\Assets\Requirejs;
 use Picaso\Content\CanLike;
 use Picaso\Content\Poster;
 use Picaso\Hook\HookEvent;
@@ -25,9 +26,9 @@ class EventHandlerService extends EventHandler
     {
         $payload = $event->getPayload();
 
-        if (!$payload instanceof SimpleContainer) return;
+        if (!$payload instanceof Requirejs) return;
 
-        $payload->add('like/main', 'base/like/main');
+        $payload->addDependency(['base/like/main']);
     }
 
     /**

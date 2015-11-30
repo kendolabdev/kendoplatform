@@ -17,7 +17,7 @@ module.exports = function (grunt) {
                         base: "./base",
                     },
                     //optimize: "none",
-                    //mainConfigFile: "./jscript/main.js"
+                    mainConfigFile: "./jscript/jsmain.js"
                 }
             }
         }

@@ -3,6 +3,7 @@
 namespace Photo\Service;
 
 use Picaso\Application\EventHandler;
+use Picaso\Assets\Requirejs;
 use Picaso\Content\Content;
 use Picaso\Content\Poster;
 use Picaso\Hook\HookEvent;
@@ -36,9 +37,9 @@ class EventHandlerService extends EventHandler
     {
         $payload = $event->getPayload();
 
-        if (!$payload instanceof SimpleContainer) return;
+        if (!$payload instanceof Requirejs) return;
 
-        $payload->add('photo/main', 'base/photo/main');
+        $payload->addDependency(['base/photo/main']);
     }
 
 

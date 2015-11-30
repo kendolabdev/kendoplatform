@@ -4,6 +4,7 @@ namespace Feed\Service;
 
 use Core\Form\PosterPrivacySetting;
 use Picaso\Application\EventHandler;
+use Picaso\Assets\Requirejs;
 use Picaso\Content\Content;
 use Picaso\Content\Poster;
 use Picaso\Hook\HookEvent;
@@ -36,9 +37,9 @@ class EventHandlerService extends EventHandler
     {
         $payload = $event->getPayload();
 
-        if (!$payload instanceof SimpleContainer) return;
+        if (!$payload instanceof Requirejs) return;
 
-        $payload->add('feed/main', 'base/feed/main');
+        $payload->addDependency(['base/feed/main']);
     }
 
     /**

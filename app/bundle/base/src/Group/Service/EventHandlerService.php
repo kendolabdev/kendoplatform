@@ -4,6 +4,7 @@ namespace Group\Service;
 
 use Invitation\Model\Invitation;
 use Picaso\Application\EventHandler;
+use Picaso\Assets\Requirejs;
 use Picaso\Hook\HookEvent;
 use Picaso\Hook\SimpleContainer;
 use Picaso\View\View;
@@ -35,9 +36,9 @@ class EventHandlerService extends EventHandler
     {
         $payload = $event->getPayload();
 
-        if (!$payload instanceof SimpleContainer) return;
+        if (!$payload instanceof Requirejs) return;
 
-        $payload->add('group/main', 'base/group/main');
+        $payload->addDependency(['base/group/main']);
     }
 
     /**

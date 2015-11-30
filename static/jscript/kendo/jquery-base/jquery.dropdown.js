@@ -1,9 +1,7 @@
-/* ========================================================================
- * Bootstrap: dropdown.js v3.3.4
- * http://getbootstrap.com/javascript/#dropdowns
- * ========================================================================
- * Copyright 2011-2015 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+/*!
+ * Bootstrap: Dynamic dropdown js
+ * A branch of bootstrap with dynamic contents
+ * @author: Nam Nguyen <kendolabdev@gmail.com>
  * ======================================================================== */
 
 

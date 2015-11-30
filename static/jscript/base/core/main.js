@@ -1,8 +1,4 @@
-define([
-    'base/core/picaso',
-    'base/core/control',
-    'base/core/boot'], function () {
-
+define(['jquery'], function () {
     $(document).on('click', '[data-toggle="ajax"]', function (evt) {
         evt.preventDefault();
 
