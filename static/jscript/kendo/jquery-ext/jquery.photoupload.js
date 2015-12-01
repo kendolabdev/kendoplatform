@@ -1,6 +1,5 @@
-(function ($) {
+define(['jquery'],function(){
     var pluginName = 'PhotosUpload';
-
     var debug  = true;
 
     // These are the plugin defaults values
@@ -320,4 +319,4 @@
     });
 
     window.PhotosUpload =  PhotosUpload;
-})(window.jQuery);
+});

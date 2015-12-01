@@ -1,7 +1,7 @@
 /**
  * Data Paging
  */
-(function ($) {
+define(['jquery'],function(){
     var Paging,
         _debug = false,// active debug when be required
         _dataKey = 'paging';
@@ -22,6 +22,7 @@
             _tagKey = _element.eid(),
             _endless = _element.data('endless'),
             _loading = false;
+
 
 
         /**
@@ -304,6 +305,10 @@
         if (_endless)
             _setBindingEndless();
 
+        $(document).on('page_change_start',function(){
+            _scroll.off('scroll.endless');
+        });
+
 
         _element.on('loadnew', function () {
             loadNew();
@@ -327,7 +332,7 @@
         }
         evt.preventDefault();
 
-    });
+    })
 
     $.fn.paging = function () {
         var ele = $(this.get(0));
@@ -336,4 +341,4 @@
         }
         return $.data(ele, _dataKey);
     }
-})(jQuery);
+});

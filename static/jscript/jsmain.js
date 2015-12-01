@@ -4,9 +4,10 @@ requirejs.config({
         "jquery": "kendo\/jquery\/jquery",
         "bootstrap": "kendo\/bootstrap\/bootstrap",
         "jqueryui": "kendo\/jquery-ui\/jqueryui",
-        "underscore": "kendo\/underscore\/underscore.min"
+        "underscore": "kendo\/underscore\/underscore.min",
+        "jquery-ext": "kendo\/jquery-ext\/jquery-ext",
+        "platform": "kendo\/platform\/platform"
     },
-    "bundles": [],
     "shim": {
         "bootstrap": {
             "deps": [
@@ -32,14 +33,15 @@ require([
     "jquery",
     "underscore",
     "bootstrap",
-    "jqueryui",
-    "kendo\/platform\/main",
-    "kendo\/jquery-base\/main",
+    "platform",
+    "jquery-ext",
     "base\/comment\/main",
     "base\/layout\/main",
+    "base\/user\/main",
     "base\/feed\/main",
     "base\/group\/main",
     "base\/photo\/main",
+    "base\/social\/main",
     "base\/event\/main",
     "base\/search\/main",
     "base\/mail\/main",
@@ -54,5 +56,4 @@ require([
     "base\/invitation\/main",
     "base\/link\/main",
     "base\/message\/main"
-], function () {
-});
+], function(){});

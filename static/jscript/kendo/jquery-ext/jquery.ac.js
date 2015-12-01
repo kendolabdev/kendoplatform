@@ -1,5 +1,4 @@
-
-(function ($) {
+define(['jquery'],function(){
     $.fn.autoComplete = function (options) {
         var o = $.extend({}, $.fn.autoComplete.defaults, options);
 
@@ -186,4 +185,4 @@
         onSelect: function (e, term, item) {
         }
     };
-}(jQuery));
+});

@@ -1,10 +1,11 @@
-(function ($) {
+define(['jquery', 'underscore'], function () {
     var _debug = false,
         defaultContainer = '#site-container',
         container = null,
         _iframe = null,
         onStart = function () {
-            $(document).trigger('pagechanged');
+            $(document).trigger('page_change_start');
+
             $('.navbar-collapse').removeClass('in'); // collapse menu
         },
         scrollTop = function () {
@@ -100,4 +101,4 @@
     window.fetchPage = fetchPage;
     window.replacePage = replacePage;
     window.onFetchPageComplete = onLoadComplete;
-})(jQuery);
+});

@@ -1,1 +1,1 @@
-require(['base/relation/privacy'],function(){});
+define(['base/relation/privacy'],function(){});

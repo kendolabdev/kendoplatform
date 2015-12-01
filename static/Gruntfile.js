@@ -12,7 +12,7 @@ module.exports = function (grunt) {
                 options: {
                     baseUrl: "./jscript",
                     name: "jsmain",
-                    out: "./jscript/dist/core.bundle.js",
+                    out: "./jscript/dist/primary.bundle.js",
                     paths: {
                         base: "./base",
                     },

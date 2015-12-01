@@ -27,15 +27,27 @@ class EventHandlerService extends \Picaso\Application\EventHandler
     }
 
     /**
+     * @param HookEvent $event
+     */
+    public function onRequirejsRender(HookEvent $event) {
+        $requirejs = $event->getPayload();
+
+        if (!$requirejs instanceof Requirejs) return;
+
+        $requirejs->addDependency(['base/event/main'])
+            ->addPrimaryBundle('base/event/main');
+    }
+
+    /**
      * @param \Picaso\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleJS(HookEvent $event)
     {
-        $payload = $event->getPayload();
+        $requirejs = $event->getPayload();
 
-        if (!$payload instanceof Requirejs) return;
+        if (!$requirejs instanceof Requirejs) return;
 
-        $payload->addDependency(['base/event/main']);
+        $requirejs->addDependency(['base/event/main']);
     }
 
     /**

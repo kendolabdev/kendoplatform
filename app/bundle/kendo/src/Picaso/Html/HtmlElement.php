@@ -351,6 +351,10 @@ class HtmlElement
      */
     public function beforeRender()
     {
+        if(empty($this->attributes['class'])){
+            $this->attributes['class'] = 'form-control';
+        }
+
         $this->sanitizeNameAndId();
     }
 

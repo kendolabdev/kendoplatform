@@ -8,8 +8,7 @@
  * License: MIT License - http://www.opensource.org/licenses/mit-license.php
  */
 
-(function ($, _, undefined) {
-
+define(['jquery','underscore'],function(){
     // Settings
     var KEY = {
         BACKSPACE: 8,
@@ -612,4 +611,4 @@
             }
         });
     };
-})(jQuery, _);
+});

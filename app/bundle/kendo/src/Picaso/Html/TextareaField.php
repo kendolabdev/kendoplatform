@@ -22,7 +22,7 @@ class TextareaField extends HtmlElement implements FormField
     /**
      * @var bool
      */
-    protected $htmlEditor = true;
+    protected $htmlEditor =  false;
 
     /**
      * @return string

@@ -1,5 +1,4 @@
-(function ($) {
-
+define(['jquery'],function(){
     var debug = true;
 
     var defaultOptions = {
@@ -127,7 +126,7 @@
 
                 that.prop('disabled', true).addClass('bg-disabled');
                 $('<a class="absolute cleanup ion-backspace" data-toggle="btn-remove-token"></a>').
-                    insertAfter(that);
+                insertAfter(that);
                 var token = $('<span class="select-token hidden"></span>');
                 $('<input type="hidden" />').prop('name', tokenName).val(item.id + '@' + item.type).appendTo(token);
                 token.appendTo(outer);
@@ -269,4 +268,4 @@
             $e.data('select', new SelectInput($e));
         }
     })
-})(window.jQuery);
+});

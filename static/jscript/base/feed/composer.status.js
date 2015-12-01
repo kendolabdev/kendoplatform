@@ -1,4 +1,4 @@
-(function ($) {
+define(['jquery'],function(){
     var _debug = false,
         _dataKey = 'feedComposer',
         statusBox = 'textarea.mentions-input',
@@ -100,4 +100,4 @@
     $(document).on('click', '[data-toggle="fc-btn-submit"]', function () {
         $(this).closest('form').trigger('submit');
     })
-})(jQuery);
+});

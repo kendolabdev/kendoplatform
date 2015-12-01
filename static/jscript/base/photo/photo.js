@@ -1,4 +1,4 @@
-(function ($) {
+define(['jquery'],function(){
     $(document).on('click', '[data-toggle="photo-make-album-cover"]', function () {
         var ele = $(this),
             data = ele.data('object');
@@ -35,4 +35,4 @@
 
         K.modal('ajax/photo/avatar/edit-avatar-dialog', data);
     });
-})(jQuery);
+});

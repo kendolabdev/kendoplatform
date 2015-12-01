@@ -3,6 +3,7 @@
 namespace Core\Service;
 
 use Picaso\Application\EventHandler;
+use Picaso\Assets\Requirejs;
 use Picaso\Hook\HookEvent;
 
 /**
@@ -10,25 +11,73 @@ use Picaso\Hook\HookEvent;
  *
  * @package Core\Service
  */
-class EventHandlerService extends EventHandler
-{
+class EventHandlerService extends EventHandler {
+    /**
+     * @param \Picaso\Hook\HookEvent $event
+     */
+    public function onBeforeBuildBundleJS(HookEvent $event) {
+        $requirejs = $event->getPayload();
+
+        if (!$requirejs instanceof Requirejs) return;
+
+        $requirejs->addPaths([
+            'jquery'     => 'kendo/jquery/jquery',
+            'bootstrap'  => 'kendo/bootstrap/bootstrap',
+            'jqueryui'   => 'kendo/jquery-ui/jqueryui',
+            'underscore' => 'kendo/underscore/underscore.min',
+            'jquery-ext' => 'kendo/jquery-ext/jquery-ext',
+            'platform'    => 'kendo/platform/platform'
+        ])
+            ->shim('bootstrap', ['jquery'], 'bootstrap')
+            ->shim('jqueryui', ['jquery'], 'jqueryui')
+            ->shim('underscore', ['jquery'], '_')
+            ->addDependency([
+                'jquery',
+                'underscore',
+                'bootstrap',
+                'platform',
+                'jquery-ext',
+            ]);
+    }
 
 
     /**
      * @param HookEvent $event
      */
-    public function onRequirejsRender(HookEvent $event)
-    {
+    public function onRequirejsRender(HookEvent $event) {
 
-        $require = $event->getPayload();
+        $requirejs = $event->getPayload();
+
+        if (!$requirejs instanceof Requirejs)
+            return;
 
         $staticUrl = \App::staticBaseUrl();
 
-        $require->baseUrl($staticUrl . 'static/jscript');
+        $requirejs->baseUrl($staticUrl . 'static/jscript');
 
-        $require->addPaths([
-            'jquery' => 'dist/core.bundle',
-        ]);
+        // you have shim to bundles, do not shim here!
+        $requirejs->addPaths([
+            'jquery'     => 'kendo/jquery/jquery',
+            'bootstrap'  => 'kendo/bootstrap/bootstrap',
+            'jqueryui'   => 'kendo/jquery-ui/jqueryui',
+            'underscore' => 'kendo/underscore/underscore.min',
+            'jquery-ext' => 'kendo/jquery-ext/jquery-ext',
+            'platform'    => 'kendo/platform/platform'
+        ])
+            ->addDependency([
+                'jquery',
+                'underscore',
+                'bootstrap',
+                'platform',
+                'jquery-ext'
+            ])
+            ->addPrimaryBundle([
+                'jquery',
+                'underscore',
+                'bootstrap',
+                'platform',
+                'jquery-ext'
+            ]);
 
         $options = [
             'baseUrl'   => PICASO_BASE_URL,
@@ -37,20 +86,20 @@ class EventHandlerService extends EventHandler
             'isUser'    => \App::authService()->isUser()
         ];
 
-        $require->prependScript('options', 'K.setOptions(' . json_encode($options) . ')');
+        $script = 'K.setOptions(' . json_encode($options, JSON_PRETTY_PRINT) . ')';
+        $requirejs->prependScript('options', $script);
     }
 
 
     /**
      *
      */
-    public function onBeforeRenderAssetsHeader()
-    {
+    public function onBeforeRenderAssetsHeader() {
         $assets = \App::assetService();
 
         $staticUrl = \App::staticBaseUrl();
 
-        $assets->headjs()
+        $assets->js()
             ->prependAll([
                 'requirejs' => [
                     'src' => $staticUrl . 'static/jscript/dist/require.js',

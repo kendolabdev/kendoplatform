@@ -1,9 +1,4 @@
-/*!
- * Hyves 1.0.1
- * Copyright Nam Nguyen <namnv@younetco.com>
- */
-(function ($, _) {
-
+define(['jquery', 'underscore'], function () {
     var _Hyves,
         _debug = false,
         _dialogTpl = '<div id="hyves-dialog" class="hyves-dialog"><div class="hyves-overlay" /><div class="hyves-stageout"><div class="hyves-stagein"></div></div></div>';
@@ -40,7 +35,7 @@
 
         $(document)
             .on('closehyves', $.proxy(this.destroy, this))
-            .on('pagechanged', $.proxy(this.destroy, this))
+            .on('page_change_start', $.proxy(this.destroy, this))
             .on('click', '[data-toggle="btn-hyves-close"]', $.proxy(this.destroy, this));
 
         return this;
@@ -117,6 +112,4 @@
      * @type {_Hyves}
      */
     window.Hyves = new _Hyves();
-
-})(jQuery, _);
-
+});

@@ -1,1 +1,1 @@
-require(['base/report/report'],function(){});
+define(['base/report/report'],function(){});

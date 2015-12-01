@@ -1,8 +1,7 @@
 /**
  * Photo Upload Button
  */
-(function ($) {
-
+define(['jquery','underscore','jquery-ext'], function () {
     var _AjaxUploadHandler,
         _debug = false,
         _Sumbit,
@@ -27,16 +26,16 @@
                 _form.trigger('postSuccess', response);
                 Hyves.destroy();
 
-                if(/feed/i.test(response.context)){
+                if (/feed/i.test(response.context)) {
                     // reload feed.
                     $('.feed-stream').trigger('loadnew');
                 }
             }).always(function () {
-                _form.trigger('postComplete');
-            }).fail(function () {
-                _form.trigger('postError');
-            });
-    }
+            _form.trigger('postComplete');
+        }).fail(function () {
+            _form.trigger('postError');
+        });
+    };
 
 
     _AjaxUploadHandler = function (input) {
@@ -67,12 +66,12 @@
                 $(_.template(_previewTpl)({id: eid}))[_more ? 'prependTo' : 'appendTo'](input.data('preview'));
             },
             onUploadProgress: function (eid, pos, percentage, input) {
-                $('.progress-bar','#'+eid).css({width: percentage + '%'});
+                $('.progress-bar', '#' + eid).css({width: percentage + '%'});
             },
             onUploadSuccess: function (eid, id, data, input) {
                 var preview = $('#' + eid);
 
-                $('.progress-bar','#'+eid).remove();
+                $('.progress-bar', '#' + eid).remove();
 
                 if (_debug) {
                     console.log(data);
@@ -163,5 +162,4 @@
             hidden.val("1");
         }
     });
-
-})(jQuery);
+});

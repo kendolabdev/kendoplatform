@@ -1,3 +1,6 @@
-require(['base/comment/comment'], function () {
+define([
+    'base/comment/feed',
+    'base/comment/composer'
+], function () {
 
 });

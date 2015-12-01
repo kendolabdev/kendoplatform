@@ -1,4 +1,4 @@
-(function ($) {
+define(['jquery'],function(){
     var LiveChat, toggle;
 
     LiveChat = function () {
@@ -38,4 +38,4 @@
 
     });
     window.Chat = new LiveChat();
-})(jQuery);
+});

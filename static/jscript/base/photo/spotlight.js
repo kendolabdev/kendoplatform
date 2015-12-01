@@ -1,5 +1,4 @@
-(function ($) {
-
+define(['jquery'],function(){
     var _SpotLight,
         _debug = true,
         _toggle = '[data-toggle="spotlight"]';
@@ -163,7 +162,7 @@
             closeDialog();
         }
 
-        $(document).on('pagechanged', function () {
+        $(document).on('page_change_start', function () {
             closeDialog();
         }).on('click', '[data-toggle="spotlight-hide"]', function () {
             hideDialog();
@@ -186,4 +185,4 @@
     };
 
     window.SpotLight = new _SpotLight();
-})(jQuery);
+});

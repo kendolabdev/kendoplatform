@@ -371,32 +371,12 @@ class ExtensionService
 
         $requirejs = new Requirejs();
 
-        $requirejs->addPaths([
-            'jquery'=> 'kendo/jquery/jquery',
-            'bootstrap'=> 'kendo/bootstrap/bootstrap',
-            'jqueryui'=> 'kendo/jquery-ui/jqueryui',
-            'underscore'=> 'kendo/underscore/underscore.min'
-        ])
-            ->shim('bootstrap',['jquery'],'bootstrap')
-            ->shim('jqueryui',['jquery'],'jqueryui')
-            ->shim('underscore',['jquery'],'_')
-            ->addDependency([
-                'jquery',
-                'underscore',
-                'bootstrap',
-                'jqueryui',
-                'kendo/platform/main',
-                'kendo/jquery-base/main'
-            ]);
-
         \App::hook()
             ->notify('onBeforeBuildBundleJS', $requirejs);
-
 
         $config = [
             'baseUrl' => './jscript',
             'paths'   => $requirejs->getPaths(),
-            'bundles' => $requirejs->getBundles(),
             'shim'    => $requirejs->getShim(),
         ];
 

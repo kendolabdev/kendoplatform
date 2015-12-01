@@ -1,4 +1,4 @@
-(function(){
+define(['jquery'],function(){
     var Core;
     Core = {
         /**
@@ -14,6 +14,7 @@
          * @param options
          */
         setOptions: function (options) {
+            console.log('setOptions');
             this.options = $.extend({}, this.options, options);
         },
         /**
@@ -143,4 +144,4 @@
         }
     };
     window.K = Core;
-})(jQuery);
+});

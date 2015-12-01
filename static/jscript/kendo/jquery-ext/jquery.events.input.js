@@ -10,8 +10,7 @@
     Modified by Kenneth Auchenberg
     * Disabled usage of onPropertyChange event in IE, since its a bit delayed, if you type really fast.
 */
-
-(function($) {
+define(['jquery'],function(){
   // Handler for propertychange events only
   function propHandler() {
     var $this = $(this);
@@ -26,20 +25,20 @@
   $.event.special.input = {
     setup: function(data, namespaces) {
       var timer,
-        // Get a reference to the element
-        elem = this,
-        // Store the current state of the element
-        state = elem.value,
-        // Create a dummy element that we can use for testing event support
-        tester = document.createElement(this.tagName),
-        // Check for native oninput
-        oninput = "oninput" in tester || checkEvent(tester),
-        // Check for onpropertychange
-        onprop = "onpropertychange" in tester,
-        // Generate a random namespace for event bindings
-        ns = "inputEventNS" + ~~(Math.random() * 10000000),
-        // Last resort event names
-        evts = ["focus", "blur", "paste", "cut", "keydown", "drop", ""].join("." + ns + " ");
+      // Get a reference to the element
+          elem = this,
+      // Store the current state of the element
+          state = elem.value,
+      // Create a dummy element that we can use for testing event support
+          tester = document.createElement(this.tagName),
+      // Check for native oninput
+          oninput = "oninput" in tester || checkEvent(tester),
+      // Check for onpropertychange
+          onprop = "onpropertychange" in tester,
+      // Generate a random namespace for event bindings
+          ns = "inputEventNS" + ~~(Math.random() * 10000000),
+      // Last resort event names
+          evts = ["focus", "blur", "paste", "cut", "keydown", "drop", ""].join("." + ns + " ");
 
       function checkState() {
         var $this = $(elem);
@@ -108,12 +107,12 @@
 
       // "* Note * : Disabled focus and dispatch of keypress event due to conflict with DOMready, which resulted in scrolling down to the bottom of the page, possibly because layout wasn't finished rendering.
       var e = document.createEvent("KeyboardEvent"),
-        ok = false,
-        tester = function(e) {
-          ok = true;
-          e.preventDefault();
-          e.stopPropagation();
-      };
+          ok = false,
+          tester = function(e) {
+            ok = true;
+            e.preventDefault();
+            e.stopPropagation();
+          };
 
       // e.initKeyEvent("keypress", true, true, window, false, false, false, false, 0, "e".charCodeAt(0));
 
@@ -129,4 +128,4 @@
 
     }
   }
-})(jQuery);
+});

@@ -1,8 +1,6 @@
-/**
- * data ride for auto load
- */
-(function ($) {
-    var _debug = false,
+define(['jquery'], function () {
+    var _BootInit,
+        _debug = false,
         _dirty = '#dirty',
         _main = '#main',
         _href = '',
@@ -26,7 +24,7 @@
                 ele[method]({});
             }
         });
-    }
+    };
 
     /**
      * clear boot init data
@@ -37,9 +35,9 @@
         $('[ride]', this).each(function () {
             $(this).trigger('clearBootInit');
         });
-    }
+    };
 
-    window.BootInit = function () {
+    _BootInit = function () {
         _href = document.location.href;
         _clearBootInit = !$(_dirty).val();
 
@@ -61,19 +59,31 @@
             $(_main).bootInit();
         }
         _documentBooted = true;
-    }
-
-    window.setInterval(function () {
-        if (_href != document.location.href) {
-            BootInit();
-        }
-    }, _interval);
+    };
 
     // push footer to bottom
     $(document).ready(function () {
+
+        window.setInterval(function () {
+            if (_href != document.location.href) {
+                _BootInit();
+            }
+        }, _interval);
+
+
         var remain = window.innerHeight - $('#header').outerHeight() - $('#footer').outerHeight() + 22;
         if (remain > 0) {
             $('#main').css({minHeight: remain});
         }
     });
-})(jQuery);
+
+    $(document).on('click', '[data-toggle="modal"]', function (e) {
+        var btn = $(e.currentTarget),
+            url = btn.data('remote'),
+            obj = btn.data('object');
+
+        K.modal(url, obj);
+    });
+
+    window.BootInit = _BootInit;
+});

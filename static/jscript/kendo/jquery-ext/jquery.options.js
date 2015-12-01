@@ -1,7 +1,7 @@
 /**
  * Control options menu
  */
-(function ($, _) {
+define(['jquery','underscore'],function(){
     var _debug = false,
         _toggleOptions = '[data-toggle="options"]',
         _Dialog,
@@ -238,4 +238,4 @@
         }
         instance.toggleDialog();
     });
-})(jQuery, _);
+});

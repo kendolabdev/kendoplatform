@@ -7,7 +7,6 @@ use Picaso\Assets\Requirejs;
 use Picaso\Content\CanFollow;
 use Picaso\Content\Poster;
 use Picaso\Hook\HookEvent;
-use Picaso\Hook\SimpleContainer;
 use User\Model\User;
 
 /**
@@ -17,16 +16,29 @@ use User\Model\User;
  */
 class EventHandlerService extends EventHandler
 {
+
+    /**
+     * @param HookEvent $event
+     */
+    public function onRequirejsRender(HookEvent $event) {
+        $requirejs = $event->getPayload();
+
+        if (!$requirejs instanceof Requirejs) return;
+
+        $requirejs->addDependency(['base/follow/main'])
+            ->addPrimaryBundle('base/follow/main');
+    }
+
     /**
      * @param \Picaso\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleJS(HookEvent $event)
     {
-        $payload = $event->getPayload();
+        $requirejs = $event->getPayload();
 
-        if (!$payload instanceof Requirejs) return;
+        if (!$requirejs instanceof Requirejs) return;
 
-        $payload->addDependency(['base/follow/main']);
+        $requirejs->addDependency(['base/follow/main']);
     }
 
     /**

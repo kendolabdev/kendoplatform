@@ -1,9 +1,9 @@
-(function ($, _) {
+define(['jquery', 'underscore'], function () {
     var LinkComposer,
-        _dataKey ='linkComposer';
+        _dataKey = 'linkComposer';
 
     LinkComposer = function (ele) {
-        var _form= $(ele),
+        var _form = $(ele),
             loading = false,
             attatched = false,
             triedLinks = []
@@ -32,7 +32,7 @@
             clean();
         }).on('clean', function () {
             clean();
-        }).on('clearBootInit',function(){
+        }).on('clearBootInit', function () {
             _form.data(_dataKey, false);
         });
 
@@ -109,16 +109,16 @@
 
         if (outer.hasClass('as-video')) {
             outer.removeClass('as-video').addClass('as-link');
-            $('.attachment-type',outer).val('link');
+            $('.attachment-type', outer).val('link');
             ele.text(ele.data('label2'));
         } else {
             outer.removeClass('as-link').addClass('as-video');
             ele.text(ele.data('label1'));
-            $('.attachment-type',outer).val('video');
+            $('.attachment-type', outer).val('video');
         }
     });
 
     $.fn.linkComposer = function () {
         this.data(_dataKey) || this.data(_dataKey, new LinkComposer(this));
     };
-})(jQuery, _);
+});

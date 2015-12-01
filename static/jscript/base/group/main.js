@@ -1,1 +1,1 @@
-require([],function(){});
+define(['base/group/membership'],function(){});

@@ -1,8 +1,4 @@
-/**
- * Photo Composer
- */
-(function ($,_) {
-
+define(['jquery','underscore'],function(){
     var PhotoComposer,
         _debug = true,
         _dataKey = 'photoComposer',
@@ -27,7 +23,7 @@
             url: url,
             fileName: 'fileUpload',
             onQueue: function(plugin){
-              plugin.processQueue();
+                plugin.processQueue();
             },
             onBeforeUpload: function (eid) {
                 $(_.template(_previewTpl)({id: eid})).appendTo(outer);
@@ -57,4 +53,4 @@
             return e.data(_dataKey) || e.data(_dataKey, new PhotoComposer(e));
         });
     }
-})(jQuery,_);
+});

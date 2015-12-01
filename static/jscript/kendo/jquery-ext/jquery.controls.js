@@ -1,5 +1,4 @@
-(function ($) {
-
+define(['jquery'],function(){
     $(document).on('click', '[data-control="select-option"]', function () {
 
         var element = $(this),
@@ -12,4 +11,4 @@
         input.val(element.attr('value'));
         label.text(element.attr('label'));
     });
-})(jQuery);
+});

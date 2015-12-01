@@ -1,3 +1,3 @@
-define(["base/link/composer"], function () {
+define([], function () {
 
 });

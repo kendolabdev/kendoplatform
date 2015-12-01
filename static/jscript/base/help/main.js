@@ -1,3 +1,3 @@
-require(['base/share/main'], function () {
+define([], function () {
 
 });

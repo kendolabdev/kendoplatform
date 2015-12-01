@@ -1,1 +1,1 @@
-require([],function(){});
+define([],function(){});

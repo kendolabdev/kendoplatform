@@ -15,13 +15,11 @@ use Picaso\View\View;
  *
  * @package Photo\Service
  */
-class EventHandlerService extends EventHandler
-{
+class EventHandlerService extends EventHandler {
     /**
      * @param \Picaso\Hook\HookEvent $event
      */
-    public function onBeforeBuildBundleStylesheet(HookEvent $event)
-    {
+    public function onBeforeBuildBundleStylesheet(HookEvent $event) {
         $payload = $event->getPayload();
 
         if (!$payload instanceof SimpleContainer) return;
@@ -29,25 +27,35 @@ class EventHandlerService extends EventHandler
         $payload->add('base/photo', 'base/photo');
     }
 
+    /**
+     * @param HookEvent $event
+     */
+    public function onRequirejsRender(HookEvent $event) {
+
+        $requirejs = $event->getPayload();
+
+        if (!$requirejs instanceof Requirejs) return;
+
+        $requirejs->addDependency(['base/photo/main'])
+            ->addPrimaryBundle('base/photo/main');
+    }
 
     /**
      * @param \Picaso\Hook\HookEvent $event
      */
-    public function onBeforeBuildBundleJS(HookEvent $event)
-    {
-        $payload = $event->getPayload();
+    public function onBeforeBuildBundleJS(HookEvent $event) {
+        $requirejs = $event->getPayload();
 
-        if (!$payload instanceof Requirejs) return;
+        if (!$requirejs instanceof Requirejs) return;
 
-        $payload->addDependency(['base/photo/main']);
+        $requirejs->addDependency(['base/photo/main']);
     }
 
 
     /**
      * @param HookEvent $event
      */
-    public function onRenderActivityComposerHeader(HookEvent $event)
-    {
+    public function onRenderActivityComposerHeader(HookEvent $event) {
 
         $payload = $event->getPayload();
 
@@ -65,8 +73,7 @@ class EventHandlerService extends EventHandler
     /**
      * @param HookEvent $event
      */
-    public function onRenderActivityComposerFooter(HookEvent $event)
-    {
+    public function onRenderActivityComposerFooter(HookEvent $event) {
 
         $payload = $event->getPayload();
 
@@ -84,8 +91,7 @@ class EventHandlerService extends EventHandler
      *
      * @return mixed
      */
-    public function onProfileMenuItemPhotos($item)
-    {
+    public function onProfileMenuItemPhotos($item) {
         $profile = \App::registryService()->get('profile');
 
         if (!$profile instanceof Poster)
@@ -110,8 +116,7 @@ class EventHandlerService extends EventHandler
      *
      * @return mixed
      */
-    public function onProfileMenuItemAlbums($item)
-    {
+    public function onProfileMenuItemAlbums($item) {
         $profile = \App::registryService()->get('profile');
 
         if (!$profile instanceof Poster)
@@ -131,8 +136,7 @@ class EventHandlerService extends EventHandler
     /**
      * @param HookEvent $event
      */
-    public function onAdminStatisticBlockRender(HookEvent $event)
-    {
+    public function onAdminStatisticBlockRender(HookEvent $event) {
         $payload = $event->getPayload();
 
         if (!$payload instanceof View) return;
@@ -155,8 +159,7 @@ class EventHandlerService extends EventHandler
     /**
      * @param \Picaso\Hook\HookEvent $event
      */
-    public function onCompleteCreatePoster(HookEvent $event)
-    {
+    public function onCompleteCreatePoster(HookEvent $event) {
         $poster = $event->get('poster');
 
         $data = $event->get('data', []);

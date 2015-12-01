@@ -1,4 +1,4 @@
-(function ($) {
+define(['jquery','underscore'],function(){
     var PlaceInput;
     PlaceInput = function (element) {
         var input, autocomplete, outer, stage;
@@ -35,7 +35,7 @@
             if (typeof obj.G != 'undefined') {
                 return {lat: obj.G, lng: obj.K};
             }
-            
+
             return {lat: 0.0, lng: 0.0};
         }
 
@@ -80,5 +80,4 @@
 
     };
     window.PlaceInput = PlaceInput;
-
-})(window.jQuery);
+});

@@ -1,4 +1,4 @@
-define(['jqueryui'], function () {
+define(['jquery','jqueryui'], function () {
 
     var CropIt,
         _debug = true,

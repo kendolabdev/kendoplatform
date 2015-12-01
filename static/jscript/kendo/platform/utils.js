@@ -1,33 +1,17 @@
-/**
- * Retry or generate eid
- */
-(function ($) {
-    $.fn.eid = function (prefix) {
-        if (/undefined/i.test(typeof prefix))prefix = 'e';
+define(['jquery'], function () {
 
-        if (!$(this).prop('id')) {
-            $(this).prop('id', K.newId(prefix, 8));
-        }
-        return $(this).prop('id');
-    }
-})(jQuery);
-
-/**
- * Define scrollToTop plugins
- */
-(function ($) {
     var _debug = false,
         _key = 'scrollToTop',
         _ScrollToTop = function (ele) {
             var element = ele,
                 distance = 300,
-                speed  = 200
+                speed = 200
                 ;
 
             _debug && console.log('_ScrollToTop.construct');
 
             element.on('click', function () {
-                $('html, body').animate({scrollTop: 0},  speed);
+                $('html, body').animate({scrollTop: 0}, speed);
             });
 
             $(window).on('scroll', function () {
@@ -49,5 +33,14 @@
             ele.data(_key, instance = new _ScrollToTop(ele));
         }
         return instance;
+    };
+
+    $.fn.eid = function (prefix) {
+        if (/undefined/i.test(typeof prefix))prefix = 'e';
+
+        if (!$(this).prop('id')) {
+            $(this).prop('id', K.newId(prefix, 8));
+        }
+        return $(this).prop('id');
     }
-})(jQuery);
+});
