@@ -3,11 +3,11 @@
 namespace Picaso\Layout;
 
 /**
- * Class BlockWrapperDefault
+ * Class PanelDecorator
  *
  * @package Picaso\Layout
  */
-class BlockRenderDefault implements BlockRender
+class PanelDecorator implements Decorator
 {
 
     /**

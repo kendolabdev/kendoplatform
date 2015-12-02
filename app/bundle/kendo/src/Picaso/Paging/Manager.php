@@ -14,9 +14,9 @@ class Manager
     /**
      * @var array
      */
-    private $renders = [
-        'nextPrev' => '\Picaso\Paging\RenderNextPrev',
-        'more'     => '\Picaso\Paging\RenderMore',
+    private $decorators = [
+        'nextPrev' => '\Picaso\Paging\NextPrevDecorator',
+        'more'     => '\Picaso\Paging\LoadMoreDecorator',
     ];
 
     /**
@@ -24,13 +24,13 @@ class Manager
      * @param array           $options
      * @param PagingInterface $paging
      *
-     * @return RenderInterface
+     * @return Decorator
      */
-    public function getRender($name, $options, PagingInterface $paging)
+    public function getDecorator($name, $options, PagingInterface $paging)
     {
-        if (!empty($this->renders[ $name ])) {
+        if (!empty($this->decorators[ $name ])) {
 
-            $class = $this->renders[ $name ];
+            $class = $this->decorators[ $name ];
 
             return new $class($paging, $options);
         }

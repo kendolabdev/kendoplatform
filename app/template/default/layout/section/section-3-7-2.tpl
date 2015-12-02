@@ -1,4 +1,4 @@
-<div id="<?php echo !empty($section_id)?$section_id:'';?>" class="section" data-render="3-7-2"
+<div id="<?php echo !empty($section_id)?$section_id:'';?>" class="section section-main" data-render="3-7-2"
      data-template="default">
     <?php if(!empty($forEdit)): ?>
     <div class="section-header">

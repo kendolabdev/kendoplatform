@@ -2,11 +2,11 @@
 namespace Picaso\Paging;
 
 /**
- * Class RenderNextPrev
+ * Class LoadMoreDecorator
  *
  * @package Picaso\Paging
  */
-class RenderNextPrev implements RenderInterface
+class LoadMoreDecorator implements Decorator
 {
 
     /**
@@ -37,15 +37,11 @@ class RenderNextPrev implements RenderInterface
      */
     public function render()
     {
-
-        $page = $this->paging->getPage();
-
-        return \App::viewHelper()->partial('layout/partial/paging-next-prev', [
-            'prevUrl' => $this->paging->getNextUrl(),
-            'nextUrl' => $this->paging->getPrevUrl(),
-            'hasNext' => $this->paging->hasNext(),
-            'hasPrev' => $this->paging->hasPrev(),
-            'paging'  => $this->paging,
+        return \App::viewHelper()->partial('layout/partial/paging-more', [
+            'hasNext'   => $this->paging->hasNext(),
+            'pageCount' => $this->paging->pageCount(),
+            'itemCount' => $this->paging->count(),
+            'paging'    => $this->paging,
         ]);
     }
 }

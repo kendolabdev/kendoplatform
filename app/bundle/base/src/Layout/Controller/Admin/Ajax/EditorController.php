@@ -6,6 +6,7 @@ use Layout\Model\Layout;
 use Layout\Form\Admin\LayoutEditContentSetting;
 use Layout\Form\Admin\LayoutSelectBlockScript;
 use Layout\Form\Admin\LayoutSupportBlockSetting;
+use Layout\Model\LayoutSection;
 use Picaso\Controller\AjaxController;
 
 /**
@@ -26,6 +27,45 @@ class EditorController extends AjaxController
         $html = $this->partial('layout/section/section-' . $tpl . '', [
             'forEdit' => 1,
         ]);
+
+        $this->response = [
+            'html' => $html,
+        ];
+    }
+
+    /**
+     * Add section to layout editor
+     */
+    public function actionChangeSection()
+    {
+        $tpl = $this->request->getParam('tpl');
+        $layoutService = \App::layoutService();
+
+        $sectionId = $this->request->getParam('sectionId');
+        $section = null;
+        $html = null;
+        $sectionData = [];
+
+        if ($sectionId)
+        {
+            $section = \App::layoutService()
+                ->findLayoutSectionById($sectionId);
+        }
+
+        if ($section instanceof LayoutSection)
+        {
+            $sectionData = [
+                'locations'        => $layoutService->loadSectionData($sectionId),
+                'section_template' => $section->getSectionTemplate(),
+                'section_id'       => $section->getId()];
+
+            $html = $layoutService->renderSectionForEdit($sectionData, $tpl);
+        } else
+        {
+            $html = $this->partial('layout/section/' . $tpl . '', [
+                'forEdit' => 1,
+            ]);
+        }
 
         $this->response = [
             'html' => $html,
@@ -76,7 +116,8 @@ class EditorController extends AjaxController
 
         $supportBlock = \App::layoutService()->findSupportBlockById($supportBlockId);
 
-        if ($supportBlock->getBlockType() == 'container') {
+        if ($supportBlock->getBlockType() == 'container')
+        {
             $isContainer = 1;
         }
 
@@ -139,15 +180,18 @@ class EditorController extends AjaxController
         $itemScript = !empty($oldData['item_script']) ? $oldData['item_script'] : 'view';
 
 
-        if (in_array($layoutType, ['header', 'footer']) or null != $page->getBasePath()) {
+        if (in_array($layoutType, ['header', 'footer']) or null != $page->getBasePath())
+        {
             $baseScriptList = \App::layoutService()->getTemplateBlockRenderSettings($templateId, $layoutType, $page->getBasePath());
         }
 
-        if (!in_array($layoutType, ['header', 'footer']) and null != $page->getItemPath()) {
+        if (!in_array($layoutType, ['header', 'footer']) and null != $page->getItemPath())
+        {
             $itemScriptList = \App::layoutService()->getTemplateBlockRenderSettings($templateId, $layoutType, $page->getItemPath());
         }
 
-        if (count($baseScriptList) < 1 && count($itemScriptList) < 1) {
+        if (count($baseScriptList) < 1 && count($itemScriptList) < 1)
+        {
             return $this->forward(null, 'open-content-setting');
         }
 
@@ -262,7 +306,8 @@ class EditorController extends AjaxController
         $baseScriptList = \App::layoutService()
             ->getTemplateBlockRenderSettings($themeId, $layoutType, $page->getBasePath());
 
-        if ($layoutType == 'content' and null != $page->getItemPath()) {
+        if ($layoutType == 'content' and null != $page->getItemPath())
+        {
             $itemScriptList = \App::layoutService()->getTemplateBlockRenderSettings($themeId, $layoutType, $page->getItemPath());
         }
 
@@ -276,7 +321,8 @@ class EditorController extends AjaxController
             throw new \InvalidArgumentException();
 
 
-        if (!empty($baseScriptList[ $baseScript ])) {
+        if (!empty($baseScriptList[ $baseScript ]))
+        {
             $baseScriptSetting = $baseScriptList[ $baseScript ];
         }
 
@@ -290,36 +336,42 @@ class EditorController extends AjaxController
         $form->setNote($baseScriptSetting['note']);
 
 
-        if (!empty($itemScriptList[ $itemScript ]) && !empty($itemScriptList[ $itemScript ])) {
+        if (!empty($itemScriptList[ $itemScript ]) && !empty($itemScriptList[ $itemScript ]))
+        {
             $itemScriptSetting = $itemScriptList[ $itemScript ];
         }
 
         /**
          * setup form with full items
          */
-        if (!empty($baseScriptSetting['settings'])) {
+        if (!empty($baseScriptSetting['settings']))
+        {
             $form->addElements($baseScriptSetting['settings']);
         }
 
-        if (!empty($itemScriptSetting['settings'])) {
+        if (!empty($itemScriptSetting['settings']))
+        {
             $form->addElements($itemScriptSetting['settings']);
         }
 
-        if (empty($baseScriptSetting['settings']) && empty($itemScriptSetting['settings'])) {
+        if (empty($baseScriptSetting['settings']) && empty($itemScriptSetting['settings']))
+        {
             $form->addElement([
                 'plugin' => 'static',
                 'value'  => 'There no settings for this content',
             ]);
         }
 
-        if ($editStep == '') {
+        if ($editStep == '')
+        {
             $oldData = $entry->getLayoutSettings();
             $oldData['item_script'] = $itemScript;
             $oldData['base_script'] = $baseScript;
             $form->setData($oldData);
         }
 
-        if ($editStep == 'save_setting' && $this->request->isPost() && $form->isValid($_POST)) {
+        if ($editStep == 'save_setting' && $this->request->isPost() && $form->isValid($_POST))
+        {
             $newData = $form->getData();
 
             $entry->setLayoutSettings($newData);
@@ -334,7 +386,8 @@ class EditorController extends AjaxController
                 'html'      => '',
             ];
 
-        } else {
+        } else
+        {
             /**
              * supported layouts
              */
@@ -383,7 +436,8 @@ class EditorController extends AjaxController
         /**
          * moved select block script instead
          */
-        if ('\Core\Block\ActionContentBlock' == $supportBlock->getBlockClass()) {
+        if ('\Core\Block\ActionContentBlock' == $supportBlock->getBlockClass())
+        {
             $this->request->setParam('layoutType', 'content');
 
             return $this->forward('\Layout\Controller\Admin\Ajax\EditorController', 'select-content-script');
@@ -399,18 +453,21 @@ class EditorController extends AjaxController
         $themeId = $theme->getId();
 
 
-        if (!empty($basePath)) {
+        if (!empty($basePath))
+        {
             $supportScripts = \App::layoutService()
                 ->getTemplateSupportBlockSettings($basePath, $themeId);
         }
 
-        if (empty($supportScripts)) {
+        if (empty($supportScripts))
+        {
             $form->addElement([
                 'plugin' => 'static',
                 'value'  => 'There are no settings for this block.',
             ]);
             $formScript = 'base/layout/dialog/layout/no-block-setting';
-        } else if (count($supportScripts) == 1) {
+        } else if (count($supportScripts) == 1)
+        {
             $this->forward('\Layout\Controller\Admin\Ajax\EditorController', 'open-block-setting');
         }
 
@@ -455,21 +512,25 @@ class EditorController extends AjaxController
         $theme = \App::layoutService()->getEditingTheme();
         $themeId = $theme->getId();
 
-        if (!empty($basePath)) {
+        if (!empty($basePath))
+        {
             $supportScripts = \App::layoutService()
                 ->getTemplateSupportBlockSettings($basePath, $themeId);
         }
 
-        if (!empty($supportScripts[ $baseScript ]['settings'])) {
+        if (!empty($supportScripts[ $baseScript ]['settings']))
+        {
             $supportSettings = $supportScripts[ $baseScript ]['settings'];
         }
 
-        if (empty($supportSettings)) {
+        if (empty($supportSettings))
+        {
             $form->addElement([
                 'plugin' => 'static',
                 'value'  => 'There are no settings for this block.',
             ]);
-        } else {
+        } else
+        {
             $form->addElements($supportSettings);
         }
 
@@ -534,32 +595,38 @@ class EditorController extends AjaxController
         if (!$blockEntry)
             throw new \InvalidArgumentException("Could not find block, you must save layout before edit each block");
 
-        if (!empty($basePath)) {
+        if (!empty($basePath))
+        {
             $supportScripts = \App::layoutService()
                 ->getTemplateSupportBlockSettings($basePath, $themeId);
         }
 
-        if (!empty($supportScripts[ $baseScript ]['settings'])) {
+        if (!empty($supportScripts[ $baseScript ]['settings']))
+        {
             $supportSettings = $supportScripts[ $baseScript ]['settings'];
         }
 
-        if (empty($supportSettings)) {
+        if (empty($supportSettings))
+        {
             $form->addElement([
                 'plugin' => 'static',
                 'value'  => 'There are no settings for this block.',
             ]);
-        } else {
+        } else
+        {
             $form->addElements($supportSettings);
         }
 
         // check data from this case
 
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isPost() && $form->isValid($_POST))
+        {
             $post = $form->getData();
             $blockEntry->setBlockParamsText(json_encode($post));
             $blockEntry->save();
-        } else {
+        } else
+        {
             $data = [
                 'eid'            => $eid,
                 'blockId'        => $blockId,

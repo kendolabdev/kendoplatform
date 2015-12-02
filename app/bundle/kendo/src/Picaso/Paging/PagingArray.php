@@ -247,7 +247,7 @@ class PagingArray implements PagingInterface
      */
     public function toHtml($name = 'nextPrev', $options = [])
     {
-        return \App::pagingService()->getRender($name, ['paging' => $this], $this)->render();
+        return \App::pagingService()->getDecorator($name, ['paging' => $this], $this)->render();
     }
 
     public function noLimit()

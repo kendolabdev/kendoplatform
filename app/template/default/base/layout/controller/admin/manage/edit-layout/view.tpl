@@ -7,6 +7,20 @@
             </button>
             <div class="btn-group">
                 <button class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <?php echo $this->helper()->text('core_layout_editor.change_layout');?>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <?php foreach($supportSections as $item): ?>
+                    <li>
+                        <a role="button" data-toggle="layout-change-section"
+                           data-tpl="<?php echo $item->getId();?>"><?php echo $item->getTitle();?></a>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <?php echo $this->helper()->text('core_layout_editor.add_section');?>
                     <span class="caret"></span>
                 </button>

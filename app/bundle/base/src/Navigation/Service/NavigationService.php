@@ -2,6 +2,7 @@
 
 namespace Navigation\Service;
 
+use Picaso\Navigation\Manager;
 use Picaso\Navigation\NavigationLoaderInterface;
 
 /**
@@ -9,7 +10,7 @@ use Picaso\Navigation\NavigationLoaderInterface;
  *
  * @package Navigation\Service
  */
-class NavigationService implements NavigationLoaderInterface
+class NavigationService implements Manager, NavigationLoaderInterface
 {
     /**
      * define max level to load
@@ -24,9 +25,9 @@ class NavigationService implements NavigationLoaderInterface
     /**
      * @var array
      */
-    private $plugins = [
-        'dropdown' => '\Picaso\Navigation\RenderAsDropDownMenu',
-        'tab'      => '\Picaso\Navigation\RenderAsTab',
+    private $decorators = [
+        'dropdown' => '\Picaso\Navigation\DropdownDecorator',
+        'tab'      => '\Picaso\Navigation\TabDecorator',
     ];
 
     /**
@@ -52,17 +53,17 @@ class NavigationService implements NavigationLoaderInterface
     /**
      * @return array
      */
-    public function getPlugins()
+    public function getDecorators()
     {
-        return $this->plugins;
+        return $this->decorators;
     }
 
     /**
-     * @param array $plugins
+     * @param array $decorators
      */
-    public function setPlugins($plugins)
+    public function setDecorators($decorators)
     {
-        $this->plugins = $plugins;
+        $this->decorators = $decorators;
     }
 
     /**
@@ -71,7 +72,7 @@ class NavigationService implements NavigationLoaderInterface
      */
     public function addPlugin($name, $class)
     {
-        $this->plugins[ $name ] = $class;
+        $this->decorators[ $name ] = $class;
     }
 
     /**
@@ -80,7 +81,7 @@ class NavigationService implements NavigationLoaderInterface
     public function addPlugins($plugins)
     {
         foreach ($plugins as $name => $class) {
-            $this->plugins[ $name ] = $class;
+            $this->decorators[ $name ] = $class;
         }
     }
 
@@ -133,12 +134,12 @@ class NavigationService implements NavigationLoaderInterface
     /**
      * @param  string $name
      *
-     * @return \Picaso\Navigation\RenderPlugin
+     * @return \Picaso\Navigation\Decorator
      * @throws \InvalidArgumentException
      */
     public function getPlugin($name)
     {
-        $class = isset($this->plugins[ $name ]) ? $this->plugins[ $name ] : '';
+        $class = isset($this->decorators[ $name ]) ? $this->decorators[ $name ] : '';
 
         if (empty($class)) {
             throw new \InvalidArgumentException("Plugin name $name does not support");

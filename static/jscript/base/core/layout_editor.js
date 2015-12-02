@@ -1,4 +1,5 @@
-define(['jquery', 'primary/jqueryui'], function () {
+define(['jquery', 'jqueryui'], function ()
+{
     var editor = '#layouteditor',
         debug = true,
         blockKey = {
@@ -9,10 +10,12 @@ define(['jquery', 'primary/jqueryui'], function () {
             prefix: 'b',
             length: 12
         },
-        checkContainerLoop = function () {
+        checkContainerLoop = function ()
+        {
             //$('.location.leaf', '.location.leaf').remove();
         },
-        enableDragDrop = function () {
+        enableDragDrop = function ()
+        {
             debug && console.log("enabled drag & drop");
 
             $(".available_containers").sortable({
@@ -22,7 +25,8 @@ define(['jquery', 'primary/jqueryui'], function () {
                 cursor: 'move',
                 opacity: 0.6,
                 dropOnEmpty: true,
-                remove: function (event, ui) {
+                remove: function (event, ui)
+                {
                     var anchor = ui.item.data('anchor');
                     ui.item.clone().insertAfter(anchor);
                     enableDragDrop();
@@ -38,7 +42,8 @@ define(['jquery', 'primary/jqueryui'], function () {
                 cursor: 'move',
                 opacity: 0.6,
                 dropOnEmpty: true,
-                remove: function (event, ui) {
+                remove: function (event, ui)
+                {
                     var anchor = ui.item.data('anchor');
                     ui.item.clone().insertAfter(anchor);
                     saveLayout();
@@ -51,7 +56,8 @@ define(['jquery', 'primary/jqueryui'], function () {
                 //handle: '.dragable-element', // cancel this mode because it's failed .
                 //cancel: '.dragable-element-placeholder'
                 dropOnEmpty: true,
-                remove: function () {
+                remove: function ()
+                {
                     checkContainerLoop();
                     saveLayout();
                 }
@@ -66,26 +72,50 @@ define(['jquery', 'primary/jqueryui'], function () {
                 //dropOnEmpty: false
             }).disableSelection();
         },
-        getLayoutConfigData = function () {
+        getLayoutConfigData = function ()
+        {
             return $(editor).data('object');
         };
 
 
-    $.fn.layoutEditorEnabledDragDrop = function () {
+    $.fn.layoutEditorEnabledDragDrop = function ()
+    {
         enableDragDrop();
     }
 
-    function layoutAddSection(ele) {
+    function layoutAddSection(ele)
+    {
         var sendData = $.extend({}, {tpl: ele.data('tpl')});
 
         K.ajax('admin/layout/ajax/editor/add-section', sendData)
-            .done(function (response) {
+            .done(function (response)
+            {
                 $(response.html).prependTo('#layouteditor');
                 enableDragDrop();
             });
     }
 
-    function collectLeafBlockData(block, order) {
+    function layoutChangeSection(ele)
+    {
+
+        var main = $('.section-main','#layouteditor'),
+            sendData = $.extend({}, {tpl: ele.data('tpl')});
+
+        if(main.length){
+            sendData.sectionId =  main.eid();
+        }
+
+        K.ajax('admin/layout/ajax/editor/change-section', sendData)
+            .done(function (response)
+            {
+                $('.section-main','#layouteditor').replaceWith(response.html);
+                enableDragDrop();
+            });
+    }
+
+
+    function collectLeafBlockData(block, order)
+    {
         var locations = $('>.dragable-element-body >.row > .location.leaf', block);
         return {
             block_id: block.eid(blockKey.prefix, blockKey.length),
@@ -104,7 +134,8 @@ define(['jquery', 'primary/jqueryui'], function () {
      *
      * @param locations
      */
-    function collectLeafBlockListData(locations) {
+    function collectLeafBlockListData(locations)
+    {
         var blocks,
             block,
             blockDatas = {},
@@ -112,9 +143,11 @@ define(['jquery', 'primary/jqueryui'], function () {
             n = 0,
             i = 0;
 
-        for (; n < locations.length; ++n) {
+        for (; n < locations.length; ++n)
+        {
             blocks = $('>.dragable-element', locations[n])
-            for (i = 0; i < blocks.length; ++i) {
+            for (i = 0; i < blocks.length; ++i)
+            {
                 block = $(blocks[i]);
                 key = block.eid(blockKey.prefix, blockKey.length);
                 blockDatas[key] = collectLeafBlockData(block, i);
@@ -127,7 +160,8 @@ define(['jquery', 'primary/jqueryui'], function () {
      *
      * @param block
      */
-    function collectBlockData(block, order) {
+    function collectBlockData(block, order)
+    {
         var locations = $('>.dragable-element-body >.row > .location.leaf', block);
 
         return {
@@ -148,7 +182,8 @@ define(['jquery', 'primary/jqueryui'], function () {
      *
      * @param locations
      */
-    function collectBlockListData(locations) {
+    function collectBlockListData(locations)
+    {
         var blocks,
             block,
             blockDatas = {},
@@ -156,9 +191,11 @@ define(['jquery', 'primary/jqueryui'], function () {
             n = 0,
             i = 0;
 
-        for (; n < locations.length; ++n) {
+        for (; n < locations.length; ++n)
+        {
             blocks = $('>.dragable-element', locations[n]);
-            for (i = 0; i < blocks.length; ++i) {
+            for (i = 0; i < blocks.length; ++i)
+            {
                 block = $(blocks[i]);
                 key = block.eid(blockKey.prefix, blockKey.length);
                 blockDatas[key] = collectBlockData(block, i);
@@ -170,11 +207,13 @@ define(['jquery', 'primary/jqueryui'], function () {
     /**
      *
      */
-    function collectRemainBlockIdList(section) {
+    function collectRemainBlockIdList(section)
+    {
         var blocks = $('.dragable-element', section), i = 0,
             blockIdList = [];
 
-        for (; i < blocks.length; ++i) {
+        for (; i < blocks.length; ++i)
+        {
             blockIdList.push($(blocks[i]).eid(blockKey.prefix, blockKey.length));
         }
 
@@ -184,7 +223,8 @@ define(['jquery', 'primary/jqueryui'], function () {
     /**
      *
      */
-    function collectSectionData(section, order) {
+    function collectSectionData(section, order)
+    {
         var locations = $('.location.node', section);
 
         return {
@@ -201,7 +241,8 @@ define(['jquery', 'primary/jqueryui'], function () {
      *
      * @returns {{}}
      */
-    function collectLayoutData() {
+    function collectLayoutData()
+    {
         checkContainerLoop();
         var sections = $('.section', editor),
             i = 0,
@@ -210,7 +251,8 @@ define(['jquery', 'primary/jqueryui'], function () {
             section,
             sendData = $(editor).data('object');
 
-        for (; i < sections.length; ++i) {
+        for (; i < sections.length; ++i)
+        {
             section = $(sections[i]);
             sectionId = section.eid(sectionKey.prefix, sectionKey.length);
             sectionsData[sectionId] = collectSectionData(section, i);
@@ -221,41 +263,57 @@ define(['jquery', 'primary/jqueryui'], function () {
         return sendData;
     }
 
-    function saveLayout() {
+    function saveLayout()
+    {
         var sendData = collectLayoutData();
 
         console.log(sendData);
 
         K.ajax('admin/layout/ajax/editor/update-layout', sendData)
-            .done(function (response) {
+            .done(function (response)
+            {
                 console.log(response);
             });
     }
 
-    $(document).on('click', '[data-toggle="layout-edit-content"]', function () {
+    $(document).on('click', '[data-toggle="layout-edit-content"]', function ()
+    {
         // edit block content
         var ele = $(this),
             url = 'admin/layout/ajax/editor/select-content-script',
             sendData = $.extend({layoutType: ele.data('layout')}, getLayoutConfigData());
         K.modal(url, sendData);
     });
-    $(document).on('click', '[data-toggle="layout-delete-content"]', function () {
+    $(document).on('click', '[data-toggle="layout-delete-content"]', function ()
+    {
         // edit block content
         var ele = $(this),
             url = 'admin/layout/ajax/editor/delete-content-setting',
             sendData = $.extend({layoutType: ele.data('layout')}, getLayoutConfigData());
         K.ajax(url, sendData)
-            .done(function (result) {
+            .done(function (result)
+            {
                 Toast.success(result.message);
             });
     });
-    $(document).on('click', '[data-toggle="layout-add-section"]', function () {
+
+    $(document).on('click', '[data-toggle="layout-change-section"]', function ()
+    {
+        layoutChangeSection($(this));
+    });
+
+    $(document).on('click', '[data-toggle="layout-add-section"]', function ()
+    {
         layoutAddSection($(this));
     });
-    $(document).on('click', '[data-toggle="layout-clear"]', function () {
+
+    $(document).on('click', '[data-toggle="layout-clear"]', function ()
+    {
         $(editor).html('');
     });
-    $(document).on('click', '[data-toggle="layout-block-edit"]', function () {
+
+    $(document).on('click', '[data-toggle="layout-block-edit"]', function ()
+    {
         // edit block content
         var ele = $(this),
             url = 'admin/layout/ajax/editor/select-block-script',
@@ -266,7 +324,8 @@ define(['jquery', 'primary/jqueryui'], function () {
         K.modal(url, sendData);
 
     });
-    $(document).on('click', '[data-toggle="layout-block-remove"]', function () {
+    $(document).on('click', '[data-toggle="layout-block-remove"]', function ()
+    {
         var ele = $(this),
             data = ele.data('object');
 
@@ -276,44 +335,54 @@ define(['jquery', 'primary/jqueryui'], function () {
 
         saveLayout();
     });
-    $(document).on('click', '[data-toggle="layout-save"]', function () {
+    $(document).on('click', '[data-toggle="layout-save"]', function ()
+    {
         saveLayout();
     });
-    $(document).on('click', '[data-toggle="layout-block-update"]', function () {
+    $(document).on('click', '[data-toggle="layout-block-update"]', function ()
+    {
         var ele = $(this),
             form = ele.closest('form'),
             sendData = form.serializeJSON(),
             block = $(sendData.eid).closest('.dragable-element');
 
         K.ajax('admin/layout/ajax/editor/update-block-settings', sendData)
-            .done(function (response) {
-                if (response.code == 200) {
+            .done(function (response)
+            {
+                if (response.code == 200)
+                {
                     block.data('settings', sendData);
                 }
-                if (response.script) {
+                if (response.script)
+                {
                     eval(response.script);
                 }
-                if (response.html) {
+                if (response.html)
+                {
 
                 }
                 block.data('settings', sendData);
             });
     });
 
-    $(document).on('click', '[data-toggle="layout-section-edit"]', function () {
+    $(document).on('click', '[data-toggle="layout-section-edit"]', function ()
+    {
     });
-    $(document).on('click', '[data-toggle="layout-section-remove"]', function () {
+    $(document).on('click', '[data-toggle="layout-section-remove"]', function ()
+    {
         var ele = $(this),
             eid = ele.data('eid'),
             section = $(eid).closest('.section'),
             sectionId = section.eid();
 
-        section.animate({opacity: 0}, 200, function () {
+        section.animate({opacity: 0}, 200, function ()
+        {
             section.remove()
         });
 
         K.ajax('admin/layout/ajax/editor/delete-section', {sectionId: sectionId})
-            .done(function (result) {
+            .done(function (result)
+            {
                 Toast.success(result.message);
             });
     });

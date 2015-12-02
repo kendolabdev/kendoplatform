@@ -3,11 +3,11 @@
 namespace Picaso\Navigation;
 
 /**
- * Class RenderAsTab
+ * Class TabDecorator
  *
  * @package Picaso\Navigation
  */
-class RenderAsTab extends RenderPlugin
+class TabDecorator extends Decorator
 {
 
     /**

@@ -9,7 +9,7 @@ use Layout\Model\LayoutTemplate;
 use Layout\Model\LayoutTheme;
 use Picaso\Layout\Block;
 use Picaso\Layout\BlockParams;
-use Picaso\Layout\BlockRender;
+use Picaso\Layout\Decorator;
 use Picaso\Layout\LayoutLoaderInterface;
 use Picaso\Layout\Manager;
 use Picaso\Layout\Navigation;
@@ -78,10 +78,10 @@ class LayoutService implements LayoutLoaderInterface, Manager
     /**
      * @var array
      */
-    protected $blockRenders = [
-        'none'    => '\Picaso\Layout\BlockRenderNone',
-        'default' => '\Picaso\Layout\BlockRenderDefault',
-        'unit'    => '\Picaso\Layout\BlockRenderUnit',
+    protected $decorators = [
+        'none'    => '\Picaso\Layout\NoneDecorator',
+        'default' => '\Picaso\Layout\PanelDecorator',
+        'unit'    => '\Picaso\Layout\UnitDecorator',
     ];
 
     /**
@@ -1655,16 +1655,21 @@ class LayoutService implements LayoutLoaderInterface, Manager
     }
 
     /**
-     * @param $sectionData
+     * @param array $sectionData
+     * @param string $sectionTemplate
      *
      * @return string
      */
-    public function renderSectionForEdit($sectionData)
+    public function renderSectionForEdit($sectionData, $sectionTemplate = null)
     {
         $response = [
             'section_id' => $sectionData['section_id'],
             'forEdit'    => 1,
         ];
+
+        if(empty($sectionTemplate)){
+            $sectionTemplate =  $sectionData['section_template'];
+        }
 
         foreach ($sectionData['locations'] as $location => $blocks) {
             $html = [];
@@ -1674,7 +1679,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
             $response[ $location ] = implode(PHP_EOL, $html);
         }
 
-        $script = 'layout/section/section-' . $sectionData['section_template'] . '';
+        $script = 'layout/section/' . $sectionTemplate . '';
 
         return \App::viewHelper()->partial($script, $response);
     }
@@ -1757,17 +1762,17 @@ class LayoutService implements LayoutLoaderInterface, Manager
     /**
      * @return array
      */
-    public function getBlockRenders()
+    public function getDecorators()
     {
-        return $this->blockRenders;
+        return $this->decorators;
     }
 
     /**
-     * @param array $blockRenders
+     * @param array $decorators
      */
-    public function setBlockRenders($blockRenders)
+    public function setDecorators($decorators)
     {
-        $this->blockRenders = $blockRenders;
+        $this->decorators = $decorators;
     }
 
     /**
@@ -1778,7 +1783,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
      */
     public function addBlockRender($name, $class)
     {
-        $this->blockRenders[ $name ] = $class;
+        $this->decorators[ $name ] = $class;
 
         // try to unset old objects
         unset($this->blockRenderInstances[ $name ]);
@@ -1789,15 +1794,15 @@ class LayoutService implements LayoutLoaderInterface, Manager
     /**
      * @param string $name
      *
-     * @return BlockRender
+     * @return Decorator
      */
     public function getBlockRender($name)
     {
 
         if (!isset($this->blockRenderInstances[ $name ])) {
             $class = null;
-            if (isset($this->blockRenders[ $name ])) {
-                $class = $this->blockRenders[ $name ];
+            if (isset($this->decorators[ $name ])) {
+                $class = $this->decorators[ $name ];
             }
 
 
@@ -2141,7 +2146,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
             $responseData[ $location ] = implode(PHP_EOL, $html);
         }
 
-        $script = 'layout/section/section-' . $sectionData['section_template'];
+        $script = 'layout/section/' . $sectionData['section_template'];
 
 
         return \App::viewHelper()->partial($script, $responseData);

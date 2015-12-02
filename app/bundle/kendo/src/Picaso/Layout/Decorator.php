@@ -7,7 +7,7 @@ namespace Picaso\Layout;
  *
  * @package Picaso\Layout
  */
-interface BlockRender
+interface Decorator
 {
 
     /**

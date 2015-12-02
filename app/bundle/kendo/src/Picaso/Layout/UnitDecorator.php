@@ -3,11 +3,11 @@
 namespace Picaso\Layout;
 
 /**
- * Class BlockRenderUnit
+ * Class UnitDecorator
  *
  * @package Picaso\Layout
  */
-class BlockRenderUnit implements BlockRender
+class UnitDecorator implements Decorator
 {
     /**
      * @param  Block $block

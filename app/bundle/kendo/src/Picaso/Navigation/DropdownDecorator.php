@@ -3,11 +3,11 @@
 namespace Picaso\Navigation;
 
 /**
- * Class RenderAsDropDownMenu
+ * Class DropdownDecorator
  *
  * @package Picaso\Navigation
  */
-class RenderAsDropDownMenu extends RenderPlugin
+class DropdownDecorator extends Decorator
 {
     /**
      * @var array

@@ -3,11 +3,11 @@
 namespace Picaso\Navigation;
 
 /**
- * Class RenderPlugin
+ * Class Decorator
  *
  * @package Picaso\Navigation
  */
-class RenderPlugin
+class Decorator
 {
 
     /**
@@ -48,7 +48,7 @@ class RenderPlugin
      * @param int    $level
      * @param array  $params
      *
-     * @return RenderPlugin
+     * @return Decorator
      */
     public function setup($navId, $parentId, $items, $active = [], $level, $params)
     {

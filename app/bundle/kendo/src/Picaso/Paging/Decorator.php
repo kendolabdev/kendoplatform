@@ -3,11 +3,11 @@
 namespace Picaso\Paging;
 
 /**
- * Interface RenderInterface
+ * Interface Decorator
  *
  * @package Picaso\Paging
  */
-interface RenderInterface
+interface Decorator
 {
 
     /**

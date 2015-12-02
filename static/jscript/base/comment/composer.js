@@ -82,7 +82,7 @@ define(['jquery'], function () {
             _form.data(_dataKey, false);
         });
 
-        if (_form.data('link')) {
+        if (_form.data('link') && typeof _form['linkComposer'] == 'function') {
             _form.linkComposer();
         }
     }
