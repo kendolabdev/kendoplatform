@@ -14,7 +14,7 @@ class ActionContentBlock extends Block
     /**
      * @return string
      */
-    public function getRenderer()
+    public function getDecorator()
     {
         return 'unit';
     }

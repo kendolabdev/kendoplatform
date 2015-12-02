@@ -78,16 +78,17 @@ class LayoutService implements LayoutLoaderInterface, Manager
     /**
      * @var array
      */
-    protected $decorators = [
+    protected $blockDecorators = [
         'none'    => '\Picaso\Layout\NoneDecorator',
         'default' => '\Picaso\Layout\PanelDecorator',
+        'panel' => '\Picaso\Layout\PanelDecorator',
         'unit'    => '\Picaso\Layout\UnitDecorator',
     ];
 
     /**
      * @var array
      */
-    protected $blockRenderInstances = [];
+    protected $blockDecoratorInstances = [];
 
     /**
      * @var \Picaso\Layout\Navigation
@@ -620,13 +621,17 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
 
     /**
+     * @param  string $type
      * @return array
      */
-    public function loadSupportSections()
+    public function loadSupportSections($type =  null)
     {
         $select = \App::table('layout.layout_support_section')
             ->select()
             ->order('support_section_order', 1);
+
+        if(!empty($type))
+            $select->where('support_section_type IN ?', $type);
 
         return $select->all();
     }
@@ -1762,17 +1767,17 @@ class LayoutService implements LayoutLoaderInterface, Manager
     /**
      * @return array
      */
-    public function getDecorators()
+    public function getBlockDecorators()
     {
-        return $this->decorators;
+        return $this->blockDecorators;
     }
 
     /**
-     * @param array $decorators
+     * @param array $blockDecorators
      */
-    public function setDecorators($decorators)
+    public function setBlockDecorators($blockDecorators)
     {
-        $this->decorators = $decorators;
+        $this->blockDecorators = $blockDecorators;
     }
 
     /**
@@ -1781,12 +1786,12 @@ class LayoutService implements LayoutLoaderInterface, Manager
      *
      * @return LayoutService
      */
-    public function addBlockRender($name, $class)
+    public function addBlockDecorator($name, $class)
     {
-        $this->decorators[ $name ] = $class;
+        $this->blockDecorators[ $name ] = $class;
 
         // try to unset old objects
-        unset($this->blockRenderInstances[ $name ]);
+        unset($this->blockDecoratorInstances[ $name ]);
 
         return $this;
     }
@@ -1796,25 +1801,25 @@ class LayoutService implements LayoutLoaderInterface, Manager
      *
      * @return Decorator
      */
-    public function getBlockRender($name)
+    public function getBlockDecorator($name)
     {
 
-        if (!isset($this->blockRenderInstances[ $name ])) {
+        if (!isset($this->blockDecoratorInstances[ $name ])) {
             $class = null;
-            if (isset($this->decorators[ $name ])) {
-                $class = $this->decorators[ $name ];
+            if (isset($this->blockDecorators[ $name ])) {
+                $class = $this->blockDecorators[ $name ];
             }
 
 
             if (!$class or !class_exists($class)) {
-                $class = '\Picaso\Layout\BlockRenderNone';
+                $class = '\Picaso\Layout\DefaultDecorator';
             }
 
-            $this->blockRenderInstances[ $name ] = new $class;
+            $this->blockDecoratorInstances[ $name ] = new $class;
 
         }
 
-        return $this->blockRenderInstances[ $name ];
+        return $this->blockDecoratorInstances[ $name ];
     }
 
     /**

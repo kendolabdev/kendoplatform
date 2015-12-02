@@ -32,7 +32,6 @@ class ManageController extends AdminController
         $module = $this->request->getParam('module', 'core');
 
 
-
         $filter->isValid(['module' => $module]);
 
         $page = 1;
@@ -92,7 +91,8 @@ class ManageController extends AdminController
 
         $layout = $layoutService->findLayout($pageName, $screenSize, $themeId);
 
-        if (!$layout) {
+        if (!$layout)
+        {
             $layout = $layoutService->findClosestLayout($pageName, $screenSize, $themeId);
             $layout = $layoutService->cloneLayout($layout, $themeId);
             // clone layout configuration.
@@ -109,7 +109,9 @@ class ManageController extends AdminController
 
         $supportBlocks = $layoutService->findAvailableBlocks('block', true);
 
-        $supportSections = $layoutService->loadSupportSections();
+        $supportMainSections = $layoutService->loadSupportSections(['main']);
+
+        $supportSubSections = $layoutService->loadSupportSections(['sub']);
 
 
         \App::assetService()
@@ -117,17 +119,18 @@ class ManageController extends AdminController
             ->addDependency(['base/core/layout_editor']);
 
         $this->view->assign([
-            'layout'            => $layout,
-            'pageName'          => $pageName,
-            'screenSize'        => $screenSize,
-            'themeId'           => $themeId,
-            'layoutId'          => $layoutId,
-            'layoutConfigText'  => $layoutConfigText,
-            'supportBlocks'     => $supportBlocks,
-            'supportSections'   => $supportSections,
-            'supportContainers' => $supportContainers,
-            'layoutAttrs'       => $layoutAttributes,
-            'layoutEditHtml'    => $layoutEditHtml,
+            'layout'              => $layout,
+            'pageName'            => $pageName,
+            'screenSize'          => $screenSize,
+            'themeId'             => $themeId,
+            'layoutId'            => $layoutId,
+            'layoutConfigText'    => $layoutConfigText,
+            'supportBlocks'       => $supportBlocks,
+            'supportMainSections' => $supportMainSections,
+            'supportSubSections'   => $supportSubSections,
+            'supportContainers'   => $supportContainers,
+            'layoutAttrs'         => $layoutAttributes,
+            'layoutEditHtml'      => $layoutEditHtml,
         ]);
 
         $lp = new BlockParams([

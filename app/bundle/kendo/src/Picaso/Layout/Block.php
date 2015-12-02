@@ -154,9 +154,9 @@ class Block
     /**
      * @return string
      */
-    public function getRenderer()
+    public function getDecorator()
     {
-        return $this->lp->get('renderer', 'default');
+        return $this->lp->get('decorator', 'default');
     }
 
     /**
@@ -169,10 +169,10 @@ class Block
                 return '';
             }
 
-            $wrapper = $this->getRenderer();
+            $wrapper = $this->getDecorator();
             $params = [];
 
-            return \App::layoutService()->getBlockRender($wrapper)->render($this, $params);
+            return \App::layoutService()->getBlockDecorator($wrapper)->render($this, $params);
         } catch (\RuntimeException $ex) {
             return $ex->getMessage();
         }

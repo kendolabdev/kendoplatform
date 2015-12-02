@@ -11,7 +11,7 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <?php foreach($supportSections as $item): ?>
+                    <?php foreach($supportMainSections as $item): ?>
                     <li>
                         <a role="button" data-toggle="layout-change-section"
                            data-tpl="<?php echo $item->getId();?>"><?php echo $item->getTitle();?></a>
@@ -25,7 +25,7 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <?php foreach($supportSections as $item): ?>
+                    <?php foreach($supportSubSections as $item): ?>
                     <li>
                         <a role="button" data-toggle="layout-add-section"
                            data-tpl="<?php echo $item->getId();?>"><?php echo $item->getTitle();?></a>

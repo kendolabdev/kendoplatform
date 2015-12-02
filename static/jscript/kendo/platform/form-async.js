@@ -1,5 +1,4 @@
-(function ($) {
-
+define(['jquery'],function(){
     var _debug = false;
     /**
      * Proxy submit form to ajax form
@@ -35,4 +34,4 @@
                 }
             });
     });
-})(jQuery);
+});

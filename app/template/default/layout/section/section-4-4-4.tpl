@@ -1,4 +1,4 @@
-<div id="<?php echo !empty($section_id)?$section_id:'';?>" class="section section-main" data-render="4-4-4" data-template="default">
+<div id="<?php echo !empty($section_id)?$section_id:'';?>" class="section section-main" data-render="section-4-4-4" data-template="default">
     <?php if(!empty($forEdit)): ?>
     <div class="section-header">
         <div class="btn-group options pull-right">

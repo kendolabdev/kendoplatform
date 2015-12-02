@@ -2,6 +2,7 @@
 
 namespace Layout\Controller\Admin\Ajax;
 
+use Layout\Form\Admin\EditBlockDecorator;
 use Layout\Model\Layout;
 use Layout\Form\Admin\LayoutEditContentSetting;
 use Layout\Form\Admin\LayoutSelectBlockScript;
@@ -24,7 +25,7 @@ class EditorController extends AjaxController
     {
         $tpl = $this->request->getParam('tpl');
 
-        $html = $this->partial('layout/section/section-' . $tpl . '', [
+        $html = $this->partial('layout/section/' . $tpl . '', [
             'forEdit' => 1,
         ]);
 
@@ -137,6 +138,32 @@ class EditorController extends AjaxController
         $this->response = [
             'html' => $html,
         ];
+    }
+
+    public function actionEditBlockDecorator()
+    {
+
+        $form = new EditBlockDecorator();
+
+        $postDecorator = $this->request->getParam('decorator');
+
+        if (empty($postDecorator))
+        {
+            $html = $this->partial('base/layout/dialog/layout/edit-block-decorator', [
+                'form' => $form,
+            ]);
+
+            $this->response = [
+                'html' => $html,
+            ];
+
+            return;
+        }
+
+        if($postDecorator == 'panel'){
+
+        }
+
     }
 
     /**

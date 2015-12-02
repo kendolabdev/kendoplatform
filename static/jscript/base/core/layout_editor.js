@@ -324,6 +324,20 @@ define(['jquery', 'jqueryui'], function ()
         K.modal(url, sendData);
 
     });
+
+    $(document).on('click', '[data-toggle="layout-decorator-edit"]', function ()
+    {
+        // edit block content
+        var ele = $(this),
+            url = 'admin/layout/ajax/editor/edit-block-decorator',
+            sendData = $.extend({}, getLayoutConfigData(), ele.data('object'));
+
+        sendData.blockId = $(sendData.eid).closest('.dragable-element').eid();
+
+        K.modal(url, sendData);
+
+    });
+
     $(document).on('click', '[data-toggle="layout-block-remove"]', function ()
     {
         var ele = $(this),
