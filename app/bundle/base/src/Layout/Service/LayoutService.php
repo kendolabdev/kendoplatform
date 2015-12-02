@@ -262,6 +262,8 @@ class LayoutService implements LayoutLoaderInterface, Manager
     {
         $theme = $this->findThemeById($themeId);
 
+
+
         if (!$theme)
             $theme = $this->findDefaultTheme();
 
@@ -392,7 +394,6 @@ class LayoutService implements LayoutLoaderInterface, Manager
     public function setThemeId($themeId)
     {
         $this->themeId = $themeId;
-
 
         $themeData = $this->getThemeData($themeId);
 
@@ -666,7 +667,6 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
         $pageIdList = $this->getListAncestorsPageId($pageName);
         $themeIdList = $this->getListAncestorsThemeId($preferThemeId);
-
 
         $select = \App::table('layout')
             ->select()
@@ -1838,7 +1838,6 @@ class LayoutService implements LayoutLoaderInterface, Manager
             });
 
         $response = [];
-
 
         foreach ($layoutData['sections'] as $sectionData) {
             $content = $this->renderSection($sectionData);

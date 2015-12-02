@@ -10,12 +10,11 @@ namespace Picaso\Layout;
 class UnitDecorator implements Decorator
 {
     /**
-     * @param  Block $block
-     * @param  array $params
-     *
-     * @return string
+     * @param Block $block
+     * @param DecoratorParams $params
+     * @return mixed
      */
-    public function render(Block $block, $params = [])
+    public function render(Block $block, DecoratorParams $params)
     {
         $title = $block->getTitle();
         $header = '';

@@ -44,6 +44,11 @@ class Block
     protected $noRender = false;
 
     /**
+     * @var  DecoratorParams
+     */
+    protected $decoratorParams;
+
+    /**
      * @param array|string $params
      *
      */
@@ -51,7 +56,8 @@ class Block
     {
         $this->view = new View();
 
-        if (!empty($params)) {
+        if (!empty($params))
+        {
             $this->lp = new BlockParams($params);
             $this->view->setScript($this->lp->script());
         }
@@ -136,7 +142,8 @@ class Block
      */
     public function getTitle()
     {
-        if (null == $this->title) {
+        if (null == $this->title)
+        {
             $this->title = $this->lp->get('title');
         }
 
@@ -152,11 +159,25 @@ class Block
     }
 
     /**
-     * @return string
+     * @return DecoratorParams
      */
-    public function getDecorator()
+    public function getDecoratorParams()
     {
-        return $this->lp->get('decorator', 'default');
+        if (null == $this->decoratorParams)
+        {
+            $this->decoratorParams = new DecoratorParams(
+                $this->lp->get('decorator', 'default'), $this->lp->get('decorator_params', []));
+        }
+
+        return $this->decoratorParams;
+    }
+
+    /**
+     * @param DecoratorParams $decoratorParams
+     */
+    public function setDecoratorParams($decoratorParams)
+    {
+        $this->decoratorParams = $decoratorParams;
     }
 
     /**
@@ -164,16 +185,21 @@ class Block
      */
     public function render()
     {
-        try {
-            if ($this->isNoRender()) {
+        try
+        {
+            if ($this->isNoRender())
+            {
                 return '';
             }
 
-            $wrapper = $this->getDecorator();
-            $params = [];
+            $decoratorParams = $this->getDecoratorParams();
 
-            return \App::layoutService()->getBlockDecorator($wrapper)->render($this, $params);
-        } catch (\RuntimeException $ex) {
+            return \App::layoutService()
+                ->getBlockDecorator($decoratorParams->getPlugin())
+                ->render($this, $decoratorParams);
+
+        } catch (\RuntimeException $ex)
+        {
             return $ex->getMessage();
         }
 

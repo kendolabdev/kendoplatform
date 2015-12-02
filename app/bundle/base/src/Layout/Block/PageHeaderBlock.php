@@ -10,13 +10,6 @@ use Picaso\Layout\Block;
  */
 class PageHeaderBlock extends Block
 {
-    /**
-     * @return string
-     */
-    public function getDecorator()
-    {
-        return 'unit';
-    }
 
     /**
      * Execute

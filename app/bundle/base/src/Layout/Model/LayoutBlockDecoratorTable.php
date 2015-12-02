@@ -1,6 +1,6 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_layout_support_section`
+ * Generate by CodeGenerator\DbTable for table `picaso_layout_block_decorator`
  */
 
 namespace Layout\Model;
@@ -10,40 +10,38 @@ namespace Layout\Model;
 use Picaso\Db\DbTable;
 
 /**
- * Class LayoutSupportSectionTable
- *
+ * Class LayoutBlockDecoratorTable
  * @package Layout\Model
  */
-class LayoutSupportSectionTable extends DbTable
-{
+class LayoutBlockDecoratorTable extends DbTable{
     // PUT YOUR CODE HERE
 
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_layout_support_section`
+     * @see `picaso_layout_block_decorator`
      * @var string
      */
-    protected $class =  '\Layout\Model\LayoutSupportSection';
+    protected $class =  '\Layout\Model\LayoutBlockDecorator';
 
     /**
      * @var string
      */
-    protected $name =  'layout_support_section';
+    protected $name =  'layout_block_decorator';
 
     /**
      * @var array
      */
     protected $column = array(
-		'support_section_id'=>1,
-		'support_section_name'=>1,
-		'support_section_order'=>1,
-		'support_section_type'=>1);
+		'id'=>1,
+		'name'=>1,
+		'form_class'=>1,
+		'decorator_class'=>1);
 
     /**
      * @var array
      */
-    protected $primary = array( 'support_section_id'=>1);
+    protected $primary = array( 'id'=>1);
 
     /**
      * @var string
@@ -53,11 +51,11 @@ class LayoutSupportSectionTable extends DbTable
     
     /**
      * @param  string|int $value
-     * @return \Layout\Model\LayoutSupportSection
+     * @return \Layout\Model\LayoutBlockDecorator
      */
     public function findById($value){
        return $this->select()
-           ->where('support_section_id=?', $value)
+           ->where('id=?', $value)
            ->one();
     }
 
@@ -67,7 +65,7 @@ class LayoutSupportSectionTable extends DbTable
      */
     public function findByIdList($value){
        return $this->select()
-           ->where('support_section_id IN ?', $value)
+           ->where('id IN ?', $value)
            ->all();
     }
 

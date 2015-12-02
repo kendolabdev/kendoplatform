@@ -9,21 +9,20 @@ namespace Picaso\Layout;
  */
 class PanelDecorator implements Decorator
 {
-
     /**
-     * @param  Block $block
-     * @param  array $params
-     *
-     * @return string
+     * @param Block $block
+     * @param DecoratorParams $params
+     * @return mixed
      */
-    public function render(Block $block, $params = [])
+    public function render(Block $block, DecoratorParams $params)
     {
         $title = $block->getTitle();
         $header = '';
-        if ($title) {
-            $header = '<div class="_block-header"><div class="_block-title"><span>' . $title . '</span></div></div>';
+        if ($title)
+        {
+            $header = '<div class="panel-header"><div class="panel-header"><span>' . $title . '</span></div></div>';
         }
 
-        return '<div class="_block ' . $block->getCssClassName() . '">' . $header . '<div class="_block-body">' . $block->getContent() . '</div></div>';
+        return '<div class="panel ' . $params->get('scheme') . ' ' . $block->getCssClassName() . '">' . $header . '<div class="panel-body">' . $block->getContent() . '</div></div>';
     }
 }

@@ -2,9 +2,11 @@
 
 namespace Layout\Form\Admin;
 
-use Picaso\Html\Form;
-
-class EditBlockDecorator extends Form
+/**
+ * Class EditBlockSelectDecorator
+ * @package Layout\Form\Admin
+ */
+class EditBlockSelectDecorator extends BaseEditBlockDecorator
 {
     /**
      *
@@ -14,6 +16,17 @@ class EditBlockDecorator extends Form
         parent::init();
 
         $this->setTitle('Select Decorator');
+
+        $this->addElement([
+            'plugin' => 'hidden',
+            'name'   => 'step',
+            'value'  => 1,
+        ]);
+
+        $this->addElement([
+            'plugin'=>'hidden',
+            'name'=>'blockId',
+        ]);
 
         $this->addElement([
             'name'     => 'decorator',

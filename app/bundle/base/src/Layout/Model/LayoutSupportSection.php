@@ -84,6 +84,20 @@ class LayoutSupportSection extends Model
     }
 
     /**
+     * @return null|string
+     */
+    public function getSupportSectionType(){
+       return $this->__get('support_section_type');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setSupportSectionType($value){
+       $this->__set('support_section_type', $value);
+    }
+
+    /**
      * @return \Layout\Model\LayoutSupportSectionTable
      */
     public function table(){

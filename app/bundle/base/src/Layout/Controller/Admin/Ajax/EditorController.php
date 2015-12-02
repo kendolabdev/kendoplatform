@@ -2,7 +2,8 @@
 
 namespace Layout\Controller\Admin\Ajax;
 
-use Layout\Form\Admin\EditBlockDecorator;
+use Layout\Form\Admin\EditBlockSelectDecorator;
+use Layout\Form\Admin\EditBlockPanelDecorator;
 use Layout\Model\Layout;
 use Layout\Form\Admin\LayoutEditContentSetting;
 use Layout\Form\Admin\LayoutSelectBlockScript;
@@ -142,13 +143,20 @@ class EditorController extends AjaxController
 
     public function actionEditBlockDecorator()
     {
-
-        $form = new EditBlockDecorator();
+        $layoutService = \App::layoutService();
 
         $postDecorator = $this->request->getParam('decorator');
+        $step = $this->request->getParam('step');
+        $blockId = $this->request->getParam('blockId');
+        $block = $layoutService->findBlockById($blockId);
 
-        if (empty($postDecorator))
+
+        if ($step == 0)
         {
+            $form = new EditBlockSelectDecorator();
+
+            $form->setData(['blockId' => $blockId]);
+
             $html = $this->partial('base/layout/dialog/layout/edit-block-decorator', [
                 'form' => $form,
             ]);
@@ -160,8 +168,70 @@ class EditorController extends AjaxController
             return;
         }
 
-        if($postDecorator == 'panel'){
+        if ($step == 1)
+        {
 
+            $form = new EditBlockPanelDecorator();
+
+            $form->setData([
+                'decorator' => $postDecorator,
+                'blockId'   => $blockId
+            ]);
+
+            $html = $this->partial('base/layout/dialog/layout/edit-block-decorator', [
+                'form' => $form,
+            ]);
+
+            $this->response = [
+                'directive' => 'update',
+                'html'      => $html,
+            ];
+
+            return;
+        }
+
+        if ($step == 2)
+        {
+
+
+            $form = $this->getFormBlockDecorator($postDecorator);
+            $directive = 'update';
+
+            if ($this->request->isPost() && $form->isValid($_POST))
+            {
+                $data = $form->getData();
+
+                $block->addBlockParams(['decorator' => $postDecorator, 'decorator_params' => $data]);
+
+                $block->save();
+                $directive = 'dismiss';
+            }
+
+            $html = $this->partial('base/layout/dialog/layout/edit-block-decorator', [
+                'form' => $form,
+            ]);
+
+            $this->response = [
+                'html' => $html,
+            ];
+
+
+            return;
+        }
+
+
+    }
+
+    /**
+     * @param $type
+     * @return \Layout\Form\Admin\BaseEditBlockDecorator
+     */
+    protected function getFormBlockDecorator($type)
+    {
+        switch ($type)
+        {
+            case 'panel':
+                return new EditBlockPanelDecorator();
         }
 
     }

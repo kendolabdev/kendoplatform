@@ -24,6 +24,28 @@ class LayoutBlock extends Model
     {
         return (array)json_decode($this->getBlockParamsText(), true);
     }
+
+    /**
+     * @param string|array $data
+     */
+    public function setBlockParams($data)
+    {
+        if(!is_string($data))
+            $data = json_encode($data);
+
+        $this->setBlockParamsText($data);
+    }
+
+    /**
+     * @param array $data
+     */
+    public function addBlockParams($data)
+    {
+        $old =  $this->getBlockParams();
+        $new  =  array_merge($old, $data);
+        $this->setBlockParams($new);
+
+    }
     //START_TABLE_GENERATOR
 
     

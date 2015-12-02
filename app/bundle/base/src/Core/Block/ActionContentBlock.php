@@ -14,15 +14,6 @@ class ActionContentBlock extends Block
     /**
      * @return string
      */
-    public function getDecorator()
-    {
-        return 'unit';
-    }
-
-
-    /**
-     * @return string
-     */
     public function getContent()
     {
         return \App::requestService()->getInitiator()->getResponse();

@@ -14,23 +14,28 @@ define('PICASO', true);
 /**
  * Check required version php
  */
-if (version_compare(phpversion(), '5.4.0', '<')) {
+if (version_compare(phpversion(), '5.4.0', '<'))
+{
     exit('Required at least php 5.4');
 }
 
 /**
  * Include general config
  */
-if (!file_exists('config/general.conf.php')) {
+if (!file_exists('config/general.conf.php'))
+{
     include 'config/general.conf.php';
-} else {
+} else
+{
     include 'config/general.conf.php';
 }
 
 
 // for debug only
-register_shutdown_function(function () {
-    if (null != ($err = error_get_last())) {
+register_shutdown_function(function ()
+{
+    if (null != ($err = error_get_last()))
+    {
         echo json_encode($err);
     }
 });
@@ -58,12 +63,15 @@ date_default_timezone_set('UTC');
  *
  * @link http://php.net/manual/en/ini.core.php#ini.default-charset
  */
-if (version_compare(PHP_VERSION, '5.6', '<')) {
-    if (function_exists('mb_internal_encoding')) {
+if (version_compare(PHP_VERSION, '5.6', '<'))
+{
+    if (function_exists('mb_internal_encoding'))
+    {
         mb_internal_encoding("UTF-8");
     }
 
-    if (function_exists('iconv_set_encoding')) {
+    if (function_exists('iconv_set_encoding'))
+    {
         // Not sure if we want to do all of these
         iconv_set_encoding("input_encoding", "UTF-8");
         iconv_set_encoding("output_encoding", "UTF-8");
@@ -284,9 +292,11 @@ define('RELATION_TYPE_CUSTOM', 100);
  */
 function _escape($string)
 {
-    if (is_array($string)) {
+    if (is_array($string))
+    {
         $string = json_encode($string);
-    } else {
+    } else
+    {
         $string = (string)$string;
     }
 
@@ -301,7 +311,8 @@ function _escape($string)
 function _htmlattrs($array)
 {
     $part = [];
-    foreach ($array as $key => $value) {
+    foreach ($array as $key => $value)
+    {
         $part[] = sprintf('%s="%s"', $key, $value);
     }
 
@@ -328,6 +339,26 @@ include_once PICASO_MODULE_DIR . '/kendo/src/Picaso/App.php';
 function _screen($desktop, $tablet, $mobile)
 {
     return \App::requestService()->isMobile() ? (\App::requestService()->isTablet() ? $tablet : $mobile) : $desktop;
+}
+
+/**
+ *
+ */
+function _dump()
+{
+    echo '<pre>', var_export(func_get_args(), 1), '</pre>';
+    die;
+}
+
+/**
+ * @param $array
+ * @param $name
+ * @param string $default
+ * @return string
+ */
+function _array_get(&$array, $name, $default = '')
+{
+    return isset($array[ $name ]) ? $array[ $name ] : $default;
 }
 
 /**

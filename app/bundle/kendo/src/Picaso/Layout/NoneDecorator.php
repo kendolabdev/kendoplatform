@@ -11,12 +11,11 @@ class DecoratorNone implements Decorator
 {
 
     /**
-     * @param  Block $block
-     * @param  array $params
-     *
+     * @param Block $block
+     * @param DecoratorParams $params
      * @return string
      */
-    public function render(Block $block, $params = [])
+    public function render(Block $block, DecoratorParams $params)
     {
         return $block->getContent();
     }

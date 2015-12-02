@@ -108,7 +108,13 @@ define(['jquery', 'jqueryui'], function ()
         K.ajax('admin/layout/ajax/editor/change-section', sendData)
             .done(function (response)
             {
-                $('.section-main','#layouteditor').replaceWith(response.html);
+                if(main.length)
+                {
+                    main.replaceWith(response.html);
+                }
+                else{
+                    $('#layouteditor').append(response.html);
+                }
                 enableDragDrop();
             });
     }
