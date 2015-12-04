@@ -1,12 +1,9 @@
 @import "variables";
 @import "bootswatch";
-
 @import "kendo/bootstrap/variables";
 @import "variables-overwrite";
-
 @import "mixins";
 @import "kendo/bootstrap/mixins";
-@import "mixins-overwrite";
 
 $base-font-size: 14px !default;
 

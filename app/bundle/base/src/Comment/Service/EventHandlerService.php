@@ -13,22 +13,25 @@ use Picaso\Hook\SimpleContainer;
  *
  * @package Comment\Service
  */
-class EventHandlerService extends EventHandler {
+class EventHandlerService extends EventHandler
+{
     /**
      * @param \Picaso\Hook\HookEvent $event
      */
-    public function onBeforeBuildBundleStylesheet(HookEvent $event) {
+    public function onBeforeBuildBundleStylesheet(HookEvent $event)
+    {
         $payload = $event->getPayload();
 
         if (!$payload instanceof SimpleContainer) return;
 
-        $payload->add('base/comment', 'base/comment');
+        $payload->add('base/comment', 'base/comment/main');
     }
 
     /**
      * @param HookEvent $event
      */
-    public function onRequirejsRender(HookEvent $event) {
+    public function onRequirejsRender(HookEvent $event)
+    {
         $requirejs = $event->getPayload();
 
         if (!$requirejs instanceof Requirejs) return;
@@ -40,7 +43,8 @@ class EventHandlerService extends EventHandler {
     /**
      * @param \Picaso\Hook\HookEvent $event
      */
-    public function onBeforeBuildBundleJS(HookEvent $event) {
+    public function onBeforeBuildBundleJS(HookEvent $event)
+    {
         $requirejs = $event->getPayload();
 
         if (!$requirejs instanceof Requirejs) return;
@@ -51,7 +55,8 @@ class EventHandlerService extends EventHandler {
     /**
      * @param \Picaso\Hook\HookEvent $event
      */
-    public function onAfterInsertComment(HookEvent $event) {
+    public function onAfterInsertComment(HookEvent $event)
+    {
         $cmt = $event->getPayload();
 
         if (!$cmt instanceof Comment) return;
@@ -74,7 +79,8 @@ class EventHandlerService extends EventHandler {
     /**
      * @param \Picaso\Hook\HookEvent $event
      */
-    public function onAfterDeleteComment(HookEvent $event) {
+    public function onAfterDeleteComment(HookEvent $event)
+    {
         $cmt = $event->getPayload();
 
         if (!$cmt instanceof Comment) return;

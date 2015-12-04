@@ -200,9 +200,16 @@ class BaseInstaller implements Installer
         $this->tableList = $tableList;
     }
 
+    /**
+     *
+     */
     public function export()
     {
         $this->installData = [];
+
+        $this->installData['modules'] = $this->getModuleList();
+
+        $this->installData['themes'] = $this->getThemeList();
 
         $this->exportExtension();
         $this->exportTableStructural();
@@ -290,11 +297,17 @@ class BaseInstaller implements Installer
         $this->installHookSetting();
     }
 
+    /**
+     *
+     */
     public function uninstall()
     {
         // TODO: Implement uninstall() method.
     }
 
+    /**
+     *
+     */
     public function upgrade()
     {
         // TODO: Implement upgrade() method.
@@ -443,6 +456,11 @@ class BaseInstaller implements Installer
         return $result;
     }
 
+    /**
+     * @param $sectionId
+     *
+     * @return array
+     */
     public function _exportLayoutBlockListBySectionId($sectionId)
     {
 
@@ -463,6 +481,9 @@ class BaseInstaller implements Installer
 
     }
 
+    /**
+     * @param $data
+     */
     public function importLayoutData($data)
     {
         foreach ($data as $row)

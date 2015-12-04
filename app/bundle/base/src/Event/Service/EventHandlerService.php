@@ -23,7 +23,7 @@ class EventHandlerService extends \Picaso\Application\EventHandler
 
         if (!$payload instanceof SimpleContainer) return;
 
-        $payload->add('base/event', 'base/event');
+        $payload->add('base/event', 'base/event/main');
     }
 
     /**

@@ -1,0 +1,21 @@
+// Core variables and mixins
+@import "require";
+
+// primary packages
+@import "kendo/main";
+@import "layout/main";
+@import "base/blog/main";
+@import "base/comment/main";
+@import "base/user/main";
+@import "base/feed/main";
+@import "base/group/main";
+@import "base/video/main";
+@import "base/page/main";
+@import "base/photo/main";
+@import "base/event/main";
+@import "base/share/main";
+@import "base/notification/main";
+@import "base/link/main";
+@import "base/invitation/main";
+@import "base/message/main";
+@import "customize";

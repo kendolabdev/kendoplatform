@@ -24,7 +24,7 @@ class EventHandlerService extends EventHandler {
 
         if (!$payload instanceof SimpleContainer) return;
 
-        $payload->add('base/photo', 'base/photo');
+        $payload->add('base/photo', 'base/photo/main');
     }
 
     /**

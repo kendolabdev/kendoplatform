@@ -67,7 +67,8 @@ class ThemeService
     {
 
         return \App::cacheService()
-            ->get(['layout.theme', 'getDefaultThemeId'], 0, function () {
+            ->get(['layout.theme', 'getDefaultThemeId'], 0, function ()
+            {
                 return $this->_getDefaultThemeId();
             });
     }
@@ -79,20 +80,35 @@ class ThemeService
     {
         $container = new SimpleContainer([]);
 
+        // pre add this.
+
+        $container->add('kendo/require', 'require');
+        $container->add('kendo/main', 'kendo/main');
+        $container->add('layout/main', 'layout/main');
+
         \App::hook()
             ->notify('onBeforeBuildBundleStylesheet', $container);
 
-        $content = file_get_contents(PICASO_ROOT_DIR . '/app/theme/default/sass/_origin.scss');
+        $container->add('customize', 'customize');
 
-        $appendContent = implode(PHP_EOL, array_map(function ($e) {
+        $all = array_values($container->all());
+
+        $content = implode(PHP_EOL, array_map(function ($e)
+        {
             return sprintf('@import "%s";', $e);
-        }, array_values($container->all())));
+        }, $all));
 
-        $newContent = $content . PHP_EOL . $appendContent;
+        $filename = $this->getMainSassFilename();
 
-        $filename = PICASO_ROOT_DIR . '/app/theme/default/sass/_styles.scss';
+        file_put_contents($filename, $content);
+    }
 
-        file_put_contents($filename, $newContent);
+    /**
+     * @return string
+     */
+    public function getMainSassFilename()
+    {
+        return PICASO_ROOT_DIR . '/app/temp/cache/_main.scss';
     }
 
     /**
@@ -105,7 +121,8 @@ class ThemeService
             ->where('is_active=?', 1)
             ->all();
 
-        foreach ($themes as $theme) {
+        foreach ($themes as $theme)
+        {
             $this->rebuildStylesheetForTheme($theme->getId());
         }
     }
@@ -129,8 +146,8 @@ class ThemeService
      */
     public function rebuildStylesheetForTheme($themeId = null)
     {
-
-        if (empty($themeId)) {
+        if (empty($themeId))
+        {
             $themeId = \App::layoutService()
                 ->theme()
                 ->getDefaultThemeId();
@@ -140,8 +157,8 @@ class ThemeService
             ->theme()
             ->findThemeById($themeId);
 
-
         $this->updateStylesheetBundleConfiguration();
+
         $variables = $theme->getVariables();
 
         $sass = \App::styleService();
@@ -152,22 +169,25 @@ class ThemeService
             PICASO_ROOT_DIR . '/app/theme/' . $theme->getParentThemeId() . '/sass/',
             PICASO_ROOT_DIR . '/app/theme/default/sass/',
         ], [
-            PICASO_ROOT_DIR . '/app/theme/default/sass/_styles.scss'
+            $this->getMainSassFilename()
         ]);
 
         $outputFilename = sprintf(PICASO_ROOT_DIR . '/static/theme/%s/stylesheets/bundle.css', $themeId);
 
         $dir = dirname($outputFilename);
 
-        if (!is_dir($dir)) {
-            if (!@mkdir($dir, 0777, 1)) {
+        if (!is_dir($dir))
+        {
+            if (!@mkdir($dir, 0777, 1))
+            {
                 throw new \RuntimeException("Can not write to $dir");
             }
             @chmod($dir, 0777);
         }
 
         $fp = fopen($outputFilename, 'w');
-        if (!$fp) {
+        if (!$fp)
+        {
             throw new \InvalidArgumentException("Could not write to file [$outputFilename]");
         }
         fwrite($fp, $content);

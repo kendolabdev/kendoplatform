@@ -25,7 +25,7 @@ class EventHandlerService extends EventHandler
 
         if (!$payload instanceof SimpleContainer) return;
 
-        $payload->add('base/invitation', 'base/invitation');
+        $payload->add('base/invitation', 'base/invitation/main');
     }
 
     /**
