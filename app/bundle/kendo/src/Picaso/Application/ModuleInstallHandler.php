@@ -1,4 +1,5 @@
 <?php
+
 namespace Picaso\Application;
 
 /**
@@ -175,7 +176,6 @@ class ModuleInstallHandler
     public function install()
     {
         $this->readPackageFile();
-
         $this->beforeInstall();
         $this->doInstall();
         $this->afterInstall();
@@ -249,7 +249,8 @@ class ModuleInstallHandler
     protected function exportMail()
     {
         $this->finalData['mail_template']
-            = \App::mailService()->getListTemplateByModuleName($this->getModuleList());
+            = \App::mailService()
+            ->getListTemplateByModuleName($this->getModuleList());
     }
 
     /**

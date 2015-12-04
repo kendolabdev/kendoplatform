@@ -22,8 +22,14 @@ class BaseEditBlockDecorator extends Form
         ]);
 
         $this->addElement([
-            'plugin'=>'hidden',
-            'name'=>'blockId',
+            'plugin' => 'hidden',
+            'name'   => 'decorator',
+            'value'  => 'panel',
+        ]);
+
+        $this->addElement([
+            'plugin' => 'hidden',
+            'name'   => 'blockId',
         ]);
     }
 }

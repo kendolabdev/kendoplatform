@@ -2,6 +2,7 @@
 
 namespace Layout\Controller\Admin\Ajax;
 
+use Layout\Form\Admin\EditBlockAlertDecorator;
 use Layout\Form\Admin\EditBlockSelectDecorator;
 use Layout\Form\Admin\EditBlockPanelDecorator;
 use Layout\Model\Layout;
@@ -171,7 +172,7 @@ class EditorController extends AjaxController
         if ($step == 1)
         {
 
-            $form = new EditBlockPanelDecorator();
+            $form = $this->getFormBlockDecorator($postDecorator);
 
             $form->setData([
                 'decorator' => $postDecorator,
@@ -192,7 +193,6 @@ class EditorController extends AjaxController
 
         if ($step == 2)
         {
-
 
             $form = $this->getFormBlockDecorator($postDecorator);
             $directive = 'update';
@@ -232,6 +232,8 @@ class EditorController extends AjaxController
         {
             case 'panel':
                 return new EditBlockPanelDecorator();
+            case 'alert':
+                return new EditBlockAlertDecorator();
         }
 
     }

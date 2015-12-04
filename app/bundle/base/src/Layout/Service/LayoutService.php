@@ -80,9 +80,12 @@ class LayoutService implements LayoutLoaderInterface, Manager
      */
     protected $blockDecorators = [
         'none'    => '\Picaso\Layout\NoneDecorator',
-        'default' => '\Picaso\Layout\PanelDecorator',
+        'default' => '\Picaso\Layout\DefaultDecorator',
         'panel' => '\Picaso\Layout\PanelDecorator',
         'unit'    => '\Picaso\Layout\UnitDecorator',
+        'alert'    => '\Picaso\Layout\AlertDecorator',
+        'widget'    => '\Picaso\Layout\WidgetDecorator',
+        'callout'    => '\Picaso\Layout\CalloutDecorator',
     ];
 
     /**

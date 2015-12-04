@@ -19,5 +19,4 @@ class DecoratorNone implements Decorator
     {
         return $block->getContent();
     }
-
 }

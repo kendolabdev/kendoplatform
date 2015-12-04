@@ -19,15 +19,4 @@ class LanguageService
     {
         return null != $this->findLanguage($languageId);
     }
-
-    /**
-     * @param string $languageId
-     *
-     * @return \Core\Model\Language
-     */
-    public function findLanguage($languageId)
-    {
-        return \App::table('core.language')
-            ->findById((string)$languageId);
-    }
 }

@@ -20,7 +20,7 @@ class PanelDecorator implements Decorator
         $header = '';
         if ($title)
         {
-            $header = '<div class="panel-header"><div class="panel-header"><span>' . $title . '</span></div></div>';
+            $header = '<div class="panel-header"><div class="panel-title"><span>' . $title . '</span></div></div>';
         }
 
         return '<div class="panel ' . $params->get('scheme') . ' ' . $block->getCssClassName() . '">' . $header . '<div class="panel-body">' . $block->getContent() . '</div></div>';

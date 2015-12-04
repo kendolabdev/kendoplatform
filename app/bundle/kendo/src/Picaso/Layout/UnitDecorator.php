@@ -22,6 +22,6 @@ class UnitDecorator implements Decorator
             $header = '<div class="unit-header"><div class="unit-title"><span>' . $title . '</span></div></div>';
         }
 
-        return '<div class="_unit ' . $block->getCssClassName() . '">' . $header . '<div class="unit-content">' . $block->getContent() . '</div></div>';
+        return '<div class="unit ' . $block->getCssClassName() . '">' . $header . '<div class="unit-content">' . $block->getContent() . '</div></div>';
     }
 }

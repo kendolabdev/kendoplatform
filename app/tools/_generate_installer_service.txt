@@ -1,0 +1,34 @@
+<?php
+
+/* code generator */
+
+namespace {namespace}\Service;
+
+use Picaso\Package\ModuleInstaller;
+
+/**
+ * Class InstallerService
+ *
+ * @package {namespace}\Service
+ */
+class InstallerService extends ModuleInstaller
+{
+    /**
+     * @var string
+     */
+    protected $exportKey = 'module-base-{moduleName}';
+
+    /**
+     * @var array
+     */
+    protected $tableList = [
+        {tableList}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $pathList = [
+        {pathList}
+    ];
+}

@@ -7,19 +7,26 @@ echo "Start execute theme ", PHP_EOL;
 App::cacheService()
     ->flush();
 
-$themeId =  'default';
+$themeId = isset($argv[1]) ? $argv[1] : null;
+
+if (null == $themeId)
+{
+    $themeId = \App::layoutService()
+        ->getEditingThemeId();
+}
+
 
 $theme = \App::layoutService()
     ->theme()
     ->findThemeById($themeId);
 
-echo "Compiling: ", $theme->getTitle(),  PHP_EOL;
+echo "Compiling: ", $theme->getTitle(), PHP_EOL;
 
 \App::layoutService()
     ->theme()
     ->rebuildStylesheetForTheme($themeId);
 
-echo "Set to system default: ", $theme->getTitle(),  PHP_EOL;
+echo "Set to system default: ", $theme->getTitle(), PHP_EOL;
 
 \App::layoutService()
     ->theme()

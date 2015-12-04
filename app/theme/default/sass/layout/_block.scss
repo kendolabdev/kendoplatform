@@ -1,4 +1,4 @@
-._block{
+.block{
   @if $use-round-corner{
     @include border-radius($border-radius-base);
   }

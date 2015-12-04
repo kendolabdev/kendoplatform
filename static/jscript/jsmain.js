@@ -1,5 +1,5 @@
 requirejs.config({
-    "baseUrl": ".\/jscript",
+    "baseUrl": "\/kendoplatform\/static\/jscript\/",
     "paths": {
         "jquery": "kendo\/jquery\/jquery",
         "bootstrap": "kendo\/bootstrap\/bootstrap",
