@@ -2,7 +2,7 @@
 namespace Help\Form\Admin;
 
 
-use Picaso\Html\Form;
+use Kendo\Html\Form;
 
 /**
  * Class FilterHelpTopic

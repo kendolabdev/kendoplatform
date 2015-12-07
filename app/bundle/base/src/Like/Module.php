@@ -1,14 +1,14 @@
 <?php
 namespace Like;
 
-use Picaso\Routing\FilterStuff;
+use Kendo\Routing\FilterStuff;
 
 /**
  * Class Module
  *
  * @package Like
  */
-class Module extends \Picaso\Application\Module
+class Module extends \Kendo\Application\Module
 {
     public function start()
     {

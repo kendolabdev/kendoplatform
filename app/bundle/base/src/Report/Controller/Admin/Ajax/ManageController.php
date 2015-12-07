@@ -2,8 +2,8 @@
 
 namespace Report\Controller\Admin\Ajax;
 
-use Picaso\Controller\AjaxController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AjaxController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class ManageController

@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_place`
+ * Generate by CodeGenerator\DbTable for table `Kendo_place`
  */
 
 namespace Place\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class PlaceTable
@@ -21,7 +21,7 @@ class PlaceTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_place`
+     * @see `Kendo_place`
      * @var string
      */
     protected $class =  '\Place\Model\Place';

@@ -6,7 +6,7 @@ use Photo\Form\FilterPhoto;
 use Photo\Model\Photo;
 use Photo\Model\PhotoAlbum;
 use Photo\Service\PhotoService;
-use Picaso\Controller\DefaultController;
+use Kendo\Controller\DefaultController;
 
 /**
  * Class HomeController

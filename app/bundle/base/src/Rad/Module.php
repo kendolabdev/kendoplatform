@@ -6,7 +6,7 @@ namespace Rad;
  *
  * @package Rad
  */
-class Module extends \Picaso\Application\Module
+class Module extends \Kendo\Application\Module
 {
 
 }

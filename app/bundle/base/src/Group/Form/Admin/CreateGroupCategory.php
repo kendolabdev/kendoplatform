@@ -2,7 +2,7 @@
 
 namespace Group\Form\Admin;
 
-use Picaso\Html\Form;
+use Kendo\Html\Form;
 
 /**
  * Class CreateGroupCategory

@@ -1,7 +1,7 @@
 <?php
 namespace Review\Service;
 
-use Picaso\Application\ModuleInstallHandler;
+use Kendo\Application\ModuleInstallHandler;
 
 /**
  * Class InstallHandlerService

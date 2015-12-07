@@ -2,7 +2,7 @@
 
 namespace Feed\Controller\Admin;
 
-use Picaso\Controller\AdminController;
+use Kendo\Controller\AdminController;
 
 
 /**

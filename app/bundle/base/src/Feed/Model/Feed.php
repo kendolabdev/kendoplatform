@@ -1,14 +1,14 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_feed_feed`
+ * Generate by CodeGenerator\DbTable for table `Kendo_feed_feed`
  */
 
 namespace Feed\Model;
 
 /**
  */
-use Picaso\Content;
-use Picaso\Model;
+use Kendo\Content;
+use Kendo\Model;
 
 /**
  * Class Feed
@@ -17,7 +17,7 @@ use Picaso\Model;
  */
 class Feed extends Model implements Content\UniqueId
 {
-    use Content\ImpBaseContent;
+    use Content\TraitBaseContent;
 
     /**
      * @return string

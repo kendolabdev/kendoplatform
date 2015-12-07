@@ -1,8 +1,8 @@
 <?php
 namespace Video\Controller\Ajax;
 
-use Picaso\Controller\AjaxController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AjaxController;
+use Kendo\Layout\BlockParams;
 use Video\Model\Video;
 
 /**

@@ -3,8 +3,8 @@
 namespace Video\Controller\Admin;
 
 use Acl\Form\Admin\FilterAclRole;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 use Video\Form\Admin\FilterVideo;
 use Video\Form\Admin\VideoPermission;
 use Video\Form\Admin\VideoSetting;

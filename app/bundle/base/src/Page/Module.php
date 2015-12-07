@@ -2,8 +2,8 @@
 
 namespace Page;
 
-use Picaso\Routing\FilterProfileSlug;
-use Picaso\Routing\FilterStuff;
+use Kendo\Routing\FilterProfileSlug;
+use Kendo\Routing\FilterStuff;
 
 
 /**
@@ -11,7 +11,7 @@ use Picaso\Routing\FilterStuff;
  *
  * @package Page
  */
-class Module extends \Picaso\Application\Module
+class Module extends \Kendo\Application\Module
 {
 
     /**

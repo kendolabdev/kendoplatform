@@ -1,12 +1,12 @@
 <?php
 namespace Share\Service;
 
-use Picaso\Application\EventHandler;
-use Picaso\Assets\Requirejs;
-use Picaso\Content\CanShare;
-use Picaso\Content\Poster;
-use Picaso\Hook\HookEvent;
-use Picaso\Hook\SimpleContainer;
+use Kendo\Application\EventHandler;
+use Kendo\Assets\Requirejs;
+use Kendo\Content\AtomInterface;
+use Kendo\Content\PosterInterface;
+use Kendo\Hook\HookEvent;
+use Kendo\Hook\SimpleContainer;
 use Share\Model\Share;
 
 /**
@@ -18,7 +18,7 @@ class EventHandlerService extends EventHandler
 {
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleStylesheet(HookEvent $event)
     {
@@ -42,7 +42,7 @@ class EventHandlerService extends EventHandler
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleJS(HookEvent $event)
     {
@@ -54,7 +54,7 @@ class EventHandlerService extends EventHandler
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onAfterInsertShare(HookEvent $event)
     {
@@ -65,9 +65,9 @@ class EventHandlerService extends EventHandler
         $about = $share->getAbout();
         $poster = $share->getPoster();
 
-        if (!$poster instanceof Poster) return;
+        if (!$poster instanceof PosterInterface) return;
 
-        if ($about instanceof CanShare)
+        if ($about instanceof AtomInterface)
             $about->modify('share_count', 'share_count+1');
 
 
@@ -76,7 +76,7 @@ class EventHandlerService extends EventHandler
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onAfterDeleteShare(HookEvent $event)
     {
@@ -86,7 +86,7 @@ class EventHandlerService extends EventHandler
 
         $about = $share->getAbout();
 
-        if ($about instanceof CanShare)
+        if ($about instanceof AtomInterface)
             $about->modify('share_count', 'share_count-1');
 
     }

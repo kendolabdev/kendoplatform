@@ -1,8 +1,8 @@
 <?php
 namespace Photo\ViewHelper;
 
-use Picaso\Content\HasCover;
-use Picaso\Content\Poster;
+use Kendo\Content\AtomInterface;
+use Kendo\Content\PosterInterface;
 
 /**
  * Class ButtonUpdateCover
@@ -20,8 +20,8 @@ class ButtonUpdateCover
      */
     function __invoke($item, $value = null, $type = 'btn')
     {
-        if (!$item instanceof HasCover) return '';
-        if (!$item instanceof Poster) return '';
+        if (!$item instanceof AtomInterface) return '';
+        if (!$item instanceof PosterInterface) return '';
         if (!\App::authService()->logged()) return '';
         if (!$item->viewerIsParent()) return '';
 

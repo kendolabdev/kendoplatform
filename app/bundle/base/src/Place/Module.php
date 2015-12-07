@@ -6,7 +6,7 @@ namespace Place;
  *
  * @package Place
  */
-class Module extends \Picaso\Application\Module
+class Module extends \Kendo\Application\Module
 {
 
 }

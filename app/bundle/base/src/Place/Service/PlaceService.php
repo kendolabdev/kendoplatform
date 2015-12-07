@@ -73,8 +73,8 @@ class PlaceService
             'parent_type'    => '',
             'user_id'        => 0,
             'parent_user_id' => 0,
-            'created_at'     => PICASO_DATE_TIME,
-            'modified_at'    => PICASO_DATE_TIME
+            'created_at'     => Kendo_DATE_TIME,
+            'modified_at'    => Kendo_DATE_TIME
         ]);
 
         $place->save();

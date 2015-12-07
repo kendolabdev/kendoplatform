@@ -1,7 +1,7 @@
 <?php
 namespace Photo\Block;
 
-use Picaso\Layout\Block;
+use Kendo\Layout\Block;
 
 /**
  * Class ListingPhotoItemBlock

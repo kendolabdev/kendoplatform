@@ -4,7 +4,7 @@ namespace Event\Service;
 
 use Event\Model\Event;
 use Event\Model\EventCategory;
-use Picaso\Content\Poster;
+use Kendo\Content\PosterInterface;
 
 /**
  * Class EventService
@@ -50,7 +50,7 @@ class EventService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 12)
     {
@@ -67,7 +67,7 @@ class EventService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadEventPaging($query = [], $page = 1, $limit = 2)
     {
@@ -136,13 +136,13 @@ class EventService
     }
 
     /**
-     * @param Poster $poster
-     * @param Poster $parent
-     * @param array  $params
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
+     * @param array           $params
      *
      * @return Event
      */
-    public function addEvent(Poster $poster, Poster $parent, $params = [])
+    public function addEvent(PosterInterface $poster, PosterInterface $parent, $params = [])
     {
         $group = new Event([
             'user_id'        => $poster->getUserId(),
@@ -151,8 +151,8 @@ class EventService
             'parent_id'      => $parent->getId(),
             'parent_type'    => $parent->getType(),
             'parent_user_id' => $parent->getUserId(),
-            'created_at'     => PICASO_DATE_TIME,
-            'modified_at'    => PICASO_DATE_TIME,
+            'created_at'     => Kendo_DATE_TIME,
+            'modified_at'    => Kendo_DATE_TIME,
         ]);
 
         $group->setFromArray($params);

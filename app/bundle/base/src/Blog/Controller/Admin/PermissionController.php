@@ -3,8 +3,8 @@ namespace Blog\Controller\Admin;
 
 use Acl\Form\Admin\FilterAclRole;
 use Blog\Form\Admin\BlogPermission;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 class PermissionController extends AdminController
 {
@@ -22,7 +22,7 @@ class PermissionController extends AdminController
             ->setPageFilter($filter)
             ->setupSecondaryNavigation('admin', 'blog_extension', 'blog_permission');
 
-        $roleId = $this->request->getParam('roleId', PICASO_DEFAULT_ROLE_ID);
+        $roleId = $this->request->getParam('roleId', Kendo_DEFAULT_ROLE_ID);
 
         $filter->isValid([
             'roleId' => $roleId,

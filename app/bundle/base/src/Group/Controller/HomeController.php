@@ -2,7 +2,7 @@
 namespace Group\Controller;
 
 use Group\Form\FilterGroup;
-use Picaso\Controller\DefaultController;
+use Kendo\Controller\DefaultController;
 
 /**
  * Class HomeController

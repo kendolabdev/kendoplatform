@@ -4,7 +4,7 @@ namespace Group\Service;
 
 use Group\Model\Group;
 use Group\Model\GroupCategory;
-use Picaso\Content\Poster;
+use Kendo\Content\PosterInterface;
 
 /**
  * Class GroupService
@@ -48,7 +48,7 @@ class GroupService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 12)
     {
@@ -65,7 +65,7 @@ class GroupService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadGroupPaging($query, $page = 1, $limit = 2)
     {
@@ -128,13 +128,13 @@ class GroupService
     }
 
     /**
-     * @param Poster $poster
-     * @param Poster $parent
-     * @param array  $params
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
+     * @param array           $params
      *
      * @return Group
      */
-    public function addGroup(Poster $poster, Poster $parent, $params = [])
+    public function addGroup(PosterInterface $poster, PosterInterface $parent, $params = [])
     {
         $group = new Group([
             'user_id'        => $poster->getUserId(),
@@ -143,8 +143,8 @@ class GroupService
             'parent_id'      => $parent->getId(),
             'parent_type'    => $parent->getType(),
             'parent_user_id' => $parent->getUserId(),
-            'created_at'     => PICASO_DATE_TIME,
-            'modified_at'    => PICASO_DATE_TIME,
+            'created_at'     => Kendo_DATE_TIME,
+            'modified_at'    => Kendo_DATE_TIME,
         ]);
 
         $group->setFromArray($params);

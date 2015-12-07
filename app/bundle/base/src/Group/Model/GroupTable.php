@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_group`
+ * Generate by CodeGenerator\DbTable for table `Kendo_group`
  */
 
 namespace Group\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class GroupTable
@@ -21,7 +21,7 @@ class GroupTable extends DbTable
 	//START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_group`
+     * @see `Kendo_group`
      * @var string
      */
     protected $class =  '\Group\Model\Group';

@@ -1,7 +1,7 @@
 <?php
 namespace Event\Form\Admin;
 
-use Picaso\Html\Form;
+use Kendo\Html\Form;
 
 /**
  * Class Privacy

@@ -2,9 +2,8 @@
 namespace Comment\Controller\Ajax;
 
 use Comment\Model\Comment;
-use Picaso\Content\Attachable;
-use Picaso\Content\CanComment;
-use Picaso\Controller\AjaxController;
+use Kendo\Content\ContentInterface;
+use Kendo\Controller\AjaxController;
 
 /**
  * Class CommentController
@@ -60,7 +59,7 @@ class CommentController extends AjaxController
         /**
          * item not found
          */
-        if (!$item instanceof CanComment) {
+        if (!$item instanceof ContentInterface) {
             throw new \InvalidArgumentException();
         }
 
@@ -103,7 +102,7 @@ class CommentController extends AjaxController
 
             $attachItem = $callbackService->{'addFromCommentComposer'}($this->request, $poster, $parent);
 
-            if ($attachItem instanceof Attachable) {
+            if ($attachItem instanceof AttachableInterface) {
                 $params = [
                     'attachment_type' => $attachItem->getType(),
                     'attachment_id'   => $attachItem->getId(),

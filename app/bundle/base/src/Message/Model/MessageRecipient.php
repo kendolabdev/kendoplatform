@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_message_recipient`
+ * Generate by CodeGenerator\DbTable for table `Kendo_message_recipient`
  */
 
 namespace Message\Model;
 
 /**
  */
-use Picaso\Model;
+use Kendo\Model;
 
 /**
  * Class MessageRecipient

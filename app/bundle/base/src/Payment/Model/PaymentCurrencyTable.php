@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_payment_currency`
+ * Generate by CodeGenerator\DbTable for table `Kendo_payment_currency`
  */
 
 namespace Payment\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class PaymentCurrencyTable
@@ -21,7 +21,7 @@ class PaymentCurrencyTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_payment_currency`
+     * @see `Kendo_payment_currency`
      * @var string
      */
     protected $class =  '\Payment\Model\PaymentCurrency';

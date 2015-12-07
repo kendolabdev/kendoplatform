@@ -8,7 +8,7 @@ namespace Message;
  *
  * @package Message
  */
-class Module extends \Picaso\Application\Module
+class Module extends \Kendo\Application\Module
 {
 
     /**

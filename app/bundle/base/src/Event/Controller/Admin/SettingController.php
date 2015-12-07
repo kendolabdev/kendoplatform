@@ -3,8 +3,8 @@
 namespace Event\Controller\Admin;
 
 use Event\Form\Admin\EventSetting;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class SettingController

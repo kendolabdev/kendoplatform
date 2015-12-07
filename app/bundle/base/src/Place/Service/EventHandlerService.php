@@ -1,7 +1,7 @@
 <?php
 namespace Place\Service;
 
-use Picaso\Application\EventHandler;
+use Kendo\Application\EventHandler;
 
 /**
  * Class EventHandlerService

@@ -1,47 +1,24 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_photo_album`
+ * Generate by CodeGenerator\DbTable for table `Kendo_photo_album`
  */
 
 namespace Photo\Model;
 
 /**
  */
-use Picaso\Content\Attachable;
-use Picaso\Content\CanComment;
-use Picaso\Content\CanLike;
-use Picaso\Content\CanShare;
-use Picaso\Content\CanTagPeople;
-use Picaso\Content\CanTagPlace;
-use Picaso\Content\Content;
-use Picaso\Content\HasPhoto;
-use Picaso\Content\HasStory;
-use Picaso\Content\ImpBaseContent;
-use Picaso\Content\ImpCanTagPeople;
-use Picaso\Content\ImpCanTagPlace;
-use Picaso\Content\ImpHasPhoto;
-use Picaso\Content\ImpHasPrivacy;
-use Picaso\Content\UniqueId;
-use Picaso\Model;
+use Kendo\Content\ContentInterface;
+use Kendo\Content\TraitBaseContent;
+use Kendo\Model;
 
 /**
  * Class PhotoAlbum
  *
  * @package Photo\Model
  */
-class PhotoAlbum extends Model implements
-    UniqueId,
-    Content,
-    Attachable,
-    HasStory,
-    CanComment,
-    CanShare,
-    CanLike,
-    HasPhoto,
-    CanTagPeople,
-    CanTagPlace
+class PhotoAlbum extends Model implements ContentInterface
 {
-    use ImpBaseContent, ImpHasPrivacy, ImpHasPhoto, ImpCanTagPeople, ImpCanTagPlace;
+    use TraitBaseContent;
 
     /**
      * @var string

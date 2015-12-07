@@ -1,10 +1,10 @@
 <?php
 namespace Event\Service;
 
-use Picaso\Assets\Requirejs;
-use Picaso\Hook\HookEvent;
-use Picaso\Hook\SimpleContainer;
-use Picaso\View\View;
+use Kendo\Assets\Requirejs;
+use Kendo\Hook\HookEvent;
+use Kendo\Hook\SimpleContainer;
+use Kendo\View\View;
 use User\Model\User;
 
 /**
@@ -12,10 +12,10 @@ use User\Model\User;
  *
  * @package Event\Service
  */
-class EventHandlerService extends \Picaso\Application\EventHandler
+class EventHandlerService extends \Kendo\Application\EventHandler
 {
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleStylesheet(HookEvent $event)
     {
@@ -39,7 +39,7 @@ class EventHandlerService extends \Picaso\Application\EventHandler
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleJS(HookEvent $event)
     {

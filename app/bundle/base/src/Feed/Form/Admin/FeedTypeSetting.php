@@ -2,7 +2,7 @@
 namespace Feed\Form\Admin;
 
 use Feed\Model\FeedType;
-use Picaso\Html\Form;
+use Kendo\Html\Form;
 
 /**
  * Class FeedTypeSetting

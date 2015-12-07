@@ -1,37 +1,25 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_blog_post`
+ * Generate by CodeGenerator\DbTable for table `Kendo_blog_post`
  */
 
 namespace Blog\Model;
 
 /**
  */
-use Picaso\Content\Attachable;
-use Picaso\Content\CanComment;
-use Picaso\Content\CanLike;
-use Picaso\Content\CanShare;
-use Picaso\Content\CanTagPeople;
-use Picaso\Content\CanTagPlace;
-use Picaso\Content\Content;
-use Picaso\Content\HasPrivacy;
-use Picaso\Content\ImpBaseContent;
-use Picaso\Content\ImpCanTagPeople;
-use Picaso\Content\ImpCanTagPlace;
-use Picaso\Content\ImpHasPrivacy;
-use Picaso\Content\UniqueId;
-use Picaso\Model;
-use Picaso\View\View;
+use Kendo\Content\ContentInterface;
+use Kendo\Content\TraitBaseContent;
+use Kendo\Model;
+use Kendo\View\View;
 
 /**
  * Class BlogPost
  *
  * @package Blog\Model
  */
-class BlogPost extends Model implements UniqueId,
-    Content, Attachable, CanLike, CanShare, CanComment, CanTagPeople, CanTagPlace, HasPrivacy
+class BlogPost extends Model implements ContentInterface
 {
-    use ImpBaseContent, ImpHasPrivacy, ImpCanTagPeople, ImpCanTagPlace;
+    use TraitBaseContent;
 
     /**
      * @param array $params

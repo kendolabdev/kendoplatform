@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_video_category`
+ * Generate by CodeGenerator\DbTable for table `Kendo_video_category`
  */
 
 namespace Video\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class VideoCategoryTable
@@ -21,7 +21,7 @@ class VideoCategoryTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_video_category`
+     * @see `Kendo_video_category`
      * @var string
      */
     protected $class =  '\Video\Model\VideoCategory';

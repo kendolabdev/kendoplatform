@@ -1,14 +1,14 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_page_category`
+ * Generate by CodeGenerator\DbTable for table `Kendo_page_category`
  */
 
 namespace Page\Model;
 
 /**
  */
-use Picaso\Content\UniqueId;
-use Picaso\Model;
+use Kendo\Content\UniqueId;
+use Kendo\Model;
 
 /**
  * Class PageCategory

@@ -2,8 +2,8 @@
 namespace Photo\Controller\Ajax;
 
 use Photo\Model\Photo;
-use Picaso\Content\HasPhoto;
-use Picaso\Controller\AjaxController;
+use Kendo\Content\ContentInterface;
+use Kendo\Controller\AjaxController;
 
 /**
  * Class AvatarController
@@ -95,7 +95,7 @@ class AvatarController extends AjaxController
         if (empty($response))
             throw new \InvalidArgumentException(\App::text('photo.can_not_update_avatar'));
 
-        if ($poster instanceof HasPhoto) {
+        if ($poster instanceof ContentInterface) {
             $poster->setPhotoFileId($photo->getPhotoFileId());
             $poster->save();
         }

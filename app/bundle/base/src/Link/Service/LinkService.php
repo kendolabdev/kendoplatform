@@ -3,8 +3,8 @@ namespace Link\Service;
 
 use Activity\Model\Feed;
 use Link\Model\Link;
-use Picaso\Content\Poster;
-use Picaso\Request\HttpRequest;
+use Kendo\Content\PosterInterface;
+use Kendo\Request\HttpRequest;
 
 /**
  * Class LinkService
@@ -250,14 +250,14 @@ class LinkService
 
     /**
      * @param        $params
-     * @param Poster $poster
-     * @param Poster $parent
-     * @param int    $privacyType
-     * @param int    $privacyValue
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
+     * @param int $privacyType
+     * @param int $privacyValue
      *
      * @return Link
      */
-    public function addLink($params, Poster $poster, Poster $parent, $privacyType, $privacyValue)
+    public function addLink($params, PosterInterface $poster, PosterInterface $parent, $privacyType, $privacyValue)
     {
 
         if (null === $privacyType || null == $privacyValue) {
@@ -273,8 +273,8 @@ class LinkService
             'user_id'       => $poster->getUserId(),
             'privacy_type'  => $privacyType,
             'privacy_value' => $privacyValue,
-            'created_at'    => PICASO_DATE_TIME,
-            'modified_at'   => PICASO_DATE_TIME,
+            'created_at'    => Kendo_DATE_TIME,
+            'modified_at'   => Kendo_DATE_TIME,
             'privacy_text'  => json_encode(['view' => ['type' => $privacyType, 'value' => $privacyType]])
         ], $params);
 
@@ -286,13 +286,13 @@ class LinkService
     }
 
     /**
-     * @param HttpRequest $request
-     * @param Poster      $poster
-     * @param Poster      $parent
+     * @param HttpRequest     $request
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
      *
      * @return Feed
      */
-    public function addFromCommentComposer(HttpRequest $request, Poster $poster, Poster $parent)
+    public function addFromCommentComposer(HttpRequest $request, PosterInterface $poster, PosterInterface $parent)
     {
         $privacy = $request->getArray('privacy');
 
@@ -312,13 +312,13 @@ class LinkService
     }
 
     /**
-     * @param HttpRequest $request
-     * @param Poster      $poster
-     * @param Poster      $parent
+     * @param HttpRequest     $request
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
      *
      * @return Feed
      */
-    public function addFromActivityComposer(HttpRequest $request, Poster $poster, Poster $parent)
+    public function addFromActivityComposer(HttpRequest $request, PosterInterface $poster, PosterInterface $parent)
     {
         $privacy = $request->getArray('privacy');
 

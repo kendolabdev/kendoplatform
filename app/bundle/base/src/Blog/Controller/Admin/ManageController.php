@@ -3,8 +3,8 @@
 namespace Blog\Controller\Admin;
 
 use Blog\Form\Admin\FilterBlogPost;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class ManageController

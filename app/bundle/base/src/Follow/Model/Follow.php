@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_follow`
+ * Generate by CodeGenerator\DbTable for table `Kendo_follow`
  */
 
 namespace Follow\Model;
 
 /**
  */
-use Picaso\Model;
+use Kendo\Model;
 
 /**
  * Class Follow
@@ -30,7 +30,7 @@ class Follow extends Model
     protected $_signalKey = 'Follow';
 
     /**
-     * @return \Picaso\Content\Poster
+     * @return \Kendo\Content\PosterInterface
      */
     public function getPoster()
     {
@@ -38,7 +38,7 @@ class Follow extends Model
     }
 
     /**
-     * @return \Picaso\Content\Content
+     * @return \Kendo\Content\ContentInterface
      */
     public function getParent()
     {

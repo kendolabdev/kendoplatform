@@ -5,9 +5,8 @@ namespace Like\Service;
 use Feed\Model\Feed;
 use Like\Helper\LikeResult;
 use Like\Model\Like;
-use Picaso\Content\CanLike;
-use Picaso\Content\Content;
-use Picaso\Content\Poster;
+use Kendo\Content\AtomInterface;
+use Kendo\Content\PosterInterface;
 
 /**
  * Class LikeService
@@ -41,7 +40,7 @@ class LikeService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadLikePaging($query = [], $page = 1, $limit = 12)
     {
@@ -69,12 +68,12 @@ class LikeService
 
 
     /**
-     * @param Poster          $poster
-     * @param CanLike|Content $about
+     * @param PosterInterface $poster
+     * @param AtomInterface   $about
      *
      * @return \Like\Model\Like
      */
-    public function findLike(Poster $poster, $about)
+    public function findLike(PosterInterface $poster, AtomInterface $about)
     {
         return \App::table('like')
             ->select()
@@ -84,12 +83,12 @@ class LikeService
     }
 
     /**
-     * @param Poster          $poster
-     * @param CanLike|Content $about
+     * @param PosterInterface $poster
+     * @param AtomInterface   $about
      *
      * @return bool  Return isLiked status
      */
-    public function toggle(Poster $poster, $about)
+    public function toggle(PosterInterface $poster, AtomInterface $about)
     {
         $like = $this->findLike($poster, $about);
 
@@ -101,12 +100,12 @@ class LikeService
     }
 
     /**
-     * @param Poster          $poster
-     * @param CanLike|Content $about
+     * @param PosterInterface $poster
+     * @param AtomInterface   $about
      *
      * @return bool
      */
-    public function add(Poster $poster, $about)
+    public function add(PosterInterface $poster, AtomInterface $about)
     {
         if ($about instanceof Feed)
             $about = $about->getAbout();
@@ -116,18 +115,18 @@ class LikeService
             'poster_id'   => $poster->getId(),
             'about_type'  => $about->getType(),
             'poster_type' => $poster->getType(),
-            'created_at'  => PICASO_DATE_TIME,
+            'created_at'  => Kendo_DATE_TIME,
         ]);
         $like->save();
     }
 
     /**
-     * @param Poster          $poster
-     * @param CanLike|Content $about
+     * @param PosterInterface $poster
+     * @param AtomInterface   $about
      *
      * @return bool
      */
-    public function remove(Poster $poster, $about)
+    public function remove(PosterInterface $poster, AtomInterface $about)
     {
         $like = $this->findLike($poster, $about);
 
@@ -136,24 +135,24 @@ class LikeService
     }
 
     /**
-     * @param Poster  $poster
-     * @param CanLike $about
+     * @param PosterInterface $poster
+     * @param AtomInterface   $about
      *
      * @return bool
      */
-    public function isLiked($poster, $about)
+    public function isLiked(PosterInterface $poster, AtomInterface $about)
     {
         return null != $this->findLike($poster, $about);
     }
 
     /**
-     * @param Poster          $poster
-     * @param CanLike|Content $about
-     * @param int             $limit
+     * @param PosterInterface              $poster
+     * @param AtomInterface                $about
+     * @param int                          $limit
      *
      * @return LikeResult
      */
-    public function getLikeResult(Poster $poster = null, $about, $limit = 3)
+    public function getLikeResult(PosterInterface $poster = null, AtomInterface $about, $limit = 3)
     {
 
         if (null == $poster)
@@ -200,7 +199,7 @@ class LikeService
     /**
      * @param $posterId
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
     public function getLikedSelect($posterId)
     {
@@ -212,7 +211,7 @@ class LikeService
     /**
      * @param $objectId
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
     public function getLikedBySelect($objectId)
     {
@@ -222,12 +221,12 @@ class LikeService
     }
 
     /**
-     * @param Poster $poster
-     * @param array  $itemIdList
+     * @param PosterInterface $poster
+     * @param array           $itemIdList
      *
      * @return array
      */
-    public function getListLikeStatus(Poster $poster, $itemIdList)
+    public function getListLikeStatus(PosterInterface $poster, $itemIdList)
     {
         if (null == $poster || empty($itemIdList)) {
             return [];
@@ -256,12 +255,12 @@ class LikeService
 
 
     /**
-     * @param Poster $poster
-     * @param        $objectId
+     * @param PosterInterface $poster
+     * @param                 $objectId
      *
      * @return int
      */
-    public function getLikeStatus(Poster $poster = null, $objectId)
+    public function getLikeStatus(PosterInterface $poster = null, $objectId)
     {
         if (null == $poster || empty($objectId)) {
             return self::NOT_LIKE;
@@ -291,7 +290,7 @@ class LikeService
     /**
      * Remove all like entry match `about_id`
      *
-     * @param CanLike|Content $about
+     * @param AtomInterface $about
      */
     public function removeAllByAbout($about)
     {
@@ -305,7 +304,7 @@ class LikeService
      * Remove all like entry match `poster_id`
      * TODO: How to update `like_count`
      *
-     * @param Poster $poster
+     * @param PosterInterface $poster
      */
     public function removeAllByPoster($poster)
     {
@@ -340,7 +339,7 @@ class LikeService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadLikedThisPaging($query = [], $page = 1, $limit = 10)
     {

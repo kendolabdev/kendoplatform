@@ -2,10 +2,10 @@
 
 namespace Page\Service;
 
-use Picaso\Application\EventHandler;
-use Picaso\Hook\HookEvent;
-use Picaso\Hook\SimpleContainer;
-use Picaso\View\View;
+use Kendo\Application\EventHandler;
+use Kendo\Hook\HookEvent;
+use Kendo\Hook\SimpleContainer;
+use Kendo\View\View;
 use User\Model\User;
 
 /**
@@ -17,7 +17,7 @@ class EventHandlerService extends EventHandler
 {
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleStylesheet(HookEvent $event)
     {

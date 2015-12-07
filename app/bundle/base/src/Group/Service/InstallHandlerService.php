@@ -1,7 +1,7 @@
 <?php
 namespace Group\Service;
 
-use Picaso\Application\ModuleInstallHandler;
+use Kendo\Application\ModuleInstallHandler;
 
 
 /**

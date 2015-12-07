@@ -2,10 +2,9 @@
 namespace Feed\Controller\Ajax;
 
 use Feed\Model\Feed;
-use Picaso\Acl\AuthorizationRestrictException;
-use Picaso\Content\HasStory;
-use Picaso\Content\Poster;
-use Picaso\Controller\AjaxController;
+use Kendo\Acl\AuthorizationRestrictException;
+use Kendo\Content\PosterInterface;
+use Kendo\Controller\AjaxController;
 
 /**
  * Class FeedController
@@ -27,9 +26,6 @@ class FeedController extends AjaxController
             throw new \InvalidArgumentException();
 
         $about = $feed->getAbout();
-
-        if (!$about instanceof HasStory)
-            throw new \InvalidArgumentException();
 
         $about->setStory($status);
 
@@ -57,9 +53,6 @@ class FeedController extends AjaxController
             throw new \InvalidArgumentException();
 
         $about = $feed->getAbout();
-
-        if (!$about instanceof HasStory)
-            throw new \InvalidArgumentException();
 
         $story = $about->getStory();
 
@@ -244,7 +237,7 @@ class FeedController extends AjaxController
         $poster = \App::find($feed->getPosterType(), $feed->getPosterId());
 
 
-        if (!$poster instanceof Poster) ;
+        if (!$poster instanceof PosterInterface) ;
 
 
         $viewer = \App::authService()->getViewer();

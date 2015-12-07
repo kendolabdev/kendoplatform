@@ -3,9 +3,8 @@ namespace Share\Controller\Ajax;
 
 use Feed\Model\Feed;
 use Feed\Model\FeedStatus;
-use Picaso\Content\Content;
-use Picaso\Content\HasStory;
-use Picaso\Controller\AjaxController;
+use Kendo\Content\ContentInterface;
+use Kendo\Controller\AjaxController;
 use Share\Model\Share;
 
 
@@ -49,15 +48,11 @@ class ShareController extends AjaxController
         /**
          * throw new content exception, you share none attachable content
          */
-        if (!$about instanceof Content) {
+        if (!$about instanceof ContentInterface) {
             throw new \InvalidArgumentException("Could not share none attachable");
         }
 
-        $story = null;
-
-        if ($about instanceof HasStory) {
-            $story = $about->getStory();
-        }
+        $story = $about->getStory();
 
         if ($about instanceof FeedStatus) {
             if (null == $about->getPlace()) {

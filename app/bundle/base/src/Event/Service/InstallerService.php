@@ -4,7 +4,7 @@
 
 namespace Event\Service;
 
-use Picaso\Package\ModuleInstaller;
+use Kendo\Package\ModuleInstaller;
 
 /**
  * Class InstallerService

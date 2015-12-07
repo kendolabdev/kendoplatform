@@ -1,14 +1,14 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_help_topic`
+ * Generate by CodeGenerator\DbTable for table `Kendo_help_topic`
  */
 
 namespace Help\Model;
 
 /**
  */
-use Picaso\Content\UniqueId;
-use Picaso\Model;
+use Kendo\Content\UniqueId;
+use Kendo\Model;
 
 /**
  * Class HelpTopic

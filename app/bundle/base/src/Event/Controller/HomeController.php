@@ -2,7 +2,7 @@
 namespace Event\Controller;
 
 use Event\Form\FilterEvent;
-use Picaso\Controller\DefaultController;
+use Kendo\Controller\DefaultController;
 
 /**
  * Class HomeController

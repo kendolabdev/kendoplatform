@@ -3,7 +3,7 @@
 namespace Page\Controller;
 
 use Page\Form\FilterPage;
-use Picaso\Controller\DefaultController;
+use Kendo\Controller\DefaultController;
 
 /**
  * Class HomeController

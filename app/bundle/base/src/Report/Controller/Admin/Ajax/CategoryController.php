@@ -1,7 +1,7 @@
 <?php
 namespace Report\Controller\Admin\Ajax;
 
-use Picaso\Controller\AjaxController;
+use Kendo\Controller\AjaxController;
 
 /**
  * Class CategoryController

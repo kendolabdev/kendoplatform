@@ -1,7 +1,7 @@
 <?php
 namespace Message\ViewHelper;
 
-use Picaso\Content\Poster;
+use Kendo\Content\PosterInterface;
 
 /**
  * Class ButtonChat
@@ -18,7 +18,7 @@ class ButtonChat
     public function __invoke($item)
     {
 
-        if (!$item instanceof Poster) return '';
+        if (!$item instanceof PosterInterface) return '';
         if (!\App::authService()->logged()) return '';
         if (!\App::aclService()->pass($item, 'message.chat')) return '';
 

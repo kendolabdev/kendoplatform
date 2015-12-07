@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_video_playlist_video`
+ * Generate by CodeGenerator\DbTable for table `Kendo_video_playlist_video`
  */
 
 namespace Video\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class VideoPlaylistVideoTable
@@ -21,7 +21,7 @@ class VideoPlaylistVideoTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_video_playlist_video`
+     * @see `Kendo_video_playlist_video`
      * @var string
      */
     protected $class =  '\Video\Model\VideoPlaylistVideo';
@@ -53,10 +53,10 @@ class VideoPlaylistVideoTable extends DbTable
     /**
      * @param  string|int $value
      * @return null
-     * @throws \Picaso\Db\Exception
+     * @throws \Kendo\Db\Exception
      */
     public function findById($value){
-       throw new \Picaso\Db\Exception('Can not find by id for '.$value);
+       throw new \Kendo\Db\Exception('Can not find by id for '.$value);
     }
 
     //END_TABLE_GENERATOR

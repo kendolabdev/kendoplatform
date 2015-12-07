@@ -1,7 +1,7 @@
 <?php
 namespace Event\Controller\Ajax;
 
-use Picaso\Controller\AjaxController;
+use Kendo\Controller\AjaxController;
 
 /**
  * Class EventController

@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_navigation_item`
+ * Generate by CodeGenerator\DbTable for table `Kendo_navigation_item`
  */
 
 namespace Navigation\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class NavigationItemTable
@@ -21,7 +21,7 @@ class NavigationItemTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_navigation_item`
+     * @see `Kendo_navigation_item`
      * @var string
      */
     protected $class =  '\Navigation\Model\NavigationItem';

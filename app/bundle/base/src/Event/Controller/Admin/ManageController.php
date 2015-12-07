@@ -4,8 +4,8 @@ namespace Event\Controller\Admin;
 
 use Event\Form\Admin\EventSetting;
 use Event\Form\Admin\FilterEvent;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class ManageController

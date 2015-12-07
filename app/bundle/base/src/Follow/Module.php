@@ -1,14 +1,14 @@
 <?php
 namespace Follow;
 
-use Picaso\Routing\FilterStuff;
+use Kendo\Routing\FilterStuff;
 
 /**
  * Class Module
  *
  * @package Follow
  */
-class Module extends \Picaso\Application\Module
+class Module extends \Kendo\Application\Module
 {
     public function start()
     {

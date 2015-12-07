@@ -4,8 +4,8 @@ namespace Help\Controller\Admin;
 use Help\Form\Admin\CreateHelpCategory;
 use Help\Form\Admin\DeleteHelpCategory;
 use Help\Form\Admin\EditHelpCategory;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class CategoryController

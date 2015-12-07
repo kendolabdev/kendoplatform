@@ -2,11 +2,10 @@
 namespace Follow\Service;
 
 use Follow\Model\Follow;
-use Picaso\Application\EventHandler;
-use Picaso\Assets\Requirejs;
-use Picaso\Content\CanFollow;
-use Picaso\Content\Poster;
-use Picaso\Hook\HookEvent;
+use Kendo\Application\EventHandler;
+use Kendo\Assets\Requirejs;
+use Kendo\Content\PosterInterface;
+use Kendo\Hook\HookEvent;
 use User\Model\User;
 
 /**
@@ -30,7 +29,7 @@ class EventHandlerService extends EventHandler
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleJS(HookEvent $event)
     {
@@ -50,7 +49,7 @@ class EventHandlerService extends EventHandler
     {
         $profile = \App::registryService()->get('profile');
 
-        if (!$profile instanceof Poster)
+        if (!$profile instanceof PosterInterface)
             return false;
 
         if (!$profile->authorize('activity__follower_tab_exists'))
@@ -73,7 +72,7 @@ class EventHandlerService extends EventHandler
     {
         $profile = \App::registryService()->get('profile');
 
-        if (!$profile instanceof Poster)
+        if (!$profile instanceof PosterInterface)
             return false;
 
         if (!$profile->authorize('activity__following_tab_exists'))
@@ -91,7 +90,7 @@ class EventHandlerService extends EventHandler
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onAfterInsertFollow(HookEvent $event)
     {
@@ -107,14 +106,14 @@ class EventHandlerService extends EventHandler
 
         $poster = $follow->getPoster();
 
-        if (!$poster instanceof Poster) return;
+        if (!$poster instanceof PosterInterface) return;
 
         \App::notificationService()->notify('item_followed', $poster, $poster);
 
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onAfterDeleteFollow(HookEvent $event)
     {
@@ -130,14 +129,14 @@ class EventHandlerService extends EventHandler
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onAcceptMembershipRequest(HookEvent $event)
     {
         $parent = $event->get('parent');
         $poster = $event->get('poster');
 
-        if (!$parent instanceof Poster or !$poster instanceof Poster) return;
+        if (!$parent instanceof PosterInterface or !$poster instanceof PosterInterface) return;
 
         \App::followService()->add($poster, $parent);
 

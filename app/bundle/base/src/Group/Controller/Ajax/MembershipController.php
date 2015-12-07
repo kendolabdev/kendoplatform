@@ -2,8 +2,8 @@
 namespace Group\Controller\Ajax;
 
 use Group\Model\Group;
-use Picaso\Content\Poster;
-use Picaso\Controller\AjaxController;
+use Kendo\Content\PosterInterface;
+use Kendo\Controller\AjaxController;
 
 /**
  * Class MembershipController
@@ -30,7 +30,7 @@ class MembershipController extends AjaxController
 
         $poster = \App::authService()->getViewer();
 
-        if (!$poster instanceof Poster) {
+        if (!$poster instanceof PosterInterface) {
             throw new \InvalidArgumentException("Only member can member of request");
         }
 
@@ -66,13 +66,13 @@ class MembershipController extends AjaxController
         /**
          * Validate item
          */
-        if (!$item instanceof Poster) {
+        if (!$item instanceof PosterInterface) {
             throw new \InvalidArgumentException("Invalid group");
         }
 
         $poster = \App::authService()->getViewer();
 
-        if (!$poster instanceof Poster) {
+        if (!$poster instanceof PosterInterface) {
             throw new \InvalidArgumentException("Only member can member of request");
         }
 

@@ -3,7 +3,7 @@
 namespace Follow\Service;
 
 use Follow\Model\Follow;
-use Picaso\Content\Poster;
+use Kendo\Content\PosterInterface;
 
 
 /**
@@ -28,7 +28,7 @@ class FollowService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadFollowPaging($query = [], $page = 1, $limit = 12)
     {
@@ -55,12 +55,12 @@ class FollowService
     }
 
     /**
-     * @param Poster $poster
-     * @param Poster $parent
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
      *
      * @return \Follow\Model\Follow
      */
-    public function findFollow(Poster $poster, Poster $parent)
+    public function findFollow(PosterInterface $poster, PosterInterface $parent)
     {
         return \App::table('follow')
             ->select()
@@ -70,12 +70,12 @@ class FollowService
     }
 
     /**
-     * @param Poster $poster
-     * @param Poster $parent
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
      *
      * @return bool
      */
-    public function toggle(Poster $poster, Poster $parent)
+    public function toggle(PosterInterface $poster, PosterInterface $parent)
     {
         if ($poster->getId() == $parent->getId()) {
             throw new \InvalidArgumentException("Could not follow by themself");
@@ -93,14 +93,14 @@ class FollowService
     }
 
     /**
-     * @param Poster $poster
-     * @param Poster $parent
-     * @param Follow $follow
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
+     * @param Follow          $follow
      *
      * @return bool
      * @throws \InvalidArgumentException
      */
-    public function add(Poster $poster, Poster $parent, Follow $follow = null)
+    public function add(PosterInterface $poster, PosterInterface $parent, Follow $follow = null)
     {
         if ($poster->getId() == $parent->getId()) {
             throw new \InvalidArgumentException("Could not follow by themself");
@@ -116,7 +116,7 @@ class FollowService
                 'parent_id'   => $parent->getId(),
                 'poster_type' => $poster->getType(),
                 'parent_type' => $parent->getType(),
-                'created_at'  => PICASO_DATE_TIME,
+                'created_at'  => Kendo_DATE_TIME,
             ]);
 
             $follow->save();
@@ -128,14 +128,14 @@ class FollowService
     }
 
     /**
-     * @param  Poster $poster
-     * @param  Poster $parent
-     * @param  Follow $follow
+     * @param  PosterInterface $poster
+     * @param  PosterInterface $parent
+     * @param  Follow          $follow
      *
      * @return bool
      * @throws \InvalidArgumentException
      */
-    public function remove(Poster $poster, Poster $parent, Follow $follow = null)
+    public function remove(PosterInterface $poster, PosterInterface $parent, Follow $follow = null)
     {
 
         if ($poster->getId() == $parent->getId()) {
@@ -158,8 +158,8 @@ class FollowService
     /**
      * posterId follow parent id ?
      *
-     * @param Poster $poster
-     * @param Poster $parent
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
      *
      * @return bool
      */
@@ -210,7 +210,7 @@ class FollowService
     /**
      * @param $posterId
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
     public function getFollowedSelect($posterId)
     {
@@ -220,12 +220,12 @@ class FollowService
     }
 
     /**
-     * @param Poster $poster
-     * @param array  $itemIdList
+     * @param PosterInterface $poster
+     * @param array           $itemIdList
      *
      * @return array
      */
-    public function getListFollowStatus(Poster $poster, $itemIdList)
+    public function getListFollowStatus(PosterInterface $poster, $itemIdList)
     {
         if (null == $poster || empty($itemIdList)) {
             return [];
@@ -253,12 +253,12 @@ class FollowService
     }
 
     /**
-     * @param Poster $poster
+     * @param PosterInterface $poster
      * @param        $parentId
      *
      * @return int
      */
-    public function getFollowStatus(Poster $poster = null, $parentId)
+    public function getFollowStatus(PosterInterface $poster = null, $parentId)
     {
         if (null == $poster || empty($parentId)) {
             return self::NOT_FOLLOW;
@@ -280,7 +280,7 @@ class FollowService
     /**
      * @param $parentId
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
     public function getFollowedBySelect($parentId)
     {
@@ -305,7 +305,7 @@ class FollowService
     }
 
     /**
-     * @param Poster $poster
+     * @param PosterInterface $poster
      */
     public function removeAllByPoster($poster)
     {

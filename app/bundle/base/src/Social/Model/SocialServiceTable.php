@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_social_service`
+ * Generate by CodeGenerator\DbTable for table `Kendo_social_service`
  */
 
 namespace Social\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class SocialServiceTable
@@ -21,7 +21,7 @@ class SocialServiceTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_social_service`
+     * @see `Kendo_social_service`
      * @var string
      */
     protected $class =  '\Social\Model\SocialService';

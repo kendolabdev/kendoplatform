@@ -2,8 +2,8 @@
 namespace Blog\Controller\Admin;
 
 use Blog\Form\Admin\BlogSetting;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class SettingController

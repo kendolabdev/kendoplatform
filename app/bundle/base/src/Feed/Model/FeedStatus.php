@@ -1,47 +1,25 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_feed_status`
+ * Generate by CodeGenerator\DbTable for table `Kendo_feed_status`
  */
 
 namespace Feed\Model;
 
 /**
  */
-use Picaso\Content\Attachable;
-use Picaso\Content\CanComment;
-use Picaso\Content\CanLike;
-use Picaso\Content\CanShare;
-use Picaso\Content\CanTagPeople;
-use Picaso\Content\CanTagPlace;
-use Picaso\Content\Content;
-use Picaso\Content\HasPrivacy;
-use Picaso\Content\HasStory;
-use Picaso\Content\ImpBaseContent;
-use Picaso\Content\ImpCanTagPeople;
-use Picaso\Content\ImpCanTagPlace;
-use Picaso\Content\ImpHasPrivacy;
-use Picaso\Content\UniqueId;
-use Picaso\Model;
-use Picaso\View\View;
+use Kendo\Content\ContentInterface;
+use Kendo\Content\TraitBaseContent;
+use Kendo\Model;
+use Kendo\View\View;
 
 /**
  * Class ActivityStatus
  *
  * @package Feed\Model
  */
-class FeedStatus extends Model
-    implements UniqueId,
-    Content,
-    Attachable,
-    CanTagPlace,
-    CanTagPeople,
-    CanComment,
-    CanLike,
-    CanShare,
-    HasPrivacy,
-    HasStory
+class FeedStatus extends Model implements ContentInterface
 {
-    use ImpBaseContent, ImpCanTagPlace, ImpCanTagPeople, ImpHasPrivacy;
+    use TraitBaseContent;
 
     /**
      * @var string
@@ -106,7 +84,7 @@ class FeedStatus extends Model
         $place = $this->getPlace();
 
 
-        if ($place instanceof Attachable) {
+        if ($place instanceof AttachableInterface) {
             return $place->toHtml();
         } else {
             $params['poster'] = $this->getPoster();

@@ -3,12 +3,11 @@
 namespace Like\Service;
 
 use Like\Model\Like;
-use Picaso\Application\EventHandler;
-use Picaso\Assets\Requirejs;
-use Picaso\Content\CanLike;
-use Picaso\Content\Poster;
-use Picaso\Hook\HookEvent;
-use Picaso\Hook\SimpleContainer;
+use Kendo\Application\EventHandler;
+use Kendo\Assets\Requirejs;
+use Kendo\Content\AtomInterface;
+use Kendo\Content\PosterInterface;
+use Kendo\Hook\HookEvent;
 use User\Model\User;
 
 /**
@@ -22,7 +21,8 @@ class EventHandlerService extends EventHandler
     /**
      * @param HookEvent $event
      */
-    public function onRequirejsRender(HookEvent $event) {
+    public function onRequirejsRender(HookEvent $event)
+    {
         $requirejs = $event->getPayload();
 
         if (!$requirejs instanceof Requirejs) return;
@@ -32,7 +32,7 @@ class EventHandlerService extends EventHandler
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleJS(HookEvent $event)
     {
@@ -55,7 +55,7 @@ class EventHandlerService extends EventHandler
         if ($profile instanceof User)
             return false;
 
-        if (!$profile instanceof Poster)
+        if (!$profile instanceof PosterInterface)
             return false;
 
         if (!$profile->authorize('activity__like_tab_exists'))
@@ -71,7 +71,7 @@ class EventHandlerService extends EventHandler
 
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onAfterInsertLike(HookEvent $event)
     {
@@ -81,7 +81,7 @@ class EventHandlerService extends EventHandler
 
         $about = $like->getAbout();
 
-        if ($about instanceof CanLike)
+        if ($about instanceof AtomInterface)
             $about->modify('like_count', 'like_count+1');
 
         \App::notificationService()->notify('item_liked', $like->getPoster(), $about);
@@ -89,7 +89,7 @@ class EventHandlerService extends EventHandler
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onAfterDeleteLike(HookEvent $event)
     {
@@ -99,7 +99,7 @@ class EventHandlerService extends EventHandler
 
         $about = $like->getAbout();
 
-        if ($about instanceof CanLike)
+        if ($about instanceof AtomInterface)
             $about->modify('like_count', 'like_count-1');
 
     }

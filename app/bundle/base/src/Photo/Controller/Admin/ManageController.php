@@ -6,8 +6,8 @@ use Acl\Form\Admin\FilterAclRole;
 use Photo\Form\Admin\FilterPhoto;
 use Photo\Form\Admin\PhotoPermission;
 use Photo\Form\Admin\PhotoSetting;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class ManageController

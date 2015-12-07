@@ -2,7 +2,7 @@
 
 namespace Blog;
 
-use Picaso\Routing\FilterStuff;
+use Kendo\Routing\FilterStuff;
 
 
 /**
@@ -10,7 +10,7 @@ use Picaso\Routing\FilterStuff;
  *
  * @package Blog
  */
-class Module extends \Picaso\Application\Module
+class Module extends \Kendo\Application\Module
 {
 
 

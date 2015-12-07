@@ -1,7 +1,7 @@
 <?php
 namespace Video\Controller;
 
-use Picaso\Controller\DefaultController;
+use Kendo\Controller\DefaultController;
 use Video\Form\Admin\FilterVideo;
 use Video\Form\VideoFromUrl;
 use Video\Model\Video;

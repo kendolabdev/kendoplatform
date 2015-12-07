@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_navigation`
+ * Generate by CodeGenerator\DbTable for table `Kendo_navigation`
  */
 
 namespace Navigation\Model;
 
 /**
  */
-use Picaso\Model;
+use Kendo\Model;
 
 /**
  * Class Navigation

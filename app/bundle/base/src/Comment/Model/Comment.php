@@ -1,26 +1,24 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_comment`
+ * Generate by CodeGenerator\DbTable for table `Kendo_comment`
  */
 
 namespace Comment\Model;
 
 /**
  */
-use Picaso\Content\CanLike;
-use Picaso\Content\ImpBaseContent;
-use Picaso\Content\UniqueId;
-use Picaso\Model;
+use Kendo\Content\AtomInterface;
+use Kendo\Content\TraitBaseContent;
+use Kendo\Model;
 
 /**
  * Class Comment
  *
  * @package Comment\Model
  */
-class Comment extends Model implements UniqueId, CanLike
+class Comment extends Model implements AtomInterface
 {
-    use ImpBaseContent;
-
+    use TraitBaseContent;
 
     /**
      * Notify method
@@ -44,7 +42,7 @@ class Comment extends Model implements UniqueId, CanLike
     }
 
     /**
-     * @return \Picaso\Content\Poster
+     * @return \Kendo\Content\PosterInterface
      */
     public function getPoster()
     {
@@ -52,7 +50,7 @@ class Comment extends Model implements UniqueId, CanLike
     }
 
     /**
-     * @return \Picaso\Content\Attachable
+     * @return \Kendo\Content\AttachableInterface
      */
     public function getAttachment()
     {
@@ -60,7 +58,7 @@ class Comment extends Model implements UniqueId, CanLike
     }
 
     /**
-     * @return \Picaso\Content\Content
+     * @return \Kendo\Content\ContentInterface
      */
     public function getAbout()
     {

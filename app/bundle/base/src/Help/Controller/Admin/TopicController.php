@@ -5,8 +5,8 @@ use Help\Form\Admin\CreateHelpTopic;
 use Help\Form\Admin\DeleteHelpTopic;
 use Help\Form\Admin\EditHelpTopic;
 use Help\Form\Admin\FilterHelpTopic;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class TopicController

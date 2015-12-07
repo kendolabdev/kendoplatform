@@ -1,7 +1,7 @@
 <?php
 namespace Message\Form;
 
-use Picaso\Html\Form;
+use Kendo\Html\Form;
 
 /**
  * Class ComposeMessage

@@ -2,7 +2,7 @@
 
 namespace Feed\Block;
 
-use Picaso\Layout\Block;
+use Kendo\Layout\Block;
 
 /**
  * Class ActivityAboutBlock

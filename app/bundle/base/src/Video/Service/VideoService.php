@@ -2,8 +2,8 @@
 
 namespace Video\Service;
 
-use Picaso\Content\Poster;
-use Picaso\Request\HttpRequest;
+use Kendo\Content\PosterInterface;
+use Kendo\Request\HttpRequest;
 use Video\Model\Video;
 use Video\Model\VideoCategory;
 use Video\Provider\ProviderInterface;
@@ -53,7 +53,7 @@ class VideoService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 12)
     {
@@ -70,7 +70,7 @@ class VideoService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadVideoPaging($query = [], $page = 1, $limit = 10)
     {
@@ -154,13 +154,13 @@ class VideoService
     }
 
     /**
-     * @param HttpRequest $request
-     * @param Poster      $poster
-     * @param Poster      $parent
+     * @param HttpRequest     $request
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
      *
      * @return \Feed\Model\Feed
      */
-    public function addFromActivityComposer(HttpRequest $request, Poster $poster, Poster $parent)
+    public function addFromActivityComposer(HttpRequest $request, PosterInterface $poster, PosterInterface $parent)
     {
         $privacy = $request->getArray('privacy');
 
@@ -205,13 +205,13 @@ class VideoService
     }
 
     /**
-     * @param HttpRequest $request
-     * @param Poster      $poster
-     * @param Poster      $parent
+     * @param HttpRequest     $request
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
      *
      * @return \Feed\Model\Feed
      */
-    public function addFromCommentComposer(HttpRequest $request, Poster $poster, Poster $parent)
+    public function addFromCommentComposer(HttpRequest $request, PosterInterface $poster, PosterInterface $parent)
     {
         $privacy = $request->getArray('privacy');
 
@@ -285,15 +285,15 @@ class VideoService
     }
 
     /**
-     * @param Poster $poster
-     * @param Poster $parent
-     * @param array  $params
-     * @param int    $privacyType
-     * @param int    $privacyValue
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
+     * @param array           $params
+     * @param int             $privacyType
+     * @param int             $privacyValue
      *
      * @return Video
      */
-    public function addVideo(Poster $poster, Poster $parent, $params = [], $privacyType = null, $privacyValue = null)
+    public function addVideo(PosterInterface $poster, PosterInterface $parent, $params = [], $privacyType = null, $privacyValue = null)
     {
         if (null === $privacyType || null === $privacyValue) {
             $privacyType = RELATION_TYPE_ANYONE;
@@ -310,8 +310,8 @@ class VideoService
             'module_id'      => 'video',
             'privacy_type'   => $privacyType,
             'privacy_value'  => $privacyValue,
-            'created_at'     => PICASO_DATE_TIME,
-            'modified_at'    => PICASO_DATE_TIME,
+            'created_at'     => Kendo_DATE_TIME,
+            'modified_at'    => Kendo_DATE_TIME,
         ], $params);
 
         $video = new Video($data);

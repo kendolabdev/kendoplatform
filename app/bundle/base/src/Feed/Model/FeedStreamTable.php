@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_feed_stream`
+ * Generate by CodeGenerator\DbTable for table `Kendo_feed_stream`
  */
 
 namespace Feed\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class FeedStreamTable
@@ -21,7 +21,7 @@ class FeedStreamTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_feed_stream`
+     * @see `Kendo_feed_stream`
      * @var string
      */
     protected $class =  '\Feed\Model\FeedStream';
@@ -61,10 +61,10 @@ class FeedStreamTable extends DbTable
     /**
      * @param  string|int $value
      * @return null
-     * @throws \Picaso\Db\Exception
+     * @throws \Kendo\Db\Exception
      */
     public function findById($value){
-       throw new \Picaso\Db\Exception('Can not find by id for '.$value);
+       throw new \Kendo\Db\Exception('Can not find by id for '.$value);
     }
 
     //END_TABLE_GENERATOR

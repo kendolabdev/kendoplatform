@@ -1,9 +1,9 @@
 <?php
 namespace Report\Controller\Ajax;
 
-use Picaso\Content\Poster;
-use Picaso\Controller\AjaxController;
-use Picaso\Layout\BlockParams;
+use Kendo\Content\PosterInterface;
+use Kendo\Controller\AjaxController;
+use Kendo\Layout\BlockParams;
 use Report\Form\AddGeneralReport;
 use Report\Model\ReportGeneral;
 
@@ -41,7 +41,7 @@ class GeneralReportController extends AjaxController
 
         $poster = \App::authService()->getViewer();
 
-        if (!$poster instanceof Poster) ;
+        if (!$poster instanceof PosterInterface) ;
 
         $params = [
         ];

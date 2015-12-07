@@ -1,7 +1,6 @@
 <?php
 namespace Share\ViewHelper;
-
-use Picaso\Content\CanShare;
+use Kendo\Content\ContentInterface;
 
 
 /**
@@ -19,7 +18,7 @@ class ListShareSample
      */
     function __invoke($about)
     {
-        if (!$about instanceof CanShare) {
+        if (!$about instanceof ContentInterface) {
             return '';
         }
 

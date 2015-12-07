@@ -4,8 +4,8 @@ namespace Event\Controller\Admin;
 use Event\Form\Admin\CreateEventCategory;
 use Event\Form\Admin\DeleteEventCategory;
 use Event\Form\Admin\EditEventCategory;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 
 /**

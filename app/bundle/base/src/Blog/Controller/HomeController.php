@@ -7,7 +7,7 @@ use Blog\Form\DeletePost;
 use Blog\Form\FilterBlogPost;
 use Blog\Model\BlogPost;
 use Blog\Service\BlogService;
-use Picaso\Controller\DefaultController;
+use Kendo\Controller\DefaultController;
 
 /**
  * Class HomeController

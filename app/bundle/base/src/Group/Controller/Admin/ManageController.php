@@ -3,8 +3,8 @@
 namespace Group\Controller\Admin;
 
 use Group\Form\Admin\FilterGroup;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class ManageController

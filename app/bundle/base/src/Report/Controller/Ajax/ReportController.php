@@ -2,10 +2,10 @@
 namespace Report\Controller\Ajax;
 
 use Feed\Model\Feed;
-use Picaso\Content\Content;
-use Picaso\Content\Poster;
-use Picaso\Controller\AjaxController;
-use Picaso\Layout\BlockParams;
+use Kendo\Content\ContentInterface;
+use Kendo\Content\PosterInterface;
+use Kendo\Controller\AjaxController;
+use Kendo\Layout\BlockParams;
 use Report\Form\AddReport;
 use Report\Model\Report;
 
@@ -60,11 +60,11 @@ class ReportController extends AjaxController
 
         // validate content
 
-        if (!$about instanceof Content && !$about instanceof Feed)
+        if (!$about instanceof ContentInterface && !$about instanceof Feed)
             throw new \InvalidArgumentException();
 
 
-        if (!$poster instanceof Poster) ;
+        if (!$poster instanceof PosterInterface) ;
 
         $data = [
             'message'     => (string)$message,

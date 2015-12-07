@@ -2,7 +2,7 @@
 
 namespace Report\Form;
 
-use Picaso\Html\Form;
+use Kendo\Html\Form;
 
 /**
  * Class AddReport

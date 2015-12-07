@@ -2,7 +2,7 @@
 
 namespace Report\Service;
 
-use Picaso\Content\Poster;
+use Kendo\Content\PosterInterface;
 use Report\Model\Report;
 use Report\Model\ReportCategory;
 use Report\Model\ReportGeneral;
@@ -85,7 +85,7 @@ class ReportService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 100)
     {
@@ -103,7 +103,7 @@ class ReportService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminGeneralReportPaging($query = [], $page = 1, $limit = 10)
     {
@@ -123,7 +123,7 @@ class ReportService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminReportPaging($query = [], $page = 1, $limit = 10)
     {
@@ -142,19 +142,19 @@ class ReportService
     }
 
     /**
-     * @param Poster $poster
-     * @param string $message
-     * @param array  $params
+     * @param PosterInterface $poster
+     * @param string          $message
+     * @param array           $params
      *
      * @return ReportGeneral
      */
-    public function addGeneralReport(Poster $poster, $message, $params = [])
+    public function addGeneralReport(PosterInterface $poster, $message, $params = [])
     {
         $data = array_merge([
             'poster_type' => $poster->getType(),
             'poster_id'   => $poster->getId(),
             'message'     => (string)$message,
-            'created_at'  => PICASO_DATE_TIME,
+            'created_at'  => Kendo_DATE_TIME,
         ], $params);
 
         $report = new ReportGeneral($data);
@@ -166,9 +166,9 @@ class ReportService
 
 
     /**
-     * @param \Picaso\Content\Poster                         $poster
-     * @param \Picaso\Content\Content|\Picaso\Content\Poster $about
-     * @param array                                          $data
+     * @param \Kendo\Content\PosterInterface                                  $poster
+     * @param \Kendo\Content\ContentInterface|\Kendo\Content\PosterInterface $about
+     * @param array                                                            $data
      *
      * @return Report
      */
@@ -180,7 +180,7 @@ class ReportService
             'poster_type' => $poster->getType(),
             'about_type'  => $about->getType(),
             'about_id'    => $about->getId(),
-            'created_at'  => PICASO_DATE_TIME,
+            'created_at'  => Kendo_DATE_TIME,
         ], $data);
 
         /**

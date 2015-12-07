@@ -4,7 +4,7 @@ namespace Page\Service;
 
 use Page\Model\Page;
 use Page\Model\PageCategory;
-use Picaso\Content\Poster;
+use Kendo\Content\PosterInterface;
 
 /**
  * Class PageService
@@ -49,7 +49,7 @@ class PageService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 12)
     {
@@ -66,7 +66,7 @@ class PageService
      * @param     $page
      * @param int $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadPagePaging($context, $page, $limit = 12)
     {
@@ -133,13 +133,13 @@ class PageService
     }
 
     /**
-     * @param Poster $poster
-     * @param Poster $parent
-     * @param array  $params
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
+     * @param array           $params
      *
      * @return Page
      */
-    public function addPage(Poster $poster, Poster $parent, $params = [])
+    public function addPage(PosterInterface $poster, PosterInterface $parent, $params = [])
     {
         $page = new Page([
             'user_id'        => $poster->getUserId(),
@@ -148,8 +148,8 @@ class PageService
             'parent_id'      => $parent->getId(),
             'parent_type'    => $parent->getType(),
             'parent_user_id' => $parent->getUserId(),
-            'created_at'     => PICASO_DATE_TIME,
-            'modified_at'    => PICASO_DATE_TIME,
+            'created_at'     => Kendo_DATE_TIME,
+            'modified_at'    => Kendo_DATE_TIME,
         ]);
 
         $page->setFromArray($params);

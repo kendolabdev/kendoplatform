@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_social_service`
+ * Generate by CodeGenerator\DbTable for table `Kendo_social_service`
  */
 
 namespace Social\Model;
 
 /**
  */
-use Picaso\Model;
+use Kendo\Model;
 
 /**
  * Class SocialService

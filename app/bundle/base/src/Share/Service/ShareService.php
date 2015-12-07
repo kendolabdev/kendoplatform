@@ -2,7 +2,7 @@
 namespace Share\Service;
 
 use Feed\Model\Feed;
-use Picaso\Content\Poster;
+use Kendo\Content\PosterInterface;
 use Share\Model\Share;
 
 
@@ -25,17 +25,17 @@ class ShareService
 
 
     /**
-     * @param string $story
-     * @param Poster $poster
-     * @param Poster $parent
+     * @param string          $story
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
      * @param        $origin
-     * @param int    $privacyType
-     * @param int    $privacyValue
-     * @param array  $params
+     * @param int             $privacyType
+     * @param int             $privacyValue
+     * @param array           $params
      *
      * @return Feed
      */
-    public function add($story = '', Poster $poster, Poster $parent = null, $origin, $privacyType = 1, $privacyValue = 1, $params = [])
+    public function add($story = '', PosterInterface $poster, PosterInterface $parent = null, $origin, $privacyType = 1, $privacyValue = 1, $params = [])
     {
         $about = null;
         $content = null;

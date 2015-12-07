@@ -1,7 +1,7 @@
 <?php
 namespace Photo\Controller\Ajax;
 
-use Picaso\Controller\AjaxController;
+use Kendo\Controller\AjaxController;
 
 /**
  * Class UploadController

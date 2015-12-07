@@ -3,8 +3,8 @@
 namespace Group\Controller\Admin;
 
 use Group\Form\Admin\GroupSetting;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 
 /**

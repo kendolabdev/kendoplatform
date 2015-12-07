@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_video_playlist`
+ * Generate by CodeGenerator\DbTable for table `Kendo_video_playlist`
  */
 
 namespace Video\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class VideoPlaylistTable
@@ -21,7 +21,7 @@ class VideoPlaylistTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_video_playlist`
+     * @see `Kendo_video_playlist`
      * @var string
      */
     protected $class =  '\Video\Model\VideoPlaylist';

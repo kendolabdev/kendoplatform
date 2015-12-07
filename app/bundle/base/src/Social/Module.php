@@ -7,7 +7,7 @@ namespace Social;
  *
  * @package Social
  */
-class Module extends \Picaso\Application\Module
+class Module extends \Kendo\Application\Module
 {
     public function start()
     {

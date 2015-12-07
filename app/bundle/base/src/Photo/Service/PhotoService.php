@@ -7,12 +7,11 @@ use Photo\Model\PhotoAlbum;
 use Photo\Model\PhotoCategory;
 use Photo\Model\PhotoCollection;
 use Photo\Model\PhotoCover;
-use Picaso\Content\HasCover;
-use Picaso\Content\HasPhoto;
-use Picaso\Content\Poster;
-use Picaso\Request\HttpRequest;
-use Picaso\Storage\InputFile;
-use Picaso\Storage\InputFileList;
+use Kendo\Content\AtomInterface;
+use Kendo\Content\PosterInterface;
+use Kendo\Request\HttpRequest;
+use Kendo\Storage\InputFile;
+use Kendo\Storage\InputFileList;
 
 /**
  * Class PhotoService
@@ -73,7 +72,7 @@ class PhotoService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 12)
     {
@@ -106,7 +105,7 @@ class PhotoService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadPhotoPaging($context = [], $page = 1, $limit = 12)
     {
@@ -211,7 +210,7 @@ class PhotoService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAlbumPaging($context = [], $page = 1, $limit = 12)
     {
@@ -291,13 +290,13 @@ class PhotoService
      *
      * @see FeedController::actionPost()
      *
-     * @param HttpRequest $request
-     * @param Poster      $poster
-     * @param Poster      $parent
+     * @param HttpRequest     $request
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
      *
      * @return \Feed\Model\Feed
      */
-    public function addFromActivityComposer(HttpRequest $request, Poster $poster, Poster $parent)
+    public function addFromActivityComposer(HttpRequest $request, PosterInterface $poster, PosterInterface $parent)
     {
         // process upload photo to handler set.
 
@@ -446,7 +445,7 @@ class PhotoService
      * @param Photo $photo
      * @param null  $context
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
     public function getSelectPhotoContext(Photo $photo, $context = null)
     {
@@ -642,7 +641,7 @@ class PhotoService
         krsort($thumbs);
 
         $fileData = [];
-        $uploadTemporaryDir = PICASO_UPLOAD_DIR . '/';
+        $uploadTemporaryDir = Kendo_UPLOAD_DIR . '/';
         $imageService = \App::imageService();
 
         $path = $inputFile->getPath();
@@ -679,7 +678,7 @@ class PhotoService
                 'width'      => (int)$w,
                 'height'     => (int)$h,
                 'main_type'  => 'photo',
-                'created_at' => PICASO_DATE_TIME,
+                'created_at' => Kendo_DATE_TIME,
             ];
         }
 
@@ -702,7 +701,7 @@ class PhotoService
                 'width'      => (int)$w,
                 'height'     => (int)$h,
                 'main_type'  => 'photo',
-                'created_at' => PICASO_DATE_TIME,
+                'created_at' => Kendo_DATE_TIME,
             ];
 
         }
@@ -739,9 +738,9 @@ class PhotoService
     /**
      * Process upload avatar from input file. not from client.
      *
-     * @param  Poster       $parent
-     * @param         int   $photoFileId
-     * @param         array $options
+     * @param  PosterInterface $parent
+     * @param         int      $photoFileId
+     * @param         array    $options
      *
      * @return int
      * @throws \InvalidArgumentException
@@ -750,7 +749,7 @@ class PhotoService
     {
         $thumbs = $this->getDefaultAvatarThumbsSettings();
 
-        $uploadTemporaryDir = PICASO_UPLOAD_DIR . '/';
+        $uploadTemporaryDir = Kendo_UPLOAD_DIR . '/';
         $imageService = \App::imageService();
 
         $file = \App::storageService()->getFileItem($photoFileId, 'origin');
@@ -794,7 +793,7 @@ class PhotoService
                 'width'      => (int)$w,
                 'height'     => (int)$h,
                 'main_type'  => 'photo',
-                'created_at' => PICASO_DATE_TIME,
+                'created_at' => Kendo_DATE_TIME,
             ];
 
         }
@@ -816,7 +815,7 @@ class PhotoService
     }
 
     /**
-     * @param Poster|HasPhoto $poster
+     * @param PosterInterface $poster
      * @param                 $cropit
      */
     public function setPosterAvatar($poster, $cropit)
@@ -879,7 +878,7 @@ class PhotoService
         krsort($thumbs);
 
         $fileData = [];
-        $uploadTemporaryDir = PICASO_UPLOAD_DIR . '/';
+        $uploadTemporaryDir = Kendo_UPLOAD_DIR . '/';
         $imageService = \App::imageService();
 
         foreach ($fileList->getFiles() as $file) {
@@ -920,7 +919,7 @@ class PhotoService
                     'width'      => (int)$w,
                     'height'     => (int)$h,
                     'main_type'  => 'photo',
-                    'created_at' => PICASO_DATE_TIME,
+                    'created_at' => Kendo_DATE_TIME,
                 ];
             }
 
@@ -947,7 +946,7 @@ class PhotoService
                     'width'      => (int)$w,
                     'height'     => (int)$h,
                     'main_type'  => 'photo',
-                    'created_at' => PICASO_DATE_TIME,
+                    'created_at' => Kendo_DATE_TIME,
                 ];
 
             }
@@ -986,11 +985,11 @@ class PhotoService
      * Get Singleton album.
      * Each profile have some singleton album, etc: "wall", "mobile", "comments"
      *
-     * @param  Poster $parent
+     * @param  PosterInterface $parent
      *
      * @return PhotoAlbum
      */
-    public function getSingletonAlbum(Poster $parent)
+    public function getSingletonAlbum(PosterInterface $parent)
     {
         $album = \App::table('photo.photo_album')
             ->select()
@@ -1009,8 +1008,8 @@ class PhotoService
                 'title'          => '',
                 'content'        => '',
                 'description'    => '',
-                'created_at'     => PICASO_DATE_TIME,
-                'modified_at'    => PICASO_DATE_TIME,
+                'created_at'     => Kendo_DATE_TIME,
+                'modified_at'    => Kendo_DATE_TIME,
             ]);
 
             $album->save();
@@ -1022,13 +1021,13 @@ class PhotoService
     /**
      * Create new album
      *
-     * @param Poster $poster
-     * @param Poster $parent
-     * @param array  $params
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
+     * @param array           $params
      *
      * @return PhotoAlbum
      */
-    public function addAlbum(Poster $poster, Poster $parent, $params = [])
+    public function addAlbum(PosterInterface $poster, PosterInterface $parent, $params = [])
     {
         $params = array_merge($params, [
             'user_id'        => $poster->getUserId(),
@@ -1038,8 +1037,8 @@ class PhotoService
             'parent_user_id' => $parent->getUserId(),
             'album_type'     => self::ALBUM_TYPE_UPLOAD,
             'parent_type'    => $parent->getType(),
-            'created_at'     => PICASO_DATE_TIME,
-            'modified_at'    => PICASO_DATE_TIME,
+            'created_at'     => Kendo_DATE_TIME,
+            'modified_at'    => Kendo_DATE_TIME,
         ]);
 
 
@@ -1057,14 +1056,14 @@ class PhotoService
     /**
      * Create collection to database
      *
-     * @param Poster     $poster
-     * @param Poster     $parent
-     * @param PhotoAlbum $album
-     * @param null       $params
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
+     * @param PhotoAlbum      $album
+     * @param null            $params
      *
      * @return PhotoCollection
      */
-    public function _addCollection(Poster $poster, Poster $parent, PhotoAlbum $album, $params = null)
+    public function _addCollection(PosterInterface $poster, PosterInterface $parent, PhotoAlbum $album, $params = null)
     {
 
         $collection = new PhotoCollection([
@@ -1075,8 +1074,8 @@ class PhotoService
             'parent_type'    => $parent->getType(),
             'parent_user_id' => $parent->getUserId(),
             'album_id'       => $album->getId(),
-            'created_at'     => PICASO_DATE_TIME,
-            'modified_at'    => PICASO_DATE_TIME
+            'created_at'     => Kendo_DATE_TIME,
+            'modified_at'    => Kendo_DATE_TIME
         ]);
 
         $collection->save();
@@ -1088,16 +1087,16 @@ class PhotoService
     /**
      * Add Photos to album from $fileIdList
      *
-     * @param array  $fileIdList
-     * @param Poster $poster
-     * @param Poster $parent
-     * @param Album  $album
-     * @param array  $params
-     * @param bool   $addFeed = false
+     * @param array           $fileIdList
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
+     * @param Album           $album
+     * @param array           $params
+     * @param bool            $addFeed = false
      *
      * @return array [total, array: Photo, Album, Collection]
      */
-    public function addPhotos($fileIdList, Poster $poster, Poster $parent = null, PhotoAlbum $album = null, $params = [], $addFeed = false)
+    public function addPhotos($fileIdList, PosterInterface $poster, PosterInterface $parent = null, PhotoAlbum $album = null, $params = [], $addFeed = false)
     {
         if (null == $parent) {
             $parent = $poster;
@@ -1138,8 +1137,8 @@ class PhotoService
                 'photo_file_id'  => (int)$fileId,
                 'title'          => '',
                 'content'        => '',
-                'created_at'     => PICASO_DATE_TIME,
-                'modified_at'    => PICASO_DATE_TIME,
+                'created_at'     => Kendo_DATE_TIME,
+                'modified_at'    => Kendo_DATE_TIME,
             ], $params));
 
             $photo->setFromArray($params);
@@ -1182,15 +1181,15 @@ class PhotoService
     }
 
     /**
-     * @param array      $fileId
-     * @param Poster     $poster
-     * @param Poster     $parent
-     * @param PhotoAlbum $album
-     * @param array      $params
+     * @param array           $fileId
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
+     * @param PhotoAlbum      $album
+     * @param array           $params
      *
      * @return Photo
      */
-    public function addPhoto($fileId, Poster $poster, Poster $parent = null, PhotoAlbum $album = null, $params = [])
+    public function addPhoto($fileId, PosterInterface $poster, PosterInterface $parent = null, PhotoAlbum $album = null, $params = [])
     {
         if (null == $parent) {
             $parent = $poster;
@@ -1211,8 +1210,8 @@ class PhotoService
             'photo_file_id'  => (int)$fileId,
             'title'          => '',
             'content'        => '',
-            'created_at'     => PICASO_DATE_TIME,
-            'modified_at'    => PICASO_DATE_TIME,
+            'created_at'     => Kendo_DATE_TIME,
+            'modified_at'    => Kendo_DATE_TIME,
         ]);
 
         $photo->setFromArray($params);
@@ -1250,11 +1249,11 @@ class PhotoService
     }
 
     /**
-     * @param HasCover $object
+     * @param AtomInterface $object
      *
      * @return \Photo\Model\PhotoCover
      */
-    private function findCoverByObject(HasCover $object)
+    private function findCoverByObject(AtomInterface $object)
     {
         return \App::table('photo.photo_cover')
             ->select()
@@ -1264,23 +1263,23 @@ class PhotoService
     }
 
     /**
-     * @param HasCover $object
+     * @param AtomInterface $object
      *
      * @return \Photo\Model\PhotoCover
      */
-    public function getCover(HasCover $object)
+    public function getCover(AtomInterface $object)
     {
         return $this->findCoverByObject($object);
     }
 
     /**
-     * @param HasCover $object
+     * @param AtomInterface $object
      * @param Photo    $photo
      * @param int      $positionTop
      *
      * @return \Photo\Model\PhotoCover
      */
-    public function setCover(HasCover $object, $photo, $positionTop = 0)
+    public function setCover(AtomInterface $object, $photo, $positionTop = 0)
     {
         $cover = $this->findCoverByObject($object);
 
@@ -1297,7 +1296,7 @@ class PhotoService
         $cover->setPositionTop($positionTop);
         $cover->setPhotoFileId($photo->getPhotoFileId());
         $cover->setPhotoId($photo->getId());
-        $cover->setCreatedAt(PICASO_DATE_TIME);
+        $cover->setCreatedAt(Kendo_DATE_TIME);
 
         $cover->save();
 
@@ -1305,12 +1304,12 @@ class PhotoService
     }
 
     /**
-     * @param HasCover $object
+     * @param AtomInterface $object
      * @param          $positionTop
      *
      * @return bool
      */
-    public function updatePosition(HasCover $object, $positionTop)
+    public function updatePosition(AtomInterface $object, $positionTop)
     {
         $cover = $this->findCoverByObject($object);
 
@@ -1326,11 +1325,11 @@ class PhotoService
     }
 
     /**
-     * @param HasCover $object
+     * @param AtomInterface $object
      *
      * @return bool
      */
-    public function removeCover(HasCover $object)
+    public function removeCover(AtomInterface $object)
     {
 
         $cover = $this->findCoverByObject($object);
@@ -1343,13 +1342,13 @@ class PhotoService
     }
 
     /**
-     * @param HasCover $object
+     * @param AtomInterface $object
      * @param int      $positionTop
      *
      * @return \Photo\Model\PhotoCover
      * @throws \InvalidArgumentException
      */
-    public function repositionCover(HasCover $object, $positionTop)
+    public function repositionCover(AtomInterface $object, $positionTop)
     {
 
         $cover = $this->findCoverByObject($object);

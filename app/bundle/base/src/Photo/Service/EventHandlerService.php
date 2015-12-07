@@ -2,13 +2,13 @@
 
 namespace Photo\Service;
 
-use Picaso\Application\EventHandler;
-use Picaso\Assets\Requirejs;
-use Picaso\Content\Content;
-use Picaso\Content\Poster;
-use Picaso\Hook\HookEvent;
-use Picaso\Hook\SimpleContainer;
-use Picaso\View\View;
+use Kendo\Application\EventHandler;
+use Kendo\Assets\Requirejs;
+use Kendo\Content\ContentInterface;
+use Kendo\Content\PosterInterface;
+use Kendo\Hook\HookEvent;
+use Kendo\Hook\SimpleContainer;
+use Kendo\View\View;
 
 /**
  * Class EventHandlerService
@@ -17,7 +17,7 @@ use Picaso\View\View;
  */
 class EventHandlerService extends EventHandler {
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleStylesheet(HookEvent $event) {
         $payload = $event->getPayload();
@@ -41,7 +41,7 @@ class EventHandlerService extends EventHandler {
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleJS(HookEvent $event) {
         $requirejs = $event->getPayload();
@@ -61,7 +61,7 @@ class EventHandlerService extends EventHandler {
 
         if (false == \App::authService()->logged()) return;
 
-        if (!$payload instanceof Content) return;
+        if (!$payload instanceof ContentInterface) return;
 
         if (!$payload->viewerIsParent()) return;
 
@@ -79,7 +79,7 @@ class EventHandlerService extends EventHandler {
 
         if (false == \App::authService()->logged()) return;
 
-        if (!$payload instanceof Poster) return;
+        if (!$payload instanceof PosterInterface) return;
 
         $content = \App::viewHelper()->partial('base/photo/partial/composer-footer-add-photos');
 
@@ -94,7 +94,7 @@ class EventHandlerService extends EventHandler {
     public function onProfileMenuItemPhotos($item) {
         $profile = \App::registryService()->get('profile');
 
-        if (!$profile instanceof Poster)
+        if (!$profile instanceof PosterInterface)
             return false;
 
         if (!$profile->authorize('photo__photo_tab_exists'))
@@ -119,7 +119,7 @@ class EventHandlerService extends EventHandler {
     public function onProfileMenuItemAlbums($item) {
         $profile = \App::registryService()->get('profile');
 
-        if (!$profile instanceof Poster)
+        if (!$profile instanceof PosterInterface)
             return false;
 
         if (!$profile->authorize('photo__photo_tab_exists'))
@@ -157,7 +157,7 @@ class EventHandlerService extends EventHandler {
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onCompleteCreatePoster(HookEvent $event) {
         $poster = $event->get('poster');

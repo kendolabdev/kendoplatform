@@ -1,10 +1,10 @@
 <?php
 namespace Like\Controller\Ajax;
 
-use Picaso\Content\CanLike;
-use Picaso\Controller\AjaxController;
-use Picaso\Layout\BlockParams;
-use Picaso\View\View;
+use Kendo\Content\AtomInterface;
+use Kendo\Controller\AjaxController;
+use Kendo\Layout\BlockParams;
+use Kendo\View\View;
 
 /**
  * Class LikeController
@@ -20,7 +20,7 @@ class LikeController extends AjaxController
 
         $about = \App::find($type, $id);
 
-        if (!$about instanceof CanLike) {
+        if (!$about instanceof AtomInterface) {
             throw new \InvalidArgumentException();
         }
 
@@ -46,7 +46,7 @@ class LikeController extends AjaxController
 
         $about = \App::find($type, $id);
 
-        if (!$about instanceof CanLike)
+        if (!$about instanceof AtomInterface)
             throw new \InvalidArgumentException();
 
         $poster = \App::authService()->getViewer();

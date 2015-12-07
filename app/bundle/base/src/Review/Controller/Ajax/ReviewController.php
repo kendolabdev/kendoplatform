@@ -1,7 +1,7 @@
 <?php
 namespace Review\Controller\Ajax;
 
-use Picaso\Controller\AjaxController;
+use Kendo\Controller\AjaxController;
 
 /**
  * Class ReviewController

@@ -1,7 +1,7 @@
 <?php
 namespace Social\Controller;
 
-use Picaso\Controller\DefaultController;
+use Kendo\Controller\DefaultController;
 use Social\Adapter\SocialLoginAdapterInterface;
 use Social\Service\SocialService;
 use User\Model\User;

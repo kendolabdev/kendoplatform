@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_payment_gateway`
+ * Generate by CodeGenerator\DbTable for table `Kendo_payment_gateway`
  */
 
 namespace Payment\Model;
 
 /**
  */
-use Picaso\Model;
+use Kendo\Model;
 
 /**
  * Class PaymentGateway

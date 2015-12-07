@@ -2,8 +2,8 @@
 
 namespace Message\Controller\Ajax;
 
-use Picaso\Content\Poster;
-use Picaso\Controller\AjaxController;
+use Kendo\Content\PosterInterface;
+use Kendo\Controller\AjaxController;
 
 /**
  * Class ChatController
@@ -22,7 +22,7 @@ class ChatController extends AjaxController
 
         $person = \App::find($type, $id);
 
-        if (!$person instanceof Poster) {
+        if (!$person instanceof PosterInterface) {
             throw new \InvalidArgumentException("Could not find person");
         }
 

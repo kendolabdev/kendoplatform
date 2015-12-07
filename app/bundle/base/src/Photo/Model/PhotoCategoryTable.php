@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_photo_category`
+ * Generate by CodeGenerator\DbTable for table `Kendo_photo_category`
  */
 
 namespace Photo\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class PhotoCategoryTable
@@ -21,7 +21,7 @@ class PhotoCategoryTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_photo_category`
+     * @see `Kendo_photo_category`
      * @var string
      */
     protected $class =  '\Photo\Model\PhotoCategory';

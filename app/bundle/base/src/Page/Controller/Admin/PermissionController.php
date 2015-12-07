@@ -4,8 +4,8 @@ namespace Page\Controller\Admin;
 
 use Acl\Form\Admin\FilterAclRole;
 use Page\Form\Admin\PagePermission;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class PermissionController
@@ -23,7 +23,7 @@ class PermissionController extends AdminController
 
         $filter = new FilterAclRole();
 
-        $roleId = $this->request->getParam('roleId', PICASO_DEFAULT_ROLE_ID);
+        $roleId = $this->request->getParam('roleId', Kendo_DEFAULT_ROLE_ID);
 
         $filter->isValid([
             'roleId' => $roleId,

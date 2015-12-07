@@ -6,7 +6,7 @@ namespace Comment;
  *
  * @package Comment
  */
-class Module extends \Picaso\Application\Module
+class Module extends \Kendo\Application\Module
 {
 
     public function start()

@@ -1,8 +1,8 @@
 <?php
 namespace Photo\Controller\Ajax;
 
-use Picaso\Content\HasCover;
-use Picaso\Controller\AjaxController;
+use Kendo\Content\AtomInterface;
+use Kendo\Controller\AjaxController;
 
 /**
  * Class CoverController
@@ -19,7 +19,7 @@ class CoverController extends AjaxController
 
         $parent = \App::find($parent['type'], $parent['id']);
 
-        if (!$parent instanceof HasCover) {
+        if (!$parent instanceof AtomInterface) {
             throw new \InvalidArgumentException("Could not set cover for current subject");
         }
 
@@ -43,7 +43,7 @@ class CoverController extends AjaxController
 
         $parent = \App::find($parent['type'], $parent['id']);
 
-        if (!$parent instanceof HasCover) {
+        if (!$parent instanceof AtomInterface) {
             throw new \InvalidArgumentException("Could not set cover for current subject");
         }
 

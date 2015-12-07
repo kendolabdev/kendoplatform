@@ -9,15 +9,9 @@ use Feed\Model\FeedHidden;
 use Feed\Model\FeedStatus;
 use Feed\Model\FeedStream;
 use Feed\Model\FeedType;
-use Picaso\Content\CanComment;
-use Picaso\Content\CanShare;
-use Picaso\Content\CanTagPeople;
-use Picaso\Content\CanTagPlace;
-use Picaso\Content\Content;
-use Picaso\Content\HasPrivacy;
-use Picaso\Content\HasStory;
-use Picaso\Content\Poster;
-use Picaso\Request\HttpRequest;
+use Kendo\Content\ContentInterface;
+use Kendo\Content\PosterInterface;
+use Kendo\Request\HttpRequest;
 use Share\Model\Share;
 
 /**
@@ -53,7 +47,7 @@ class FeedService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminFeedTypePaging($query = [], $page = 1, $limit = 100)
     {
@@ -105,7 +99,7 @@ class FeedService
         $hidden = new FeedHidden([
             'viewer_id'  => $viewerId,
             'feed_id'    => $feedId,
-            'created_at' => PICASO_DATE_TIME,
+            'created_at' => Kendo_DATE_TIME,
         ]);
 
         $hidden->save();
@@ -263,9 +257,9 @@ class FeedService
     }
 
     /**
-     * @param HasPrivacy $about
+     * @param ContentInterface $about
      */
-    public function updatePrivacy(HasPrivacy $about)
+    public function updatePrivacy(ContentInterface $about)
     {
         \App::table('feed')
             ->update([
@@ -286,13 +280,13 @@ class FeedService
     }
 
     /**
-     * @param HttpRequest $request
-     * @param Poster      $poster
-     * @param Poster      $parent
+     * @param HttpRequest     $request
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
      *
      * @return Feed
      */
-    public function addFromActivityComposer(HttpRequest $request, Poster $poster, Poster $parent)
+    public function addFromActivityComposer(HttpRequest $request, PosterInterface $poster, PosterInterface $parent)
     {
         $privacy = $request->getArray('privacy');
 
@@ -346,7 +340,7 @@ class FeedService
     /**
      * @param array $query
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
     public function getPublicFeedSelect($query)
     {
@@ -367,7 +361,7 @@ class FeedService
      * @param string $tagId
      * @param array  $query
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
     public function getPublicTaggedFeedSelect($tagId, $query)
     {
@@ -405,13 +399,13 @@ class FeedService
     }
 
     /**
-     * @param Poster $viewer
-     * @param int    $tagId
-     * @param array  $query
+     * @param PosterInterface $viewer
+     * @param int             $tagId
+     * @param array           $query
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
-    public function getTaggedFeedSelect(Poster $viewer, $tagId, $query)
+    public function getTaggedFeedSelect(PosterInterface $viewer, $tagId, $query)
     {
         $tagTable = \App::table('feed.feed_hashtag')->getName();
 
@@ -447,12 +441,12 @@ class FeedService
     }
 
     /**
-     * @param Poster $viewer
-     * @param array  $query
+     * @param PosterInterface $viewer
+     * @param array           $query
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
-    public function getMainFeedSelect(Poster $viewer, $query)
+    public function getMainFeedSelect(PosterInterface $viewer, $query)
     {
         $followIdList = \App::followService()->getFollowedIdList($viewer->getId());
 
@@ -475,7 +469,7 @@ class FeedService
     }
 
     /**
-     * @param \Picaso\Db\SqlSelect $select
+     * @param \Kendo\Db\SqlSelect $select
      * @param array                $query
      * @param string               $type
      *
@@ -528,12 +522,12 @@ class FeedService
     }
 
     /**
-     * @param Poster $viewer
-     * @param array  $options
+     * @param PosterInterface $viewer
+     * @param array           $options
      *
      * @return array
      */
-    public function getMainFeeds(Poster $viewer, $options)
+    public function getMainFeeds(PosterInterface $viewer, $options)
     {
         $select = $this->getMainFeedSelect($viewer, $options);
 
@@ -541,13 +535,13 @@ class FeedService
     }
 
     /**
-     * @param Poster $poster
+     * @param PosterInterface $poster
      * @param        $tagId
      * @param        $options
      *
      * @return array
      */
-    public function getTaggedFeeds(Poster $poster = null, $tagId, $options)
+    public function getTaggedFeeds(PosterInterface $poster = null, $tagId, $options)
     {
 
         if ($poster) {
@@ -560,12 +554,12 @@ class FeedService
     }
 
     /**
-     * @param Content $about
+     * @param ContentInterface $about
      * @param         $options
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
-    public function getPublicSharedFeedSelect(Content $about, $options)
+    public function getPublicSharedFeedSelect(ContentInterface $about, $options)
     {
         $select = \App::table('share')
             ->select('f')
@@ -596,13 +590,13 @@ class FeedService
     }
 
     /**
-     * @param Poster  $viewer
-     * @param Content $about
+     * @param PosterInterface  $viewer
+     * @param ContentInterface $about
      * @param         $options
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
-    public function getSharedFeedSelect(Poster $viewer, $about, $options)
+    public function getSharedFeedSelect(PosterInterface $viewer, $about, $options)
     {
 
         $relationCondition = \App::relationService()->getPrivacyConditionForQuery($viewer->getId(), 'f');
@@ -637,13 +631,13 @@ class FeedService
     }
 
     /**
-     * @param Poster|null $viewer
-     * @param Content     $about
+     * @param PosterInterface|null $viewer
+     * @param ContentInterface     $about
      * @param             $options
      *
      * @return array
      */
-    public function getSharedFeeds(Poster $viewer = null, Content $about, $options)
+    public function getSharedFeeds(PosterInterface $viewer = null, ContentInterface $about, $options)
     {
         if (null == $viewer) {
             $select = $this->getPublicSharedFeedSelect($about, $options);
@@ -656,12 +650,12 @@ class FeedService
 
 
     /**
-     * @param Poster $profile
-     * @param array  $query
+     * @param PosterInterface $profile
+     * @param array           $query
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
-    public function getPublicProfileFeedSelect(Poster $profile, $query)
+    public function getPublicProfileFeedSelect(PosterInterface $profile, $query)
     {
         $select = \App::table('feed.feed_stream')
             ->select('f')
@@ -689,13 +683,13 @@ class FeedService
     }
 
     /**
-     * @param Poster $profile
-     * @param Poster $viewer
-     * @param array  $query
+     * @param PosterInterface $profile
+     * @param PosterInterface $viewer
+     * @param array           $query
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
-    public function getProfileFeedSelect(Poster $profile, Poster $viewer, $query)
+    public function getProfileFeedSelect(PosterInterface $profile, PosterInterface $viewer, $query)
     {
         $relationCondition = \App::relationService()->getPrivacyConditionForQuery($viewer->getId(), 'f');
 
@@ -741,13 +735,13 @@ class FeedService
     }
 
     /**
-     * @param Poster $profile
-     * @param Poster $viewer
-     * @param array  $options
+     * @param PosterInterface $profile
+     * @param PosterInterface $viewer
+     * @param array           $options
      *
      * @return array
      */
-    public function getProfileFeeds(Poster $profile, Poster $viewer = null, $options)
+    public function getProfileFeeds(PosterInterface $profile, PosterInterface $viewer = null, $options)
     {
         $select = null;
 
@@ -833,10 +827,10 @@ class FeedService
     /**
      * Hide an feed on timeline
      *
-     * @param Poster $parent
-     * @param Feed   $feed
+     * @param PosterInterface $parent
+     * @param Feed            $feed
      */
-    public function hideOnTimeline(Poster $parent, Feed $feed)
+    public function hideOnTimeline(PosterInterface $parent, Feed $feed)
     {
         $stream = \App::table('feed.feed_stream')
             ->select()
@@ -853,14 +847,14 @@ class FeedService
     }
 
     /**
-     * @param string  $feedType
-     * @param Content $about
-     * @param array   $params
+     * @param string           $feedType
+     * @param ContentInterface $about
+     * @param array            $params
      *
      * @return Feed
      * @throws \InvalidArgumentException
      */
-    public function addItemFeed($feedType, Content $about, $params = [])
+    public function addItemFeed($feedType, ContentInterface $about, $params = [])
     {
         list($privacyType, $privacyValue) = $about->getPrivacy('view');
 
@@ -870,14 +864,8 @@ class FeedService
         $story = null;
         $hashtag = null;
         $peopletag = null;
-
-        if ($about instanceof HasStory) {
-            $story = $about->getStory();
-        }
-
-        if ($about instanceof CanTagPeople) {
-            $peopletag = $about->getPeople();
-        }
+        $story = $about->getStory();
+        $peopletag = $about->getPeople();
 
         if (!empty($story)) {
             $hashtag = $this->getHashTagsInStory($story);
@@ -896,7 +884,7 @@ class FeedService
             'about_type'    => $about->getType(),
             'privacy_type'  => (int)$privacyType,
             'privacy_value' => (int)$privacyValue,
-            'created_at'    => PICASO_DATE_TIME,
+            'created_at'    => Kendo_DATE_TIME,
             'params_text'   => json_encode($params),
         ]);
 
@@ -922,15 +910,15 @@ class FeedService
 
 
     /**
-     * @param string $status
-     * @param Poster $poster
-     * @param Poster $parent
-     * @param int    $privacyType
-     * @param int    $privacyValue
+     * @param string          $status
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
+     * @param int             $privacyType
+     * @param int             $privacyValue
      *
      * @return FeedStatus
      */
-    public function addStatus($status, Poster $poster, Poster $parent = null, $privacyType, $privacyValue)
+    public function addStatus($status, PosterInterface $poster, PosterInterface $parent = null, $privacyType, $privacyValue)
     {
 
         if (!$parent->viewerIsParent()) {
@@ -955,8 +943,8 @@ class FeedService
             'privacy_type'   => $privacyType,
             'privacy_value'  => $privacyValue,
             'privacy_text'   => $privacyText,
-            'created_at'     => PICASO_DATE_TIME,
-            'modified_at'    => PICASO_DATE_TIME
+            'created_at'     => Kendo_DATE_TIME,
+            'modified_at'    => Kendo_DATE_TIME
         ]);
 
         $status->save();
@@ -979,11 +967,11 @@ class FeedService
 
         $poster = \App::find($feed->getPosterType(), $feed->getPosterId());
 
-        if (!$parent instanceof Poster) {
+        if (!$parent instanceof PosterInterface) {
             throw new \InvalidArgumentException("Invalid feed parent");
         }
 
-        if (!$poster instanceof Poster) {
+        if (!$poster instanceof PosterInterface) {
             throw new \InvalidArgumentException("Invalid feed poster");
         }
 
@@ -1009,14 +997,14 @@ class FeedService
 
 
     /**
-     * @param Feed   $feed
-     * @param Poster $poster
-     * @param Poster $parent
-     * @param array  $tagged
+     * @param Feed            $feed
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
+     * @param array           $tagged
      *
      * @throws \InvalidArgumentException
      */
-    public function putFeedToStream(Feed $feed, Poster $poster, Poster $parent, $tagged = [])
+    public function putFeedToStream(Feed $feed, PosterInterface $poster, PosterInterface $parent, $tagged = [])
     {
         $insertedIdList = [];
 
@@ -1034,7 +1022,7 @@ class FeedService
 
         if ($checked['tagged'] && !empty($tagged)) {
             foreach ($tagged as $people) {
-                if (!$people instanceof Poster) {
+                if (!$people instanceof PosterInterface) {
                     throw new \InvalidArgumentException("Invalid parameters");
                 }
 
@@ -1050,12 +1038,12 @@ class FeedService
     }
 
     /**
-     * @param Feed   $feed
-     * @param Poster $profile
+     * @param Feed            $feed
+     * @param PosterInterface $profile
      *
      * @return FeedStream
      */
-    private function putFeedToProfile(Feed $feed, Poster $profile)
+    private function putFeedToProfile(Feed $feed, PosterInterface $profile)
     {
         $stream = new FeedStream([
             'feed_id'       => $feed->getId(),
@@ -1084,7 +1072,7 @@ class FeedService
         if (empty($story)) return '';
 
 
-        $baseUrl = PICASO_BASE_URL;
+        $baseUrl = Kendo_BASE_URL;
 
         $response = $story;
 
@@ -1108,7 +1096,7 @@ class FeedService
         $array = [];
 
         foreach ($people as $item) {
-            if (!$item instanceof Poster) continue;
+            if (!$item instanceof PosterInterface) continue;
 
             $array[] = sprintf('<a href="%s" class="profile tag" data-hover="card" data-card="%s">%s</a>', $item->toHref(), $item->toToken(), $item->getTitle());
         }
@@ -1119,7 +1107,7 @@ class FeedService
     /**
      * @param array $query [profileType, profileId, posterType, posterId, minId: int, maxId: int]
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadFeedPaging($query)
     {
@@ -1159,7 +1147,7 @@ class FeedService
 
         if (!empty($query['feedIdList'])) {
             $feeds = $this->getFeedByIdList($query['feedIdList']);
-        } else if ($shared instanceof CanShare) {
+        } else if ($shared instanceof ContentInterface) {
             $feeds = $this->getSharedFeeds($viewer, $shared, $query);
         } else if (!empty($query['hashtag'])) {
             $tagId = $this->getHashTagId($query['hashtag']);
@@ -1196,7 +1184,7 @@ class FeedService
 
             $remainCommentCount = 0;
 
-            if ($about instanceof CanComment) {
+            if ($about instanceof ContentInterface) {
                 if ($about->getCommentCount() > $limitCommentCount) {
                     $remainCommentCount = $about->getCommentCount() - $limitCommentCount;
                 }
@@ -1206,22 +1194,11 @@ class FeedService
             $story = null;
             $people = null;
             $shareCount = null;
+            $story = $about->getStory();
+            $people = $this->decorateTagPeople($about->getPeople());
+            $place = $about->getPlace();
+            $shareCount = $about->getShareCount();
 
-            if ($about instanceof HasStory) {
-                $story = $about->getStory();
-            }
-
-            if ($about instanceof CanTagPeople) {
-                $people = $this->decorateTagPeople($about->getPeople());
-            }
-
-            if ($about instanceof CanTagPlace) {
-                $place = $about->getPlace();
-            }
-
-            if ($about instanceof CanShare) {
-                $shareCount = $about->getShareCount();
-            }
 
             $context = [
                 'isMainFeed'  => $isMainFeed ? 1 : 0,
@@ -1268,11 +1245,11 @@ class FeedService
 
 
     /**
-     * @param Content $about
+     * @param ContentInterface $about
      *
      * @return array
      */
-    public function loadAboutBundles(Content $about)
+    public function loadAboutBundles(ContentInterface $about)
     {
         $limitCommentCount = 3;
         $remainCommentCount = 0;
@@ -1281,7 +1258,7 @@ class FeedService
         $commentService = \App::commentService();
         $likeService = \App::likeService();
 
-        if ($about instanceof CanComment) {
+        if ($about instanceof ContentInterface) {
             if ($about->getCommentCount() > $limitCommentCount) {
                 $remainCommentCount = $about->getCommentCount() - $limitCommentCount;
             }
@@ -1291,22 +1268,12 @@ class FeedService
         $story = null;
         $people = null;
         $shareCount = null;
+        $story = $about->getStory();
 
-        if ($about instanceof HasStory) {
-            $story = $about->getStory();
-        }
+        $people = $this->decorateTagPeople($about->getPeople());
+        $place = $about->getPlace();
+        $shareCount = $about->getShareCount();
 
-        if ($about instanceof CanTagPeople) {
-            $people = $this->decorateTagPeople($about->getPeople());
-        }
-
-        if ($about instanceof CanTagPlace) {
-            $place = $about->getPlace();
-        }
-
-        if ($about instanceof CanShare) {
-            $shareCount = $about->getShareCount();
-        }
 
         return [
             'place'              => $place,

@@ -1,7 +1,7 @@
 <?php
 namespace Page\ViewHelper;
 
-use Picaso\Content\Content;
+use Kendo\Content\ContentInterface;
 
 /**
  * Class ButtonMembership
@@ -21,7 +21,7 @@ class ButtonMembership
         if (!\App::authService()->logged())
             return '';
 
-        if (!$item instanceof Content)
+        if (!$item instanceof ContentInterface)
             return '';
 
         $viewer = \App::authService()->getViewer();

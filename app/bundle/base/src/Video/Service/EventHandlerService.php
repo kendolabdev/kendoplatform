@@ -2,11 +2,11 @@
 
 namespace Video\Service;
 
-use Picaso\Application\EventHandler;
-use Picaso\Content\Poster;
-use Picaso\Hook\HookEvent;
-use Picaso\Hook\SimpleContainer;
-use Picaso\View\View;
+use Kendo\Application\EventHandler;
+use Kendo\Content\PosterInterface;
+use Kendo\Hook\HookEvent;
+use Kendo\Hook\SimpleContainer;
+use Kendo\View\View;
 
 /**
  * Class EventHandlerService
@@ -17,7 +17,7 @@ class EventHandlerService extends EventHandler
 {
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleStylesheet(HookEvent $event)
     {
@@ -38,7 +38,7 @@ class EventHandlerService extends EventHandler
 
         if (false == \App::authService()->logged()) return;
 
-        if (!$payload instanceof Poster) return;
+        if (!$payload instanceof PosterInterface) return;
 
         if (!\App::aclService()->pass($payload, 'video__create')) return;
 
@@ -56,7 +56,7 @@ class EventHandlerService extends EventHandler
     {
         $profile = \App::registryService()->get('profile');
 
-        if (!$profile instanceof Poster)
+        if (!$profile instanceof PosterInterface)
             return false;
 
         if (!$profile->authorize('video__video_tab_exists'))

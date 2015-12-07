@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_event_category`
+ * Generate by CodeGenerator\DbTable for table `Kendo_event_category`
  */
 
 namespace Event\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class EventCategoryTable
@@ -21,7 +21,7 @@ class EventCategoryTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_event_category`
+     * @see `Kendo_event_category`
      * @var string
      */
     protected $class =  '\Event\Model\EventCategory';

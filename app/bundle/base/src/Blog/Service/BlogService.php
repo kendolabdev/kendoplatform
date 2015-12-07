@@ -4,7 +4,7 @@ namespace Blog\Service;
 
 use Blog\Model\BlogCategory;
 use Blog\Model\BlogPost;
-use Picaso\Content\Poster;
+use Kendo\Content\PosterInterface;
 
 /**
  * Class BlogService
@@ -49,7 +49,7 @@ class BlogService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 12)
     {
@@ -66,7 +66,7 @@ class BlogService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminPostPaging($query, $page = 1, $limit = 12)
     {
@@ -93,7 +93,7 @@ class BlogService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadPostPaging($query, $page = 1, $limit = 12)
     {
@@ -202,13 +202,13 @@ class BlogService
     }
 
     /**
-     * @param Poster $poster
-     * @param Poster $parent
-     * @param array  $data
+     * @param PosterInterface $poster
+     * @param PosterInterface $parent
+     * @param array           $data
      *
      * @return BlogPost
      */
-    public function addPost(Poster $poster, Poster $parent, $data = [])
+    public function addPost(PosterInterface $poster, PosterInterface $parent, $data = [])
     {
         if (empty($data['title']) or empty($data['content']))
             throw new \InvalidArgumentException("Missing parameters  [title, content]");
@@ -225,8 +225,8 @@ class BlogService
             'parent_id'      => $parent->getId(),
             'parent_type'    => $parent->getType(),
             'parent_user_id' => $parent->getUserId(),
-            'created_at'     => PICASO_DATE_TIME,
-            'modified_at'    => PICASO_DATE_TIME,
+            'created_at'     => Kendo_DATE_TIME,
+            'modified_at'    => Kendo_DATE_TIME,
             'module_id'      => 'blog',
         ], $data);
 

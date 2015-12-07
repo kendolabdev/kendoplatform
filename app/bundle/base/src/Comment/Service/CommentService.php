@@ -3,9 +3,8 @@
 namespace Comment\Service;
 
 use Comment\Model\Comment;
-use Picaso\Content\CanComment;
-use Picaso\Content\Content;
-use Picaso\Content\Poster;
+use Kendo\Content\AtomInterface;
+use Kendo\Content\PosterInterface;
 
 /**
  * Class CommentService
@@ -39,18 +38,17 @@ class CommentService
     }
 
     /**
-     * @param Poster                    $poster
-     * @param CanComment|Content|Poster $about
+     * @param PosterInterface           $poster
+     * @param AtomInterface             $about
      * @param                           $content
      * @param array                     $params
      *
      * @return Comment
      */
-    public function add(Poster $poster, $about, $content, $params = [])
+    public function add(PosterInterface $poster, AtomInterface $about, $content, $params = [])
     {
 
         $parent = $about->getParent();
-
 
         $params = array_merge([
             'about_id'       => $about->getId(),
@@ -62,8 +60,8 @@ class CommentService
             'parent_user_id' => $parent->getUserId(),
             'parent_type'    => $parent->getType(),
             'content'        => strip_tags(html_entity_decode($content)),
-            'created_at'     => PICASO_DATE_TIME,
-            'modified_at'    => PICASO_DATE_TIME,
+            'created_at'     => Kendo_DATE_TIME,
+            'modified_at'    => Kendo_DATE_TIME,
         ], $params);
 
         $comment = new Comment($params);
@@ -74,11 +72,11 @@ class CommentService
     }
 
     /**
-     * @param CanComment $object
+     * @param AtomInterface $object
      *
      * @return int
      */
-    public function getCommentCount(CanComment $object)
+    public function getCommentCount(AtomInterface $object)
     {
         return \App::table('comment')
             ->select()
@@ -100,16 +98,16 @@ class CommentService
     }
 
     /**
-     * @param CanComment $object
-     * @param int        $minId
-     * @param int        $maxId
-     * @param int        $limit
+     * @param AtomInterface $object
+     * @param int           $minId
+     * @param int           $maxId
+     * @param int           $limit
      *
      * @oaran array     $excludes
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
-    public function getCommentList(CanComment $object = null, $minId = 3, $maxId = 0, $limit = null, $excludes = null)
+    public function getCommentList(AtomInterface $object = null, $minId = 3, $maxId = 0, $limit = null, $excludes = null)
     {
         $order = \App::setting('activity', 'comment_sort');
 
@@ -146,9 +144,9 @@ class CommentService
     /**
      * Remove all like entry match `about_id`
      *
-     * @param CanComment|Content $about
+     * @param AtomInterface $about
      */
-    public function removeAllByAbout($about)
+    public function removeAllByAbout(AtomInterface $about)
     {
         \App::table('comment')
             ->delete()
@@ -161,9 +159,9 @@ class CommentService
      * Remove all like entry match `poster_id`.
      * TODO: How to update `comment_count`
      *
-     * @param Poster $poster
+     * @param PosterInterface $poster
      */
-    public function removeAllByPoster($poster)
+    public function removeAllByPoster(PosterInterface $poster)
     {
         \App::table('comment')
             ->delete()

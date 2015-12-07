@@ -2,11 +2,11 @@
 namespace Comment\Service;
 
 use Comment\Model\Comment;
-use Picaso\Application\EventHandler;
-use Picaso\Assets\Requirejs;
-use Picaso\Content\CanComment;
-use Picaso\Hook\HookEvent;
-use Picaso\Hook\SimpleContainer;
+use Kendo\Application\EventHandler;
+use Kendo\Assets\Requirejs;
+use Kendo\Content\AtomInterface;
+use Kendo\Hook\HookEvent;
+use Kendo\Hook\SimpleContainer;
 
 /**
  * Class EventHandlerService
@@ -16,7 +16,7 @@ use Picaso\Hook\SimpleContainer;
 class EventHandlerService extends EventHandler
 {
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleStylesheet(HookEvent $event)
     {
@@ -41,7 +41,7 @@ class EventHandlerService extends EventHandler
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleJS(HookEvent $event)
     {
@@ -53,7 +53,7 @@ class EventHandlerService extends EventHandler
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onAfterInsertComment(HookEvent $event)
     {
@@ -63,7 +63,7 @@ class EventHandlerService extends EventHandler
 
         $about = $cmt->getAbout();
 
-        if (!$about instanceof CanComment) return;
+        if (!$about instanceof AtomInterface) return;
 
         $about->modify('comment_count', 'comment_count+1');
 
@@ -77,7 +77,7 @@ class EventHandlerService extends EventHandler
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onAfterDeleteComment(HookEvent $event)
     {
@@ -87,7 +87,7 @@ class EventHandlerService extends EventHandler
 
         $about = $cmt->getAbout();
 
-        if ($about instanceof CanComment)
+        if ($about instanceof AtomInterface)
             $about->modify('comment_count', 'comment_count-1');
 
     }

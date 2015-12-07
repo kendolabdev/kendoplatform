@@ -1,7 +1,7 @@
 <?php
 namespace Rad\Controller\Admin;
 
-use Picaso\Controller\AdminController;
+use Kendo\Controller\AdminController;
 use Rad\Form\Admin\CreateModule;
 use Rad\Form\Admin\CreateTheme;
 

@@ -4,7 +4,7 @@ namespace Page\Controller\Ajax;
 
 use Activity\Service\FollowService;
 use Page\Model\Page;
-use Picaso\Controller\AjaxController;
+use Kendo\Controller\AjaxController;
 
 
 /**

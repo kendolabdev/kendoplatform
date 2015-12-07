@@ -2,8 +2,8 @@
 namespace Follow\Controller\Ajax;
 
 use Feed\Model\Feed;
-use Picaso\Content\Poster;
-use Picaso\Controller\AjaxController;
+use Kendo\Content\PosterInterface;
+use Kendo\Controller\AjaxController;
 
 /**
  * Class FollowController
@@ -26,7 +26,7 @@ class FollowController extends AjaxController
 
         $poster = \App::authService()->getViewer();
 
-        if (!$object instanceof Poster) ;
+        if (!$object instanceof PosterInterface) ;
 
         \App::followService()->toggle($poster, $object);
 
@@ -46,7 +46,7 @@ class FollowController extends AjaxController
 
         $followService = \App::followService();
 
-        if ($item instanceof Poster) {
+        if ($item instanceof PosterInterface) {
             $poster = $item;
         } else {
             $poster = $item->getPoster();
@@ -90,7 +90,7 @@ class FollowController extends AjaxController
 
         $poster = \App::authService()->getViewer();
 
-        if (!$object instanceof Poster) ;
+        if (!$object instanceof PosterInterface) ;
 
         $followService->remove($poster, $object);
 
@@ -108,7 +108,7 @@ class FollowController extends AjaxController
 
         $poster = \App::authService()->getViewer();
 
-        if (!$object instanceof Poster) ;
+        if (!$object instanceof PosterInterface) ;
 
         $followService->add($poster, $object);
 

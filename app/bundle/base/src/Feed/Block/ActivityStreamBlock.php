@@ -2,9 +2,9 @@
 
 namespace Feed\Block;
 
-use Picaso\Content\Content;
-use Picaso\Content\Poster;
-use Picaso\Layout\Block;
+use Kendo\Content\ContentInterface;
+use Kendo\Content\PosterInterface;
+use Kendo\Layout\Block;
 
 /**
  * Class ActivityStreamBlock
@@ -33,12 +33,12 @@ class ActivityStreamBlock extends Block
 
         $profile = \App::registryService()->get('profile');
 
-        if ($profile instanceof Poster) {
+        if ($profile instanceof PosterInterface) {
             $profileId = $profile->getId();
             $profileType = $profile->getType();
         }
 
-        if ($poster instanceof Poster) {
+        if ($poster instanceof PosterInterface) {
             $posterType = $poster->getType();
             $posterId = $poster->getId();
         }
@@ -46,7 +46,7 @@ class ActivityStreamBlock extends Block
         $shared = \App::registryService()
             ->get('activity_shared');
 
-        if ($shared instanceof Content) {
+        if ($shared instanceof ContentInterface) {
             $sharedId = $shared->getId();
             $sharedType = $shared->getType();
         }

@@ -1,9 +1,9 @@
 <?php
 namespace Help\Service;
 
-use Picaso\Application\EventHandler;
-use Picaso\Assets\Requirejs;
-use Picaso\Hook\HookEvent;
+use Kendo\Application\EventHandler;
+use Kendo\Assets\Requirejs;
+use Kendo\Hook\HookEvent;
 
 class EventHandlerService extends EventHandler
 {
@@ -21,7 +21,7 @@ class EventHandlerService extends EventHandler
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleJS(HookEvent $event)
     {

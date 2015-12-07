@@ -6,7 +6,7 @@ namespace Review;
  *
  * @package Review
  */
-class Module extends \Picaso\Application\Module
+class Module extends \Kendo\Application\Module
 {
 
 }

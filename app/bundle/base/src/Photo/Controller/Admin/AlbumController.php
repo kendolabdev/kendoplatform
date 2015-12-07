@@ -2,8 +2,8 @@
 namespace Photo\Controller\Admin;
 
 use Photo\Form\Admin\FilterPhotoAlbum;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 class AlbumController extends AdminController
 {

@@ -2,8 +2,8 @@
 namespace Navigation\Controller\Admin;
 
 use Comment\Form\Admin\CommentSetting;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class SettingController

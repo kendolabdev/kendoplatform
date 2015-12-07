@@ -4,8 +4,8 @@ namespace Photo\Controller\Admin;
 use Photo\Form\Admin\CreatePhotoCategory;
 use Photo\Form\Admin\DeletePhotoCategory;
 use Photo\Form\Admin\EditPhotoCategory;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 
 /**

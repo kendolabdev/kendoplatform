@@ -1,7 +1,7 @@
 <?php
 namespace Photo\Helper;
 
-use Picaso\Upload\ProcessUploadInterface;
+use Kendo\Upload\ProcessUploadInterface;
 
 /**
  * Class ProcessUploadPhoto

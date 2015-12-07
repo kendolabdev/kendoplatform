@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_follow`
+ * Generate by CodeGenerator\DbTable for table `Kendo_follow`
  */
 
 namespace Follow\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class FollowTable
@@ -21,7 +21,7 @@ class FollowTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_follow`
+     * @see `Kendo_follow`
      * @var string
      */
     protected $class =  '\Follow\Model\Follow';
@@ -55,10 +55,10 @@ class FollowTable extends DbTable
     /**
      * @param  string|int $value
      * @return null
-     * @throws \Picaso\Db\Exception
+     * @throws \Kendo\Db\Exception
      */
     public function findById($value){
-       throw new \Picaso\Db\Exception('Can not find by id for '.$value);
+       throw new \Kendo\Db\Exception('Can not find by id for '.$value);
     }
 
     //END_TABLE_GENERATOR

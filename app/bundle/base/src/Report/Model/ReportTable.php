@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_report`
+ * Generate by CodeGenerator\DbTable for table `Kendo_report`
  */
 
 namespace Report\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class ReportTable
@@ -21,7 +21,7 @@ class ReportTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_report`
+     * @see `Kendo_report`
      * @var string
      */
     protected $class =  '\Report\Model\Report';

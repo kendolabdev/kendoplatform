@@ -5,7 +5,7 @@ namespace Social\Adapter;
 /**
  * include window live login
  */
-include_once PICASO_VENDOR_DIR . '/windowlive/windowslivelogin.php';
+include_once Kendo_VENDOR_DIR . '/windowlive/windowslivelogin.php';
 
 /**
  * Class WindowAdapter

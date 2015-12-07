@@ -1,14 +1,14 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_report`
+ * Generate by CodeGenerator\DbTable for table `Kendo_report`
  */
 
 namespace Report\Model;
 
 /**
  */
-use Picaso\Content\UniqueId;
-use Picaso\Model;
+use Kendo\Content\UniqueId;
+use Kendo\Model;
 
 /**
  * Class Report
@@ -18,7 +18,7 @@ use Picaso\Model;
 class Report extends Model implements UniqueId
 {
     /**
-     * @return \Picaso\Content\Poster
+     * @return \Kendo\Content\PosterInterface
      */
     public function getPoster()
     {
@@ -27,7 +27,7 @@ class Report extends Model implements UniqueId
 
 
     /**
-     * @return \Picaso\Content\Content
+     * @return \Kendo\Content\ContentInterface
      */
     public function getAbout()
     {

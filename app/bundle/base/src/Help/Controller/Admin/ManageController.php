@@ -5,8 +5,8 @@ use Help\Form\Admin\CreateHelpPost;
 use Help\Form\Admin\DeleteHelpPost;
 use Help\Form\Admin\EditHelpPost;
 use Help\Form\Admin\FilterHelpPost;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class ManageController

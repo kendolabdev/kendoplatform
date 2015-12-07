@@ -1,7 +1,7 @@
 <?php
 namespace Video\Form;
 
-use Picaso\Html\Form;
+use Kendo\Html\Form;
 
 /**
  * Class VideoFromUrl

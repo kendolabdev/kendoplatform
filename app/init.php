@@ -102,7 +102,7 @@ define('PICASO_DATE_TIME', date('Y-m-d H:i:s'));
 define('PICASO_CHARSET', 'utf8');
 
 /**
- * Picaso default language "en"
+ * Kendo default language "en"
  */
 define('PICASO_LANGUAGE', 'en');
 

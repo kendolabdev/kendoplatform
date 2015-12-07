@@ -1,6 +1,6 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_group`
+ * Generate by CodeGenerator\DbTable for table `Kendo_group`
  */
 
 namespace Group\Model;
@@ -9,49 +9,20 @@ namespace Group\Model;
  */
 use Group\ViewHelper\ButtonMemberCount;
 use Group\ViewHelper\ButtonMembership;
-use Picaso\Content\CanComment;
-use Picaso\Content\CanFollow;
-use Picaso\Content\CanLike;
-use Picaso\Content\CanShare;
-use Picaso\Content\CanTagPlace;
-use Picaso\Content\Content;
-use Picaso\Content\HasCover;
-use Picaso\Content\HasMember;
-use Picaso\Content\HasPhoto;
-use Picaso\Content\HasPrivacy;
-use Picaso\Content\ImpBaseContent;
-use Picaso\Content\ImpBasePoster;
-use Picaso\Content\ImpCanTagPlace;
-use Picaso\Content\ImpHasCover;
-use Picaso\Content\ImpHasPhoto;
-use Picaso\Content\ImpHasPrivacy;
-use Picaso\Content\Poster;
-use Picaso\Content\Profile;
-use Picaso\Content\UniqueId;
-use Picaso\Model;
+use Kendo\Content\TraitBaseContent;
+use Kendo\Content\TraitBasePoster;
+use Kendo\Content\PosterInterface;
+use Kendo\Model;
 
 /**
  * Class Group
  *
  * @package Group\Model
  */
-class Group extends Model implements
-    UniqueId,
-    Content,
-    Poster,
-    Profile,
-    HasCover,
-    HasPhoto,
-    HasPrivacy,
-    CanComment,
-    CanLike,
-    CanShare,
-    CanTagPlace,
-    CanFollow,
-    HasMember
+class Group extends Model implements PosterInterface
 {
 
-    use ImpBasePoster, ImpBaseContent, ImpHasPhoto, ImpHasCover, ImpHasPrivacy, ImpCanTagPlace;
+    use TraitBasePoster, TraitBaseContent;
 
     /**
      * @var string

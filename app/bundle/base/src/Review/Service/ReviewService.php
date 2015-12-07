@@ -2,8 +2,8 @@
 
 namespace Review\Service;
 
-use Picaso\Content\Content;
-use Picaso\Content\Poster;
+use Kendo\Content\ContentInterface;
+use Kendo\Content\PosterInterface;
 use Review\Model\Review;
 
 /**
@@ -34,15 +34,15 @@ class ReviewService
     }
 
     /**
-     * @param Poster  $poster
-     * @param Content $object
+     * @param PosterInterface  $poster
+     * @param ContentInterface $object
      * @param         $score
      * @param         $content
-     * @param array   $params
+     * @param array            $params
      *
      * @return bool
      */
-    public function add(Poster $poster, Content $object, $score, $content, $params = [])
+    public function add(PosterInterface $poster, ContentInterface $object, $score, $content, $params = [])
     {
 
         $score = (int)$score;
@@ -67,8 +67,8 @@ class ReviewService
                 'poster_type' => $poster->getType(),
                 'score'       => $score,
                 'content'     => $content,
-                'created_at'  => PICASO_DATE_TIME,
-                'modified_at' => PICASO_DATE_TIME,
+                'created_at'  => Kendo_DATE_TIME,
+                'modified_at' => Kendo_DATE_TIME,
             ], $params);
 
             $reivew = new Review($params);
@@ -82,12 +82,12 @@ class ReviewService
     }
 
     /**
-     * @param Poster  $poster
-     * @param Content $object
+     * @param PosterInterface  $poster
+     * @param ContentInterface $object
      *
      * @return bool
      */
-    public function remove(Poster $poster, Content $object)
+    public function remove(PosterInterface $poster, ContentInterface $object)
     {
         $review = $this->findReview($poster->getId(), $object->getId());
 
@@ -112,7 +112,7 @@ class ReviewService
     /**
      * @param $posterId
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
     public function getReviewedSelect($posterId)
     {
@@ -124,7 +124,7 @@ class ReviewService
     /**
      * @param $objectId
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
     public function getReviewedBySelect($objectId)
     {

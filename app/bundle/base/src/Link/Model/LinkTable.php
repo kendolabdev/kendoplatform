@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_link`
+ * Generate by CodeGenerator\DbTable for table `Kendo_link`
  */
 
 namespace Link\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class LinkTable
@@ -21,7 +21,7 @@ class LinkTable extends DbTable
 	//START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_link`
+     * @see `Kendo_link`
      * @var string
      */
     protected $class =  '\Link\Model\Link';

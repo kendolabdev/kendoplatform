@@ -4,8 +4,8 @@ namespace Group\Controller\Admin;
 use Group\Form\Admin\CreateGroupCategory;
 use Group\Form\Admin\DeleteGroupCategory;
 use Group\Form\Admin\EditGroupCategory;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 
 /**

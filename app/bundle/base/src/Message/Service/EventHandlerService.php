@@ -2,10 +2,10 @@
 
 namespace Message\Service;
 
-use Picaso\Application\EventHandler;
-use Picaso\Assets\Requirejs;
-use Picaso\Hook\HookEvent;
-use Picaso\Hook\SimpleContainer;
+use Kendo\Application\EventHandler;
+use Kendo\Assets\Requirejs;
+use Kendo\Hook\HookEvent;
+use Kendo\Hook\SimpleContainer;
 
 /**
  * Class EventHandlerService
@@ -16,7 +16,7 @@ class EventHandlerService extends EventHandler
 {
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleStylesheet(HookEvent $event)
     {
@@ -40,7 +40,7 @@ class EventHandlerService extends EventHandler
     }
 
     /**
-     * @param \Picaso\Hook\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleJS(HookEvent $event)
     {

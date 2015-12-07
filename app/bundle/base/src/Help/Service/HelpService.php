@@ -95,8 +95,8 @@ class HelpService
             'page_content'    => '',
             'page_slug'       => '',
             'page_title'      => 'page_content',
-            'created_at'      => PICASO_DATE_TIME,
-            'updated_at'      => PICASO_DATE_TIME,
+            'created_at'      => Kendo_DATE_TIME,
+            'updated_at'      => Kendo_DATE_TIME,
         ], $data);
 
         $cat = new HelpPage($data);
@@ -120,8 +120,8 @@ class HelpService
             'post_active'     => 1,
             'post_sort_order' => 100,
             'post_slug'       => '',
-            'created_at'      => PICASO_DATE_TIME,
-            'updated_at'      => PICASO_DATE_TIME,
+            'created_at'      => Kendo_DATE_TIME,
+            'updated_at'      => Kendo_DATE_TIME,
         ], $data);
 
         $cat = new HelpPost($data);
@@ -146,7 +146,7 @@ class HelpService
             'topic_active'     => 1,
             'topic_sort_order' => 100,
             'topic_slug'       => '',
-            'created_at'       => PICASO_DATE_TIME,
+            'created_at'       => Kendo_DATE_TIME,
         ], $data);
 
         $cat = new HelpTopic($data);
@@ -170,7 +170,7 @@ class HelpService
             'category_active'     => 1,
             'category_sort_order' => 100,
             'category_slug'       => '',
-            'created_at'          => PICASO_DATE_TIME,
+            'created_at'          => Kendo_DATE_TIME,
         ], $data);
 
         $cat = new HelpCategory($data);
@@ -184,7 +184,7 @@ class HelpService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminPagePaging($query = [], $page = 1, $limit = 10)
     {
@@ -203,7 +203,7 @@ class HelpService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 10)
     {
@@ -221,7 +221,7 @@ class HelpService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminTopicPaging($query = [], $page = 1, $limit = 10)
     {
@@ -244,7 +244,7 @@ class HelpService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminPostPaging($query = [], $page = 1, $limit = 10)
     {
@@ -268,7 +268,7 @@ class HelpService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadCategoryPaging($context = [], $page = 1, $limit = 10)
     {
@@ -290,7 +290,7 @@ class HelpService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadTopicPaging($context = [], $page = 1, $limit = 10)
     {
@@ -317,7 +317,7 @@ class HelpService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      *
      */
     public function loadPostPaging($context = [], $page = 1, $limit = 10)
@@ -343,7 +343,7 @@ class HelpService
     /**
      * @param $categoryId
      *
-     * @return \Picaso\Model
+     * @return \Kendo\Model
      */
     public function findCategoryById($categoryId)
     {

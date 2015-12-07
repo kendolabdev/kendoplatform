@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_feed_feed`
+ * Generate by CodeGenerator\DbTable for table `Kendo_feed_feed`
  */
 
 namespace Feed\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class FeedTable
@@ -21,7 +21,7 @@ class FeedTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_feed`
+     * @see `Kendo_feed`
      * @var string
      */
     protected $class =  '\Feed\Model\Feed';

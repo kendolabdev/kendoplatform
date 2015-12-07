@@ -4,8 +4,8 @@ namespace Page\Controller\Admin;
 use Page\Form\Admin\CreatePageCategory;
 use Page\Form\Admin\DeletePageCategory;
 use Page\Form\Admin\EditPageCategory;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 
 /**

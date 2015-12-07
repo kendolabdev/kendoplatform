@@ -1,40 +1,25 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_share`
+ * Generate by CodeGenerator\DbTable for table `Kendo_share`
  */
 
 namespace Share\Model;
 
 /**
  */
-use Picaso\Content\Attachable;
-use Picaso\Content\CanComment;
-use Picaso\Content\CanLike;
-use Picaso\Content\CanShare;
-use Picaso\Content\Content;
-use Picaso\Content\HasPrivacy;
-use Picaso\Content\HasStory;
-use Picaso\Content\ImpBaseContent;
-use Picaso\Content\ImpHasPrivacy;
-use Picaso\Content\UniqueId;
-use Picaso\Model;
-use Picaso\View\View;
+use Kendo\Content\ContentInterface;
+use Kendo\Content\TraitBaseContent;
+use Kendo\Model;
+use Kendo\View\View;
 
 /**
  * Class Share
  *
  * @package Share\Model
  */
-class Share extends Model implements UniqueId,
-    Content,
-    Attachable,
-    HasStory,
-    CanComment,
-    CanLike,
-    CanShare,
-    HasPrivacy
+class Share extends Model implements ContentInterface
 {
-    use ImpBaseContent, ImpHasPrivacy;
+    use TraitBaseContent;
 
     /**
      * @var string
@@ -81,7 +66,7 @@ class Share extends Model implements UniqueId,
     }
 
     /**
-     * @return Content
+     * @return ContentInterface
      */
     public function getAbout()
     {

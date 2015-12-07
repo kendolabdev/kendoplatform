@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_comment`
+ * Generate by CodeGenerator\DbTable for table `Kendo_comment`
  */
 
 namespace Comment\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class CommentTable
@@ -21,7 +21,7 @@ class CommentTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_comment`
+     * @see `Kendo_comment`
      * @var string
      */
     protected $class =  '\Comment\Model\Comment';

@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_share`
+ * Generate by CodeGenerator\DbTable for table `Kendo_share`
  */
 
 namespace Share\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class ShareTable
@@ -21,7 +21,7 @@ class ShareTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_share`
+     * @see `Kendo_share`
      * @var string
      */
     protected $class =  '\Share\Model\Share';

@@ -1,7 +1,7 @@
 <?php
 namespace Help\Controller;
 
-use Picaso\Controller\DefaultController;
+use Kendo\Controller\DefaultController;
 
 /**
  * Class HomeController

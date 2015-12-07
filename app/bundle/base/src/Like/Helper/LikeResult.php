@@ -1,7 +1,7 @@
 <?php
 namespace Like\Helper;
 
-use Picaso\Content\Poster;
+use Kendo\Content\PosterInterface;
 
 /**
  * Class LikeResult
@@ -92,7 +92,7 @@ class LikeResult
 
         foreach ($sample as $item) {
 
-            if (!$item instanceof Poster) continue;
+            if (!$item instanceof PosterInterface) continue;
 
             $arr1[] = strtr('<a href=":href" data-hover="card" data-card=":card">:label</a>', [
                 ':href'  => $item->toHref(),

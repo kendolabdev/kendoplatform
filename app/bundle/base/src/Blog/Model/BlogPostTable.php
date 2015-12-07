@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_blog_post`
+ * Generate by CodeGenerator\DbTable for table `Kendo_blog_post`
  */
 
 namespace Blog\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class BlogPostTable
@@ -21,7 +21,7 @@ class BlogPostTable extends DbTable
 	//START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_blog_post`
+     * @see `Kendo_blog_post`
      * @var string
      */
     protected $class =  '\Blog\Model\BlogPost';

@@ -2,7 +2,7 @@
 namespace Event\ViewHelper;
 
 use Event\Model\Event;
-use Picaso\Content\Poster;
+use Kendo\Content\PosterInterface;
 
 /**
  * Class ButtonMembership
@@ -25,7 +25,7 @@ class ButtonMembership
 
         $viewer = \App::authService()->getViewer();
 
-        if (!$viewer instanceof Poster) return '';
+        if (!$viewer instanceof PosterInterface) return '';
 
         if (null === $membership) {
             $membership = \App::groupService()->membership()->getMembershipStatus($viewer, $item);

@@ -1,7 +1,7 @@
 <?php
 namespace Payment\Controller\Admin;
 
-use Picaso\Controller\AdminController;
+use Kendo\Controller\AdminController;
 
 /**
  * Class ManageController

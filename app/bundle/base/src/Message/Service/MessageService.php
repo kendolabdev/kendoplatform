@@ -5,7 +5,7 @@ namespace Message\Service;
 use Message\Model\Conversation;
 use Message\Model\Message;
 use Message\Model\Recipient;
-use Picaso\Content\Poster;
+use Kendo\Content\PosterInterface;
 
 /**
  * Class MessageService
@@ -69,7 +69,7 @@ class MessageService
     /**
      * @param $convId
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
     public function selectRecipients($convId)
     {
@@ -99,17 +99,17 @@ class MessageService
     }
 
     /**
-     * @param Poster $parent
+     * @param PosterInterface $parent
      *
      * @return int
      */
-    public function getUnreadConversationCount(Poster $parent = null)
+    public function getUnreadConversationCount(PosterInterface $parent = null)
     {
         if (null == $parent) {
             $parent = \App::authService()->getViewer();
         }
 
-        if (!$parent instanceof Poster) return 0;
+        if (!$parent instanceof PosterInterface) return 0;
 
         $select = \App::table('message.recipient')
             ->select()
@@ -121,12 +121,12 @@ class MessageService
     }
 
     /**
-     * @param Poster $from
-     * @param Poster $to
+     * @param PosterInterface $from
+     * @param PosterInterface $to
      *
      * @return \Message\Model\Conversation
      */
-    public function findMessageConversation(Poster $from, Poster $to)
+    public function findMessageConversation(PosterInterface $from, PosterInterface $to)
     {
         $fromId = $from->getId();
         $toId = $to->getId();
@@ -142,12 +142,12 @@ class MessageService
     }
 
     /**
-     * @param Poster $from
-     * @param Poster $to
+     * @param PosterInterface $from
+     * @param PosterInterface $to
      *
      * @return \Message\Model\Conversation
      */
-    public function findMessageConversationThenCreateIfNotFound(Poster $from, Poster $to)
+    public function findMessageConversationThenCreateIfNotFound(PosterInterface $from, PosterInterface $to)
     {
         $conv = $this->findMessageConversation($from, $to);
 
@@ -177,12 +177,12 @@ class MessageService
     }
 
     /**
-     * @param string $convId
-     * @param Poster $poster
+     * @param string          $convId
+     * @param PosterInterface $poster
      *
      * @return bool
      */
-    public function clearHistory($convId, Poster $poster)
+    public function clearHistory($convId, PosterInterface $poster)
     {
         $conv = $this->findConversation($convId);
 
@@ -198,7 +198,7 @@ class MessageService
 
         $rec->setHistoryMessageId($conv->getLastMessageId() + 1);
 
-        $rec->setModifiedAt(PICASO_DATE_TIME);
+        $rec->setModifiedAt(Kendo_DATE_TIME);
 
         $rec->save();
 
@@ -206,20 +206,20 @@ class MessageService
     }
 
     /**
-     * @param Poster $poster
-     * @param array  $recipients
-     * @param string $title
+     * @param PosterInterface $poster
+     * @param array           $recipients
+     * @param string          $title
      *
      * @return \Message\Model\Conversation
      * @throws \InvalidArgumentException
      */
-    public function createGroupMessageConversation(Poster $poster, $recipients, $title = '')
+    public function createGroupMessageConversation(PosterInterface $poster, $recipients, $title = '')
     {
         // create conversation first
 
         $conv = new Conversation([
             'title'      => (string)$title,
-            'created_at' => PICASO_DATE_TIME,
+            'created_at' => Kendo_DATE_TIME,
         ]);
 
         $conv->save();
@@ -231,7 +231,7 @@ class MessageService
         $recipients[] = $poster;
 
         foreach ($recipients as $item) {
-            if (!$item instanceof Poster) {
+            if (!$item instanceof PosterInterface) {
                 throw new \InvalidArgumentException("Invalid arguments [recipients]");
             }
 
@@ -239,7 +239,7 @@ class MessageService
                 'conversation_id' => $conv->getId(),
                 'recipient_id'    => $item->getId(),
                 'recipient_type'  => $item->getType(),
-                'modified_at'     => PICASO_DATE_TIME,
+                'modified_at'     => Kendo_DATE_TIME,
             ]);
 
             $rec->save();
@@ -251,13 +251,13 @@ class MessageService
     /**
      * Create a chat conversation between $recipients and $poster.
      *
-     * @param Poster $from
-     * @param Poster $to
+     * @param PosterInterface $from
+     * @param PosterInterface $to
      *
      * @return \Message\Model\Conversation
      * @throws \InvalidArgumentException
      */
-    public function createMessageConversation(Poster $from, Poster $to)
+    public function createMessageConversation(PosterInterface $from, PosterInterface $to)
     {
 
         // create conversation first
@@ -268,20 +268,20 @@ class MessageService
             'title'      => '',
             'from_id'    => $minId,
             'to_id'      => $maxId,
-            'created_at' => PICASO_DATE_TIME,
+            'created_at' => Kendo_DATE_TIME,
         ]);
 
         $conv->save();
 
         foreach ([$from, $to] as $item) {
-            if (!$item instanceof Poster) {
+            if (!$item instanceof PosterInterface) {
                 continue;
             }
             $rec = new Recipient([
                 'conversation_id' => $conv->getId(),
                 'recipient_id'    => $item->getId(),
                 'recipient_type'  => $item->getType(),
-                'modified_at'     => PICASO_DATE_TIME,
+                'modified_at'     => Kendo_DATE_TIME,
             ]);
             $rec->save();
         }
@@ -293,16 +293,16 @@ class MessageService
     /**
      * Add recipients to already existing chat groups
      *
-     * @param string $convId
-     * @param Poster $poster
-     * @param array  $recipients
+     * @param string          $convId
+     * @param PosterInterface $poster
+     * @param array           $recipients
      *
      * @return bool  return true if no exception
      * @throws \InvalidArgumentException
      *
      * TODO check if recipient blocked poster
      */
-    public function addRecipientsToChatGroupConversation($convId, Poster $poster, $recipients)
+    public function addRecipientsToChatGroupConversation($convId, PosterInterface $poster, $recipients)
     {
         if (!is_array($recipients) || empty($recipients)) {
             throw new \InvalidArgumentException("Invalid argument [recipients]");
@@ -319,7 +319,7 @@ class MessageService
         }
 
         foreach ($recipients as $item) {
-            if (!$item instanceof Poster) {
+            if (!$item instanceof PosterInterface) {
                 throw new \InvalidArgumentException("Invalid argument [recipients]");
             }
 
@@ -333,7 +333,7 @@ class MessageService
                     'history_message_id' => $conv->getLastMessageId(),
                     'is_active'          => 1,
                     'unread_count'       => 0,
-                    'modified_at'        => PICASO_DATE_TIME,
+                    'modified_at'        => Kendo_DATE_TIME,
                 ]);
                 $rec->save();
             }
@@ -343,12 +343,12 @@ class MessageService
     /**
      * A member want to leave a chat group. if member leave a 2 member chat conversation it should throws exceptions.
      *
-     * @param string $convId
-     * @param Poster $poster
+     * @param string          $convId
+     * @param PosterInterface $poster
      *
      * @return bool  Return true if member leave chat group successful.
      */
-    public function leaveGroupConversation($convId, Poster $poster)
+    public function leaveGroupConversation($convId, PosterInterface $poster)
     {
         $conv = $this->findConversation($convId);
 
@@ -373,15 +373,15 @@ class MessageService
     /**
      * Reply an existing message.
      *
-     * @param string $replyMsgId
-     * @param Poster $poster
-     * @param string $subject
-     * @param string $content
+     * @param string          $replyMsgId
+     * @param PosterInterface $poster
+     * @param string          $subject
+     * @param string          $content
      *
      * @return \Message\Model\Message
      * @throws \InvalidArgumentException
      */
-    public function replyMessage($replyMsgId, Poster $poster, $subject, $content)
+    public function replyMessage($replyMsgId, PosterInterface $poster, $subject, $content)
     {
         $replyMsg = $this->findMessage($replyMsgId);
 
@@ -403,7 +403,7 @@ class MessageService
             'type_id'          => self::TYPE_MESSAGE,
             'subject'          => (string)$subject,
             'content'          => (string)$content,
-            'created_at'       => PICASO_DATE_TIME,
+            'created_at'       => Kendo_DATE_TIME,
         ]);
 
         $msg->save();
@@ -433,14 +433,14 @@ class MessageService
              */
             if ($recipient->getRecipientId() == $msg->getPosterId()) {
                 $recipient->setLastMessageId($msg->getId());
-                $recipient->setModifiedAt(PICASO_DATE_TIME);
+                $recipient->setModifiedAt(Kendo_DATE_TIME);
             } else {
                 $unreadCound = $recipient->getUnreadCount() + 1;
                 $recipient->setUnreadCount($unreadCound);
                 $recipient->setLastMessageId($msg->getId());
             }
 
-            $recipient->setModifiedAt(PICASO_DATE_TIME);
+            $recipient->setModifiedAt(Kendo_DATE_TIME);
             $recipient->save();
         }
 
@@ -452,16 +452,16 @@ class MessageService
      * Create a new message.
      * Do not use this method when a member reply an existing message.
      *
-     * @param Poster $poster
-     * @param array  $recipients
-     * @param string $subject
-     * @param string $content
+     * @param PosterInterface $poster
+     * @param array           $recipients
+     * @param string          $subject
+     * @param string          $content
      *
      * @return \Message\Model\Message
      * @throws \InvalidArgumentException
      *
      */
-    public function addMessage(Poster $poster, $recipients, $subject, $content)
+    public function addMessage(PosterInterface $poster, $recipients, $subject, $content)
     {
 
         $typeId = null;
@@ -484,7 +484,7 @@ class MessageService
             'content'          => (string)$content,
             'poster_id'        => $poster->getId(),
             'poster_type'      => $poster->getType(),
-            'created_at'       => PICASO_DATE_TIME,
+            'created_at'       => Kendo_DATE_TIME,
         ]);
 
         $msg->save();
@@ -496,11 +496,11 @@ class MessageService
 
 
     /**
-     * @param Poster $poster
+     * @param PosterInterface $poster
      *
-     * @return \Picaso\Db\SqlSelect
+     * @return \Kendo\Db\SqlSelect
      */
-    public function getConversationIdForPoster(Poster $poster)
+    public function getConversationIdForPoster(PosterInterface $poster)
     {
         return \App::table('message.recipient')
             ->select()
@@ -546,7 +546,7 @@ class MessageService
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadMessagePaging($query = [], $page = 1, $limit = 12)
     {

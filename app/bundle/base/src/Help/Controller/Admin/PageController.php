@@ -5,8 +5,8 @@ use Help\Form\Admin\CreateHelpPage;
 use Help\Form\Admin\DeleteHelpPage;
 use Help\Form\Admin\EditHelpPage;
 use Help\Form\Admin\FilterHelpPage;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class PageController

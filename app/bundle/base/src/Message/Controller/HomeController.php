@@ -1,9 +1,9 @@
 <?php
 namespace Message\Controller;
 
-use Picaso\Auth\AuthException;
-use Picaso\Content\Poster;
-use Picaso\Controller\DefaultController;
+use Kendo\Auth\AuthException;
+use Kendo\Content\PosterInterface;
+use Kendo\Controller\DefaultController;
 
 
 /**
@@ -187,7 +187,7 @@ class HomeController extends DefaultController
                 list($rid, $rtype) = explode('@', $recipient);
                 $user = \App::find($rtype, $rid);
 
-                if (!null == $user && $user instanceof Poster) {
+                if (!null == $user && $user instanceof PosterInterface) {
                     $users[] = $user;
                 }
                 /**

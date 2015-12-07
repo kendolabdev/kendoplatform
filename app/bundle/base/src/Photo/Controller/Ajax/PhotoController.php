@@ -5,9 +5,9 @@ use Feed\Model\Feed;
 use Photo\Model\Album;
 use Photo\Model\Photo;
 use Photo\Model\PhotoAlbum;
-use Picaso\Acl\AuthorizationRestrictException;
-use Picaso\Controller\AjaxController;
-use Picaso\Layout\BlockParams;
+use Kendo\Acl\AuthorizationRestrictException;
+use Kendo\Controller\AjaxController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class PhotoController
@@ -126,7 +126,7 @@ class PhotoController extends AjaxController
     }
 
     /**
-     * @return \Picaso\Html\HtmlElement
+     * @return \Kendo\Html\HtmlElement
      */
     private function createAlbumSelectField()
     {

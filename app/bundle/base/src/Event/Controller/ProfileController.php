@@ -2,7 +2,7 @@
 namespace Event\Controller;
 
 use Core\Controller\ProfileBaseController;
-use Picaso\Content\Poster;
+use Kendo\Content\PosterInterface;
 
 /**
  * Class ProfileController
@@ -61,7 +61,7 @@ class ProfileController extends ProfileBaseController
     {
         $profile = \App::registryService()->get('profile');
 
-        if (!$profile instanceof Poster)
+        if (!$profile instanceof PosterInterface)
             throw new \InvalidArgumentException();
 
         $query = [

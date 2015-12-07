@@ -2,7 +2,7 @@
 
 namespace Event\Form;
 
-use Picaso\Html\Form;
+use Kendo\Html\Form;
 
 /**
  * Class FilterEvent

@@ -2,8 +2,8 @@
 
 namespace Navigation\Service;
 
-use Picaso\Navigation\Manager;
-use Picaso\Navigation\NavigationLoaderInterface;
+use Kendo\Navigation\Manager;
+use Kendo\Navigation\NavigationLoaderInterface;
 
 /**
  * Class NavigationService
@@ -26,8 +26,8 @@ class NavigationService implements Manager, NavigationLoaderInterface
      * @var array
      */
     private $decorators = [
-        'dropdown' => '\Picaso\Navigation\DropdownDecorator',
-        'tab'      => '\Picaso\Navigation\TabDecorator',
+        'dropdown' => '\Kendo\Navigation\DropdownDecorator',
+        'tab'      => '\Kendo\Navigation\TabDecorator',
     ];
 
     /**
@@ -35,7 +35,7 @@ class NavigationService implements Manager, NavigationLoaderInterface
      * @param int   $page
      * @param int   $limit
      *
-     * @return \Picaso\Paging\PagingInterface
+     * @return \Kendo\Paging\PagingInterface
      */
     public function loadAdminNavigationPaging($query = [], $page = 1, $limit = 10)
     {
@@ -134,7 +134,7 @@ class NavigationService implements Manager, NavigationLoaderInterface
     /**
      * @param  string $name
      *
-     * @return \Picaso\Navigation\Decorator
+     * @return \Kendo\Navigation\Decorator
      * @throws \InvalidArgumentException
      */
     public function getPlugin($name)

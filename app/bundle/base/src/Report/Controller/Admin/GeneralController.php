@@ -1,8 +1,8 @@
 <?php
 namespace Report\Controller\Admin;
 
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 use Report\Form\Admin\FilterReport;
 
 /**

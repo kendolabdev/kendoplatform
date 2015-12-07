@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_photo_cover`
+ * Generate by CodeGenerator\DbTable for table `Kendo_photo_cover`
  */
 
 namespace Photo\Model;
 
 /**
  */
-use Picaso\Model;
+use Kendo\Model;
 
 /**
  * Class PhotoCover

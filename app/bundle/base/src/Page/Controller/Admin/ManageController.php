@@ -4,8 +4,8 @@ namespace Page\Controller\Admin;
 
 use Page\Form\Admin\FilterPage;
 use Page\Form\Admin\PageSetting;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class ManageController

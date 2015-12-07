@@ -1,26 +1,24 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_place`
+ * Generate by CodeGenerator\DbTable for table `Kendo_place`
  */
 
 namespace Place\Model;
 
 /**
  */
-use Picaso\Content\Attachable;
-use Picaso\Content\Content;
-use Picaso\Content\ImpBaseContent;
-use Picaso\Content\UniqueId;
-use Picaso\Model;
+use Kendo\Content\ContentInterface;
+use Kendo\Content\TraitBaseContent;
+use Kendo\Model;
 
 /**
  * Class Place
  *
  * @package Place\Model
  */
-class Place extends Model implements UniqueId, Content, Attachable
+class Place extends Model implements ContentInterface
 {
-    use ImpBaseContent;
+    use TraitBaseContent;
 
     /**
      * @return string
@@ -41,6 +39,16 @@ class Place extends Model implements UniqueId, Content, Attachable
             'photoUrl' => $this->getMapPhotoUrl(),
             'place'    => $this,
         ]);
+    }
+
+    public function getShareCount()
+    {
+        return 0;
+    }
+
+    public function setShareCount($value)
+    {
+
     }
 
     /**

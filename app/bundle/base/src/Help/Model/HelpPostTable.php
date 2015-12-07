@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_help_post`
+ * Generate by CodeGenerator\DbTable for table `Kendo_help_post`
  */
 
 namespace Help\Model;
 
 /**
  */
-use Picaso\Db\DbTable;
+use Kendo\Db\DbTable;
 
 /**
  * Class HelpPostTable
@@ -21,7 +21,7 @@ class HelpPostTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_help_post`
+     * @see `Kendo_help_post`
      * @var string
      */
     protected $class =  '\Help\Model\HelpPost';

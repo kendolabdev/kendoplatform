@@ -2,7 +2,7 @@
 namespace Feed\Form;
 
 use Notification\Model\Type;
-use Picaso\Html\Form;
+use Kendo\Html\Form;
 
 /**
  * Class PosterNotificationTypeSetting
@@ -12,7 +12,7 @@ use Picaso\Html\Form;
 class PosterNotificationTypeSetting extends Form
 {
     /**
-     * @var \Picaso\Content\Poster
+     * @var \Kendo\Content\PosterInterface
      */
     protected $poster = null;
 
@@ -29,7 +29,7 @@ class PosterNotificationTypeSetting extends Form
     }
 
     /**
-     * @return \Picaso\Content\Poster
+     * @return \Kendo\Content\PosterInterface
      */
     public function getPoster()
     {
@@ -41,7 +41,7 @@ class PosterNotificationTypeSetting extends Form
     }
 
     /**
-     * @param \Picaso\Content\Poster $poster
+     * @param \Kendo\Content\PosterInterface $poster
      */
     public function setPoster($poster)
     {

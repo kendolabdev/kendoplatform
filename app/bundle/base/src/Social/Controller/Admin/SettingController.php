@@ -3,8 +3,8 @@
 namespace Social\Controller\Admin;
 
 use Setting\Form\Admin\BaseSettingForm;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 /**
  * Class SettingController

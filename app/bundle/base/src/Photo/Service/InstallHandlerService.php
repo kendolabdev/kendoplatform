@@ -1,7 +1,7 @@
 <?php
 namespace Photo\Service;
 
-use Picaso\Application\ModuleInstallHandler;
+use Kendo\Application\ModuleInstallHandler;
 
 /**
  * Class InstallHandlerService

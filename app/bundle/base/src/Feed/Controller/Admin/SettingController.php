@@ -7,7 +7,7 @@ use Feed\Form\Admin\ActivitySetting;
 use Feed\Form\Admin\AlertTypeSetting;
 use Feed\Form\Admin\FeedTypeSetting;
 use Feed\Form\Admin\FilterFeedType;
-use Picaso\Layout\BlockParams;
+use Kendo\Layout\BlockParams;
 
 
 /**

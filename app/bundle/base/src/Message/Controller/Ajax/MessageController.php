@@ -2,8 +2,8 @@
 
 namespace Message\Controller\Ajax;
 
-use Picaso\Content\Poster;
-use Picaso\Controller\AjaxController;
+use Kendo\Content\PosterInterface;
+use Kendo\Controller\AjaxController;
 
 /**
  * Class MessageController
@@ -31,7 +31,7 @@ class MessageController extends AjaxController
 
             if (!empty($type) && !empty($id)) {
                 $recipient = \App::find($type, $id);
-                if ($recipient instanceof Poster) {
+                if ($recipient instanceof PosterInterface) {
                     $values['recipients'][] = $recipient->getId() . '@' . $recipient->getType();
                 }
             }
@@ -63,7 +63,7 @@ class MessageController extends AjaxController
                 list($rid, $rtype) = explode('@', $recipient);
                 $user = \App::find($rtype, $rid);
 
-                if (!null == $user && $user instanceof Poster) {
+                if (!null == $user && $user instanceof PosterInterface) {
                     $users[] = $user;
                 }
                 /**

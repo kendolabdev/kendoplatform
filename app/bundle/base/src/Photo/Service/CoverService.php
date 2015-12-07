@@ -1,25 +1,25 @@
 <?php
 namespace Photo\Service;
 
-use Photo\Model\Cover;
+use Photo\Model\PhotoCover;
 use Photo\Model\Photo;
-use Picaso\Content\HasCover;
+use Kendo\Content\AtomInterface;
 
 
 /**
- * Class CoverService
+ * Class PhotoCoverService
  *
  * @package Photo\Service
  */
-class CoverService
+class PhotoCoverService
 {
 
     /**
-     * @param HasCover $object
+     * @param AtomInterface $object
      *
-     * @return Cover
+     * @return PhotoCover
      */
-    private function findCoverByObject(HasCover $object)
+    private function findCoverByObject(AtomInterface $object)
     {
         return \App::table('photo.cover')
             ->select()
@@ -29,28 +29,28 @@ class CoverService
     }
 
     /**
-     * @param HasCover $object
+     * @param AtomInterface $object
      *
-     * @return Cover
+     * @return PhotoCover
      */
-    public function getCover(HasCover $object)
+    public function getCover(AtomInterface $object)
     {
         return $this->findCoverByObject($object);
     }
 
     /**
-     * @param HasCover $object
-     * @param Photo    $photo
-     * @param int      $positionTop
+     * @param AtomInterface $object
+     * @param Photo         $photo
+     * @param int           $positionTop
      *
-     * @return Cover
+     * @return PhotoCover
      */
-    public function setCover(HasCover $object, $photo, $positionTop = 0)
+    public function setCover(AtomInterface $object, Photo $photo, $positionTop = 0)
     {
         $cover = $this->findCoverByObject($object);
 
         if (null == $cover) {
-            $cover = new Cover(
+            $cover = new PhotoCover(
                 [
                     'object_id'   => $object->getId(),
                     'object_type' => $object->getType(),
@@ -58,11 +58,11 @@ class CoverService
             );
         }
 
-        // update cover information
+        // update PhotoCover information
         $cover->setPositionTop($positionTop);
         $cover->setPhotoFileId($photo->getPhotoFileId());
         $cover->setPhotoId($photo->getId());
-        $cover->setCreatedAt(PICASO_DATE_TIME);
+        $cover->setCreatedAt(Kendo_DATE_TIME);
 
         $cover->save();
 
@@ -70,12 +70,12 @@ class CoverService
     }
 
     /**
-     * @param HasCover $object
-     * @param          $positionTop
+     * @param AtomInterface $object
+     * @param               $positionTop
      *
      * @return bool
      */
-    public function updatePosition(HasCover $object, $positionTop)
+    public function updatePosition(AtomInterface $object, $positionTop)
     {
         $cover = $this->findCoverByObject($object);
 
@@ -91,11 +91,11 @@ class CoverService
     }
 
     /**
-     * @param HasCover $object
+     * @param AtomInterface $object
      *
      * @return bool
      */
-    public function removeCover(HasCover $object)
+    public function removeCover(AtomInterface $object)
     {
 
         $cover = $this->findCoverByObject($object);
@@ -108,13 +108,13 @@ class CoverService
     }
 
     /**
-     * @param HasCover $object
-     * @param int      $positionTop
+     * @param AtomInterface $object
+     * @param int           $positionTop
      *
-     * @return Cover
+     * @return PhotoCover
      * @throws \InvalidArgumentException
      */
-    public function repositionCover(HasCover $object, $positionTop)
+    public function repositionCover(AtomInterface $object, $positionTop)
     {
 
         $cover = $this->findCoverByObject($object);

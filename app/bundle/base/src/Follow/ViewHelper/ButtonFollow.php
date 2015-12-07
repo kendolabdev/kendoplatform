@@ -2,7 +2,7 @@
 
 namespace Follow\ViewHelper;
 
-use Picaso\Content\Poster;
+use Kendo\Content\PosterInterface;
 
 /**
  * Class ButtonFollow
@@ -20,7 +20,7 @@ class ButtonFollow
      */
     function __invoke($item, $following = null, $ctx = 'btn')
     {
-        if (!$item instanceof Poster) return '';
+        if (!$item instanceof PosterInterface) return '';
         if (!\App::authService()->logged()) return '';
         if (!\App::aclService()->pass($item, 'activity.follow')) return '';
         if (\App::authService()->getId() == $item->getId()) return '';

@@ -1,13 +1,13 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_review`
+ * Generate by CodeGenerator\DbTable for table `Kendo_review`
  */
 
 namespace Review\Model;
 
 /**
  */
-use Picaso\Model;
+use Kendo\Model;
 
 /**
  * Class Review

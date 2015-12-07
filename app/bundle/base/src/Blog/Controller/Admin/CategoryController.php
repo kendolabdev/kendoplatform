@@ -4,8 +4,8 @@ namespace Blog\Controller\Admin;
 use Blog\Form\Admin\CreateBlogCategory;
 use Blog\Form\Admin\DeleteBlogCategory;
 use Blog\Form\Admin\EditBlogCategory;
-use Picaso\Controller\AdminController;
-use Picaso\Layout\BlockParams;
+use Kendo\Controller\AdminController;
+use Kendo\Layout\BlockParams;
 
 
 /**
