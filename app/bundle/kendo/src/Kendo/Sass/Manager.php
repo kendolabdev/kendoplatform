@@ -3,6 +3,8 @@ namespace Kendo\Sass;
 
 /**
  * Class Manager
+ * @method open()
+ * @method
  *
  * @package Kendo\Sass
  */
@@ -18,25 +20,29 @@ class Manager
 
     /**
      * @param string $outputFileName
-     * @param string $template
-     * @param string $theme
+     * @param string $templateName
+     * @param string $themeName
      * @param array  $variables
      *
      * @return string|bool
      */
-    public function compileToFile($outputFileName, $template, $theme, $variables = null)
+    public function compileToFile($outputFileName, $templateName, $themeName, $variables = null, $customize = '')
     {
         $container = new SassContainer();
 
-        $container->setTemplateName($template);
+        $container->setTemplateName($templateName);
 
-        $container->setThemeName($theme);
+        $container->setThemeName($themeName);
+
 
         if (!empty($variables)) {
             $container->setVariables($variables);
         }
 
-        \App::hook()->notify('sassCompileProcess', $container);
+        \App::hookService()->notify('sassCompileProcess', $container);
+
+
+        $container->addContent($customize);
 
         $content = $this->compile($container->getContent(), $container->getVariables(), $container->getImportPaths(), $container->getFiles());
 
@@ -47,13 +53,13 @@ class Manager
 
         $dir = dirname($outputFileName);
 
-        if (!is_dir($outputFileName) && !mkdir($dir, 0777, true)) {
+        if (!is_dir($dir) && !mkdir($dir, 0777, true)) {
             throw new \InvalidArgumentException("[$dir] is not writable");
         }
 
         $fp = fopen($outputFileName, 'w');
 
-        if ($fp) {
+        if (!$fp) {
             throw new \RuntimeException("[$outputFileName] is not writable");
         }
 

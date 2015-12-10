@@ -24,7 +24,7 @@ class Manager
     /**
      * @var string
      */
-    private $tablePrefix = 'Kendo_';
+    private $tablePrefix = 'KENDO_';
     /**
      * @var string
      */
@@ -51,9 +51,9 @@ class Manager
      */
     public function __construct()
     {
-        if (file_exists($file = Kendo_CONFIG_DIR . '/database.conf.php')) {
+        if (file_exists($file = KENDO_CONFIG_DIR . '/database.conf.php')) {
             $data = include $file;
-            if(!empty($data)){
+            if (!empty($data)) {
                 $this->config = $data;
                 $this->setPrefix($this->config['prefix']);
                 $this->setInstalled(true);
@@ -221,9 +221,11 @@ class Manager
      */
     public function getTable($class)
     {
+
         if (!isset($this->tables[ $class ])) {
-            if (!class_exists($class))
-                return null;
+            if (!class_exists($class)) {
+                throw new \RuntimeException("Could ot load class " . $class);
+            }
             $this->tables[ $class ] = new $class();
         }
 

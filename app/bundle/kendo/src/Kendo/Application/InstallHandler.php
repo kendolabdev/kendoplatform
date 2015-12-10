@@ -11,7 +11,7 @@ interface InstallHandler
     /**
      * export extension
      *
-     * @param \Core\Model\CoreExtension $extension
+     * @param \Platform\Core\Model\CoreExtension $extension
      */
     public function export($extension);
 

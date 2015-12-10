@@ -48,6 +48,16 @@ class SimpleContainer
     }
 
     /**
+     * @return SimpleContainer
+     */
+    public function reset()
+    {
+        $this->vars = [];
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function all()

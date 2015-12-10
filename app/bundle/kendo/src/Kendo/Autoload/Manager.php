@@ -1,14 +1,17 @@
 <?php
 
 /**
- * @author  Nam Nguyen <namnv@younetco.com>
- * @version 1.0.1
- * @package Kendo
+ * @package    Kendo
+ * @subpackage Autoload
+ * @author     Nam Nguyen
  */
 
 namespace Kendo\Autoload;
 
 /**
+ *
+ * @codeCoverageIgnore
+ *
  * Class Manager
  *
  * @package Kendo\Autoload
@@ -29,7 +32,7 @@ class Manager
     /**
      * @var array
      */
-    private $namespaces = [];
+    private $vendors = [];
 
     /**
      * constructor
@@ -38,12 +41,22 @@ class Manager
      */
     private function __construct()
     {
-        // register 2 core module
-        $this->namespaces['Kendo'] = dirname(dirname(__FILE__));
-        $this->namespaces['Core'] = Kendo_MODULE_DIR . '/base/src/Core';
+        $this->addVendor('Kendo', [
+            KENDO_BUNDLE_DIR . '/kendo/src/Kendo',
+            KENDO_BUNDLE_DIR . '/kendo/test/Kendo',
+        ]);
+
+        $this->addVendor('Platform', [
+            KENDO_BUNDLE_DIR . '/platform/src/Platform',
+            KENDO_BUNDLE_DIR . '/platform/test/Platform',
+        ]);
+
+        $this->addVendor('Base', [
+            KENDO_BUNDLE_DIR . '/base/src/Base',
+            KENDO_BUNDLE_DIR . '/base/test/Base',
+        ]);
 
         spl_autoload_register([$this, 'loadClass'], false, false);
-
     }
 
     /**
@@ -59,35 +72,22 @@ class Manager
     }
 
     /**
-     * @param string $package
-     * @param string $path
+     * @param string       $package
+     * @param string|array $path
      *
      * @return void
      */
-    public function addNamespace($package, $path)
+    public function addVendor($package, $path)
     {
-        $this->namespaces[ $package ] = $path;
-    }
+        if (is_string($path)) {
+            $this->vendors[ $package ][] = $path;
+        }
 
-    /**
-     * Example code <br />
-     * <code>
-     * \App::autoload()->addNamespaces([
-     *  'Blogs'=> Kendo_MODULE_DIR . '/younet/src/Blogs'
-     *  'Activity'=> Kendo_MODULE_DIR . '/younet/src/Activity'
-     * ])
-     * </code>
-     *
-     * @param array $pairs ( package=> path)
-     *
-     * @return void
-     */
-    public function addNamespaces($pairs)
-    {
-        foreach ($pairs as $package => $path) {
-            $this->namespaces[ $package ] = $path;
+        foreach ($path as $path0) {
+            $this->vendors[ $package ][] = $path0;
         }
     }
+
 
     /**
      * @param array $pairs [namespace => path]
@@ -147,16 +147,18 @@ class Manager
 
         $arr = explode('_', str_replace('\\', '_', $class));
 
-        $namespace = array_shift($arr);
+        $vendor = array_shift($arr);
 
-        if (isset($this->namespaces[ $namespace ])) {
-            $checkPath = $this->namespaces[ $namespace ] . Kendo_DS . implode(Kendo_DS, $arr) . '.php';
-            if (file_exists($checkPath)) {
-                return $checkPath;
-            } else if (empty($arr)) {
-                $checkPath = $this->namespaces[ $namespace ] . Kendo_DS . $namespace . '.php';
+        if (isset($this->vendors[ $vendor ])) {
+            foreach ($this->vendors[ $vendor ] as $directory) {
+                $checkPath = $directory . KENDO_DS . implode(KENDO_DS, $arr) . '.php';
                 if (file_exists($checkPath)) {
                     return $checkPath;
+                } else if (empty($arr)) {
+                    $checkPath = $this->vendors[ $vendor ] . KENDO_DS . $vendor . '.php';
+                    if (file_exists($checkPath)) {
+                        return $checkPath;
+                    }
                 }
             }
         }
@@ -184,13 +186,16 @@ class Manager
 
         $arr = explode('_', str_replace('\\', '_', $class));
 
-        $namespace = array_shift($arr);
+        $vendor = array_shift($arr);
 
-        if (isset($this->namespaces[ $namespace ])) {
-            $checkPath = $this->namespaces[ $namespace ] . Kendo_DS . implode(Kendo_DS, $arr) . '.php';
+        if (isset($this->vendors[ $vendor ])) {
+            foreach ($this->vendors[ $vendor ] as $directory) {
+                $checkPath = $directory . KENDO_DS . implode(KENDO_DS, $arr) . '.php';
 
-            return $checkPath;
+                return $checkPath;
+            }
         }
+
 
         return false;
     }

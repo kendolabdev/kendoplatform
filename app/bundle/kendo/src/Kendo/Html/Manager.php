@@ -12,11 +12,11 @@ class Manager
     /**
      * @var array
      */
-    private $renders = [
-        'asList'  => '\Kendo\Html\RenderAsList',
-        'asTable' => '\Kendo\Html\RenderAsTable',
-        'asAbout' => '\Kendo\Html\RenderAsAbout',
-        'asSearch'=> '\Kendo\Html\RenderAsSearch',
+    private $decorators = [
+        'asList'   => '\Kendo\Html\RenderAsList',
+        'asTable'  => '\Kendo\Html\RenderAsTable',
+        'asAbout'  => '\Kendo\Html\RenderAsAbout',
+        'asSearch' => '\Kendo\Html\RenderAsSearch',
     ];
 
     private $plugins = [
@@ -65,25 +65,25 @@ class Manager
      */
     public function factory($class, $attributes = [])
     {
-        $form = new $class($attributes);
-
-        return $form;
+        return new $class($attributes);
     }
 
     /**
      * @return array
      */
-    public function getRenders()
+    public function getDecorators()
     {
-        return $this->renders;
+        return $this->decorators;
     }
 
     /**
-     * @param array $renders
+     * @codeCoverageIgnore
+     *
+     * @param array $decorators
      */
-    public function setRenders($renders)
+    public function setDecorators($decorators)
     {
-        $this->renders = $renders;
+        $this->decorators = $decorators;
     }
 
     /**
@@ -92,7 +92,7 @@ class Manager
      */
     public function addRender($name, $class)
     {
-        $this->renders[ $name ] = $class;
+        $this->decorators[ $name ] = $class;
     }
 
     /**
@@ -114,11 +114,11 @@ class Manager
      */
     public function getRender($name)
     {
-        if (!isset($this->renders[ $name ])) {
+        if (!isset($this->decorators[ $name ])) {
             throw new \InvalidArgumentException("Plugin '$name' does not exists!");
         }
 
-        $class = $this->renders[ $name ];
+        $class = $this->decorators[ $name ];
 
         return new $class;
     }
@@ -132,6 +132,8 @@ class Manager
     }
 
     /**
+     * @codeCoverageIgnore
+     *
      * @param array $plugins
      */
     public function setPlugins($plugins)
@@ -140,6 +142,8 @@ class Manager
     }
 
     /**
+     * @codeCoverageIgnore
+     *
      * @param string $name
      * @param string $class
      *
@@ -159,12 +163,25 @@ class Manager
      */
     public function create($options)
     {
+
         if (empty($options['plugin'])) {
             $options['plugin'] = 'text';
         }
 
-        $class = $this->plugins[ $options['plugin'] ];
+        $pluginName = $options['plugin'];
 
-        return new $class($options);
+        $pluginClassName = $pluginName;
+
+        if (!empty($this->plugins[ $pluginName ])) {
+            $pluginClassName = $this->plugins[ $pluginName ];
+        }
+
+        if (!class_exists($pluginClassName)) {
+            throw new \InvalidArgumentException(sprintf('Unexpected html plugin "%s"', $pluginName));
+        }
+
+        unset($options['plugin']);
+
+        return new $pluginClassName($options);
     }
 }

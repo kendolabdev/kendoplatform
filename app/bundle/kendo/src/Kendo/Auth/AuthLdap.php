@@ -3,6 +3,8 @@
 namespace Kendo\Auth;
 
 /**
+ * @codeCoverageIgnore
+ *
  * Class AuthLdap
  *
  * @package Kendo\Auth

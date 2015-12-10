@@ -19,10 +19,10 @@ class DefaultHashGenerator implements AuthHashInterface
      */
     public function getHash($password, $salt)
     {
-        if (!defined('Kendo_SECRET_KEY'))
+        if (!defined('KENDO_SECRET_KEY'))
             throw new AuthException("Please setup secret key");
 
-        return sha1(sprintf('%s.%s.%s', $password, Kendo_SECRET_KEY, $salt));
+        return sha1(sprintf('%s.%s.%s', $password, KENDO_SECRET_KEY, $salt));
     }
 
     /**

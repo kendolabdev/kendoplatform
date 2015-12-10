@@ -123,7 +123,7 @@ class TabDecorator extends Decorator
             }
             if (!empty($item['children'])) {
                 foreach ($item['children'] as $sub => $cat) {
-                    if (in_array($cat['name'], $this->active)) {
+                    if (!empty($cat['name']) and in_array($cat['name'], $this->active)) {
                         $this->items[ $index ]['children'][ $sub ]['active'] = 1;
                     }
                 }

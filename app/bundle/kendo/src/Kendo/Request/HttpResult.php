@@ -7,7 +7,7 @@ namespace Kendo\Request;
  *
  * @package Kendo\Request
  */
-class HttpResult implements Result
+class HttpResult implements ResultInterface
 {
 
     /**

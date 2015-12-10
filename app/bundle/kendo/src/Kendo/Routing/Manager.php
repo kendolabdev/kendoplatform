@@ -3,7 +3,7 @@
 namespace Kendo\Routing;
 
 use Kendo\Request\HttpRequest;
-use Kendo\Request\Request;
+use Kendo\Request\RequestInterface;
 
 /**
  * Class Manager
@@ -13,7 +13,7 @@ use Kendo\Request\Request;
 class Manager
 {
     /**
-     * @var HttpRequest
+     * @var RequestInterface
      */
     private $request;
 
@@ -33,7 +33,7 @@ class Manager
     }
 
     /**
-     * @return HttpRequest
+     * @return RequestInterface
      */
     public function getRequest()
     {
@@ -126,10 +126,12 @@ class Manager
         $host = null;
 
         foreach ($this->byNames as $name => $route) {
+            if (!$route instanceof Route) continue;
+
             if (false != ($params = $route->match($path, $host))) {
-                $request->setControllerName($params[ Request::CONTROLLER_KEY ]);
-                $request->setActionName($params[ Request::ACTION_KEY ]);
-                unset($params[ Request::CONTROLLER_KEY ], $params[ Request::ACTION_KEY ]);
+                $request->setControllerName($params[ RequestInterface::CONTROLLER_KEY ]);
+                $request->setActionName($params[ RequestInterface::ACTION_KEY ]);
+                unset($params[ RequestInterface::CONTROLLER_KEY ], $params[ RequestInterface::ACTION_KEY ]);
                 $request->setParams($params);
 
                 \App::requestService()->setRouting($name, $params);
@@ -138,7 +140,7 @@ class Manager
             }
         }
 
-        $request->setControllerName('\Core\Controller\Error');
+        $request->setControllerName('\Platform\Core\Controller\ErrorController');
         $request->setActionName('notfound');
 
         return true;

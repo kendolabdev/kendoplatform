@@ -11,20 +11,15 @@ $allTableList = \App::db()->getMaster()
 /**
  *
  */
-foreach ($modules as $moduleName)
-{
-    $namespace = ucfirst($moduleName);
+foreach ($modules as $moduleKey) {
 
-    $oldDir = PICASO_ROOT_DIR . '/app/bundle/base/src/' . $namespace . '/Install';
+    $arr = explode('_', $moduleKey);
+    $namespaceDir = $arr[0];
+    $moduleDir = $arr[1];
+    $namespace = ucfirst($namespaceDir);
+    $moduleName = ucfirst($moduleDir);
 
-    if (is_dir($oldDir))
-    {
-        @unlink($oldDir . '/package.json');
-        rmdir($oldDir);
-    }
-
-
-    $filename = PICASO_ROOT_DIR . '/app/bundle/base/src/' . $namespace . '/Service/InstallerService.php';
+    $filename = KENDO_ROOT_DIR . '/app/bundle/' . $namespaceDir . '/src/' . $namespace . '/' . $moduleName . '/Service/InstallerService.php';
 
     if (file_exists($filename) && !strpos(file_get_contents($filename), 'code generator'))
         continue;
@@ -33,24 +28,21 @@ foreach ($modules as $moduleName)
 
     $acceptTableList = [];
 
-    foreach ($allTableList as $tableName)
-    {
-        if (strpos($tableName, 'picaso_' . $moduleName) === 0)
-        {
+    foreach ($allTableList as $tableName) {
+        if (strpos($tableName, 'picaso_' . $moduleKey) === 0) {
             $acceptTableList[] = substr($tableName, strlen('picaso_'));
         }
     }
 
     $pathList = [
-        'app/bundle/base/src/' . $namespace,
-        'app/template/default/base/' . $moduleName,
-        'app/theme/default/sass/base/' . $moduleName,
-        'app/theme/admin/sass/base/' . $moduleName,
-        'static/jscript/base/' . $moduleName,
+        'app/bundle/' . $namespaceDir . '/src/' . $namespace . '/' . $moduleName,
+        'app/template/default/' . $namespaceDir . '/' . $moduleName,
+        'app/theme/default/sass/' . $namespaceDir . '/' . $moduleName,
+        'app/theme/admin/sass/' . $namespaceDir . '/' . $moduleName,
+        'static/jscript/' . $namespaceDir . '/' . $moduleName,
     ];
 
-    if ($moduleName == 'core')
-    {
+    if ($moduleName == 'platform_core') {
         $pathList = array_merge([
             'robots.txt',
             'index.php',
@@ -68,24 +60,22 @@ foreach ($modules as $moduleName)
 
     $separator = ',' . PHP_EOL . '        ';
     $content = strtr($content, [
-        '{namespace}'  => $namespace,
-        '{moduleName}' => $moduleName,
-        '{tableList}'  => implode($separator, array_map(function ($val)
-        {
+        '{namespaceDir}' => $namespaceDir,
+        '{moduleDir}'    => $moduleDir,
+        '{namespace}'    => $namespace,
+        '{moduleName}'   => $moduleName,
+        '{tableList}'    => implode($separator, array_map(function ($val) {
             return '\'' . $val . '\'';
         }, $acceptTableList)),
-        '{pathList}'   => implode($separator, array_map(function ($val)
-        {
+        '{pathList}'     => implode($separator, array_map(function ($val) {
             return '\'' . $val . '\'';
         }, $pathList))
     ]);
 
     $dir = dirname($filename);
 
-    if (!is_dir($dir))
-    {
-        if (!mkdir($dir, 0777, true))
-        {
+    if (!is_dir($dir)) {
+        if (!mkdir($dir, 0777, true)) {
             throw new \RuntimeException("Could not make dir [$dir]");
         }
     }

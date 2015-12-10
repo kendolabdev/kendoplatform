@@ -103,7 +103,7 @@ class Timeago
      */
     public static function translate($from)
     {
-        $diff = strtotime(Kendo_DATE_TIME) - strtotime($from);
+        $diff = strtotime(KENDO_DATE_TIME) - strtotime($from);
         $timeago = null;
 
         $reps = [];

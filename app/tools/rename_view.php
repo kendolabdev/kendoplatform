@@ -2,8 +2,8 @@
 include '../init.php';
 
 $paths = [
-    PICASO_ROOT_DIR . '/app/theme',
-    PICASO_ROOT_DIR . '/app/template',
+    KENDO_ROOT_DIR . '/app/theme',
+    KENDO_ROOT_DIR . '/app/template',
 ];
 
 foreach ($paths as $directory)
@@ -34,6 +34,6 @@ foreach ($paths as $directory)
 
         if (!empty($files[ $script ])) continue;
 
-        $files[ $script ] = substr($directory, strlen(PICASO_ROOT_DIR));
+        $files[ $script ] = substr($directory, strlen(KENDO_ROOT_DIR));
     }
 }

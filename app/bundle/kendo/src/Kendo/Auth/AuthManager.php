@@ -3,8 +3,8 @@
 namespace Kendo\Auth;
 
 
-use User\Model\User;
-use User\Model\UserToken;
+use Platform\User\Model\User;
+use Platform\User\Model\UserToken;
 
 
 /**
@@ -93,7 +93,7 @@ class AuthManager
         }
 
         // Run command line
-        if (Kendo_CLI) {
+        if (KENDO_CLI) {
             return false;
         }
 
@@ -144,7 +144,7 @@ class AuthManager
     public function restore()
     {
         // Run command line
-        if (Kendo_CLI) {
+        if (KENDO_CLI) {
             return false;
         }
 
@@ -173,7 +173,7 @@ class AuthManager
             return false;
         }
 
-        $userEntry = \App::table('user')
+        $userEntry = \App::table('platform_user')
             ->findById($userId);
 
         if (empty($userEntry) or !$userEntry instanceof User) {
@@ -192,7 +192,7 @@ class AuthManager
      */
     public function forget()
     {
-        if (Kendo_CLI) {
+        if (KENDO_CLI) {
             return false;
         }
 

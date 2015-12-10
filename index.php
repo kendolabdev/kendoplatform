@@ -2,7 +2,7 @@
 
 ob_start();
 
-if(false == file_exists('app/config/database.conf.php')){
+if (false == file_exists('app/config/database.conf.php')) {
     exit('Access "/install" to start installation');
 }
 
@@ -10,7 +10,7 @@ include 'app/init.php';
 
 \App::sessionService();
 
-$view = new \Picaso\View\View();
+$view = new \Kendo\View\View();
 $request = App::requestService()->getInitiator();
 
 defined('IS_AJAX_LOAD_STATE') or define('IS_AJAX_LOAD_STATE', $request->getParam('__ajax_load_page') ? 1 : 0);

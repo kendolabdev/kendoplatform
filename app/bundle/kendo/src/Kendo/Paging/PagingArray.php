@@ -173,6 +173,11 @@ class PagingArray implements PagingInterface
         return $this->totalPageCount;
     }
 
+    public function itemCount()
+    {
+        return count($this->items());
+    }
+
     /**
      * @return int
      */

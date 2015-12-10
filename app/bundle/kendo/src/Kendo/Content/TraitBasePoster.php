@@ -29,7 +29,7 @@ Trait TraitBasePoster
     }
 
     /**
-     * @return \Photo\Service\PhotoService
+     * @return \Platform\Photo\Service\PhotoService
      */
     public function getCoverService()
     {

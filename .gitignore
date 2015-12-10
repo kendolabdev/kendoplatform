@@ -1,10 +1,13 @@
+/build
+*.lock
+*.log
 /static/jscript/kendo/components
 /app/config/*.conf.php
 /app/vendor/
 /app/tools/vendor/
+/app/tests/build
 /app/temp/*
 /app/package/*.json
-/app/composer.lock
 /static/node_modules
 /static/jquery-ui
 /public/*/*

@@ -30,7 +30,7 @@ class Manager
      */
     public function __construct()
     {
-        if (file_exists($file = Kendo_CONFIG_DIR . '/cache.inc.php')) {
+        if (file_exists($file = KENDO_CONFIG_DIR . '/cache.inc.php')) {
             $this->configs = include $file;
         }
     }

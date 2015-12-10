@@ -11,6 +11,8 @@ class EventHandler
 {
 
     /**
+     * @codeCoverageIgnore
+     *
      * @param string $name
      * @param array  $arguments
      */

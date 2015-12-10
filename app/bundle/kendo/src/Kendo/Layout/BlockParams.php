@@ -1,6 +1,11 @@
 <?php
 namespace Kendo\Layout;
 
+/**
+ * Class BlockParams
+ *
+ * @package Kendo\Layout
+ */
 class BlockParams
 {
 

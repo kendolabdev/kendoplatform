@@ -2,7 +2,7 @@
 
 namespace Kendo\Auth;
 
-use User\Model\User;
+use Platform\User\Model\User;
 
 /**
  * Class AuthResult
@@ -84,7 +84,7 @@ class AuthResult
     private $result;
 
     /**
-     * @var \User\Model\User
+     * @var \Platform\User\Model\User
      */
     private $user;
 
@@ -156,7 +156,7 @@ class AuthResult
     }
 
     /**
-     * @return \User\Model\User
+     * @return \Platform\User\Model\User
      */
     public function getUser()
     {
@@ -164,7 +164,7 @@ class AuthResult
     }
 
     /**
-     * @param \User\Model\User $user
+     * @param \Platform\User\Model\User $user
      *
      * @return $this
      */

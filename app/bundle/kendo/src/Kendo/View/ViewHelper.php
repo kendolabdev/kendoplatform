@@ -363,7 +363,7 @@ class ViewHelper
      * @param array  $data
      *
      * @return string
-     * @throws ViewException
+     * @throws \RuntimeException
      */
     public function partial($script, $data = [])
     {

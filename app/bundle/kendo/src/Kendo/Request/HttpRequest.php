@@ -9,7 +9,7 @@ use Kendo\Controller\Controller;
  *
  * @package Kendo\Request
  */
-class HttpRequest implements Request
+class HttpRequest implements RequestInterface
 {
     /**
      * @var \Exception
@@ -81,6 +81,10 @@ class HttpRequest implements Request
 
         if (isset($result['fragment'])) {
             parse_str($result['fragment'], $fragment);
+        }
+
+        if (substr($path, 0, strlen(KENDO_BASE_URL)) == KENDO_BASE_URL) {
+            $path = substr($path, strlen(KENDO_BASE_URL));
         }
 
         $this->setPath($path);

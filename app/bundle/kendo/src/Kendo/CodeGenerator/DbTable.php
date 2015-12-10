@@ -13,6 +13,11 @@ class DbTable
     const PREPARE_FOR_REPLACMENT = '//[PREPARE_FOR_REPLACMENT]';
 
     /**
+     * @var bool
+     */
+    private $testOnly = false;
+
+    /**
      * @var string
      */
     private $tableGetPrimary = '
@@ -209,14 +214,30 @@ class :tableClass extends DbTable{
     //END_TABLE_GENERATOR';
 
     /**
+     * @return boolean
+     */
+    public function isTestOnly()
+    {
+        return $this->testOnly;
+    }
+
+    /**
+     * @param boolean $testOnly
+     */
+    public function setTestOnly($testOnly)
+    {
+        $this->testOnly = $testOnly;
+    }
+
+
+    /**
      * @param $table
      *
      * @return mixed|null|string
-     * @throws Exception
+     * @throws \Exception
      */
     public function generate($table)
     {
-
 
         $shortenTableName = $this->getShortenTableName($table);
 
@@ -227,29 +248,31 @@ class :tableClass extends DbTable{
         $metadata = $this->getMetadata($table);
 
 
-        $parse = explode('_', $shortenTableName, 2);
+        $parse = explode('_', $table, 4);
 
-        $head = $parse[0];
+        if (count($parse) < 3) {
+            echo "Do not processs: " . $table, PHP_EOL;
 
-        // all head with system => Kendo
-        if ($head == 'system') {
-            $head = 'Kendo';
-        }
+            return false;
+        };
+
+        $vendor = $parse[1];
+        $module = $parse[2];
+
 
         $tail = null;
-        $tableAlias = $head;
+        $tableAlias = $shortenTableName;
 
-        if (count($parse) > 1) {
-            $tail = $parse[1];
-            $tableAlias = $head . '.' . $shortenTableName;
+        if (count($parse) > 3) {
+            $tail = $parse[3];
         }
 
-        echo $head, '.', $shortenTableName, PHP_EOL;
+
+        $modelNamespace = $this->getModelNamespace($vendor, $module);
+        $modelClass = $this->getModelClass($vendor, $module, $shortenTableName);
+        $tableClass = $this->getTableClass($vendor, $module, $shortenTableName);
 
 
-        $modelNamespace = $this->getModelNamespace($head, $tail);
-        $modelClass = $this->getModelClass($head, $shortenTableName);
-        $tableClass = $this->getTableClass($head, $shortenTableName);
         $fullModelClass = "\\{$modelNamespace}\\{$modelClass}";
         $fullTableClass = "\\{$modelNamespace}\\{$tableClass}";
 
@@ -278,13 +301,6 @@ class :tableClass extends DbTable{
         $tableContentString = strtr($this->tableContent, $vars);
 
         $tablePath = \App::autoload()->getPath($fullTableClass);
-
-        $oldTablePath = \App::autoload()->getPath($fullModelClass . 'DbTable');
-
-        if (file_exists($oldTablePath)) {
-            unlink($oldTablePath);
-        }
-
 
         if (!$tablePath)
             throw new \InvalidArgumentException("namespace for $tablePath does not exists");
@@ -320,7 +336,21 @@ class :tableClass extends DbTable{
 
         $modelFrameString = str_replace(self::PREPARE_FOR_REPLACMENT, $modelContentString, $this->prepareForReplaceTable($modelFrameString, $modelClass));
 
-        file_put_contents($modelPath, $modelFrameString);
+        \App::table('platform_core_type')
+            ->insertIgnore([
+                'type_id'               => $tableAlias,
+                'table_name'            => $fullTableClass,
+                'module_name'           => strtolower($vendor . '_' . $module),
+                'is_poster'             => 0,
+                'has_attribute_catalog' => 0,
+            ]);
+
+        /**
+         * @codeCoverageIgnoreStart
+         */
+        if (false == $this->isTestOnly()) {
+            file_put_contents($modelPath, $modelFrameString);
+        }
 
         return true;
     }
@@ -332,15 +362,9 @@ class :tableClass extends DbTable{
      */
     public function getShortenTableName($table)
     {
-        $prefix = \App::db()->getPrefix();
+        $name = explode('_', $table, 2);
 
-        $name = str_replace($prefix, '', $table);
-
-        if ($name == $table) {
-            return null;
-        }
-
-        return $name;
+        return array_pop($name);
     }
 
     /**
@@ -354,49 +378,61 @@ class :tableClass extends DbTable{
     }
 
     /**
-     * @param $head
+     * @param string $vendor
+     * @param string $module
      *
      * @return string
      */
-    public function getModelNamespace($head)
+    public function getModelNamespace($vendor, $module)
     {
-        if ($head == 'system') {
-            $head = 'Kendo';
-        }
-
-
-        return ucfirst($head) . '\\Model';
+        return ucfirst($vendor) . '\\' . ucfirst($module) . '\\Model';
     }
 
     /**
-     * @param        $head
+     * @param string $vendor
+     * @param string $module
      * @param string $tail
      *
      * @return string
      */
-    public function getModelClass($head, $tail)
+    public function getModelClass($vendor, $module, $tail)
     {
+        if (empty($vendor)) {
+            // continue
+        }
+        if (empty($module)) {
+            // continue
+        }
 
-        $model = null;
-        if ($tail) {
-            $model = str_replace(' ', '', ucwords(str_replace('_', ' ', $tail)));
+        $arr = explode('_', $tail, 3);
 
-        } else {
-            $model = ucfirst($head);
+        if(count($arr) >2){
+            $model = str_replace(' ', '', ucwords(str_replace('_', ' ', $arr[2])));
+        }else{
+            $model = str_replace(' ', '', ucwords(str_replace('_', ' ', $arr[1])));
         }
 
         return $model;
     }
 
     /**
-     * @param        $head
+     * @param string $vendor
+     * @param string $module
      * @param string $tail
      *
      * @return string
      */
-    public function getTableClass($head, $tail)
+    public function getTableClass($vendor, $module, $tail)
     {
-        return $this->getModelClass($head, $tail) . 'Table';
+        $arr = explode('_', $tail, 3);
+
+        if(count($arr) >2){
+            $model = str_replace(' ', '', ucwords(str_replace('_', ' ', $arr[2])));
+        }else{
+            $model = str_replace(' ', '', ucwords(str_replace('_', ' ', $arr[1])));
+        }
+
+        return $model . 'Table';
     }
 
     /**
@@ -512,7 +548,8 @@ class :tableClass extends DbTable{
     }
 
     /**
-     * @param  $string
+     * @param        $string
+     * @param string $class
      *
      * @return string
      */

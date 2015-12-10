@@ -2,15 +2,21 @@
 
 namespace Kendo\Package;
 
-use Layout\Model\Layout;
+use Platform\Layout\Model\Layout;
 
 /**
  * Class BaseInstaller
  *
  * @package Kendo\Package
  */
-class BaseInstaller implements Installer
+class BaseInstaller implements InstallerInterface
 {
+
+    /**
+     * @var string
+     */
+    private $rootDir;
+
     /**
      * @var string
      */
@@ -70,6 +76,7 @@ class BaseInstaller implements Installer
         '/tests/',
         '/test/',
     ];
+
 
     /**
      * @return string
@@ -233,7 +240,7 @@ class BaseInstaller implements Installer
 
         $this->writeToFile($this->getConfigFilename('data', 'install'), $this->installData);
         $this->writeToFile($this->getConfigFilename('checksum', 'install'), $this->checksumData);
-        $this->archive($this->exportKey . '.zip');
+        $this->archive();
     }
 
     /**
@@ -243,7 +250,7 @@ class BaseInstaller implements Installer
     {
         $suffix = '-' . implode('-', func_get_args());
 
-        return Kendo_ROOT_DIR . '/app/package/' . $this->exportKey . $suffix . '.json';
+        return KENDO_ROOT_DIR . '/app/package/' . $this->exportKey . $suffix . '.json';
     }
 
     /**
@@ -254,10 +261,8 @@ class BaseInstaller implements Installer
     {
         $dir = dirname($filename);
 
-        if (!is_dir($dir))
-        {
-            if (!mkdir($dir, 0777, 1))
-            {
+        if (!is_dir($dir)) {
+            if (!mkdir($dir, 0777, 1)) {
                 throw new \RuntimeException("Could not make dir to write file [$dir]");
             }
         }
@@ -268,8 +273,7 @@ class BaseInstaller implements Installer
 
         // test file exsist
 
-        if (!file_exists($filename))
-        {
+        if (!file_exists($filename)) {
             throw new \RuntimeException("Could not make data file [$filename]");
         }
 
@@ -319,7 +323,8 @@ class BaseInstaller implements Installer
     protected function exportHookSetting()
     {
 
-        $this->installData['core_hook'] = \App::table('core.core_hook')
+        $this->installData['platform_core_hook']
+            = \App::table('platform_core_hook')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -330,12 +335,10 @@ class BaseInstaller implements Installer
      */
     protected function installHookSetting()
     {
-        if (!empty($this->installData['core_hook']))
-        {
-            foreach ($this->installData['core_hook'] as $data)
-            {
+        if (!empty($this->installData['platform_core_hook'])) {
+            foreach ($this->installData['platform_core_hook'] as $data) {
                 unset($data['id']);
-                \App::table('core.core_hook')
+                \App::table('platform_core_hook')
                     ->insertIgnore($data);
             }
         }
@@ -346,8 +349,8 @@ class BaseInstaller implements Installer
      */
     protected function exportMailSetting()
     {
-        $this->installData['mail_template']
-            = \App::table('mail.mail_template')
+        $this->installData['platform_mail_template']
+            = \App::table('platform_mail_template')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -358,12 +361,10 @@ class BaseInstaller implements Installer
      */
     protected function installMailSetting()
     {
-        if (!empty($this->installData['mail_template']))
-        {
-            foreach ($this->installData['mail_template'] as $data)
-            {
+        if (!empty($this->installData['platform_mail_template'])) {
+            foreach ($this->installData['platform_mail_template'] as $data) {
                 unset($data['template_id']);
-                \App::table('mail.mail_template')
+                \App::table('platform_mail_template')
                     ->insertIgnore($data);
             }
         }
@@ -374,14 +375,14 @@ class BaseInstaller implements Installer
      */
     protected function exportLayoutSetting()
     {
-        $this->installData['layout_support_block']
-            = \App::table('layout.layout_support_block')
+        $this->installData['platform_layout_support_block']
+            = \App::table('platform_layout_support_block')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
 
-        $this->installData['layout_page']
-            = \App::table('layout.layout_page')
+        $this->installData['platform_layout_page']
+            = \App::table('platform_layout_page')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -398,27 +399,24 @@ class BaseInstaller implements Installer
         $moduleList = $this->getModuleList();
         $themeList = $this->getThemeList();
 
-        $select = \App::table('layout')
+        $select = \App::table('platform_layout')
             ->select('layout')
-            ->join(':layout_page', 'page', 'page.page_id=layout.page_id', null, null)
+            ->join(':platform_layout_page', 'page', 'page.page_id=layout.page_id', null, null)
             ->columns('layout.*,page.page_name');
 
 
-        if (!empty($moduleList))
-        {
+        if (!empty($moduleList)) {
             $select->where('page.module_name IN ?', $moduleList);
         }
 
-        if (!empty($themeList))
-        {
+        if (!empty($themeList)) {
             $select->where('theme_id IN ?', $themeList);
         }
 
         $result = [];
 
         // decorate data
-        foreach ($select->toAssocs() as $item)
-        {
+        foreach ($select->toAssocs() as $item) {
             $result[] = [
                 'page_name'   => $item['page_name'],
                 'screen_size' => $item['screen_size'],
@@ -427,7 +425,7 @@ class BaseInstaller implements Installer
             ];
         }
 
-        $this->installData['layout_data'] = $result;
+        $this->installData['platform_layout_data'] = $result;
     }
 
     /**
@@ -437,14 +435,13 @@ class BaseInstaller implements Installer
      */
     public function _exportLayoutSectionListByLayoutId($layoutId)
     {
-        $select = \App::table('layout.layout_section')
+        $select = \App::table('platform_layout_section')
             ->select()
             ->where('layout_id=?', $layoutId);
 
         $result = [];
 
-        foreach ($select->toAssocs() as $item)
-        {
+        foreach ($select->toAssocs() as $item) {
 
             $temp = $item;
 
@@ -464,16 +461,15 @@ class BaseInstaller implements Installer
     public function _exportLayoutBlockListBySectionId($sectionId)
     {
 
-        $select = \App::table('layout.layout_block')
+        $select = \App::table('platform_layout_block')
             ->select('block')
-            ->join(':layout_support_block', 'support', 'support.support_block_id=block.support_block_id', null, null)
+            ->join(':platform_layout_support_block', 'support', 'support.support_block_id=block.support_block_id', null, null)
             ->where('block.section_id=?', $sectionId)
             ->columns('block.*, support.block_class');
 
         $result = [];
 
-        foreach ($select->toAssocs() as $item)
-        {
+        foreach ($select->toAssocs() as $item) {
             $result[] = $item;
         }
 
@@ -486,10 +482,9 @@ class BaseInstaller implements Installer
      */
     public function importLayoutData($data)
     {
-        foreach ($data as $row)
-        {
+        foreach ($data as $row) {
 
-            $page = \App::table('layout.layout_page')
+            $page = \App::table('platform_layout_page')
                 ->select()
                 ->where('page_name=?', $row['page_name'])
                 ->one();
@@ -497,7 +492,7 @@ class BaseInstaller implements Installer
             if (!$page)
                 continue;
 
-            $layout = \App::table('layout')
+            $layout = \App::table('platform_layout')
                 ->select()
                 ->where('screen_size=?', $row['screen_size'])
                 ->where('page_id=?', $page->getId())
@@ -516,16 +511,14 @@ class BaseInstaller implements Installer
 
             $layout->save();
 
-            foreach ($row['listSection'] as $sectionData)
-            {
+            foreach ($row['listSection'] as $sectionData) {
                 $sectionData['layout_id'] = $layout->getId();
 
-                \App::table('layout.layout_section')
+                \App::table('platform_layout_section')
                     ->insertIgnore($sectionData);
 
-                foreach ($sectionData['listBlock'] as $blockData)
-                {
-                    $supportBlock = \App::table('layout.layout_support_block')
+                foreach ($sectionData['listBlock'] as $blockData) {
+                    $supportBlock = \App::table('platform_layout_support_block')
                         ->select()
                         ->where('block_class=?', $blockData['block_class'])
                         ->one();
@@ -535,7 +528,7 @@ class BaseInstaller implements Installer
 
                     $blockData['support_block_id'] = $supportBlock->getId();
 
-                    \App::table('layout.layout_block')
+                    \App::table('platform_layout_block')
                         ->insertIgnore($blockData);
                 }
             }
@@ -547,28 +540,23 @@ class BaseInstaller implements Installer
      */
     protected function installLayoutSetting()
     {
-        if (!empty($this->installData['layout_support_block']))
-        {
-            foreach ($this->installData['layout_support_block'] as $data)
-            {
-                \App::table('layout.layout_support_block')
+        if (!empty($this->installData['platform_layout_support_block'])) {
+            foreach ($this->installData['platform_layout_support_block'] as $data) {
+                \App::table('platform_layout_support_block')
                     ->insertIgnore($data);
             }
         }
 
-        if (!empty($this->installData['layout_page']))
-        {
-            foreach ($this->installData['layout_page'] as $data)
-            {
+        if (!empty($this->installData['platform_layout_page'])) {
+            foreach ($this->installData['platform_layout_page'] as $data) {
                 unset($data['page_id']);
-                \App::table('layout.layout_page')
+                \App::table('platform_layout_page')
                     ->insertIgnore($data);
             }
         }
 
-        if (!empty($this->installData['layout_data']))
-        {
-            $this->importLayoutData($this->installData['layout_data']);
+        if (!empty($this->installData['platform_layout_data'])) {
+            $this->importLayoutData($this->installData['platform_layout_data']);
         }
     }
 
@@ -585,8 +573,8 @@ class BaseInstaller implements Installer
      */
     protected function exportRelation()
     {
-        $this->installData['relation_type']
-            = \App::table('relation.relation_type')
+        $this->installData['platform_relation_type']
+            = \App::table('platform_relation_type')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -597,12 +585,10 @@ class BaseInstaller implements Installer
      */
     protected function installRelationSetting()
     {
-        if (!empty($this->installData['relation_type']))
-        {
-            foreach ($this->installData['relation_type'] as $data)
-            {
+        if (!empty($this->installData['platform_relation_type'])) {
+            foreach ($this->installData['platform_relation_type'] as $data) {
                 unset($data['type_id']);
-                \App::table('relation.relation_type')
+                \App::table('platform_relation_type')
                     ->insertIgnore($data);
             }
         }
@@ -613,8 +599,8 @@ class BaseInstaller implements Installer
      */
     protected function exportFeedSetting()
     {
-        $this->installData['feed_type']
-            = \App::table('feed.feed_type')
+        $this->installData['base_feed_type']
+            = \App::table('base_feed_type')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -625,11 +611,9 @@ class BaseInstaller implements Installer
      */
     protected function installFeedSetting()
     {
-        if (!empty($this->installData['feed_type']))
-        {
-            foreach ($this->installData['feed_type'] as $data)
-            {
-                \App::table('feed.feed_type')
+        if (!empty($this->installData['feed_type'])) {
+            foreach ($this->installData['feed_type'] as $data) {
+                \App::table('base_feed_type')
                     ->insertIgnore($data);
             }
         }
@@ -640,8 +624,8 @@ class BaseInstaller implements Installer
      */
     protected function exportExtension()
     {
-        $this->installData['core_extension']
-            = \App::table('core.core_extension')
+        $this->installData['platform_core_extension']
+            = \App::table('platform_core_extension')
             ->select()
             ->where('name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -652,17 +636,14 @@ class BaseInstaller implements Installer
      */
     protected function installExtension()
     {
-        if (!empty($this->installData['core_extension']))
-        {
-            foreach ($this->installData['core_extension'] as $data)
-            {
-                \App::table('core.core_extension')
+        if (!empty($this->installData['platform_core_extension'])) {
+            foreach ($this->installData['platform_core_extension'] as $data) {
+                \App::table('platform_core_extension')
                     ->insertIgnore($data);
 
-                if (!empty($data['namespace']))
-                {
+                if (!empty($data['namespace'])) {
                     \App::autoload()
-                        ->addNamespace($data['namespace'], Kendo_MODULE_DIR . $data['path']);
+                        ->addVendor($data['namespace'], KENDO_BUNDLE_DIR . $data['path']);
                 }
             }
         }
@@ -673,8 +654,8 @@ class BaseInstaller implements Installer
      */
     protected function exportNotificationSetting()
     {
-        $this->installData['notification_type']
-            = \App::table('notification.notification_type')
+        $this->installData['platform_notification_type']
+            = \App::table('platform_notification_type')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -685,11 +666,9 @@ class BaseInstaller implements Installer
      */
     protected function installNotification()
     {
-        if (!empty($this->installData['notification_type']))
-        {
-            foreach ($this->installData['notification_type'] as $data)
-            {
-                \App::table('notification.notification_type')
+        if (!empty($this->installData['platform_notification_type'])) {
+            foreach ($this->installData['platform_notification_type'] as $data) {
+                \App::table('platform_notification_type')
                     ->insertIgnore($data);
             }
         }
@@ -700,8 +679,8 @@ class BaseInstaller implements Installer
      */
     protected function exportInvitationSetting()
     {
-        $this->installData['invitation_type']
-            = \App::table('invitation.invitation_type')
+        $this->installData['platform_invitation_type']
+            = \App::table('platform_invitation_type')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -713,11 +692,9 @@ class BaseInstaller implements Installer
      */
     protected function installInvitation()
     {
-        if (!empty($this->installData['invitation_type']))
-        {
-            foreach ($this->installData['invitation_type'] as $data)
-            {
-                \App::table('invitation.invitation_type')
+        if (!empty($this->installData['platform_invitation_type'])) {
+            foreach ($this->installData['platform_invitation_type'] as $data) {
+                \App::table('platform_invitation_type')
                     ->insertIgnore($data);
             }
         }
@@ -728,8 +705,8 @@ class BaseInstaller implements Installer
      */
     protected function exportTypeSetting()
     {
-        $this->installData['core_type']
-            = \App::table('core.core_type')
+        $this->installData['platform_core_type']
+            = \App::table('platform_core_type')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -743,11 +720,9 @@ class BaseInstaller implements Installer
         /**
          * insert types
          */
-        if (!empty($this->installData['core_type']))
-        {
-            foreach ($this->installData['core_type'] as $data)
-            {
-                \App::table('core.core_type')
+        if (!empty($this->installData['platform_core_type'])) {
+            foreach ($this->installData['platform_core_type'] as $data) {
+                \App::table('platform_core_type')
                     ->insertIgnore($data);
             }
         }
@@ -758,11 +733,7 @@ class BaseInstaller implements Installer
      */
     protected function exportAttributeSetting()
     {
-        $this->installData['attribute_plugin']
-            = \App::table('attribute.attribute_plugin')
-            ->select()
-            ->where('module_name IN ?', $this->getModuleList())
-            ->toAssocs();
+
     }
 
     /**
@@ -770,15 +741,6 @@ class BaseInstaller implements Installer
      */
     protected function installAttributeSetting()
     {
-        // insert attribute plugins
-        if (!empty($this->installData['attribute_plugin']))
-        {
-            foreach ($this->installData['attribute_plugin'] as $data)
-            {
-                \App::table('attribute.attribute_plugin')
-                    ->insertIgnore($data);
-            }
-        }
     }
 
     /**
@@ -786,14 +748,14 @@ class BaseInstaller implements Installer
      */
     protected function exportNavigationSetting()
     {
-        $this->installData['navigation'] =
-            \App::table('navigation')
+        $this->installData['platform_navigation'] =
+            \App::table('platform_navigation')
                 ->select()
                 ->where('module_name IN ?', $this->getModuleList())
                 ->toAssocs();
 
-        $this->installData['navigation_item']
-            = \App::table('navigation.navigation_item')
+        $this->installData['platform_navigation_item']
+            = \App::table('platform_navigation_item')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -805,21 +767,17 @@ class BaseInstaller implements Installer
     protected function installNavigation()
     {
         // insert attribute plugins
-        if (!empty($this->installData['navigation']))
-        {
-            foreach ($this->installData['navigation'] as $data)
-            {
+        if (!empty($this->installData['platform_navigation'])) {
+            foreach ($this->installData['platform_navigation'] as $data) {
                 \App::table('navigation')
                     ->insertIgnore($data);
             }
         }
 
         // insert attribute plugins
-        if (!empty($this->installData['navigation_item']))
-        {
-            foreach ($this->installData['navigation_item'] as $data)
-            {
-                \App::table('navigation.navigation_item')
+        if (!empty($this->installData['platform_navigation_item'])) {
+            foreach ($this->installData['platform_navigation_item'] as $data) {
+                \App::table('platform_navigation_item')
                     ->insertIgnore($data);
             }
         }
@@ -830,20 +788,20 @@ class BaseInstaller implements Installer
      */
     protected function exportAclSetting()
     {
-        $this->installData['acl_role'] = \App::table('acl.acl_role')
+        $this->installData['platform_acl_role'] = \App::table('platform_acl_role')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->columns('role_type, is_system, title, parent_role_id, is_super, is_admin, is_moderator, is_member, is_guest, module_name')
             ->toAssocs();
 
-        $this->installData['acl_group']
-            = \App::table('acl.acl_group')
+        $this->installData['platform_acl_group']
+            = \App::table('platform_acl_group')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
 
-        $this->installData['acl_action']
-            = \App::table('acl.acl_action')
+        $this->installData['platform_acl_action']
+            = \App::table('platform_acl_action')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->columns('module_name, group_name, action_name, comment')
@@ -852,7 +810,7 @@ class BaseInstaller implements Installer
         /**
          * TODO: implement export allow data
          */
-        $this->installData['acl_allow_data']
+        $this->installData['platform_acl_allow']
             = [];
     }
 
@@ -861,36 +819,29 @@ class BaseInstaller implements Installer
      */
     protected function installAclSetting()
     {
-        if (!empty($this->installData['acl_role']))
-        {
-            foreach ($this->installData['acl_role'] as $data)
-            {
-                \App::table('acl.acl_role')
+        if (!empty($this->installData['platform_acl_role'])) {
+            foreach ($this->installData['platform_acl_role'] as $data) {
+                \App::table('platform_acl_role')
                     ->insertIgnore($data);
             }
         }
 
-        if (!empty($this->installData['acl_group']))
-        {
-            foreach ($this->installData['acl_group'] as $data)
-            {
-                \App::table('acl.acl_group')
+        if (!empty($this->installData['platform_acl_group'])) {
+            foreach ($this->installData['platform_acl_group'] as $data) {
+                \App::table('platform_acl_group')
                     ->insertIgnore($data);
             }
         }
 
-        if (!empty($this->installData['acl_action']))
-        {
-            foreach ($this->installData['acl_action'] as $data)
-            {
+        if (!empty($this->installData['platform_acl_action'])) {
+            foreach ($this->installData['platform_acl_action'] as $data) {
                 unset($data['action_id']);
-                \App::table('acl.acl_action')
+                \App::table('platform_acl_action')
                     ->insertIgnore($data);
             }
         }
 
-        if (!empty($this->installData['acl_allow_data']))
-        {
+        if (!empty($this->installData['acl_allow_data'])) {
             /**
              * TODO: implement import allow data
              */
@@ -902,35 +853,32 @@ class BaseInstaller implements Installer
      */
     protected function exportGlobalSetting()
     {
-        $this->installData['setting_action']
-            = \App::table('setting.setting_action')
+        $this->installData['platform_setting_action']
+            = \App::table('platform_setting_action')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->columns('module_name, action_group, action_name')
             ->toAssocs();
 
-        if (true)
-        {
-            $items = \App::table('setting')
+        if (true) {
+            $items = \App::table('platform_setting')
                 ->select('c')
                 ->where('a.module_name IN ?', $this->getModuleList())
-                ->join(":setting_action", 'a', 'a.action_id=c.action_id', null, null)
+                ->join(":platform_setting_action", 'a', 'a.action_id=c.action_id', null, null)
                 ->columns('c.value_text, a.*')
                 ->toAssocs();
 
             $result = [];
 
-            foreach ($items as $item)
-            {
-                if (empty($result[ $item['action_group'] ]))
-                {
+            foreach ($items as $item) {
+                if (empty($result[ $item['action_group'] ])) {
                     $result[ $item['action_group'] ] = [];
                 }
                 $value = json_decode($item['value_text'], 1);
                 $result[ $item['action_group'] ][ $item['action_name'] ] = $value['val'];
             }
 
-            $this->installData['setting_value'] = $result;
+            $this->installData['platform_setting_value'] = $result;
         }
     }
 
@@ -941,20 +889,17 @@ class BaseInstaller implements Installer
     protected function installGlobalSetting()
     {
 
-        if (!empty($this->installData['setting_action']))
-        {
-            foreach ($this->installData['setting_action'] as $data)
-            {
+        if (!empty($this->installData['platform_setting_action'])) {
+            foreach ($this->installData['platform_setting_action'] as $data) {
                 unset($data['action_id']);
-                \App::table('setting.setting_action')
+                \App::table('platform_setting_action')
                     ->insertIgnore($data);
             }
         }
 
-        if (!empty($this->installData['setting_value']))
-        {
+        if (!empty($this->installData['platform_setting_value'])) {
             \App::settingService()
-                ->save($this->installData['setting_value']);
+                ->save($this->installData['platform_setting_value']);
         }
     }
 
@@ -963,8 +908,8 @@ class BaseInstaller implements Installer
      */
     protected function exportPhraseSetting()
     {
-        $this->installData['phrase']
-            = \App::table('phrase')
+        $this->installData['platform_phrase']
+            = \App::table('platform_phrase')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->columns('module_name, is_active, phrase_group, phrase_name, default_value')
@@ -976,14 +921,12 @@ class BaseInstaller implements Installer
      */
     protected function installPhraseSetting()
     {
-        if (!empty($this->installData['phrase']))
-        {
-            foreach ($this->installData['phrase'] as $data)
-            {
+        if (!empty($this->installData['platform_phrase'])) {
+            foreach ($this->installData['platform_phrase'] as $data) {
 
                 unset($data['phrase_id']);
 
-                \App::table('phrase')
+                \App::table('platform_phrase')
                     ->insertIgnore($data);
             }
         }
@@ -1008,15 +951,13 @@ class BaseInstaller implements Installer
             return [];
 
 
-        foreach ($allTableList as $tableName)
-        {
+        foreach ($allTableList as $tableName) {
 
             $suffixName = substr($tableName, strlen($prefix));
 
             $match = false;
 
-            foreach ($acceptTableList as $filterSuffix)
-            {
+            foreach ($acceptTableList as $filterSuffix) {
                 if ($filterSuffix != $suffixName) continue;
                 $match = true;
             }
@@ -1057,8 +998,7 @@ class BaseInstaller implements Installer
 
         $listExistsTable = $master->tables();
 
-        foreach ($tables as $name => $createSql)
-        {
+        foreach ($tables as $name => $createSql) {
 
             // check condition clear table if exists
             // fresh installation only
@@ -1078,49 +1018,47 @@ class BaseInstaller implements Installer
     protected function exportChecksum()
     {
         $result = [];
-        $rootpath = realpath(Kendo_ROOT_DIR);
 
-        foreach ($this->getPathList() as $path)
-        {
-            $realpath = realpath($rootpath . DIRECTORY_SEPARATOR . $path);
+        $rootPath = realpath(KENDO_ROOT_DIR);
+
+        $includePaths = $this->getPathList();
+
+        foreach ($includePaths as $includePath) {
+
+            $includePath = realpath($rootPath . DIRECTORY_SEPARATOR . $includePath);
 
             /**
              * file is removed
              */
-            if (empty($realpath))
-            {
+            if (empty($includePath)) {
                 continue;
             }
 
-            if (is_file($realpath))
-            {
-                $key = trim(substr($realpath, strlen($rootpath)), DIRECTORY_SEPARATOR);
-                $val = sha1(file_get_contents($realpath));
+            if (is_file($includePath)) {
+                $key = $this->correctPath($includePath);
+                $val = sha1(file_get_contents($includePath));
                 $result[ $key ] = $val;
             }
 
-            if (!is_dir($realpath))
-            {
+            if (!is_dir($includePath)) {
                 continue;
             }
 
-            $directory = new \RecursiveDirectoryIterator($realpath);
+            $directory = new \RecursiveDirectoryIterator($includePath);
             $iterator = new \RecursiveIteratorIterator($directory);
 
-            foreach ($iterator as $info)
-            {
+            foreach ($iterator as $info) {
                 $pathname = $info->getPathName();
 
-                if ($info->isDir())
-                {
+                if ($info->isDir()) {
                     continue;
                 }
 
                 if ($this->isIgnored($pathname))
                     continue;
 
-                $val = sha1(file_get_contents($realpath));
-                $key = trim(substr($pathname, strlen($rootpath)), DIRECTORY_SEPARATOR);
+                $val = sha1(file_get_contents($includePath));
+                $key = $this->correctPath($pathname);
                 $result[ $key ] = $val;
             }
         }
@@ -1129,89 +1067,97 @@ class BaseInstaller implements Installer
     }
 
     /**
-     * @param $destination
      *
-     * @return string
      */
-    public function archive($destination)
+    public function archive()
     {
+        $includePaths = $this->getPathList();
+        $rootPath = realpath(KENDO_ROOT_DIR);
 
-        $destination = Kendo_ROOT_DIR . '/app/temp/package/' . $destination;
+        $destinationFilename = KENDO_TEMP_DIR . '/package/' . $this->getExportKey() . '.zip';
 
-        echo $destination;
-
-        if (!is_dir($dir = dirname($destination)))
-        {
-            if (!mkdir($dir, 0777, true))
-                throw new \RuntimeException("Could not create $dir");
+        if (file_exists($destinationFilename)) {
+            if (!@unlink($destinationFilename)) {
+                throw new \RuntimeException('Archive file "%s" exsist!');
+            }
         }
 
-        $rootpath = realpath(Kendo_ROOT_DIR);
         $zip = new \ZipArchive();
 
-        if (false == ($zip->open($destination, \ZipArchive::CREATE)))
-        {
-            throw new \RuntimeException("Could not open $destination to write");
+        if (false == ($zip->open($destinationFilename, \ZipArchive::CREATE))) {
+            throw new \RuntimeException('Can not create zip archive "%s"', $destinationFilename);
         }
 
-        foreach ($this->getPathList() as $path)
-        {
+        $fileCounter = 0;
 
-            $realpath = realpath($rootpath . DIRECTORY_SEPARATOR . $path);
+        foreach ($includePaths as $includePath) {
 
-            /**
-             * file is removed
-             */
-            if (empty($realpath))
-            {
+            $includePath = realpath($rootPath . DIRECTORY_SEPARATOR . $includePath);
+
+            if (!$includePath) continue;
+
+            if ($this->isIgnored($includePath)) continue;
+
+            if (is_file($includePath)) {
+                $temp = $this->correctPath($includePath);
+                if (!$temp) continue;
+                $zip->addFile($includePath, $temp);
+                $fileCounter++;
                 continue;
             }
 
-            if (is_file($realpath))
-            {
-                $zipLocalName = str_replace(DIRECTORY_SEPARATOR, '/', trim(substr($realpath, strlen($rootpath)), DIRECTORY_SEPARATOR));
 
-                $zip->addFile($realpath, $zipLocalName);
-                continue;
-            }
+            if (!is_dir($includePath)) continue;
 
-            if (!is_dir($realpath))
-            {
-                continue;
-            }
-
-            $directory = new \RecursiveDirectoryIterator($realpath);
+            $directory = new \RecursiveDirectoryIterator($includePath, \RecursiveDirectoryIterator::SKIP_DOTS);
             $iterator = new \RecursiveIteratorIterator($directory);
 
-            foreach ($iterator as $info)
-            {
+            foreach ($iterator as $info) {
 
                 $pathname = $info->getPathName();
 
-                $zipLocalName = str_replace(DIRECTORY_SEPARATOR, '/', trim(substr($pathname, strlen($rootpath)), DIRECTORY_SEPARATOR));
+                if ($this->isIgnored($pathname)) continue;
 
-                if (!$zipLocalName) continue;
+                $temp = $this->correctPath($pathname);
 
-                if ($this->isIgnored($pathname))
-                    continue;
+                if (!$temp) continue;
 
-                if ($info->isDir())
-                {
-                    $zip->addEmptyDir($zipLocalName);
+                if ($info->isDir()) {
+                    $zip->addEmptyDir($temp);
                 }
-
-                if ($info->isFile())
-                {
-                    $zip->addFile($pathname, $zipLocalName);
+                if ($info->isFile()) {
+                    $fileCounter++;
+                    $zip->addFile($pathname, $temp);
                 }
             }
         }
 
         $zip->close();
 
-        @chmod($destination, 0777);
 
-        return $destination;
+        if (0 == $fileCounter) {
+            throw new \RuntimeException("Unexpected pathList options, there no files.");
+        }
+
+        if (!file_exists($destinationFilename)) {
+            throw new \RuntimeException(sprintf('Could not create "%s"', $destinationFilename));
+        }
+
+        @chmod($destinationFilename, 0777);
+
+        return true;
+    }
+
+    /**
+     * For performance, please ensure $pathname and $rootpath is result of realpath() call
+     *
+     * @param string $pathname
+     *
+     * @return string
+     */
+    public function correctPath($pathname)
+    {
+        return substr($pathname, strlen($this->getRootDir()));
     }
 
     /**
@@ -1221,12 +1167,96 @@ class BaseInstaller implements Installer
      */
     public function isIgnored($pathname)
     {
-        foreach ($this->ignoreList as $ignore)
-        {
+        foreach ($this->ignoreList as $ignore) {
             if (strpos($pathname, $ignore))
                 return true;
         }
 
         return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRootDir()
+    {
+        if (null == $this->rootDir) {
+            $this->rootDir = realpath(KENDO_ROOT_DIR);
+        }
+
+        return $this->rootDir;
+    }
+
+    /**
+     * @param $destination
+     *
+     * @return bool
+     */
+    protected function validateDestination($destination)
+    {
+        $dir = dirname($destination);
+
+        if (file_exists($destination)) {
+            if (!@unlink($destination)) {
+                throw new \RuntimeException("Could not overwrite $destination");
+            }
+        }
+
+        if (!is_dir($dir)) {
+            if (!@mkdir($dir)) {
+                throw new \InvalidArgumentException("Could not open $dir to build compress file.");
+            }
+            @chmod($dir, 0777);
+        }
+
+        return true;
+    }
+
+    /**
+     * @param string $filename
+     * @param string $destinationDirectory
+     */
+    public function extractZip($filename, $destinationDirectory)
+    {
+
+        if (!file_exists($filename) or !is_readable($filename)) {
+            throw new \InvalidArgumentException('Unexpected filename "%s" ', $filename);
+        }
+
+        $this->ensureDirectoryExistsAndEmpty($destinationDirectory);
+
+        $zip = new \ZipArchive();
+        $zip->open($filename);
+        $zip->extractTo($destinationDirectory);
+        $zip->close();
+    }
+
+    /**
+     * @param $destination
+     */
+    public function ensureDirectoryExistsAndEmpty($destination)
+    {
+        if (!is_dir($destination)) return;
+
+        $directory = new \RecursiveDirectoryIterator($destination, \RecursiveDirectoryIterator::SKIP_DOTS);
+        $iterator = new \RecursiveIteratorIterator($directory, \RecursiveIteratorIterator::CHILD_FIRST);
+
+        foreach ($iterator as $info) {
+            $pathname = $info->getPathName();
+
+            if ($info->isDir()) {
+                if (!@rmdir($pathname)) {
+                    throw new \InvalidArgumentException("Could not remove $pathname");
+                }
+            }
+
+            if ($info->isFile()) {
+                if (!@unlink($pathname)) {
+                    throw new \InvalidArgumentException("Could not remove $pathname");
+                }
+            }
+
+        }
+        @rmdir($destination);
     }
 }

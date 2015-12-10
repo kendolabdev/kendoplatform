@@ -829,13 +829,13 @@ class Browser
      * @param  array  $arguments
      *
      * @return mixed
-     * @throws BadMethodCallException when the method doesn't exist and doesn't start with 'is'
+     * @throws \BadMethodCallException when the method doesn't exist and doesn't start with 'is'
      */
     public function __call($name, $arguments)
     {
 // make sure the name starts with 'is', otherwise
         if (substr($name, 0, 2) !== 'is') {
-            throw new BadMethodCallException("No such method exists: $name");
+            throw new \BadMethodCallException("No such method exists: $name");
         }
 
         $this->setDetectionType(self::DETECTION_TYPE_MOBILE);

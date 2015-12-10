@@ -41,16 +41,4 @@ class Manager
     {
         $this->vars[ $key ] = $value;
     }
-
-    /**
-     * @param array $pairs array (key=>value)
-     *
-     * @return void
-     */
-    public function setAll(array $pairs)
-    {
-        foreach ($pairs as $key => $value) {
-            $this->vars[ $key ] = $value;
-        }
-    }
 }

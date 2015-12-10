@@ -9,5 +9,8 @@
     "intervention/image": "~2.3",
     "omnipay/paypal": "~2.0",
     "twig/twig": "^1.22"
+  },
+  "require-dev": {
+    "fzaninotto/faker": "^1.5"
   }
 }

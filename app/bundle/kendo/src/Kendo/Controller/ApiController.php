@@ -2,7 +2,8 @@
 
 namespace Kendo\Controller;
 
-use Kendo\Request\Request;
+use Kendo\Request\HttpRequest;
+use Kendo\Request\RequestInterface;
 use Kendo\View\View;
 
 /**
@@ -20,14 +21,14 @@ class ApiController implements Controller
     protected $view;
 
     /**
-     * @var Request
+     * @var HttpRequest
      */
     protected $request;
 
     /**
-     * @param Request $request
+     * @param HttpRequest $request
      */
-    public function __construct(Request $request)
+    public function __construct(HttpRequest $request)
     {
         $this->setRequest($request);
         $this->setView(null);
@@ -53,7 +54,7 @@ class ApiController implements Controller
     }
 
     /**
-     * @return Request
+     * @return RequestInterface
      */
     public function getRequest()
     {
@@ -61,7 +62,7 @@ class ApiController implements Controller
     }
 
     /**
-     * @param Request $request
+     * @param RequestInterface $request
      */
     public function setRequest($request)
     {

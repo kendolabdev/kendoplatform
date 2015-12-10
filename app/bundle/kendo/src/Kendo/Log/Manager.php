@@ -2,6 +2,7 @@
 
 namespace Kendo\Log;
 
+
 /**
  * Class Manager
  *
@@ -10,16 +11,34 @@ namespace Kendo\Log;
 class Manager
 {
 
+    /**
+     *
+     */
     const LOG = 'LOG';
 
+    /**
+     *
+     */
     const DEBUG = 'DEBUG';
 
+    /**
+     *
+     */
     const INFO = 'INFO';
 
+    /**
+     *
+     */
     const WARN = 'WARNING';
 
+    /**
+     *
+     */
     const CRIT = 'CRITICAL';
 
+    /**
+     *
+     */
     const NOTICE = 'NOTICE';
 
     /**
@@ -38,11 +57,21 @@ class Manager
     protected $configs = [];
 
     /**
+     * @codeCoverageIgnore
+     *
      * @ignore
      */
     public function __construct()
     {
-        $this->configs = include Kendo_CONFIG_DIR . '/log.inc.php';
+        $configFilename = KENDO_CONFIG_DIR . '/log.inc.php';
+
+        if (file_exists($configFilename)) {
+            $this->configs = include "$configFilename";
+        } else {
+            $this->configs = [
+                'default' => ['driver' => 'file']
+            ];
+        }
     }
 
     /**
@@ -59,12 +88,12 @@ class Manager
     }
 
     /**
-     * @param string $name
-     * @param Driver $writer
+     * @param string          $name
+     * @param WriterInterface $writer
      *
      * @return Manager
      */
-    public function setDriver($name, Driver $writer)
+    public function setDriver($name, WriterInterface $writer)
     {
         $this->writers[ $name ] = $writer;
 
@@ -87,7 +116,7 @@ class Manager
     /**
      * @param null $name
      *
-     * @return Driver
+     * @return WriterInterface
      */
     public function getDriver($name = null)
     {
@@ -100,7 +129,13 @@ class Manager
             if (!isset($this->configs[ $name ])) {
                 $this->writers[ $name ] = $this->createDriver('stream', []);
             } else {
-                $this->writers[ $name ] = $this->createDriver($this->configs[ $name ]['driver'], $this->configs[ $name ]['params']);
+
+                $config = array_merge([
+                    'driver' => 'file',
+                    'params' => []
+                ], $this->configs[ $name ]);
+
+                $this->writers[ $name ] = $this->createDriver($config['driver'], $config['params']);
             }
         }
 
@@ -127,18 +162,19 @@ class Manager
      * @param string $driver
      * @param array  $params
      *
-     * @return Driver
+     * @return WriterInterface
      */
-    public function createDriver($driver, $params)
+    public function createDriver($driver, $params = [])
     {
         switch ($driver) {
             case 'stream':
             case 'file':
-                return new FileDriver($params);
+            case 'filesystem':
+                return new FileWriter($params);
             case 'database':
             case 'db':
             case 'mysqli':
-                return new DbDriver($params);
+                return new DbWriter($params);
             default:
                 throw new \InvalidArgumentException(sprintf('driver "%s" does not supported', $driver));
         }

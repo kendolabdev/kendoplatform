@@ -266,6 +266,9 @@ class Route implements RouteInterface
         $matched = false;
 
         foreach ($this->filters as $filter) {
+
+            if (!$filter instanceof FilterInterface) continue;
+
             if (false != ($result = $filter->filter($params))) {
                 $matched = true;
                 if ($filter->isChain()) {
@@ -386,10 +389,10 @@ class Route implements RouteInterface
             }
 
             // Clean up the host and prepend it to the URI
-            $uri = rtrim($host, '/') . '/' . Kendo_BASE_DIR . $uri . $queryString;
+            $uri = rtrim($host, '/') . '/' . KENDO_BASE_DIR . $uri . $queryString;
         }
 
-        return Kendo_BASE_URL . $uri . $queryString;
+        return KENDO_BASE_URL . $uri . $queryString;
     }
 
     /**

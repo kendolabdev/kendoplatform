@@ -11,9 +11,9 @@ class Manager
 {
 
     /**
-     * @var Desc
+     * @var Description
      */
-    private $_description;
+    private $description;
 
     /**
      * @var Title
@@ -55,10 +55,6 @@ class Manager
      */
     private $_requirejs;
 
-    /**
-     * @var \Kendo\Assets\Breadcrum
-     */
-    private $_breadCrumb;
 
     /**
      * Constructor
@@ -68,13 +64,12 @@ class Manager
         $this->_title = new Title();
         $this->_meta = new Meta();
         $this->_link = new Link();
-        $this->_description = new Desc();
+        $this->description = new Description();
         $this->_headScript = new Script();
         $this->_script = new Script();
         $this->_headJs = new JsFile();
         $this->_js = new JsFile();
         $this->_requirejs = new Requirejs();
-        $this->_breadCrumb = new Breadcrum();
     }
 
 
@@ -148,14 +143,14 @@ class Manager
      */
     public function header()
     {
-        \App::hook()
+        \App::hookService()
             ->notify('onBeforeRenderAssetsHeader', $this);
 
         $response = [];
 
         $accepts = [
             $this->_title,
-            $this->_description,
+            $this->description,
             $this->_meta,
             $this->_link,
             $this->_headScript,
@@ -201,7 +196,7 @@ class Manager
      */
     public function getUrl($path)
     {
-        return Kendo_BASE_URL . $path;
+        return KENDO_BASE_URL . $path;
     }
 
     /**
@@ -224,26 +219,6 @@ class Manager
     public function title()
     {
         return $this->_title;
-    }
-
-    /**
-     * @param array $vars
-     *
-     * @return Manager
-     */
-    public function setBreadcrumb($vars)
-    {
-        $this->_breadCrumb->setVars($vars);
-
-        return $this;
-    }
-
-    /**
-     * @return Breadcrum
-     */
-    public function breadcrum()
-    {
-        return $this->_breadCrumb;
     }
 
     /**
@@ -275,18 +250,18 @@ class Manager
      */
     public function setDescription($description)
     {
-        $this->description()
+        $this->getDescription()
             ->setVars($description);
 
         return $this;
     }
 
     /**
-     * @return Desc
+     * @return Description
      */
-    public function description()
+    public function getDescription()
     {
-        return $this->_description;
+        return $this->description;
     }
 
     /**

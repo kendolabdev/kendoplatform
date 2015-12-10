@@ -288,7 +288,7 @@ class Requirejs implements Collection {
      * @return string
      */
     public function renderConfig() {
-        \App::hook()
+        \App::hookService()
             ->notify('onRequirejsRender', $this);
 
         $config = [
@@ -311,7 +311,7 @@ class Requirejs implements Collection {
      */
     public function getBaseUrl() {
         if (null == $this->_baseUrl) {
-            $this->_baseUrl = Kendo_BASE_URL . 'static/';
+            $this->_baseUrl = KENDO_BASE_URL . 'static/';
         }
 
         return $this->_baseUrl;

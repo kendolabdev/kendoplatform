@@ -19,7 +19,7 @@ class SqlSelect implements Sql
     /**
      *
      */
-    const COUNT_NAME = 'Kendo_total_count';
+    const COUNT_NAME = 'KENDO_total_count';
     /**
      *
      */

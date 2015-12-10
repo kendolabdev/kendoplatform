@@ -2,9 +2,9 @@
 
 /* code generator */
 
-namespace {namespace}\Service;
+namespace {namespace}\{moduleName}\Service;
 
-use Picaso\Package\ModuleInstaller;
+use Kendo\Package\ModuleInstaller;
 
 /**
  * Class InstallerService
@@ -16,7 +16,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-base-{moduleName}';
+    protected $exportKey = 'module-{namespaceDir}-{moduleDir}';
 
     /**
      * @var array

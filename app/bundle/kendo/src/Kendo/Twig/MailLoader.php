@@ -11,7 +11,7 @@ class MailLoader implements \Twig_LoaderInterface
     /**
      * @param string $name
      *
-     * @return \Phrase\Service\PhraseService
+     * @return \Platform\Phrase\Service\PhraseService
      */
     public function getSource($name)
     {

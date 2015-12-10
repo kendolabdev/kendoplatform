@@ -19,30 +19,25 @@ class PlatformInstaller extends BaseInstaller
      */
     public function __construct()
     {
-        $this->moduleList = \App::table('core.core_extension')
+        $this->moduleList = \App::table('platform_core_extension')
             ->select()
             ->where('is_system=?', 1)
             ->where('extension_type=?', 'module')
             ->order('load_order', 1)
             ->fields('name');
 
-        foreach ($this->moduleList as $moduleName)
-        {
-            if (\App::hasService($installerServiceName = $moduleName . '.installer'))
-            {
+        foreach ($this->moduleList as $moduleName) {
+            if (\App::hasService($installerServiceName = $moduleName . '_installer')) {
                 $installerService = \App::service($installerServiceName);
 
-                if (!$installerService instanceof ModuleInstaller)
-                {
+                if (!$installerService instanceof ModuleInstaller) {
                     throw new \RuntimeException("Module Installer must be child class of PackageInstaller");
                 }
 
-                foreach ($installerService->getTableList() as $tableName)
-                {
+                foreach ($installerService->getTableList() as $tableName) {
                     $this->tableList[] = $tableName;
                 }
-                foreach ($installerService->getPathList() as $pathName)
-                {
+                foreach ($installerService->getPathList() as $pathName) {
                     $this->pathList[] = $pathName;
                 }
             }
@@ -53,15 +48,14 @@ class PlatformInstaller extends BaseInstaller
          * export theme lists
          */
         $this->themeList = [];
-        $themes = \App::table('core.core_extension')
+        $themes = \App::table('platform_core_extension')
             ->select()
             ->where('is_system=?', 1)
             ->where('extension_type=?', 'theme')
             ->order('load_order', 1)
             ->fields('name');
 
-        foreach ($themes as $themeName)
-        {
+        foreach ($themes as $themeName) {
             $this->themeList[] = substr($themeName, strlen('theme_'));
         }
     }

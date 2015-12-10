@@ -18,9 +18,18 @@ interface PagingInterface
 
 
     /**
+     * Get total items of paging, Not current item count
+     *
      * @return int
      */
     public function count();
+
+    /**
+     * Get item count for current page.
+     *
+     * @return int
+     */
+    public function itemCount();
 
     /**
      * @return int

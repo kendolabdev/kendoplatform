@@ -46,7 +46,7 @@ class CacheFilesystem implements CacheInterface
             $this->lifetime = 0;
 
         if (!$directory)
-            $directory = Kendo_TEMP_DIR . '/cache';
+            $directory = KENDO_TEMP_DIR . '/cache';
 
 
 

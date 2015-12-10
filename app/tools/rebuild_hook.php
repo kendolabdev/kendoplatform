@@ -4,7 +4,7 @@ include '../init.php';
 
 \App::coreService()
     ->hook()
-    ->scanHookFromEnableModulesThenImportToDatabase();
+    ->scanHookFromEnableModulesThenImportToRepository();
 
 echo 'Rebuild hook: DONE', PHP_EOL;
 

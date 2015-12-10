@@ -70,7 +70,7 @@ class FilterProfileSlug implements FilterInterface
      */
     public function filter($params)
     {
-        if (defined('Kendo_INSTALLER'))
+        if (defined('KENDO_INSTALLER'))
             return false;
 
         $token = $this->getToken();

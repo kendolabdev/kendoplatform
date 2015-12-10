@@ -2,11 +2,11 @@
 namespace Kendo\Session;
 
 /**
- * Class NoneDriver
+ * Class NoneSaveHandler
  *
  * @package Kendo\Session
  */
-class NoneDriver implements \SessionHandlerInterface
+class NoneSaveHandler implements \SessionHandlerInterface
 {
     /**
      * PHP >= 5.4.0<br/>

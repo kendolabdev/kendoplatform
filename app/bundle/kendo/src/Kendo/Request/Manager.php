@@ -11,7 +11,7 @@ class Manager
 {
 
     /**
-     * @var Request
+     * @var RequestInterface
      */
     private $initiator;
 
@@ -104,7 +104,7 @@ class Manager
     }
 
     /**
-     * @param Request $initiator
+     * @param RequestInterface $initiator
      */
     public function setInitiator($initiator)
     {
@@ -112,18 +112,17 @@ class Manager
     }
 
     /**
-     * @return Request
+     * @return RequestInterface
      */
     public function makeInitiator()
     {
-        $requestUri = substr($_SERVER['REQUEST_URI'], strlen(Kendo_BASE_DIR));
-
+        $requestMethod = empty($_SERVER['REQUEST_METHOD']) ? 'GET' : $_SERVER['REQUEST_METHOD'];
+        $requestUri = empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
+        $requestUri = substr($requestUri, strlen(KENDO_BASE_DIR));
         $request = new HttpRequest($requestUri);
-
-        $request->setMethod($_SERVER['REQUEST_METHOD']);
+        $request->setMethod($requestMethod);
 
         return $request;
-
     }
 
     /**

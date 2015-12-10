@@ -40,7 +40,7 @@ class ViewFinder
     public function __construct()
     {
         $this->paths = [
-            'default' => Kendo_TEMPLATE_DIR . '/default',
+            'default' => KENDO_TEMPLATE_DIR . '/default',
         ];
 
         if (\App::requestService()->isMobile() && !\App::requestService()->isTablet()) {
@@ -82,12 +82,12 @@ class ViewFinder
          */
         if ($this->checkMobile) {
             if (!empty($this->scripts[ $script . '.mobile' ])) {
-                return Kendo_ROOT_DIR . $this->scripts[ $script ] . '/' . $script . '.mobile' . $this->suffix;
+                return KENDO_ROOT_DIR . $this->scripts[ $script ] . '/' . $script . '.mobile' . $this->suffix;
             }
         }
 
         if (!empty($this->scripts[ $script ])) {
-            return Kendo_ROOT_DIR . $this->scripts[ $script ] . '/' . $script . $this->suffix;
+            return KENDO_ROOT_DIR . $this->scripts[ $script ] . '/' . $script . $this->suffix;
         }
 
         /**
@@ -149,7 +149,18 @@ class ViewFinder
             $paths = $this->paths;
 
         foreach ($paths as $directory) {
-            $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($directory), \RecursiveIteratorIterator::CHILD_FIRST);
+
+            /**
+             * Escape no directory
+             */
+            if (!is_dir($directory)) {
+                continue;
+            }
+
+            $recursiveDirectoryIterator = new \RecursiveDirectoryIterator($directory);
+            $iteratorMode  = \RecursiveIteratorIterator::CHILD_FIRST;
+
+            $iterator = new \RecursiveIteratorIterator($recursiveDirectoryIterator, $iteratorMode);
 
             foreach ($iterator as $info) {
                 if (!$info->isFile()) continue;
@@ -162,7 +173,7 @@ class ViewFinder
 
                 if (!empty($files[ $script ])) continue;
 
-                $files[ $script ] = substr($directory, strlen(Kendo_ROOT_DIR));
+                $files[ $script ] = substr($directory, strlen(KENDO_ROOT_DIR));
             }
         }
 

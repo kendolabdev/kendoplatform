@@ -227,7 +227,7 @@ class Translator
         $value = ucfirst(str_replace('_', ' ', $name));
 
         try {
-            $entry = \App::table('phrase')
+            $entry = \App::table('platform_phrase')
                 ->fetchNew([
                     'phrase_group'  => $group,
                     'phrase_name'   => $name,

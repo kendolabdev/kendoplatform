@@ -2,8 +2,6 @@
 
 namespace Kendo\Application;
 
-use Core\Model\CoreExtension;
-
 /**
  * Class Manager
  *
@@ -18,6 +16,24 @@ class Manager
     private $modules = [];
 
     /**
+     * Load Bundles namespace, please excludes result Platform, Base, Kendo
+     *
+     * @return array [vendor=> [path, path test ]
+     */
+    public function loadEnableBundles()
+    {
+
+        $result = [];
+
+        /**
+         * Do not overwrite theses settings.
+         */
+        unset($result['Platform'], $result['Base'], $result['Kendo']);
+
+        return $result;
+    }
+
+    /**
      * @return array
      */
     public function getModuleOptions()
@@ -26,11 +42,11 @@ class Manager
     }
 
     /**
-     * @return \Core\Service\ExtensionService
+     * @return \Platform\Core\Service\ExtensionService
      */
     public function service()
     {
-        return \App::service('core.extension');
+        return \App::service('platform_core_extension');
     }
 
     /**
@@ -59,21 +75,18 @@ class Manager
         if (!\App::db()->isInstalled())
             return;
 
-        $data = $this->loadEnableModules();
+        $bundles = $this->loadEnableBundles();
 
         $autoload = \App::autoload();
 
-        foreach ($data as $name => $value) {
+        foreach ($bundles as $vendor => $paths) {
+            $autoload->addVendor($vendor, $paths);
+        }
 
-            $autoload->addNamespace($value['namespace'], Kendo_ROOT_DIR . $value['path']);
+        $data = $this->loadEnableModules();
 
-            $class = '\\' . $value['namespace'] . '\\Module';
-
-            $file = Kendo_ROOT_DIR . $value['path'] . '/Module.php';
-
-            include_once $file;
-
-            $this->modules[ $name ] = new $class;
+        foreach ($data as $name => $loaderName) {
+            $this->modules[ $name ] = new $loaderName();
         }
 
         // boot
@@ -82,16 +95,20 @@ class Manager
             $module->start();
         }
 
-        define('Kendo_MODULE_STARTED', true);
+        if (!defined('KENDO_MODULE_STARTED')) {
+            define('KENDO_MODULE_STARTED', true);
+        }
 
-        \App::hook()
+        \App::hookService()
             ->start();
 
         foreach ($this->modules as $module) {
             $module->complete();
         }
 
-        define('Kendo_MODULE_COMPLETED', true);
+        if (!defined('KENDO_MODULE_COMPLETED')) {
+            define('KENDO_MODULE_COMPLETED', true);
+        }
     }
 
     /**
@@ -99,9 +116,9 @@ class Manager
      */
     public function exportEnabledModulesToIncludeFile()
     {
-        $data = $this->_loadEnableModulesFromDatabase();
+        $data = $this->loadEnableModuleFromRepository();
         $content = '<?php defined("Kendo") or die("Access Denied"); return ' . var_export($data, true) . ';';
-        $filename = Kendo_CONFIG_DIR . '/module.conf.php';
+        $filename = KENDO_CONFIG_DIR . '/module.conf.php';
 
         file_put_contents($filename, $content);
     }
@@ -112,38 +129,23 @@ class Manager
      */
     public function loadEnableModules()
     {
-        if (file_exists($file = Kendo_CONFIG_DIR . '/module.conf.php'))
-            return include $file;
-
         return \App::cacheService()
             ->get(['Kendo', 'application', 'loadEnableModules'], 0, function () {
-                return $this->_loadEnableModulesFromDatabase();
+                return $this->loadEnableModuleFromRepository();
             });
     }
 
     /**
      * @return array
      */
-    public function _loadEnableModulesFromDatabase()
+    public function loadEnableModuleFromRepository()
     {
 
-        $result = [];
-
-        $items = \App::table('core.core_extension')
+        return \App::table('platform_core_extension')
             ->select()
-            ->where('is_system=1 or is_active=1', null)
+            ->where('is_system=1 OR is_active=1', null)
             ->where('extension_type=?', 'module')
             ->order('load_order', 1)
-            ->all();
-
-        foreach ($items as $item) {
-            if (!$item instanceof CoreExtension) continue;
-            $result [ $item->getName() ] = [
-                'namespace' => $item->getNamespace(),
-                'path'      => $item->getPath(),
-            ];
-        }
-
-        return $result;
+            ->toPairs('name', 'loader_name');
     }
 }

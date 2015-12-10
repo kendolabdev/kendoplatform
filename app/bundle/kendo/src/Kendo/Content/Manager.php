@@ -20,14 +20,18 @@ class Manager
     const MIN_NEXT_ID = 1000;
 
     /**
-     * @var array
+     * @var bool
      */
-    protected $models = [];
+    private $loaded = false;
 
     /**
      * @var array
      */
-    protected $tables = [];
+    protected $tables = [
+        'platform_core_extension' => '\Platform\Core\Model\ExtensionTable',
+        'platform_core_hook'      => '\Platform\Core\Model\HookTable',
+        'platform_core_type'      => '\Platform\Core\Model\TypeTable',
+    ];
 
     /**
      * @var UniqueIdInterface
@@ -42,18 +46,19 @@ class Manager
     }
 
     /**
-     * @param $alias
-     * @param $model
-     * @param $table
-     *
-     * @return $this
+     * @return boolean
      */
-    public function register($alias, $model, $table)
+    public function isLoaded()
     {
-        $this->models[ $alias ] = $model;
-        $this->tables[ $alias ] = $table;
+        return $this->loaded;
+    }
 
-        return $this;
+    /**
+     * @param boolean $loaded
+     */
+    public function setLoaded($loaded)
+    {
+        $this->loaded = $loaded;
     }
 
     /**
@@ -72,23 +77,46 @@ class Manager
     }
 
     /**
+     *
+     */
+    protected function load()
+    {
+
+        if ($this->isLoaded())
+            return;
+
+        $this->tables = \App::table('platform_core_type')
+            ->select()
+            ->toPairs('type_id', 'table_name');
+
+        $this->setLoaded(true);
+    }
+
+    /**
      * Caculate model class & Table class of specific entity type.
      *
      * @param $alias
      */
     public function fill($alias)
     {
-        $model = null;
-
-        if (false === strpos($alias, '.')) {
-            $upcase = ucfirst($alias);
-            $model = "\\{$upcase}\\Model\\{$upcase}";
-        } else {
-            $model = '\\' . str_replace(' ', '', ucwords(str_replace(['.', '_'], ['\Model\ ', ' '], $alias)));
+        if (false == $this->isLoaded()) {
+            $this->load();
         }
 
-        $this->models[ $alias ] = $model;
-        $this->tables[ $alias ] = $model . 'Table';
+        $model = null;
+
+        if (isset($this->tables[ $alias ])) {
+
+        } else {
+            if (false === strpos($alias, '.')) {
+                $upcase = ucfirst($alias);
+                $model = "\\{$upcase}\\Model\\{$upcase}";
+            } else {
+                $model = '\\' . str_replace(' ', '', ucwords(str_replace(['.', '_'], ['\Model\ ', ' '], $alias)));
+            }
+
+            $this->tables[ $alias ] = $model . 'Table';
+        }
     }
 
     /**

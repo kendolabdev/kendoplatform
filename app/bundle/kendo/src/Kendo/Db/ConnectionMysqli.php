@@ -49,6 +49,10 @@ class ConnectionMysqli implements Connection
 
         $this->connection = new \mysqli($host, $user, $password, $database, $port, $socket);
 
+        if (empty($this->connection)){
+            throw new \RuntimeException('Could not connect database');
+        }
+
         if ($this->connection->connect_errno) {
             $msg = strtr('Db connection error #:number: :msg', [
                 ':number' => $this->connection->connect_errno,
@@ -171,15 +175,19 @@ class ConnectionMysqli implements Connection
     public function query($sql)
     {
 
-        if (Kendo_DEBUG)
+        if (KENDO_DEBUG)
             \App::queryProfiler()->start($sql);
 
         $result = $this->connection->query($sql);
 
-        if (Kendo_DEBUG)
+        if (KENDO_DEBUG)
             \App::queryProfiler()->end();
 
         if (false === $result) {
+            throw new SqlException($this->getErrorMessage() . PHP_EOL . $sql);
+        }
+
+        if (null === $result) {
             throw new SqlException($this->getErrorMessage() . PHP_EOL . $sql);
         }
 

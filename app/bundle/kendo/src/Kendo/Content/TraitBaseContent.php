@@ -99,7 +99,7 @@ Trait TraitBaseContent
     }
 
     /**
-     * @return \User\Model\User
+     * @return \Platform\User\Model\User
      */
     public function getUser()
     {
@@ -200,7 +200,7 @@ Trait TraitBaseContent
     /**
      * Find associate place
      *
-     * @return \Place\Model\Place
+     * @return \Base\Place\Model\Place
      */
     public function getPlace()
     {
@@ -219,7 +219,7 @@ Trait TraitBaseContent
      */
     public function setPlace($place)
     {
-        if (!$this instanceof CanTagPlace) ;
+        if (!$this instanceof ContentInterface) ;
 
         if (!$place instanceof ContentInterface) {
             $place = \App::service('place')->tryPlace($place);
@@ -347,6 +347,17 @@ Trait TraitBaseContent
      * @param array $params
      */
     public function toHtml($params = [])
+    {
+
+    }
+
+    public function getPhotoFileId()
+    {
+        return '';
+    }
+
+
+    public function setPhotoFileId($value)
     {
 
     }

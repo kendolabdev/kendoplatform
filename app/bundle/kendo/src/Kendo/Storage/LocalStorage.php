@@ -45,7 +45,7 @@ class LocalStorage implements StorageInterface
     private function setBasePath($basePath)
     {
         if (empty($basePath)) {
-            $basePath = Kendo_PUBLIC_DIR;
+            $basePath = KENDO_PUBLIC_DIR;
         }
 
         $this->_basePath = rtrim($basePath, '/') . '/';
@@ -57,7 +57,7 @@ class LocalStorage implements StorageInterface
     private function setBaseUrl($baseUrl)
     {
         if (empty($baseUrl)) {
-            $baseUrl = Kendo_BASE_URL;
+            $baseUrl = KENDO_BASE_URL;
         }
         $this->_baseUrl = rtrim($baseUrl, '/') . '/';
     }

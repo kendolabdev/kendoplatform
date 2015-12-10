@@ -28,28 +28,27 @@ class HookEvent
     }
 
     /**
-     * @param       $key
-     * @param mixed $default
-     *
-     * @return mixed
+     * @param $payload
      */
-    public function get($key, $default = null)
+    public function setPayload($payload)
     {
-        return isset($this->payload[ $key ]) ? $this->payload[ $key ] : $default;
+        $this->payload = $payload;
     }
 
     /**
-     * @param      $value
-     * @param bool $prepend
+     * @param mixed $value
      */
-    public function addResponse($value, $prepend = false)
+    public function append($value)
     {
-        if ($prepend) {
-            array_unshift($this->response, $value);
-        } else {
-            $this->response[] = $value;
-        }
+        $this->response[] = $value;
+    }
 
+    /**
+     * @param mixed $value
+     */
+    public function prepend($value)
+    {
+        array_unshift($this->response, $value);
     }
 
     /**
@@ -69,17 +68,24 @@ class HookEvent
     }
 
     /**
+     * @param string|null $name
+     * @param string|null $defaultValue
+     *
      * @return mixed
      */
-    public function getPayload()
+    public function getPayload($name = null, $defaultValue = null)
     {
+        if (null != $name) {
+            return isset($this->payload[ $name ]) ? $this->payload[ $name ] : $defaultValue;
+        }
+
         return $this->payload;
     }
 
     /**
      * @return string
      */
-    public function getResponseHtml()
+    public function __toString()
     {
         return implode('', $this->response);
     }

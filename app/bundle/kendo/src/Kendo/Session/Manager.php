@@ -4,6 +4,13 @@ namespace Kendo\Session;
 
 /**
  * Class Manager
+ * @method open($path, $id)
+ * @method close()
+ * @method destroy($id)
+ * @method read($id)
+ * @method write($id, $data)
+ * @method gc($lifetime)
+ *
  *
  * @package Kendo\Session
  */
@@ -13,34 +20,41 @@ class Manager
     /**
      * @var \SessionHandlerInterface
      */
-    private $driver;
+    private $saveHandler;
 
     /**
      */
     public function __construct()
     {
-        $class = \App::registryService()->get('SessionHandler', '\Core\Session\FileSaveHandler');
+        $saveHandlerClassName = \App::registryService()->get('SessionHandler', '\Platform\Core\Session\FileSaveHandler');
 
-        $handler = new $class;
+        if(!class_exists($saveHandlerClassName)){
+            throw new \InvalidArgumentException('Unexpected session save handler');
+        }
 
-        if (!$handler instanceof \SessionHandlerInterface) {
+        $saveHandler = new $saveHandlerClassName;
+
+        if (!$saveHandler instanceof \SessionHandlerInterface) {
             throw new \InvalidArgumentException('Session Handler must instance of \SessionSaveHandlerInterface');
         }
 
 
         session_set_save_handler(
-            [$handler, 'open'],
-            [$handler, 'close'],
-            [$handler, 'read'],
-            [$handler, 'write'],
-            [$handler, 'destroy'],
-            [$handler, 'gc']);
+            [$saveHandler, 'open'],
+            [$saveHandler, 'close'],
+            [$saveHandler, 'read'],
+            [$saveHandler, 'write'],
+            [$saveHandler, 'destroy'],
+            [$saveHandler, 'gc']);
 
-        $this->driver = $handler;
+        $this->saveHandler = $saveHandler;
 
-        if (!session_start()) {
-            throw new \InvalidArgumentException('Could not start session.');
+        if (!headers_sent()) {
+            if (!session_start()) {
+                throw new \InvalidArgumentException('Could not start session.');
+            }
         }
+
     }
 
     /**
@@ -51,6 +65,6 @@ class Manager
      */
     public function __call($name, $arguments)
     {
-        return call_user_func_array([$this->driver, $name], $arguments);
+        return call_user_func_array([$this->saveHandler, $name], $arguments);
     }
 }

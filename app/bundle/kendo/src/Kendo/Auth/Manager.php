@@ -4,7 +4,7 @@ namespace Kendo\Auth;
 
 use Kendo\Content\ContentInterface;
 use Kendo\Content\PosterInterface;
-use User\Model\User;
+use Platform\User\Model\User;
 
 /**
  * Provide flexiable way to support login as
@@ -18,7 +18,7 @@ class Manager
 {
 
     /**
-     * @var \User\Model\User
+     * @var \Platform\User\Model\User
      */
     private $user;
 
@@ -38,19 +38,19 @@ class Manager
      * @var array
      */
     private $authTypes = [
-        'default' => '\User\Auth\AuthPassword',
-        'remote'  => '\User\Auth\AuthRemote',
+        'default' => '\Plaform\User\Auth\AuthPassword',
+        'remote'  => '\Plaform\User\Auth\AuthRemote',
     ];
 
     /**
      * @var array
      */
     private $storageTypes = [
-        'default' => '\User\Auth\AuthStorage',
+        'default' => '\Platform\User\Auth\AuthStorage',
     ];
 
     /**
-     * @return \User\Model\User
+     * @return \Platform\User\Model\User
      */
     public function getUser()
     {
@@ -58,7 +58,7 @@ class Manager
     }
 
     /**
-     * @param \User\Model\User $user
+     * @param \Platform\User\Model\User $user
      *
      * @throws AuthException
      */
@@ -106,7 +106,7 @@ class Manager
      */
     public function getUserRoleId()
     {
-        return null != $this->user ? (int)$this->user->getRoleId() : Kendo_DEFAULT_ROLE_ID;
+        return null != $this->user ? (int)$this->user->getRoleId() : KENDO_DEFAULT_ROLE_ID;
     }
 
     /**
@@ -114,7 +114,7 @@ class Manager
      */
     public function getRoleId()
     {
-        return null != $this->viewer ? (int)$this->viewer->getRoleId() : Kendo_DEFAULT_ROLE_ID;
+        return null != $this->viewer ? (int)$this->viewer->getRoleId() : KENDO_DEFAULT_ROLE_ID;
     }
 
     /**

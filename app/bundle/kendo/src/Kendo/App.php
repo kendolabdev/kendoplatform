@@ -35,8 +35,8 @@ class App
     {
         $staticUrl = \App::setting('core', 'static_base_url');
 
-        if (!$staticUrl OR defined('Kendo_DEVELOPMENT') && Kendo_DEVELOPMENT) {
-            $staticUrl = Kendo_BASE_URL;
+        if (!$staticUrl OR defined('KENDO_DEVELOPMENT') && KENDO_DEVELOPMENT) {
+            $staticUrl = KENDO_BASE_URL;
         }
 
         return $staticUrl;
@@ -52,7 +52,7 @@ class App
     }
 
     /**
-     * @return \Invitation\Service\InvitationService
+     * @return \Platform\Invitation\Service\InvitationService
      */
     public static function invitationService()
     {
@@ -60,7 +60,7 @@ class App
     }
 
     /**
-     * @return \Notification\Service\NotificationService
+     * @return \Platform\Notification\Service\NotificationService
      */
     public static function notificationService()
     {
@@ -68,7 +68,7 @@ class App
     }
 
     /**
-     * @return \Message\Service\MessageService
+     * @return \Base\Message\Service\MessageService
      */
     public static function messageService()
     {
@@ -96,7 +96,7 @@ class App
     }
 
     /**
-     * @return \Feed\Service\FeedService
+     * @return \Base\Feed\Service\FeedService
      */
     public static function feedService()
     {
@@ -104,7 +104,7 @@ class App
     }
 
     /**
-     * @return \Tag\Service\TagService
+     * @return \Base\Tag\Service\TagService
      */
     public static function tagService()
     {
@@ -138,7 +138,7 @@ class App
     }
 
     /**
-     * @return \Mail\Service\MailService
+     * @return \Platform\Mail\Service\MailService
      */
     public static function mailService()
     {
@@ -176,11 +176,23 @@ class App
     }
 
     /**
-     * @return \Acl\Service\AclService
+     * Convert string from callmel case to underscore case
+     *
+     * @param $string
+     *
+     * @return string
+     */
+    public static function underscore($string)
+    {
+        return strtolower(trim(preg_replace('/([a-z0-9])([A-Z])/', '\1_\2', $string), '-. '));
+    }
+
+    /**
+     * @return \Platform\Acl\Service\AclService
      */
     public static function aclService()
     {
-        return self::$manager->getService('acl');
+        return self::$manager->getService('platform_acl');
     }
 
     /**
@@ -233,7 +245,7 @@ class App
     }
 
     /**
-     * @return \Storage\Service\StorageService
+     * @return \Platform\Storage\Service\StorageService
      */
     public static function storageService()
     {
@@ -241,7 +253,7 @@ class App
     }
 
     /**
-     * @usages \App::table('user') <br />
+     * @usages \App::table('platform_user') <br />
      * If you want to use full class name, use \App::db()->table('\User\Model\User')
      *
      * @param string $alias
@@ -262,75 +274,75 @@ class App
     }
 
     /**
-     * @return \Link\Service\LinkService
+     * @return \Base\Link\Service\LinkService
      */
     public static function linkService()
     {
-        return self::$manager->getService('link');
+        return self::$manager->getService('platform.link');
     }
 
     /**
-     * @return \Blog\Service\BlogService
+     * @return \Base\Blog\Service\BlogService
      */
     public static function blogService()
     {
-        return self::$manager->getService('blog');
+        return self::$manager->getService('base_blog');
     }
 
     /**
-     * @return \Core\Service\CoreService
+     * @return \Platform\Core\Service\CoreService
      */
     public static function coreService()
     {
-        return self::$manager->getService('core');
+        return self::$manager->getService('platform_core');
     }
 
     /**
-     * @return \Group\Service\GroupService
+     * @return \Base\Group\Service\GroupService
      */
     public static function groupService()
     {
-        return self::$manager->getService('group');
+        return self::$manager->getService('base_group');
     }
 
     /**
-     * @return \Video\Service\VideoService
+     * @return \Base\Video\Service\VideoService
      */
     public static function videoService()
     {
-        return self::$manager->getService('video');
+        return self::$manager->getService('base.video');
     }
 
     /**
-     * @return \Photo\Service\PhotoService
+     * @return \Platform\Photo\Service\PhotoService
      */
     public static function photoService()
     {
-        return self::$manager->getService('photo');
+        return self::$manager->getService('base.photo');
     }
 
     /**
-     * @return \Page\Service\PageService
+     * @return \Base\Page\Service\PageService
      */
     public static function pageService()
     {
-        return self::$manager->getService('page');
+        return self::$manager->getService('base.page');
     }
 
     /**
-     * @return \Event\Service\EventService
+     * @return \Base\Event\Service\EventService
      */
     public static function eventService()
     {
-        return self::$manager->getService('event');
+        return self::$manager->getService('base.event');
     }
 
     /**
-     * @return \User\Service\UserService
+     * @return \Platform\User\Service\UserService
      */
     public static function userService()
     {
-        return self::$manager->getService('user');
+        return self::$manager->getService('platform.user');
     }
 
     /**
@@ -348,21 +360,21 @@ class App
     }
 
     /**
-     * @return \Captcha\Service\CaptchaService
+     * @return \Platform\Captcha\Service\CaptchaService
      */
     public static function captchaService()
     {
-        return \App::service('captcha');
+        return \App::service('platform_captcha');
     }
 
     /**
      * Get site setting service
      *
-     * @return \Setting\Service\SettingService
+     * @return \Platform\Setting\Service\SettingService
      */
     public static function settingService()
     {
-        return self::$manager->getService('setting');
+        return self::$manager->getService('platform_setting');
     }
 
     /**
@@ -404,7 +416,7 @@ class App
     }
 
     /**
-     * @return \Help\Service\HelpService
+     * @return \Base\Help\Service\HelpService
      */
     public static function helpService()
     {
@@ -412,7 +424,7 @@ class App
     }
 
     /**
-     * @return \Like\Service\LikeService
+     * @return \Base\Like\Service\LikeService
      */
     public static function likeService()
     {
@@ -420,7 +432,7 @@ class App
     }
 
     /**
-     * @return \Follow\Service\FollowService
+     * @return \Base\Follow\Service\FollowService
      */
     public static function followService()
     {
@@ -428,15 +440,15 @@ class App
     }
 
     /**
-     * @return \Phrase\Service\PhraseService
+     * @return \Platform\Phrase\Service\PhraseService
      */
     public static function phraseService()
     {
-        return self::$manager->getService('phrase');
+        return self::$manager->getService('platform_phrase');
     }
 
     /**
-     * @return \Comment\Service\CommentService
+     * @return \Base\Comment\Service\CommentService
      */
     public static function commentService()
     {
@@ -444,7 +456,7 @@ class App
     }
 
     /**
-     * @return \Search\Service\SearchService
+     * @return \Platform\Search\Service\SearchService
      */
     public function searchService()
     {
@@ -452,7 +464,7 @@ class App
     }
 
     /**
-     * @return \Share\Service\ShareService
+     * @return \Base\Share\Service\ShareService
      */
     public static function shareService()
     {
@@ -462,7 +474,7 @@ class App
     /**
      * @return \Kendo\Hook\Manager
      */
-    public static function hook()
+    public static function hookService()
     {
         return self::$manager->getService('hook');
     }
@@ -516,11 +528,11 @@ class App
     }
 
     /**
-     * @return \Navigation\Service\NavigationService
+     * @return \Platform\Navigation\Service\NavigationService
      */
     public static function navigationService()
     {
-        return self::$manager->getService('navigation');
+        return self::$manager->getService('platform_navigation');
     }
 
     /**
@@ -540,14 +552,14 @@ class App
      */
     public static function text($msgId, $data = null, $count = null)
     {
-        if (defined('Kendo_INSTALLATION'))
+        if (defined('KENDO_INSTALLATION'))
             return $msgId;
 
         return self::i18n()->getTranslator()->text($msgId, $data, $count);
     }
 
     /**
-     * @return \Layout\Service\LayoutService
+     * @return \Platform\Layout\Service\LayoutService
      */
     public static function layoutService()
     {
@@ -585,7 +597,7 @@ class App
     }
 
     /**
-     * @return \Core\Service\ValueService
+     * @return \Platform\Core\Service\ValueService
      */
     public static function values()
     {
@@ -610,7 +622,7 @@ class App
     }
 
     /**
-     * @return \Relation\Service\RelationService
+     * @return \Platform\Relation\Service\RelationService
      */
     public static function relationService()
     {
@@ -634,7 +646,7 @@ class App
     }
 
     /**
-     * @return Social\Service\SocialService
+     * @return \Base\Social\Service\SocialService
      */
     public static function socialService()
     {
@@ -642,7 +654,7 @@ class App
     }
 
     /**
-     * @return \Core\Service\AggregateService
+     * @return \Platform\Core\Service\AggregateService
      */
     public static function aggregate()
     {
@@ -650,7 +662,7 @@ class App
     }
 
     /**
-     * @return \Attribute\Service\AttributeService
+     * @return \Platform\Catalog\Service\CatalogService
      */
     public static function catalogService()
     {
@@ -659,7 +671,7 @@ class App
 
 
     /**
-     * @return \Report\Service\ReportService
+     * @return \Base\Report\Service\ReportService
      */
     public static function reportService()
     {
@@ -673,7 +685,6 @@ class App
     {
         return self::$manager->getService('query_profiler');
     }
-
 }
 
 

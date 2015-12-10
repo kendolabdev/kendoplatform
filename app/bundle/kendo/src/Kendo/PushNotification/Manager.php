@@ -61,10 +61,10 @@ class Manager
     }
 
     /**
-     * @param string $name
-     * @param Driver $driver
+     * @param                     $name
+     * @param PushSenderInterface $driver
      */
-    public function setDriver($name, Driver $driver)
+    public function setDriver($name, PushSenderInterface $driver)
     {
 
         $this->drivers[ $name ] = $driver;
@@ -132,7 +132,7 @@ class Manager
      * @param       $name
      * @param array $params
      *
-     * @return APNDriver|GCMDriver
+     * @return PushSenderInterface
      * @throws PushException
      */
     private function createDriver($name, $params = [])
@@ -142,13 +142,13 @@ class Manager
             case 'google':
             case 'gcm':
             case 'android':
-                return new GCMDriver($params);
+                return new GoogleSender($params);
             case 'apn':
             case 'apple':
             case 'iphone':
             case 'ipad':
             case 'ios':
-                return new APNDriver($params);
+                return new AppleSender($params);
             default:
                 throw new PushException("Driver does not support");
 

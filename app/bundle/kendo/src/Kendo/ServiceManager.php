@@ -35,9 +35,9 @@ class ServiceManager
             'i18n'           => '\Kendo\I18n\Manager',
             'phrase'         => '\Phrase\Service\PhraseService',
             'content'        => '\Kendo\Content\Manager',
-            'acl'            => '\Acl\Service\AclService',
-            'help'           => '\Help\Service\HelpService',
-            'setting'        => '\Setting\Service\SettingService',
+            'acl'            => '\Platform\Acl\Service\AclService',
+            'help'           => '\Base\Help\Service\HelpService',
+            'setting'        => '\Platform\Setting\Service\SettingService',
             'request'        => '\Kendo\Request\Manager',
             'pusher'         => '\Kendo\PushNotification\Manager',
             'hook'           => '\Kendo\Hook\Manager',
@@ -48,13 +48,13 @@ class ServiceManager
             'assets'         => '\Kendo\Assets\Manager',
             'navigation'     => '\Navigation\Service\NavigationService',
             'html'           => '\Kendo\Html\Manager',
-            'layout'         => '\Layout\Service\LayoutService',
+            'layout'         => '\Platform\Layout\Service\LayoutService',
             'registry'       => '\Kendo\Registry\Manager',
             'image'          => '\Kendo\Image\Manager',
-            'storage'        => '\Storage\Service\StorageService',
+            'storage'        => '\Platform\Storage\Service\StorageService',
             'auth'           => '\Kendo\Auth\Manager',
-            'user'           => '\User\Service\UserService',
-            'relation'       => '\Relation\Service\RelationService',
+            'user'           => '\Platform\User\Service\UserService',
+            'relation'       => '\Platform\Relation\Service\RelationService',
             'paging'         => '\Kendo\Paging\Manager',
             'validator'      => '\Kendo\Validator\Manager',
             'sass'           => '\Kendo\Sass\Manager',
@@ -82,6 +82,10 @@ class ServiceManager
         if (!isset($this->services[ $name ])) {
 
             $class = $this->getServiceClassName($name);
+
+            if(!class_exists($class)){
+                throw new \InvalidArgumentException("Missing class ". $class);
+            }
 
             $service = new $class();
 
@@ -118,15 +122,17 @@ class ServiceManager
         if (!empty($this->classes[ $name ]))
             return $this->classes[ $name ];
 
+        $arr = explode('_', $name, 3);
 
-        if (false === strpos($name, '.')) {
-            $temp = ucfirst($name);
-            $class = "\\{$temp}\\Service\\{$temp}Service";
-        } else {
-            $class = '\\' . str_replace(' ', '', ucwords(str_replace(['.', '_'], ['\Service\ ', ' '], $name))) . 'Service';
+        $vendor = ucfirst($arr[0]);
+        $module = ucfirst($arr[1]);
+
+        if (count($arr) == 2) {
+            return '\\' . $vendor . "\\{$module}\\Service\\{$module}Service";
         }
 
-        return $class;
+        return '\\' . $vendor . '\\'.$module.'\\Service\\'. str_replace(' ', '', ucwords(str_replace(['.', '_'], ['\Service\ ', ' '], $arr[2]))) . 'Service';
+
     }
 
     /**

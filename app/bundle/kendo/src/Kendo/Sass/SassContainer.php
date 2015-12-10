@@ -216,4 +216,9 @@ class SassContainer
         return $this;
     }
 
+    public function addContent($content)
+    {
+        $this->content .= PHP_EOL . $content;
+    }
+
 }

@@ -154,7 +154,7 @@ class Manager
 
         return \App::cacheService()
             ->get(['Kendo', 'hook', 'loadAllEvents'], 0, function () {
-                return $this->_loadAllHookEventFromDatabase();
+                return $this->loadAllHookEventFromRepository();
             });
     }
 
@@ -162,11 +162,11 @@ class Manager
     /**
      * @return array
      */
-    public function _loadAllHookEventFromDatabase()
+    public function loadAllHookEventFromRepository()
     {
         $result = [];
 
-        $items = \App::table('core.core_hook')
+        $items = \App::table('platform_core_hook')
             ->select()
             ->where('module_name IN ?', \App::extensions()->getActiveModuleNames())
             ->order('event_name, load_order', 1)

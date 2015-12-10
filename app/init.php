@@ -7,35 +7,30 @@
 
 /**
  * Security check constant. <br/>
- * defined('PICASO') or die("Access denied.");
+ * defined('KENDO') or die("Access denied.");
  */
-define('PICASO', true);
+define('KENDO', true);
 
 /**
  * Check required version php
  */
-if (version_compare(phpversion(), '5.4.0', '<'))
-{
+if (version_compare(phpversion(), '5.4.0', '<')) {
     exit('Required at least php 5.4');
 }
 
 /**
  * Include general config
  */
-if (!file_exists('config/general.conf.php'))
-{
+if (!file_exists('config/general.conf.php')) {
     include 'config/general.conf.php';
-} else
-{
+} else {
     include 'config/general.conf.php';
 }
 
 
 // for debug only
-register_shutdown_function(function ()
-{
-    if (null != ($err = error_get_last()))
-    {
+register_shutdown_function(function () {
+    if (null != ($err = error_get_last())) {
         echo json_encode($err);
     }
 });
@@ -44,12 +39,12 @@ register_shutdown_function(function ()
 /**
  * Is in command line mode
  */
-define('PICASO_CLI', PHP_SAPI === 'cli');
+define('KENDO_CLI', PHP_SAPI === 'cli');
 
 /**
  * enabled disabled debug mode
  */
-define('PICASO_DEBUG', true);
+define('KENDO_DEBUG', true);
 
 
 /**
@@ -63,15 +58,12 @@ date_default_timezone_set('UTC');
  *
  * @link http://php.net/manual/en/ini.core.php#ini.default-charset
  */
-if (version_compare(PHP_VERSION, '5.6', '<'))
-{
-    if (function_exists('mb_internal_encoding'))
-    {
+if (version_compare(PHP_VERSION, '5.6', '<')) {
+    if (function_exists('mb_internal_encoding')) {
         mb_internal_encoding("UTF-8");
     }
 
-    if (function_exists('iconv_set_encoding'))
-    {
+    if (function_exists('iconv_set_encoding')) {
         // Not sure if we want to do all of these
         iconv_set_encoding("input_encoding", "UTF-8");
         iconv_set_encoding("output_encoding", "UTF-8");
@@ -93,54 +85,54 @@ error_reporting(E_ALL & E_STRICT & E_NOTICE & E_WARNING);
  *
  * @var string 'YYYY-MM-DD HH:ii:ss'
  */
-define('PICASO_DATE_TIME', date('Y-m-d H:i:s'));
+define('KENDO_DATE_TIME', date('Y-m-d H:i:s'));
 
 /**
  * Define picaso charset
  * value utf8
  */
-define('PICASO_CHARSET', 'utf8');
+define('KENDO_CHARSET', 'utf8');
 
 /**
  * Kendo default language "en"
  */
-define('PICASO_LANGUAGE', 'en');
+define('KENDO_LANGUAGE', 'en');
 
 /**
  * @var int
  */
-define('PICASO_START_TIME', microtime(true));
+define('KENDO_START_TIME', microtime(true));
 
 /**
  * ./
  * @var string
  */
-defined('PICASO_ROOT_DIR') or define('PICASO_ROOT_DIR', dirname(dirname(__FILE__)));
+defined('KENDO_ROOT_DIR') or define('KENDO_ROOT_DIR', dirname(dirname(__FILE__)));
 
 /**
  * ./include
  *
  * @var string
  */
-defined('PICASO_CONFIG_DIR') or define('PICASO_CONFIG_DIR', PICASO_ROOT_DIR . '/app/config');
+defined('KENDO_CONFIG_DIR') or define('KENDO_CONFIG_DIR', KENDO_ROOT_DIR . '/app/config');
 
 
 /**
  * Static Directory
  */
-define('PICASO_STATIC_DIR', PICASO_ROOT_DIR . '/static');
+define('KENDO_STATIC_DIR', KENDO_ROOT_DIR . '/static');
 
 /**
  *
  */
-defined('PICASO_TEMPLATE_DIR') or define('PICASO_TEMPLATE_DIR', PICASO_ROOT_DIR . '/app/template');
+defined('KENDO_TEMPLATE_DIR') or define('KENDO_TEMPLATE_DIR', KENDO_ROOT_DIR . '/app/template');
 
 /**
  * Directory separator
  *
  * @var string
  */
-defined('define') or define('PICASO_DS', DIRECTORY_SEPARATOR);
+defined('define') or define('KENDO_DS', DIRECTORY_SEPARATOR);
 
 
 /**
@@ -148,84 +140,84 @@ defined('define') or define('PICASO_DS', DIRECTORY_SEPARATOR);
  *
  * @var string
  */
-defined('PICASO_VENDOR_DIR') or define('PICASO_VENDOR_DIR', PICASO_ROOT_DIR . '/app/vendor');
+defined('KENDO_VENDOR_DIR') or define('KENDO_VENDOR_DIR', KENDO_ROOT_DIR . '/app/vendor');
 
 /**
  * ./public
  *
  * @var string
  */
-defined('PICASO_PUBLIC_DIR') or define('PICASO_PUBLIC_DIR', PICASO_ROOT_DIR . '/public');
+defined('KENDO_PUBLIC_DIR') or define('KENDO_PUBLIC_DIR', KENDO_ROOT_DIR . '/public');
 
 /**
  * ./temp
  *
  * @var string
  */
-defined('PICASO_TEMP_DIR') or define('PICASO_TEMP_DIR', PICASO_ROOT_DIR . '/app/temp');
+defined('KENDO_TEMP_DIR') or define('KENDO_TEMP_DIR', KENDO_ROOT_DIR . '/app/temp');
 
 /**
  * upload file
  */
-defined('PICASO_UPLOAD_DIR') or define('PICASO_UPLOAD_DIR', PICASO_TEMP_DIR . '/upload');
+defined('KENDO_UPLOAD_DIR') or define('KENDO_UPLOAD_DIR', KENDO_TEMP_DIR . '/upload');
 
 /**
  * ./module
  *
  * @var string
  */
-define('PICASO_MODULE_DIR', PICASO_ROOT_DIR . '/app/bundle');
+define('KENDO_BUNDLE_DIR', KENDO_ROOT_DIR . '/app/bundle');
 
 
 /**
  * @var int
  * Default role id
  */
-define('PICASO_DEFAULT_ROLE_ID', 4);
+define('KENDO_DEFAULT_ROLE_ID', 4);
 
 /**
  * Default role id
  *
  * @var int
  */
-define('PICASO_GUEST_ROLE_ID', 11);
+define('KENDO_GUEST_ROLE_ID', 11);
 
 /**
  * Constant of secret key, private for your application.
  * WARNING! Do not share secret key to anyone.
  */
-define('PICASO_SECRET_KEY', 'abx');
+define('KENDO_SECRET_KEY', 'abx');
 
 /**
  * Define all column name
  */
-define('PICASO_KEY_COLUMN', 'column');
+define('KENDO_KEY_COLUMN', 'column');
 
 
 /**
  * Define identity column name
  */
-define('PICASO_KEY_IDENTITY', 'identity');
+define('KENDO_KEY_IDENTITY', 'identity');
 
 /**
  * Define primary key
  */
-define('PICASO_KEY_PRIMARY', 'primary');
+define('KENDO_KEY_PRIMARY', 'primary');
 
 /**
  * Define key driver
  */
-define('PICASO_KEY_DRIVER', 'driver');
+define('KENDO_KEY_DRIVER', 'driver');
 
 /**
  * Define Key table name
  */
-define('PICASO_KEY_TABLE', 'table');
+define('KENDO_KEY_TABLE', 'table');
 
 /**
  * Vendor autoload by composer
  */
-include_once PICASO_VENDOR_DIR . '/autoload.php';
+include_once KENDO_VENDOR_DIR . '/autoload.php';
 
 
 /**
@@ -282,6 +274,42 @@ define('RELATION_TYPE_EDITOR', 9);
  */
 define('RELATION_TYPE_CUSTOM', 100);
 
+/**
+ * Check and define unitest
+ */
+
+defined('KENDO_UNITEST') or define('KENDO_UNITEST', false);
+
+/**
+ * Log level "LOG"
+ */
+define('LOG_LEVEL_LOG', 'LOG');
+
+/**
+ * Log level "DEBUG"
+ */
+define('LOG_LEVEL_DEBUG', 'DEBUG');
+
+/**
+ * Log level "INFO"
+ */
+define('LOG_LEVEL_INFO', 'INFO');
+
+/**
+ * Log level "NOTICE"
+ */
+define('LOG_LEVEL_NOTICE', 'NOTICE');
+
+/**
+ * Log level "WARN"
+ */
+define('LOG_LEVEL_WARNING', 'WARN');
+
+/**
+ * Log level "CRIT"
+ */
+define('LOG_LEVEL_CRIT', 'CRIT');
+
 
 /**
  * Escape json string to html attribute so javascript can load directly.
@@ -292,11 +320,9 @@ define('RELATION_TYPE_CUSTOM', 100);
  */
 function _escape($string)
 {
-    if (is_array($string))
-    {
+    if (is_array($string)) {
         $string = json_encode($string);
-    } else
-    {
+    } else {
         $string = (string)$string;
     }
 
@@ -311,8 +337,7 @@ function _escape($string)
 function _htmlattrs($array)
 {
     $part = [];
-    foreach ($array as $key => $value)
-    {
+    foreach ($array as $key => $value) {
         $part[] = sprintf('%s="%s"', $key, $value);
     }
 
@@ -320,12 +345,12 @@ function _htmlattrs($array)
 }
 
 
-include_once PICASO_MODULE_DIR . '/kendo/src/Picaso/Autoload/Manager.php';
-include_once PICASO_MODULE_DIR . '/kendo/src/Picaso/Registry/Manager.php';
-include_once PICASO_MODULE_DIR . '/kendo/src/Picaso/Db/Manager.php';
-include_once PICASO_MODULE_DIR . '/kendo/src/Picaso/Session/Manager.php';
-include_once PICASO_MODULE_DIR . '/kendo/src/Picaso/ServiceManager.php';
-include_once PICASO_MODULE_DIR . '/kendo/src/Picaso/App.php';
+include_once KENDO_BUNDLE_DIR . '/kendo/src/Kendo/Autoload/Manager.php';
+include_once KENDO_BUNDLE_DIR . '/kendo/src/Kendo/Registry/Manager.php';
+include_once KENDO_BUNDLE_DIR . '/kendo/src/Kendo/Db/Manager.php';
+include_once KENDO_BUNDLE_DIR . '/kendo/src/Kendo/Session/Manager.php';
+include_once KENDO_BUNDLE_DIR . '/kendo/src/Kendo/ServiceManager.php';
+include_once KENDO_BUNDLE_DIR . '/kendo/src/Kendo/App.php';
 
 \App::load();
 
@@ -351,19 +376,13 @@ function _dump()
 }
 
 /**
- * @param $array
- * @param $name
+ * @param        $array
+ * @param        $name
  * @param string $default
+ *
  * @return string
  */
 function _array_get(&$array, $name, $default = '')
 {
     return isset($array[ $name ]) ? $array[ $name ] : $default;
 }
-
-/**
- * add package manager
- */
-\App::autoload()->addNamespaces([
-    'Core' => PICASO_MODULE_DIR . '/base/src/Core/',
-]);

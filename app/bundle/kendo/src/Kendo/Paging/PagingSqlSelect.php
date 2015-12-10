@@ -186,6 +186,12 @@ class PagingSqlSelect implements PagingInterface
         return $this->totalItemCount;
     }
 
+    public function itemCount()
+    {
+        return count($this->items());
+    }
+
+
     /**
      * @return int
      */

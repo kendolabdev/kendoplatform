@@ -3,7 +3,7 @@
 namespace Kendo\PushNotification;
 
 /**
- * Interface SenderInterface
+ * Interface PushSenderInterface
  *
  * @package Kendo\PushNotification
  */
