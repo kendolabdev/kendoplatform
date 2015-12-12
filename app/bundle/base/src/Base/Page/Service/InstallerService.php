@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Base\Page\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Base\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-base-page';
+    protected $exportKey = 'module_base_page';
 
     /**
      * @var array
@@ -31,9 +30,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/base/src/Base/Page',
-        'app/template/default/base/Page',
-        'app/theme/default/sass/base/Page',
-        'app/theme/admin/sass/base/Page',
-        'static/jscript/base/Page'
+        'app/template/default/base/page',
+        'app/theme/default/sass/base/page',
+        'app/theme/admin/sass/base/page',
+        'static/jscript/base/page'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'base_page'
     ];
 }

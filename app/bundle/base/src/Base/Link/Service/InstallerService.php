@@ -1,22 +1,21 @@
 <?php
-
-/* code generator */
-
 namespace Base\Link\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
- * @package Platform\Service
+ * @package Base\Service
  */
 class InstallerService extends ModuleInstaller
 {
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-link';
+    protected $exportKey = 'module_base_link';
 
     /**
      * @var array
@@ -29,10 +28,17 @@ class InstallerService extends ModuleInstaller
      * @var array
      */
     protected $pathList = [
-        'app/bundle/platform/src/Platform/Link',
-        'app/template/default/platform/Link',
-        'app/theme/default/sass/platform/Link',
-        'app/theme/admin/sass/platform/Link',
-        'static/jscript/platform/Link'
+        'app/bundle/base/src/Base/Link',
+        'app/template/default/base/link',
+        'app/theme/default/sass/base/link',
+        'app/theme/admin/sass/base/link',
+        'static/jscript/base/link'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'base_link'
     ];
 }

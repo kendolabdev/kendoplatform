@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Base\Help\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Base\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-base-help';
+    protected $exportKey = 'module_base_help';
 
     /**
      * @var array
@@ -33,9 +32,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/base/src/Base/Help',
-        'app/template/default/base/Help',
-        'app/theme/default/sass/base/Help',
-        'app/theme/admin/sass/base/Help',
-        'static/jscript/base/Help'
+        'app/template/default/base/help',
+        'app/theme/default/sass/base/help',
+        'app/theme/admin/sass/base/help',
+        'static/jscript/base/help'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'base_help'
     ];
 }

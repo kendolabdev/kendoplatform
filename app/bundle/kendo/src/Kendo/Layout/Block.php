@@ -55,12 +55,8 @@ class Block
     public function __construct($params = null)
     {
         $this->view = new View();
-
-        if (!empty($params))
-        {
-            $this->lp = new BlockParams($params);
-            $this->view->setScript($this->lp->script());
-        }
+        $this->lp = new BlockParams($params);
+        $this->view->setScript($this->lp->script());
     }
 
     /**

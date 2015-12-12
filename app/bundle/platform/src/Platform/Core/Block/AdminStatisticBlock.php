@@ -14,7 +14,7 @@ class AdminStatisticBlock extends Block
     /**
      * @var string
      */
-    protected $basePath = 'base/core/block/admin-statistic';
+    protected $basePath = 'platform/core/block/admin-statistic';
 
     /**
      * @return string

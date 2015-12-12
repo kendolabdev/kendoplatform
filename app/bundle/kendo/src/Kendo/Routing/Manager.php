@@ -165,9 +165,13 @@ class Manager
      * @param $url
      *
      * @return true
+     * TODO: make IS_AJAX_LOAD_STATE more flexible
+     *
      */
     public function redirectToUrl($url)
     {
+        defined('IS_AJAX_LOAD_STATE') or define('IS_AJAX_LOAD_STATE', false);
+
         if (IS_AJAX_LOAD_STATE) {
 
             $require = \App::assetService()
@@ -181,8 +185,9 @@ class Manager
                 'html'      => $require->renderScriptHtml(),
             ]));
 
-        } else {
+        } else if (!headers_sent()) {
             header('location: ' . $url);
+        } else {
         }
 
         return true;

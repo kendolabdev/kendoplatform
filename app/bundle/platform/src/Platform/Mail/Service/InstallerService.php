@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Platform\Mail\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Platform\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-mail';
+    protected $exportKey = 'module_platform_mail';
 
     /**
      * @var array
@@ -34,9 +33,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/platform/src/Platform/Mail',
-        'app/template/default/platform/Mail',
-        'app/theme/default/sass/platform/Mail',
-        'app/theme/admin/sass/platform/Mail',
-        'static/jscript/platform/Mail'
+        'app/template/default/platform/mail',
+        'app/theme/default/sass/platform/mail',
+        'app/theme/admin/sass/platform/mail',
+        'static/jscript/platform/mail'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'platform_mail'
     ];
 }

@@ -3,6 +3,8 @@
 namespace Kendo\Package;
 
 /**
+ * @codeCoverageIgnore
+ *
  * Class PlatformInstaller
  *
  * @package Kendo\Package

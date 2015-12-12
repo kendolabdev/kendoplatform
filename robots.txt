@@ -3,3 +3,5 @@ Disallow: /doc/
 Disallow: /app/
 Disallow: /install/
 Disallow: /static/
+Disallow: /build/
+Disallow: /tests/

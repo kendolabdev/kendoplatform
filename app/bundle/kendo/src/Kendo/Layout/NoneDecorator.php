@@ -3,11 +3,11 @@
 namespace Kendo\Layout;
 
 /**
- * Class DecoratorNone
+ * Class NoneDecorator
  *
  * @package Kendo\Layout
  */
-class DecoratorNone implements Decorator
+class NoneDecorator implements Decorator
 {
 
     /**

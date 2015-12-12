@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Base\Report\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Base\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-base-report';
+    protected $exportKey = 'module_base_report';
 
     /**
      * @var array
@@ -32,9 +31,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/base/src/Base/Report',
-        'app/template/default/base/Report',
-        'app/theme/default/sass/base/Report',
-        'app/theme/admin/sass/base/Report',
-        'static/jscript/base/Report'
+        'app/template/default/base/report',
+        'app/theme/default/sass/base/report',
+        'app/theme/admin/sass/base/report',
+        'static/jscript/base/report'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'base_report'
     ];
 }

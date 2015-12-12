@@ -23,7 +23,7 @@ class SelectStorage extends Form
 
         $this->setTitle('core_form_storage_select.form_title');
 
-        $adapters = \App::table('storage.storage_adapter')
+        $adapters = \App::table('platform_storage_adapter')
             ->select()
             ->all();
 

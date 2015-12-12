@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Platform\Acl\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Platform\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-acl';
+    protected $exportKey = 'module_platform_acl';
 
     /**
      * @var array
@@ -33,9 +32,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/platform/src/Platform/Acl',
-        'app/template/default/platform/Acl',
-        'app/theme/default/sass/platform/Acl',
-        'app/theme/admin/sass/platform/Acl',
-        'static/jscript/platform/Acl'
+        'app/template/default/platform/acl',
+        'app/theme/default/sass/platform/acl',
+        'app/theme/admin/sass/platform/acl',
+        'static/jscript/platform/acl'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'platform_acl'
     ];
 }

@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Platform\Setting\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Platform\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-setting';
+    protected $exportKey = 'module_platform_setting';
 
     /**
      * @var array
@@ -31,9 +30,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/platform/src/Platform/Setting',
-        'app/template/default/platform/Setting',
-        'app/theme/default/sass/platform/Setting',
-        'app/theme/admin/sass/platform/Setting',
-        'static/jscript/platform/Setting'
+        'app/template/default/platform/setting',
+        'app/theme/default/sass/platform/setting',
+        'app/theme/admin/sass/platform/setting',
+        'static/jscript/platform/setting'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'platform_setting'
     ];
 }

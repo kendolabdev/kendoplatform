@@ -13,12 +13,11 @@ include 'app/init.php';
 $view = new \Kendo\View\View();
 $request = App::requestService()->getInitiator();
 
-defined('IS_AJAX_LOAD_STATE') or define('IS_AJAX_LOAD_STATE', $request->getParam('__ajax_load_page') ? 1 : 0);
 
-$request->execute();
+$request->dispatch();
 
 try {
-    if (IS_AJAX_LOAD_STATE) {
+    if ($request->isAjaxFragment()) {
         $json = json_encode([
             'directive' => 'update',
             'title'     => \App::assetService()->title()->toText(),

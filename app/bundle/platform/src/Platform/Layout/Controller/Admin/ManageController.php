@@ -116,7 +116,7 @@ class ManageController extends AdminController
 
         \App::assetService()
             ->requirejs()
-            ->addDependency(['base/core/layout_editor']);
+            ->addDependency(['platform/core/layout_editor']);
 
         $this->view->assign([
             'layout'              => $layout,

@@ -24,7 +24,7 @@ class Manager
     /**
      * @var string
      */
-    private $tablePrefix = 'KENDO_';
+    private $tablePrefix = 'kendo_';
     /**
      * @var string
      */

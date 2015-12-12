@@ -13,7 +13,7 @@ class AdminAsideMenuBlock extends Block
     /**
      * @var string
      */
-    protected $basePath = 'base/core/block/admin-aside-menu';
+    protected $basePath = 'platform/core/block/admin-aside-menu';
 
     /**
      *

@@ -1,22 +1,21 @@
 <?php
-
-/* code generator */
-
 namespace Base\Tag\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
- * @package Platform\Service
+ * @package Base\Service
  */
 class InstallerService extends ModuleInstaller
 {
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-tag';
+    protected $exportKey = 'module_base_tag';
 
     /**
      * @var array
@@ -29,10 +28,17 @@ class InstallerService extends ModuleInstaller
      * @var array
      */
     protected $pathList = [
-        'app/bundle/platform/src/Platform/Tag',
-        'app/template/default/platform/Tag',
-        'app/theme/default/sass/platform/Tag',
-        'app/theme/admin/sass/platform/Tag',
-        'static/jscript/platform/Tag'
+        'app/bundle/base/src/Base/Tag',
+        'app/template/default/base/tag',
+        'app/theme/default/sass/base/tag',
+        'app/theme/admin/sass/base/tag',
+        'static/jscript/base/tag'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'base_tag'
     ];
 }

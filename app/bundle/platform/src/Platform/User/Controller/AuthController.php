@@ -30,10 +30,9 @@ class AuthController extends DefaultController
      */
     public function actionLogin()
     {
-
         $form = new AuthLoginSmall();
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isPost() && $form->isValid($this->request->getParams())) {
 
             $data = $form->getData();
 
@@ -76,6 +75,7 @@ class AuthController extends DefaultController
         $lp = \App::layoutService()
             ->getContentLayoutParams();
 
+
         $this->view
             ->setScript($lp)
             ->assign([
@@ -103,7 +103,7 @@ class AuthController extends DefaultController
         $poster = \App::find($type, $id);
 
         if (!$poster instanceof PosterInterface) {
-            // could not login as this poster
+            throw new \InvalidArgumentException("Unexpected login as member.");
         }
 
         \App::authService()->saveViewer($poster);
@@ -123,9 +123,6 @@ class AuthController extends DefaultController
         ]);
 
         $lp = \App::layoutService()->getContentLayoutParams();
-
         $this->view->setScript($lp);
-
     }
-
 }

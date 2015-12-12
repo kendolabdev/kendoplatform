@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Base\Comment\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Base\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-base-comment';
+    protected $exportKey = 'module_base_comment';
 
     /**
      * @var array
@@ -30,9 +29,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/base/src/Base/Comment',
-        'app/template/default/base/Comment',
-        'app/theme/default/sass/base/Comment',
-        'app/theme/admin/sass/base/Comment',
-        'static/jscript/base/Comment'
+        'app/template/default/base/comment',
+        'app/theme/default/sass/base/comment',
+        'app/theme/admin/sass/base/comment',
+        'static/jscript/base/comment'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'base_comment'
     ];
 }

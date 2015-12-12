@@ -1,6 +1,6 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_base_feed`
+ * Generate by CodeGenerator\DbTable for table `kendo_feed_feed`
  */
 
 namespace Base\Feed\Model;
@@ -11,9 +11,11 @@ use Kendo\Db\DbTable;
 
 /**
  * Class FeedTable
- * @package Base\Feed\Model
+ *
+ * @package Feed\Model
  */
-class FeedTable extends DbTable{
+class FeedTable extends DbTable
+{
     // PUT YOUR CODE HERE
 
     //START_TABLE_GENERATOR

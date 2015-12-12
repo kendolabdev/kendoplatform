@@ -7,9 +7,13 @@
  */
 
 namespace Platform\Core\Service;
+use Kendo\Test\TestCase;
 
-use Kendo\TestCase;
-
+/**
+ * Class ExtensionServiceTest
+ *
+ * @package Platform\Core\Service
+ */
 class ExtensionServiceTest extends TestCase
 {
     public function testGeneral()

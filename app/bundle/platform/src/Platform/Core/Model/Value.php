@@ -20,68 +20,77 @@ class Value extends Model
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('parent_id');
+    public function getId()
+    {
+        return $this->__get('parent_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('parent_id', $value);
+    public function setId($value)
+    {
+        $this->__set('parent_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentId(){
-       return $this->__get('parent_id');
+    public function getParentId()
+    {
+        return $this->__get('parent_id');
     }
 
     /**
      * @param $value
      */
-    public function setParentId($value){
-       $this->__set('parent_id', $value);
+    public function setParentId($value)
+    {
+        $this->__set('parent_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentType(){
-       return $this->__get('parent_type');
+    public function getParentType()
+    {
+        return $this->__get('parent_type');
     }
 
     /**
      * @param $value
      */
-    public function setParentType($value){
-       $this->__set('parent_type', $value);
+    public function setParentType($value)
+    {
+        $this->__set('parent_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getValuesText(){
-       return $this->__get('values_text');
+    public function getValuesText()
+    {
+        return $this->__get('values_text');
     }
 
     /**
      * @param $value
      */
-    public function setValuesText($value){
-       $this->__set('values_text', $value);
+    public function setValuesText($value)
+    {
+        $this->__set('values_text', $value);
     }
 
     /**
      * @return \Platform\Core\Model\ValueTable
      */
-    public function table(){
-        return \App::table('platform_core_value');
+    public function table()
+    {
+        return \App::table('core.value');
     }
     //END_TABLE_GENERATOR
 }

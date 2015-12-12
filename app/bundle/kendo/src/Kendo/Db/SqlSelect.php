@@ -723,10 +723,14 @@ class SqlSelect implements Sql
 
     /**
      * @param int $offset
+     *
+     * @return SqlSelect
      */
     public function setOffset($offset)
     {
         $this->_offset = $offset;
+
+        return $this;
     }
 
     /**

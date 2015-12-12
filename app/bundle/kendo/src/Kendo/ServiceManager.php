@@ -83,8 +83,8 @@ class ServiceManager
 
             $class = $this->getServiceClassName($name);
 
-            if(!class_exists($class)){
-                throw new \InvalidArgumentException("Missing class ". $class);
+            if (!class_exists($class)) {
+                throw new \InvalidArgumentException("Missing class " . $class);
             }
 
             $service = new $class();
@@ -112,26 +112,27 @@ class ServiceManager
     }
 
     /**
-     * @param  string $name
+     * @param  string $serviceName
      *
      * @return string
      * @throws Exception
      */
-    public function getServiceClassName($name)
+    public function getServiceClassName($serviceName)
     {
-        if (!empty($this->classes[ $name ]))
-            return $this->classes[ $name ];
+        if (!empty($this->classes[ $serviceName ]))
+            return $this->classes[ $serviceName ];
 
-        $arr = explode('_', $name, 3);
+        $arr = explode('_', $serviceName, 3);
 
         $vendor = ucfirst($arr[0]);
         $module = ucfirst($arr[1]);
+
 
         if (count($arr) == 2) {
             return '\\' . $vendor . "\\{$module}\\Service\\{$module}Service";
         }
 
-        return '\\' . $vendor . '\\'.$module.'\\Service\\'. str_replace(' ', '', ucwords(str_replace(['.', '_'], ['\Service\ ', ' '], $arr[2]))) . 'Service';
+        return '\\' . $vendor . '\\' . $module . '\\Service\\' . str_replace(' ', '', ucwords(str_replace(['.', '_'], ['\Service\ ', ' '], $arr[2]))) . 'Service';
 
     }
 

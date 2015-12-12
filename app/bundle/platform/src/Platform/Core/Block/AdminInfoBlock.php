@@ -14,7 +14,7 @@ class AdminInfoBlock extends Block
     /**
      * @var string
      */
-    protected $basePath = 'base/core/block/admin-info';
+    protected $basePath = 'platform/core/block/admin-info';
 
     /**
      * @return string

@@ -56,7 +56,7 @@ class User extends Model implements PosterInterface, CatalogInterface
      */
     public function getAttributeValueTable($dataType = null)
     {
-        return \App::table('user.user_attribute_value');
+        return \App::table('platform_user_attribute_value');
     }
 
 

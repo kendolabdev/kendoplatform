@@ -111,4 +111,11 @@ interface PagingInterface
      */
     public function getPager();
 
+    /**
+     * @param $pageNumber
+     *
+     * @return string
+     */
+    public function getUrl($pageNumber);
+
 }

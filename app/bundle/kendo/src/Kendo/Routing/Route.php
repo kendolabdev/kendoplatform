@@ -299,8 +299,15 @@ class Route implements RouteInterface
      * @uses    Route::REGEX_GROUP
      * @uses    Route::REGEX_KEY
      */
-    public function getUrl($params = null)
+    public function getUrl($params = [])
     {
+        /**
+         * strict check
+         */
+        if (!is_array($params)) {
+            $params = [];
+        }
+
         $defaults = $this->defaults;
         $usages = [];
 

@@ -1,8 +1,14 @@
 <?php
 namespace Platform\Core\Service;
 
-use Kendo\TestCase;
 
+use Kendo\Test\TestCase;
+
+/**
+ * Class HookTest
+ *
+ * @package Platform\Core\Service
+ */
 class HookTest extends TestCase
 {
     public function testGeneral()

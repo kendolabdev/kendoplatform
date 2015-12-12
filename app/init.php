@@ -173,14 +173,14 @@ define('KENDO_BUNDLE_DIR', KENDO_ROOT_DIR . '/app/bundle');
  * @var int
  * Default role id
  */
-define('KENDO_DEFAULT_ROLE_ID', 4);
+define('KENDO_DEFAULT_ROLE_ID', 3);
 
 /**
  * Default role id
  *
  * @var int
  */
-define('KENDO_GUEST_ROLE_ID', 11);
+define('KENDO_GUEST_ROLE_ID', 1);
 
 /**
  * Constant of secret key, private for your application.

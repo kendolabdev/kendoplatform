@@ -14,7 +14,7 @@ class AclGroupsBlock extends Block
     /**
      * @var string
      */
-    protected $basePath = 'base/core/block/acl-groups';
+    protected $basePath = 'platform/core/block/acl-groups';
 
     /**
      *

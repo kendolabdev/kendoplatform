@@ -262,7 +262,6 @@ class :tableClass extends DbTable{
 
         $tail = null;
         $tableAlias = $shortenTableName;
-
         if (count($parse) > 3) {
             $tail = $parse[3];
         }
@@ -406,9 +405,9 @@ class :tableClass extends DbTable{
 
         $arr = explode('_', $tail, 3);
 
-        if(count($arr) >2){
-            $model = str_replace(' ', '', ucwords(str_replace('_', ' ', $arr[2])));
-        }else{
+        if (count($arr) > 2) {
+            $model = str_replace(' ', '', ucwords(str_replace('_', ' ', $arr[1] . '_' . $arr[2])));
+        } else {
             $model = str_replace(' ', '', ucwords(str_replace('_', ' ', $arr[1])));
         }
 
@@ -424,15 +423,8 @@ class :tableClass extends DbTable{
      */
     public function getTableClass($vendor, $module, $tail)
     {
-        $arr = explode('_', $tail, 3);
 
-        if(count($arr) >2){
-            $model = str_replace(' ', '', ucwords(str_replace('_', ' ', $arr[2])));
-        }else{
-            $model = str_replace(' ', '', ucwords(str_replace('_', ' ', $arr[1])));
-        }
-
-        return $model . 'Table';
+        return $this->getModelClass($vendor, $module, $tail) . 'Table';
     }
 
     /**

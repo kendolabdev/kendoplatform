@@ -3,7 +3,7 @@ namespace Platform\Core\Service;
 
 use Kendo\Html\Form;
 use Kendo\Layout\Navigation;
-use Kendo\TestCase;
+use Kendo\Test\TestCase;
 use Platform\Layout\Model\Layout;
 use Platform\Layout\Model\LayoutPage;
 use Platform\Layout\Model\LayoutTheme;

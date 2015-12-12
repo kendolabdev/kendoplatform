@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Base\Video\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Base\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-base-video';
+    protected $exportKey = 'module_base_video';
 
     /**
      * @var array
@@ -33,9 +32,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/base/src/Base/Video',
-        'app/template/default/base/Video',
-        'app/theme/default/sass/base/Video',
-        'app/theme/admin/sass/base/Video',
-        'static/jscript/base/Video'
+        'app/template/default/base/video',
+        'app/theme/default/sass/base/video',
+        'app/theme/admin/sass/base/video',
+        'static/jscript/base/video'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'base_video'
     ];
 }

@@ -2,7 +2,6 @@
 
 namespace Platform\User\Controller;
 
-use Platform\Catalog\FormAttributeCustomForm;
 use Platform\Core\Controller\ProfileBaseController;
 use Kendo\Content\PosterInterface;
 use Kendo\View\View;
@@ -25,36 +24,35 @@ class ProfileController extends ProfileBaseController
         if (!$poster instanceof User) ;
 
         $catalogId = $poster->getCatalogId();
-
-        $form = new AttributeCustomForm([
-            'catalogId' => $catalogId,
-        ]);
-
-
-        if ($this->request->isGet()) {
-
-            $data = \App::catalogService()
-                ->loadAttributeValue($poster, []);
-
-            $form->setData($data);
-        }
-
-
-        if ($this->request->isPost() and $form->isValid($_POST)) {
-            $data = $form->getData();
-            
-            \App::catalogService()
-                ->updateItemAttribute($poster, $data);
-        }
-
-        $lp = \App::layoutService()
-            ->getContentLayoutParams();
-
-        $this->view
-            ->setScript($lp)
-            ->assign([
-                'form' => $form,
-            ]);
+//
+//        $form = new AttributeCustomForm([
+//            'catalogId' => $catalogId,
+//        ]);
+//
+//
+//        if ($this->request->isGet()) {
+//
+//            $data = \App::catalogService()
+//                ->loadAttributeValue($poster, []);
+//
+//            $form->setData($data);
+//        }
+//
+//        if ($this->request->isPost() and $form->isValid($_POST)) {
+//            $data = $form->getData();
+//
+//            \App::catalogService()
+//                ->updateItemAttribute($poster, $data);
+//        }
+//
+//        $lp = \App::layoutService()
+//            ->getContentLayoutParams();
+//
+//        $this->view
+//            ->setScript($lp)
+//            ->assign([
+//                'form' => $form,
+//            ]);
     }
 
     /**

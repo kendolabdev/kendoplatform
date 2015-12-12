@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Base\Follow\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Base\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-base-follow';
+    protected $exportKey = 'module_base_follow';
 
     /**
      * @var array
@@ -30,9 +29,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/base/src/Base/Follow',
-        'app/template/default/base/Follow',
-        'app/theme/default/sass/base/Follow',
-        'app/theme/admin/sass/base/Follow',
-        'static/jscript/base/Follow'
+        'app/template/default/base/follow',
+        'app/theme/default/sass/base/follow',
+        'app/theme/admin/sass/base/follow',
+        'static/jscript/base/follow'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'base_follow'
     ];
 }

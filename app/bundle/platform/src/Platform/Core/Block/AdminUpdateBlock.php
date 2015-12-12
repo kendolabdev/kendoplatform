@@ -13,7 +13,7 @@ class AdminUpdateBlock extends Block
     /**
      * @var string
      */
-    protected $basePath = 'base/core/block/admin-update';
+    protected $basePath = 'platform/core/block/admin-update';
 
     /**
      * @return string

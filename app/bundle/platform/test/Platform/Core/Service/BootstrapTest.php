@@ -1,8 +1,13 @@
 <?php
 namespace Platform\Core\Service;
 
-use Kendo\TestCase;
+use Kendo\Test\TestCase;
 
+/**
+ * Class BootstrapTest
+ *
+ * @package Platform\Core\Service
+ */
 class BootstrapTest extends TestCase
 {
 
@@ -92,7 +97,6 @@ class BootstrapTest extends TestCase
      */
     public function testTableName($tableName)
     {
-        echo $tableName;
         $item = \App::table($tableName)
             ->select()
             ->one();

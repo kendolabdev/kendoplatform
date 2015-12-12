@@ -11,7 +11,7 @@ use Kendo\Layout\Block;
  */
 class MainNavigationBlock extends Block
 {
-    protected $basePath = 'base/core/block/main-menu';
+    protected $basePath = 'platform/core/block/main-menu';
 
     /**
      *

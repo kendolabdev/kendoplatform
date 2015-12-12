@@ -7,7 +7,7 @@ use Kendo\Html\Form;
 /**
  * Class FilterPermission
  *
- * @package Acl\Form\Admin
+ * @package Platform\Acl\Form\Admin
  */
 class FilterPermission extends Form
 {

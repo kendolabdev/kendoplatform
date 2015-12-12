@@ -158,8 +158,9 @@ class AclService implements AclLoaderInterface
         $roleItem = \App::table('platform_acl_role')
             ->findById($roleId);
 
-        if (!$roleItem instanceof AclRole)
+        if (!$roleItem instanceof AclRole) {
             throw new \InvalidArgumentException("Role $roleId is not valid.");
+        }
 
         $listRoleId = $roleItem->getListAncestorId();
         /**
@@ -170,12 +171,12 @@ class AclService implements AclLoaderInterface
 
         $response = [];
 
-        $total =  $this->countAllAction();
+        $total = $this->countAllAction();
 
         foreach ($listRoleId as $id) {
             $response = array_merge($this->getFlatValForRoleId($id), $response);
 
-            if(count($response) == $total) break;
+            if (count($response) == $total) break;
 
         }
 
@@ -519,7 +520,7 @@ class AclService implements AclLoaderInterface
 
     /**
      * @param PosterInterface $parent
-     * @param           $action
+     * @param                 $action
      * @param bool|true       $defaultValue
      *
      * @return bool
@@ -690,65 +691,5 @@ class AclService implements AclLoaderInterface
         }
 
         return true;
-    }
-
-    /**
-     * @param array $moduleList
-     *
-     * @return array
-     */
-    public function getListRoleByModuleName($moduleList)
-    {
-        return \App::table('platform_acl_role')
-            ->select()
-            ->where('module_name IN ?', $moduleList)
-            ->columns('role_type, is_system, title, parent_role, is_super, is_admin, is_moderator, is_staff, is_member, is_guest, module_name')
-            ->toAssocs();
-    }
-
-    /**
-     * @param array $moduleList
-     *
-     * @return array
-     */
-    public function getListGroupByModuleName($moduleList)
-    {
-        return \App::table('platform_acl_group')
-            ->select()
-            ->where('module_name IN ?', $moduleList)
-            ->toAssocs();
-    }
-
-    /**
-     * @param array $moduleList
-     *
-     * @return array
-     */
-    public function getListActionByModuleName($moduleList)
-    {
-        return \App::table('platform_acl_action')
-            ->select()
-            ->where('module_name IN ?', $moduleList)
-            ->columns('module_name, group_name, action_name, comment')
-            ->toAssocs();
-    }
-
-
-    /**
-     * @param array $moduleList
-     *
-     * @return array
-     */
-    public function exportAclAllowData($moduleList = [])
-    {
-        return [];
-    }
-
-    /**
-     * @param $data
-     */
-    public function importAclAllowData($data)
-    {
-
     }
 }

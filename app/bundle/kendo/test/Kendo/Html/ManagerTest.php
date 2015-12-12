@@ -8,12 +8,18 @@
 
 namespace Kendo\Html;
 
+use Kendo\Test\TestCase;
 
-use Kendo\TestCase;
-
+/**
+ * Class ManagerTest
+ *
+ * @package Kendo\Html
+ */
 class ManagerTest extends TestCase
 {
-
+    /**
+     *
+     */
     public function testGeneral()
     {
         $manager = new Manager();
@@ -34,6 +40,9 @@ class ManagerTest extends TestCase
         }
     }
 
+    /**
+     *
+     */
     public function testHtmlForm()
     {
         $form = new Form();
@@ -66,12 +75,12 @@ class ManagerTest extends TestCase
         ]);
 
         $form->addElement([
-            'name'          => 'custom_2',
-            'plugin'        => 'multiselect',
-            'required'      => true,
-            'htmlEditor'    => true,
-            'value'         => 'some test contain',
-            'options'       => [
+            'name'       => 'custom_2',
+            'plugin'     => 'multiselect',
+            'required'   => true,
+            'htmlEditor' => true,
+            'value'      => 'some test contain',
+            'options'    => [
                 ['label' => $faker->sentence, 'value' => $iteration++],
                 ['label' => $faker->sentence, 'value' => $iteration++],
                 ['label' => $faker->sentence, 'value' => $iteration++],
@@ -79,12 +88,12 @@ class ManagerTest extends TestCase
         ]);
 
         $form->addElement([
-            'name'          => 'custom_3',
-            'plugin'        => 'multicheckbox',
-            'required'      => true,
-            'htmlEditor'    => true,
-            'value'         => 'some test contain',
-            'options'       => [
+            'name'       => 'custom_3',
+            'plugin'     => 'multicheckbox',
+            'required'   => true,
+            'htmlEditor' => true,
+            'value'      => 'some test contain',
+            'options'    => [
                 ['label' => $faker->sentence, 'value' => $iteration++],
                 ['label' => $faker->sentence, 'value' => $iteration++],
                 ['label' => $faker->sentence, 'value' => $iteration++],

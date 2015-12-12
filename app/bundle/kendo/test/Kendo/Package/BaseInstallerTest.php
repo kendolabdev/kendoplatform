@@ -7,8 +7,7 @@
  */
 
 namespace Kendo\Package;
-use Kendo\TestCase;
-
+use Kendo\Test\TestCase;
 
 /**
  * Class BaseInstallerTest

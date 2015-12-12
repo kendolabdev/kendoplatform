@@ -20,10 +20,7 @@ class EditProfileMenuBlock extends Block
      */
     public function execute()
     {
-        $steps = \App::service('core.process')->getUniqueSteps('user', 'edit');
-
         $this->view->assign([
-            'steps' => $steps,
         ]);
     }
 }

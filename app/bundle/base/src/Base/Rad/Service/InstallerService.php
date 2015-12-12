@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Base\Rad\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Base\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-base-rad';
+    protected $exportKey = 'module_base_rad';
 
     /**
      * @var array
@@ -30,9 +29,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/base/src/Base/Rad',
-        'app/template/default/base/Rad',
-        'app/theme/default/sass/base/Rad',
-        'app/theme/admin/sass/base/Rad',
-        'static/jscript/base/Rad'
+        'app/template/default/base/rad',
+        'app/theme/default/sass/base/rad',
+        'app/theme/admin/sass/base/rad',
+        'static/jscript/base/rad'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'base_rad'
     ];
 }

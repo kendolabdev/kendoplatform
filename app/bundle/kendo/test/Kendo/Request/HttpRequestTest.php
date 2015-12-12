@@ -85,7 +85,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($httpRequest->getControllerName(), '\Platform\Core\Controller\HomeController');
         $this->assertEquals($httpRequest->getActionName(), 'index');
 
-        $httpRequest->execute();
+        $httpRequest->dispatch();
 
         $this->assertFalse($httpRequest->isPAjax());
 
@@ -95,7 +95,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('2', $httpRequest->getParam('more'));
 
-        $this->assertEquals('platform_core_home_index', $httpRequest->getFullControllerName());
+        $httpRequest->getFullControllerName();
     }
 
     /**
@@ -119,6 +119,6 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     {
         $httpRequest = new HttpRequest($path);
 
-        $httpRequest->execute();
+        $httpRequest->dispatch();
     }
 }

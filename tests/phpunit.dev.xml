@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+        stopOnIncomplete="false"
+        stopOnError="false"
+        stopOnFailure="false"
+        backupGlobals="false"
+        backupStaticAttributes="false"
+        bootstrap="./../tests/bootstrap.php">
+    <testsuites>
+        <testsuite name="kendo">
+            <directory>./../app/bundle/platform/test</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

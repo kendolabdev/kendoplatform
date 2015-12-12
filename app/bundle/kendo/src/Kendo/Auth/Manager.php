@@ -38,8 +38,8 @@ class Manager
      * @var array
      */
     private $authTypes = [
-        'default' => '\Plaform\User\Auth\AuthPassword',
-        'remote'  => '\Plaform\User\Auth\AuthRemote',
+        'default' => '\Platform\User\Auth\AuthPassword',
+        'remote'  => '\Platform\User\Auth\AuthRemote',
     ];
 
     /**

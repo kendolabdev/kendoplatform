@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Platform\Relation\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Platform\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-relation';
+    protected $exportKey = 'module_platform_relation';
 
     /**
      * @var array
@@ -33,9 +32,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/platform/src/Platform/Relation',
-        'app/template/default/platform/Relation',
-        'app/theme/default/sass/platform/Relation',
-        'app/theme/admin/sass/platform/Relation',
-        'static/jscript/platform/Relation'
+        'app/template/default/platform/relation',
+        'app/theme/default/sass/platform/relation',
+        'app/theme/admin/sass/platform/relation',
+        'static/jscript/platform/relation'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'platform_relation'
     ];
 }

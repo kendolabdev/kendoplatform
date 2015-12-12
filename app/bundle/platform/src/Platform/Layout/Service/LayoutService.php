@@ -1976,10 +1976,13 @@ class LayoutService implements LayoutLoaderInterface, Manager
 
 
         if ($layoutType == 'content') {
+
             $page = $this->findPageByName($pageName);
 
-            if (!$page)
+            if (!$page) {
                 throw new \InvalidArgumentException("Could not find correct page!");
+            }
+
 
             $basePath = $page->getBasePath();
             $itemPath = $page->getItemPath();

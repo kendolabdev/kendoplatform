@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Base\Place\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Base\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-base-place';
+    protected $exportKey = 'module_base_place';
 
     /**
      * @var array
@@ -30,9 +29,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/base/src/Base/Place',
-        'app/template/default/base/Place',
-        'app/theme/default/sass/base/Place',
-        'app/theme/admin/sass/base/Place',
-        'static/jscript/base/Place'
+        'app/template/default/base/place',
+        'app/theme/default/sass/base/place',
+        'app/theme/admin/sass/base/place',
+        'static/jscript/base/place'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'base_place'
     ];
 }

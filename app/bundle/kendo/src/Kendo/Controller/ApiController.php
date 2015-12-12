@@ -11,7 +11,7 @@ use Kendo\View\View;
  *
  * @package Kendo\Controller
  */
-class ApiController implements Controller
+class ApiController implements ControllerInterface
 {
 
 

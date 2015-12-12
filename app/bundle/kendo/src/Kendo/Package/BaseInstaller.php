@@ -5,6 +5,8 @@ namespace Kendo\Package;
 use Platform\Layout\Model\Layout;
 
 /**
+ * @codeCoverageIgnore
+ *
  * Class BaseInstaller
  *
  * @package Kendo\Package
@@ -76,6 +78,14 @@ class BaseInstaller implements InstallerInterface
         '/tests/',
         '/test/',
     ];
+
+    /**
+     * @return bool
+     */
+    public function hasModuleList()
+    {
+        return !empty($this->moduleList);
+    }
 
 
     /**
@@ -322,6 +332,7 @@ class BaseInstaller implements InstallerInterface
      */
     protected function exportHookSetting()
     {
+        if (!$this->hasModuleList()) return;
 
         $this->installData['platform_core_hook']
             = \App::table('platform_core_hook')
@@ -349,6 +360,8 @@ class BaseInstaller implements InstallerInterface
      */
     protected function exportMailSetting()
     {
+        if (!$this->hasModuleList()) return;
+
         $this->installData['platform_mail_template']
             = \App::table('platform_mail_template')
             ->select()
@@ -375,6 +388,8 @@ class BaseInstaller implements InstallerInterface
      */
     protected function exportLayoutSetting()
     {
+        if (!$this->hasModuleList()) return;
+
         $this->installData['platform_layout_support_block']
             = \App::table('platform_layout_support_block')
             ->select()
@@ -599,6 +614,8 @@ class BaseInstaller implements InstallerInterface
      */
     protected function exportFeedSetting()
     {
+        if (!$this->hasModuleList()) return;
+
         $this->installData['base_feed_type']
             = \App::table('base_feed_type')
             ->select()
@@ -624,12 +641,16 @@ class BaseInstaller implements InstallerInterface
      */
     protected function exportExtension()
     {
+        if (!$this->hasModuleList()) return;
+
         $this->installData['platform_core_extension']
             = \App::table('platform_core_extension')
             ->select()
             ->where('name IN ?', $this->getModuleList())
             ->toAssocs();
+
     }
+
 
     /**
      *
@@ -654,6 +675,8 @@ class BaseInstaller implements InstallerInterface
      */
     protected function exportNotificationSetting()
     {
+        if (!$this->hasModuleList()) return;
+
         $this->installData['platform_notification_type']
             = \App::table('platform_notification_type')
             ->select()
@@ -679,6 +702,8 @@ class BaseInstaller implements InstallerInterface
      */
     protected function exportInvitationSetting()
     {
+        if (!$this->hasModuleList()) return;
+
         $this->installData['platform_invitation_type']
             = \App::table('platform_invitation_type')
             ->select()
@@ -705,6 +730,9 @@ class BaseInstaller implements InstallerInterface
      */
     protected function exportTypeSetting()
     {
+
+        if (!$this->hasModuleList()) return;
+
         $this->installData['platform_core_type']
             = \App::table('platform_core_type')
             ->select()
@@ -733,7 +761,7 @@ class BaseInstaller implements InstallerInterface
      */
     protected function exportAttributeSetting()
     {
-
+        if (!$this->hasModuleList()) return;
     }
 
     /**
@@ -748,6 +776,8 @@ class BaseInstaller implements InstallerInterface
      */
     protected function exportNavigationSetting()
     {
+        if (!$this->hasModuleList()) return;
+
         $this->installData['platform_navigation'] =
             \App::table('platform_navigation')
                 ->select()
@@ -788,6 +818,8 @@ class BaseInstaller implements InstallerInterface
      */
     protected function exportAclSetting()
     {
+        if (!$this->hasModuleList()) return;
+
         $this->installData['platform_acl_role'] = \App::table('platform_acl_role')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
@@ -819,6 +851,7 @@ class BaseInstaller implements InstallerInterface
      */
     protected function installAclSetting()
     {
+
         if (!empty($this->installData['platform_acl_role'])) {
             foreach ($this->installData['platform_acl_role'] as $data) {
                 \App::table('platform_acl_role')
@@ -853,6 +886,8 @@ class BaseInstaller implements InstallerInterface
      */
     protected function exportGlobalSetting()
     {
+        if (!$this->hasModuleList()) return;
+
         $this->installData['platform_setting_action']
             = \App::table('platform_setting_action')
             ->select()
@@ -908,6 +943,8 @@ class BaseInstaller implements InstallerInterface
      */
     protected function exportPhraseSetting()
     {
+        if (!$this->hasModuleList()) return;
+
         $this->installData['platform_phrase']
             = \App::table('platform_phrase')
             ->select()

@@ -36,10 +36,10 @@ foreach ($modules as $moduleKey) {
 
     $pathList = [
         'app/bundle/' . $namespaceDir . '/src/' . $namespace . '/' . $moduleName,
-        'app/template/default/' . $namespaceDir . '/' . $moduleName,
-        'app/theme/default/sass/' . $namespaceDir . '/' . $moduleName,
-        'app/theme/admin/sass/' . $namespaceDir . '/' . $moduleName,
-        'static/jscript/' . $namespaceDir . '/' . $moduleName,
+        'app/template/default/' . $namespaceDir . '/' . $moduleDir,
+        'app/theme/default/sass/' . $namespaceDir . '/' . $moduleDir,
+        'app/theme/admin/sass/' . $namespaceDir . '/' . $moduleDir,
+        'static/jscript/' . $namespaceDir . '/' . $moduleDir,
     ];
 
     if ($moduleName == 'platform_core') {
@@ -58,6 +58,8 @@ foreach ($modules as $moduleKey) {
         ], $pathList);
     }
 
+    $moduleList = [$namespaceDir . "_" . $moduleDir];
+
     $separator = ',' . PHP_EOL . '        ';
     $content = strtr($content, [
         '{namespaceDir}' => $namespaceDir,
@@ -67,6 +69,9 @@ foreach ($modules as $moduleKey) {
         '{tableList}'    => implode($separator, array_map(function ($val) {
             return '\'' . $val . '\'';
         }, $acceptTableList)),
+        '{moduleList}'   => implode($separator, array_map(function ($val) {
+            return '\'' . $val . '\'';
+        }, $moduleList)),
         '{pathList}'     => implode($separator, array_map(function ($val) {
             return '\'' . $val . '\'';
         }, $pathList))

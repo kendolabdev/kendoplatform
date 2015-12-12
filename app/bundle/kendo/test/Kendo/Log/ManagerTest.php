@@ -7,9 +7,8 @@
  */
 
 namespace Kendo\Log;
+use Kendo\Test\TestCase;
 
-
-use Kendo\TestCase;
 
 /**
  * Class ManagerTest

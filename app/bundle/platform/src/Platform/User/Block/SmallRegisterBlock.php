@@ -22,7 +22,7 @@ class SmallRegisterBlock extends Block
             return;
         }
 
-        $services = \App::table('social.social_service')
+        $services = \App::table('base_social_service')
             ->select()
             ->where('is_active=?', 1)
             ->order('sort_order', 1)

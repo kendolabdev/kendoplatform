@@ -20,6 +20,24 @@ class Manager
     ];
 
     /**
+     * @return array
+     */
+    public function getDecorators()
+    {
+        return $this->decorators;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     *
+     * @param array $decorators
+     */
+    public function setDecorators($decorators)
+    {
+        $this->decorators = $decorators;
+    }
+
+    /**
      * @param string          $name
      * @param array           $options
      * @param PagingInterface $paging

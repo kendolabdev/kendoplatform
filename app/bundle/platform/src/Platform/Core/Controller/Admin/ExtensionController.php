@@ -118,7 +118,7 @@ class ExtensionController extends AdminController
             ->setPageTitle('core.upload_packages')
             ->setupSecondaryNavigation('admin', 'admin_manage_package', 'import_package');
 
-        $form = \App::htmlService()->factory('\Core\Form\Admin\ImportExtension');
+        $form = \App::htmlService()->factory('\Platform\Core\Form\Admin\ImportExtension');
 
         $this->view->assign([
             'form' => $form,

@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Platform\Layout\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Platform\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-layout';
+    protected $exportKey = 'module_platform_layout';
 
     /**
      * @var array
@@ -39,9 +38,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/platform/src/Platform/Layout',
-        'app/template/default/platform/Layout',
-        'app/theme/default/sass/platform/Layout',
-        'app/theme/admin/sass/platform/Layout',
-        'static/jscript/platform/Layout'
+        'app/template/default/platform/layout',
+        'app/theme/default/sass/platform/layout',
+        'app/theme/admin/sass/platform/layout',
+        'static/jscript/platform/layout'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'platform_layout'
     ];
 }

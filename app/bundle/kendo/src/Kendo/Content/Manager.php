@@ -28,9 +28,9 @@ class Manager
      * @var array
      */
     protected $tables = [
-        'platform_core_extension' => '\Platform\Core\Model\ExtensionTable',
-        'platform_core_hook'      => '\Platform\Core\Model\HookTable',
-        'platform_core_type'      => '\Platform\Core\Model\TypeTable',
+        'platform_core_extension' => '\Platform\Core\Model\CoreExtensionTable',
+        'platform_core_hook'      => '\Platform\Core\Model\CoreHookTable',
+        'platform_core_type'      => '\Platform\Core\Model\CoreTypeTable',
     ];
 
     /**

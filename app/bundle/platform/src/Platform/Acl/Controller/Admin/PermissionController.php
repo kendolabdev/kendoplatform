@@ -9,7 +9,7 @@ use Kendo\Layout\BlockParams;
 /**
  * Class PermissionController
  *
- * @package Acl\Controller\Admin
+ * @package Platform\Acl\Controller\Admin
  */
 class PermissionController extends AdminController
 {

@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace {namespace}\{moduleName}\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package {namespace}\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-{namespaceDir}-{moduleDir}';
+    protected $exportKey = 'module_{namespaceDir}_{moduleDir}';
 
     /**
      * @var array
@@ -30,5 +29,12 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         {pathList}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        {moduleList}
     ];
 }

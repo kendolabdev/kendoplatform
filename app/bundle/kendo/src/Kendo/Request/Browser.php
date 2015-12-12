@@ -3,6 +3,8 @@
 namespace Kendo\Request;
 
 /**
+ * @codeCoverageIgnore
+ *
  * Class Browser
  *
  * @package Kendo\Request
@@ -69,11 +71,11 @@ class Browser
 
         'HTTP_ACCEPT'                  => ['matches' => [
 // Opera Mini; @reference: http://dev.opera.com/articles/view/opera-binary-markup-language/
-'application/x-obml2d',
+            'application/x-obml2d',
 // BlackBerry devices.
-'application/vnd.rim.html',
-'text/vnd.wap.wml',
-'application/vnd.wap.xhtml+xml'
+            'application/vnd.rim.html',
+            'text/vnd.wap.wml',
+            'application/vnd.wap.xhtml+xml'
         ]],
         'HTTP_X_WAP_PROFILE'           => null,
         'HTTP_X_WAP_CLIENTID'          => null,
@@ -423,36 +425,36 @@ class Browser
      */
     protected static $browsers = [
 // @reference: https://developers.google.com/chrome/mobile/docs/user-agent
-'Chrome'         => '\bCrMo\b|CriOS|Android.*Chrome/[.0-9]* (Mobile)?',
-'Dolfin'         => '\bDolfin\b',
-'Opera'          => 'Opera.*Mini|Opera.*Mobi|Android.*Opera|Mobile.*OPR/[0-9.]+|Coast/[0-9.]+',
-'Skyfire'        => 'Skyfire',
-'IE'             => 'IEMobile|MSIEMobile', // |Trident/[.0-9]+
-'Firefox'        => 'fennec|firefox.*maemo|(Mobile|Tablet).*Firefox|Firefox.*Mobile',
-'Bolt'           => 'bolt',
-'TeaShark'       => 'teashark',
-'Blazer'         => 'Blazer',
+        'Chrome'         => '\bCrMo\b|CriOS|Android.*Chrome/[.0-9]* (Mobile)?',
+        'Dolfin'         => '\bDolfin\b',
+        'Opera'          => 'Opera.*Mini|Opera.*Mobi|Android.*Opera|Mobile.*OPR/[0-9.]+|Coast/[0-9.]+',
+        'Skyfire'        => 'Skyfire',
+        'IE'             => 'IEMobile|MSIEMobile', // |Trident/[.0-9]+
+        'Firefox'        => 'fennec|firefox.*maemo|(Mobile|Tablet).*Firefox|Firefox.*Mobile',
+        'Bolt'           => 'bolt',
+        'TeaShark'       => 'teashark',
+        'Blazer'         => 'Blazer',
 // @reference: http://developer.apple.com/library/safari/#documentation/AppleApplications/Reference/SafariWebContent/OptimizingforSafarioniPhone/OptimizingforSafarioniPhone.html#//apple_ref/doc/uid/TP40006517-SW3
-'Safari'         => 'Version.*Mobile.*Safari|Safari.*Mobile|MobileSafari',
+        'Safari'         => 'Version.*Mobile.*Safari|Safari.*Mobile|MobileSafari',
 // http://en.wikipedia.org/wiki/Midori_(web_browser)
 //'Midori'          => 'midori',
-'Tizen'          => 'Tizen',
-'UCBrowser'      => 'UC.*Browser|UCWEB',
-'baiduboxapp'    => 'baiduboxapp',
-'baidubrowser'   => 'baidubrowser',
+        'Tizen'          => 'Tizen',
+        'UCBrowser'      => 'UC.*Browser|UCWEB',
+        'baiduboxapp'    => 'baiduboxapp',
+        'baidubrowser'   => 'baidubrowser',
 // https://github.com/serbanghita/Mobile-Detect/issues/7
-'DiigoBrowser'   => 'DiigoBrowser',
+        'DiigoBrowser'   => 'DiigoBrowser',
 // http://www.puffinbrowser.com/index.php
-'Puffin'         => 'Puffin',
+        'Puffin'         => 'Puffin',
 // http://mercury-browser.com/index.html
-'Mercury'        => '\bMercury\b',
+        'Mercury'        => '\bMercury\b',
 // http://en.wikipedia.org/wiki/Obigo_Browser
-'ObigoBrowser'   => 'Obigo',
+        'ObigoBrowser'   => 'Obigo',
 // http://en.wikipedia.org/wiki/NetFront
-'NetFront'       => 'NF-Browser',
+        'NetFront'       => 'NF-Browser',
 // @reference: http://en.wikipedia.org/wiki/Minimo
 // http://en.wikipedia.org/wiki/Vision_Mobile_Browser
-'GenericBrowser' => 'NokiaBrowser|OviBrowser|OneBrowser|TwonkyBeamBrowser|SEMC.*Browser|FlyFlow|Minimo|NetFront|Novarra-Vision|MQQBrowser|MicroMessenger',
+        'GenericBrowser' => 'NokiaBrowser|OviBrowser|OneBrowser|TwonkyBeamBrowser|SEMC.*Browser|FlyFlow|Minimo|NetFront|Novarra-Vision|MQQBrowser|MicroMessenger',
     ];
     /**
      * Utilities.
@@ -464,14 +466,14 @@ class Browser
 // http://scottcate.com/technology/windows-phone-8-ie10-desktop-or-mobile/
 // https://github.com/serbanghita/Mobile-Detect/issues/57#issuecomment-15024011
 // https://developers.facebook.com/docs/sharing/best-practices
-'Bot'         => 'Googlebot|facebookexternalhit|AdsBot-Google|Google Keyword Suggestion|Facebot|YandexBot|bingbot|ia_archiver|AhrefsBot|Ezooms|GSLFbot|WBSearchBot|Twitterbot|TweetmemeBot|Twikle|PaperLiBot|Wotbox|UnwindFetchor|Exabot|MJ12bot|YandexImages|TurnitinBot|Pingdom',
-'MobileBot'   => 'Googlebot-Mobile|AdsBot-Google-Mobile|YahooSeeker/M1A1-R2D2',
-'DesktopMode' => 'WPDesktop',
-'TV'          => 'SonyDTV|HbbTV', // experimental
-'WebKit'      => '(webkit)[ /]([\w.]+)',
+        'Bot'         => 'Googlebot|facebookexternalhit|AdsBot-Google|Google Keyword Suggestion|Facebot|YandexBot|bingbot|ia_archiver|AhrefsBot|Ezooms|GSLFbot|WBSearchBot|Twitterbot|TweetmemeBot|Twikle|PaperLiBot|Wotbox|UnwindFetchor|Exabot|MJ12bot|YandexImages|TurnitinBot|Pingdom',
+        'MobileBot'   => 'Googlebot-Mobile|AdsBot-Google-Mobile|YahooSeeker/M1A1-R2D2',
+        'DesktopMode' => 'WPDesktop',
+        'TV'          => 'SonyDTV|HbbTV', // experimental
+        'WebKit'      => '(webkit)[ /]([\w.]+)',
 // @todo: Include JXD consoles.
-'Console'     => '\b(Nintendo|Nintendo WiiU|Nintendo 3DS|PLAYSTATION|Xbox)\b',
-'Watch'       => 'SM-V700',
+        'Console'     => '\b(Nintendo|Nintendo WiiU|Nintendo 3DS|PLAYSTATION|Xbox)\b',
+        'Watch'       => 'SM-V700',
     ];
     /**
      * All possible HTTP headers that represent the
@@ -481,16 +483,16 @@ class Browser
      */
     protected static $uaHttpHeaders = [
 // The default User-Agent string.
-'HTTP_USER_AGENT',
+        'HTTP_USER_AGENT',
 // Header can occur on devices using Opera Mini.
-'HTTP_X_OPERAMINI_PHONE_UA',
+        'HTTP_X_OPERAMINI_PHONE_UA',
 // Vodafone specific header: http://www.seoprinciple.com/mobile-web-community-still-angry-at-vodafone/24/
-'HTTP_X_DEVICE_USER_AGENT',
-'HTTP_X_ORIGINAL_USER_AGENT',
-'HTTP_X_SKYFIRE_PHONE',
-'HTTP_X_BOLT_PHONE_UA',
-'HTTP_DEVICE_STOCK_UA',
-'HTTP_X_UCBROWSER_DEVICE_UA'
+        'HTTP_X_DEVICE_USER_AGENT',
+        'HTTP_X_ORIGINAL_USER_AGENT',
+        'HTTP_X_SKYFIRE_PHONE',
+        'HTTP_X_BOLT_PHONE_UA',
+        'HTTP_DEVICE_STOCK_UA',
+        'HTTP_X_UCBROWSER_DEVICE_UA'
     ];
     /**
      * The individual segments that could exist in a User-Agent string. VER refers to the regular
@@ -501,67 +503,67 @@ class Browser
     protected static $properties = [
 
 // Build
-'Mobile'           => 'Mobile/[VER]',
-'Build'            => 'Build/[VER]',
-'Version'          => 'Version/[VER]',
-'VendorID'         => 'VendorID/[VER]',
+        'Mobile'           => 'Mobile/[VER]',
+        'Build'            => 'Build/[VER]',
+        'Version'          => 'Version/[VER]',
+        'VendorID'         => 'VendorID/[VER]',
 
 // Devices
-'iPad'             => 'iPad.*CPU[a-z ]+[VER]',
-'iPhone'           => 'iPhone.*CPU[a-z ]+[VER]',
-'iPod'             => 'iPod.*CPU[a-z ]+[VER]',
+        'iPad'             => 'iPad.*CPU[a-z ]+[VER]',
+        'iPhone'           => 'iPhone.*CPU[a-z ]+[VER]',
+        'iPod'             => 'iPod.*CPU[a-z ]+[VER]',
 //'BlackBerry'    => array('BlackBerry[VER]', 'BlackBerry [VER];'),
-'Kindle'           => 'Kindle/[VER]',
+        'Kindle'           => 'Kindle/[VER]',
 
 // Browser
-'Chrome'           => ['Chrome/[VER]', 'CriOS/[VER]', 'CrMo/[VER]'],
-'Coast'            => ['Coast/[VER]'],
-'Dolfin'           => 'Dolfin/[VER]',
+        'Chrome'           => ['Chrome/[VER]', 'CriOS/[VER]', 'CrMo/[VER]'],
+        'Coast'            => ['Coast/[VER]'],
+        'Dolfin'           => 'Dolfin/[VER]',
 // @reference: https://developer.mozilla.org/en-US/docs/User_Agent_Strings_Reference
-'Firefox'          => 'Firefox/[VER]',
-'Fennec'           => 'Fennec/[VER]',
+        'Firefox'          => 'Firefox/[VER]',
+        'Fennec'           => 'Fennec/[VER]',
 // http://msdn.microsoft.com/en-us/library/ms537503(v=vs.85).aspx
 // https://msdn.microsoft.com/en-us/library/ie/hh869301(v=vs.85).aspx
-'IE'               => ['IEMobile/[VER];', 'IEMobile [VER]', 'MSIE [VER];', 'Trident/[0-9.]+;.*rv:[VER]'],
+        'IE'               => ['IEMobile/[VER];', 'IEMobile [VER]', 'MSIE [VER];', 'Trident/[0-9.]+;.*rv:[VER]'],
 // http://en.wikipedia.org/wiki/NetFront
-'NetFront'         => 'NetFront/[VER]',
-'NokiaBrowser'     => 'NokiaBrowser/[VER]',
-'Opera'            => [' OPR/[VER]', 'Opera Mini/[VER]', 'Version/[VER]'],
-'Opera Mini'       => 'Opera Mini/[VER]',
-'Opera Mobi'       => 'Version/[VER]',
-'UC Browser'       => 'UC Browser[VER]',
-'MQQBrowser'       => 'MQQBrowser/[VER]',
-'MicroMessenger'   => 'MicroMessenger/[VER]',
-'baiduboxapp'      => 'baiduboxapp/[VER]',
-'baidubrowser'     => 'baidubrowser/[VER]',
-'Iron'             => 'Iron/[VER]',
+        'NetFront'         => 'NetFront/[VER]',
+        'NokiaBrowser'     => 'NokiaBrowser/[VER]',
+        'Opera'            => [' OPR/[VER]', 'Opera Mini/[VER]', 'Version/[VER]'],
+        'Opera Mini'       => 'Opera Mini/[VER]',
+        'Opera Mobi'       => 'Version/[VER]',
+        'UC Browser'       => 'UC Browser[VER]',
+        'MQQBrowser'       => 'MQQBrowser/[VER]',
+        'MicroMessenger'   => 'MicroMessenger/[VER]',
+        'baiduboxapp'      => 'baiduboxapp/[VER]',
+        'baidubrowser'     => 'baidubrowser/[VER]',
+        'Iron'             => 'Iron/[VER]',
 // @note: Safari 7534.48.3 is actually Version 5.1.
 // @note: On BlackBerry the Version is overwriten by the OS.
-'Safari'           => ['Version/[VER]', 'Safari/[VER]'],
-'Skyfire'          => 'Skyfire/[VER]',
-'Tizen'            => 'Tizen/[VER]',
-'Webkit'           => 'webkit[ /][VER]',
+        'Safari'           => ['Version/[VER]', 'Safari/[VER]'],
+        'Skyfire'          => 'Skyfire/[VER]',
+        'Tizen'            => 'Tizen/[VER]',
+        'Webkit'           => 'webkit[ /][VER]',
 
 // Engine
-'Gecko'            => 'Gecko/[VER]',
-'Trident'          => 'Trident/[VER]',
-'Presto'           => 'Presto/[VER]',
+        'Gecko'            => 'Gecko/[VER]',
+        'Trident'          => 'Trident/[VER]',
+        'Presto'           => 'Presto/[VER]',
 
 // OS
-'iOS'              => ' \bi?OS\b [VER][ ;]{1}',
-'Android'          => 'Android [VER]',
-'BlackBerry'       => ['BlackBerry[\w]+/[VER]', 'BlackBerry.*Version/[VER]', 'Version/[VER]'],
-'BREW'             => 'BREW [VER]',
-'Java'             => 'Java/[VER]',
+        'iOS'              => ' \bi?OS\b [VER][ ;]{1}',
+        'Android'          => 'Android [VER]',
+        'BlackBerry'       => ['BlackBerry[\w]+/[VER]', 'BlackBerry.*Version/[VER]', 'Version/[VER]'],
+        'BREW'             => 'BREW [VER]',
+        'Java'             => 'Java/[VER]',
 // @reference: http://windowsteamblog.com/windows_phone/b/wpdev/archive/2011/08/29/introducing-the-ie9-on-windows-phone-mango-user-agent-string.aspx
 // @reference: http://en.wikipedia.org/wiki/Windows_NT#Releases
-'Windows Phone OS' => ['Windows Phone OS [VER]', 'Windows Phone [VER]'],
-'Windows Phone'    => 'Windows Phone [VER]',
-'Windows CE'       => 'Windows CE/[VER]',
+        'Windows Phone OS' => ['Windows Phone OS [VER]', 'Windows Phone [VER]'],
+        'Windows Phone'    => 'Windows Phone [VER]',
+        'Windows CE'       => 'Windows CE/[VER]',
 // http://social.msdn.microsoft.com/Forums/en-US/windowsdeveloperpreviewgeneral/thread/6be392da-4d2f-41b4-8354-8dcee20c85cd
-'Windows NT'       => 'Windows NT [VER]',
-'Symbian'          => ['SymbianOS/[VER]', 'Symbian/[VER]'],
-'webOS'            => ['webOS/[VER]', 'hpwOS/[VER];'],
+        'Windows NT'       => 'Windows NT [VER]',
+        'Symbian'          => ['SymbianOS/[VER]', 'Symbian/[VER]'],
+        'webOS'            => ['webOS/[VER]', 'hpwOS/[VER];'],
     ];
     /**
      * A cache for resolved matches

@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Base\Social\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Base\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-base-social';
+    protected $exportKey = 'module_base_social';
 
     /**
      * @var array
@@ -30,9 +29,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/base/src/Base/Social',
-        'app/template/default/base/Social',
-        'app/theme/default/sass/base/Social',
-        'app/theme/admin/sass/base/Social',
-        'static/jscript/base/Social'
+        'app/template/default/base/social',
+        'app/theme/default/sass/base/social',
+        'app/theme/admin/sass/base/social',
+        'static/jscript/base/social'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'base_social'
     ];
 }

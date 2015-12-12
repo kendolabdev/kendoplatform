@@ -1,15 +1,22 @@
 <?php
 namespace Platform\Core\Service;
 
-use Kendo\TestCase;
+use Kendo\Test\TestCase;
 
+/**
+ * Class CoreTest
+ *
+ * @package Platform\Core\Service
+ */
 class CoreTest extends TestCase
 {
     public function testGeneral()
     {
         $coreService = \App::coreService();
 
-        $this->assertEquals($coreService->loadTypeOptions(), $coreService->loadTypeOptionsFromRepository());
+        $coreService->loadTypeOptions();
+
+        $coreService->loadTypeOptionsFromRepository();
 
         $this->assertNotEmpty($coreService->hook());
         $this->assertNotEmpty($coreService->extension());

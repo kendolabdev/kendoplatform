@@ -2,7 +2,7 @@
 
 namespace Kendo\Request;
 
-use Kendo\Controller\Controller;
+use Kendo\Controller\ControllerInterface;
 
 /**
  * Class HttpRequest
@@ -11,6 +11,11 @@ use Kendo\Controller\Controller;
  */
 class HttpRequest implements RequestInterface
 {
+    /**
+     * @var string
+     */
+    protected $errorClass = '\Platform\Core\Controller\ErrorController';
+
     /**
      * @var \Exception
      */
@@ -278,9 +283,17 @@ class HttpRequest implements RequestInterface
     }
 
     /**
+     * @return string
+     */
+    public function getErrorClass()
+    {
+        return $this->errorClass;
+    }
+
+    /**
      * @return bool
      */
-    public function execute()
+    public function dispatch()
     {
 
         if (!$this->getControllerName()) {
@@ -297,26 +310,39 @@ class HttpRequest implements RequestInterface
             try {
 
                 if (!class_exists($controllerClass)) {
-                    $this->forward('\Core\Controller\ErrorController', '404', false);
+                    $this->forward($this->getErrorClass(), '404', false);
                 } else {
+
                     $controller = new $controllerClass($this);
 
-                    if (!$controller instanceof Controller) {
-                        $this->forward('\Core\Controller\ErrorController', '404', false);
+                    if (!$controller instanceof ControllerInterface) {
+                        $this->forward($this->getErrorClass(), '404', false);
                     }
 
                     $controller->execute();
 
-                    if ($this->dispatched)
+                    if ($this->dispatched) {
                         $this->getResult()->setData($controller->render());
+                    }
+
                 }
             } catch (\Exception $e) {
                 $this->setException($e);
-                $this->forward('\Core\Controller\ErrorController', 'exception', false);
+                $this->forward($this->getErrorClass(), 'exception', false);
             }
         }
 
         return false;
+    }
+
+    /**
+     * Is ajax fragment request
+     *
+     * @return bool
+     */
+    public function isAjaxFragment()
+    {
+        return !!$this->getParam('__ajax_load_page');
     }
 
     /**
@@ -511,7 +537,14 @@ class HttpRequest implements RequestInterface
      */
     public function setMethod($method)
     {
-        $this->method = strtoupper($method);
+
+        $method = strtoupper((string)$method);
+
+        if (!in_array($method, ['GET', 'POST', 'DELETE', 'PUT', 'DELETE', 'OPTIONS'])) {
+            $method = 'GET';
+        }
+
+        $this->method = $method;
     }
 
     /**

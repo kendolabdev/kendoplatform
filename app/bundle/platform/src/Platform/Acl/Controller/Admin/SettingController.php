@@ -8,7 +8,7 @@ use Kendo\Layout\BlockParams;
 /**
  * Class SettingController
  *
- * @package Acl\Controller\Admin
+ * @package Platform\Acl\Controller\Admin
  */
 class SettingController extends AdminController
 {

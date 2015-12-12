@@ -10,7 +10,7 @@ use Kendo\View\View;
  *
  * @package Kendo\Controller
  */
-class DefaultController implements Controller
+class DefaultController implements ControllerInterface
 {
 
     /**

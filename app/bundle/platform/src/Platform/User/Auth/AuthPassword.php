@@ -59,7 +59,7 @@ class AuthPassword implements AuthInterface
 
         $enctypes = \App::authService()->getSupportHashTypes();
 
-        $rows = \App::table('user.user_auth_password')
+        $rows = \App::table('platform_user_auth_password')
             ->select()
             ->where('user_id=?', $userId)
             ->where('is_active=?', 1)

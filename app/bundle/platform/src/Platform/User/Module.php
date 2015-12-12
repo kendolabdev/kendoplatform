@@ -24,11 +24,11 @@ class Module extends \Kendo\Application\Module
         \App::authService()->restore();
 
         \App::viewHelper()->addClassMaps([
-            'btnFriendCount'    => '\User\ViewHelper\ButtonMemberCount',
-            'btnUserMembership' => '\User\ViewHelper\ButtonMembership',
-            'btnBearAccount'    => '\User\ViewHelper\ButtonBearAccount',
-            'btnTopbarViewer'   => '\User\ViewHelper\ButtonTopbarViewer',
-            'btnLoginAs'        => '\User\ViewHelper\ButtonLoginAs',
+            'btnFriendCount'    => '\Platform\User\ViewHelper\ButtonMemberCount',
+            'btnUserMembership' => '\Platform\User\ViewHelper\ButtonMembership',
+            'btnBearAccount'    => '\Platform\User\ViewHelper\ButtonBearAccount',
+            'btnTopbarViewer'   => '\Platform\User\ViewHelper\ButtonTopbarViewer',
+            'btnLoginAs'        => '\Platform\User\ViewHelper\ButtonLoginAs',
         ]);
 
     }
@@ -50,7 +50,7 @@ class Module extends \Kendo\Application\Module
         $routing->addRoute('members', [
             'uri'      => 'members',
             'defaults' => [
-                'controller' => '\User\Controller\HomeController',
+                'controller' => '\Platform\User\Controller\HomeController',
                 'action'     => 'browse-user'
             ],
         ]);
@@ -58,7 +58,7 @@ class Module extends \Kendo\Application\Module
         $routing->addRoute('find_friends', [
             'uri'      => 'find-friends',
             'defaults' => [
-                'controller' => '\User\Controller\HomeController',
+                'controller' => '\Platform\User\Controller\HomeController',
                 'action'     => 'find-friend',
             ],
         ]);
@@ -66,7 +66,7 @@ class Module extends \Kendo\Application\Module
         $routing->addRoute('forgot_password', [
             'uri'      => 'forgot-password',
             'defaults' => [
-                'controller' => '\User\Controller\AuthController',
+                'controller' => '\Platform\User\Controller\AuthController',
                 'action'     => 'forgot-password',
             ],
         ]);
@@ -74,7 +74,7 @@ class Module extends \Kendo\Application\Module
         $routing->addRoute('login', [
             'uri'      => 'login',
             'defaults' => [
-                'controller' => '\User\Controller\AuthController',
+                'controller' => '\Platform\User\Controller\AuthController',
                 'action'     => 'login',
             ],
         ]);
@@ -82,7 +82,7 @@ class Module extends \Kendo\Application\Module
         $routing->addRoute('login_as', [
             'uri'      => 'login-as/<type>/<id>',
             'defaults' => [
-                'controller' => '\User\Controller\AuthController',
+                'controller' => '\Platform\User\Controller\AuthController',
                 'action'     => 'loginAs',
             ],
         ]);
@@ -90,7 +90,7 @@ class Module extends \Kendo\Application\Module
         $routing->addRoute('logout', [
             'uri'      => 'logout',
             'defaults' => [
-                'controller' => '\User\Controller\AuthController',
+                'controller' => '\Platform\User\Controller\AuthController',
                 'action'     => 'logout',
             ],
         ]);
@@ -98,7 +98,7 @@ class Module extends \Kendo\Application\Module
         $routing->addRoute('register', [
             'uri'      => 'register',
             'defaults' => [
-                'controller' => '\User\Controller\RegisterController',
+                'controller' => '\Platform\User\Controller\RegisterController',
                 'action'     => 'index',
             ],
         ]);
@@ -107,7 +107,7 @@ class Module extends \Kendo\Application\Module
         $routing->addRoute('edit_profile', [
             'uri'      => 'user/edit-profile',
             'defaults' => [
-                'controller' => '\User\Controller\ProfileController',
+                'controller' => '\Platform\User\Controller\ProfileController',
                 'action'     => 'edit',
             ],
         ]);
@@ -115,7 +115,7 @@ class Module extends \Kendo\Application\Module
         $routing->addRoute('user_settings', [
             'uri'      => 'settings(/<action>)',
             'defaults' => [
-                'controller' => '\User\Controller\SettingsController',
+                'controller' => '\Platform\User\Controller\SettingsController',
                 'action'     => 'account',
             ],
         ]);
@@ -123,7 +123,7 @@ class Module extends \Kendo\Application\Module
         $routing->getRoute('cardhover')
             ->addFilter(new FilterStuff([
                 'stuff'      => 'user',
-                'controller' => '\User\Controller\Ajax\CardhoverController',
+                'controller' => '\Platform\User\Controller\Ajax\CardhoverController',
                 'action'     => 'preview',
             ]));
 
@@ -164,5 +164,4 @@ class Module extends \Kendo\Application\Module
                 'controller' => '\Platform\User\Controller\ProfileController',
                 'action'     => 'view-about']));
     }
-
 }

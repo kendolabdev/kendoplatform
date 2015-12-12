@@ -342,7 +342,7 @@ class App
      */
     public static function userService()
     {
-        return self::$manager->getService('platform.user');
+        return self::$manager->getService('platform_user');
     }
 
     /**
@@ -638,19 +638,11 @@ class App
     }
 
     /**
-     * @return \Kendo\Comparator\Manager
-     */
-    public static function comparator()
-    {
-        return self::$manager->getService('comparator');
-    }
-
-    /**
      * @return \Base\Social\Service\SocialService
      */
     public static function socialService()
     {
-        return self::$manager->getService('social');
+        return self::$manager->getService('base_social');
     }
 
     /**

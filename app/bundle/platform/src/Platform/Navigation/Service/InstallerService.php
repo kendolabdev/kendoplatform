@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Platform\Navigation\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Platform\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-navigation';
+    protected $exportKey = 'module_platform_navigation';
 
     /**
      * @var array
@@ -31,9 +30,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/platform/src/Platform/Navigation',
-        'app/template/default/platform/Navigation',
-        'app/theme/default/sass/platform/Navigation',
-        'app/theme/admin/sass/platform/Navigation',
-        'static/jscript/platform/Navigation'
+        'app/template/default/platform/navigation',
+        'app/theme/default/sass/platform/navigation',
+        'app/theme/admin/sass/platform/navigation',
+        'static/jscript/platform/navigation'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'platform_navigation'
     ];
 }

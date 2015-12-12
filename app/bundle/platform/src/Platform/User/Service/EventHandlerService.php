@@ -13,6 +13,8 @@ use Kendo\View\View;
 use Platform\User\Model\User;
 
 /**
+ * @codeCoverageIgnore
+ *
  * Class EventHandlerService
  *
  * @package Platform\User\Service
@@ -23,7 +25,8 @@ class EventHandlerService extends EventHandler
     /**
      * @param HookEvent $event
      */
-    public function onRequirejsRender(HookEvent $event) {
+    public function onRequirejsRender(HookEvent $event)
+    {
         $requirejs = $event->getPayload();
 
         if (!$requirejs instanceof Requirejs) return;

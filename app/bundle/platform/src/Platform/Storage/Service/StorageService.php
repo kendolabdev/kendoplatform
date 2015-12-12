@@ -207,7 +207,7 @@ class StorageService implements StorageManagerInterface
      */
     public function getParamsForStorage($id)
     {
-        $entry = \App::table('storage')
+        $entry = \App::table('platform_storage')
             ->findById((int)$id);
 
         if (!$entry) {
@@ -236,7 +236,7 @@ class StorageService implements StorageManagerInterface
      */
     public function getFileItem($fileId, $maker)
     {
-        return \App::table('storage.storage_file')
+        return \App::table('platform_storage_file')
             ->select()
             ->where('origin_id=?', (int)$fileId)
             ->where('maker=?', (string)$maker)
@@ -251,7 +251,7 @@ class StorageService implements StorageManagerInterface
      */
     public function getUrlByOriginAndMaker($originalId, $maker)
     {
-        $data = \App::table('storage.storage_file')
+        $data = \App::table('platform_storage_file')
             ->select()
             ->where('origin_id=?', (int)$originalId)
             ->where('maker=?', (string)$maker)
@@ -281,7 +281,7 @@ class StorageService implements StorageManagerInterface
 
         $list = new InputFileList();
 
-        $items = \App::table('storage.storage_file_tmp')
+        $items = \App::table('platform_storage_file_tmp')
             ->select()
             ->where('id IN ?', $tempIdList)
             ->all();
@@ -302,7 +302,7 @@ class StorageService implements StorageManagerInterface
      */
     public function getTempInputFile($tempId)
     {
-        $item = \App::table('storage.storage_file_tmp')
+        $item = \App::table('platform_storage_file_tmp')
             ->findById($tempId);
 
         if ($item instanceof StorageFileTmp) {
@@ -433,7 +433,7 @@ class StorageService implements StorageManagerInterface
         if (empty($makers) || empty($originId))
             return;
 
-        \App::table('storage.storage_file')
+        \App::table('platform_storage_file')
             ->delete()
             ->where('origin_id=?', $originId)
             ->where('maker IN ?', $makers)
@@ -491,7 +491,7 @@ class StorageService implements StorageManagerInterface
      */
     public function loadAdminPagingStorage($query = [], $page = 1, $limit = 100)
     {
-        $select = \App::table('storage')
+        $select = \App::table('platform_storage')
             ->select();
 
         if (!empty($query))
@@ -507,7 +507,7 @@ class StorageService implements StorageManagerInterface
      */
     public function findStorageById($id)
     {
-        return \App::table('storage')
+        return \App::table('platform_storage')
             ->findById((int)$id);
     }
 
@@ -518,7 +518,7 @@ class StorageService implements StorageManagerInterface
      */
     public function findAdapterById($id)
     {
-        return \App::table('storage.storage_adapter')
+        return \App::table('platform_storage_adapter')
             ->findById((string)$id);
     }
 
@@ -529,7 +529,7 @@ class StorageService implements StorageManagerInterface
      */
     public function findAdapterByType($type)
     {
-        return \App::table('storage.storage_adapter')
+        return \App::table('platform_storage_adapter')
             ->findById((string)$type);
     }
 }

@@ -2,8 +2,13 @@
 namespace Platform\Core\Service;
 
 use Kendo\Request\HttpRequest;
-use Kendo\TestCase;
+use Kendo\Test\TestCase;
 
+/**
+ * Class RoutingTest
+ *
+ * @package Platform\Core\Service
+ */
 class RoutingTest extends TestCase
 {
 

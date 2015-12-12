@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Platform\Storage\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Platform\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-storage';
+    protected $exportKey = 'module_platform_storage';
 
     /**
      * @var array
@@ -33,9 +32,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/platform/src/Platform/Storage',
-        'app/template/default/platform/Storage',
-        'app/theme/default/sass/platform/Storage',
-        'app/theme/admin/sass/platform/Storage',
-        'static/jscript/platform/Storage'
+        'app/template/default/platform/storage',
+        'app/theme/default/sass/platform/storage',
+        'app/theme/admin/sass/platform/storage',
+        'static/jscript/platform/storage'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'platform_storage'
     ];
 }

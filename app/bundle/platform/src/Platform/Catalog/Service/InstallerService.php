@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Platform\Catalog\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Platform\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-catalog';
+    protected $exportKey = 'module_platform_catalog';
 
     /**
      * @var array
@@ -36,9 +35,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/platform/src/Platform/Catalog',
-        'app/template/default/platform/Catalog',
-        'app/theme/default/sass/platform/Catalog',
-        'app/theme/admin/sass/platform/Catalog',
-        'static/jscript/platform/Catalog'
+        'app/template/default/platform/catalog',
+        'app/theme/default/sass/platform/catalog',
+        'app/theme/admin/sass/platform/catalog',
+        'static/jscript/platform/catalog'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'platform_catalog'
     ];
 }

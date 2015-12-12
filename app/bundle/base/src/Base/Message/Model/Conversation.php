@@ -1,6 +1,6 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_base_message_conversation`
+ * Generate by CodeGenerator\DbTable for table `kendo_message_conversation`
  */
 
 namespace Base\Message\Model;
@@ -11,116 +11,140 @@ use Kendo\Model;
 
 /**
  * Class Conversation
- * @package Base\Message\Model
+ *
+ * @package Message\Model
  */
-class Conversation extends Model{
-    // PUT YOUR CODE HERE
+class Conversation extends Model
+{
+
+    /**
+     * @return array
+     */
+    public function getOtherRecipients()
+    {
+        return \App::messageService()->getOtherRecipients($this->getConversationId());
+    }
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('conversation_id');
+    public function getId()
+    {
+        return $this->__get('conversation_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('conversation_id', $value);
+    public function setId($value)
+    {
+        $this->__set('conversation_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getConversationId(){
-       return $this->__get('conversation_id');
+    public function getConversationId()
+    {
+        return $this->__get('conversation_id');
     }
 
     /**
      * @param $value
      */
-    public function setConversationId($value){
-       $this->__set('conversation_id', $value);
+    public function setConversationId($value)
+    {
+        $this->__set('conversation_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getTitle(){
-       return $this->__get('title');
+    public function getTitle()
+    {
+        return $this->__get('title');
     }
 
     /**
      * @param $value
      */
-    public function setTitle($value){
-       $this->__set('title', $value);
+    public function setTitle($value)
+    {
+        $this->__set('title', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getFromId(){
-       return $this->__get('from_id');
+    public function getFromId()
+    {
+        return $this->__get('from_id');
     }
 
     /**
      * @param $value
      */
-    public function setFromId($value){
-       $this->__set('from_id', $value);
+    public function setFromId($value)
+    {
+        $this->__set('from_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getToId(){
-       return $this->__get('to_id');
+    public function getToId()
+    {
+        return $this->__get('to_id');
     }
 
     /**
      * @param $value
      */
-    public function setToId($value){
-       $this->__set('to_id', $value);
+    public function setToId($value)
+    {
+        $this->__set('to_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getLastMessageId(){
-       return $this->__get('last_message_id');
+    public function getLastMessageId()
+    {
+        return $this->__get('last_message_id');
     }
 
     /**
      * @param $value
      */
-    public function setLastMessageId($value){
-       $this->__set('last_message_id', $value);
+    public function setLastMessageId($value)
+    {
+        $this->__set('last_message_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCreatedAt(){
-       return $this->__get('created_at');
+    public function getCreatedAt()
+    {
+        return $this->__get('created_at');
     }
 
     /**
      * @param $value
      */
-    public function setCreatedAt($value){
-       $this->__set('created_at', $value);
+    public function setCreatedAt($value)
+    {
+        $this->__set('created_at', $value);
     }
 
     /**
      * @return \Base\Message\Model\ConversationTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('base_message_conversation');
     }
     //END_TABLE_GENERATOR

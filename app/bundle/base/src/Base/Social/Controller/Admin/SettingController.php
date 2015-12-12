@@ -25,8 +25,7 @@ class SettingController extends AdminController
      */
     public function actionBrowse()
     {
-
-        $paging = \App::table('social.social_service')
+        $paging = \App::table('base_social_service')
             ->select()
             ->order('sort_order', 1)
             ->paging(1, 100);
@@ -82,7 +81,7 @@ class SettingController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path'=> 'layout/partial/form-edit'
+            'base_path' => 'layout/partial/form-edit'
         ]);
 
         $this->view

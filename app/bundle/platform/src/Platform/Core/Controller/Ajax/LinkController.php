@@ -41,7 +41,7 @@ class LinkController extends AjaxController
         }
 
         $this->response['html'] = \App::viewHelper()
-            ->partial('base/core/controller/ajax/link/composer-preview-link', $data);
+            ->partial('platform/core/controller/ajax/link/composer-preview-link', $data);
     }
 
     /**

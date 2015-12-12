@@ -157,10 +157,13 @@ class UserService implements Manager
      */
     public function findUserByIdentity($identity)
     {
+        $identity = (string)$identity;
+
         return \App::table('platform_user')
             ->select()
             ->where('email=?', $identity)
             ->orWhere('profile_name=?', $identity)
+            ->orWhere('user_id=?', $identity)
             ->one();
     }
 
@@ -199,7 +202,7 @@ class UserService implements Manager
      */
     public function addRemoteUser(User $user, $remoteUID, $remoteService)
     {
-        $remote = \App::table('user.user_auth_remote')
+        $remote = \App::table('platform_user_auth_remote')
             ->select()
             ->where('remote_uid=?', $remoteUID)
             ->where('remote_service=?', $remoteService)
@@ -239,7 +242,7 @@ class UserService implements Manager
         }
 
 
-        return \App::table('user.user_auth_password')
+        return \App::table('platform_user_auth_password')
             ->select()
             ->where('user_id=?', (string)$userId)
             ->where('is_active=?', 1)
@@ -313,7 +316,7 @@ class UserService implements Manager
      */
     public function findPassword($userId, $encrypt_type)
     {
-        return \App::table('user.user_auth_password')
+        return \App::table('platform_user_auth_password')
             ->select()
             ->where('user_id=?', $userId)
             ->where('is_active=?', 1)
@@ -322,11 +325,11 @@ class UserService implements Manager
     }
 
     /**
-     * @param string|int $userId
-     * @param string     $password
-     * @param string     $encrypt_type
+     * @param string $userId
+     * @param string $password
+     * @param string $encrypt_type
      *
-     * @return Platform\UserAuthPassword
+     * @return \Platform\User\Model\UserAuthPassword
      */
     public function setPassword($userId, $password, $encrypt_type = null)
     {

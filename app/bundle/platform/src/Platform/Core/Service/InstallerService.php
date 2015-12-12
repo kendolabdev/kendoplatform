@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Platform\Core\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Platform\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-core';
+    protected $exportKey = 'module_platform_core';
 
     /**
      * @var array
@@ -41,9 +40,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/platform/src/Platform/Core',
-        'app/template/default/platform/Core',
-        'app/theme/default/sass/platform/Core',
-        'app/theme/admin/sass/platform/Core',
-        'static/jscript/platform/Core'
+        'app/template/default/platform/core',
+        'app/theme/default/sass/platform/core',
+        'app/theme/admin/sass/platform/core',
+        'static/jscript/platform/core'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'platform_core'
     ];
 }

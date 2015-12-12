@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Base\Feed\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Base\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-base-feed';
+    protected $exportKey = 'module_base_feed';
 
     /**
      * @var array
@@ -36,9 +35,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/base/src/Base/Feed',
-        'app/template/default/base/Feed',
-        'app/theme/default/sass/base/Feed',
-        'app/theme/admin/sass/base/Feed',
-        'static/jscript/base/Feed'
+        'app/template/default/base/feed',
+        'app/theme/default/sass/base/feed',
+        'app/theme/admin/sass/base/feed',
+        'static/jscript/base/feed'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'base_feed'
     ];
 }

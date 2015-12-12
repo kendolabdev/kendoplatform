@@ -21,51 +21,55 @@ class UidGeneratorTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_platform_core_uid_generator`
+     * @see `kendo_core_uid_generator`
      * @var string
      */
-    protected $class =  '\Platform\Core\Model\UidGenerator';
+    protected $class = '\Core\Model\UidGenerator';
 
     /**
      * @var string
      */
-    protected $name =  'platform_core_uid_generator';
+    protected $name = 'core_uid_generator';
 
     /**
      * @var array
      */
-    protected $column = array(
-		'uid'=>1);
+    protected $column = [
+        'uid' => 1];
 
     /**
      * @var array
      */
-    protected $primary = array( 'uid'=>1);
+    protected $primary = ['uid' => 1];
 
     /**
      * @var string
      */
     protected $identity = 'uid';
 
-    
+
     /**
      * @param  string|int $value
+     *
      * @return \Platform\Core\Model\UidGenerator
      */
-    public function findById($value){
-       return $this->select()
-           ->where('uid=?', $value)
-           ->one();
+    public function findById($value)
+    {
+        return $this->select()
+            ->where('uid=?', $value)
+            ->one();
     }
 
     /**
      * @param  array $value
+     *
      * @return array
      */
-    public function findByIdList($value){
-       return $this->select()
-           ->where('uid IN ?', $value)
-           ->all();
+    public function findByIdList($value)
+    {
+        return $this->select()
+            ->where('uid IN ?', $value)
+            ->all();
     }
 
     //END_TABLE_GENERATOR

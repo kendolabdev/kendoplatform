@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Platform\Payment\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Platform\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-payment';
+    protected $exportKey = 'module_platform_payment';
 
     /**
      * @var array
@@ -31,9 +30,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/platform/src/Platform/Payment',
-        'app/template/default/platform/Payment',
-        'app/theme/default/sass/platform/Payment',
-        'app/theme/admin/sass/platform/Payment',
-        'static/jscript/platform/Payment'
+        'app/template/default/platform/payment',
+        'app/theme/default/sass/platform/payment',
+        'app/theme/admin/sass/platform/payment',
+        'static/jscript/platform/payment'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'platform_payment'
     ];
 }

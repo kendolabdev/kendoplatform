@@ -7,7 +7,7 @@ use Kendo\Html\Form;
 /**
  * Class FilterAclRoleType
  *
- * @package Acl\Form\Admin
+ * @package Platform\Acl\Form\Admin
  */
 class FilterAclRoleType extends Form
 {

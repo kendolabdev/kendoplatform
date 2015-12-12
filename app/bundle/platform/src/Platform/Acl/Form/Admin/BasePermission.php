@@ -7,7 +7,7 @@ use Kendo\Html\Form;
 /**
  * Class BasePermission
  *
- * @package Acl\Form\Admin
+ * @package Platform\Acl\Form\Admin
  */
 class BasePermission extends Form
 {

@@ -49,14 +49,14 @@ class ErrorController extends DefaultController
     {
         $exception = $this->request->getException();
 
-        $pageName = 'core_error_general_exception';
+        $pageName = 'platform_core_error_general_exception';
 
         if ($exception instanceof AuthorizationRestrictException) {
-            $pageName = 'core_error_authorization_restrict';
+            $pageName = 'platform_core_error_authorization_restrict';
         } else if ($exception instanceof PrivacyRestrictException) {
-            $pageName = 'core_error_privacy_restrict';
+            $pageName = 'platform_core_error_privacy_restrict';
             \App::layoutService()
-                ->setPageName('core_error_privacy_restrict');
+                ->setPageName('platform_core_error_privacy_restrict');
         }
 
         $lp = \App::layoutService()

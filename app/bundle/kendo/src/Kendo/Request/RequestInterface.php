@@ -69,7 +69,7 @@ interface RequestInterface
     /**
      * @return bool
      */
-    public function execute();
+    public function dispatch();
 
     /**
      * @param  string $controllerName
@@ -99,7 +99,7 @@ interface RequestInterface
     public function setActionName($value);
 
     /**
-     * @return Result
+     * @return HttpResult
      */
     public function getResult();
 

@@ -58,7 +58,7 @@ class RelationService
      */
     public function getMemberCount(PosterInterface $parent)
     {
-        return (int)\App::table('relation.relation_item')
+        return (int)\App::table('platform_relation_item')
             ->select()
             ->where('relation_id=?', $parent->getId())
             ->where('parent_id=?', $parent->getId())
@@ -74,7 +74,7 @@ class RelationService
      */
     public function getMemberIdList($parent, $type = null)
     {
-        $select = \App::table('relation.relation_item')
+        $select = \App::table('platform_relation_item')
             ->select()
             ->where('relation_id=?', $parent->getId())
             ->where('parent_id=?', $parent->getId());
@@ -179,7 +179,7 @@ class RelationService
             $relationType = RELATION_TYPE_MEMBER;
         }
 
-        $relation = \App::table('relation.relation')
+        $relation = \App::table('platform_relation')
             ->select()
             ->where('parent_id=?', $parent->getId())
             ->where('relation_type=?', $relationType)
@@ -199,7 +199,7 @@ class RelationService
      */
     private function removeItems(PosterInterface $parent, PosterInterface $poster, $relationId = null)
     {
-        $sql = \App::table('relation.relation_item')
+        $sql = \App::table('platform_relation_item')
             ->delete()
             ->where('poster_id=?', $poster->getId())
             ->where('parent_id=?', $parent->getId());
@@ -262,7 +262,7 @@ class RelationService
             throw new \InvalidArgumentException("Could not add relation");
         }
 
-        $item = \App::table('relation.relation_item')
+        $item = \App::table('platform_relation_item')
             ->select()
             ->where('relation_id=?', $relation->getId())
             ->where('poster_id=?', $poster->getId())
@@ -306,7 +306,7 @@ class RelationService
         if (null == $relationId) {
             $relation = $this->findList($parent, $relationType, true);
         } else {
-            $relation = \App::table('relation.relation')
+            $relation = \App::table('platform_relation')
                 ->findById($relationId);
         }
 
@@ -315,7 +315,7 @@ class RelationService
         }
 
         // force relation type is not member
-        $relationItem = \App::table('relation.relation_item')
+        $relationItem = \App::table('platform_relation_item')
             ->select()
             ->where('relation_id=?', $relation->getId())
             ->where('poster_id=?', $poster->getId())
@@ -349,7 +349,7 @@ class RelationService
      */
     public function clearRelationItem(PosterInterface $parent, PosterInterface $poster)
     {
-        \App::table('relation.relation_item')
+        \App::table('platform_relation_item')
             ->delete()
             ->where('poster_id=?', $poster->getId())
             ->where('parent_id=?', $parent->getId())
@@ -363,7 +363,7 @@ class RelationService
      */
     public function getRelationTypeForBuild($parentType)
     {
-        return \App::table('relation.relation_type')
+        return \App::table('platform_relation_type')
             ->select()
             ->where('parent_type =?', $parentType)
             ->where('is_build=?', 1)
@@ -397,7 +397,7 @@ class RelationService
      */
     private function hasMemberRelation(PosterInterface $parent, PosterInterface $poster)
     {
-        return null != \App::table('relation.relation_item')
+        return null != \App::table('platform_relation_item')
             ->select()
             ->where('parent_id=?', $parent->getId())
             ->where('poster_id=?', $poster->getId())
@@ -414,7 +414,7 @@ class RelationService
      */
     private function hasSpecificRelation(PosterInterface $parent, PosterInterface $poster, $relationId)
     {
-        return null != \App::table('relation.relation_item')
+        return null != \App::table('platform_relation_item')
             ->select()
             ->where('relation_id=?', (string)$relationId)
             ->where('parent_id=?', $parent->getId())
@@ -491,12 +491,12 @@ class RelationService
      */
     public function getMutualMemberSelect($parentId, $objectId)
     {
-        $subquery = \App::table('relation.relation_item')
+        $subquery = \App::table('platform_relation_item')
             ->select()
             ->where('parent_id=?', $objectId)
             ->columns('poster_id');
 
-        return \App::table('relation.relation_item')
+        return \App::table('platform_relation_item')
             ->select()
             ->where('parent_id=?', $parentId)
             ->where('poster_id IN (?)', $subquery);
@@ -512,7 +512,7 @@ class RelationService
     public function getPrivacyListByParentId($parentId)
     {
 
-        return \App::table('relation.relation')
+        return \App::table('platform_relation')
             ->select()
             ->where('parent_id=?', $parentId)
             ->all();
@@ -525,7 +525,7 @@ class RelationService
      */
     public function getPrivacyIdListByParentId($parentId)
     {
-        return \App::table('relation.relation')
+        return \App::table('platform_relation')
             ->select()
             ->where('parent_id=?', $parentId)
             ->toInts('relation_id');
@@ -542,7 +542,7 @@ class RelationService
     public function getAllRelationTypes($parentType)
     {
 
-        return \App::table('relation.relation_type')
+        return \App::table('platform_relation_type')
             ->select()
             ->where('parent_type=?', $parentType)
             ->order('relation_type', -1)
@@ -559,7 +559,7 @@ class RelationService
      */
     public function getAllSystemRelationType($parentType)
     {
-        return \App::table('relation.relation_type')
+        return \App::table('platform_relation_type')
             ->select()
             ->where('parent_type=?', $parentType)
             ->where('relation_type<?', RELATION_TYPE_CUSTOM)
@@ -684,7 +684,7 @@ class RelationService
      */
     public function findById($relationId)
     {
-        return \App::table('relation.relation')
+        return \App::table('platform_relation')
             ->findById((string)$relationId);
     }
 
@@ -760,7 +760,7 @@ class RelationService
          * Check in member list in groups.
          * In member list
          */
-        $map1 = \App::table('relation.relation_item')
+        $map1 = \App::table('platform_relation_item')
             ->select()
             ->where('poster_id =?', $posterId)
             ->where('parent_id IN ?', $parentIdList)
@@ -786,7 +786,7 @@ class RelationService
         /**
          * fetch relation type in relation list
          */
-        $map2 = \App::table('relation.relation')
+        $map2 = \App::table('platform_relation')
             ->select()
             ->where('relation_id IN ?', $relationIdList)
             ->columns('relation_type, parent_id')
@@ -823,7 +823,7 @@ class RelationService
          * Check in member list in groups.
          * In member list
          */
-        $map1 = \App::table('relation.relation_item')
+        $map1 = \App::table('platform_relation_item')
             ->select()
             ->where('poster_id =?', $posterId)
             ->where('parent_id IN ?', $parentIdList)
@@ -851,7 +851,7 @@ class RelationService
      */
     public function getListRelationIdBetween($parentId, $posterId)
     {
-        return \App::table('relation.relation_item')
+        return \App::table('platform_relation_item')
             ->select()
             ->where('poster_id = ?', $posterId)
             ->where('parent_id = ?', $parentId)
@@ -872,7 +872,7 @@ class RelationService
          * Check in member list in groups.
          * In member list
          */
-        $rows = \App::table('relation.relation_item')
+        $rows = \App::table('platform_relation_item')
             ->select()
             ->where('poster_id IN ?', $posterIdList)
             ->where('parent_id = ?', $parentId)
@@ -898,7 +898,7 @@ class RelationService
          * fetch relation type in relation list
          */
 
-        $pairs = \App::table('relation.relation')
+        $pairs = \App::table('platform_relation')
             ->select()
             ->where('relation_id IN ?', $relationIdList)
             ->toPairs('relation_id', 'relation_type');
@@ -933,7 +933,7 @@ class RelationService
          * Check in member list in groups.
          * In member list
          */
-        $rows = \App::table('relation.relation_item')
+        $rows = \App::table('platform_relation_item')
             ->select()
             ->where('poster_id IN ?', $posterIdList)
             ->where('parent_id = ?', $parentId)
@@ -965,7 +965,7 @@ class RelationService
          * Check in member list in groups.
          * In member list
          */
-        $relationIdList = \App::table('relation.relation_item')
+        $relationIdList = \App::table('platform_relation_item')
             ->select()
             ->where('poster_id=?', $posterId)
             ->where('parent_id =  ?', $parentId)
@@ -979,7 +979,7 @@ class RelationService
          * fetch relation type in relation list
          */
 
-        return \App::table('relation.relation')
+        return \App::table('platform_relation')
             ->select()
             ->where('relation_id=?', $relationIdList)
             ->fields('relation_type');
@@ -1076,7 +1076,7 @@ class RelationService
          * Check in member list in groups.
          * In member list
          */
-        return \App::table('relation.relation_item')
+        return \App::table('platform_relation_item')
             ->select()
             ->where('poster_id=?', $posterId)
             ->where('parent_id =  ?', $parentId)
@@ -1091,7 +1091,7 @@ class RelationService
      */
     public function getRelationIdForParent(PosterInterface $parent, $relationType = RELATION_TYPE_MEMBER)
     {
-        return \App::table('relation.relation')
+        return \App::table('platform_relation')
             ->select()
             ->where('parent_id =  ?', $parent->getId())
             ->where('relation_type=?', $relationType)
@@ -1162,13 +1162,13 @@ class RelationService
      */
     public function relationByPoster($poster)
     {
-        \App::table('relation.relation_item')
+        \App::table('platform_relation_item')
             ->delete()
             ->where('parent_id=?', $poster->getId())
             ->orWhere('poster_id=?', $poster->getId())
             ->execute();
 
-        \App::table('relation.relation')
+        \App::table('platform_relation')
             ->delete()
             ->where('parent_id=?', $poster->getId())
             ->execute();
@@ -1204,7 +1204,7 @@ class RelationService
      */
     public function findMembershipRequest(PosterInterface $poster, PosterInterface $parent)
     {
-        return \App::table('relation.relation_request')
+        return \App::table('platform_relation_request')
             ->select()
             ->where('poster_id=?', $poster->getId())
             ->where('parent_id=?', $parent->getId())
@@ -1402,7 +1402,7 @@ class RelationService
         /**
          * Request Received?
          */
-        $receivedIdList = \App::table('relation.relation_request')
+        $receivedIdList = \App::table('platform_relation_request')
             ->select()
             ->where('poster_id IN ?', $parentIdList)
             ->where('parent_id = ?', $posterId)
@@ -1427,7 +1427,7 @@ class RelationService
         /**
          * Request Sent?
          */
-        $sendIdList = \App::table('relation.relation_request')
+        $sendIdList = \App::table('platform_relation_request')
             ->select()
             ->where('poster_id=?', $posterId)
             ->where('parent_id IN ?', $parentIdList)
@@ -1497,7 +1497,7 @@ class RelationService
         /**
          * Request received
          */
-        $receivedIdList = \App::table('relation.relation_request')
+        $receivedIdList = \App::table('platform_relation_request')
             ->select()
             ->where('poster_id IN ?', $posterIdList)
             ->where('parent_id = ?', $parentId)
@@ -1520,7 +1520,7 @@ class RelationService
         /**
          * Request sent?
          */
-        $sentIdList = \App::table('relation.relation_request')
+        $sentIdList = \App::table('platform_relation_request')
             ->select()
             ->where('poster_id = ?', $parentId)
             ->where('parent_id IN ?', $posterIdList)
@@ -1566,7 +1566,7 @@ class RelationService
         /**
          * Received request?
          */
-        $status = \App::table('relation.relation_request')
+        $status = \App::table('platform_relation_request')
             ->select()
             ->where('poster_id=?', $parentId)
             ->where('parent_id = ?', $posterId)
@@ -1580,7 +1580,7 @@ class RelationService
         /**
          * Sent request?
          */
-        $status = \App::table('relation.relation_request')
+        $status = \App::table('platform_relation_request')
             ->select()
             ->where('poster_id=?', $posterId)
             ->where('parent_id = ?', $parentId)
@@ -1616,7 +1616,7 @@ class RelationService
      */
     public function getSelectRelationRequestForParent(PosterInterface $parent)
     {
-        return \App::table('relation.relation_request')
+        return \App::table('platform_relation_request')
             ->select()
             ->where('parent_id=?', $parent->getId())
             ->where('status NOT IN ?', ['canceled', 'ignored', 'accepted']);
@@ -1632,7 +1632,7 @@ class RelationService
 
         $relationId = $parent->getId();
 
-        return \App::table('relation.relation_item')
+        return \App::table('platform_relation_item')
             ->select()
             ->where('relation_id=?', $relationId);
     }
@@ -1643,7 +1643,7 @@ class RelationService
      */
     public function getListRelationTypeByModuleName($moduleList)
     {
-        return \App::table('relation.relation_type')
+        return \App::table('platform_relation_type')
             ->select()
             ->where('module_name IN ?', $moduleList)
             ->toAssocs();

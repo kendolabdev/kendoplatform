@@ -21,53 +21,57 @@ class ValueTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_platform_core_value`
+     * @see `kendo_core_value`
      * @var string
      */
-    protected $class =  '\Platform\Core\Model\Value';
+    protected $class = '\Core\Model\Value';
 
     /**
      * @var string
      */
-    protected $name =  'platform_core_value';
+    protected $name = 'core_value';
 
     /**
      * @var array
      */
-    protected $column = array(
-		'parent_id'=>1,
-		'parent_type'=>1,
-		'values_text'=>1);
+    protected $column = [
+        'parent_id'   => 1,
+        'parent_type' => 1,
+        'values_text' => 1];
 
     /**
      * @var array
      */
-    protected $primary = array( 'parent_id'=>1);
+    protected $primary = ['parent_id' => 1];
 
     /**
      * @var string
      */
     protected $identity = '';
 
-    
+
     /**
      * @param  string|int $value
+     *
      * @return \Platform\Core\Model\Value
      */
-    public function findById($value){
-       return $this->select()
-           ->where('parent_id=?', $value)
-           ->one();
+    public function findById($value)
+    {
+        return $this->select()
+            ->where('parent_id=?', $value)
+            ->one();
     }
 
     /**
      * @param  array $value
+     *
      * @return array
      */
-    public function findByIdList($value){
-       return $this->select()
-           ->where('parent_id IN ?', $value)
-           ->all();
+    public function findByIdList($value)
+    {
+        return $this->select()
+            ->where('parent_id IN ?', $value)
+            ->all();
     }
 
     //END_TABLE_GENERATOR

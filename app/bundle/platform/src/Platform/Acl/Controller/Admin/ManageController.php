@@ -3,14 +3,13 @@ namespace Platform\Acl\Controller\Admin;
 
 use Platform\Acl\Form\Admin\FilterPermission;
 use Platform\Core\Form\Admin\CorePermission;
-
 use Kendo\Controller\AdminController;
 use Kendo\Layout\BlockParams;
 
 /**
  * Class ManageController
  *
- * @package Acl\Controller\Admin
+ * @package Platform\Acl\Controller\Admin
  */
 class ManageController extends AdminController
 {
@@ -49,7 +48,7 @@ class ManageController extends AdminController
             ->paging($page, 1000);
 
         $lp = new BlockParams([
-            'base_path' => 'base/acl/controller/admin/manage/browse-role',
+            'base_path' => 'platform/acl/controller/admin/manage/browse-role',
         ]);
 
 
@@ -70,19 +69,18 @@ class ManageController extends AdminController
         $roleId = 4;
         $groupName = 'core';
 
-        $form = \App::htmlService()->factory('\Core\Form\Admin\Permission', []);
-
-        $this->view->assign([
-            'form'      => $form,
-            'groupName' => $groupName,
-            'roleId'    => $roleId,
-        ]);
+        $form = \App::htmlService()->factory('\Platform\Core\Form\Admin\Permission', []);
 
         $lp = new BlockParams([
-            'base_path'=> 'layout/partial/form-edit'
+            'base_path' => 'layout/partial/form-edit'
         ]);
 
         $this->view
+            ->assign([
+                'form'      => $form,
+                'groupName' => $groupName,
+                'roleId'    => $roleId,
+            ])
             ->setScript($lp);
     }
 
@@ -93,7 +91,6 @@ class ManageController extends AdminController
     {
         $roleId = 4;
         $groupName = 'core';
-
         $form = new CorePermission();
 
         $lp = new BlockParams([

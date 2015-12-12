@@ -171,7 +171,7 @@ class ProfileService
      */
     public function getAbout(PosterInterface $profile)
     {
-        $processService = \App::service('core.process');
+        $processService = \App::service('platform_core_process');
 
         if (!$processService instanceof ProcessService) ;
 

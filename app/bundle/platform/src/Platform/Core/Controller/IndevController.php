@@ -13,6 +13,6 @@ class IndevController extends DefaultController
             ->addDependency('primary/jquery.cropit')
             ->addScript('cropit', 'new CropIt(".cropit-container")');
         $this->view
-            ->setScript('base/core/controller/indev/test-avatar');
+            ->setScript('platform/core/controller/indev/test-avatar');
     }
 }

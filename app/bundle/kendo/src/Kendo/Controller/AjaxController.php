@@ -9,7 +9,7 @@ use Kendo\Request\HttpRequest;
  *
  * @package Kendo\Controller
  */
-class AjaxController implements Controller
+class AjaxController implements ControllerInterface
 {
     /**
      * @var HttpRequest

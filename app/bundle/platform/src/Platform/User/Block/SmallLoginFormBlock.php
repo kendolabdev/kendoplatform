@@ -27,13 +27,13 @@ class SmallLoginFormBlock extends Block
             return;
         }
 
-        $services = \App::table('social.social_service')
+        $services = \App::table('base_social_service')
             ->select()
             ->where('is_active=?', 1)
             ->order('sort_order', 1)
             ->all();
 
-        $form = \App::htmlService()->factory('\User\Form\AuthLoginSmall');
+        $form = \App::htmlService()->factory('\Platform\User\Form\AuthLoginSmall');
 
         $this->view->assign([
             'form'        => $form,

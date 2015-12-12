@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Platform\Search\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Platform\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-search';
+    protected $exportKey = 'module_platform_search';
 
     /**
      * @var array
@@ -30,9 +29,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/platform/src/Platform/Search',
-        'app/template/default/platform/Search',
-        'app/theme/default/sass/platform/Search',
-        'app/theme/admin/sass/platform/Search',
-        'static/jscript/platform/Search'
+        'app/template/default/platform/search',
+        'app/theme/default/sass/platform/search',
+        'app/theme/admin/sass/platform/search',
+        'static/jscript/platform/search'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'platform_search'
     ];
 }

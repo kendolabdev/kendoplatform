@@ -52,7 +52,7 @@ class TabContainer extends Block
             ++$offset;
 
         }
-        $this->view->setScript('base/core/block/tab-container/tab-container')
+        $this->view->setScript('platform/core/block/tab-container/tab-container')
             ->setData(['tabs' => $tabs]);
     }
 }

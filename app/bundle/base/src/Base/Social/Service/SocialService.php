@@ -48,7 +48,7 @@ class SocialService
      */
     public function getListAuth()
     {
-        return \App::table('social.social_service')
+        return \App::table('base_social_service')
             ->select()
             ->where('id IN ?', ['facebook', 'twitter', 'google', 'window'])
             ->all();

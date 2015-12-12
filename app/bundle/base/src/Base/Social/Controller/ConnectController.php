@@ -107,7 +107,7 @@ class ConnectController extends DefaultController
          * Select auth user from these information.
          */
 
-        $remote = \App::table('user.user_auth_remote')
+        $remote = \App::table('platform_user_auth_remote')
             ->select()
             ->where('remote_uid=?', (string)$me['remote_uid'])
             ->where('remote_service=?', (string)$me['remote_service'])

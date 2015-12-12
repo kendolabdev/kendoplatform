@@ -1,6 +1,6 @@
 <?php
 /**
- * Generate by CodeGenerator\DbTable for table `picaso_platform_relation`
+ * Generate by CodeGenerator\DbTable for table `kendo_relation`
  */
 
 namespace Platform\Relation\Model;
@@ -10,10 +10,12 @@ namespace Platform\Relation\Model;
 use Kendo\Db\DbTable;
 
 /**
- * Class RelationTable
+ * Class Platform\RelationTable
+ *
  * @package Platform\Relation\Model
  */
-class RelationTable extends DbTable{
+class RelationTable extends DbTable
+{
     // PUT YOUR CODE HERE
 
     //START_TABLE_GENERATOR

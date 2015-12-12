@@ -40,10 +40,10 @@ class ButtonBlock
         switch ($ctx) {
             case 'menu':
             case 'menu-item':
-                $script = 'base/core/partial/menu-item-block';
+                $script = 'platform/core/partial/menu-item-block';
                 break;
             default:
-                $script = 'base/core/partial/button-block';
+                $script = 'platform/core/partial/button-block';
         }
 
 

@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Platform\Phrase\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Platform\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-phrase';
+    protected $exportKey = 'module_platform_phrase';
 
     /**
      * @var array
@@ -32,9 +31,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/platform/src/Platform/Phrase',
-        'app/template/default/platform/Phrase',
-        'app/theme/default/sass/platform/Phrase',
-        'app/theme/admin/sass/platform/Phrase',
-        'static/jscript/platform/Phrase'
+        'app/template/default/platform/phrase',
+        'app/theme/default/sass/platform/phrase',
+        'app/theme/admin/sass/platform/phrase',
+        'static/jscript/platform/phrase'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'platform_phrase'
     ];
 }

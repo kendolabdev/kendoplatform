@@ -160,7 +160,7 @@ class AuthManager
             return false;
         }
 
-        $tokenEntry = \App::table('user.user_token')
+        $tokenEntry = \App::table('platform_user_token')
             ->findById($tokenId);
 
         if (null == $tokenEntry) {
