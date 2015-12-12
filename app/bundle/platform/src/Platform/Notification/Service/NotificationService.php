@@ -2,7 +2,7 @@
 
 namespace Platform\Notification\Service;
 
-use Base\Feed\Model\Feed;
+use Platform\Feed\Model\Feed;
 use Platform\Notification\Model\Notification;
 use Platform\Notification\Model\NotificationSubscribe;
 use Kendo\Acl\AuthorizationRestrictException;

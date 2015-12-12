@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Platform\Captcha\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Platform\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-captcha';
+    protected $exportKey = 'module_platform_captcha';
 
     /**
      * @var array
@@ -30,9 +29,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/platform/src/Platform/Captcha',
-        'app/template/default/platform/Captcha',
-        'app/theme/default/sass/platform/Captcha',
-        'app/theme/admin/sass/platform/Captcha',
-        'static/jscript/platform/Captcha'
+        'app/template/default/platform/captcha',
+        'app/theme/default/sass/platform/captcha',
+        'app/theme/admin/sass/platform/captcha',
+        'static/jscript/platform/captcha'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'platform_captcha'
     ];
 }

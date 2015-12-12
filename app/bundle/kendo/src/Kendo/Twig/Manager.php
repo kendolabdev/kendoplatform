@@ -1,7 +1,7 @@
 <?php
 namespace Kendo\Twig;
 
-use Base\Feed\Model\Feed;
+use Platform\Feed\Model\Feed;
 use Kendo\Content\PosterInterface;
 
 class Manager

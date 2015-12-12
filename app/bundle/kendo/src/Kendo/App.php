@@ -68,7 +68,7 @@ class App
     }
 
     /**
-     * @return \Base\Message\Service\MessageService
+     * @return \Platform\Message\Service\MessageService
      */
     public static function messageService()
     {
@@ -96,7 +96,7 @@ class App
     }
 
     /**
-     * @return \Base\Feed\Service\FeedService
+     * @return \Platform\Feed\Service\FeedService
      */
     public static function feedService()
     {
@@ -104,7 +104,7 @@ class App
     }
 
     /**
-     * @return \Base\Tag\Service\TagService
+     * @return \Platform\Tag\Service\TagService
      */
     public static function tagService()
     {
@@ -274,7 +274,7 @@ class App
     }
 
     /**
-     * @return \Base\Link\Service\LinkService
+     * @return \Platform\Link\Service\LinkService
      */
     public static function linkService()
     {
@@ -282,7 +282,7 @@ class App
     }
 
     /**
-     * @return \Base\Blog\Service\BlogService
+     * @return \Platform\Blog\Service\BlogService
      */
     public static function blogService()
     {
@@ -298,7 +298,7 @@ class App
     }
 
     /**
-     * @return \Base\Group\Service\GroupService
+     * @return \Platform\Group\Service\GroupService
      */
     public static function groupService()
     {
@@ -306,7 +306,7 @@ class App
     }
 
     /**
-     * @return \Base\Video\Service\VideoService
+     * @return \Platform\Video\Service\VideoService
      */
     public static function videoService()
     {
@@ -322,7 +322,7 @@ class App
     }
 
     /**
-     * @return \Base\Page\Service\PageService
+     * @return \Platform\Page\Service\PageService
      */
     public static function pageService()
     {
@@ -330,7 +330,7 @@ class App
     }
 
     /**
-     * @return \Base\Event\Service\EventService
+     * @return \Platform\Event\Service\EventService
      */
     public static function eventService()
     {
@@ -416,7 +416,7 @@ class App
     }
 
     /**
-     * @return \Base\Help\Service\HelpService
+     * @return \Platform\Help\Service\HelpService
      */
     public static function helpService()
     {
@@ -424,7 +424,7 @@ class App
     }
 
     /**
-     * @return \Base\Like\Service\LikeService
+     * @return \Platform\Like\Service\LikeService
      */
     public static function likeService()
     {
@@ -432,7 +432,7 @@ class App
     }
 
     /**
-     * @return \Base\Follow\Service\FollowService
+     * @return \Platform\Follow\Service\FollowService
      */
     public static function followService()
     {
@@ -448,7 +448,7 @@ class App
     }
 
     /**
-     * @return \Base\Comment\Service\CommentService
+     * @return \Platform\Comment\Service\CommentService
      */
     public static function commentService()
     {
@@ -464,7 +464,7 @@ class App
     }
 
     /**
-     * @return \Base\Share\Service\ShareService
+     * @return \Platform\Share\Service\ShareService
      */
     public static function shareService()
     {
@@ -638,7 +638,7 @@ class App
     }
 
     /**
-     * @return \Base\Social\Service\SocialService
+     * @return \Platform\Social\Service\SocialService
      */
     public static function socialService()
     {
@@ -663,7 +663,7 @@ class App
 
 
     /**
-     * @return \Base\Report\Service\ReportService
+     * @return \Platform\Report\Service\ReportService
      */
     public static function reportService()
     {

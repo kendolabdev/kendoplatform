@@ -1,6 +1,6 @@
 <?php
 
-defined('are_you_sure') or die('are you sure?');
+//defined('are_you_sure') or die('are you sure?');
 
 $database_host = 'localhost'; // Database hostname
 $database_user = 'root'; // Database username
@@ -47,8 +47,8 @@ $bases= [
     'place'
 ];
 
-$new_table_prefix = 'picaso_platform_core_'; // New table prefix
-$old_table_prefix = 'picaso_core_'; // Old table prefix (optional)
+$new_table_prefix = 'picaso_platform_'; // New table prefix
+$old_table_prefix = 'picaso_base_'; // Old table prefix (optional)
 $test = false; // Test-run (true or false)
 
 // NO NEED TO EDIT BELOW THIS LINE
@@ -70,16 +70,16 @@ while($row = mysql_fetch_array($result)) {
 
     $testArray = explode('_', $testName);
 
-    if($testArray[0] !== 'picaso') continue;
-    if(in_array($testArray[1], $platforms)){
-        $old_table_prefix = 'picaso_'. $testArray[1] . '';
-        $new_table_prefix = 'picaso_platform_'. $testArray[1] .'';
-    }else if(in_array($testArray[1], $bases)){
-        $old_table_prefix = 'picaso_'. $testArray[1] . '';
-        $new_table_prefix = 'picaso_base_'. $testArray[1] .'';
-    }else{
-        continue;
-    }
+//    if($testArray[0] !== 'picaso') continue;
+//    if(in_array($testArray[1], $platforms)){
+//        $old_table_prefix = 'picaso_'. $testArray[1] . '';
+//        $new_table_prefix = 'picaso_platform_'. $testArray[1] .'';
+//    }else if(in_array($testArray[1], $bases)){
+//        $old_table_prefix = 'picaso_'. $testArray[1] . '';
+//        $new_table_prefix = 'picaso_base_'. $testArray[1] .'';
+//    }else{
+//        continue;
+//    }
 
     $old_table = $row[0];
 

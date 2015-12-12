@@ -294,7 +294,7 @@ class PhotoService
      * @param PosterInterface $poster
      * @param PosterInterface $parent
      *
-     * @return \Base\Feed\Model\Feed
+     * @return \Platform\Feed\Model\Feed
      */
     public function addFromActivityComposer(HttpRequest $request, PosterInterface $poster, PosterInterface $parent)
     {

@@ -1,7 +1,7 @@
 <?php
 namespace Platform\User\Controller;
 
-use Base\Feed\Form\PosterNotificationTypeSetting;
+use Platform\Feed\Form\PosterNotificationTypeSetting;
 use Platform\Core\Form\PosterPrivacySetting;
 use Kendo\Acl\AuthorizationRestrictException;
 use Kendo\Controller\DefaultController;

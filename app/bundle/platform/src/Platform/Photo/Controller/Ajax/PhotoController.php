@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Photo\Controller\Ajax;
 
-use Base\Feed\Model\Feed;
+use Platform\Feed\Model\Feed;
 use Platform\Photo\Model\Album;
 use Platform\Photo\Model\Photo;
 use Platform\Photo\Model\PhotoAlbum;

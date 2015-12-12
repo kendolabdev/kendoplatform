@@ -1,12 +1,11 @@
 <?php
-
-/* code generator */
-
 namespace Platform\Photo\Service;
 
 use Kendo\Package\ModuleInstaller;
 
 /**
+ * Code generator
+ *
  * Class InstallerService
  *
  * @package Platform\Service
@@ -16,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module-platform-photo';
+    protected $exportKey = 'module_platform_photo';
 
     /**
      * @var array
@@ -34,9 +33,16 @@ class InstallerService extends ModuleInstaller
      */
     protected $pathList = [
         'app/bundle/platform/src/Platform/Photo',
-        'app/template/default/platform/Photo',
-        'app/theme/default/sass/platform/Photo',
-        'app/theme/admin/sass/platform/Photo',
-        'static/jscript/platform/Photo'
+        'app/template/default/platform/photo',
+        'app/theme/default/sass/platform/photo',
+        'app/theme/admin/sass/platform/photo',
+        'static/jscript/platform/photo'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $moduleList = [
+        'platform_photo'
     ];
 }

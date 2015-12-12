@@ -2,7 +2,7 @@
 namespace Platform\Payment\Controller\Admin;
 
 use Platform\Acl\Form\Admin\FilterAclRole;
-use Base\Comment\Form\Admin\CommentPermission;
+use Platform\Comment\Form\Admin\CommentPermission;
 use Kendo\Controller\AdminController;
 use Kendo\Layout\BlockParams;
 

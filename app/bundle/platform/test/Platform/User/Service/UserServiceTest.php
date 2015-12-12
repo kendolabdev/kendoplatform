@@ -9,7 +9,7 @@
 namespace Platform\User\Service;
 
 
-use Base\Event\ViewHelper\ButtonMembership;
+use Platform\Event\ViewHelper\ButtonMembership;
 use Kendo\Html\Form;
 use Kendo\Layout\Block;
 use Platform\User\Model\User;

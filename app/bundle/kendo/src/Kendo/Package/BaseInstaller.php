@@ -617,7 +617,7 @@ class BaseInstaller implements InstallerInterface
         if (!$this->hasModuleList()) return;
 
         $this->installData['base_feed_type']
-            = \App::table('base_feed_type')
+            = \App::table('platform_feed_type')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -630,7 +630,7 @@ class BaseInstaller implements InstallerInterface
     {
         if (!empty($this->installData['feed_type'])) {
             foreach ($this->installData['feed_type'] as $data) {
-                \App::table('base_feed_type')
+                \App::table('platform_feed_type')
                     ->insertIgnore($data);
             }
         }

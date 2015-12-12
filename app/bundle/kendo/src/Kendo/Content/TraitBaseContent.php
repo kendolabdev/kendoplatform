@@ -200,7 +200,7 @@ Trait TraitBaseContent
     /**
      * Find associate place
      *
-     * @return \Base\Place\Model\Place
+     * @return \Platform\Place\Model\Place
      */
     public function getPlace()
     {

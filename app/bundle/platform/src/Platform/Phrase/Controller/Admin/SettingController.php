@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Phrase\Controller\Admin;
 
-use Base\Comment\Form\Admin\CommentSetting;
+use Platform\Comment\Form\Admin\CommentSetting;
 use Kendo\Controller\AdminController;
 use Kendo\Layout\BlockParams;
 

@@ -3,7 +3,7 @@
 namespace Platform\User\Service;
 
 use Platform\Invitation\Model\Invitation;
-use Base\Page\Model\Page;
+use Platform\Page\Model\Page;
 use Kendo\Application\EventHandler;
 use Kendo\Assets\Requirejs;
 use Kendo\Content\PosterInterface;

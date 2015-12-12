@@ -9,6 +9,7 @@
     <testsuites>
         <testsuite name="kendo">
             <directory>./../app/bundle/platform/test</directory>
+            <directory>./../app/bundle/kendo/test</directory>
         </testsuite>
     </testsuites>
 </phpunit>
