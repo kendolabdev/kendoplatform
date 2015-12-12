@@ -10,8 +10,9 @@ namespace Kendo\Layout;
 class UnitDecorator implements Decorator
 {
     /**
-     * @param Block $block
+     * @param Block           $block
      * @param DecoratorParams $params
+     *
      * @return mixed
      */
     public function render(Block $block, DecoratorParams $params)

@@ -6,7 +6,8 @@ namespace Kendo\Assets;
  *
  * @package Kendo\Assets
  */
-class Requirejs implements Collection {
+class Requirejs implements Collection
+{
 
     /**
      * @var string
@@ -53,14 +54,16 @@ class Requirejs implements Collection {
     /**
      * @return array
      */
-    public function getScripts() {
+    public function getScripts()
+    {
         return $this->scripts;
     }
 
     /**
      * @param array $scripts
      */
-    public function setScripts($scripts) {
+    public function setScripts($scripts)
+    {
         $this->scripts = $scripts;
     }
 
@@ -73,7 +76,8 @@ class Requirejs implements Collection {
      *
      * @return Requirejs
      */
-    public function modules($name, $path, $alias = null) {
+    public function modules($name, $path, $alias = null)
+    {
         if (empty($alias)) {
             $alias = $name;
         }
@@ -85,7 +89,8 @@ class Requirejs implements Collection {
     /**
      * @return mixed
      */
-    public function getModules() {
+    public function getModules()
+    {
         return $this->_modules;
     }
 
@@ -94,7 +99,8 @@ class Requirejs implements Collection {
      *
      * @return Requirejs
      */
-    public function addDependency($values) {
+    public function addDependency($values)
+    {
         if (is_string($values)) {
             $this->dependency[] = $values;
         } else {
@@ -109,13 +115,14 @@ class Requirejs implements Collection {
     /**
      * Add shim configures
      *
-     * @param string $name
+     * @param string       $name
      * @param string|array $deps
-     * @param string $export
+     * @param string       $export
      *
      * @return Requirejs
      */
-    public function shim($name, $deps, $export = null) {
+    public function shim($name, $deps, $export = null)
+    {
 
         if (is_string($deps)) {
             $deps = explode(',', preg_replace('#\s+#gmi', '', $deps));
@@ -136,7 +143,8 @@ class Requirejs implements Collection {
      *
      * @return Requirejs
      */
-    public function prependDependency($value) {
+    public function prependDependency($value)
+    {
         array_unshift($this->dependency, $value);
 
         return $this;
@@ -148,7 +156,8 @@ class Requirejs implements Collection {
      *
      * @return Requirejs
      */
-    public function addScript($name, $string) {
+    public function addScript($name, $string)
+    {
         $this->scripts[ $name ] = $string;
 
         return $this;
@@ -160,7 +169,8 @@ class Requirejs implements Collection {
      *
      * @return Requirejs
      */
-    public function prependScript($name, $string) {
+    public function prependScript($name, $string)
+    {
         $this->scripts = array_merge([$name => $string], $this->scripts);
 
         return $this;
@@ -172,7 +182,8 @@ class Requirejs implements Collection {
      *
      * @return Requirejs
      */
-    public function addPath($name, $path) {
+    public function addPath($name, $path)
+    {
         $this->paths[ $name ] = $path;
 
         return $this;
@@ -183,7 +194,8 @@ class Requirejs implements Collection {
      *
      * @return Requirejs
      */
-    public function addPaths($paths) {
+    public function addPaths($paths)
+    {
         foreach ($paths as $name => $path) {
             $this->paths[ $name ] = $path;
         }
@@ -192,12 +204,13 @@ class Requirejs implements Collection {
     }
 
     /**
-     * @param string $name
+     * @param string       $name
      * @param string|array $value
      *
      * @return Requirejs
      */
-    public function addBundle($name, $value) {
+    public function addBundle($name, $value)
+    {
 
         if (is_string($value))
             $value = [$value];
@@ -209,7 +222,7 @@ class Requirejs implements Collection {
             $this->bundles[ $name ][] = $val;
         }
 
-        $this->bundles[ $name ] = array_unique($this->bundles[$name]);
+        $this->bundles[ $name ] = array_unique($this->bundles[ $name ]);
 
         return $this;
     }
@@ -217,7 +230,8 @@ class Requirejs implements Collection {
     /**
      * @return string
      */
-    public function getPrimaryBundleName() {
+    public function getPrimaryBundleName()
+    {
         return self::PRIMARY_BUNLDE_NAME;
     }
 
@@ -226,7 +240,8 @@ class Requirejs implements Collection {
      *
      * @return RequireJs
      */
-    public function addPrimaryBundle($value) {
+    public function addPrimaryBundle($value)
+    {
 
         $this->addBundle(self::PRIMARY_BUNLDE_NAME, $value);
 
@@ -236,21 +251,24 @@ class Requirejs implements Collection {
     /**
      * @param string $staticBaseUrl
      */
-    public function baseUrl($staticBaseUrl) {
+    public function baseUrl($staticBaseUrl)
+    {
         $this->_baseUrl = $staticBaseUrl;
     }
 
     /**
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return (string)$this->render();
     }
 
     /**
      * @return string
      */
-    public function render() {
+    public function render()
+    {
         return '<script type="text/javascript">' . PHP_EOL . $this->renderConfig() . " ; " . PHP_EOL . $this->renderScript() . PHP_EOL . '</script>';
     }
 
@@ -260,7 +278,8 @@ class Requirejs implements Collection {
      *
      * @return string
      */
-    public function renderScript() {
+    public function renderScript()
+    {
 
         $response = [];
 
@@ -280,14 +299,16 @@ class Requirejs implements Collection {
     /**
      * @return string
      */
-    public function renderScriptHtml() {
+    public function renderScriptHtml()
+    {
         return '<script type="text/javascript">' . PHP_EOL . $this->renderScript() . PHP_EOL . '</script>';
     }
 
     /**
      * @return string
      */
-    public function renderConfig() {
+    public function renderConfig()
+    {
         \App::hookService()
             ->notify('onRequirejsRender', $this);
 
@@ -302,14 +323,16 @@ class Requirejs implements Collection {
         return 'requirejs.config(' . json_encode($config, JSON_PRETTY_PRINT) . ');';
     }
 
-    public function renderConfigHtml() {
+    public function renderConfigHtml()
+    {
         return '<script type="text/javascript">' . PHP_EOL . $this->renderConfig() . PHP_EOL . '</script>';
     }
 
     /**
      * @return string
      */
-    public function getBaseUrl() {
+    public function getBaseUrl()
+    {
         if (null == $this->_baseUrl) {
             $this->_baseUrl = KENDO_BASE_URL . 'static/';
         }
@@ -320,42 +343,48 @@ class Requirejs implements Collection {
     /**
      * @return array
      */
-    public function getPaths() {
+    public function getPaths()
+    {
         return $this->paths;
     }
 
     /**
      * @param array $paths
      */
-    public function setPaths($paths) {
+    public function setPaths($paths)
+    {
         $this->paths = $paths;
     }
 
     /**
      * @return array
      */
-    public function getBundles() {
+    public function getBundles()
+    {
         return $this->bundles;
     }
 
     /**
      * @param array $bundles
      */
-    public function setBundles($bundles) {
+    public function setBundles($bundles)
+    {
         $this->bundles = $bundles;
     }
 
     /**
      * @return array
      */
-    public function getShim() {
+    public function getShim()
+    {
         return $this->_shim;
     }
 
     /**
      * @return array
      */
-    public function getDependency() {
+    public function getDependency()
+    {
         return array_values(array_unique($this->dependency));
     }
 
@@ -364,7 +393,8 @@ class Requirejs implements Collection {
      *
      * @return Requirejs
      */
-    public function setDependency($dependency) {
+    public function setDependency($dependency)
+    {
         $this->dependency = $dependency;
 
         return $this;

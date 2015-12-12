@@ -70,9 +70,9 @@ class EditAvatarField extends HtmlElement implements FormField
 
                 $data['width'] = floor($w * $previewScale);
                 $data['height'] = floor($h * $previewScale);
-                $data['left'] = floor($left * $previewScale* -1) ;
-                $data['top'] = floor($top * $previewScale* -1) ;
-                $data['style'] =  'left:'. $data['left'] . 'px; top:'. $data['top'].'px; position:absolute;';
+                $data['left'] = floor($left * $previewScale * -1);
+                $data['top'] = floor($top * $previewScale * -1);
+                $data['style'] = 'left:' . $data['left'] . 'px; top:' . $data['top'] . 'px; position:absolute;';
             }
         }
 

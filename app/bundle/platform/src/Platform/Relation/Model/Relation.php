@@ -35,109 +35,124 @@ class Relation extends Model implements UniqueId
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('relation_id');
+    public function getId()
+    {
+        return $this->__get('relation_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('relation_id', $value);
+    public function setId($value)
+    {
+        $this->__set('relation_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getRelationId(){
-       return $this->__get('relation_id');
+    public function getRelationId()
+    {
+        return $this->__get('relation_id');
     }
 
     /**
      * @param $value
      */
-    public function setRelationId($value){
-       $this->__set('relation_id', $value);
+    public function setRelationId($value)
+    {
+        $this->__set('relation_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getRelationType(){
-       return $this->__get('relation_type');
+    public function getRelationType()
+    {
+        return $this->__get('relation_type');
     }
 
     /**
      * @param $value
      */
-    public function setRelationType($value){
-       $this->__set('relation_type', $value);
+    public function setRelationType($value)
+    {
+        $this->__set('relation_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getRelationName(){
-       return $this->__get('relation_name');
+    public function getRelationName()
+    {
+        return $this->__get('relation_name');
     }
 
     /**
      * @param $value
      */
-    public function setRelationName($value){
-       $this->__set('relation_name', $value);
+    public function setRelationName($value)
+    {
+        $this->__set('relation_name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentId(){
-       return $this->__get('parent_id');
+    public function getParentId()
+    {
+        return $this->__get('parent_id');
     }
 
     /**
      * @param $value
      */
-    public function setParentId($value){
-       $this->__set('parent_id', $value);
+    public function setParentId($value)
+    {
+        $this->__set('parent_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentType(){
-       return $this->__get('parent_type');
+    public function getParentType()
+    {
+        return $this->__get('parent_type');
     }
 
     /**
      * @param $value
      */
-    public function setParentType($value){
-       $this->__set('parent_type', $value);
+    public function setParentType($value)
+    {
+        $this->__set('parent_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getItemCount(){
-       return $this->__get('item_count');
+    public function getItemCount()
+    {
+        return $this->__get('item_count');
     }
 
     /**
      * @param $value
      */
-    public function setItemCount($value){
-       $this->__set('item_count', $value);
+    public function setItemCount($value)
+    {
+        $this->__set('item_count', $value);
     }
 
     /**
      * @return \Platform\Relation\Model\RelationTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_relation');
     }
     //END_TABLE_GENERATOR

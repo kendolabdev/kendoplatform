@@ -13,7 +13,7 @@ class BaseBlockEditor
 
     /**
      * @param \Platform\Layout\Model\LayoutSupportBlock $item
-     * @param array              $data
+     * @param array                                     $data
      *
      * @return string
      */

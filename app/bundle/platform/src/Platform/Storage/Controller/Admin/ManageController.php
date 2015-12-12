@@ -66,7 +66,7 @@ class ManageController extends AdminController
         $form = new SelectStorage([]);
 
         $lp = new BlockParams([
-            'base_path'=> 'layout/partial/form-edit'
+            'base_path' => 'layout/partial/form-edit'
         ]);
 
         $this->view
@@ -92,7 +92,7 @@ class ManageController extends AdminController
         $form = \App::htmlService()->factory($adapter->getAdminForm());
 
         $lp = new BlockParams([
-            'base_path'=> 'layout/partial/form-edit'
+            'base_path' => 'layout/partial/form-edit'
         ]);
 
         $this->view
@@ -121,7 +121,7 @@ class ManageController extends AdminController
         $form = \App::htmlService()->factory($adapter->getAdminForm());
 
         $lp = new BlockParams([
-            'base_path'=> 'layout/partial/form-edit'
+            'base_path' => 'layout/partial/form-edit'
         ]);
 
         $this->view

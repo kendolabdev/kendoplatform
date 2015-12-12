@@ -4,6 +4,7 @@ namespace Kendo\Layout;
 
 /**
  * Class DecoratorParams
+ *
  * @package Kendo\Layout
  */
 class DecoratorParams
@@ -20,7 +21,8 @@ class DecoratorParams
 
     /**
      * DecoratorParams constructor.
-     * @param $type
+     *
+     * @param       $type
      * @param array $data
      */
     public function __construct($type, $data = [])
@@ -48,6 +50,7 @@ class DecoratorParams
     /**
      * @param  string $name
      * @param  string $default_value
+     *
      * @return string|array
      */
     public function get($name, $default_value = '')
@@ -66,6 +69,7 @@ class DecoratorParams
 
     /**
      * @param $name
+     *
      * @return array|string
      */
     public function __get($name)

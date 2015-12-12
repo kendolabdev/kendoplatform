@@ -25,43 +25,45 @@ class RelationRequestTable extends DbTable
      * @see `picaso_platform_relation_request`
      * @var string
      */
-    protected $class =  '\Platform\Relation\Model\RelationRequest';
+    protected $class = '\Platform\Relation\Model\RelationRequest';
 
     /**
      * @var string
      */
-    protected $name =  'platform_relation_request';
+    protected $name = 'platform_relation_request';
 
     /**
      * @var array
      */
-    protected $column = array(
-		'parent_id'=>1,
-		'poster_id'=>1,
-		'poster_type'=>1,
-		'parent_type'=>1,
-		'relation_type'=>1,
-		'status'=>1,
-		'created_at'=>1);
+    protected $column = [
+        'parent_id'     => 1,
+        'poster_id'     => 1,
+        'poster_type'   => 1,
+        'parent_type'   => 1,
+        'relation_type' => 1,
+        'status'        => 1,
+        'created_at'    => 1];
 
     /**
      * @var array
      */
-    protected $primary = array( 'parent_id'=>1, 'poster_id'=>1);
+    protected $primary = ['parent_id' => 1, 'poster_id' => 1];
 
     /**
      * @var string
      */
     protected $identity = '';
 
-    
+
     /**
      * @param  string|int $value
+     *
      * @return null
      * @throws \Kendo\Db\Exception
      */
-    public function findById($value){
-       throw new \Kendo\Db\Exception('Can not find by id for '.$value);
+    public function findById($value)
+    {
+        throw new \Kendo\Db\Exception('Can not find by id for ' . $value);
     }
 
     //END_TABLE_GENERATOR

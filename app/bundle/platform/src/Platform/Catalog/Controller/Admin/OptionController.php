@@ -37,7 +37,7 @@ class OptionController extends AdminController
                 [
                     'label' => 'attribute.add_new_option',
                     'props' => [
-                        'href'   => \App::routingService()->getUrl('admin', ['stuff' => 'attribute/option/create']),
+                        'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'attribute/option/create']),
                         'class' => 'btn btn-sm btn-danger'
                     ]]
             ]);
@@ -157,7 +157,7 @@ class OptionController extends AdminController
 
         $entry = \App::catalogService()
             ->findOptionById($id);
-        
+
         if (!$entry)
             throw new \InvalidArgumentException("Could not find option");
 

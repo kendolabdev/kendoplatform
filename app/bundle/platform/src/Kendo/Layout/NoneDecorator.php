@@ -11,8 +11,9 @@ class NoneDecorator implements Decorator
 {
 
     /**
-     * @param Block $block
+     * @param Block           $block
      * @param DecoratorParams $params
+     *
      * @return string
      */
     public function render(Block $block, DecoratorParams $params)

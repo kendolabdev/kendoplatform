@@ -1,5 +1,6 @@
 <?php
 namespace Platform\Share\ViewHelper;
+
 use Kendo\Content\ContentInterface;
 
 

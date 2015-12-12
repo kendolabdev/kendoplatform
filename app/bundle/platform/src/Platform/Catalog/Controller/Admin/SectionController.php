@@ -39,7 +39,7 @@ class SectionController extends AdminController
                 [
                     'label' => 'attribute.add_new_section',
                     'props' => [
-                        'href'   => \App::routingService()->getUrl('admin', ['stuff' => 'attribute/section/create']),
+                        'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'attribute/section/create']),
                         'class' => 'btn btn-sm btn-danger'
                     ]]
             ]);

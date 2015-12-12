@@ -135,8 +135,8 @@ class RelationService
 
     /**
      * @param PosterInterface $parent
-     * @param        $relationType
-     * @param        $relationId
+     * @param                 $relationType
+     * @param                 $relationId
      */
     public function getList(PosterInterface $parent, $relationType, $relationId = null)
     {
@@ -214,7 +214,7 @@ class RelationService
     /**
      * @param PosterInterface $parent
      * @param PosterInterface $poster
-     * @param        $relationType
+     * @param                 $relationType
      * @param null            $relationId
      *
      * @return bool
@@ -691,7 +691,7 @@ class RelationService
     /**
      * @param PosterInterface $parent
      * @param PosterInterface $poster
-     * @param        $forAction
+     * @param                 $forAction
      * @param int             $relationType
      * @param int             $relationId
      *
@@ -1639,6 +1639,7 @@ class RelationService
 
     /**
      * @param array $moduleList
+     *
      * @return array
      */
     public function getListRelationTypeByModuleName($moduleList)

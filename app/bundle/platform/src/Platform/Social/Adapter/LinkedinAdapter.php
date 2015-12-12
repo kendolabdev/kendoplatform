@@ -135,13 +135,13 @@ class LinkedinAdapter implements SocialLoginAdapterInterface
             'remote_service'  => 'linkedin',
             'remote_verified' => true,
 
-            'about'           => $me['headline'],
-            'name'            => $me['formattedName'],
-            'first_name'      => $me['firstName'],
-            'last_name'       => $me['lastName'],
-            'email'           => $me['emailAddress'],
-            'image_url'       => $me['pictureUrl'],
-            'linkedin'        => $me['publicProfileUrl'],
+            'about'      => $me['headline'],
+            'name'       => $me['formattedName'],
+            'first_name' => $me['firstName'],
+            'last_name'  => $me['lastName'],
+            'email'      => $me['emailAddress'],
+            'image_url'  => $me['pictureUrl'],
+            'linkedin'   => $me['publicProfileUrl'],
 
 
         ];

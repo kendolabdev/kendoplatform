@@ -44,109 +44,124 @@ class RelationRequest extends Model
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getParentId(){
-       return $this->__get('parent_id');
+    public function getParentId()
+    {
+        return $this->__get('parent_id');
     }
 
     /**
      * @param $value
      */
-    public function setParentId($value){
-       $this->__set('parent_id', $value);
+    public function setParentId($value)
+    {
+        $this->__set('parent_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPosterId(){
-       return $this->__get('poster_id');
+    public function getPosterId()
+    {
+        return $this->__get('poster_id');
     }
 
     /**
      * @param $value
      */
-    public function setPosterId($value){
-       $this->__set('poster_id', $value);
+    public function setPosterId($value)
+    {
+        $this->__set('poster_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPosterType(){
-       return $this->__get('poster_type');
+    public function getPosterType()
+    {
+        return $this->__get('poster_type');
     }
 
     /**
      * @param $value
      */
-    public function setPosterType($value){
-       $this->__set('poster_type', $value);
+    public function setPosterType($value)
+    {
+        $this->__set('poster_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentType(){
-       return $this->__get('parent_type');
+    public function getParentType()
+    {
+        return $this->__get('parent_type');
     }
 
     /**
      * @param $value
      */
-    public function setParentType($value){
-       $this->__set('parent_type', $value);
+    public function setParentType($value)
+    {
+        $this->__set('parent_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getRelationType(){
-       return $this->__get('relation_type');
+    public function getRelationType()
+    {
+        return $this->__get('relation_type');
     }
 
     /**
      * @param $value
      */
-    public function setRelationType($value){
-       $this->__set('relation_type', $value);
+    public function setRelationType($value)
+    {
+        $this->__set('relation_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getStatus(){
-       return $this->__get('status');
+    public function getStatus()
+    {
+        return $this->__get('status');
     }
 
     /**
      * @param $value
      */
-    public function setStatus($value){
-       $this->__set('status', $value);
+    public function setStatus($value)
+    {
+        $this->__set('status', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCreatedAt(){
-       return $this->__get('created_at');
+    public function getCreatedAt()
+    {
+        return $this->__get('created_at');
     }
 
     /**
      * @param $value
      */
-    public function setCreatedAt($value){
-       $this->__set('created_at', $value);
+    public function setCreatedAt($value)
+    {
+        $this->__set('created_at', $value);
     }
 
     /**
      * @return \Platform\Relation\Model\RelationRequestTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_relation_request');
     }
     //END_TABLE_GENERATOR

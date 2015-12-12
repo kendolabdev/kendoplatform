@@ -24,55 +24,59 @@ class LayoutBlockTable extends DbTable
      * @see `picaso_platform_layout_block`
      * @var string
      */
-    protected $class =  '\Platform\Layout\Model\LayoutBlock';
+    protected $class = '\Platform\Layout\Model\LayoutBlock';
 
     /**
      * @var string
      */
-    protected $name =  'platform_layout_block';
+    protected $name = 'platform_layout_block';
 
     /**
      * @var array
      */
-    protected $column = array(
-		'block_id'=>1,
-		'parent_block_id'=>1,
-		'section_id'=>1,
-		'node_id'=>1,
-		'leaf_id'=>1,
-		'support_block_id'=>1,
-		'block_order'=>1,
-		'block_params_text'=>1);
+    protected $column = [
+        'block_id'          => 1,
+        'parent_block_id'   => 1,
+        'section_id'        => 1,
+        'node_id'           => 1,
+        'leaf_id'           => 1,
+        'support_block_id'  => 1,
+        'block_order'       => 1,
+        'block_params_text' => 1];
 
     /**
      * @var array
      */
-    protected $primary = array( 'block_id'=>1);
+    protected $primary = ['block_id' => 1];
 
     /**
      * @var string
      */
     protected $identity = '';
 
-    
+
     /**
      * @param  string|int $value
+     *
      * @return \Platform\Layout\Model\LayoutBlock
      */
-    public function findById($value){
-       return $this->select()
-           ->where('block_id=?', $value)
-           ->one();
+    public function findById($value)
+    {
+        return $this->select()
+            ->where('block_id=?', $value)
+            ->one();
     }
 
     /**
      * @param  array $value
+     *
      * @return array
      */
-    public function findByIdList($value){
-       return $this->select()
-           ->where('block_id IN ?', $value)
-           ->all();
+    public function findByIdList($value)
+    {
+        return $this->select()
+            ->where('block_id IN ?', $value)
+            ->all();
     }
 
     //END_TABLE_GENERATOR

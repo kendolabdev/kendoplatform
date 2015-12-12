@@ -138,8 +138,7 @@ class Block
      */
     public function getTitle()
     {
-        if (null == $this->title)
-        {
+        if (null == $this->title) {
             $this->title = $this->lp->get('title');
         }
 
@@ -159,8 +158,7 @@ class Block
      */
     public function getDecoratorParams()
     {
-        if (null == $this->decoratorParams)
-        {
+        if (null == $this->decoratorParams) {
             $this->decoratorParams = new DecoratorParams(
                 $this->lp->get('decorator', 'default'), $this->lp->get('decorator_params', []));
         }
@@ -181,10 +179,8 @@ class Block
      */
     public function render()
     {
-        try
-        {
-            if ($this->isNoRender())
-            {
+        try {
+            if ($this->isNoRender()) {
                 return '';
             }
 
@@ -194,8 +190,7 @@ class Block
                 ->getBlockDecorator($decoratorParams->getPlugin())
                 ->render($this, $decoratorParams);
 
-        } catch (\RuntimeException $ex)
-        {
+        } catch (\RuntimeException $ex) {
             return $ex->getMessage();
         }
 

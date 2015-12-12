@@ -40,7 +40,7 @@ class ManageController extends AdminController
                 [
                     'label' => 'attribute.add_new_catalogs',
                     'props' => [
-                        'href'   => \App::routingService()->getUrl('admin', ['stuff' => 'attribute/manage/create']),
+                        'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'attribute/manage/create']),
                         'class' => 'btn btn-sm btn-danger'
                     ]]
             ]);

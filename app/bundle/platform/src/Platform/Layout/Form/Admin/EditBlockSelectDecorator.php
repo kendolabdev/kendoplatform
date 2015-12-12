@@ -4,6 +4,7 @@ namespace Platform\Layout\Form\Admin;
 
 /**
  * Class EditBlockSelectDecorator
+ *
  * @package Platform\Layout\Form\Admin
  */
 class EditBlockSelectDecorator extends BaseEditBlockDecorator
@@ -24,8 +25,8 @@ class EditBlockSelectDecorator extends BaseEditBlockDecorator
         ]);
 
         $this->addElement([
-            'plugin'=>'hidden',
-            'name'=>'blockId',
+            'plugin' => 'hidden',
+            'name'   => 'blockId',
         ]);
 
         $this->addElement([

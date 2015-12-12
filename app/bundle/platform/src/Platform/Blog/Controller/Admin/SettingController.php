@@ -36,7 +36,7 @@ class SettingController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path'=> 'layout/partial/form-edit'
+            'base_path' => 'layout/partial/form-edit'
         ]);
 
         $this->view

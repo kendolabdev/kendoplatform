@@ -6,6 +6,7 @@ namespace Platform\Search\Service;
  *
  * @package Platform\Search\Service
  */
-class SearchService{
+class SearchService
+{
 
 }

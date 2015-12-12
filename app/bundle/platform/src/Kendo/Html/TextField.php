@@ -28,7 +28,7 @@ class TextField extends HtmlElement implements FormField
      */
     public function setValue($value)
     {
-        $this->setAttribute('value', (string) $value);
+        $this->setAttribute('value', (string)$value);
         $this->value = $value;
     }
 

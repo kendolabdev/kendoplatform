@@ -21,7 +21,7 @@ class InstallerService extends ModuleInstaller
      * @var array
      */
     protected $tableList = [
-        
+
     ];
 
     /**

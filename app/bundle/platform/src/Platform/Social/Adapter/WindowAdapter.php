@@ -244,13 +244,13 @@ class WindowAdapter implements SocialLoginAdapterInterface
             'remote_service'  => 'window',
             'remote_verified' => true,
 
-            'name'            => $result['name'],
-            'first_name'      => $result['first_name'],
-            'last_name'       => $result['last_name'],
-            'email'           => $result['emails']['preferred'],
-            'locale'          => $result['locale'],
-            'gender'          => $result['gender'],
-            'language'        => $language
+            'name'       => $result['name'],
+            'first_name' => $result['first_name'],
+            'last_name'  => $result['last_name'],
+            'email'      => $result['emails']['preferred'],
+            'locale'     => $result['locale'],
+            'gender'     => $result['gender'],
+            'language'   => $language
 
         ];
 

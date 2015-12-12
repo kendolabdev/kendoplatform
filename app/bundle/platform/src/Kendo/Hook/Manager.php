@@ -89,6 +89,7 @@ class Manager
                 echo $ex->getMessage();
             }
         }
+
         return $event;
     }
 

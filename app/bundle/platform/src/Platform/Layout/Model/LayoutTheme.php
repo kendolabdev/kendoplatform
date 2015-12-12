@@ -72,7 +72,6 @@ class LayoutTheme extends Model
     }
 
 
-
     /**
      * @return array
      */
@@ -102,214 +101,244 @@ class LayoutTheme extends Model
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('theme_id');
+    public function getId()
+    {
+        return $this->__get('theme_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('theme_id', $value);
+    public function setId($value)
+    {
+        $this->__set('theme_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getThemeId(){
-       return $this->__get('theme_id');
+    public function getThemeId()
+    {
+        return $this->__get('theme_id');
     }
 
     /**
      * @param $value
      */
-    public function setThemeId($value){
-       $this->__set('theme_id', $value);
+    public function setThemeId($value)
+    {
+        $this->__set('theme_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getName(){
-       return $this->__get('name');
+    public function getName()
+    {
+        return $this->__get('name');
     }
 
     /**
      * @param $value
      */
-    public function setName($value){
-       $this->__set('name', $value);
+    public function setName($value)
+    {
+        $this->__set('name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getExtensionName(){
-       return $this->__get('extension_name');
+    public function getExtensionName()
+    {
+        return $this->__get('extension_name');
     }
 
     /**
      * @param $value
      */
-    public function setExtensionName($value){
-       $this->__set('extension_name', $value);
+    public function setExtensionName($value)
+    {
+        $this->__set('extension_name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentThemeId(){
-       return $this->__get('parent_theme_id');
+    public function getParentThemeId()
+    {
+        return $this->__get('parent_theme_id');
     }
 
     /**
      * @param $value
      */
-    public function setParentThemeId($value){
-       $this->__set('parent_theme_id', $value);
+    public function setParentThemeId($value)
+    {
+        $this->__set('parent_theme_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getSuperThemeId(){
-       return $this->__get('super_theme_id');
+    public function getSuperThemeId()
+    {
+        return $this->__get('super_theme_id');
     }
 
     /**
      * @param $value
      */
-    public function setSuperThemeId($value){
-       $this->__set('super_theme_id', $value);
+    public function setSuperThemeId($value)
+    {
+        $this->__set('super_theme_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isActive(){
-       return $this->__get('is_active');
+    public function isActive()
+    {
+        return $this->__get('is_active');
     }
 
     /**
      * @return null|string
      */
-    public function getActive(){
-       return $this->__get('is_active');
+    public function getActive()
+    {
+        return $this->__get('is_active');
     }
 
     /**
      * @param $value
      */
-    public function setActive($value){
-       $this->__set('is_active', $value);
+    public function setActive($value)
+    {
+        $this->__set('is_active', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isEditing(){
-       return $this->__get('is_editing');
+    public function isEditing()
+    {
+        return $this->__get('is_editing');
     }
 
     /**
      * @return null|string
      */
-    public function getEditing(){
-       return $this->__get('is_editing');
+    public function getEditing()
+    {
+        return $this->__get('is_editing');
     }
 
     /**
      * @param $value
      */
-    public function setEditing($value){
-       $this->__set('is_editing', $value);
+    public function setEditing($value)
+    {
+        $this->__set('is_editing', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isDefault(){
-       return $this->__get('is_default');
+    public function isDefault()
+    {
+        return $this->__get('is_default');
     }
 
     /**
      * @return null|string
      */
-    public function getDefault(){
-       return $this->__get('is_default');
+    public function getDefault()
+    {
+        return $this->__get('is_default');
     }
 
     /**
      * @param $value
      */
-    public function setDefault($value){
-       $this->__set('is_default', $value);
+    public function setDefault($value)
+    {
+        $this->__set('is_default', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getVariableParams(){
-       return $this->__get('variable_params');
+    public function getVariableParams()
+    {
+        return $this->__get('variable_params');
     }
 
     /**
      * @param $value
      */
-    public function setVariableParams($value){
-       $this->__set('variable_params', $value);
+    public function setVariableParams($value)
+    {
+        $this->__set('variable_params', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getTemplateId(){
-       return $this->__get('template_id');
+    public function getTemplateId()
+    {
+        return $this->__get('template_id');
     }
 
     /**
      * @param $value
      */
-    public function setTemplateId($value){
-       $this->__set('template_id', $value);
+    public function setTemplateId($value)
+    {
+        $this->__set('template_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getDescription(){
-       return $this->__get('description');
+    public function getDescription()
+    {
+        return $this->__get('description');
     }
 
     /**
      * @param $value
      */
-    public function setDescription($value){
-       $this->__set('description', $value);
+    public function setDescription($value)
+    {
+        $this->__set('description', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getScreenShorts(){
-       return $this->__get('screen_shorts');
+    public function getScreenShorts()
+    {
+        return $this->__get('screen_shorts');
     }
 
     /**
      * @param $value
      */
-    public function setScreenShorts($value){
-       $this->__set('screen_shorts', $value);
+    public function setScreenShorts($value)
+    {
+        $this->__set('screen_shorts', $value);
     }
 
     /**
      * @return \Platform\Layout\Model\LayoutThemeTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_layout_theme');
     }
     //END_TABLE_GENERATOR

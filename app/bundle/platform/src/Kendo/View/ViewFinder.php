@@ -158,7 +158,7 @@ class ViewFinder
             }
 
             $recursiveDirectoryIterator = new \RecursiveDirectoryIterator($directory);
-            $iteratorMode  = \RecursiveIteratorIterator::CHILD_FIRST;
+            $iteratorMode = \RecursiveIteratorIterator::CHILD_FIRST;
 
             $iterator = new \RecursiveIteratorIterator($recursiveDirectoryIterator, $iteratorMode);
 

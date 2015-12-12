@@ -24,53 +24,57 @@ class PhotoCoverTable extends DbTable
      * @see `picaso_platform_photo_cover`
      * @var string
      */
-    protected $class =  '\Platform\Photo\Model\PhotoCover';
+    protected $class = '\Platform\Photo\Model\PhotoCover';
 
     /**
      * @var string
      */
-    protected $name =  'platform_photo_cover';
+    protected $name = 'platform_photo_cover';
 
     /**
      * @var array
      */
-    protected $column = array(
-		'object_id'=>1,
-		'object_type'=>1,
-		'photo_id'=>1,
-		'photo_file_id'=>1,
-		'position_top'=>1,
-		'created_at'=>1);
+    protected $column = [
+        'object_id'     => 1,
+        'object_type'   => 1,
+        'photo_id'      => 1,
+        'photo_file_id' => 1,
+        'position_top'  => 1,
+        'created_at'    => 1];
 
     /**
      * @var array
      */
-    protected $primary = array( 'object_id'=>1);
+    protected $primary = ['object_id' => 1];
 
     /**
      * @var string
      */
     protected $identity = '';
 
-    
+
     /**
      * @param  string|int $value
+     *
      * @return \Platform\Photo\Model\PhotoCover
      */
-    public function findById($value){
-       return $this->select()
-           ->where('object_id=?', $value)
-           ->one();
+    public function findById($value)
+    {
+        return $this->select()
+            ->where('object_id=?', $value)
+            ->one();
     }
 
     /**
      * @param  array $value
+     *
      * @return array
      */
-    public function findByIdList($value){
-       return $this->select()
-           ->where('object_id IN ?', $value)
-           ->all();
+    public function findByIdList($value)
+    {
+        return $this->select()
+            ->where('object_id IN ?', $value)
+            ->all();
     }
 
     //END_TABLE_GENERATOR

@@ -59,8 +59,7 @@ class ExtensionService
 
         $options = [];
 
-        foreach ($items as $item)
-        {
+        foreach ($items as $item) {
             if (!$item instanceof CoreExtension) continue;
             $options[] = [
                 'value' => $item->getName(),
@@ -82,8 +81,7 @@ class ExtensionService
 
         $result = [];
 
-        foreach ($iterator as $info)
-        {
+        foreach ($iterator as $info) {
 
             if (!$info->isFile()) continue;
 
@@ -100,8 +98,7 @@ class ExtensionService
 
     public function collectListPackageInformation()
     {
-        if (empty($this->packages))
-        {
+        if (empty($this->packages)) {
             $this->packages = $this->_collectListPackageInformation();
         }
 
@@ -124,10 +121,8 @@ class ExtensionService
 
         $result = [];
 
-        foreach ($packages as $id => $package)
-        {
-            if (empty($items[ $id ]))
-            {
+        foreach ($packages as $id => $package) {
+            if (empty($items[ $id ])) {
                 $result[ $id ] = $package;
             }
         }
@@ -144,16 +139,13 @@ class ExtensionService
 
         $checked = [];
 
-        foreach ($listPackage as $id)
-        {
-            if (!empty($packages[ $id ]))
-            {
+        foreach ($listPackage as $id) {
+            if (!empty($packages[ $id ])) {
                 $checked[ $id ] = $packages[ $id ];
             }
         }
 
-        foreach ($checked as $id => $item)
-        {
+        foreach ($checked as $id => $item) {
             \App::autoload()
                 ->register($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
 
@@ -286,14 +278,11 @@ class ExtensionService
      */
     public function export($extension)
     {
-        if ($extension->isModule())
-        {
+        if ($extension->isModule()) {
             $this->exportModule($extension);
-        } else if ($extension->isTheme())
-        {
+        } else if ($extension->isTheme()) {
             $this->exportTheme($extension);
-        } else if ($extension->isLibrary())
-        {
+        } else if ($extension->isLibrary()) {
 
         }
     }

@@ -20,81 +20,92 @@ class SettingAction extends Model
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('action_id');
+    public function getId()
+    {
+        return $this->__get('action_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('action_id', $value);
+    public function setId($value)
+    {
+        $this->__set('action_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getActionId(){
-       return $this->__get('action_id');
+    public function getActionId()
+    {
+        return $this->__get('action_id');
     }
 
     /**
      * @param $value
      */
-    public function setActionId($value){
-       $this->__set('action_id', $value);
+    public function setActionId($value)
+    {
+        $this->__set('action_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getModuleName(){
-       return $this->__get('module_name');
+    public function getModuleName()
+    {
+        return $this->__get('module_name');
     }
 
     /**
      * @param $value
      */
-    public function setModuleName($value){
-       $this->__set('module_name', $value);
+    public function setModuleName($value)
+    {
+        $this->__set('module_name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getActionGroup(){
-       return $this->__get('action_group');
+    public function getActionGroup()
+    {
+        return $this->__get('action_group');
     }
 
     /**
      * @param $value
      */
-    public function setActionGroup($value){
-       $this->__set('action_group', $value);
+    public function setActionGroup($value)
+    {
+        $this->__set('action_group', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getActionName(){
-       return $this->__get('action_name');
+    public function getActionName()
+    {
+        return $this->__get('action_name');
     }
 
     /**
      * @param $value
      */
-    public function setActionName($value){
-       $this->__set('action_name', $value);
+    public function setActionName($value)
+    {
+        $this->__set('action_name', $value);
     }
 
     /**
      * @return \Platform\Setting\Model\SettingActionTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_setting_action');
     }
     //END_TABLE_GENERATOR

@@ -52,53 +52,60 @@ class ReportCategory extends Model implements UniqueId
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('category_id');
+    public function getId()
+    {
+        return $this->__get('category_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('category_id', $value);
+    public function setId($value)
+    {
+        $this->__set('category_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCategoryId(){
-       return $this->__get('category_id');
+    public function getCategoryId()
+    {
+        return $this->__get('category_id');
     }
 
     /**
      * @param $value
      */
-    public function setCategoryId($value){
-       $this->__set('category_id', $value);
+    public function setCategoryId($value)
+    {
+        $this->__set('category_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCategoryName(){
-       return $this->__get('category_name');
+    public function getCategoryName()
+    {
+        return $this->__get('category_name');
     }
 
     /**
      * @param $value
      */
-    public function setCategoryName($value){
-       $this->__set('category_name', $value);
+    public function setCategoryName($value)
+    {
+        $this->__set('category_name', $value);
     }
 
     /**
      * @return \Platform\Report\Model\ReportCategoryTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_report_category');
     }
     //END_TABLE_GENERATOR

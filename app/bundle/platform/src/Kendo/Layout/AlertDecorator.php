@@ -4,21 +4,22 @@ namespace Kendo\Layout;
 
 /**
  * Class AlertDecorator
+ *
  * @package Kendo\Layout
  */
 class AlertDecorator implements Decorator
 {
     /**
-     * @param Block $block
+     * @param Block           $block
      * @param DecoratorParams $params
+     *
      * @return mixed
      */
     public function render(Block $block, DecoratorParams $params)
     {
         $title = $block->getTitle();
         $header = '';
-        if ($title)
-        {
+        if ($title) {
             $header = '<div class="alert-header"><div class="panel-header"><span>' . $title . '</span></div></div>';
         }
 

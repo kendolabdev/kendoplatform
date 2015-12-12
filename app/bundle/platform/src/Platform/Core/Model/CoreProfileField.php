@@ -11,144 +11,165 @@ use Kendo\Model;
 
 /**
  * Class CoreProfileField
+ *
  * @package Core\Model
  */
-class CoreProfileField extends Model{
+class CoreProfileField extends Model
+{
     // PUT YOUR CODE HERE
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('field_id');
+    public function getId()
+    {
+        return $this->__get('field_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('field_id', $value);
+    public function setId($value)
+    {
+        $this->__set('field_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getFieldId(){
-       return $this->__get('field_id');
+    public function getFieldId()
+    {
+        return $this->__get('field_id');
     }
 
     /**
      * @param $value
      */
-    public function setFieldId($value){
-       $this->__set('field_id', $value);
+    public function setFieldId($value)
+    {
+        $this->__set('field_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getContentType(){
-       return $this->__get('content_type');
+    public function getContentType()
+    {
+        return $this->__get('content_type');
     }
 
     /**
      * @param $value
      */
-    public function setContentType($value){
-       $this->__set('content_type', $value);
+    public function setContentType($value)
+    {
+        $this->__set('content_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getFieldName(){
-       return $this->__get('field_name');
+    public function getFieldName()
+    {
+        return $this->__get('field_name');
     }
 
     /**
      * @param $value
      */
-    public function setFieldName($value){
-       $this->__set('field_name', $value);
+    public function setFieldName($value)
+    {
+        $this->__set('field_name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPluginId(){
-       return $this->__get('plugin_id');
+    public function getPluginId()
+    {
+        return $this->__get('plugin_id');
     }
 
     /**
      * @param $value
      */
-    public function setPluginId($value){
-       $this->__set('plugin_id', $value);
+    public function setPluginId($value)
+    {
+        $this->__set('plugin_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isRequired(){
-       return $this->__get('is_required');
+    public function isRequired()
+    {
+        return $this->__get('is_required');
     }
 
     /**
      * @return null|string
      */
-    public function getRequired(){
-       return $this->__get('is_required');
+    public function getRequired()
+    {
+        return $this->__get('is_required');
     }
 
     /**
      * @param $value
      */
-    public function setRequired($value){
-       $this->__set('is_required', $value);
+    public function setRequired($value)
+    {
+        $this->__set('is_required', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isMultiple(){
-       return $this->__get('is_multiple');
+    public function isMultiple()
+    {
+        return $this->__get('is_multiple');
     }
 
     /**
      * @return null|string
      */
-    public function getMultiple(){
-       return $this->__get('is_multiple');
+    public function getMultiple()
+    {
+        return $this->__get('is_multiple');
     }
 
     /**
      * @param $value
      */
-    public function setMultiple($value){
-       $this->__set('is_multiple', $value);
+    public function setMultiple($value)
+    {
+        $this->__set('is_multiple', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getDataType(){
-       return $this->__get('data_type');
+    public function getDataType()
+    {
+        return $this->__get('data_type');
     }
 
     /**
      * @param $value
      */
-    public function setDataType($value){
-       $this->__set('data_type', $value);
+    public function setDataType($value)
+    {
+        $this->__set('data_type', $value);
     }
 
     /**
      * @return \Platform\Core\Model\CoreProfileFieldTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_core_profile_field');
     }
     //END_TABLE_GENERATOR

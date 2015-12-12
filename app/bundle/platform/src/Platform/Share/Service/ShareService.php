@@ -28,7 +28,7 @@ class ShareService
      * @param string          $story
      * @param PosterInterface $poster
      * @param PosterInterface $parent
-     * @param        $origin
+     * @param                 $origin
      * @param int             $privacyType
      * @param int             $privacyValue
      * @param array           $params

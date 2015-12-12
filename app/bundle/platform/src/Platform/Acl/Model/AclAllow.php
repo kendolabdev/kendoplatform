@@ -20,81 +20,92 @@ class AclAllow extends Model
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('allow_id');
+    public function getId()
+    {
+        return $this->__get('allow_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('allow_id', $value);
+    public function setId($value)
+    {
+        $this->__set('allow_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getAllowId(){
-       return $this->__get('allow_id');
+    public function getAllowId()
+    {
+        return $this->__get('allow_id');
     }
 
     /**
      * @param $value
      */
-    public function setAllowId($value){
-       $this->__set('allow_id', $value);
+    public function setAllowId($value)
+    {
+        $this->__set('allow_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getRoleId(){
-       return $this->__get('role_id');
+    public function getRoleId()
+    {
+        return $this->__get('role_id');
     }
 
     /**
      * @param $value
      */
-    public function setRoleId($value){
-       $this->__set('role_id', $value);
+    public function setRoleId($value)
+    {
+        $this->__set('role_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getActionId(){
-       return $this->__get('action_id');
+    public function getActionId()
+    {
+        return $this->__get('action_id');
     }
 
     /**
      * @param $value
      */
-    public function setActionId($value){
-       $this->__set('action_id', $value);
+    public function setActionId($value)
+    {
+        $this->__set('action_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getValue(){
-       return $this->__get('value');
+    public function getValue()
+    {
+        return $this->__get('value');
     }
 
     /**
      * @param $value
      */
-    public function setValue($value){
-       $this->__set('value', $value);
+    public function setValue($value)
+    {
+        $this->__set('value', $value);
     }
 
     /**
      * @return \Platform\Acl\Model\AclAllowTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_acl_allow');
     }
     //END_TABLE_GENERATOR

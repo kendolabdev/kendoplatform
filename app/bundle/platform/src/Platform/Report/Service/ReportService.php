@@ -166,9 +166,9 @@ class ReportService
 
 
     /**
-     * @param \Kendo\Content\PosterInterface                                  $poster
+     * @param \Kendo\Content\PosterInterface                                 $poster
      * @param \Kendo\Content\ContentInterface|\Kendo\Content\PosterInterface $about
-     * @param array                                                            $data
+     * @param array                                                          $data
      *
      * @return Report
      */

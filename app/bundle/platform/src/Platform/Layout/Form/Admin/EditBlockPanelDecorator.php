@@ -4,6 +4,7 @@ namespace Platform\Layout\Form\Admin;
 
 /**
  * Class EditBlockPanelDecorator
+ *
  * @package Platform\Layout\Form\Admin
  */
 class EditBlockPanelDecorator extends BaseEditBlockDecorator
@@ -33,10 +34,10 @@ class EditBlockPanelDecorator extends BaseEditBlockDecorator
         ]);
 
         $this->addElement([
-            'plugin'  => 'yesno',
-            'label'   => 'Has Border',
-            'name'    => 'has_border',
-            'value' => '1',
+            'plugin' => 'yesno',
+            'label'  => 'Has Border',
+            'name'   => 'has_border',
+            'value'  => '1',
         ]);
     }
 }

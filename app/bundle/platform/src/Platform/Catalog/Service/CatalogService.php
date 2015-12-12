@@ -122,7 +122,7 @@ class CatalogService
 
     /**
      * @param CatalogInterface|PosterInterface $item
-     * @param                     $data
+     * @param                                  $data
      */
     public function updateItemAttribute($item, $data = [])
     {
@@ -584,8 +584,8 @@ class CatalogService
     {
         if (empty($data['field_name'])
             or empty($data['field_code'])
-                or empty($data['content_id'])
-                or empty($data['plugin_id'])
+            or empty($data['content_id'])
+            or empty($data['plugin_id'])
         )
             throw new \InvalidArgumentException("Missing parameters [field_name, field_code, content_id,plugin_id");
 

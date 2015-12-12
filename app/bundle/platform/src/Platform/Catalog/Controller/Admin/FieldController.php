@@ -38,7 +38,7 @@ class FieldController extends AdminController
                 [
                     'label' => 'attribute.add_new_field',
                     'props' => [
-                        'href'   => \App::routingService()->getUrl('admin', ['stuff' => 'attribute/field/create']),
+                        'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'attribute/field/create']),
                         'class' => 'btn btn-sm btn-danger'
                     ]]
             ]);

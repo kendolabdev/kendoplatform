@@ -22,6 +22,7 @@ class SidebarMenuBlock extends Block
     {
         return '';
     }
+
     /**
      *
      */

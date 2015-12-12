@@ -61,81 +61,92 @@ class LayoutTemplate extends Model
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('template_id');
+    public function getId()
+    {
+        return $this->__get('template_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('template_id', $value);
+    public function setId($value)
+    {
+        $this->__set('template_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getTemplateId(){
-       return $this->__get('template_id');
+    public function getTemplateId()
+    {
+        return $this->__get('template_id');
     }
 
     /**
      * @param $value
      */
-    public function setTemplateId($value){
-       $this->__set('template_id', $value);
+    public function setTemplateId($value)
+    {
+        $this->__set('template_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getTemplateName(){
-       return $this->__get('template_name');
+    public function getTemplateName()
+    {
+        return $this->__get('template_name');
     }
 
     /**
      * @param $value
      */
-    public function setTemplateName($value){
-       $this->__set('template_name', $value);
+    public function setTemplateName($value)
+    {
+        $this->__set('template_name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentTemplateId(){
-       return $this->__get('parent_template_id');
+    public function getParentTemplateId()
+    {
+        return $this->__get('parent_template_id');
     }
 
     /**
      * @param $value
      */
-    public function setParentTemplateId($value){
-       $this->__set('parent_template_id', $value);
+    public function setParentTemplateId($value)
+    {
+        $this->__set('parent_template_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getSuperTemplateId(){
-       return $this->__get('super_template_id');
+    public function getSuperTemplateId()
+    {
+        return $this->__get('super_template_id');
     }
 
     /**
      * @param $value
      */
-    public function setSuperTemplateId($value){
-       $this->__set('super_template_id', $value);
+    public function setSuperTemplateId($value)
+    {
+        $this->__set('super_template_id', $value);
     }
 
     /**
      * @return \Platform\Layout\Model\LayoutTemplateTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_layout_template');
     }
     //END_TABLE_GENERATOR

@@ -10,7 +10,8 @@ use Kendo\Routing\RoutingManager;
  *
  * @package Platform\Payment\Service
  */
-class DispatcherService extends EventHandler{
+class DispatcherService extends EventHandler
+{
 
     /**
      * @param HookEvent $event

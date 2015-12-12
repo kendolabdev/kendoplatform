@@ -22,7 +22,6 @@ class BlogPost extends Model implements ContentInterface
     use TraitBaseContent;
 
 
-
     /**
      * @param array $params
      *
@@ -81,424 +80,484 @@ class BlogPost extends Model implements ContentInterface
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('post_id');
+    public function getId()
+    {
+        return $this->__get('post_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('post_id', $value);
+    public function setId($value)
+    {
+        $this->__set('post_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPostId(){
-       return $this->__get('post_id');
+    public function getPostId()
+    {
+        return $this->__get('post_id');
     }
 
     /**
      * @param $value
      */
-    public function setPostId($value){
-       $this->__set('post_id', $value);
+    public function setPostId($value)
+    {
+        $this->__set('post_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPosterId(){
-       return $this->__get('poster_id');
+    public function getPosterId()
+    {
+        return $this->__get('poster_id');
     }
 
     /**
      * @param $value
      */
-    public function setPosterId($value){
-       $this->__set('poster_id', $value);
+    public function setPosterId($value)
+    {
+        $this->__set('poster_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getUserId(){
-       return $this->__get('user_id');
+    public function getUserId()
+    {
+        return $this->__get('user_id');
     }
 
     /**
      * @param $value
      */
-    public function setUserId($value){
-       $this->__set('user_id', $value);
+    public function setUserId($value)
+    {
+        $this->__set('user_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentId(){
-       return $this->__get('parent_id');
+    public function getParentId()
+    {
+        return $this->__get('parent_id');
     }
 
     /**
      * @param $value
      */
-    public function setParentId($value){
-       $this->__set('parent_id', $value);
+    public function setParentId($value)
+    {
+        $this->__set('parent_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentUserId(){
-       return $this->__get('parent_user_id');
+    public function getParentUserId()
+    {
+        return $this->__get('parent_user_id');
     }
 
     /**
      * @param $value
      */
-    public function setParentUserId($value){
-       $this->__set('parent_user_id', $value);
+    public function setParentUserId($value)
+    {
+        $this->__set('parent_user_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPosterType(){
-       return $this->__get('poster_type');
+    public function getPosterType()
+    {
+        return $this->__get('poster_type');
     }
 
     /**
      * @param $value
      */
-    public function setPosterType($value){
-       $this->__set('poster_type', $value);
+    public function setPosterType($value)
+    {
+        $this->__set('poster_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentType(){
-       return $this->__get('parent_type');
+    public function getParentType()
+    {
+        return $this->__get('parent_type');
     }
 
     /**
      * @param $value
      */
-    public function setParentType($value){
-       $this->__set('parent_type', $value);
+    public function setParentType($value)
+    {
+        $this->__set('parent_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isActive(){
-       return $this->__get('is_active');
+    public function isActive()
+    {
+        return $this->__get('is_active');
     }
 
     /**
      * @return null|string
      */
-    public function getActive(){
-       return $this->__get('is_active');
+    public function getActive()
+    {
+        return $this->__get('is_active');
     }
 
     /**
      * @param $value
      */
-    public function setActive($value){
-       $this->__set('is_active', $value);
+    public function setActive($value)
+    {
+        $this->__set('is_active', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isPublished(){
-       return $this->__get('is_published');
+    public function isPublished()
+    {
+        return $this->__get('is_published');
     }
 
     /**
      * @return null|string
      */
-    public function getPublished(){
-       return $this->__get('is_published');
+    public function getPublished()
+    {
+        return $this->__get('is_published');
     }
 
     /**
      * @param $value
      */
-    public function setPublished($value){
-       $this->__set('is_published', $value);
+    public function setPublished($value)
+    {
+        $this->__set('is_published', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isApproved(){
-       return $this->__get('is_approved');
+    public function isApproved()
+    {
+        return $this->__get('is_approved');
     }
 
     /**
      * @return null|string
      */
-    public function getApproved(){
-       return $this->__get('is_approved');
+    public function getApproved()
+    {
+        return $this->__get('is_approved');
     }
 
     /**
      * @param $value
      */
-    public function setApproved($value){
-       $this->__set('is_approved', $value);
+    public function setApproved($value)
+    {
+        $this->__set('is_approved', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getTitle(){
-       return $this->__get('title');
+    public function getTitle()
+    {
+        return $this->__get('title');
     }
 
     /**
      * @param $value
      */
-    public function setTitle($value){
-       $this->__set('title', $value);
+    public function setTitle($value)
+    {
+        $this->__set('title', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getDescription(){
-       return $this->__get('description');
+    public function getDescription()
+    {
+        return $this->__get('description');
     }
 
     /**
      * @param $value
      */
-    public function setDescription($value){
-       $this->__set('description', $value);
+    public function setDescription($value)
+    {
+        $this->__set('description', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getSlug(){
-       return $this->__get('slug');
+    public function getSlug()
+    {
+        return $this->__get('slug');
     }
 
     /**
      * @param $value
      */
-    public function setSlug($value){
-       $this->__set('slug', $value);
+    public function setSlug($value)
+    {
+        $this->__set('slug', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getContent(){
-       return $this->__get('content');
+    public function getContent()
+    {
+        return $this->__get('content');
     }
 
     /**
      * @param $value
      */
-    public function setContent($value){
-       $this->__set('content', $value);
+    public function setContent($value)
+    {
+        $this->__set('content', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCreatedAt(){
-       return $this->__get('created_at');
+    public function getCreatedAt()
+    {
+        return $this->__get('created_at');
     }
 
     /**
      * @param $value
      */
-    public function setCreatedAt($value){
-       $this->__set('created_at', $value);
+    public function setCreatedAt($value)
+    {
+        $this->__set('created_at', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getModifiedAt(){
-       return $this->__get('modified_at');
+    public function getModifiedAt()
+    {
+        return $this->__get('modified_at');
     }
 
     /**
      * @param $value
      */
-    public function setModifiedAt($value){
-       $this->__set('modified_at', $value);
+    public function setModifiedAt($value)
+    {
+        $this->__set('modified_at', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getFollowCount(){
-       return $this->__get('follow_count');
+    public function getFollowCount()
+    {
+        return $this->__get('follow_count');
     }
 
     /**
      * @param $value
      */
-    public function setFollowCount($value){
-       $this->__set('follow_count', $value);
+    public function setFollowCount($value)
+    {
+        $this->__set('follow_count', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCommentCount(){
-       return $this->__get('comment_count');
+    public function getCommentCount()
+    {
+        return $this->__get('comment_count');
     }
 
     /**
      * @param $value
      */
-    public function setCommentCount($value){
-       $this->__set('comment_count', $value);
+    public function setCommentCount($value)
+    {
+        $this->__set('comment_count', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getShareCount(){
-       return $this->__get('share_count');
+    public function getShareCount()
+    {
+        return $this->__get('share_count');
     }
 
     /**
      * @param $value
      */
-    public function setShareCount($value){
-       $this->__set('share_count', $value);
+    public function setShareCount($value)
+    {
+        $this->__set('share_count', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getViewCount(){
-       return $this->__get('view_count');
+    public function getViewCount()
+    {
+        return $this->__get('view_count');
     }
 
     /**
      * @param $value
      */
-    public function setViewCount($value){
-       $this->__set('view_count', $value);
+    public function setViewCount($value)
+    {
+        $this->__set('view_count', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getLikeCount(){
-       return $this->__get('like_count');
+    public function getLikeCount()
+    {
+        return $this->__get('like_count');
     }
 
     /**
      * @param $value
      */
-    public function setLikeCount($value){
-       $this->__set('like_count', $value);
+    public function setLikeCount($value)
+    {
+        $this->__set('like_count', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPrivacyType(){
-       return $this->__get('privacy_type');
+    public function getPrivacyType()
+    {
+        return $this->__get('privacy_type');
     }
 
     /**
      * @param $value
      */
-    public function setPrivacyType($value){
-       $this->__set('privacy_type', $value);
+    public function setPrivacyType($value)
+    {
+        $this->__set('privacy_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPrivacyValue(){
-       return $this->__get('privacy_value');
+    public function getPrivacyValue()
+    {
+        return $this->__get('privacy_value');
     }
 
     /**
      * @param $value
      */
-    public function setPrivacyValue($value){
-       $this->__set('privacy_value', $value);
+    public function setPrivacyValue($value)
+    {
+        $this->__set('privacy_value', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPrivacyText(){
-       return $this->__get('privacy_text');
+    public function getPrivacyText()
+    {
+        return $this->__get('privacy_text');
     }
 
     /**
      * @param $value
      */
-    public function setPrivacyText($value){
-       $this->__set('privacy_text', $value);
+    public function setPrivacyText($value)
+    {
+        $this->__set('privacy_text', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPeopleCount(){
-       return $this->__get('people_count');
+    public function getPeopleCount()
+    {
+        return $this->__get('people_count');
     }
 
     /**
      * @param $value
      */
-    public function setPeopleCount($value){
-       $this->__set('people_count', $value);
+    public function setPeopleCount($value)
+    {
+        $this->__set('people_count', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPlaceId(){
-       return $this->__get('place_id');
+    public function getPlaceId()
+    {
+        return $this->__get('place_id');
     }
 
     /**
      * @param $value
      */
-    public function setPlaceId($value){
-       $this->__set('place_id', $value);
+    public function setPlaceId($value)
+    {
+        $this->__set('place_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPlaceType(){
-       return $this->__get('place_type');
+    public function getPlaceType()
+    {
+        return $this->__get('place_type');
     }
 
     /**
      * @param $value
      */
-    public function setPlaceType($value){
-       $this->__set('place_type', $value);
+    public function setPlaceType($value)
+    {
+        $this->__set('place_type', $value);
     }
 
     /**
      * @return \Platform\Blog\Model\BlogPostTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_blog_post');
     }
     //END_TABLE_GENERATOR

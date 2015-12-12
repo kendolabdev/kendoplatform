@@ -66,312 +66,356 @@ class CoreExtension extends Model
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('id');
+    public function getId()
+    {
+        return $this->__get('id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('id', $value);
+    public function setId($value)
+    {
+        $this->__set('id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getExtensionType(){
-       return $this->__get('extension_type');
+    public function getExtensionType()
+    {
+        return $this->__get('extension_type');
     }
 
     /**
      * @param $value
      */
-    public function setExtensionType($value){
-       $this->__set('extension_type', $value);
+    public function setExtensionType($value)
+    {
+        $this->__set('extension_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getName(){
-       return $this->__get('name');
+    public function getName()
+    {
+        return $this->__get('name');
     }
 
     /**
      * @param $value
      */
-    public function setName($value){
-       $this->__set('name', $value);
+    public function setName($value)
+    {
+        $this->__set('name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getLoadOrder(){
-       return $this->__get('load_order');
+    public function getLoadOrder()
+    {
+        return $this->__get('load_order');
     }
 
     /**
      * @param $value
      */
-    public function setLoadOrder($value){
-       $this->__set('load_order', $value);
+    public function setLoadOrder($value)
+    {
+        $this->__set('load_order', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getLoaderName(){
-       return $this->__get('loader_name');
+    public function getLoaderName()
+    {
+        return $this->__get('loader_name');
     }
 
     /**
      * @param $value
      */
-    public function setLoaderName($value){
-       $this->__set('loader_name', $value);
+    public function setLoaderName($value)
+    {
+        $this->__set('loader_name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPath(){
-       return $this->__get('path');
+    public function getPath()
+    {
+        return $this->__get('path');
     }
 
     /**
      * @param $value
      */
-    public function setPath($value){
-       $this->__set('path', $value);
+    public function setPath($value)
+    {
+        $this->__set('path', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isActive(){
-       return $this->__get('is_active');
+    public function isActive()
+    {
+        return $this->__get('is_active');
     }
 
     /**
      * @return null|string
      */
-    public function getActive(){
-       return $this->__get('is_active');
+    public function getActive()
+    {
+        return $this->__get('is_active');
     }
 
     /**
      * @param $value
      */
-    public function setActive($value){
-       $this->__set('is_active', $value);
+    public function setActive($value)
+    {
+        $this->__set('is_active', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isSystem(){
-       return $this->__get('is_system');
+    public function isSystem()
+    {
+        return $this->__get('is_system');
     }
 
     /**
      * @return null|string
      */
-    public function getSystem(){
-       return $this->__get('is_system');
+    public function getSystem()
+    {
+        return $this->__get('is_system');
     }
 
     /**
      * @param $value
      */
-    public function setSystem($value){
-       $this->__set('is_system', $value);
+    public function setSystem($value)
+    {
+        $this->__set('is_system', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getNamespace(){
-       return $this->__get('namespace');
+    public function getNamespace()
+    {
+        return $this->__get('namespace');
     }
 
     /**
      * @param $value
      */
-    public function setNamespace($value){
-       $this->__set('namespace', $value);
+    public function setNamespace($value)
+    {
+        $this->__set('namespace', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getTitle(){
-       return $this->__get('title');
+    public function getTitle()
+    {
+        return $this->__get('title');
     }
 
     /**
      * @param $value
      */
-    public function setTitle($value){
-       $this->__set('title', $value);
+    public function setTitle($value)
+    {
+        $this->__set('title', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getAuthor(){
-       return $this->__get('author');
+    public function getAuthor()
+    {
+        return $this->__get('author');
     }
 
     /**
      * @param $value
      */
-    public function setAuthor($value){
-       $this->__set('author', $value);
+    public function setAuthor($value)
+    {
+        $this->__set('author', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getDescription(){
-       return $this->__get('description');
+    public function getDescription()
+    {
+        return $this->__get('description');
     }
 
     /**
      * @param $value
      */
-    public function setDescription($value){
-       $this->__set('description', $value);
+    public function setDescription($value)
+    {
+        $this->__set('description', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getVersion(){
-       return $this->__get('version');
+    public function getVersion()
+    {
+        return $this->__get('version');
     }
 
     /**
      * @param $value
      */
-    public function setVersion($value){
-       $this->__set('version', $value);
+    public function setVersion($value)
+    {
+        $this->__set('version', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getLatestVersion(){
-       return $this->__get('latest_version');
+    public function getLatestVersion()
+    {
+        return $this->__get('latest_version');
     }
 
     /**
      * @param $value
      */
-    public function setLatestVersion($value){
-       $this->__set('latest_version', $value);
+    public function setLatestVersion($value)
+    {
+        $this->__set('latest_version', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCreatedAt(){
-       return $this->__get('created_at');
+    public function getCreatedAt()
+    {
+        return $this->__get('created_at');
     }
 
     /**
      * @param $value
      */
-    public function setCreatedAt($value){
-       $this->__set('created_at', $value);
+    public function setCreatedAt($value)
+    {
+        $this->__set('created_at', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getModifiedAt(){
-       return $this->__get('modified_at');
+    public function getModifiedAt()
+    {
+        return $this->__get('modified_at');
     }
 
     /**
      * @param $value
      */
-    public function setModifiedAt($value){
-       $this->__set('modified_at', $value);
+    public function setModifiedAt($value)
+    {
+        $this->__set('modified_at', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getVendorId(){
-       return $this->__get('vendor_id');
+    public function getVendorId()
+    {
+        return $this->__get('vendor_id');
     }
 
     /**
      * @param $value
      */
-    public function setVendorId($value){
-       $this->__set('vendor_id', $value);
+    public function setVendorId($value)
+    {
+        $this->__set('vendor_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getInstallPath(){
-       return $this->__get('install_path');
+    public function getInstallPath()
+    {
+        return $this->__get('install_path');
     }
 
     /**
      * @param $value
      */
-    public function setInstallPath($value){
-       $this->__set('install_path', $value);
+    public function setInstallPath($value)
+    {
+        $this->__set('install_path', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getInstallHandler(){
-       return $this->__get('install_handler');
+    public function getInstallHandler()
+    {
+        return $this->__get('install_handler');
     }
 
     /**
      * @param $value
      */
-    public function setInstallHandler($value){
-       $this->__set('install_handler', $value);
+    public function setInstallHandler($value)
+    {
+        $this->__set('install_handler', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isInstalled(){
-       return $this->__get('is_installed');
+    public function isInstalled()
+    {
+        return $this->__get('is_installed');
     }
 
     /**
      * @return null|string
      */
-    public function getInstalled(){
-       return $this->__get('is_installed');
+    public function getInstalled()
+    {
+        return $this->__get('is_installed');
     }
 
     /**
      * @param $value
      */
-    public function setInstalled($value){
-       $this->__set('is_installed', $value);
+    public function setInstalled($value)
+    {
+        $this->__set('is_installed', $value);
     }
 
     /**
      * @return \Platform\Core\Model\CoreExtensionTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_core_extension');
     }
     //END_TABLE_GENERATOR

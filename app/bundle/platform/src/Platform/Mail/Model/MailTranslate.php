@@ -20,95 +20,108 @@ class MailTranslate extends Model
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('template_id');
+    public function getId()
+    {
+        return $this->__get('template_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('template_id', $value);
+    public function setId($value)
+    {
+        $this->__set('template_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getTemplateId(){
-       return $this->__get('template_id');
+    public function getTemplateId()
+    {
+        return $this->__get('template_id');
     }
 
     /**
      * @param $value
      */
-    public function setTemplateId($value){
-       $this->__set('template_id', $value);
+    public function setTemplateId($value)
+    {
+        $this->__set('template_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getLanguageId(){
-       return $this->__get('language_id');
+    public function getLanguageId()
+    {
+        return $this->__get('language_id');
     }
 
     /**
      * @param $value
      */
-    public function setLanguageId($value){
-       $this->__set('language_id', $value);
+    public function setLanguageId($value)
+    {
+        $this->__set('language_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getSubject(){
-       return $this->__get('subject');
+    public function getSubject()
+    {
+        return $this->__get('subject');
     }
 
     /**
      * @param $value
      */
-    public function setSubject($value){
-       $this->__set('subject', $value);
+    public function setSubject($value)
+    {
+        $this->__set('subject', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getBodyText(){
-       return $this->__get('body_text');
+    public function getBodyText()
+    {
+        return $this->__get('body_text');
     }
 
     /**
      * @param $value
      */
-    public function setBodyText($value){
-       $this->__set('body_text', $value);
+    public function setBodyText($value)
+    {
+        $this->__set('body_text', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getBodyHtml(){
-       return $this->__get('body_html');
+    public function getBodyHtml()
+    {
+        return $this->__get('body_html');
     }
 
     /**
      * @param $value
      */
-    public function setBodyHtml($value){
-       $this->__set('body_html', $value);
+    public function setBodyHtml($value)
+    {
+        $this->__set('body_html', $value);
     }
 
     /**
      * @return \Platform\Mail\Model\MailTranslateTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_mail_translate');
     }
     //END_TABLE_GENERATOR

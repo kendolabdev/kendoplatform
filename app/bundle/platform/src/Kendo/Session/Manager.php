@@ -28,7 +28,7 @@ class Manager
     {
         $saveHandlerClassName = \App::registryService()->get('SessionHandler', '\Platform\Core\Session\FileSaveHandler');
 
-        if(!class_exists($saveHandlerClassName)){
+        if (!class_exists($saveHandlerClassName)) {
             throw new \InvalidArgumentException('Unexpected session save handler');
         }
 

@@ -137,117 +137,132 @@ class AttributeField extends Model implements UniqueId
         $plugin = $this->getPlugin();
 
         return [
-            'name'         => $this->getCode(),
-            'multi'   => $plugin->isMultiple(),
+            'name'       => $this->getCode(),
+            'multi'      => $plugin->isMultiple(),
             'predefined' => $plugin->isPredefined(),
         ];
     }
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('field_id');
+    public function getId()
+    {
+        return $this->__get('field_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('field_id', $value);
+    public function setId($value)
+    {
+        $this->__set('field_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getFieldId(){
-       return $this->__get('field_id');
+    public function getFieldId()
+    {
+        return $this->__get('field_id');
     }
 
     /**
      * @param $value
      */
-    public function setFieldId($value){
-       $this->__set('field_id', $value);
+    public function setFieldId($value)
+    {
+        $this->__set('field_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getFieldCode(){
-       return $this->__get('field_code');
+    public function getFieldCode()
+    {
+        return $this->__get('field_code');
     }
 
     /**
      * @param $value
      */
-    public function setFieldCode($value){
-       $this->__set('field_code', $value);
+    public function setFieldCode($value)
+    {
+        $this->__set('field_code', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getContentId(){
-       return $this->__get('content_id');
+    public function getContentId()
+    {
+        return $this->__get('content_id');
     }
 
     /**
      * @param $value
      */
-    public function setContentId($value){
-       $this->__set('content_id', $value);
+    public function setContentId($value)
+    {
+        $this->__set('content_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getFieldName(){
-       return $this->__get('field_name');
+    public function getFieldName()
+    {
+        return $this->__get('field_name');
     }
 
     /**
      * @param $value
      */
-    public function setFieldName($value){
-       $this->__set('field_name', $value);
+    public function setFieldName($value)
+    {
+        $this->__set('field_name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPluginId(){
-       return $this->__get('plugin_id');
+    public function getPluginId()
+    {
+        return $this->__get('plugin_id');
     }
 
     /**
      * @param $value
      */
-    public function setPluginId($value){
-       $this->__set('plugin_id', $value);
+    public function setPluginId($value)
+    {
+        $this->__set('plugin_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParamsText(){
-       return $this->__get('params_text');
+    public function getParamsText()
+    {
+        return $this->__get('params_text');
     }
 
     /**
      * @param $value
      */
-    public function setParamsText($value){
-       $this->__set('params_text', $value);
+    public function setParamsText($value)
+    {
+        $this->__set('params_text', $value);
     }
 
     /**
      * @return \Platform\Catalog\Model\AttributeFieldTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('attribute.attribute_field');
     }
     //END_TABLE_GENERATOR

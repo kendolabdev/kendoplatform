@@ -91,8 +91,7 @@ class ManageController extends AdminController
 
         $layout = $layoutService->findLayout($pageName, $screenSize, $themeId);
 
-        if (!$layout)
-        {
+        if (!$layout) {
             $layout = $layoutService->findClosestLayout($pageName, $screenSize, $themeId);
             $layout = $layoutService->cloneLayout($layout, $themeId);
             // clone layout configuration.
@@ -127,7 +126,7 @@ class ManageController extends AdminController
             'layoutConfigText'    => $layoutConfigText,
             'supportBlocks'       => $supportBlocks,
             'supportMainSections' => $supportMainSections,
-            'supportSubSections'   => $supportSubSections,
+            'supportSubSections'  => $supportSubSections,
             'supportContainers'   => $supportContainers,
             'layoutAttrs'         => $layoutAttributes,
             'layoutEditHtml'      => $layoutEditHtml,

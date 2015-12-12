@@ -470,8 +470,8 @@ class FeedService
 
     /**
      * @param \Kendo\Db\SqlSelect $select
-     * @param array                $query
-     * @param string               $type
+     * @param array               $query
+     * @param string              $type
      *
      * @return bool
      */
@@ -536,8 +536,8 @@ class FeedService
 
     /**
      * @param PosterInterface $poster
-     * @param        $tagId
-     * @param        $options
+     * @param                 $tagId
+     * @param                 $options
      *
      * @return array
      */
@@ -555,7 +555,7 @@ class FeedService
 
     /**
      * @param ContentInterface $about
-     * @param         $options
+     * @param                  $options
      *
      * @return \Kendo\Db\SqlSelect
      */
@@ -592,7 +592,7 @@ class FeedService
     /**
      * @param PosterInterface  $viewer
      * @param ContentInterface $about
-     * @param         $options
+     * @param                  $options
      *
      * @return \Kendo\Db\SqlSelect
      */
@@ -633,7 +633,7 @@ class FeedService
     /**
      * @param PosterInterface|null $viewer
      * @param ContentInterface     $about
-     * @param             $options
+     * @param                      $options
      *
      * @return array
      */

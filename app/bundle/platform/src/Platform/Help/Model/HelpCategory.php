@@ -63,95 +63,108 @@ class HelpCategory extends Model implements UniqueId
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('category_id');
+    public function getId()
+    {
+        return $this->__get('category_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('category_id', $value);
+    public function setId($value)
+    {
+        $this->__set('category_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCategoryId(){
-       return $this->__get('category_id');
+    public function getCategoryId()
+    {
+        return $this->__get('category_id');
     }
 
     /**
      * @param $value
      */
-    public function setCategoryId($value){
-       $this->__set('category_id', $value);
+    public function setCategoryId($value)
+    {
+        $this->__set('category_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCategoryActive(){
-       return $this->__get('category_active');
+    public function getCategoryActive()
+    {
+        return $this->__get('category_active');
     }
 
     /**
      * @param $value
      */
-    public function setCategoryActive($value){
-       $this->__set('category_active', $value);
+    public function setCategoryActive($value)
+    {
+        $this->__set('category_active', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCategorySortOrder(){
-       return $this->__get('category_sort_order');
+    public function getCategorySortOrder()
+    {
+        return $this->__get('category_sort_order');
     }
 
     /**
      * @param $value
      */
-    public function setCategorySortOrder($value){
-       $this->__set('category_sort_order', $value);
+    public function setCategorySortOrder($value)
+    {
+        $this->__set('category_sort_order', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCategoryName(){
-       return $this->__get('category_name');
+    public function getCategoryName()
+    {
+        return $this->__get('category_name');
     }
 
     /**
      * @param $value
      */
-    public function setCategoryName($value){
-       $this->__set('category_name', $value);
+    public function setCategoryName($value)
+    {
+        $this->__set('category_name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCategorySlug(){
-       return $this->__get('category_slug');
+    public function getCategorySlug()
+    {
+        return $this->__get('category_slug');
     }
 
     /**
      * @param $value
      */
-    public function setCategorySlug($value){
-       $this->__set('category_slug', $value);
+    public function setCategorySlug($value)
+    {
+        $this->__set('category_slug', $value);
     }
 
     /**
      * @return \Platform\Help\Model\HelpCategoryTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_help_category');
     }
     //END_TABLE_GENERATOR

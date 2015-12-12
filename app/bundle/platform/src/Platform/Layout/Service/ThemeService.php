@@ -67,8 +67,7 @@ class ThemeService
     {
 
         return \App::cacheService()
-            ->get(['layout.theme', 'getDefaultThemeId'], 0, function ()
-            {
+            ->get(['layout.theme', 'getDefaultThemeId'], 0, function () {
                 return $this->_getDefaultThemeId();
             });
     }
@@ -93,8 +92,7 @@ class ThemeService
 
         $all = array_values($container->all());
 
-        $content = implode(PHP_EOL, array_map(function ($e)
-        {
+        $content = implode(PHP_EOL, array_map(function ($e) {
             return sprintf('@import "%s";', $e);
         }, $all));
 
@@ -121,8 +119,7 @@ class ThemeService
             ->where('is_active=?', 1)
             ->all();
 
-        foreach ($themes as $theme)
-        {
+        foreach ($themes as $theme) {
             $this->rebuildStylesheetForTheme($theme->getId());
         }
     }
@@ -146,8 +143,7 @@ class ThemeService
      */
     public function rebuildStylesheetForTheme($themeId = null)
     {
-        if (empty($themeId))
-        {
+        if (empty($themeId)) {
             $themeId = \App::layoutService()
                 ->theme()
                 ->getDefaultThemeId();
@@ -176,18 +172,15 @@ class ThemeService
 
         $dir = dirname($outputFilename);
 
-        if (!is_dir($dir))
-        {
-            if (!@mkdir($dir, 0777, 1))
-            {
+        if (!is_dir($dir)) {
+            if (!@mkdir($dir, 0777, 1)) {
                 throw new \RuntimeException("Can not write to $dir");
             }
             @chmod($dir, 0777);
         }
 
         $fp = fopen($outputFilename, 'w');
-        if (!$fp)
-        {
+        if (!$fp) {
             throw new \InvalidArgumentException("Could not write to file [$outputFilename]");
         }
         fwrite($fp, $content);

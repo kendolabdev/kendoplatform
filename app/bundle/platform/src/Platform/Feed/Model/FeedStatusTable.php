@@ -16,75 +16,79 @@ use Kendo\Db\DbTable;
  */
 class FeedStatusTable extends DbTable
 {
-    // PUT YOUR CODE HERE
+	// PUT YOUR CODE HERE
 
-    //START_TABLE_GENERATOR
+	//START_TABLE_GENERATOR
 
-    /**
-     * @see `picaso_platform_feed_status`
-     * @var string
-     */
-    protected $class =  '\Platform\Feed\Model\FeedStatus';
+	/**
+	 * @see `picaso_platform_feed_status`
+	 * @var string
+	 */
+	protected $class = '\Platform\Feed\Model\FeedStatus';
 
-    /**
-     * @var string
-     */
-    protected $name =  'platform_feed_status';
+	/**
+	 * @var string
+	 */
+	protected $name = 'platform_feed_status';
 
-    /**
-     * @var array
-     */
-    protected $column = array(
-		'status_id'=>1,
-		'poster_id'=>1,
-		'user_id'=>1,
-		'parent_id'=>1,
-		'parent_user_id'=>1,
-		'poster_type'=>1,
-		'parent_type'=>1,
-		'like_count'=>1,
-		'comment_count'=>1,
-		'share_count'=>1,
-		'story'=>1,
-		'created_at'=>1,
-		'modified_at'=>1,
-		'privacy_type'=>1,
-		'privacy_value'=>1,
-		'privacy_text'=>1,
-		'people_count'=>1,
-		'place_type'=>1,
-		'place_id'=>1);
+	/**
+	 * @var array
+	 */
+	protected $column = [
+			'status_id'      => 1,
+			'poster_id'      => 1,
+			'user_id'        => 1,
+			'parent_id'      => 1,
+			'parent_user_id' => 1,
+			'poster_type'    => 1,
+			'parent_type'    => 1,
+			'like_count'     => 1,
+			'comment_count'  => 1,
+			'share_count'    => 1,
+			'story'          => 1,
+			'created_at'     => 1,
+			'modified_at'    => 1,
+			'privacy_type'   => 1,
+			'privacy_value'  => 1,
+			'privacy_text'   => 1,
+			'people_count'   => 1,
+			'place_type'     => 1,
+			'place_id'       => 1];
 
-    /**
-     * @var array
-     */
-    protected $primary = array( 'status_id'=>1);
+	/**
+	 * @var array
+	 */
+	protected $primary = ['status_id' => 1];
 
-    /**
-     * @var string
-     */
-    protected $identity = '';
+	/**
+	 * @var string
+	 */
+	protected $identity = '';
 
-    
-    /**
-     * @param  string|int $value
-     * @return \Platform\Feed\Model\FeedStatus
-     */
-    public function findById($value){
-       return $this->select()
-           ->where('status_id=?', $value)
-           ->one();
-    }
 
-    /**
-     * @param  array $value
-     * @return array
-     */
-    public function findByIdList($value){
-       return $this->select()
-           ->where('status_id IN ?', $value)
-           ->all();
-    }
+	/**
+	 * @param  string|int $value
+	 *
+	 * @return \Platform\Feed\Model\FeedStatus
+	 */
+	public function findById($value)
+	{
+		return $this->select()
+				->where('status_id=?', $value)
+				->one();
+	}
 
-    //END_TABLE_GENERATOR
+	/**
+	 * @param  array $value
+	 *
+	 * @return array
+	 */
+	public function findByIdList($value)
+	{
+		return $this->select()
+				->where('status_id IN ?', $value)
+				->all();
+	}
+
+	//END_TABLE_GENERATOR
 }

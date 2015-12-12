@@ -25,39 +25,41 @@ class VideoPlaylistVideoTable extends DbTable
      * @see `picaso_platform_video_playlist_video`
      * @var string
      */
-    protected $class =  '\Platform\Video\Model\VideoPlaylistVideo';
+    protected $class = '\Platform\Video\Model\VideoPlaylistVideo';
 
     /**
      * @var string
      */
-    protected $name =  'platform_video_playlist_video';
+    protected $name = 'platform_video_playlist_video';
 
     /**
      * @var array
      */
-    protected $column = array(
-		'playlist_id'=>1,
-		'video_id'=>1,
-		'created_at'=>1);
+    protected $column = [
+        'playlist_id' => 1,
+        'video_id'    => 1,
+        'created_at'  => 1];
 
     /**
      * @var array
      */
-    protected $primary = array( 'playlist_id'=>1, 'video_id'=>1);
+    protected $primary = ['playlist_id' => 1, 'video_id' => 1];
 
     /**
      * @var string
      */
     protected $identity = '';
 
-    
+
     /**
      * @param  string|int $value
+     *
      * @return null
      * @throws \Kendo\Db\Exception
      */
-    public function findById($value){
-       throw new \Kendo\Db\Exception('Can not find by id for '.$value);
+    public function findById($value)
+    {
+        throw new \Kendo\Db\Exception('Can not find by id for ' . $value);
     }
 
     //END_TABLE_GENERATOR

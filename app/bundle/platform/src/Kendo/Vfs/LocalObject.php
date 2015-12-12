@@ -16,9 +16,9 @@ class LocalObject extends AbstractObject
      */
     public function open($mode = 'r')
     {
-        $path  = $this->getPath();
+        $path = $this->getPath();
 
-        if(!file_exists($path)){
+        if (!file_exists($path)) {
             throw new Exception(sprintf('File "%s" does not exists', $path));
         }
 

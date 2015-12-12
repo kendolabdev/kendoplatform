@@ -19,11 +19,11 @@ class FilterBlogPost extends Form
     {
         parent::init();
         $this->addElement([
-            'plugin' => 'text',
-            'label'  => 'Keyword',
-            'placeholder'=> 'Title',
-            'name'   => 'q',
-            'class'  => 'form-control',
+            'plugin'      => 'text',
+            'label'       => 'Keyword',
+            'placeholder' => 'Title',
+            'name'        => 'q',
+            'class'       => 'form-control',
         ]);
 
 

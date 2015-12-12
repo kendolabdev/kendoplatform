@@ -24,49 +24,53 @@ class PhraseLanguageTable extends DbTable
      * @see `picaso_platform_phrase_language`
      * @var string
      */
-    protected $class =  '\Platform\Phrase\Model\PhraseLanguage';
+    protected $class = '\Platform\Phrase\Model\PhraseLanguage';
 
     /**
      * @var string
      */
-    protected $name =  'platform_phrase_language';
+    protected $name = 'platform_phrase_language';
 
     /**
      * @var array
      */
-    protected $column = array(
-		'id'=>1,
-		'name'=>1);
+    protected $column = [
+        'id'   => 1,
+        'name' => 1];
 
     /**
      * @var array
      */
-    protected $primary = array( 'id'=>1);
+    protected $primary = ['id' => 1];
 
     /**
      * @var string
      */
     protected $identity = '';
 
-    
+
     /**
      * @param  string|int $value
+     *
      * @return \Platform\Phrase\Model\PhraseLanguage
      */
-    public function findById($value){
-       return $this->select()
-           ->where('id=?', $value)
-           ->one();
+    public function findById($value)
+    {
+        return $this->select()
+            ->where('id=?', $value)
+            ->one();
     }
 
     /**
      * @param  array $value
+     *
      * @return array
      */
-    public function findByIdList($value){
-       return $this->select()
-           ->where('id IN ?', $value)
-           ->all();
+    public function findByIdList($value)
+    {
+        return $this->select()
+            ->where('id IN ?', $value)
+            ->all();
     }
 
     //END_TABLE_GENERATOR

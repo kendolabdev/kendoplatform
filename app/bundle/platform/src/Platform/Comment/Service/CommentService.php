@@ -16,7 +16,7 @@ use Kendo\Content\PosterInterface;
 class CommentService
 {
 
-    
+
     /**
      * @return int
      */
@@ -105,7 +105,7 @@ class CommentService
      * @param int           $minId
      * @param int           $maxId
      * @param int           $limit
-     * @param array     $excludes
+     * @param array         $excludes
      *
      * @return \Kendo\Db\SqlSelect
      */

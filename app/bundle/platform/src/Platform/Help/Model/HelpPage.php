@@ -44,151 +44,172 @@ class HelpPage extends Model implements UniqueId
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('page_id');
+    public function getId()
+    {
+        return $this->__get('page_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('page_id', $value);
+    public function setId($value)
+    {
+        $this->__set('page_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPageId(){
-       return $this->__get('page_id');
+    public function getPageId()
+    {
+        return $this->__get('page_id');
     }
 
     /**
      * @param $value
      */
-    public function setPageId($value){
-       $this->__set('page_id', $value);
+    public function setPageId($value)
+    {
+        $this->__set('page_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPageActive(){
-       return $this->__get('page_active');
+    public function getPageActive()
+    {
+        return $this->__get('page_active');
     }
 
     /**
      * @param $value
      */
-    public function setPageActive($value){
-       $this->__set('page_active', $value);
+    public function setPageActive($value)
+    {
+        $this->__set('page_active', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getSortOrder(){
-       return $this->__get('sort_order');
+    public function getSortOrder()
+    {
+        return $this->__get('sort_order');
     }
 
     /**
      * @param $value
      */
-    public function setSortOrder($value){
-       $this->__set('sort_order', $value);
+    public function setSortOrder($value)
+    {
+        $this->__set('sort_order', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPageSlug(){
-       return $this->__get('page_slug');
+    public function getPageSlug()
+    {
+        return $this->__get('page_slug');
     }
 
     /**
      * @param $value
      */
-    public function setPageSlug($value){
-       $this->__set('page_slug', $value);
+    public function setPageSlug($value)
+    {
+        $this->__set('page_slug', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getRedirectTo(){
-       return $this->__get('redirect_to');
+    public function getRedirectTo()
+    {
+        return $this->__get('redirect_to');
     }
 
     /**
      * @param $value
      */
-    public function setRedirectTo($value){
-       $this->__set('redirect_to', $value);
+    public function setRedirectTo($value)
+    {
+        $this->__set('redirect_to', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPageTitle(){
-       return $this->__get('page_title');
+    public function getPageTitle()
+    {
+        return $this->__get('page_title');
     }
 
     /**
      * @param $value
      */
-    public function setPageTitle($value){
-       $this->__set('page_title', $value);
+    public function setPageTitle($value)
+    {
+        $this->__set('page_title', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPageContent(){
-       return $this->__get('page_content');
+    public function getPageContent()
+    {
+        return $this->__get('page_content');
     }
 
     /**
      * @param $value
      */
-    public function setPageContent($value){
-       $this->__set('page_content', $value);
+    public function setPageContent($value)
+    {
+        $this->__set('page_content', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPageDescription(){
-       return $this->__get('page_description');
+    public function getPageDescription()
+    {
+        return $this->__get('page_description');
     }
 
     /**
      * @param $value
      */
-    public function setPageDescription($value){
-       $this->__set('page_description', $value);
+    public function setPageDescription($value)
+    {
+        $this->__set('page_description', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getUpdatedAt(){
-       return $this->__get('updated_at');
+    public function getUpdatedAt()
+    {
+        return $this->__get('updated_at');
     }
 
     /**
      * @param $value
      */
-    public function setUpdatedAt($value){
-       $this->__set('updated_at', $value);
+    public function setUpdatedAt($value)
+    {
+        $this->__set('updated_at', $value);
     }
 
     /**
      * @return \Platform\Help\Model\HelpPageTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_help_page');
     }
     //END_TABLE_GENERATOR

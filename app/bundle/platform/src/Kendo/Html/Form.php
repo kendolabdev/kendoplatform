@@ -149,11 +149,12 @@ class Form extends HtmlCollection
      */
     public function open($attrs = [])
     {
-        if (!empty($attrs)){
-            foreach($attrs as $key=>$value){
+        if (!empty($attrs)) {
+            foreach ($attrs as $key => $value) {
                 $this->setAttribute($key, $value);
             }
         }
+
         return '<form ' . $this->_flat($this->attributes) . '>';
     }
 

@@ -4,6 +4,7 @@ namespace Platform\Layout\Form\Admin;
 
 /**
  * Class EditBlockAlertDecorator
+ *
  * @package Platform\Layout\Form\Admin
  */
 class EditBlockAlertDecorator extends BaseEditBlockDecorator

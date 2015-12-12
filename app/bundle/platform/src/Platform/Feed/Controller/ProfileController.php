@@ -19,7 +19,8 @@ class ProfileController extends ProfileBaseController
         $profile = \App::registryService()->get('profile');
 
         if (!\App::aclService()
-            ->pass($profile, 'profile__view_timeline', true)) ;
+            ->pass($profile, 'profile__view_timeline', true)
+        ) ;
 
         $title = \App::text('core.$profile_profile_page', ['$profile' => $profile->getTitle()]);
 

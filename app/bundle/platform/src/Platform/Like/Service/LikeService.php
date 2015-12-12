@@ -146,9 +146,9 @@ class LikeService
     }
 
     /**
-     * @param PosterInterface              $poster
-     * @param AtomInterface                $about
-     * @param int                          $limit
+     * @param PosterInterface $poster
+     * @param AtomInterface   $about
+     * @param int             $limit
      *
      * @return LikeResult
      */

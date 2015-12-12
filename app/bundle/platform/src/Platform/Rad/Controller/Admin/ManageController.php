@@ -16,9 +16,11 @@ class ManageController extends AdminController
     /**
      * @return string
      */
-    protected function getVendorId(){
+    protected function getVendorId()
+    {
         return 'namnv@younetco.com';
     }
+
     /**
      * Browse admin tools
      */

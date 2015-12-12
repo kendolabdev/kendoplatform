@@ -254,7 +254,7 @@ class FollowService
 
     /**
      * @param PosterInterface $poster
-     * @param        $parentId
+     * @param                 $parentId
      *
      * @return int
      */

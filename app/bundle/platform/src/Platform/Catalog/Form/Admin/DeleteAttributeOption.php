@@ -25,10 +25,10 @@ class DeleteAttributeOption extends Form
         ]);
 
         $this->addElement([
-            'plugin'   => 'static',
-            'name'     => 'option_name',
-            'label'    => 'Option Name',
-            'class'    => 'form-control',
+            'plugin' => 'static',
+            'name'   => 'option_name',
+            'label'  => 'Option Name',
+            'class'  => 'form-control',
         ]);
     }
 }

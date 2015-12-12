@@ -148,16 +148,16 @@ class TwitterAdapter implements SocialLoginAdapterInterface
             'remote_service'  => 'twitter',
             'remote_verified' => $me['verified'],
 
-            'email'           => '',
-            'name'            => $name,
-            'first_name'      => $firstName,
-            'last_name'       => $lastName,
-            'profile_name'    => $me['screen_name'],
-            'location'        => $me['location'],
-            'about'           => $me['description'],
-            'image_url'       => $me['profile_image_url'],
-            'locale'          => $me['lang'],
-            'twitter'         => $me['screen_name'],
+            'email'        => '',
+            'name'         => $name,
+            'first_name'   => $firstName,
+            'last_name'    => $lastName,
+            'profile_name' => $me['screen_name'],
+            'location'     => $me['location'],
+            'about'        => $me['description'],
+            'image_url'    => $me['profile_image_url'],
+            'locale'       => $me['lang'],
+            'twitter'      => $me['screen_name'],
         ];
     }
 

@@ -17,7 +17,7 @@ class HomeController extends DefaultController
      */
     public function actionBrowseEvent()
     {
-        $filter  = new FilterEvent();
+        $filter = new FilterEvent();
 
         \App::layoutService()
             ->setupSecondaryNavigation('event_main', null, 'event_browse')
@@ -54,12 +54,11 @@ class HomeController extends DefaultController
             ->setPageTitle('event.events');
 
         \App::aclService()
-            ->required('is_member',false);
+            ->required('is_member', false);
 
         $page = $this->request->getParam('page', 1);
 
         $poster = \App::authService()->getViewer();
-
 
 
         $query = [

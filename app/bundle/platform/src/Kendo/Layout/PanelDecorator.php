@@ -10,16 +10,16 @@ namespace Kendo\Layout;
 class PanelDecorator implements Decorator
 {
     /**
-     * @param Block $block
+     * @param Block           $block
      * @param DecoratorParams $params
+     *
      * @return mixed
      */
     public function render(Block $block, DecoratorParams $params)
     {
         $title = $block->getTitle();
         $header = '';
-        if ($title)
-        {
+        if ($title) {
             $header = '<div class="panel-header"><div class="panel-title"><span>' . $title . '</span></div></div>';
         }
 

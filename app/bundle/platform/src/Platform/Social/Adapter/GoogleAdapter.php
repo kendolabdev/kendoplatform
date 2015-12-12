@@ -136,13 +136,13 @@ class GoogleAdapter implements SocialLoginAdapterInterface
             'remote_verified' => $me->getVerifiedEmail(),
             'google'          => $me->getLink(),
 
-            'email'           => $me->getEmail(),
-            'name'            => $me->getName(),
-            'first_name'      => $me->getGivenName(),
-            'last_name'       => $me->getFamilyName(),
-            'locale'          => $me->getLocale(),
-            'gender'          => $me->getGender(),
-            'image_url'       => $me->getPicture(),
+            'email'      => $me->getEmail(),
+            'name'       => $me->getName(),
+            'first_name' => $me->getGivenName(),
+            'last_name'  => $me->getFamilyName(),
+            'locale'     => $me->getLocale(),
+            'gender'     => $me->getGender(),
+            'image_url'  => $me->getPicture(),
 
         ];
 

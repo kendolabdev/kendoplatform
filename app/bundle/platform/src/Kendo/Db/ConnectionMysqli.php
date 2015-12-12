@@ -49,7 +49,7 @@ class ConnectionMysqli implements Connection
 
         $this->connection = new \mysqli($host, $user, $password, $database, $port, $socket);
 
-        if (empty($this->connection)){
+        if (empty($this->connection)) {
             throw new \RuntimeException('Could not connect database');
         }
 

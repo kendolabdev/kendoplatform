@@ -214,7 +214,7 @@ class NotificationService
      * posterId subscribe object id ?
      *
      * @param PosterInterface $poster
-     * @param        $about
+     * @param                 $about
      *
      * @return bool
      */
@@ -348,7 +348,7 @@ class NotificationService
      * @param PosterInterface                  $poster
      * @param PosterInterface                  $parent
      * @param ContentInterface|PosterInterface $about
-     * @param                $params
+     * @param                                  $params
      *
      * @return Platform\Notification
      */

@@ -27,7 +27,8 @@ class DispatcherService extends EventHandler
     /**
      * @param HookEvent $event
      */
-    public function onRequirejsRender(HookEvent $event) {
+    public function onRequirejsRender(HookEvent $event)
+    {
         $requirejs = $event->getPayload();
 
         if (!$requirejs instanceof Requirejs) return;

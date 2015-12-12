@@ -22,7 +22,7 @@ class TextareaField extends HtmlElement implements FormField
     /**
      * @var bool
      */
-    protected $htmlEditor =  false;
+    protected $htmlEditor = false;
 
     /**
      * @return string
@@ -31,8 +31,7 @@ class TextareaField extends HtmlElement implements FormField
     {
         $this->beforeRender();
 
-        if ($this->isHtmlEditor())
-        {
+        if ($this->isHtmlEditor()) {
 
             \App::assetService()
                 ->requirejs()
@@ -41,12 +40,10 @@ class TextareaField extends HtmlElement implements FormField
 
             $this->attributes['class'] = 'hidden';
 
-            return '<div>'.
-                '<textarea data-initialize="html_editor" name="'.$this->getName(). '">' . $this->getValue() . '</textarea>'
-                .'</div>';
-        }
-        else
-        {
+            return '<div>' .
+            '<textarea data-initialize="html_editor" name="' . $this->getName() . '">' . $this->getValue() . '</textarea>'
+            . '</div>';
+        } else {
             return '<textarea ' . $this->_flat($this->attributes) . '>' . $this->getValue() . '</textarea>';
         }
     }

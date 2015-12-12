@@ -49,9 +49,8 @@ class CacheFilesystem implements CacheInterface
             $directory = KENDO_TEMP_DIR . '/cache';
 
 
-
-        if (!is_dir($directory) and !@mkdir($directory, 0777, true)){
-            @chmod($directory,0777);
+        if (!is_dir($directory) and !@mkdir($directory, 0777, true)) {
+            @chmod($directory, 0777);
             throw new \InvalidArgumentException(sprintf('"%s" is not writable', $this->directory));
         }
 
@@ -121,6 +120,7 @@ class CacheFilesystem implements CacheInterface
                 if (!@mkdir($dir, 7777, true)) {
                     if (false == $silent)
                         throw new \InvalidArgumentException(sprintf('Directory "%s" is not writable.', $dir));
+
                     return false;
                 }
                 @chmod($dir, 0777);
@@ -147,10 +147,12 @@ class CacheFilesystem implements CacheInterface
             if (null != ($fp = fopen($path, 'w+'))) {
                 fwrite($fp, json_encode(['lifetime' => $lifetime, 'val' => $data]));
                 fclose($fp);
-                @chmod($path,0777);
+                @chmod($path, 0777);
+
                 return true;
             }
         }
+
         return false;
     }
 

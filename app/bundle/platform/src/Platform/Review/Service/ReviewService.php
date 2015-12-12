@@ -36,8 +36,8 @@ class ReviewService
     /**
      * @param PosterInterface  $poster
      * @param ContentInterface $object
-     * @param         $score
-     * @param         $content
+     * @param                  $score
+     * @param                  $content
      * @param array            $params
      *
      * @return bool

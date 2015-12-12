@@ -22,7 +22,6 @@ class Module extends \Kendo\Application\Module
         \App::authService()->restore();
 
 
-
     }
 
     /**

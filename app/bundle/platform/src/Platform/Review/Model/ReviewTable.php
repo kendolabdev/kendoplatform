@@ -16,73 +16,77 @@ use Kendo\Db\DbTable;
  */
 class ReviewTable extends DbTable
 {
-    // PUT YOUR CODE HERE
+	// PUT YOUR CODE HERE
 
-    //START_TABLE_GENERATOR
+	//START_TABLE_GENERATOR
 
-    /**
-     * @see `picaso_platform_review`
-     * @var string
-     */
-    protected $class =  '\Platform\Review\Model\Review';
+	/**
+	 * @see `picaso_platform_review`
+	 * @var string
+	 */
+	protected $class = '\Platform\Review\Model\Review';
 
-    /**
-     * @var string
-     */
-    protected $name =  'platform_review';
+	/**
+	 * @var string
+	 */
+	protected $name = 'platform_review';
 
-    /**
-     * @var array
-     */
-    protected $column = array(
-		'review_id'=>1,
-		'about_id'=>1,
-		'is_active'=>1,
-		'is_approved'=>1,
-		'is_published'=>1,
-		'poster_id'=>1,
-		'user_id'=>1,
-		'parent_id'=>1,
-		'parent_user_id'=>1,
-		'about_type'=>1,
-		'poster_type'=>1,
-		'parent_type'=>1,
-		'title'=>1,
-		'content'=>1,
-		'score'=>1,
-		'created_at'=>1,
-		'modified_at'=>1);
+	/**
+	 * @var array
+	 */
+	protected $column = [
+			'review_id'      => 1,
+			'about_id'       => 1,
+			'is_active'      => 1,
+			'is_approved'    => 1,
+			'is_published'   => 1,
+			'poster_id'      => 1,
+			'user_id'        => 1,
+			'parent_id'      => 1,
+			'parent_user_id' => 1,
+			'about_type'     => 1,
+			'poster_type'    => 1,
+			'parent_type'    => 1,
+			'title'          => 1,
+			'content'        => 1,
+			'score'          => 1,
+			'created_at'     => 1,
+			'modified_at'    => 1];
 
-    /**
-     * @var array
-     */
-    protected $primary = array( 'review_id'=>1);
+	/**
+	 * @var array
+	 */
+	protected $primary = ['review_id' => 1];
 
-    /**
-     * @var string
-     */
-    protected $identity = '';
+	/**
+	 * @var string
+	 */
+	protected $identity = '';
 
-    
-    /**
-     * @param  string|int $value
-     * @return \Platform\Review\Model\Review
-     */
-    public function findById($value){
-       return $this->select()
-           ->where('review_id=?', $value)
-           ->one();
-    }
 
-    /**
-     * @param  array $value
-     * @return array
-     */
-    public function findByIdList($value){
-       return $this->select()
-           ->where('review_id IN ?', $value)
-           ->all();
-    }
+	/**
+	 * @param  string|int $value
+	 *
+	 * @return \Platform\Review\Model\Review
+	 */
+	public function findById($value)
+	{
+		return $this->select()
+				->where('review_id=?', $value)
+				->one();
+	}
 
-    //END_TABLE_GENERATOR
+	/**
+	 * @param  array $value
+	 *
+	 * @return array
+	 */
+	public function findByIdList($value)
+	{
+		return $this->select()
+				->where('review_id IN ?', $value)
+				->all();
+	}
+
+	//END_TABLE_GENERATOR
 }

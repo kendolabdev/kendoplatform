@@ -13,8 +13,10 @@ class ButtonMemberCount
 {
     /**
      * The __invoke method is called when a script tries to call an object as a function.
+     *
      * @param mixed $user
      * @param mixed $count
+     *
      * @return mixed
      * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.invoke
      */

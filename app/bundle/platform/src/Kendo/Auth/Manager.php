@@ -321,7 +321,7 @@ class Manager
 
         return (bool)array_intersect(
             [$item->getId(), $item->getParentId(), $item->getParentUserId(),
-             $item->getPosterId(), $item->getPosterId(), $item->getUserId()],
+                $item->getPosterId(), $item->getPosterId(), $item->getUserId()],
             [$this->getId(), $this->getUserId()]);
     }
 

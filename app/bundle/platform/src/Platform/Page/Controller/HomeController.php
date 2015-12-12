@@ -17,7 +17,7 @@ class HomeController extends DefaultController
      */
     public function actionBrowsePage()
     {
-        $filter  = new FilterPage();
+        $filter = new FilterPage();
 
         \App::layoutService()
             ->setupSecondaryNavigation('page_main', null, 'page_browse')

@@ -4,21 +4,22 @@ namespace Kendo\Layout;
 
 /**
  * Class DefaultDecorator
+ *
  * @package Kendo\Layout
  */
 class DefaultDecorator implements Decorator
 {
     /**
-     * @param Block $block
+     * @param Block           $block
      * @param DecoratorParams $params
+     *
      * @return mixed
      */
     public function render(Block $block, DecoratorParams $params)
     {
         $title = $block->getTitle();
         $header = '';
-        if ($title)
-        {
+        if ($title) {
             $header = '<div class="block-header"><div class="block-title"><span>' . $title . '</span></div></div>';
         }
 

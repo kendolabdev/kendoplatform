@@ -11,88 +11,101 @@ use Kendo\Model;
 
 /**
  * Class AttributeSectionMap
+ *
  * @package Attribute\Model
  */
-class AttributeSectionMap extends Model{
+class AttributeSectionMap extends Model
+{
     // PUT YOUR CODE HERE
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('map_id');
+    public function getId()
+    {
+        return $this->__get('map_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('map_id', $value);
+    public function setId($value)
+    {
+        $this->__set('map_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getMapId(){
-       return $this->__get('map_id');
+    public function getMapId()
+    {
+        return $this->__get('map_id');
     }
 
     /**
      * @param $value
      */
-    public function setMapId($value){
-       $this->__set('map_id', $value);
+    public function setMapId($value)
+    {
+        $this->__set('map_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCatalogId(){
-       return $this->__get('catalog_id');
+    public function getCatalogId()
+    {
+        return $this->__get('catalog_id');
     }
 
     /**
      * @param $value
      */
-    public function setCatalogId($value){
-       $this->__set('catalog_id', $value);
+    public function setCatalogId($value)
+    {
+        $this->__set('catalog_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getSectionId(){
-       return $this->__get('section_id');
+    public function getSectionId()
+    {
+        return $this->__get('section_id');
     }
 
     /**
      * @param $value
      */
-    public function setSectionId($value){
-       $this->__set('section_id', $value);
+    public function setSectionId($value)
+    {
+        $this->__set('section_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getSortOrder(){
-       return $this->__get('sort_order');
+    public function getSortOrder()
+    {
+        return $this->__get('sort_order');
     }
 
     /**
      * @param $value
      */
-    public function setSortOrder($value){
-       $this->__set('sort_order', $value);
+    public function setSortOrder($value)
+    {
+        $this->__set('sort_order', $value);
     }
 
     /**
      * @return \Platform\Catalog\Model\AttributeSectionMapTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('attribute.attribute_section_map');
     }
     //END_TABLE_GENERATOR

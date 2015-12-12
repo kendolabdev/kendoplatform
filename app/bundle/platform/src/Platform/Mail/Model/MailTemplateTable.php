@@ -24,54 +24,58 @@ class MailTemplateTable extends DbTable
      * @see `picaso_platform_mail_template`
      * @var string
      */
-    protected $class =  '\Platform\Mail\Model\MailTemplate';
+    protected $class = '\Platform\Mail\Model\MailTemplate';
 
     /**
      * @var string
      */
-    protected $name =  'platform_mail_template';
+    protected $name = 'platform_mail_template';
 
     /**
      * @var array
      */
-    protected $column = array(
-		'template_id'=>1,
-		'module_name'=>1,
-		'title'=>1,
-		'template_name'=>1,
-		'subject_default'=>1,
-		'body_text_default'=>1,
-		'body_html_default'=>1);
+    protected $column = [
+        'template_id'       => 1,
+        'module_name'       => 1,
+        'title'             => 1,
+        'template_name'     => 1,
+        'subject_default'   => 1,
+        'body_text_default' => 1,
+        'body_html_default' => 1];
 
     /**
      * @var array
      */
-    protected $primary = array( 'template_id'=>1);
+    protected $primary = ['template_id' => 1];
 
     /**
      * @var string
      */
     protected $identity = 'template_id';
 
-    
+
     /**
      * @param  string|int $value
+     *
      * @return \Platform\Mail\Model\MailTemplate
      */
-    public function findById($value){
-       return $this->select()
-           ->where('template_id=?', $value)
-           ->one();
+    public function findById($value)
+    {
+        return $this->select()
+            ->where('template_id=?', $value)
+            ->one();
     }
 
     /**
      * @param  array $value
+     *
      * @return array
      */
-    public function findByIdList($value){
-       return $this->select()
-           ->where('template_id IN ?', $value)
-           ->all();
+    public function findByIdList($value)
+    {
+        return $this->select()
+            ->where('template_id IN ?', $value)
+            ->all();
     }
 
     //END_TABLE_GENERATOR

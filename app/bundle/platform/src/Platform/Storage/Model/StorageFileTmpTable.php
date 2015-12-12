@@ -24,54 +24,58 @@ class StorageFileTmpTable extends DbTable
      * @see `picaso_platform_storage_file_tmp`
      * @var string
      */
-    protected $class =  '\Platform\Storage\Model\StorageFileTmp';
+    protected $class = '\Platform\Storage\Model\StorageFileTmp';
 
     /**
      * @var string
      */
-    protected $name =  'platform_storage_file_tmp';
+    protected $name = 'platform_storage_file_tmp';
 
     /**
      * @var array
      */
-    protected $column = array(
-		'id'=>1,
-		'name'=>1,
-		'type'=>1,
-		'size'=>1,
-		'path'=>1,
-		'storage_id'=>1,
-		'created_at'=>1);
+    protected $column = [
+        'id'         => 1,
+        'name'       => 1,
+        'type'       => 1,
+        'size'       => 1,
+        'path'       => 1,
+        'storage_id' => 1,
+        'created_at' => 1];
 
     /**
      * @var array
      */
-    protected $primary = array( 'id'=>1);
+    protected $primary = ['id' => 1];
 
     /**
      * @var string
      */
     protected $identity = '';
 
-    
+
     /**
      * @param  string|int $value
+     *
      * @return \Platform\Storage\Model\StorageFileTmp
      */
-    public function findById($value){
-       return $this->select()
-           ->where('id=?', $value)
-           ->one();
+    public function findById($value)
+    {
+        return $this->select()
+            ->where('id=?', $value)
+            ->one();
     }
 
     /**
      * @param  array $value
+     *
      * @return array
      */
-    public function findByIdList($value){
-       return $this->select()
-           ->where('id IN ?', $value)
-           ->all();
+    public function findByIdList($value)
+    {
+        return $this->select()
+            ->where('id IN ?', $value)
+            ->all();
     }
 
     //END_TABLE_GENERATOR

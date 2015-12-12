@@ -20,53 +20,60 @@ class CoreAggregate extends Model
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('id');
+    public function getId()
+    {
+        return $this->__get('id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('id', $value);
+    public function setId($value)
+    {
+        $this->__set('id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getName(){
-       return $this->__get('name');
+    public function getName()
+    {
+        return $this->__get('name');
     }
 
     /**
      * @param $value
      */
-    public function setName($value){
-       $this->__set('name', $value);
+    public function setName($value)
+    {
+        $this->__set('name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getValue(){
-       return $this->__get('value');
+    public function getValue()
+    {
+        return $this->__get('value');
     }
 
     /**
      * @param $value
      */
-    public function setValue($value){
-       $this->__set('value', $value);
+    public function setValue($value)
+    {
+        $this->__set('value', $value);
     }
 
     /**
      * @return \Platform\Core\Model\CoreAggregateTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_core_aggregate');
     }
     //END_TABLE_GENERATOR

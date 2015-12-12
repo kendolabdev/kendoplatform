@@ -98,7 +98,7 @@ class ValueService
 
     /**
      * @param PosterInterface $parent
-     * @param        $newValues
+     * @param                 $newValues
      */
     public function mergeValues(PosterInterface $parent, $newValues)
     {

@@ -24,52 +24,56 @@ class LayoutTable extends DbTable
      * @see `picaso_platform_layout`
      * @var string
      */
-    protected $class =  '\Platform\Layout\Model\Layout';
+    protected $class = '\Platform\Layout\Model\Layout';
 
     /**
      * @var string
      */
-    protected $name =  'platform_layout';
+    protected $name = 'platform_layout';
 
     /**
      * @var array
      */
-    protected $column = array(
-		'layout_id'=>1,
-		'screen_size'=>1,
-		'is_active'=>1,
-		'page_id'=>1,
-		'theme_id'=>1);
+    protected $column = [
+        'layout_id'   => 1,
+        'screen_size' => 1,
+        'is_active'   => 1,
+        'page_id'     => 1,
+        'theme_id'    => 1];
 
     /**
      * @var array
      */
-    protected $primary = array( 'layout_id'=>1);
+    protected $primary = ['layout_id' => 1];
 
     /**
      * @var string
      */
     protected $identity = 'layout_id';
 
-    
+
     /**
      * @param  string|int $value
+     *
      * @return \Platform\Layout\Model\Layout
      */
-    public function findById($value){
-       return $this->select()
-           ->where('layout_id=?', $value)
-           ->one();
+    public function findById($value)
+    {
+        return $this->select()
+            ->where('layout_id=?', $value)
+            ->one();
     }
 
     /**
      * @param  array $value
+     *
      * @return array
      */
-    public function findByIdList($value){
-       return $this->select()
-           ->where('layout_id IN ?', $value)
-           ->all();
+    public function findByIdList($value)
+    {
+        return $this->select()
+            ->where('layout_id IN ?', $value)
+            ->all();
     }
 
     //END_TABLE_GENERATOR

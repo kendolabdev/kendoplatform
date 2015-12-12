@@ -100,207 +100,236 @@ class Invitation extends Model
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('id');
+    public function getId()
+    {
+        return $this->__get('id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('id', $value);
+    public function setId($value)
+    {
+        $this->__set('id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getTypeId(){
-       return $this->__get('type_id');
+    public function getTypeId()
+    {
+        return $this->__get('type_id');
     }
 
     /**
      * @param $value
      */
-    public function setTypeId($value){
-       $this->__set('type_id', $value);
+    public function setTypeId($value)
+    {
+        $this->__set('type_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getUserId(){
-       return $this->__get('user_id');
+    public function getUserId()
+    {
+        return $this->__get('user_id');
     }
 
     /**
      * @param $value
      */
-    public function setUserId($value){
-       $this->__set('user_id', $value);
+    public function setUserId($value)
+    {
+        $this->__set('user_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPosterId(){
-       return $this->__get('poster_id');
+    public function getPosterId()
+    {
+        return $this->__get('poster_id');
     }
 
     /**
      * @param $value
      */
-    public function setPosterId($value){
-       $this->__set('poster_id', $value);
+    public function setPosterId($value)
+    {
+        $this->__set('poster_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentId(){
-       return $this->__get('parent_id');
+    public function getParentId()
+    {
+        return $this->__get('parent_id');
     }
 
     /**
      * @param $value
      */
-    public function setParentId($value){
-       $this->__set('parent_id', $value);
+    public function setParentId($value)
+    {
+        $this->__set('parent_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentUserId(){
-       return $this->__get('parent_user_id');
+    public function getParentUserId()
+    {
+        return $this->__get('parent_user_id');
     }
 
     /**
      * @param $value
      */
-    public function setParentUserId($value){
-       $this->__set('parent_user_id', $value);
+    public function setParentUserId($value)
+    {
+        $this->__set('parent_user_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPosterType(){
-       return $this->__get('poster_type');
+    public function getPosterType()
+    {
+        return $this->__get('poster_type');
     }
 
     /**
      * @param $value
      */
-    public function setPosterType($value){
-       $this->__set('poster_type', $value);
+    public function setPosterType($value)
+    {
+        $this->__set('poster_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentType(){
-       return $this->__get('parent_type');
+    public function getParentType()
+    {
+        return $this->__get('parent_type');
     }
 
     /**
      * @param $value
      */
-    public function setParentType($value){
-       $this->__set('parent_type', $value);
+    public function setParentType($value)
+    {
+        $this->__set('parent_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getObjectId(){
-       return $this->__get('object_id');
+    public function getObjectId()
+    {
+        return $this->__get('object_id');
     }
 
     /**
      * @param $value
      */
-    public function setObjectId($value){
-       $this->__set('object_id', $value);
+    public function setObjectId($value)
+    {
+        $this->__set('object_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getObjectType(){
-       return $this->__get('object_type');
+    public function getObjectType()
+    {
+        return $this->__get('object_type');
     }
 
     /**
      * @param $value
      */
-    public function setObjectType($value){
-       $this->__set('object_type', $value);
+    public function setObjectType($value)
+    {
+        $this->__set('object_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCreatedAt(){
-       return $this->__get('created_at');
+    public function getCreatedAt()
+    {
+        return $this->__get('created_at');
     }
 
     /**
      * @param $value
      */
-    public function setCreatedAt($value){
-       $this->__set('created_at', $value);
+    public function setCreatedAt($value)
+    {
+        $this->__set('created_at', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParams(){
-       return $this->__get('params');
+    public function getParams()
+    {
+        return $this->__get('params');
     }
 
     /**
      * @param $value
      */
-    public function setParams($value){
-       $this->__set('params', $value);
+    public function setParams($value)
+    {
+        $this->__set('params', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getRead(){
-       return $this->__get('read');
+    public function getRead()
+    {
+        return $this->__get('read');
     }
 
     /**
      * @param $value
      */
-    public function setRead($value){
-       $this->__set('read', $value);
+    public function setRead($value)
+    {
+        $this->__set('read', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getMitigated(){
-       return $this->__get('mitigated');
+    public function getMitigated()
+    {
+        return $this->__get('mitigated');
     }
 
     /**
      * @param $value
      */
-    public function setMitigated($value){
-       $this->__set('mitigated', $value);
+    public function setMitigated($value)
+    {
+        $this->__set('mitigated', $value);
     }
 
     /**
      * @return \Platform\Invitation\Model\InvitationTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_invitation');
     }
     //END_TABLE_GENERATOR

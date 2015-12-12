@@ -27,9 +27,9 @@ class DispatcherService extends EventHandler
      */
     public function onViewHelperStart(HookEvent $event)
     {
-        $helper =  $event->getPayload();
+        $helper = $event->getPayload();
 
-        if(!$helper instanceof ViewHelper) return;
+        if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
             'decorateStory' => '\Feed\ViewHelper\DecorateStory',
@@ -88,7 +88,8 @@ class DispatcherService extends EventHandler
     /**
      * @param HookEvent $event
      */
-    public function onRequirejsRender(HookEvent $event) {
+    public function onRequirejsRender(HookEvent $event)
+    {
         $requirejs = $event->getPayload();
 
         if (!$requirejs instanceof Requirejs) return;

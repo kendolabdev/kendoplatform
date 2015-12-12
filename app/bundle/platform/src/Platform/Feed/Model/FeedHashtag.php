@@ -20,53 +20,60 @@ class FeedHashtag extends Model
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('feed_id');
+    public function getId()
+    {
+        return $this->__get('feed_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('feed_id', $value);
+    public function setId($value)
+    {
+        $this->__set('feed_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getFeedId(){
-       return $this->__get('feed_id');
+    public function getFeedId()
+    {
+        return $this->__get('feed_id');
     }
 
     /**
      * @param $value
      */
-    public function setFeedId($value){
-       $this->__set('feed_id', $value);
+    public function setFeedId($value)
+    {
+        $this->__set('feed_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getHashId(){
-       return $this->__get('hash_id');
+    public function getHashId()
+    {
+        return $this->__get('hash_id');
     }
 
     /**
      * @param $value
      */
-    public function setHashId($value){
-       $this->__set('hash_id', $value);
+    public function setHashId($value)
+    {
+        $this->__set('hash_id', $value);
     }
 
     /**
      * @return \Platform\Feed\Model\FeedHashtagTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_feed_hashtag');
     }
     //END_TABLE_GENERATOR

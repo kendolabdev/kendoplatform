@@ -14,7 +14,5 @@ class Module extends \Kendo\Application\Module
     {
 
 
-
-
     }
 }

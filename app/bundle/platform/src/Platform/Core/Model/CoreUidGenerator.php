@@ -20,39 +20,44 @@ class CoreUidGenerator extends Model
 
     //START_TABLE_GENERATOR
 
-    
+
     /**
      * @return null|string
      */
-    public function getId(){
-       return $this->__get('uid');
+    public function getId()
+    {
+        return $this->__get('uid');
     }
 
     /**
      * @param $value
      */
-    public function setId($value){
-       $this->__set('uid', $value);
+    public function setId($value)
+    {
+        $this->__set('uid', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getUid(){
-       return $this->__get('uid');
+    public function getUid()
+    {
+        return $this->__get('uid');
     }
 
     /**
      * @param $value
      */
-    public function setUid($value){
-       $this->__set('uid', $value);
+    public function setUid($value)
+    {
+        $this->__set('uid', $value);
     }
 
     /**
      * @return \Platform\Core\Model\CoreUidGeneratorTable
      */
-    public function table(){
+    public function table()
+    {
         return \App::table('platform_core_uid_generator');
     }
     //END_TABLE_GENERATOR
