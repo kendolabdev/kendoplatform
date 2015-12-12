@@ -8,13 +8,13 @@
  * =======================================================================
  */
 define([
-    'base/photo/spotlight',
-    'base/photo/uploader',
-    'base/photo/composer',
-    'base/photo/photo',
-    'base/photo/avatar-field',
-    'base/photo/timeline-cover',
-    'base/photo/timeline-avatar'
+    'platform/photo/spotlight',
+    'platform/photo/uploader',
+    'platform/photo/composer',
+    'platform/photo/photo',
+    'platform/photo/avatar-field',
+    'platform/photo/timeline-cover',
+    'platform/photo/timeline-avatar'
 ], function () {
 
 });

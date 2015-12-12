@@ -7,17 +7,17 @@ requirejs([
     // primary
     'primary/main',
     // helper
-    'base/core/main',
+    'platform/core/main',
     //
     'bootstrap/main',
     // chat module
-    'base/message/main',
+    'platform/message/main',
     //// activity module
-    'base/feed/main',
+    'platform/feed/main',
     // link module
-    'base/link/main',
+    'platform/link/main',
     //// photo
-    'base/photo/main'
+    'platform/photo/main'
 ], function () {
 
 });

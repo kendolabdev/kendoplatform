@@ -155,7 +155,7 @@ class ExtensionService
         foreach ($checked as $id => $item)
         {
             \App::autoload()
-                ->addVendor($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
+                ->register($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
 
             $serviceName = sprintf("%s.install_handler", $item['name']);
 
@@ -183,7 +183,7 @@ class ExtensionService
         $serviceName = sprintf("%s.install_handler", $item['name']);
 
         \App::autoload()
-            ->addVendor($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
+            ->register($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
 
         $service = \App::service($serviceName);
 
@@ -212,7 +212,7 @@ class ExtensionService
         $serviceName = sprintf("%s.install_handler", $item['name']);
 
         \App::autoload()
-            ->addVendor($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
+            ->register($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
 
         $service = \App::service($serviceName);
 
@@ -240,7 +240,7 @@ class ExtensionService
         $serviceName = sprintf("%s.install_handler", $item['name']);
 
         \App::autoload()
-            ->addVendor($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
+            ->register($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
 
         $service = \App::service($serviceName);
 
@@ -268,7 +268,7 @@ class ExtensionService
         $serviceName = sprintf("%s.install_handler", $item['name']);
 
         \App::autoload()
-            ->addVendor($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
+            ->register($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
 
         $service = \App::service($serviceName);
 

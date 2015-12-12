@@ -15,33 +15,33 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module_base_help';
+    protected $exportKey = 'module_platform_help';
 
     /**
      * @var array
      */
     protected $tableList = [
-        'base_help_category',
-        'base_help_page',
-        'base_help_post',
-        'base_help_topic'
+        'platform_help_category',
+        'platform_help_page',
+        'platform_help_post',
+        'platform_help_topic'
     ];
 
     /**
      * @var array
      */
     protected $pathList = [
-        'app/bundle/base/src/Base/Help',
-        'app/template/default/base/help',
-        'app/theme/default/sass/base/help',
-        'app/theme/admin/sass/base/help',
-        'static/jscript/base/help'
+        'app/bundle/platform/src/Platform/Help',
+        'app/template/default/platform/help',
+        'app/theme/default/sass/platform/help',
+        'app/theme/admin/sass/platform/help',
+        'static/jscript/platform/help'
     ];
 
     /**
      * @var array
      */
     protected $moduleList = [
-        'base_help'
+        'platform_help'
     ];
 }

@@ -84,7 +84,7 @@ class EditorController extends AjaxController
 
         $attrs = [];
 
-        $html = $this->partial('base/layout/partial/admin-layout-section-options', [
+        $html = $this->partial('platform/layout/partial/admin-layout-section-options', [
             'attrs' => $attrs,
             'eid'   => $eid,
         ]);
@@ -130,7 +130,7 @@ class EditorController extends AjaxController
             'isContainer'    => $isContainer,
         ];
 
-        $html = $this->partial('base/layout/partial/admin-layout-block-options', [
+        $html = $this->partial('platform/layout/partial/admin-layout-block-options', [
             'attrs'          => $attrs,
             'eid'            => $eid,
             'supportBlockId' => $supportBlockId,
@@ -158,7 +158,7 @@ class EditorController extends AjaxController
 
             $form->setData(['blockId' => $blockId]);
 
-            $html = $this->partial('base/layout/dialog/layout/edit-block-decorator', [
+            $html = $this->partial('platform/layout/dialog/layout/edit-block-decorator', [
                 'form' => $form,
             ]);
 
@@ -179,7 +179,7 @@ class EditorController extends AjaxController
                 'blockId'   => $blockId
             ]);
 
-            $html = $this->partial('base/layout/dialog/layout/edit-block-decorator', [
+            $html = $this->partial('platform/layout/dialog/layout/edit-block-decorator', [
                 'form' => $form,
             ]);
 
@@ -207,7 +207,7 @@ class EditorController extends AjaxController
                 $directive = 'dismiss';
             }
 
-            $html = $this->partial('base/layout/dialog/layout/edit-block-decorator', [
+            $html = $this->partial('platform/layout/dialog/layout/edit-block-decorator', [
                 'form' => $form,
             ]);
 
@@ -302,7 +302,7 @@ class EditorController extends AjaxController
          * supported layouts
          */
 
-        $html = $this->partial('base/layout/dialog/layout/select-content-script', [
+        $html = $this->partial('platform/layout/dialog/layout/select-content-script', [
             'templateId'   => $templateId,
             'pageTitle'    => $pageTitle,
             'pageNote'     => $pageNote,
@@ -491,7 +491,7 @@ class EditorController extends AjaxController
              * supported layouts
              */
 
-            $html = $this->partial('base/layout/dialog/layout/open-content-setting', [
+            $html = $this->partial('platform/layout/dialog/layout/open-content-setting', [
                 'form'         => $form,
                 'templateId'   => $templateId,
                 'pageTitle'    => $pageTitle,
@@ -545,7 +545,7 @@ class EditorController extends AjaxController
         $basePath = $supportBlock->getBasePath();
 
         $supportScripts = [];
-        $formScript = 'base/layout/dialog/layout/select-block-script';
+        $formScript = 'platform/layout/dialog/layout/select-block-script';
         $baseScript = 'view';
         $form = new LayoutSelectBlockScript();
         $theme = \App::layoutService()->getEditingTheme();
@@ -564,7 +564,7 @@ class EditorController extends AjaxController
                 'plugin' => 'static',
                 'value'  => 'There are no settings for this block.',
             ]);
-            $formScript = 'base/layout/dialog/layout/no-block-setting';
+            $formScript = 'platform/layout/dialog/layout/no-block-setting';
         } else if (count($supportScripts) == 1)
         {
             $this->forward('\Layout\Controller\Admin\Ajax\EditorController', 'open-block-setting');
@@ -604,7 +604,7 @@ class EditorController extends AjaxController
         $basePath = $supportBlock->getBasePath();
 
         $supportScripts = [];
-        $formScript = 'base/layout/dialog/layout/open-block-setting';
+        $formScript = 'platform/layout/dialog/layout/open-block-setting';
         $supportSettings = [];
         $baseScript = $this->request->getParam('base_script', 'view');
         $form = new LayoutSupportBlockSetting();
@@ -678,7 +678,7 @@ class EditorController extends AjaxController
         $basePath = $supportBlock->getBasePath();
 
         $supportScripts = [];
-        $formScript = 'base/layout/dialog/layout/open-block-setting';
+        $formScript = 'platform/layout/dialog/layout/open-block-setting';
         $supportSettings = [];
         $baseScript = $this->request->getParam('base_script', 'view');
         $form = new LayoutSupportBlockSetting();
@@ -754,7 +754,7 @@ class EditorController extends AjaxController
 
         $form->setData($_POST);
 
-        $html = $this->partial('base/layout/controller/ajax/admin-layout/element-wrapper-setting', [
+        $html = $this->partial('platform/layout/controller/ajax/admin-layout/element-wrapper-setting', [
             'form' => $form,
             'eid'  => $this->request->getParam('eid'),
         ]);

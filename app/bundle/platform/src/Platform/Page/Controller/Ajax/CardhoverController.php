@@ -53,7 +53,7 @@ class CardhoverController extends AjaxController
 
 
         $this->response['cardInfo'] = $this->request->getString('cardInfo');
-        $this->response['html'] = \App::viewHelper()->partial('base/page/partial/cardhover-page', [
+        $this->response['html'] = \App::viewHelper()->partial('platform/page/partial/cardhover-page', [
             'profile'          => $subject,
             'canFriend'        => $canFriend,
             'canMessage'       => $canMessage,

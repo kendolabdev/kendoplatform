@@ -35,7 +35,7 @@ class Youtube implements ProviderInterface
 
         $iframe = '<iframe ' . implode(' ', $attrs) . '></iframe>';
 
-        return \App::viewHelper()->partial('base/video/partial/embed-video-youtube', [
+        return \App::viewHelper()->partial('platform/video/partial/embed-video-youtube', [
             'iframe' => $iframe,
             'id'     => $id
         ]);

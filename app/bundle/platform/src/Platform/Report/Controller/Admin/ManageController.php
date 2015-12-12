@@ -59,8 +59,8 @@ class ManageController extends AdminController
             ->loadAdminReportPaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path' => 'base/report/controller/admin/manage/browse-report',
-            'item_path' => 'base/report/paging/admin/browse-report',
+            'base_path' => 'platform/report/controller/admin/manage/browse-report',
+            'item_path' => 'platform/report/paging/admin/browse-report',
         ]);
 
         $this->view->setScript($lp)

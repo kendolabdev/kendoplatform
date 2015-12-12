@@ -35,7 +35,7 @@ class Invitation extends Model
             'type' => $this->getType(),
         ];
 
-        return \App::viewHelper()->partial('base/invitation/partial/invitation-item', [
+        return \App::viewHelper()->partial('platform/invitation/partial/invitation-item', [
             'headline' => $this->getHeadline(),
             'poster'   => $this->getPoster(),
             'parent'   => $this->getParent(),

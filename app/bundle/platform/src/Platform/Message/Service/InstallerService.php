@@ -15,32 +15,32 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module_base_message';
+    protected $exportKey = 'module_platform_message';
 
     /**
      * @var array
      */
     protected $tableList = [
-        'base_message',
-        'base_message_conversation',
-        'base_message_recipient'
+        'platform_message',
+        'platform_message_conversation',
+        'platform_message_recipient'
     ];
 
     /**
      * @var array
      */
     protected $pathList = [
-        'app/bundle/base/src/Base/Message',
-        'app/template/default/base/message',
-        'app/theme/default/sass/base/message',
-        'app/theme/admin/sass/base/message',
-        'static/jscript/base/message'
+        'app/bundle/platform/src/Platform/Message',
+        'app/template/default/platform/message',
+        'app/theme/default/sass/platform/message',
+        'app/theme/admin/sass/platform/message',
+        'static/jscript/platform/message'
     ];
 
     /**
      * @var array
      */
     protected $moduleList = [
-        'base_message'
+        'platform_message'
     ];
 }

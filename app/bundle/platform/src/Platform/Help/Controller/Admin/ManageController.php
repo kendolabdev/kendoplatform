@@ -59,8 +59,8 @@ class ManageController extends AdminController
             ->loadAdminPostPaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path' => 'base/help/controller/admin/manage/browse-post',
-            'item_path' => 'base/help/paging/admin/browse-post',
+            'base_path' => 'platform/help/controller/admin/manage/browse-post',
+            'item_path' => 'platform/help/paging/admin/browse-post',
         ]);
 
         $this->view->setScript($lp)

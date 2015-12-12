@@ -59,7 +59,7 @@ class ManageController extends AdminController
 
         $lp = new BlockParams([
             'base_path' => 'layout/facade/paging-more',
-            'item_path' => 'base/attribute/paging/admin/browse-catalog',
+            'item_path' => 'platform/attribute/paging/admin/browse-catalog',
             //            'item_script' => 'render2',
         ]);
 
@@ -118,7 +118,7 @@ class ManageController extends AdminController
         $listSection = $catalog->getListSection();
 
         $lp = new BlockParams([
-            'base_path' => 'base/attribute/controller/admin/manage/setting',
+            'base_path' => 'platform/attribute/controller/admin/manage/setting',
         ]);
 
         $this->view->setScript($lp)
@@ -150,7 +150,7 @@ class ManageController extends AdminController
             ->loadAdminSectionPaging($query, 1, 1000);
 
         $lp = new BlockParams([
-            'base_path' => 'base/attribute/controller/admin/manage/add-section',
+            'base_path' => 'platform/attribute/controller/admin/manage/add-section',
         ]);
 
         $this->view->setScript($lp)

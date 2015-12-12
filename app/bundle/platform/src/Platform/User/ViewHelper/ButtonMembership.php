@@ -29,7 +29,7 @@ class ButtonMembership
 
         $membership = \App::userService()->membership()->getMembershipStatus($viewer, $item);
 
-        $script = 'base/user/button/button-membership';
+        $script = 'platform/user/button/button-membership';
 
         return \App::viewHelper()->partial($script, [
             'item'       => $item,

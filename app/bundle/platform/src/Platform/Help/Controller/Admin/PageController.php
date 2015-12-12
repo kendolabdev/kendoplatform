@@ -44,8 +44,8 @@ class PageController extends AdminController
             ->loadAdminPagePaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path' => 'base/help/controller/admin/page/browse-page',
-            'item_path' => 'base/help/paging/admin/browse-page',
+            'base_path' => 'platform/help/controller/admin/page/browse-page',
+            'item_path' => 'platform/help/paging/admin/browse-page',
         ]);
 
         $this->view->setScript($lp)

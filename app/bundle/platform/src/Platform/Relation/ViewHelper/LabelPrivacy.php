@@ -52,7 +52,7 @@ class LabelPrivacy
         }
 
 
-        return \App::viewHelper()->partial('base/relation/partial/label-privacy', [
+        return \App::viewHelper()->partial('platform/relation/partial/label-privacy', [
             'about'   => $about,
             'type'    => $type,
             'value'   => $value,

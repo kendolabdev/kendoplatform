@@ -13,7 +13,7 @@ class SidebarMenuBlock extends Block
     /**
      * @var string
      */
-    protected $basePath = 'base/layout/block/sidebar-menu';
+    protected $basePath = 'platform/layout/block/sidebar-menu';
 
     /**
      * @return string

@@ -15,7 +15,7 @@ class UserProfileInfoBlock extends Block
     /**
      * @var string
      */
-    protected $basePath = 'base/user/block/user-profile-info';
+    protected $basePath = 'platform/user/block/user-profile-info';
 
     /**
      * Load default listing by default order & default limit

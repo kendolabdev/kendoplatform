@@ -2,8 +2,7 @@
 include '../init.php';
 
 $paths = [
-    KENDO_ROOT_DIR . '/app/theme',
-    KENDO_ROOT_DIR . '/app/template',
+    KENDO_ROOT_DIR . '/app/bundle/platform/src/Platform',
 ];
 
 foreach ($paths as $directory)
@@ -13,18 +12,13 @@ foreach ($paths as $directory)
     foreach ($iterator as $info)
     {
         if (!$info->isFile()) continue;
-        if ($info->getExtension() != 'tpl') continue;
-        if ($info->getBaseName() != 'render1.logged.tpl') continue;
+        if ($info->getBaseName() != 'EventHandlerService.php') continue;
 
 
-        echo dirname($info->getPathName()), PHP_EOL;
+        echo $info->getPathName(), PHP_EOL;
+        copy($info->getPathName(), $info->getPath(). '/DispatcherService.php');
+        unlink($info->getPathName());
 
-        copy($info->getPath() . '/render1.logged.tpl', $info->getPath(). '/view.logged.tpl');
-        unlink($info->getPath() . '/render1.logged.tpl');
-
-        echo $from =  dirname($info->getPath()), PHP_EOL;
-
-//        $info->getBaseName(), PHP_EOL;
         continue;
         $pathname = $info->getPathname();
 

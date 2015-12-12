@@ -45,7 +45,7 @@ class Place extends Model implements ContentInterface
      */
     public function toHtml($params = [])
     {
-        return \App::viewHelper()->partial('base/place/partial/attachment-place', [
+        return \App::viewHelper()->partial('platform/place/partial/attachment-place', [
             'photoUrl' => $this->getMapPhotoUrl(),
             'place'    => $this,
         ]);

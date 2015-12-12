@@ -41,7 +41,7 @@ class AcceptMembership implements NotificationInterface
      */
     public function toHtml($context = [])
     {
-        return \App::viewHelper()->partial('base/user/notification/accept-membership', [
+        return \App::viewHelper()->partial('platform/user/notification/accept-membership', [
             'headline' => $this->getHeadline(),
             'item'     => $this->notification,
             'href'     => $this->toHref(),

@@ -15,30 +15,30 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module_base_social';
+    protected $exportKey = 'module_platform_social';
 
     /**
      * @var array
      */
     protected $tableList = [
-        'base_social_service'
+        'platform_social_service'
     ];
 
     /**
      * @var array
      */
     protected $pathList = [
-        'app/bundle/base/src/Base/Social',
-        'app/template/default/base/social',
-        'app/theme/default/sass/base/social',
-        'app/theme/admin/sass/base/social',
-        'static/jscript/base/social'
+        'app/bundle/platform/src/Platform/Social',
+        'app/template/default/platform/social',
+        'app/theme/default/sass/platform/social',
+        'app/theme/admin/sass/platform/social',
+        'static/jscript/platform/social'
     ];
 
     /**
      * @var array
      */
     protected $moduleList = [
-        'base_social'
+        'platform_social'
     ];
 }

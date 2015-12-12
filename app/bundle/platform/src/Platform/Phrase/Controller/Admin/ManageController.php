@@ -47,8 +47,8 @@ class ManageController extends AdminController
             ->loadAdminPhrasePaging($query, $page);
 
         $lp = new BlockParams([
-            'base_path' => 'base/phrase/controller/admin/manage/browse-phrase',
-            'item_path' => 'base/phrase/paging/admin/browse-phrase',
+            'base_path' => 'platform/phrase/controller/admin/manage/browse-phrase',
+            'item_path' => 'platform/phrase/paging/admin/browse-phrase',
         ]);
 
         $this->view->setScript($lp)
@@ -99,7 +99,7 @@ class ManageController extends AdminController
             ->setupSecondaryNavigation('admin', 'admin_language', 'import');
 
         $lp = new BlockParams([
-            'base_path' => 'base/phrase/controller/admin/manage/import',
+            'base_path' => 'platform/phrase/controller/admin/manage/import',
         ]);
 
         $this->view->setScript($lp);

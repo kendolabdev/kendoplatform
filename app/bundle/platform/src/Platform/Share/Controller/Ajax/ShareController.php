@@ -154,7 +154,7 @@ class ShareController extends AjaxController
             'containerId' => uniqid('_fs')
         ];
 
-        $html = $this->partial('base/share/controller/ajax/share/shared-this', $data);
+        $html = $this->partial('platform/share/controller/ajax/share/shared-this', $data);
 
         $this->response = [
             'html'      => $html,

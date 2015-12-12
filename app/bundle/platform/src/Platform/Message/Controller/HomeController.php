@@ -50,7 +50,7 @@ class HomeController extends DefaultController
         /**
          * Select message
          */
-        $paging = \App::table('platform_base_message')
+        $paging = \App::table('platform_message')
             ->select()
             ->where('message_id IN ?', $messageIdList)
             ->all();
@@ -88,7 +88,7 @@ class HomeController extends DefaultController
         /**
          * Select message
          */
-        $paging = \App::table('platform_base_message')
+        $paging = \App::table('platform_message')
             ->select()
             ->where('message_id IN ?', $messageIdList)
             ->all();
@@ -113,7 +113,7 @@ class HomeController extends DefaultController
         /**
          * Select message
          */
-        $paging = \App::table('platform_base_message')
+        $paging = \App::table('platform_message')
             ->select()
             ->where('poster_id=?', $viewer->getId())
             ->all();

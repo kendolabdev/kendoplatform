@@ -25,7 +25,7 @@ class PageController extends AjaxController
         $paging = \App::pageService()->loadPagePaging($query, $page);
 
         $this->response = [
-            'html'    => $this->partial('base/page/partial/page-paging', ['paging' => $paging]),
+            'html'    => $this->partial('platform/page/partial/page-paging', ['paging' => $paging]),
             'pager'   => $paging->getPager(),
             'hasNext' => $paging->hasNext(),
             'hasPrev' => $paging->hasPrev(),
@@ -50,7 +50,7 @@ class PageController extends AjaxController
 
 
         $this->response = [
-            'html' => $this->partial('base/page/partial/membership-options', [
+            'html' => $this->partial('platform/page/partial/membership-options', [
                 'eid'          => $eid,
                 'item'         => $item,
                 'likeStatus'   => $likeStatus,

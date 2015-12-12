@@ -21,7 +21,7 @@ class MessageMessageTable extends DbTable
     //START_TABLE_GENERATOR
 
     /**
-     * @see `picaso_base_message_message`
+     * @see `picaso_platform_message_message`
      * @var string
      */
     protected $class =  '\Base\Message\Model\MessageMessage';
@@ -29,7 +29,7 @@ class MessageMessageTable extends DbTable
     /**
      * @var string
      */
-    protected $name =  'base_message_message';
+    protected $name =  'platform_message_message';
 
     /**
      * @var array

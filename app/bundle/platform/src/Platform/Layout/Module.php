@@ -13,13 +13,5 @@ class Module extends \Kendo\Application\Module
      */
     public function start()
     {
-        \App::routingService()
-            ->addRoute('layout_theme', [
-                'uri'      => 'layout/select-theme',
-                'defaults' => [
-                    'controller' => '\Layout\Controller\HomeController',
-                    'action'     => 'select-theme',
-                ]
-            ]);
     }
 }

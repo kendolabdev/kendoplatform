@@ -56,8 +56,8 @@ class GeneralController extends AdminController
             ->loadAdminGeneralReportPaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path' => 'base/report/controller/admin/general-report/browse-general-report',
-            'item_path' => 'base/report/paging/admin/browse-general-report',
+            'base_path' => 'platform/report/controller/admin/general-report/browse-general-report',
+            'item_path' => 'platform/report/paging/admin/browse-general-report',
         ]);
 
         $this->view->setScript($lp)

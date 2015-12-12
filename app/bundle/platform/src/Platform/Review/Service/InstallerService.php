@@ -15,30 +15,30 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module_base_review';
+    protected $exportKey = 'module_platform_review';
 
     /**
      * @var array
      */
     protected $tableList = [
-        'base_review'
+        'platform_review'
     ];
 
     /**
      * @var array
      */
     protected $pathList = [
-        'app/bundle/base/src/Base/Review',
-        'app/template/default/base/review',
-        'app/theme/default/sass/base/review',
-        'app/theme/admin/sass/base/review',
-        'static/jscript/base/review'
+        'app/bundle/platform/src/Platform/Review',
+        'app/template/default/platform/review',
+        'app/theme/default/sass/platform/review',
+        'app/theme/admin/sass/platform/review',
+        'static/jscript/platform/review'
     ];
 
     /**
      * @var array
      */
     protected $moduleList = [
-        'base_review'
+        'platform_review'
     ];
 }

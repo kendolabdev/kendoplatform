@@ -30,8 +30,8 @@ class AlbumController extends AdminController
             ->loadPhotoPaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path'      => 'base/photo/controller/admin/manage/browse-photo',
-            'item_path'      => 'base/photo/paging/admin/browse-photo',
+            'base_path'      => 'platform/photo/controller/admin/manage/browse-photo',
+            'item_path'      => 'platform/photo/paging/admin/browse-photo',
             'media_position' => 'media-aside-left',
             'grid_md'        => 'col-md-12',
             'grid_sm'        => 'col-sm-12',

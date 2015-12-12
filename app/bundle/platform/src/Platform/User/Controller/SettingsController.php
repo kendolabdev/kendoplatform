@@ -35,7 +35,7 @@ class SettingsController extends DefaultController
      */
     public function actionAccount()
     {
-        $this->view->setScript('base/user/controller/settings/edit-user-account');
+        $this->view->setScript('platform/user/controller/settings/edit-user-account');
     }
 
     /**
@@ -46,7 +46,7 @@ class SettingsController extends DefaultController
         $form = new PosterPrivacySetting(['poster' => \App::authService()->getUser()]);
 
 
-        $this->view->setScript('base/user/controller/settings/edit-user-privacy')
+        $this->view->setScript('platform/user/controller/settings/edit-user-privacy')
             ->assign(['form' => $form]);
     }
 
@@ -69,7 +69,7 @@ class SettingsController extends DefaultController
             $form->save();
         }
 
-        $this->view->setScript('base/user/controller/settings/edit-user-notification')
+        $this->view->setScript('platform/user/controller/settings/edit-user-notification')
             ->assign([
                 'form' => $form,
             ]);
@@ -80,7 +80,7 @@ class SettingsController extends DefaultController
      */
     public function actionSecurity()
     {
-        $this->view->setScript('base/user/controller/settings/edit-user-security');
+        $this->view->setScript('platform/user/controller/settings/edit-user-security');
     }
 
     /**
@@ -88,7 +88,7 @@ class SettingsController extends DefaultController
      */
     public function actionMobile()
     {
-        $this->view->setScript('base/user/controller/settings/edit-user-security');
+        $this->view->setScript('platform/user/controller/settings/edit-user-security');
     }
 
     /**
@@ -119,7 +119,7 @@ class SettingsController extends DefaultController
         }
 
 
-        $this->view->setScript('base/user/controller/settings/edit-user-blocking')
+        $this->view->setScript('platform/user/controller/settings/edit-user-blocking')
             ->assign([
                 'blockingItems' => $blockingItems,
             ]);
@@ -130,6 +130,6 @@ class SettingsController extends DefaultController
      */
     public function actionSocialConnect()
     {
-        $this->view->setScript('base/user/controller/settings/edit-user-social-connect');
+        $this->view->setScript('platform/user/controller/settings/edit-user-social-connect');
     }
 }

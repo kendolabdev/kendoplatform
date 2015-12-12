@@ -15,36 +15,36 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module_base_feed';
+    protected $exportKey = 'module_platform_feed';
 
     /**
      * @var array
      */
     protected $tableList = [
-        'base_feed',
-        'base_feed_hash',
-        'base_feed_hashtag',
-        'base_feed_hidden',
-        'base_feed_status',
-        'base_feed_stream',
-        'base_feed_type'
+        'platform_feed',
+        'platform_feed_hash',
+        'platform_feed_hashtag',
+        'platform_feed_hidden',
+        'platform_feed_status',
+        'platform_feed_stream',
+        'platform_feed_type'
     ];
 
     /**
      * @var array
      */
     protected $pathList = [
-        'app/bundle/base/src/Base/Feed',
-        'app/template/default/base/feed',
-        'app/theme/default/sass/base/feed',
-        'app/theme/admin/sass/base/feed',
-        'static/jscript/base/feed'
+        'app/bundle/platform/src/Platform/Feed',
+        'app/template/default/platform/feed',
+        'app/theme/default/sass/platform/feed',
+        'app/theme/admin/sass/platform/feed',
+        'static/jscript/platform/feed'
     ];
 
     /**
      * @var array
      */
     protected $moduleList = [
-        'base_feed'
+        'platform_feed'
     ];
 }

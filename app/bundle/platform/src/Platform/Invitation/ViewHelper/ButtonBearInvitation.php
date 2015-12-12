@@ -18,7 +18,7 @@ class ButtonBearInvitation
         $number = \App::invitationService()
             ->getUnmitigatedNotificationCount();
 
-        return \App::viewHelper()->partial('base/invitation/button/bear-invitation', [
+        return \App::viewHelper()->partial('platform/invitation/button/bear-invitation', [
             'number' => $number,
         ]);
     }

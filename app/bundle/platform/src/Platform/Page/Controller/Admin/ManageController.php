@@ -38,8 +38,8 @@ class ManageController extends AdminController
             ->loadPagePaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path'      => 'base/page/controller/admin/manage/browse-page',
-            'item_path'      => 'base/page/paging/admin/browse-page',
+            'base_path'      => 'platform/page/controller/admin/manage/browse-page',
+            'item_path'      => 'platform/page/paging/admin/browse-page',
             'media_position' => 'media-aside-left',
             'grid_md'        => 'col-md-12',
             'grid_sm'        => 'col-sm-12',

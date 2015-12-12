@@ -15,7 +15,7 @@
      data-query='<?php echo _escape($query);?>'
      data-lp='<?php echo $lp;?>'>
     <div class="paging-inner card-space-md">
-        <?php echo $this->helper()->partial('base/core/paging/browse-faq-category', ['paging'=>$paging,'lp'=>$lp]); ?>
+        <?php echo $this->helper()->partial('platform/core/paging/browse-faq-category', ['paging'=>$paging,'lp'=>$lp]); ?>
     </div>
     <?php echo $paging->toHtml('more'); ?>
 </div>

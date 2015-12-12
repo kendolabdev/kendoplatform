@@ -14,7 +14,7 @@ class ActivityComposerBlock extends Block
     /**
      * @var string
      */
-    protected $basePath = 'base/feed/block/activity-composer';
+    protected $basePath = 'platform/feed/block/activity-composer';
 
     /**
      *

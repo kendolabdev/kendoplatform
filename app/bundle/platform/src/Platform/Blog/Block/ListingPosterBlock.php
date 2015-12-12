@@ -14,7 +14,7 @@ class ListingPosterBlock extends Block
     /**
      * @var string
      */
-    protected $basePath = 'base/blog/block/blog-top-poster';
+    protected $basePath = 'platform/blog/block/blog-top-poster';
 
     /**
      *

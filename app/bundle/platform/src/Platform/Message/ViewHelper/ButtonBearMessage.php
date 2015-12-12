@@ -19,7 +19,7 @@ class ButtonBearMessage
 
         $number = \App::messageService()->getUnreadConversationCount();
 
-        return \App::viewHelper()->partial('base/message/button/bear-message', [
+        return \App::viewHelper()->partial('platform/message/button/bear-message', [
             'number' => $number,
         ]);
     }

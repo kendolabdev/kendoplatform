@@ -16,24 +16,7 @@ class Module extends \Kendo\Application\Module
     public function start()
     {
 
-        \App::routingService()->getRoute('profile')
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'notifications',
-                'controller' => '\Notification\Controller\ProfileController',
-                'action'     => 'browse-notification']));
 
-        \App::routingService()->addRoute('notifications', [
-            'uri'      => 'notifications',
-            'defaults' => [
-                'controller' => '\Notification\Controller\HomeController',
-                'action'     => 'browse-notification',
-            ],
-        ]);
-
-        \App::viewHelper()
-            ->addClassMaps([
-                'btnBearNotification' => '\Notification\ViewHelper\ButtonBearNotification',
-            ]);
     }
 
 }

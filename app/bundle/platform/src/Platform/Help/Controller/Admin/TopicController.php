@@ -44,8 +44,8 @@ class TopicController extends AdminController
             ->loadAdminTopicPaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path' => 'base/help/controller/admin/topic/browse-topic',
-            'item_path' => 'base/help/paging/admin/browse-topic',
+            'base_path' => 'platform/help/controller/admin/topic/browse-topic',
+            'item_path' => 'platform/help/paging/admin/browse-topic',
         ]);
 
         $this->view->setScript($lp)

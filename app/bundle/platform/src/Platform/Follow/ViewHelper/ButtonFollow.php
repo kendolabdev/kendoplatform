@@ -31,10 +31,10 @@ class ButtonFollow
             $following = \App::followService()->getFollowStatus($poster, $item->getId());
         }
 
-        $script = 'base/follow/partial/button-follow';
+        $script = 'platform/follow/partial/button-follow';
 
         if ($ctx == 'menu')
-            $script = 'base/follow/partial/menu-item-follow';
+            $script = 'platform/follow/partial/menu-item-follow';
 
         return \App::viewHelper()->partial($script, [
             'item'      => $item,

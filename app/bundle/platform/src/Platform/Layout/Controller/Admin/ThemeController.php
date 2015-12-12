@@ -42,7 +42,7 @@ class ThemeController extends AdminController
             ->loadAdminThemePaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path' => 'base/layout/controller/admin/theme/browse-theme',
+            'base_path' => 'platform/layout/controller/admin/theme/browse-theme',
         ]);
 
         $this->view->setScript($lp)

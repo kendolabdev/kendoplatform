@@ -18,16 +18,7 @@ class Module extends \Kendo\Application\Module
 
         \App::htmlService()->addPlugin('privacyButton', '\Relation\Html\PrivacyButtonField');
 
-        \App::viewHelper()->addClassMaps([
-            'labelPrivacy' => '\Relation\ViewHelper\LabelPrivacy'
-        ]);
 
-        $routing = \App::routingService();
-
-        $routing->getRoute('profile')
-            ->addFilter(new FilterStuff([
-                'stuff'  => 'members',
-                'action' => 'browse-member',]));
     }
 
 }

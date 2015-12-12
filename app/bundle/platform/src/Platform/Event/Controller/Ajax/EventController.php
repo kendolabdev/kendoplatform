@@ -27,7 +27,7 @@ class EventController extends AjaxController
             'hasPrev' => $paging->hasPrev(),
             'query'   => $query,
             'pager'   => $paging->getPager(),
-            'html'    => $this->partial('base/event/partial/event-paging', ['paging' => $paging]),
+            'html'    => $this->partial('platform/event/partial/event-paging', ['paging' => $paging]),
         ];
     }
 }

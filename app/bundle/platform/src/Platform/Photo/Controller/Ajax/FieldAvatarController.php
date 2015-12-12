@@ -47,7 +47,7 @@ class FieldAvatarController extends AjaxController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/photo/dialog/field-avatar',
+            'base_path' => 'platform/photo/dialog/field-avatar',
         ]);
 
         $this->response = [

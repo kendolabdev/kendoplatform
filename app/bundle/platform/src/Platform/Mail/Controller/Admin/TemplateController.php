@@ -43,8 +43,8 @@ class TemplateController extends AdminController
             ->loadAdminTemplatePaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path' => 'base/mail/controller/admin/template/browse-template',
-            'item_path' => 'base/mail/paging/admin/browse-template',
+            'base_path' => 'platform/mail/controller/admin/template/browse-template',
+            'item_path' => 'platform/mail/paging/admin/browse-template',
         ]);
 
         $this->view

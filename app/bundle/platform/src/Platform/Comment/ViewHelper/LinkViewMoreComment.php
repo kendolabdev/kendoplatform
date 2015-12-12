@@ -21,7 +21,7 @@ class LinkViewMoreComment
             $counter = min((int)\App::setting('activity', 'comment_limit', 3), $item->getCommentCount());
         }
 
-        return \App::viewHelper()->partial('base/comment/partial/comment-view-more', [
+        return \App::viewHelper()->partial('platform/comment/partial/comment-view-more', [
             'about'   => $item,
             'total'   => $item->getCommentCount(),
             'counter' => $counter,

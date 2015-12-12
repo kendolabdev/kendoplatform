@@ -31,7 +31,7 @@ class SettingController extends AdminController
             ->paging(1, 100);
 
         $lp = new BlockParams([
-            'base_path' => 'base/social/controller/admin/setting/browse-service',
+            'base_path' => 'platform/social/controller/admin/setting/browse-service',
         ]);
 
         $this->view

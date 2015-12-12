@@ -29,7 +29,7 @@ class Notification extends Model
             'type' => $this->getType(),
         ];
 
-        return \App::viewHelper()->partial('base/notification/partial/notification-item', [
+        return \App::viewHelper()->partial('platform/notification/partial/notification-item', [
             'headline' => $this->getHeadline(),
             'poster'   => $this->getPoster(),
             'parent'   => $this->getParent(),

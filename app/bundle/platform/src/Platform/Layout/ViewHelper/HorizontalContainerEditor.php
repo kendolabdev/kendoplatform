@@ -45,6 +45,6 @@ class HorizontalContainerEditor
         $data['item'] = $item;
         $data['content'] = implode(PHP_EOL, $response);
 
-        return \App::viewHelper()->partial('base/layout/partial/horizontal-container-editor', $data);
+        return \App::viewHelper()->partial('platform/layout/partial/horizontal-container-editor', $data);
     }
 }

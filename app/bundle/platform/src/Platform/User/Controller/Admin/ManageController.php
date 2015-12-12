@@ -45,8 +45,8 @@ class ManageController extends AdminController
             ->loadAdminUserPaging($query, $page);
 
         $lp = new BlockParams([
-            'base_path' => 'base/user/controller/admin/manage/browse-user',
-            'item_path' => 'base/user/paging/admin/browse-user',
+            'base_path' => 'platform/user/controller/admin/manage/browse-user',
+            'item_path' => 'platform/user/paging/admin/browse-user',
         ]);
 
 

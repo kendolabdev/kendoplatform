@@ -65,7 +65,7 @@ class PrivacyController extends AjaxController
 
         $note = \App::text('core.privacy_note_for_' . $forAction);
 
-        $this->response['html'] = $this->partial('base/relation/partial/edit-privacy-options', [
+        $this->response['html'] = $this->partial('platform/relation/partial/edit-privacy-options', [
             'note'      => $note,
             'forAction' => $forAction,
             'poster'    => $poster,
@@ -99,7 +99,7 @@ class PrivacyController extends AjaxController
 
         $note = \App::text('core.privacy_note_for_' . $forAction);
 
-        $this->response['html'] = $this->partial('base/relation/partial/privacy-options', [
+        $this->response['html'] = $this->partial('platform/relation/partial/privacy-options', [
             'note'      => $note,
             'forAction' => $forAction,
             'poster'    => $poster,

@@ -77,11 +77,11 @@
                         </div>
                         <?php endif; ?>
 
-                        <?php echo $this->helper()->partial('base/comment/partial/comment-list',
+                        <?php echo $this->helper()->partial('platform/comment/partial/comment-list',
                         ['comments'=>$commentList,'about'=>$about,'viewer'=>\App::authService()->getViewer()]);?>
 
                         <?php if(\App::authService()->logged()): ?>
-                        <?php echo $this->helper()->partial('base/comment/partial/comment-form', array(
+                        <?php echo $this->helper()->partial('platform/comment/partial/comment-form', array(
                         'poster'=>\App::authService()->getViewer(),
                         'asset'=>$about));
                         ?>

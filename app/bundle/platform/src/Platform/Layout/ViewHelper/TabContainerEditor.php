@@ -25,7 +25,7 @@ class TabContainerEditor
         }
 
 
-        return \App::viewHelper()->partial('base/layout/partial/tab-container-editor',
+        return \App::viewHelper()->partial('platform/layout/partial/tab-container-editor',
             ['item' => $item, 'content' => $content]);
     }
 }

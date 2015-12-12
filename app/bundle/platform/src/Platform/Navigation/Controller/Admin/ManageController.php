@@ -38,7 +38,7 @@ class ManageController extends AdminController
             ->loadAdminNavigationPaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path' => 'base/navigation/controller/admin/manage/browse-navigation',
+            'base_path' => 'platform/navigation/controller/admin/manage/browse-navigation',
         ]);
 
         $this->view->setScript($lp)
@@ -60,7 +60,7 @@ class ManageController extends AdminController
             ->setTitle(\App::text('core_layout.edit_menu'));
 
         $lp = new BlockParams([
-            'base_path' => 'base/navigation/controller/admin/manage/edit-navigation',
+            'base_path' => 'platform/navigation/controller/admin/manage/edit-navigation',
         ]);
 
         $this->view

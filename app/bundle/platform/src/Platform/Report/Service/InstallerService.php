@@ -15,32 +15,32 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module_base_report';
+    protected $exportKey = 'module_platform_report';
 
     /**
      * @var array
      */
     protected $tableList = [
-        'base_report',
-        'base_report_category',
-        'base_report_general'
+        'platform_report',
+        'platform_report_category',
+        'platform_report_general'
     ];
 
     /**
      * @var array
      */
     protected $pathList = [
-        'app/bundle/base/src/Base/Report',
-        'app/template/default/base/report',
-        'app/theme/default/sass/base/report',
-        'app/theme/admin/sass/base/report',
-        'static/jscript/base/report'
+        'app/bundle/platform/src/Platform/Report',
+        'app/template/default/platform/report',
+        'app/theme/default/sass/platform/report',
+        'app/theme/admin/sass/platform/report',
+        'static/jscript/platform/report'
     ];
 
     /**
      * @var array
      */
     protected $moduleList = [
-        'base_report'
+        'platform_report'
     ];
 }

@@ -31,6 +31,6 @@ class ButtonLoginAs
         if (\App::authService()->getId() == $item->getId())
             return '';
 
-        return \App::viewHelper()->partial('base/user/button/login-as', ['item' => $item]);
+        return \App::viewHelper()->partial('platform/user/button/login-as', ['item' => $item]);
     }
 }

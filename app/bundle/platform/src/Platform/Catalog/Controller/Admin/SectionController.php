@@ -60,7 +60,7 @@ class SectionController extends AdminController
 
         $lp = new BlockParams([
             'base_path' => 'layout/facade/paging-more',
-            'item_path' => 'base/attribute/paging/admin/browse-section'
+            'item_path' => 'platform/attribute/paging/admin/browse-section'
         ]);
 
         $this->view->setScript($lp)
@@ -86,7 +86,7 @@ class SectionController extends AdminController
         $listField = $section->getListField();
 
         $lp = new BlockParams([
-            'base_path' => 'base/attribute/controller/admin/section/setting',
+            'base_path' => 'platform/attribute/controller/admin/section/setting',
         ]);
 
         $this->view->setScript($lp)
@@ -118,7 +118,7 @@ class SectionController extends AdminController
             ->loadAdminFieldPaging($query, 1, 1000);
 
         $lp = new BlockParams([
-            'base_path' => 'base/attribute/controller/admin/section/add-field',
+            'base_path' => 'platform/attribute/controller/admin/section/add-field',
         ]);
 
         $this->view->setScript($lp)

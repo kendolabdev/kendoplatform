@@ -31,7 +31,7 @@ class ButtonMembership
             $membership = \App::groupService()->membership()->getMembershipStatus($viewer, $item);
         }
 
-        return \App::viewHelper()->partial('base/event/partial/button-membership', [
+        return \App::viewHelper()->partial('platform/event/partial/button-membership', [
             'item'       => $item,
             'membership' => $membership,
         ]);

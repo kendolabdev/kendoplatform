@@ -75,7 +75,7 @@ class RequestMembership implements InvitationInterface
             'type' => $this->invitation->getType(),
         ];
 
-        return \App::viewHelper()->partial('base/user/invitation/request-membership', [
+        return \App::viewHelper()->partial('platform/user/invitation/request-membership', [
             'headline' => $this->getHeadline(),
             'poster'   => $this->invitation->getPoster(),
             'parent'   => $this->invitation->getParent(),

@@ -47,7 +47,7 @@ class AvatarController extends AjaxController
 
 
         $this->response = [
-            'html' => $this->partial('base/photo/partial/edit-avatar-dialog', $data),
+            'html' => $this->partial('platform/photo/partial/edit-avatar-dialog', $data),
         ];
     }
 

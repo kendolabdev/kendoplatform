@@ -65,11 +65,11 @@
                         </div>
                         <?php foreach(\App::commentService()->getCommentList($about, $limitCommentCount,0) as
                         $comment): ?>
-                        <?php echo $this->helper() ->partial('base/comment/partial/comment-item',
+                        <?php echo $this->helper() ->partial('platform/comment/partial/comment-item',
                         array('comment'=>$comment,'item'=>$about,'poster'=>$comment->getPoster())); ?>
                         <?php endforeach; ?>
                         <?php if(\App::authService()->logged()): ?>
-                        <?php echo $this->helper()->partial('base/comment/partial/comment-form', array(
+                        <?php echo $this->helper()->partial('platform/comment/partial/comment-form', array(
                         'poster'=>\App::authService()->getViewer(),
                         'asset'=>$about));
                         ?>

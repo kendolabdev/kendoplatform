@@ -19,7 +19,7 @@ class ButtonBearNotification
         $number = \App::notificationService()
             ->getUnmitigatedNotificationCount();
 
-        return \App::viewHelper()->partial('base/notification/button/bear-notification', [
+        return \App::viewHelper()->partial('platform/notification/button/bear-notification', [
             'number' => $number,
         ]);
     }

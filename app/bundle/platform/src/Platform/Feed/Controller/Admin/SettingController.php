@@ -40,7 +40,7 @@ class SettingController extends BaseController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/feed/controller/admin/setting/edit-setting',
+            'base_path' => 'platform/feed/controller/admin/setting/edit-setting',
         ]);
 
         $this->view
@@ -70,7 +70,7 @@ class SettingController extends BaseController
             ->loadAdminFeedTypePaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path' => 'base/feed/controller/admin/setting/browse-type',
+            'base_path' => 'platform/feed/controller/admin/setting/browse-type',
         ]);
 
         $this->view->setScript($lp)

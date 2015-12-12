@@ -24,7 +24,7 @@ class ButtonTopbarViewer
         }
 
 
-        return \App::viewHelper()->partial('base/user/button/topbar-viewer', [
+        return \App::viewHelper()->partial('platform/user/button/topbar-viewer', [
             'avatar'    => $avatar,
             'viewer'    => $viewer,
             'title'     => $title,

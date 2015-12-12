@@ -26,7 +26,7 @@ class ButtonUpdateCoverEditing
         if (!$item->viewerIsParent()) return '';
 
 
-        return \App::viewHelper()->partial('base/photo/partial/button-updatecover-editing', [
+        return \App::viewHelper()->partial('platform/photo/partial/button-updatecover-editing', [
             'dataSubject' => $item->toSimpleAttrs(),
         ]);
     }

@@ -13,7 +13,7 @@ class EditProfileMenuBlock extends Block
     /**
      * @var string
      */
-    protected $basePath = 'base/user/block/edit-profile-menu';
+    protected $basePath = 'platform/user/block/edit-profile-menu';
 
     /**
      *

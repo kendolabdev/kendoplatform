@@ -50,7 +50,7 @@ class PhotoController extends AjaxController
         ];
 
         $this->response = [
-            'html' => $this->partial('base/photo/partial/photo-options', $data),
+            'html' => $this->partial('platform/photo/partial/photo-options', $data),
         ];
     }
 
@@ -233,7 +233,7 @@ class PhotoController extends AjaxController
         ];
 
         $this->response = [
-            'html' => $this->partial('base/photo/partial/upload-photo-dialog', $data),
+            'html' => $this->partial('platform/photo/partial/upload-photo-dialog', $data),
         ];
     }
 

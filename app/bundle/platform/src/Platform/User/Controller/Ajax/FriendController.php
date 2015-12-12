@@ -164,7 +164,7 @@ class FriendController extends AjaxController
         $membership = \App::userService()->membership()->getMembershipStatus($viewer, $item);
 
         $this->response = [
-            'html' => $this->partial('base/user/partial/membership-options', [
+            'html' => $this->partial('platform/user/partial/membership-options', [
                 'item'       => $item,
                 'eid'        => $eid,
                 'membership' => $membership,

@@ -87,7 +87,7 @@ class Share extends Model implements ContentInterface
 //            $params['story'] = \App::find('activity.story', $about->getStoryId());
         }
 
-        return (new View('base/share/partial/attachment-share', $params))->render();
+        return (new View('platform/share/partial/attachment-share', $params))->render();
     }
 
 

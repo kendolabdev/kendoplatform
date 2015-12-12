@@ -59,14 +59,14 @@ class FollowController extends AjaxController
         $vars = ['following' => $following];
 
         if ($item instanceof Feed) {
-            $script = 'base/follow/partial/toggle-follow-feed';
+            $script = 'platform/follow/partial/toggle-follow-feed';
             if ($following) {
                 $vars['followLabel'] = \App::text('core.unfollow_$poster', ['$poster' => substr($poster->getTitle(), 0, 15)]);
             } else {
                 $vars['followLabel'] = \App::text('core.follow_$poster', ['$poster' => substr($poster->getTitle(), 0, 15)]);
             }
         } else {
-            $script = 'base/follow/partial/toggle-follow';
+            $script = 'platform/follow/partial/toggle-follow';
             if ($following) {
                 $vars['followLabel'] = \App::text('core.following');
             } else {

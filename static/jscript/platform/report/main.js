@@ -1,0 +1,1 @@
+define(['platform/report/report'],function(){});

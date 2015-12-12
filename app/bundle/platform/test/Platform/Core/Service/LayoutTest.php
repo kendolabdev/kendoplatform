@@ -259,8 +259,8 @@ class LayoutTest extends TestCase
             ->fetchNew([
                 'page_name'        => 'test_page',
                 'parent_page_name' => 'core_default',
-                'module_name'      => 'base_rad',
-                'item_module_name' => 'base_rad',
+                'module_name'      => 'platform_rad',
+                'item_module_name' => 'platform_rad',
                 'is_admin'         => 0,
                 'base_path'        => '',
                 'item_path'        => '',

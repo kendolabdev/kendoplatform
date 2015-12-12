@@ -1,0 +1,1 @@
+define(['platform/relation/privacy'],function(){});

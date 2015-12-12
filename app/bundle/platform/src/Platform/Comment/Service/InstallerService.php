@@ -15,30 +15,30 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module_base_comment';
+    protected $exportKey = 'module_platform_comment';
 
     /**
      * @var array
      */
     protected $tableList = [
-        'base_comment'
+        'platform_comment'
     ];
 
     /**
      * @var array
      */
     protected $pathList = [
-        'app/bundle/base/src/Base/Comment',
-        'app/template/default/base/comment',
-        'app/theme/default/sass/base/comment',
-        'app/theme/admin/sass/base/comment',
-        'static/jscript/base/comment'
+        'app/bundle/platform/src/Platform/Comment',
+        'app/template/default/platform/comment',
+        'app/theme/default/sass/platform/comment',
+        'app/theme/admin/sass/platform/comment',
+        'static/jscript/platform/comment'
     ];
 
     /**
      * @var array
      */
     protected $moduleList = [
-        'base_comment'
+        'platform_comment'
     ];
 }

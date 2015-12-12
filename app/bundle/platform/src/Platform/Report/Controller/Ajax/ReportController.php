@@ -34,7 +34,7 @@ class ReportController extends AjaxController
         ]);
 
         $lp = new BlockParams([
-            'base_path' => 'base/report/dialog/report-about',
+            'base_path' => 'platform/report/dialog/report-about',
         ]);
 
         $html = $this->partial($lp->script(), ['form'  => $form,

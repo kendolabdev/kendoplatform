@@ -27,7 +27,7 @@ class TransportController extends AdminController
     public function actionBrowse()
     {
         $lp = new BlockParams([
-            'base_path' => 'base/mail/controller/admin/transport/browse-transport',
+            'base_path' => 'platform/mail/controller/admin/transport/browse-transport',
         ]);
 
         $query = [];

@@ -1,1 +1,0 @@
-define(['base/relation/privacy'],function(){});

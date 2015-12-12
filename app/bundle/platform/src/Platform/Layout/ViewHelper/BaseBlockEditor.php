@@ -21,6 +21,6 @@ class BaseBlockEditor
     {
         $data['item'] = $item;
 
-        return \App::viewHelper()->partial('base/layout/partial/base-block-editor', $data);
+        return \App::viewHelper()->partial('platform/layout/partial/base-block-editor', $data);
     }
 }

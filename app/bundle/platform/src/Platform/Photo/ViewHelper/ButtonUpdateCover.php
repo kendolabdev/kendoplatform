@@ -28,10 +28,10 @@ class ButtonUpdateCover
         switch ($type) {
             case 'menu':
             case 'menu-item':
-                $script = 'base/photo/partial/menu-item-updatecover';
+                $script = 'platform/photo/partial/menu-item-updatecover';
                 break;
             default:
-                $script = 'base/photo/partial/button-updatecover';
+                $script = 'platform/photo/partial/button-updatecover';
         }
 
         return \App::viewHelper()->partial($script, [

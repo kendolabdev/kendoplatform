@@ -11,46 +11,8 @@ class Module extends \Kendo\Application\Module
 {
     public function start()
     {
-        $this->routing();
     }
 
-    private function routing()
-    {
-        $routing = \App::routingService();
-
-        $routing->addRoute('connect', [
-            'uri'      => 'connect/<service>',
-            'defaults' => [
-                'controller' => 'Social\Controller\ConnectController',
-                'action'     => 'connect',
-            ]
-        ]);
-
-        $routing->addRoute('oauth_callback', [
-            'uri'      => 'oauth-callback/<service>',
-            'defaults' => [
-                'controller' => 'Social\Controller\ConnectController',
-                'action'     => 'callback',
-            ]
-        ]);
-
-        $routing->addRoute('oauth_success', [
-            'uri'      => 'oauth-success/<service>',
-            'defaults' => [
-                'controller' => 'Social\Controller\ConnectController',
-                'action'     => 'success',
-            ]
-        ]);
-
-        $routing->addRoute('oauth_failure', [
-            'uri'      => 'oauth_failure/<service>',
-            'defaults' => [
-                'controller' => 'Social\Controller\ConnectController',
-                'action'     => 'failure',
-            ]
-        ]);
-
-    }
 
     public function complete()
     {

@@ -43,7 +43,7 @@ class ManageController extends AjaxController
         if (!$entry)
             throw new \InvalidArgumentException("Entry not found");
 
-        $html = $this->partial('base/blog/partial/admin/post-options', [
+        $html = $this->partial('platform/blog/partial/admin/post-options', [
             'item' => $entry,
             'eid'  => $eid,
         ]);

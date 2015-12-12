@@ -40,7 +40,7 @@ class TemplateController extends AdminController
             ->loadAdminTemplatePaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path' => 'base/layout/controller/admin/template/browse-template',
+            'base_path' => 'platform/layout/controller/admin/template/browse-template',
         ]);
 
 

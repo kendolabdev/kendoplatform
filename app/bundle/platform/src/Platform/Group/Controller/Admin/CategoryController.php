@@ -45,8 +45,8 @@ class CategoryController extends AdminController
 
 
         $lp = new BlockParams([
-            'base_path' => 'base/group/controller/admin/category/browse-category',
-            'item_path' => 'base/group/paging/admin/browse-category',
+            'base_path' => 'platform/group/controller/admin/category/browse-category',
+            'item_path' => 'platform/group/paging/admin/browse-category',
         ]);
 
         $this->view->setScript($lp)

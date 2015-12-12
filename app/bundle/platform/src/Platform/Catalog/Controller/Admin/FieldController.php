@@ -57,7 +57,7 @@ class FieldController extends AdminController
 
         $lp = new BlockParams([
             'base_path' => 'layout/facade/paging-more',
-            'item_path' => 'base/attribute/paging/admin/browse-field'
+            'item_path' => 'platform/attribute/paging/admin/browse-field'
         ]);
 
         $this->view->setScript($lp)
@@ -257,8 +257,8 @@ class FieldController extends AdminController
             ->loadAdminOptionPaging($query, $page);
 
         $lp = new BlockParams([
-            'base_path' => 'base/attribute/controller/admin/field/browse-option',
-            'item_path' => 'base/attribute/paging/admin/browse-option'
+            'base_path' => 'platform/attribute/controller/admin/field/browse-option',
+            'item_path' => 'platform/attribute/paging/admin/browse-option'
         ]);
 
         $this->view->setScript($lp)

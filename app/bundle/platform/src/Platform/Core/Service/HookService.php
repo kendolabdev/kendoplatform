@@ -84,7 +84,7 @@ class HookService
 
         foreach ($extension->getActiveModuleNames() as $key) {
 
-            $serviceKey = "{$key}_event_handler";
+            $serviceKey = "{$key}_dispatcher";
 
             if (!\App::hasService($serviceKey))
                 continue;

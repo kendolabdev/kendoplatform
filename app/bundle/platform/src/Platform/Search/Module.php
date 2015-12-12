@@ -14,13 +14,6 @@ class Module extends \Kendo\Application\Module
      */
     public function start()
     {
-        \App::routingService()
-            ->addRoute('search', [
-                'uri'      => 'search',
-                'defaults' => [
-                    'controller' => 'Search\Controller\HomeController',
-                    'action'     => 'browse',
-                ],
-            ]);
+
     }
 }

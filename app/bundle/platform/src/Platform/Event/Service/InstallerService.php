@@ -15,31 +15,31 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module_base_event';
+    protected $exportKey = 'module_platform_event';
 
     /**
      * @var array
      */
     protected $tableList = [
-        'base_event',
-        'base_event_category'
+        'platform_event',
+        'platform_event_category'
     ];
 
     /**
      * @var array
      */
     protected $pathList = [
-        'app/bundle/base/src/Base/Event',
-        'app/template/default/base/event',
-        'app/theme/default/sass/base/event',
-        'app/theme/admin/sass/base/event',
-        'static/jscript/base/event'
+        'app/bundle/platform/src/Platform/Event',
+        'app/template/default/platform/event',
+        'app/theme/default/sass/platform/event',
+        'app/theme/admin/sass/platform/event',
+        'static/jscript/platform/event'
     ];
 
     /**
      * @var array
      */
     protected $moduleList = [
-        'base_event'
+        'platform_event'
     ];
 }

@@ -84,7 +84,7 @@ class FeedController extends AjaxController
         $hidden = \App::feedService()->isHidden($viewer->getId(), $feed->getId());
 
         $this->response = [
-            'html' => $this->partial('base/feed/partial/toggle-hidden', ['hidden' => $hidden])
+            'html' => $this->partial('platform/feed/partial/toggle-hidden', ['hidden' => $hidden])
         ];
     }
 
@@ -136,7 +136,7 @@ class FeedController extends AjaxController
         $subscribed = \App::notificationService()->isSubscribed($viewer, $about);
 
         $this->response = [
-            'html' => $this->partial('base/feed/partial/toggle-subscribe', ['subscribed' => $subscribed])
+            'html' => $this->partial('platform/feed/partial/toggle-subscribe', ['subscribed' => $subscribed])
         ];
     }
 

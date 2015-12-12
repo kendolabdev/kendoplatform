@@ -231,7 +231,7 @@ class HomeController extends DefaultController
 
         $this->view->assign(['form' => $form]);
 
-        $this->view->setScript('base/blog/controller/home/edit-blog');
+        $this->view->setScript('platform/blog/controller/home/edit-blog');
 
     }
 
@@ -265,7 +265,7 @@ class HomeController extends DefaultController
 
         $this->view->assign(['form' => $form]);
 
-        $this->view->setScript('base/blog/controller/home/delete-blog');
+        $this->view->setScript('platform/blog/controller/home/delete-blog');
 
     }
 

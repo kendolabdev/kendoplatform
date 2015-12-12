@@ -41,7 +41,7 @@ class ManageController extends AdminController
             ->paging(1, 1000);
 
         $this->view
-            ->setScript('base/rad/controller/admin/manage/browse-module/view')
+            ->setScript('platform/rad/controller/admin/manage/browse-module/view')
             ->assign([
                 'paging' => $paging,
             ]);
@@ -66,7 +66,7 @@ class ManageController extends AdminController
 
 
         $this->view
-            ->setScript('base/rad/controller/admin/manage/browse-theme/view')
+            ->setScript('platform/rad/controller/admin/manage/browse-theme/view')
             ->assign(['paging' => $themes]);
     }
 

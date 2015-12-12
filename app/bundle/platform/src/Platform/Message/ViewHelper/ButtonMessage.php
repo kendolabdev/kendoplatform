@@ -29,10 +29,10 @@ class ButtonMessage
         switch ($type) {
             case 'menu':
             case 'menu-item':
-                $script = 'base/message/partial/menu-item-message';
+                $script = 'platform/message/partial/menu-item-message';
                 break;
             default:
-                $script = 'base/message/partial/button-message';
+                $script = 'platform/message/partial/button-message';
         }
 
 

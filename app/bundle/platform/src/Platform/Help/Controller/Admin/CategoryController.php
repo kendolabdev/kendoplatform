@@ -50,8 +50,8 @@ class CategoryController extends AdminController
             ->loadCategoryPaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path' => 'base/help/controller/admin/category/browse-category',
-            'item_path' => 'base/help/paging/admin/browse-category',
+            'base_path' => 'platform/help/controller/admin/category/browse-category',
+            'item_path' => 'platform/help/paging/admin/browse-category',
         ]);
 
         $this->view->setScript($lp)

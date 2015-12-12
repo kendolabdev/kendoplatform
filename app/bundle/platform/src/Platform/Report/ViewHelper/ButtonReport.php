@@ -30,10 +30,10 @@ class ButtonReport
         switch ($type) {
             case 'menu':
             case 'menu-item':
-                $script = 'base/report/partial/menu-item-report';
+                $script = 'platform/report/partial/menu-item-report';
                 break;
             default:
-                $script = 'base/report/partial/button-report';
+                $script = 'platform/report/partial/button-report';
         }
 
 

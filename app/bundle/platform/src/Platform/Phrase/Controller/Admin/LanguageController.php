@@ -30,7 +30,7 @@ class LanguageController extends AdminController
         ]);
 
         $lp = new BlockParams([
-            'base_path' => 'base/phrase/controller/admin/language/browse-language',
+            'base_path' => 'platform/phrase/controller/admin/language/browse-language',
         ]);
 
         $this->view->setScript($lp);

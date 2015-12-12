@@ -43,7 +43,7 @@ class ManageController extends AdminController
             ->loadAdminLayoutPagePaging($params, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path' => 'base/layout/controller/admin/manage/browse-layout',
+            'base_path' => 'platform/layout/controller/admin/manage/browse-layout',
         ]);
 
         $this->view->setScript($lp)
@@ -134,7 +134,7 @@ class ManageController extends AdminController
         ]);
 
         $lp = new BlockParams([
-            'base_path' => 'base/layout/controller/admin/manage/edit-layout',
+            'base_path' => 'platform/layout/controller/admin/manage/edit-layout',
         ]);
 
         $this->view->setScript($lp);

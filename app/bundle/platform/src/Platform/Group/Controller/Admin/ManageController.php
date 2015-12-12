@@ -37,8 +37,8 @@ class ManageController extends AdminController
             ->loadGroupPaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path'      => 'base/group/controller/admin/manage/browse-group',
-            'item_path'      => 'base/group/paging/admin/browse-group',
+            'base_path'      => 'platform/group/controller/admin/manage/browse-group',
+            'item_path'      => 'platform/group/paging/admin/browse-group',
             'media_position' => 'media-aside-left',
             'grid_md'        => 'col-md-12',
             'grid_sm'        => 'col-sm-12',

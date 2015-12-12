@@ -13,7 +13,7 @@ class MenuSettingsBlock extends Block
     /**
      * @var string
      */
-    protected $basePath = 'base/user/block/menu-settings';
+    protected $basePath = 'platform/user/block/menu-settings';
 
     /**
      *

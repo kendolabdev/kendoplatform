@@ -27,7 +27,7 @@ class HomeController extends DefaultController
     public function actionTerms()
     {
         $this->view
-            ->setScript('base/core/controller/help/view-terms')
+            ->setScript('platform/core/controller/help/view-terms')
             ->assign([]);
     }
 
@@ -37,7 +37,7 @@ class HomeController extends DefaultController
     public function actionPrivacy()
     {
         $this->view
-            ->setScript('base/core/controller/help/view-privacy')
+            ->setScript('platform/core/controller/help/view-privacy')
             ->assign([]);
     }
 

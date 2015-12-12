@@ -17,6 +17,6 @@ class ButtonBearAccount
     {
         if (!\App::authService()->logged()) return '';
 
-        return \App::viewHelper()->partial('base/user/button/bear-account', []);
+        return \App::viewHelper()->partial('platform/user/button/bear-account', []);
     }
 }

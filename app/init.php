@@ -345,12 +345,12 @@ function _htmlattrs($array)
 }
 
 
-include_once KENDO_BUNDLE_DIR . '/kendo/src/Kendo/Autoload/Manager.php';
-include_once KENDO_BUNDLE_DIR . '/kendo/src/Kendo/Registry/Manager.php';
-include_once KENDO_BUNDLE_DIR . '/kendo/src/Kendo/Db/Manager.php';
-include_once KENDO_BUNDLE_DIR . '/kendo/src/Kendo/Session/Manager.php';
-include_once KENDO_BUNDLE_DIR . '/kendo/src/Kendo/ServiceManager.php';
-include_once KENDO_BUNDLE_DIR . '/kendo/src/Kendo/App.php';
+include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Autoload/Manager.php';
+include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Registry/Manager.php';
+include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Db/Manager.php';
+include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Session/Manager.php';
+include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/ServiceManager.php';
+include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/App.php';
 
 \App::load();
 
@@ -363,7 +363,9 @@ include_once KENDO_BUNDLE_DIR . '/kendo/src/Kendo/App.php';
  */
 function _screen($desktop, $tablet, $mobile)
 {
-    return \App::requestService()->isMobile() ? (\App::requestService()->isTablet() ? $tablet : $mobile) : $desktop;
+    return \App::requestService()->isMobile() ?
+        (\App::requestService()->isTablet() ? $tablet : $mobile) :
+        $desktop;
 }
 
 /**

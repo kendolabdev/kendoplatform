@@ -22,7 +22,7 @@ class GeneralReportController extends AjaxController
         $form = new AddGeneralReport([]);
 
         $lp = new BlockParams([
-            'base_path' => 'base/report/dialog/report-general',
+            'base_path' => 'platform/report/dialog/report-general',
         ]);
 
         $this->response = [

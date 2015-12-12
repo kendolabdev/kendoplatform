@@ -2,6 +2,8 @@
 
 namespace Platform\Comment\Service;
 
+use Kendo\Hook\HookEvent;
+use Kendo\View\ViewHelper;
 use Platform\Comment\Model\Comment;
 use Kendo\Content\AtomInterface;
 use Kendo\Content\PosterInterface;
@@ -14,6 +16,7 @@ use Kendo\Content\PosterInterface;
 class CommentService
 {
 
+    
     /**
      * @return int
      */

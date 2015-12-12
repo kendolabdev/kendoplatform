@@ -34,7 +34,7 @@ class ManageController extends AdminController
 
 
         $lp = new BlockParams([
-            'base_path' => 'base/captcha/controller/admin/manage/browse-captcha',
+            'base_path' => 'platform/captcha/controller/admin/manage/browse-captcha',
         ]);
 
         $this->view

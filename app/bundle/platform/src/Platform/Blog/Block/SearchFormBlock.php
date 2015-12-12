@@ -13,7 +13,7 @@ class SearchFormBlock extends Block
     /**
      * @var string
      */
-    protected $basePath = 'base/blog/block/blog-search-form';
+    protected $basePath = 'platform/blog/block/blog-search-form';
 
     /**
      *

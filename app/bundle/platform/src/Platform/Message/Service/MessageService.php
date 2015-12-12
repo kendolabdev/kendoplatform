@@ -45,7 +45,7 @@ class MessageService
      */
     public function findMessage($msgId)
     {
-        return \App::table('platform_base_message')
+        return \App::table('platform_message')
             ->findById($msgId);
     }
 
@@ -570,7 +570,7 @@ class MessageService
          * Select message
          */
 
-        return \App::table('platform_base_message')
+        return \App::table('platform_message')
             ->select()
             ->where('message_id IN ?', $messageIdList)
             ->paging($page, $limit);

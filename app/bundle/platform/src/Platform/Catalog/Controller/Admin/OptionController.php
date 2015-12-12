@@ -51,7 +51,7 @@ class OptionController extends AdminController
 
         $lp = new BlockParams([
             'base_path' => 'layout/facade/paging-more',
-            'item_path' => 'base/attribute/paging/admin/browse-option'
+            'item_path' => 'platform/attribute/paging/admin/browse-option'
         ]);
 
         $this->view->setScript($lp)

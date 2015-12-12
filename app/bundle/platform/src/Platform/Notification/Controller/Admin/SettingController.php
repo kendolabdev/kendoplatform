@@ -40,7 +40,7 @@ class SettingController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/notification/controller/admin/setting/edit-setting',
+            'base_path' => 'platform/notification/controller/admin/setting/edit-setting',
         ]);
 
         $this->view
@@ -69,7 +69,7 @@ class SettingController extends AdminController
         $query = $filter->getData();
 
         $lp = new BlockParams([
-            'base_path' => 'base/notification/controller/admin/setting/browse-type'
+            'base_path' => 'platform/notification/controller/admin/setting/browse-type'
         ]);
 
         $paging = \App::notificationService()

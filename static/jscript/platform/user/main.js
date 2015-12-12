@@ -1,3 +1,3 @@
-define(['base/user/friend'], function () {
+define(['platform/user/friend'], function () {
 
 });

@@ -20,7 +20,7 @@ class CommentController extends AjaxController
         $cmt = \App::commentService()->findComment($id);
 
         $this->response = [
-            'html' => $this->partial('base/comment/partial/comment-options', [
+            'html' => $this->partial('platform/comment/partial/comment-options', [
                 'cmt' => $cmt,
                 'eid' => $eid,
             ])];
@@ -118,7 +118,7 @@ class CommentController extends AjaxController
          */
         $comment = \App::commentService()->add($poster, $item, $commentTxt, $params);
 
-        $html = $this->partial('base/comment/partial/comment-item', [
+        $html = $this->partial('platform/comment/partial/comment-item', [
             'comment'    => $comment,
             'poster'     => $poster,
             'attachment' => $comment->getAttachment(),
@@ -156,7 +156,7 @@ class CommentController extends AjaxController
 
         $order = \App::setting('activity', 'comment_sort');
 
-        $this->response['html'] = \App::viewHelper()->partial('base/comment/partial/comment-list', [
+        $this->response['html'] = \App::viewHelper()->partial('platform/comment/partial/comment-list', [
             'comments' => $comments,
             'about'    => $about,
             'viewer'   => \App::authService()->getViewer(),

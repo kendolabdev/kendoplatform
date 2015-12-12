@@ -16,7 +16,7 @@
             <div class="paging-stage">
                 <div class="paging-content">
                     <?php foreach($paging->items() as $bundle):?>
-                    <?php echo $this->helper()->partial('base/feed/partial/feed-item', $bundle); ?>
+                    <?php echo $this->helper()->partial('platform/feed/partial/feed-item', $bundle); ?>
                     <?php endforeach; ?>
                 </div>
                 <div class="pager more">

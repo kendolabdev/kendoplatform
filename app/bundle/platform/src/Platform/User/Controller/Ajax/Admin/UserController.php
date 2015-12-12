@@ -108,7 +108,7 @@ class UserController extends AjaxController
             'token' => _escape($user->toTokenArray())];
 
         $this->response = [
-            'html' => $this->partial('base/user/partial/admin/user/options', $data),
+            'html' => $this->partial('platform/user/partial/admin/user/options', $data),
         ];
     }
 

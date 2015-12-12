@@ -38,7 +38,7 @@ class ManageController extends AdminController
 
         $lp = new BlockParams([
             'base_path' => 'layout/facade/paging-more',
-            'item_path' => 'base/blog/paging/admin/browse-post',
+            'item_path' => 'platform/blog/paging/admin/browse-post',
             'endless'   => 1,
         ]);
 

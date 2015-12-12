@@ -15,7 +15,7 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module_base_rad';
+    protected $exportKey = 'module_platform_rad';
 
     /**
      * @var array
@@ -28,17 +28,17 @@ class InstallerService extends ModuleInstaller
      * @var array
      */
     protected $pathList = [
-        'app/bundle/base/src/Base/Rad',
-        'app/template/default/base/rad',
-        'app/theme/default/sass/base/rad',
-        'app/theme/admin/sass/base/rad',
-        'static/jscript/base/rad'
+        'app/bundle/platform/src/Platform/Rad',
+        'app/template/default/platform/rad',
+        'app/theme/default/sass/platform/rad',
+        'app/theme/admin/sass/platform/rad',
+        'static/jscript/platform/rad'
     ];
 
     /**
      * @var array
      */
     protected $moduleList = [
-        'base_rad'
+        'platform_rad'
     ];
 }

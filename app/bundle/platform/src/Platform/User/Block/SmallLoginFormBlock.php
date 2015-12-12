@@ -13,7 +13,7 @@ class SmallLoginFormBlock extends Block
     /**
      * @var string
      */
-    protected $basePath = 'base/user/block/login';
+    protected $basePath = 'platform/user/block/login';
 
     /**
      * Execute block layout

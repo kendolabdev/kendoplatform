@@ -14,7 +14,7 @@ class TimelineHeaderBlock extends Block
     /**
      * @var string
      */
-    protected $basePath = 'base/user/block/timeline-header';
+    protected $basePath = 'platform/user/block/timeline-header';
 
     /**
      *

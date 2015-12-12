@@ -40,8 +40,8 @@ class ManageController extends AdminController
             ->loadVideoPaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path'      => 'base/video/controller/admin/manage/browse-video',
-            'item_path'      => 'base/video/paging/admin/browse-video',
+            'base_path'      => 'platform/video/controller/admin/manage/browse-video',
+            'item_path'      => 'platform/video/paging/admin/browse-video',
             'media_position' => 'media-aside-left',
             'grid_md'        => 'col-md-12',
             'grid_sm'        => 'col-sm-12',

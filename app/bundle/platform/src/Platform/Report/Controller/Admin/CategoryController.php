@@ -47,8 +47,8 @@ class CategoryController extends AdminController
             ->loadAdminCategoryPaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path' => 'base/report/controller/admin/category/browse-category',
-            'item_path' => 'base/report/paging/admin/browse-category',
+            'base_path' => 'platform/report/controller/admin/category/browse-category',
+            'item_path' => 'platform/report/paging/admin/browse-category',
         ]);
 
 
@@ -93,7 +93,7 @@ class CategoryController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/report/controller/admin/category/create-category',
+            'base_path' => 'platform/report/controller/admin/category/create-category',
         ]);
 
         $this->view->setScript($lp)
@@ -127,7 +127,7 @@ class CategoryController extends AdminController
         }
 
         $lp = new BlockParams([
-            'base_path' => 'base/report/controller/admin/category/create-category',
+            'base_path' => 'platform/report/controller/admin/category/create-category',
         ]);
 
 

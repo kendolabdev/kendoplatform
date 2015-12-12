@@ -11,7 +11,7 @@
      data-query='<?php echo _escape($query);?>'
      data-endless="false">
     <div class="paging-inner <?php echo $lp->req('card_space','card-space-sm');?>">
-        <?php echo $this->helper()->partial('base/page/paging/browse-page',['paging'=>$paging,'profile'=>$profile,'lp'=>$lp]); ?>
+        <?php echo $this->helper()->partial('platform/page/paging/browse-page',['paging'=>$paging,'profile'=>$profile,'lp'=>$lp]); ?>
     </div>
     <?php echo $paging->toHtml('more'); ?>
 </div>

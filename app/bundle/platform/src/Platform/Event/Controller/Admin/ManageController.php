@@ -37,8 +37,8 @@ class ManageController extends AdminController
             ->loadEventPaging($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path'      => 'base/event/controller/admin/manage/browse-event',
-            'item_path'      => 'base/event/paging/admin/browse-event',
+            'base_path'      => 'platform/event/controller/admin/manage/browse-event',
+            'item_path'      => 'platform/event/paging/admin/browse-event',
             'media_position' => 'media-aside-left',
             'grid_md'        => 'col-md-12',
             'grid_sm'        => 'col-sm-12',

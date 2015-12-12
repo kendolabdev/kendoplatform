@@ -15,30 +15,30 @@ class InstallerService extends ModuleInstaller
     /**
      * @var string
      */
-    protected $exportKey = 'module_base_link';
+    protected $exportKey = 'module_platform_link';
 
     /**
      * @var array
      */
     protected $tableList = [
-        'base_link'
+        'platform_link'
     ];
 
     /**
      * @var array
      */
     protected $pathList = [
-        'app/bundle/base/src/Base/Link',
-        'app/template/default/base/link',
-        'app/theme/default/sass/base/link',
-        'app/theme/admin/sass/base/link',
-        'static/jscript/base/link'
+        'app/bundle/platform/src/Platform/Link',
+        'app/template/default/platform/link',
+        'app/theme/default/sass/platform/link',
+        'app/theme/admin/sass/platform/link',
+        'static/jscript/platform/link'
     ];
 
     /**
      * @var array
      */
     protected $moduleList = [
-        'base_link'
+        'platform_link'
     ];
 }

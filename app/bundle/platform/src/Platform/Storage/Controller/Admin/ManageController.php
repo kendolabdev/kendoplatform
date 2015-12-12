@@ -31,7 +31,7 @@ class ManageController extends AdminController
             ->loadAdminPagingStorage($query, $page, $limit);
 
         $lp = new BlockParams([
-            'base_path' => 'base/storage/controller/admin/manage/browse-storage',
+            'base_path' => 'platform/storage/controller/admin/manage/browse-storage',
         ]);
 
         $this->view->setScript($lp)

@@ -22,7 +22,7 @@ class ButtonChat
         if (!\App::authService()->logged()) return '';
         if (!\App::aclService()->pass($item, 'message.chat')) return '';
 
-        return \App::viewHelper()->partial('base/message/partial/button-chat', [
+        return \App::viewHelper()->partial('platform/message/partial/button-chat', [
             'item'  => $item,
             'attrs' => ['id' => $item->getId(), 'type' => $item->getType()],
         ]);
