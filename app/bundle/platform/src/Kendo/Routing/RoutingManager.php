@@ -42,8 +42,8 @@ class RoutingManager
 
         if (!$routings) {
 
-            \App::hookService()
-                ->notify('onRoutingStart', $this);
+            \App::emitter()
+                ->emit('onRoutingStart', $this);
 
             \App::cacheService()
                 ->set($cacheKey, serialize($this->byNames), 0);

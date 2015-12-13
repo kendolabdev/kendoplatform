@@ -92,12 +92,12 @@ class Model
     protected function _beforeDelete()
     {
         if ($this->_signalGroup)
-            \App::hookService()
-                ->notify('onBeforeDelete' . $this->_signalGroup, $this);
+            \App::emitter()
+                ->emit('onBeforeDelete' . $this->_signalGroup, $this);
 
         if ($this->_signalKey)
-            \App::hookService()
-                ->notify('onBeforeDelete' . $this->_signalKey, $this);
+            \App::emitter()
+                ->emit('onBeforeDelete' . $this->_signalKey, $this);
 
     }
 
@@ -126,12 +126,12 @@ class Model
     protected function _afterDelete()
     {
         if ($this->_signalGroup)
-            \App::hookService()
-                ->notify('onAfterDelete' . $this->_signalGroup, $this);
+            \App::emitter()
+                ->emit('onAfterDelete' . $this->_signalGroup, $this);
 
         if ($this->_signalKey)
-            \App::hookService()
-                ->notify('onAfterDelete' . $this->_signalKey, $this);
+            \App::emitter()
+                ->emit('onAfterDelete' . $this->_signalKey, $this);
     }
 
     /**
@@ -216,12 +216,12 @@ class Model
         }
 
         if ($this->_signalGroup)
-            \App::hookService()
-                ->notify('onBeforeInsert' . $this->_signalGroup, $this);
+            \App::emitter()
+                ->emit('onBeforeInsert' . $this->_signalGroup, $this);
 
         if ($this->_signalKey)
-            \App::hookService()
-                ->notify('onBeforeInsert' . $this->_signalKey, $this);
+            \App::emitter()
+                ->emit('onBeforeInsert' . $this->_signalKey, $this);
     }
 
     /**
@@ -269,12 +269,12 @@ class Model
     {
 
         if ($this->_signalGroup)
-            \App::hookService()
-                ->notify('onAfterInsert' . $this->_signalGroup, $this);
+            \App::emitter()
+                ->emit('onAfterInsert' . $this->_signalGroup, $this);
 
         if ($this->_signalKey)
-            \App::hookService()
-                ->notify('onAfterInsert' . $this->_signalKey, $this);
+            \App::emitter()
+                ->emit('onAfterInsert' . $this->_signalKey, $this);
     }
 
     /**

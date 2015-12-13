@@ -309,8 +309,8 @@ class Requirejs implements Collection
      */
     public function renderConfig()
     {
-        \App::hookService()
-            ->notify('onRequirejsRender', $this);
+        \App::emitter()
+            ->emit('onRequirejsRender', $this);
 
         $config = [
             'baseUrl' => $this->getBaseUrl(),

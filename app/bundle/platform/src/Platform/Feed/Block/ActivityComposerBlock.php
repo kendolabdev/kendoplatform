@@ -65,11 +65,11 @@ class ActivityComposerBlock extends Block
             'alignment' => 'right',
         ]);
 
-        $headerHtml = \App::hookService()
-            ->notify('onRenderActivityComposerHeader', $profile)->__toString();
+        $headerHtml = \App::emitter()
+            ->emit('onRenderActivityComposerHeader', $profile)->__toString();
 
-        $footerHtml = \App::hookService()
-            ->notify('onRenderActivityComposerFooter', $profile)->__toString();
+        $footerHtml = \App::emitter()
+            ->emit('onRenderActivityComposerFooter', $profile)->__toString();
 
         $privacy = \App::relationService()->getRelationOptionForSelect($profile, $viewer, 'share_status');
 

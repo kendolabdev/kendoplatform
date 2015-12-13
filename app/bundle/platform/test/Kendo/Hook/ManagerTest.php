@@ -9,14 +9,17 @@
 namespace Kendo\Hook;
 
 
+use Kendo\Event\EventManager;
 use Kendo\Assets\Requirejs;
+use Kendo\Event\HookEvent;
+use Kendo\Event\SimpleContainer;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testGeneral()
     {
-        $hook = new Manager();
+        $hook = new EventManager();
 
         $this->assertFalse($hook->isLoaded());
 
@@ -30,7 +33,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
         $js = new Requirejs();
 
-        $hook->notify('onBeforeBuildBundleJS', $js);
+        $hook->emit('onBeforeBuildBundleJS', $js);
 
     }
 

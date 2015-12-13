@@ -46,11 +46,11 @@ class InvitationController extends AjaxController
         switch ($cmd) {
             case 'accept':
                 $callbackName = 'onAccept' . $callbackName;
-                $this->response['html'] = \App::hookService()->callback($callbackName, $obj, $context);
+                $this->response['html'] = \App::emitter()->callback($callbackName, $obj, $context);
                 break;
             case 'deny':
                 $callbackName = 'onIgnore' . $callbackName;
-                $this->response['html'] = \App::hookService()->callback($callbackName, $obj, $context);
+                $this->response['html'] = \App::emitter()->callback($callbackName, $obj, $context);
                 break;
         }
         $this->response['callbackName'] = $callbackName;

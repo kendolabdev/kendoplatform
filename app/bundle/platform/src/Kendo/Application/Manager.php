@@ -60,7 +60,7 @@ class Manager
     /**
      * @param string $key
      *
-     * @return Module
+     * @return string
      */
     public function getModule($key)
     {
@@ -83,7 +83,7 @@ class Manager
 
         $this->modules = $this->loadEnableModules();
 
-        \App::hookService()->start();
+        \App::emitter()->start();
 
         \App::routingService()->start();
     }

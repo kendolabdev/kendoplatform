@@ -39,7 +39,7 @@ class Manager
             $container->setVariables($variables);
         }
 
-        \App::hookService()->notify('sassCompileProcess', $container);
+        \App::emitter()->emit('sassCompileProcess', $container);
 
 
         $container->addContent($customize);

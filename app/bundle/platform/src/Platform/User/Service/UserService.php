@@ -299,8 +299,8 @@ class UserService implements Manager
             $this->addRemoteUser($user, $data['remote_uid'], $data['remote_service']);
         }
 
-        \App::hookService()
-            ->notify('onCompleteCreatePoster', [
+        \App::emitter()
+            ->emit('onCompleteCreatePoster', [
                 'poster' => $user,
                 'data'   => $data,
             ]);

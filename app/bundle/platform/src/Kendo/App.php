@@ -11,7 +11,7 @@ class App
     const VERSION = '4.1.0';
 
     /**
-     * @var \Kendo\ServiceManager
+     * @var \Kendo\Application\ServiceContainer
      */
     static public $manager;
 
@@ -131,7 +131,7 @@ class App
             \Kendo\Autoload\Manager::getInstance();
 
             // init service manager
-            self::$manager = new \Kendo\ServiceManager();
+            self::$manager = new \Kendo\Application\ServiceContainer();
 
             self::$manager->getService('app')->bootstrap();
         }
@@ -472,9 +472,9 @@ class App
     }
 
     /**
-     * @return \Kendo\Hook\Manager
+     * @return \Kendo\Event\EventManager
      */
-    public static function hookService()
+    public static function emitter()
     {
         return self::$manager->getService('hook');
     }

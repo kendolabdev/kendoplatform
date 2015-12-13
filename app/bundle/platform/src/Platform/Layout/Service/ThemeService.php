@@ -2,7 +2,7 @@
 namespace Platform\Layout\Service;
 
 use Platform\Layout\Model\LayoutTheme;
-use Kendo\Hook\SimpleContainer;
+use Kendo\Event\SimpleContainer;
 
 /**
  * Class ThemeService
@@ -85,8 +85,8 @@ class ThemeService
         $container->add('kendo/main', 'kendo/main');
         $container->add('layout/main', 'layout/main');
 
-        \App::hookService()
-            ->notify('onBeforeBuildBundleStylesheet', $container);
+        \App::emitter()
+            ->emit('onBeforeBuildBundleStylesheet', $container);
 
         $container->add('customize', 'customize');
 

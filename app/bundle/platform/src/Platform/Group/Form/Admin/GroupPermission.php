@@ -22,8 +22,8 @@ class GroupPermission extends BasePermission
 
         $role = $this->getRole();
 
-        \App::hookService()
-            ->notify('onBeforeInitGroupPermissionForm', $this);
+        \App::emitter()
+            ->emit('onBeforeInitGroupPermissionForm', $this);
 
         /**
          * Add privacy options
@@ -117,7 +117,7 @@ class GroupPermission extends BasePermission
                 'value'  => '10',
             ]);
 
-        \App::hookService()
-            ->notify('onAfterInitGroupPermissionForm', $this);
+        \App::emitter()
+            ->emit('onAfterInitGroupPermissionForm', $this);
     }
 }

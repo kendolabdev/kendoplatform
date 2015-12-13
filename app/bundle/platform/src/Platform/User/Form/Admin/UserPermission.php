@@ -25,8 +25,8 @@ class UserPermission extends BasePermission
 
         $role = $this->getRole();
 
-        \App::hookService()
-            ->notify('onBeforeInitUserPermissionForm', $this);
+        \App::emitter()
+            ->emit('onBeforeInitUserPermissionForm', $this);
 
         /**
          * Add privacy options
@@ -164,7 +164,7 @@ class UserPermission extends BasePermission
                 'value'    => 5,
             ]);
 
-        \App::hookService()
-            ->notify('onAfterInitUserPermissionForm', $this);
+        \App::emitter()
+            ->emit('onAfterInitUserPermissionForm', $this);
     }
 }

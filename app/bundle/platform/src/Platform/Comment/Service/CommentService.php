@@ -2,7 +2,7 @@
 
 namespace Platform\Comment\Service;
 
-use Kendo\Hook\HookEvent;
+use Kendo\Event\HookEvent;
 use Kendo\View\ViewHelper;
 use Platform\Comment\Model\Comment;
 use Kendo\Content\AtomInterface;

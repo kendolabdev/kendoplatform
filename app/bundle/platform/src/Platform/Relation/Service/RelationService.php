@@ -1254,8 +1254,8 @@ class RelationService
             /**
              * trigger resend membership request
              */
-            \App::hookService()
-                ->notify('onResendRelationRequest', [
+            \App::emitter()
+                ->emit('onResendRelationRequest', [
                     'poster'  => $poster,
                     'parent'  => $parent,
                     'request' => $request]);
@@ -1284,8 +1284,8 @@ class RelationService
             $request->setStatus('canceled');
             $request->save();
 
-            \App::hookService()
-                ->notify('onCancelRelationRequest', ['poster' => $poster, 'parent' => $parent, 'request' => $request]);
+            \App::emitter()
+                ->emit('onCancelRelationRequest', ['poster' => $poster, 'parent' => $parent, 'request' => $request]);
         }
 
         return true;
@@ -1312,8 +1312,8 @@ class RelationService
             $request->delete();
         }
 
-        \App::hookService()
-            ->notify('onAcceptRelationRequest', ['poster' => $poster, 'parent' => $parent, 'request' => $request]);
+        \App::emitter()
+            ->emit('onAcceptRelationRequest', ['poster' => $poster, 'parent' => $parent, 'request' => $request]);
     }
 
     /**
@@ -1330,8 +1330,8 @@ class RelationService
             $request->setStatus('ignored');
             $request->save();
 
-            \App::hookService()
-                ->notify('onIgnoreRelationRequest', ['poster' => $poster, 'parent' => $parent, 'request' => $request]);
+            \App::emitter()
+                ->emit('onIgnoreRelationRequest', ['poster' => $poster, 'parent' => $parent, 'request' => $request]);
         }
 
         return true;
@@ -1605,8 +1605,8 @@ class RelationService
      */
     public function removeMembership(PosterInterface $poster, PosterInterface $parent)
     {
-        \App::hookService()
-            ->notify('onClearMembership', ['poster' => $poster, 'parent' => $parent]);
+        \App::emitter()
+            ->emit('onClearMembership', ['poster' => $poster, 'parent' => $parent]);
     }
 
     /**

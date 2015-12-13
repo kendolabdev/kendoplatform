@@ -22,8 +22,8 @@ class PagePermission extends BasePermission
 
         $role = $this->getRole();
 
-        \App::hookService()
-            ->notify('onBeforeInitPagePermissionForm', $this);
+        \App::emitter()
+            ->emit('onBeforeInitPagePermissionForm', $this);
 
         /**
          * Privacy options
@@ -110,7 +110,7 @@ class PagePermission extends BasePermission
                 'value'  => 20,
             ]);
 
-        \App::hookService()
-            ->notify('onAfterInitPagePermissionForm', $this);
+        \App::emitter()
+            ->emit('onAfterInitPagePermissionForm', $this);
     }
 }

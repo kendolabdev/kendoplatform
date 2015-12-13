@@ -32,8 +32,8 @@ class AdminStatisticBlock extends Block
 
         $this->view->assign(['stats' => []]);
 
-        \App::hookService()
-            ->notify('onAdminStatisticBlockRender', $this->view);
+        \App::emitter()
+            ->emit('onAdminStatisticBlockRender', $this->view);
 
     }
 }

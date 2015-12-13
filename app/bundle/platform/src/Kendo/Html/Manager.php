@@ -55,6 +55,9 @@ class Manager
         'selectLayoutGridMobile'    => '\Kendo\Html\SelectLayoutGridMobile',
         'selectLayoutEndlessLoad'   => '\Kendo\Html\SelectLayoutMediaAutoload',
 
+        // modules
+        'privacyButton'             => '\Platform\Relation\Html\PrivacyButtonField'
+
     ];
 
     /**

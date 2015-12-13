@@ -349,7 +349,7 @@ include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Autoload/Manager.php';
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Registry/Manager.php';
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Db/Manager.php';
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Session/Manager.php';
-include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/ServiceManager.php';
+include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Application/ServiceContainer.php';
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/App.php';
 
 \App::load();

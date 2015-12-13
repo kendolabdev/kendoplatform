@@ -36,8 +36,8 @@ class ViewHelper
      */
     public function start()
     {
-        \App::hookService()
-            ->notify('onViewHelperStart', $this);
+        \App::emitter()
+            ->emit('onViewHelperStart', $this);
     }
 
     /**

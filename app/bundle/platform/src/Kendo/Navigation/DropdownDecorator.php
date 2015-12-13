@@ -70,7 +70,7 @@ class DropdownDecorator extends Decorator
             }
 
             if ($item['type'] == 'event') {
-                if (false == ($item = \App::hookService()->callback($item['event'], $item))) {
+                if (false == ($item = \App::emitter()->callback($item['event'], $item))) {
                     unset($this->items[ $offset ]);
                 } else {
                     $this->items[ $offset ] = $item;

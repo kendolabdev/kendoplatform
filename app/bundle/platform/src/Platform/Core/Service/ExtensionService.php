@@ -356,8 +356,8 @@ class ExtensionService
 
         $requirejs = new Requirejs();
 
-        \App::hookService()
-            ->notify('onBeforeBuildBundleJS', $requirejs);
+        \App::emitter()
+            ->emit('onBeforeBuildBundleJS', $requirejs);
 
         $config = [
             'baseUrl' => KENDO_BASE_URL . 'static/jscript/',

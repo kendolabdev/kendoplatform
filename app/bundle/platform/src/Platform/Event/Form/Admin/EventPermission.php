@@ -21,8 +21,8 @@ class EventPermission extends BasePermission
 
         $role = $this->getRole();
 
-        \App::hookService()
-            ->notify('onBeforeInitEventPermissionForm', $this);
+        \App::emitter()
+            ->emit('onBeforeInitEventPermissionForm', $this);
 
 
         /**
@@ -119,8 +119,8 @@ class EventPermission extends BasePermission
                 'value'  => '10',
             ]);
 
-        \App::hookService()
-            ->notify('onAfterInitEventPermissionForm', $this);
+        \App::emitter()
+            ->emit('onAfterInitEventPermissionForm', $this);
     }
 
 }

@@ -143,8 +143,8 @@ class Manager
      */
     public function header()
     {
-        \App::hookService()
-            ->notify('onBeforeRenderAssetsHeader', $this);
+        \App::emitter()
+            ->emit('onBeforeRenderAssetsHeader', $this);
 
         $response = [];
 

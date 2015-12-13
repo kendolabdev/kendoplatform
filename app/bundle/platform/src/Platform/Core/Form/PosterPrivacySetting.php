@@ -40,11 +40,11 @@ class PosterPrivacySetting extends Form
         $this->setTitle('form_privacy_setting.form_title');
         $this->setNote('form_privacy_setting.form_note');
 
-        \App::hookService()
-            ->notify('onBeforeInitFormPosterPrivacy', $this);
+        \App::emitter()
+            ->emit('onBeforeInitFormPosterPrivacy', $this);
 
-        \App::hookService()
-            ->notify('onAfterInitFormPosterPrivacy', $this);
+        \App::emitter()
+            ->emit('onAfterInitFormPosterPrivacy', $this);
     }
 
 
