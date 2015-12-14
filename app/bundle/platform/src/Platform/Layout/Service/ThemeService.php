@@ -2,7 +2,7 @@
 namespace Platform\Layout\Service;
 
 use Platform\Layout\Model\LayoutTheme;
-use Kendo\Event\SimpleContainer;
+use Kendo\Hook\SimpleContainer;
 
 /**
  * Class ThemeService

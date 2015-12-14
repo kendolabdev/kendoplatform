@@ -165,7 +165,7 @@ class HomeController extends DefaultController
 
         $form = \App::htmlService()->factory('\Photo\Form\CreateAlbum');
 
-        $photoService = \App::service('photo');
+        $photoService = \App::photoService();
 
         if (!$photoService instanceof PhotoService) ;
 

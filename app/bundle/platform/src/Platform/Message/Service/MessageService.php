@@ -2,6 +2,7 @@
 
 namespace Platform\Message\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Message\Model\Conversation;
 use Platform\Message\Model\Message;
 use Platform\Message\Model\Recipient;
@@ -12,7 +13,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Message\Service
  */
-class MessageService
+class MessageService extends KernelServiceAgreement
 {
 
     /**

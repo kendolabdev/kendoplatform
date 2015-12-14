@@ -1,13 +1,14 @@
 <?php
 
 namespace Platform\Subscription\Service;
+use Kendo\Kernel\KernelServiceAgreement;
 
 /**
  * Class SubscriptionService
  *
  * @package Base\Subscription
  */
-class SubscriptionService
+class SubscriptionService extends KernelServiceAgreement
 {
 
 }

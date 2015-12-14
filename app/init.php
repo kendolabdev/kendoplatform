@@ -27,6 +27,9 @@ if (!file_exists('config/general.conf.php')) {
     include 'config/general.conf.php';
 }
 
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+
 
 // for debug only
 register_shutdown_function(function () {
@@ -344,15 +347,15 @@ function _htmlattrs($array)
     return implode($part);
 }
 
-
-include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Autoload/Manager.php';
+include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Kernel/ServiceInterface.php';
+include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Kernel/KernelServiceAgreement.php';
+include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Kernel/Application.php';
+include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Kernel/ClassAutoload.php';
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Registry/Manager.php';
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Db/Manager.php';
-include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Session/Manager.php';
-include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Application/ServiceContainer.php';
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/App.php';
 
-\App::load();
+\App::instance()->start();
 
 /**
  * @param mixed $desktop
@@ -363,8 +366,8 @@ include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/App.php';
  */
 function _screen($desktop, $tablet, $mobile)
 {
-    return \App::requestService()->isMobile() ?
-        (\App::requestService()->isTablet() ? $tablet : $mobile) :
+    return \App::requester()->isMobile() ?
+        (\App::requester()->isTablet() ? $tablet : $mobile) :
         $desktop;
 }
 

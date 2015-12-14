@@ -1,10 +1,11 @@
 <?php
 namespace Kendo\Twig;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Feed\Model\Feed;
 use Kendo\Content\PosterInterface;
 
-class Manager
+class Manager extends KernelServiceAgreement
 {
 
     /**

@@ -3,6 +3,7 @@
 namespace Platform\Layout\Service;
 
 use Kendo\Html\Form;
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Layout\Model\Layout;
 use Platform\Layout\Model\LayoutBlock;
 use Platform\Layout\Model\LayoutSection;
@@ -22,7 +23,7 @@ use Kendo\Layout\Navigation;
  *
  * @package Core\Service
  */
-class LayoutService implements LayoutLoaderInterface, Manager
+class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterface, Manager
 {
     /**
      * Root page name to search
@@ -465,7 +466,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
         if (!empty($params['module'])) {
             $select->where('module_name IN ?', explode(',', $params['module']));
         } else {
-            $select->where('module_name IN ?', \App::extensions()->getActiveModuleNames());
+            $select->where('module_name IN ?', \App::packages()->getActiveModules());
         }
 
         return $select->paging($page, $limit);
@@ -1409,7 +1410,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
         }
 
         if ($active !== null) {
-            $select->where('module_name IN ?', \App::extensions()->getActiveModuleNames());
+            $select->where('module_name IN ?', \App::packages()->getActiveModules());
         }
 
         return $select->all();
@@ -1733,7 +1734,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
             $masterScript = $this->getMasterScript();
         }
 
-        $request = \App::requestService()->getInitiator();
+        $request = \App::requester();
 
         return \App::viewHelper()->partial($masterScript,
             [
@@ -2103,9 +2104,9 @@ class LayoutService implements LayoutLoaderInterface, Manager
     {
         if (!$this->screenSize) {
 
-            if (\App::requestService()->isTablet()) {
+            if (\App::requester()->isTablet()) {
                 $this->screenSize = self::SCREEN_DESKTOP;
-            } else if (\App::requestService()->isMobile()) {
+            } else if (\App::requester()->isMobile()) {
                 $this->screenSize = self::SCREEN_MOBILE;
             } else {
                 $this->screenSize = self::SCREEN_DESKTOP;
@@ -2370,7 +2371,7 @@ class LayoutService implements LayoutLoaderInterface, Manager
      */
     public function theme()
     {
-        return \App::service('platform_layout_theme');
+        return \App::instance()->make('platform_layout_theme');
     }
 
     /**

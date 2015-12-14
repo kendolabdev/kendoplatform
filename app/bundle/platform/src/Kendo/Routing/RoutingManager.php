@@ -2,6 +2,8 @@
 
 namespace Kendo\Routing;
 
+use Kendo\Kernel\Application;
+use Kendo\Kernel\KernelServiceAgreement;
 use Kendo\Request\HttpRequest;
 use Kendo\Request\RequestInterface;
 
@@ -10,7 +12,7 @@ use Kendo\Request\RequestInterface;
  *
  * @package Kendo\Routing
  */
-class RoutingManager
+class RoutingManager extends KernelServiceAgreement
 {
     /**
      * @var RequestInterface
@@ -32,27 +34,31 @@ class RoutingManager
     {
     }
 
+    public function bind(Application $app)
+    {
+        parent::bind($app);
+
+        $this->bound();
+    }
+
+
     /**
      * Start to build routings
      */
-    public function start()
+    public function bound()
     {
         $routings = \App::cacheService()
             ->get($cacheKey = 'platform_routing_start', 0);
 
         if (!$routings) {
 
-            \App::emitter()
-                ->emit('onRoutingStart', $this);
+            \App::emitter()->emit('onRoutingStart', $this);
 
             \App::cacheService()
                 ->set($cacheKey, serialize($this->byNames), 0);
         } else {
-
             $this->byNames = unserialize($routings);
         }
-
-
     }
 
     /**
@@ -156,7 +162,7 @@ class RoutingManager
                 unset($params[ RequestInterface::CONTROLLER_KEY ], $params[ RequestInterface::ACTION_KEY ]);
                 $request->setParams($params);
 
-                \App::requestService()->setRouting($name, $params);
+                \App::requester()->setRouting($name, $params);
 
                 return true;
             }
@@ -192,9 +198,7 @@ class RoutingManager
      */
     public function redirectToUrl($url)
     {
-        defined('IS_AJAX_LOAD_STATE') or define('IS_AJAX_LOAD_STATE', false);
-
-        if (IS_AJAX_LOAD_STATE) {
+        if (\App::requester()->isAjaxFragment()) {
 
             $require = \App::assetService()
                 ->requirejs();
@@ -206,10 +210,11 @@ class RoutingManager
                 'title'     => 'Untitled',
                 'html'      => $require->renderScriptHtml(),
             ]));
-
         } else if (!headers_sent()) {
             header('location: ' . $url);
         } else {
+            // how to process this case
+
         }
 
         return true;

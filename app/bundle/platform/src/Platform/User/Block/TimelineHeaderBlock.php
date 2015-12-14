@@ -28,9 +28,9 @@ class TimelineHeaderBlock extends Block
         $coverPositionTop = 0;
 
 
-        $editcover = \App::requestService()->getInitiator()->getParam('editcover', 0);
+        $editcover = \App::requester()->getParam('editcover', 0);
 
-        $fileId = \App::requestService()->getInitiator()->getParam('fileId');
+        $fileId = \App::requester()->getParam('fileId');
 
         if ($fileId) {
             $coverPhotoUrl = \App::storageService()->getUrlByOriginAndMaker($fileId, 'origin');
@@ -102,7 +102,7 @@ class TimelineHeaderBlock extends Block
             'dropdownIcon' => '',
         ];
 
-        if (\App::requestService()->isMobile() && !\App::requestService()->isTablet()) {
+        if (\App::requester() && !\App::requester()>isTablet()) {
             $profileTabMenuOptions['level0'] = 'nav nav-justify nav-profile-tab';
             $profileTabMenuOptions['moreLabel'] = '<b class="ion-more"></b>';
         }

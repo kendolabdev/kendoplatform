@@ -2,6 +2,7 @@
 
 namespace Platform\Follow\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Follow\Model\Follow;
 use Kendo\Content\PosterInterface;
 
@@ -11,7 +12,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Activity\Service
  */
-class FollowService
+class FollowService extends KernelServiceAgreement
 {
     /**
      * Not following

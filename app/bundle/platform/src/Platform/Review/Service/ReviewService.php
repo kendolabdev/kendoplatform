@@ -4,6 +4,7 @@ namespace Platform\Review\Service;
 
 use Kendo\Content\ContentInterface;
 use Kendo\Content\PosterInterface;
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Review\Model\Review;
 
 /**
@@ -11,7 +12,7 @@ use Platform\Review\Model\Review;
  *
  * @package Review\Service
  */
-class ReviewService
+class ReviewService extends KernelServiceAgreement
 {
 
     const MIN_SCORE = 1;

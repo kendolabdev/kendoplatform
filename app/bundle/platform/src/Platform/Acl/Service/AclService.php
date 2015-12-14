@@ -1,6 +1,7 @@
 <?php
 namespace Platform\Acl\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Acl\Model\AclAction;
 use Platform\Acl\Model\AclGroup;
 use Platform\Acl\Model\AclRole;
@@ -17,7 +18,7 @@ use Kendo\Db\SqlSelect;
  *
  * @package Kendo
  */
-class AclService implements AclLoaderInterface
+class AclService extends KernelServiceAgreement implements AclLoaderInterface
 {
 
     /**
@@ -45,7 +46,6 @@ class AclService implements AclLoaderInterface
         $this->data = [];
         $this->loader = null;
     }
-
 
     /**
      * @param string $id
@@ -398,7 +398,7 @@ class AclService implements AclLoaderInterface
 
         $items = \App::table('platform_acl_group')
             ->select()
-            ->where('module_name IN ?', \App::extensions()->getActiveModuleNames())
+            ->where('module_name IN ?', \App::packages()->getActiveModules())
             ->order('module_name', -1)
             ->order('sort_order', 1)
             ->all();
@@ -435,7 +435,7 @@ class AclService implements AclLoaderInterface
         $posters = \App::table('platform_core_type')
             ->select()
             ->where('is_poster=?', 1)
-            ->where('module_name IN ?', \App::extensions()->getActiveModuleNames())
+            ->where('module_name IN ?', \App::packages()->getActiveModules())
             ->all();
 
         foreach ($posters as $poster) {

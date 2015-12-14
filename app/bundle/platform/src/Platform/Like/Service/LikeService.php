@@ -2,6 +2,7 @@
 
 namespace Platform\Like\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Feed\Model\Feed;
 use Platform\Like\Helper\LikeResult;
 use Platform\Like\Model\Like;
@@ -13,7 +14,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Like\Service
  */
-class LikeService
+class LikeService extends KernelServiceAgreement
 {
     /**
      * IS UN-LIKE

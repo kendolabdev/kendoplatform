@@ -14,7 +14,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testGeneral()
     {
-        $manager = new Manager();
+        $manager = new ImageProcess();
 
         $filename = KENDO_STATIC_DIR . '/nophoto/event_avatar_lg.jpg';
 

@@ -176,7 +176,7 @@ class ConnectionMysqli implements Connection
     {
 
         if (KENDO_DEBUG)
-            \App::queryProfiler()->start($sql);
+            \App::queryProfiler()->bound($sql);
 
         $result = $this->connection->query($sql);
 

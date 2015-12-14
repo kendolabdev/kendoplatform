@@ -1,12 +1,13 @@
 <?php
 namespace Kendo\Validator;
+use Kendo\Kernel\KernelServiceAgreement;
 
 /**
  * Class Manager
  *
  * @package Kendo\Validator
  */
-class Manager
+class Manager extends KernelServiceAgreement
 {
 
     /**

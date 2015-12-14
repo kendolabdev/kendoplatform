@@ -1,6 +1,7 @@
 <?php
 namespace Platform\Core\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Core\Model\CoreHook;
 
 /**
@@ -8,7 +9,7 @@ use Platform\Core\Model\CoreHook;
  *
  * @package Core\Service
  */
-class HookService
+class HookService extends KernelServiceAgreement
 {
     /**
      * @return array
@@ -30,7 +31,7 @@ class HookService
 
         $items = \App::table('platform_core_hook')
             ->select()
-            ->where('module_name IN ?', \App::extensions()->getActiveModuleNames())
+            ->where('module_name IN ?', \App::packages()->getActiveModules())
             ->order('event_name, load_order', 1)
             ->toAssocs();
 
@@ -76,13 +77,12 @@ class HookService
      */
     public function scanHookFromEnableModulesThenImportToRepository()
     {
-        $extension = \App::extensions();
         $hooks = [];
         $priority = 0;
 
         $this->cleanupHooks();
 
-        foreach ($extension->getActiveModuleNames() as $key) {
+        foreach (\App::packages()->getActiveModules() as $key) {
 
             $serviceKey = "{$key}_event_listener";
 

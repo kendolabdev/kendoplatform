@@ -94,7 +94,7 @@ class AuthControllerTest extends ControllerTestCase
     /**
      * TODO: Assert UserCreateAttribute
      */
-    public function testFormSignup()
+    public function _testFormSignup()
     {
         $form1 = new UserCreateAccount();
         $form1->asList([]);
@@ -105,8 +105,4 @@ class AuthControllerTest extends ControllerTestCase
 //        $form3 = new UserCreateAttribute();
 //        $form3->asList([]);
     }
-
-
-
-
 }

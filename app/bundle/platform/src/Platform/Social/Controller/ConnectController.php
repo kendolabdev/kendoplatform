@@ -30,7 +30,7 @@ class ConnectController extends DefaultController
      */
     public function getUserService()
     {
-        return \App::service('user');
+        return \App::instance()->make('platform_user');
     }
 
     /**
@@ -40,7 +40,7 @@ class ConnectController extends DefaultController
     {
         $service = $this->request->getString('service', 'facebook');
 
-        $socialService = \App::service('social');
+        $socialService = \App::instance()->make('platform_social');
 
         if (!$socialService instanceof SocialService) ;
 
@@ -57,7 +57,7 @@ class ConnectController extends DefaultController
     {
         $service = $this->request->getString('service', 'facebook');
 
-        $socialService = \App::service('social');
+        $socialService = \App::instance()->make('platform_social');
 
         if (!$socialService instanceof SocialService) ;
 
@@ -87,7 +87,7 @@ class ConnectController extends DefaultController
     {
         $service = $this->request->getString('service', 'facebook');
 
-        $socialService = \App::service('social');
+        $socialService = \App::instance()->make('platform_social');
 
         if (!$socialService instanceof SocialService) ;
 

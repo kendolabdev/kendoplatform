@@ -2,6 +2,7 @@
 
 namespace Platform\Core\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Core\Model\Block;
 use Kendo\Content\PosterInterface;
 
@@ -11,7 +12,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Activity\Service
  */
-class BlockService
+class BlockService extends KernelServiceAgreements
 {
 
     /**

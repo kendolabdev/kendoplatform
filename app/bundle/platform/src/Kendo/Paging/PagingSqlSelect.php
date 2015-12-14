@@ -228,7 +228,7 @@ class PagingSqlSelect implements PagingInterface
     public function getUrl($pageNumber)
     {
         if (null == $this->routeName) {
-            list($this->routeName, $this->routeParams) = \App::requestService()->getRouting();
+            list($this->routeName, $this->routeParams) = \App::requester()->getRouting();
         }
         $params = $this->routeParams;
 

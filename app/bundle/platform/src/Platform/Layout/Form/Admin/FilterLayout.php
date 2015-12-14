@@ -20,7 +20,9 @@ class FilterLayout extends Form
         parent::init();
 
 
-        $moduleOptions = \App::extensions()->getModuleOptions();
+        $moduleOptions = \App::instance()
+            ->make('platform_core_extension')
+            ->getModuleOptions();
 
         $this->addElement([
             'plugin'   => 'select',

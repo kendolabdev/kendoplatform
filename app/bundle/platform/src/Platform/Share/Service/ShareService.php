@@ -1,6 +1,7 @@
 <?php
 namespace Platform\Share\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Feed\Model\Feed;
 use Kendo\Content\PosterInterface;
 use Platform\Share\Model\Share;
@@ -11,7 +12,7 @@ use Platform\Share\Model\Share;
  *
  * @package Share\Service
  */
-class ShareService
+class ShareService extends KernelServiceAgreement
 {
     /**
      * @return int

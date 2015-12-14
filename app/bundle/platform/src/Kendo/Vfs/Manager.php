@@ -1,13 +1,14 @@
 <?php
 
 namespace Kendo\Vfs;
+use Kendo\Kernel\KernelServiceAgreement;
 
 /**
  * Class Manager
  *
  * @package Kendo\Vfs
  */
-class Manager
+class Manager extends KernelServiceAgreement
 {
 
     /**

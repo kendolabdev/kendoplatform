@@ -39,7 +39,7 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testMainNav($navId, $parentItemId, $active, $level, $param)
     {
-        $items = \App::navigationService()->load($navId, $parentItemId);
+        $items = \App::navigation()->load($navId, $parentItemId);
 
         $tab = new TabDecorator();
 

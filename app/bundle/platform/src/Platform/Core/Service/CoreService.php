@@ -2,9 +2,10 @@
 
 namespace Platform\Core\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Core\Model\CoreType;
 
-class CoreService
+class CoreService extends KernelServiceAgreement
 {
 
     /**
@@ -46,7 +47,7 @@ class CoreService
      */
     public function hook()
     {
-        return \App::service('platform_core_hook');
+        return \App::instance()->make('platform_core_hook');
     }
 
     /**
@@ -54,7 +55,7 @@ class CoreService
      */
     public function extension()
     {
-        return \App::service('platform_core_extension');
+        return \App::instance()->make('platform_core_extension');
     }
 
 

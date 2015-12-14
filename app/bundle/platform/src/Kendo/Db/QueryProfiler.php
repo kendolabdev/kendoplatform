@@ -1,13 +1,14 @@
 <?php
 
 namespace Kendo\Db;
+use Kendo\Kernel\KernelServiceAgreement;
 
 /**
  * Class QueryProfiler
  *
  * @package Kendo\Db
  */
-class QueryProfiler
+class QueryProfiler extends KernelServiceAgreement
 {
     /**
      * @var array

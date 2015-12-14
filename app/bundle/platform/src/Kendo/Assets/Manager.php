@@ -1,13 +1,14 @@
 <?php
 
 namespace Kendo\Assets;
+use Kendo\Kernel\KernelServiceAgreement;
 
 /**
  * Class Manager
  *
  * @package Kendo\Assets
  */
-class Manager
+class Manager extends KernelServiceAgreement
 {
 
     /**

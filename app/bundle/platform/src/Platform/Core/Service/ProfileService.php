@@ -18,7 +18,7 @@ class ProfileService
     {
         return \App::table('core.process_data_type')
             ->select()
-            ->where('module_name IN ?', \App::extensions()->getActiveModuleNames())
+            ->where('module_name IN ?', \App::packages()->getActiveModules())
             ->toPairs('data_type', 'storage');
     }
 
@@ -171,7 +171,7 @@ class ProfileService
      */
     public function getAbout(PosterInterface $profile)
     {
-        $processService = \App::service('platform_core_process');
+        $processService = \App::instance()->make('platform_core_process');
 
         if (!$processService instanceof ProcessService) ;
 

@@ -47,7 +47,7 @@ class EditField extends Form
             'label'    => 'manage_process_form_field.section_label',
             'note'     => 'manage_process_form_field.section_note',
             'required' => true,
-            'options'  => \App::service('platform_core_process')->getSectionOptions($stepId),
+            'options'  => \App::instance()->make('platform_core_process')->getSectionOptions($stepId),
         ]);
 
         $this->addElement([
@@ -75,7 +75,7 @@ class EditField extends Form
             'required'      => true,
             'value'         => 'text',
             'optionTextKey' => 'core.form_plugin_opt_',
-            'options'       => \App::service('platform_core_process')->getPluginOptions(),
+            'options'       => \App::instance()->make('platform_core_process')->getPluginOptions(),
         ]);
     }
 

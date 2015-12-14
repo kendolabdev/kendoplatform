@@ -30,7 +30,7 @@ class ManageController extends AdminController
         $page = 1;
         $limit = 100;
 
-        $paging = \App::captchaService()->loadAdminAdapterPaging($query, $page, $limit);
+        $paging = \App::captcha()->loadAdminAdapterPaging($query, $page, $limit);
 
 
         $lp = new BlockParams([

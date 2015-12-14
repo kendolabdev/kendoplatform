@@ -222,7 +222,7 @@ Trait TraitBaseContent
         if (!$this instanceof ContentInterface) ;
 
         if (!$place instanceof ContentInterface) {
-            $place = \App::service('place')->tryPlace($place);
+//            $place = \App::make('place')->tryPlace($place);
         }
 
         if ($place instanceof ContentInterface) {

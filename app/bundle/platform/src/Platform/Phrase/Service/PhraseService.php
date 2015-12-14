@@ -2,6 +2,7 @@
 
 namespace Platform\Phrase\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Phrase\Model\PhraseLanguage;
 use Kendo\I18n\PhraseLoaderInterface;
 
@@ -10,7 +11,7 @@ use Kendo\I18n\PhraseLoaderInterface;
  *
  * @package Core\Service
  */
-class PhraseService implements PhraseLoaderInterface
+class PhraseService extends KernelServiceAgreement implements PhraseLoaderInterface
 {
 
     /**

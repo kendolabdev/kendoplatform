@@ -1,12 +1,12 @@
 <?php
-namespace Kendo\Storage;
+namespace Kendo\Upload;
 
 /**
- * Class InputFileList
+ * Class UploadFileList
  *
- * @package Kendo\Storage
+ * @package Kendo\Request
  */
-class InputFileList
+class UploadFileList
 {
     /**
      * @var array
@@ -40,7 +40,7 @@ class InputFileList
     /**
      * @param int $index
      *
-     * @return InputFile
+     * @return UploadFile
      */
     public function getFile($index)
     {
@@ -54,7 +54,7 @@ class InputFileList
     /**
      * @param $file
      */
-    public function addFileInput(InputFile $file)
+    public function addFileInput(UploadFile $file)
     {
         $this->files[] = $file;
     }
@@ -68,6 +68,6 @@ class InputFileList
      */
     public function addFile($name, $type, $path, $size, $source)
     {
-        $this->files[] = new InputFile($name, $type, $path, $size, $source);
+        $this->files[] = new UploadFile($name, $type, $path, $size, $source);
     }
 }

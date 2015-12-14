@@ -1,5 +1,6 @@
 <?php
 namespace Kendo\Session;
+use Kendo\Kernel\KernelServiceAgreement;
 
 
 /**
@@ -14,7 +15,7 @@ namespace Kendo\Session;
  *
  * @package Kendo\Session
  */
-class Manager
+class Manager extends KernelServiceAgreement
 {
 
     /**

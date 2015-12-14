@@ -1,6 +1,7 @@
 <?php
 namespace Platform\Setting\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Kendo\Setting\Manager;
 use Platform\Setting\Model\Setting;
 
@@ -10,7 +11,7 @@ use Platform\Setting\Model\Setting;
  *
  * @package Platform\Setting\Service
  */
-class SettingService implements Manager
+class SettingService extends KernelServiceAgreement implements Manager
 {
     /**
      * @var array

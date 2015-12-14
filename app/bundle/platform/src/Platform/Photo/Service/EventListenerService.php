@@ -2,12 +2,12 @@
 
 namespace Platform\Photo\Service;
 
-use Kendo\Event\EventListener;
+use Kendo\Hook\EventListener;
 use Kendo\Assets\Requirejs;
 use Kendo\Content\ContentInterface;
 use Kendo\Content\PosterInterface;
-use Kendo\Event\HookEvent;
-use Kendo\Event\SimpleContainer;
+use Kendo\Hook\HookEvent;
+use Kendo\Hook\SimpleContainer;
 use Kendo\Routing\FilterStuff;
 use Kendo\Routing\RoutingManager;
 use Kendo\View\View;
@@ -125,7 +125,7 @@ class EventListenerService extends EventListener
     }
 
     /**
-     * @param \Kendo\Event\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleStylesheet(HookEvent $event)
     {
@@ -151,7 +151,7 @@ class EventListenerService extends EventListener
     }
 
     /**
-     * @param \Kendo\Event\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleJS(HookEvent $event)
     {
@@ -273,7 +273,7 @@ class EventListenerService extends EventListener
     }
 
     /**
-     * @param \Kendo\Event\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onCompleteCreatePoster(HookEvent $event)
     {

@@ -2,6 +2,7 @@
 
 namespace Platform\Event\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Event\Model\Event;
 use Platform\Event\Model\EventCategory;
 use Kendo\Content\PosterInterface;
@@ -11,7 +12,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Event\Service
  */
-class EventService
+class EventService extends KernelServiceAgreement
 {
 
 

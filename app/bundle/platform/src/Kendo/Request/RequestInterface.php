@@ -2,6 +2,8 @@
 
 namespace Kendo\Request;
 
+use Kendo\Response\ResponseInterface;
+
 /**
  * Interface Request
  *
@@ -99,12 +101,7 @@ interface RequestInterface
     public function setActionName($value);
 
     /**
-     * @return HttpResult
-     */
-    public function getResult();
-
-    /**
-     * @return mixed
+     * @return ResponseInterface
      */
     public function getResponse();
 
@@ -112,4 +109,39 @@ interface RequestInterface
      * @return string
      */
     public function getMethod();
+
+    /**
+     * @return bool
+     */
+    public function isAjaxFragment();
+
+    /**
+     * @return bool
+     */
+    public function isAjax();
+
+    /**
+     * @return bool
+     */
+    public function isGet();
+
+    /**
+     * @return bool
+     */
+    public function isPost();
+
+    /**
+     * @return bool
+     */
+    public function isDelete();
+
+    /**
+     * @return bool
+     */
+    public function isOptions();
+
+    /**
+     * @return bool
+     */
+    public function isHead();
 }

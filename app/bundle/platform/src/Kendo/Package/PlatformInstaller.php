@@ -30,7 +30,8 @@ class PlatformInstaller extends BaseInstaller
 
         foreach ($this->moduleList as $moduleName) {
             if (\App::hasService($installerServiceName = $moduleName . '_installer')) {
-                $installerService = \App::service($installerServiceName);
+                $installerService = \App::instance()
+                    ->make($installerServiceName);
 
                 if (!$installerService instanceof ModuleInstaller) {
                     throw new \RuntimeException("Module Installer must be child class of PackageInstaller");

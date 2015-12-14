@@ -11,7 +11,6 @@ use Kendo\Request\HttpRequest;
  */
 interface ControllerInterface
 {
-
     /**
      * @param HttpRequest $request
      */

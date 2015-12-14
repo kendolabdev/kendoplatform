@@ -52,7 +52,8 @@ class AddField extends Form
             'value'  => '0'
         ]);
 
-        $sectionOptions = \App::service('platform_core_process')->getSectionOptions($stepId);
+        $sectionOptions = \App::instance()->make('platform_core_process')
+            ->getSectionOptions($stepId);
         $sectionValue = null;
 
         if (!empty($sectionOptions)) {
@@ -78,7 +79,7 @@ class AddField extends Form
             'required'      => true,
             'value'         => 'text',
             'optionTextKey' => 'core.form_plugin_opt_',
-            'options'       => \App::service('platform_core_process')->getPluginOptions(),
+            'options'       => \App::instance()->make('platform_core_process')->getPluginOptions(),
         ]);
     }
 

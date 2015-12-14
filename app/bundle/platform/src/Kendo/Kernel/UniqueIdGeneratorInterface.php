@@ -1,13 +1,13 @@
 <?php
 
-namespace Kendo\Content;
+namespace Kendo\Kernel;
 
 /**
  * Interface UniqueIdGenerator
  *
  * @package Kendo\Content
  */
-interface UniqueIdInterface
+interface UniqueIdGeneratorInterface
 {
 
     /**

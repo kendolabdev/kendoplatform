@@ -72,7 +72,7 @@ class TabDecorator extends Decorator
         } else if ($item['type'] == 'route') {
             $href = \App::routingService()->getUrl($item['route'], $item['params']);
         } else if ($item['type'] == 'plugin') {
-            $item = \App::navigationService()->signal($item['event'], $item);
+            $item = \App::navigation()->signal($item['event'], $item);
         }
 
         $label = \App::i18n()->getTranslator()->text($item['label']);

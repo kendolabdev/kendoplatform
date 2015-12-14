@@ -1,6 +1,7 @@
 <?php
 namespace Platform\Core\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Core\Model\Value;
 use Kendo\Content\PosterInterface;
 
@@ -9,7 +10,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Core\Service
  */
-class ValueService
+class ValueService extends KernelServiceAgreement
 {
     /**
      * List of poster value object by distance.

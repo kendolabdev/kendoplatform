@@ -1,9 +1,8 @@
 <?php
 namespace Platform\Core\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Core\Model\CoreExtension;
-use Kendo\Application\ModuleInstallHandler;
-use Kendo\Application\ThemeInstallHandler;
 use Kendo\Assets\Requirejs;
 
 /**
@@ -11,7 +10,7 @@ use Kendo\Assets\Requirejs;
  *
  * @package Core\Service
  */
-class ExtensionService
+class ExtensionService extends KernelServiceAgreement
 {
 
     /**

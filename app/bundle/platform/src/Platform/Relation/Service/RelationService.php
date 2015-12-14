@@ -3,6 +3,7 @@ namespace Platform\Relation\Service;
 
 use Kendo\Content\ContentInterface;
 use Kendo\Content\PosterInterface;
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Relation\Model\Relation;
 use Platform\Relation\Model\RelationItem;
 use Platform\Relation\Model\RelationRequest;
@@ -12,7 +13,7 @@ use Platform\Relation\Model\RelationRequest;
  *
  * @package Core\Service
  */
-class RelationService
+class RelationService extends KernelServiceAgreement
 {
 
     /**
@@ -159,7 +160,7 @@ class RelationService
      * @param int             $relationType
      * @param bool            $createIfNotFound
      *
-     * @return Platform\Relation
+     * @return \Platform\Relation\Model\Relation
      */
     public function findList(PosterInterface $parent, $relationType, $createIfNotFound = false)
     {
@@ -252,7 +253,7 @@ class RelationService
      * @param PosterInterface $parent
      * @param PosterInterface $poster
      *
-     * @return Platform\RelationItem
+     * @return \Platform\Relation\Model\RelationItem
      */
     public function buildRelationItemMember(PosterInterface $parent, PosterInterface $poster)
     {
@@ -289,7 +290,7 @@ class RelationService
      * @param int             $relationType
      * @param null            $relationId
      *
-     * @return Platform\RelationItem
+     * @return \Platform\Relation\Model\RelationItem
      */
     public function addRelationItem(PosterInterface $parent, PosterInterface $poster, $relationType, $relationId = null)
     {
@@ -680,7 +681,7 @@ class RelationService
     /**
      * @param $relationId
      *
-     * @return Platform\Relation
+     * @return \Platform\Relation\Model\Relation
      */
     public function findById($relationId)
     {
@@ -697,12 +698,15 @@ class RelationService
      *
      * @return string
      */
-    public function getRelationOptionForSelect(PosterInterface $parent, PosterInterface $poster, $forAction, $relationType = null, $relationId = null)
+    public function getRelationOptionForSelect(PosterInterface $parent = null, PosterInterface $poster = null, $forAction, $relationType = null, $relationId = null)
     {
-        if ($poster->getUserId() != $parent->getUserId()) {
+        if(empty($parent) or empty($poster)){
             return false;
         }
 
+        if ($poster->getUserId() != $parent->getUserId()) {
+            return false;
+        }
 
         if (null === $relationId || null === $relationType) {
             list($relationType, $relationId) = $parent->getPrivacy($forAction);
@@ -1200,7 +1204,7 @@ class RelationService
      * @param PosterInterface $poster
      * @param PosterInterface $parent
      *
-     * @return Platform\RelationRequest
+     * @return \Platform\Relation\Model\RelationRequest
      */
     public function findMembershipRequest(PosterInterface $poster, PosterInterface $parent)
     {
@@ -1216,7 +1220,7 @@ class RelationService
      * @param PosterInterface $parent
      * @param string          $status
      *
-     * @return Platform\RelationRequest
+     * @return \Platform\Relation\Model\RelationRequest
      */
     private function addMembershipRequest(PosterInterface $poster, PosterInterface $parent, $status = 'sent')
     {

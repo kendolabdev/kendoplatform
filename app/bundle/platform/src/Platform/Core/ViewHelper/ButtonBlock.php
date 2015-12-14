@@ -30,7 +30,7 @@ class ButtonBlock
         $poster = \App::authService()->getViewer();
 
         if (null === $blocking) {
-            $service = \App::service('core.block');
+            $service = \App::instance()->make('core.block');
 
             if ($service instanceof BlockService) ;
 

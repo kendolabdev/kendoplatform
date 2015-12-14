@@ -1,13 +1,14 @@
 <?php
 
 namespace Kendo\Html;
+use Kendo\Kernel\KernelServiceAgreement;
 
 /**
  * Class Manager
  *
  * @package Kendo\Html
  */
-class Manager
+class Manager extends KernelServiceAgreement
 {
     /**
      * @var array

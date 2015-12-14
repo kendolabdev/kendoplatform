@@ -2,6 +2,7 @@
 
 namespace Platform\User\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Kendo\User\Manager;
 use Platform\User\Model\User;
 use Platform\User\Model\UserAuthPassword;
@@ -12,7 +13,7 @@ use Platform\User\Model\UserAuthRemote;
  *
  * @package Platform\User\Service
  */
-class UserService implements Manager
+class UserService extends KernelServiceAgreement implements Manager
 {
 
     /**

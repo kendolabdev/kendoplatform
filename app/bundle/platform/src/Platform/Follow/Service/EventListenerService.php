@@ -5,10 +5,10 @@ use Kendo\Routing\FilterStuff;
 use Kendo\Routing\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Follow\Model\Follow;
-use Kendo\Event\EventListener;
+use Kendo\Hook\EventListener;
 use Kendo\Assets\Requirejs;
 use Kendo\Content\PosterInterface;
-use Kendo\Event\HookEvent;
+use Kendo\Hook\HookEvent;
 use Platform\User\Model\User;
 
 /**
@@ -67,7 +67,7 @@ class EventListenerService extends EventListener
     }
 
     /**
-     * @param \Kendo\Event\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleJS(HookEvent $event)
     {
@@ -128,7 +128,7 @@ class EventListenerService extends EventListener
     }
 
     /**
-     * @param \Kendo\Event\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onAfterInsertFollow(HookEvent $event)
     {
@@ -151,7 +151,7 @@ class EventListenerService extends EventListener
     }
 
     /**
-     * @param \Kendo\Event\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onAfterDeleteFollow(HookEvent $event)
     {
@@ -167,7 +167,7 @@ class EventListenerService extends EventListener
     }
 
     /**
-     * @param \Kendo\Event\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onAcceptMembershipRequest(HookEvent $event)
     {

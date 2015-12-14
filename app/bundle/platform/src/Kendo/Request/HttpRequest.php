@@ -3,6 +3,7 @@
 namespace Kendo\Request;
 
 use Kendo\Controller\ControllerInterface;
+use Kendo\Response\HttpResponse;
 
 /**
  * Class HttpRequest
@@ -47,9 +48,9 @@ class HttpRequest implements RequestInterface
     protected $dispatched = false;
 
     /**
-     * @var HttpResult
+     * @var HttpResponse
      */
-    protected $result;
+    protected $response;
 
     /**
      * @var string
@@ -69,7 +70,14 @@ class HttpRequest implements RequestInterface
     /**
      * @param string $url
      */
-    public function __construct($url)
+    public function __construct($url = null)
+    {
+        if ($url) {
+            $this->initWithUrl($url);
+        }
+    }
+
+    public function initWithUrl($url)
     {
         $result = parse_url($url);
         $query = [];
@@ -95,13 +103,7 @@ class HttpRequest implements RequestInterface
         $this->setPath($path);
         $this->setQuery($query);
         $this->setFragment($fragment);
-
-        // set all params
-        if (!empty($_REQUEST)) {
-            $this->setParams($_REQUEST);
-        } else {
-            $this->setParams(array_merge($query, $fragment));
-        }
+        $this->setParams(array_merge($query, $fragment));
     }
 
     /**
@@ -322,7 +324,7 @@ class HttpRequest implements RequestInterface
                     $controller->execute();
 
                     if ($this->dispatched) {
-                        $this->getResult()->setData($controller->render());
+                        $this->getResponse()->setContent($controller->render());
                     }
 
                 }
@@ -378,23 +380,23 @@ class HttpRequest implements RequestInterface
     }
 
     /**
-     * @return HttpResult
+     * @return HttpResponse
      */
-    public function getResult()
+    public function getResponse()
     {
-        if (null == $this->result) {
-            $this->result = new HttpResult();
+        if (null == $this->response) {
+            $this->response = new HttpResponse($this);
         }
 
-        return $this->result;
+        return $this->response;
     }
 
     /**
-     * @param HttpResult $result
+     * @param HttpResponse $response
      */
-    public function setResult($result)
+    public function setResponse($response)
     {
-        $this->result = $result;
+        $this->response = $response;
     }
 
     /**
@@ -441,14 +443,6 @@ class HttpRequest implements RequestInterface
     }
 
     /**
-     * @return bool
-     */
-    public function isPAjax()
-    {
-        return (null != $this->getHeader('X_PJAX'));
-    }
-
-    /**
      * @param  string $controllerName
      * @param  string $actionName
      * @param  bool   $dispatched
@@ -482,13 +476,6 @@ class HttpRequest implements RequestInterface
         $this->actionName = (string)$value;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getResponse()
-    {
-        return $this->getResult()->getData();
-    }
 
     /**
      * @return array
@@ -566,6 +553,15 @@ class HttpRequest implements RequestInterface
     /**
      * @return bool
      */
+    public function isHead()
+    {
+        return $this->getMethod() == 'HEAD';
+    }
+
+
+    /**
+     * @return bool
+     */
     public function isDelete()
     {
         return $this->getMethod() == 'DELETE';
@@ -578,5 +574,4 @@ class HttpRequest implements RequestInterface
     {
         return $this->getMethod() == 'OPTIONS';
     }
-
 }

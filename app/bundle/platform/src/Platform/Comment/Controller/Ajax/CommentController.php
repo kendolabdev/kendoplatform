@@ -96,7 +96,7 @@ class CommentController extends AjaxController
         }
 
         if (!empty($serviceName)) {
-            $callbackService = \App::service($serviceName);
+            $callbackService = \App::instance()->make($serviceName);
 
             if (!method_exists($callbackService, 'addFromCommentComposer')) ;
 

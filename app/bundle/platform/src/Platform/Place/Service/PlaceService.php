@@ -1,6 +1,7 @@
 <?php
 namespace Platform\Place\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Place\Model\Place;
 
 /**
@@ -8,7 +9,7 @@ use Platform\Place\Model\Place;
  *
  * @package Place\Service
  */
-class PlaceService
+class PlaceService extends KernelServiceAgreement
 {
     /**
      * @param $data

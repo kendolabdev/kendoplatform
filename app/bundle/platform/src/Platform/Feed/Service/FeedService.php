@@ -2,6 +2,7 @@
 
 namespace Platform\Feed\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Feed\Model\Feed;
 use Platform\Feed\Model\FeedHash;
 use Platform\Feed\Model\FeedHashtag;
@@ -19,7 +20,7 @@ use Platform\Share\Model\Share;
  *
  * @package Feed\Service
  */
-class FeedService
+class FeedService extends KernelServiceAgreement
 {
 
     /**
@@ -181,7 +182,7 @@ class FeedService
     {
         $select = \App::table('feed.feed_type')
             ->select()
-            ->where('module_name IN ?', \App::extensions()->getActiveModuleNames())
+            ->where('module_name IN ?', \App::packages()->getActiveModules())
             ->where('is_active=?', 1);
 
         switch ($type) {
@@ -252,7 +253,7 @@ class FeedService
         return \App::table('feed.feed_type')
             ->select()
             ->where('feed_type=?', (string)$feedType)
-            ->where('module_name IN ?', \App::extensions()->getActiveModuleNames())
+            ->where('module_name IN ?', \App::packages()->getActiveModules())
             ->field('feed_id') > 0;
     }
 

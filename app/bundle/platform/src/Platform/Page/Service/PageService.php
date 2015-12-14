@@ -2,6 +2,7 @@
 
 namespace Platform\Page\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Page\Model\Page;
 use Platform\Page\Model\PageCategory;
 use Kendo\Content\PosterInterface;
@@ -11,7 +12,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Page\Service
  */
-class PageService
+class PageService extends KernelServiceAgreement
 {
 
     /**

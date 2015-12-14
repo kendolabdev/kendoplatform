@@ -286,6 +286,10 @@ class PrivacyButtonField extends HtmlElement implements FormField
         $forAction = $this->getForAction();
         $forItem = $this->getForItem();
 
+        if (empty($forAction) or empty($forPoster)) {
+            return '';
+        }
+
         // default Platform\Relation Type, Relation Id.
         $relationValue = null;
         $relationType = null;

@@ -1,8 +1,8 @@
 <?php
 namespace Platform\Invitation\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Invitation\Model\Invitation;
-use Platform\Invitation\Model\Type;
 use Kendo\Acl\AuthorizationRestrictException;
 use Kendo\Content\ContentInterface;
 use Kendo\Content\PosterInterface;
@@ -12,7 +12,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Platform\Invitation\Service
  */
-class InvitationService
+class InvitationService extends KernelServiceAgreement
 {
 
     /**

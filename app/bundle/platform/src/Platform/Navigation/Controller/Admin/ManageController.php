@@ -34,7 +34,7 @@ class ManageController extends AdminController
         $page = 1;
         $limit = 100;
 
-        $paging = \App::navigationService()
+        $paging = \App::navigation()
             ->loadAdminNavigationPaging($query, $page, $limit);
 
         $lp = new BlockParams([

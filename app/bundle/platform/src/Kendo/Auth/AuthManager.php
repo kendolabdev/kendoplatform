@@ -3,6 +3,7 @@
 namespace Kendo\Auth;
 
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\User\Model\User;
 use Platform\User\Model\UserToken;
 
@@ -12,7 +13,7 @@ use Platform\User\Model\UserToken;
  *
  * @package Kendo\Auth
  */
-class AuthManager
+class AuthManager extends KernelServiceAgreement
 {
     CONST TOKEN_LENGTH = 32;
 

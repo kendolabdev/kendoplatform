@@ -2,12 +2,14 @@
 
 namespace Kendo\View;
 
+use Kendo\Kernel\KernelServiceAgreement;
+
 /**
  * Class ViewFinder
  *
  * @package Kendo\View
  */
-class ViewFinder
+class ViewFinder extends KernelServiceAgreement
 {
     /**
      * @var string
@@ -43,7 +45,7 @@ class ViewFinder
             'default' => KENDO_TEMPLATE_DIR . '/default',
         ];
 
-        if (\App::requestService()->isMobile() && !\App::requestService()->isTablet()) {
+        if (\App::requester()->isMobile() && !\App::requester()->isTablet()) {
             $this->checkMobile = true;
         }
     }

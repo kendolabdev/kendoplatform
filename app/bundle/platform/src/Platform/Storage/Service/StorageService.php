@@ -3,8 +3,9 @@
 namespace Platform\Storage\Service;
 
 
-use Kendo\Storage\InputFile;
-use Kendo\Storage\InputFileList;
+use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Upload\UploadFile;
+use Kendo\Upload\UploadFileList;
 use Kendo\Storage\LocalStorage;
 use Kendo\Storage\PathGeneratorByDate;
 use Kendo\Storage\PathGeneratorInterface;
@@ -19,7 +20,7 @@ use Platform\Storage\Model\StorageFileTmp;
  *
  * @package Kendo\Storage
  */
-class StorageService implements StorageManagerInterface
+class StorageService extends KernelServiceAgreement implements StorageManagerInterface
 {
     /**
      * @var int
@@ -36,64 +37,6 @@ class StorageService implements StorageManagerInterface
      * @var \Kendo\Storage\PathGeneratorInterface
      */
     private $pathGenerator;
-
-    /**
-     * @param $fileName
-     * @param $options
-     *
-     * @return mixed
-     */
-    public function getUploadFileList($fileName, $options)
-    {
-        if (empty($_FILES[ $fileName ])) {
-            return false;
-        }
-
-        $arr = $_FILES[ $fileName ];
-
-        $list = new InputFileList();
-
-        /**
-         * single upload file
-         */
-        if (is_string($_FILES[ $fileName ]['name'])) {
-            $list->addFile($arr['name'], $arr['type'], $arr['tmp_name'], $arr['error'], $arr['size'], 'upload', $options);
-        } else if (is_array($arr['name'])) {
-            foreach ($arr['name'] as $index => $name) {
-                $list->addFile($name, $arr['type'][ $index ], $arr['tmp_name'][ $index ], $arr['error'][ $index ], $arr['size'][ $index ], 'upload', $options);
-            }
-        }
-
-        return $list;
-    }
-
-    /**
-     * @param $fileName
-     * @param $options
-     *
-     * @return mixed
-     */
-    public function getUploadFile($fileName, $options)
-    {
-        if (empty($_FILES[ $fileName ])) {
-            return false;
-        }
-
-        $arr = $_FILES[ $fileName ];
-
-        /**
-         * single upload file
-         */
-        if (is_string($_FILES[ $fileName ]['name'])) {
-            return new InputFile($arr['name'], $arr['type'], $arr['tmp_name'], $arr['error'], $arr['size'], 'upload', $options);
-        } else if (is_array($arr['name'])) {
-            foreach ($arr['name'] as $index => $name) {
-                return new InputFile($name, $arr['type'][ $index ], $arr['tmp_name'][ $index ], $arr['error'][ $index ], $arr['size'][ $index ], 'upload', $options);
-            }
-        }
-
-        return true;
-    }
 
 
     /**
@@ -267,7 +210,7 @@ class StorageService implements StorageManagerInterface
     /**
      * @param array $tempIdList
      *
-     * @return InputFileList
+     * @return UploadFileList
      */
     public function getTempInputFileList($tempIdList)
     {
@@ -279,7 +222,7 @@ class StorageService implements StorageManagerInterface
             $tempIdList = ['-1'];
         }
 
-        $list = new InputFileList();
+        $list = new UploadFileList();
 
         $items = \App::table('platform_storage_file_tmp')
             ->select()
@@ -298,7 +241,7 @@ class StorageService implements StorageManagerInterface
     /**
      * @param $tempId
      *
-     * @return InputFile
+     * @return UploadFile
      */
     public function getTempInputFile($tempId)
     {
@@ -306,7 +249,7 @@ class StorageService implements StorageManagerInterface
             ->findById($tempId);
 
         if ($item instanceof StorageFileTmp) {
-            return new InputFile($item->getName(), $item->getType(), $item->getUrl(), 0, $item->getSize(), 'temporary');
+            return new UploadFile($item->getName(), $item->getType(), $item->getUrl(), 0, $item->getSize(), 'temporary');
         }
 
         throw new \InvalidArgumentException("");
@@ -315,12 +258,12 @@ class StorageService implements StorageManagerInterface
     /**
      * saved temporaty photo to token by something we need to process
      *
-     * @param  InputFile                       $item
+     * @param  UploadFile                      $item
      * @param  \Kendo\Storage\StorageInterface $storage
      *
      * @return \Platform\Storage\Model\StorageFileTmp
      */
-    public function saveToTemporary(InputFile $item, StorageInterface $storage = null)
+    public function saveToTemporary(UploadFile $item, StorageInterface $storage = null)
     {
         if (null == $storage) {
             $storage = $this->getStorage();

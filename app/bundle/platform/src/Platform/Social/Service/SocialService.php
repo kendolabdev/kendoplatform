@@ -1,12 +1,13 @@
 <?php
 namespace Platform\Social\Service;
+use Kendo\Kernel\KernelServiceAgreement;
 
 /**
  * Class SocialService
  *
  * @package Social\Service
  */
-class SocialService
+class SocialService extends KernelServiceAgreement
 {
     /**
      * @var array

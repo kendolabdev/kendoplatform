@@ -2,6 +2,7 @@
 
 namespace Platform\Help\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Help\Model\HelpCategory;
 use Platform\Help\Model\HelpPage;
 use Platform\Help\Model\HelpPost;
@@ -12,7 +13,7 @@ use Platform\Help\Model\HelpTopic;
  *
  * @package Help\Service
  */
-class HelpService
+class HelpService extends KernelServiceAgreement
 {
 
     /**

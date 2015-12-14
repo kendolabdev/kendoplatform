@@ -3,6 +3,7 @@ namespace Platform\Tag\Service;
 
 use Kendo\Content\ContentInterface;
 use Kendo\Content\PosterInterface;
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Tag\Model\TagPeople;
 
 /**
@@ -10,7 +11,7 @@ use Platform\Tag\Model\TagPeople;
  *
  * @package Base\Tag\Service
  */
-class TagService
+class TagService extends KernelServiceAgreement
 {
     /**
      * @param ContentInterface $content

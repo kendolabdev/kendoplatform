@@ -1,5 +1,6 @@
 <?php
 namespace Kendo\Sass;
+use Kendo\Kernel\KernelServiceAgreement;
 
 /**
  * Class Manager
@@ -8,7 +9,7 @@ namespace Kendo\Sass;
  *
  * @package Kendo\Sass
  */
-class Manager
+class Manager extends KernelServiceAgreement
 {
 
     /**

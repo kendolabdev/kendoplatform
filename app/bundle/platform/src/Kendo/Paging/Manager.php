@@ -3,13 +3,14 @@
 namespace Kendo\Paging;
 
 use Kendo\Db\SqlSelect;
+use Kendo\Kernel\KernelServiceAgreement;
 
 /**
  * Class Manager
  *
  * @package Kendo\Paging
  */
-class Manager
+class Manager extends KernelServiceAgreement
 {
     /**
      * @var array

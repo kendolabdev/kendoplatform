@@ -2,8 +2,8 @@
 
 include '../init.php';
 
-$modules = \App::extensions()
-    ->getActiveModuleNames();
+$modules = \App::instance()
+    ->getModules();
 
 $allTableList = \App::db()->getMaster()
     ->tables();

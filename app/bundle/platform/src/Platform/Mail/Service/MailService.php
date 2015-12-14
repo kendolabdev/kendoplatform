@@ -1,6 +1,7 @@
 <?php
 namespace Platform\Mail\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Mail\Model\MailTemplate;
 use Kendo\Exception;
 
@@ -9,7 +10,7 @@ use Kendo\Exception;
  *
  * @package Core\Service
  */
-class MailService
+class MailService extends KernelServiceAgreement
 {
 
     /**
@@ -42,7 +43,7 @@ class MailService
         if (!empty($query['module']))
             $select->where('module_name=?', (string)$query['module']);
 
-        $select->where('module_name in?', \App::extensions()->getActiveModuleNames());
+        $select->where('module_name in?', \App::packages()->getActiveModules());
 
         return $select->paging($page, $limit);
     }
@@ -116,7 +117,7 @@ class MailService
             return $translate;
         }
 
-        if (false == \App::service('mail.language')->hasLanguage($languageId)) {
+        if (false == \App::instance()->make('mail.language')->hasLanguage($languageId)) {
             throw new Exception("Language [$languageId] does not support.");
         }
 

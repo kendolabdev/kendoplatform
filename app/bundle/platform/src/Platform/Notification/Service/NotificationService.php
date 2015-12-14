@@ -2,6 +2,7 @@
 
 namespace Platform\Notification\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Feed\Model\Feed;
 use Platform\Notification\Model\Notification;
 use Platform\Notification\Model\NotificationSubscribe;
@@ -14,7 +15,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Platform\Notification\Service
  */
-class NotificationService
+class NotificationService extends KernelServiceAgreement
 {
 
     /**
@@ -25,7 +26,7 @@ class NotificationService
         return \App::table('notification.notification_type')
             ->select()
             ->where('user_edit=?', 1)
-            ->where('module_name IN ?', \App::extensions()->getActiveModuleNames())
+            ->where('module_name IN ?', \App::packages()->getActiveModules())
             ->all();
     }
 
@@ -52,7 +53,7 @@ class NotificationService
     {
         $select = \App::table('notification.notification_type')
             ->select()
-            ->where('module_name IN ?', \App::extensions()->getActiveModuleNames());
+            ->where('module_name IN ?', \App::packages()->getActiveModules());
 
         if (!empty($query)) ; // skip this params
 
@@ -67,7 +68,7 @@ class NotificationService
         return \App::table('notification.notification_type')
             ->select()
             ->where('user_edit=?', 1)
-            ->where('module_name IN ?', \App::extensions()->getActiveModuleNames())
+            ->where('module_name IN ?', \App::packages()->getActiveModules())
             ->all();
     }
 
@@ -81,7 +82,7 @@ class NotificationService
         return \App::table('notification.notification_type')
             ->select()
             ->where('user_edit=?', 1)
-            ->where('module_name IN ?', \App::extensions()->getActiveModuleNames())
+            ->where('module_name IN ?', \App::packages()->getActiveModules())
             ->where('notification_group=?', $group)
             ->all();
 
@@ -106,7 +107,7 @@ class NotificationService
         return \App::table('notification.notification_type')
             ->select()
             ->where('user_edit=?', 1)
-            ->where('module_name IN ?', \App::extensions()->getActiveModuleNames())
+            ->where('module_name IN ?', \App::packages()->getActiveModules())
             ->order('n1 ', 1)
             ->columns('distinct(notification_group) as n1')
             ->fields('n1');

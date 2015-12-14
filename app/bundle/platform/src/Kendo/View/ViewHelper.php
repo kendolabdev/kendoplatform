@@ -4,13 +4,14 @@ namespace Kendo\View;
 
 use Kendo\Content\AtomInterface;
 use Kendo\I18n\Timeago;
+use Kendo\Kernel\KernelServiceAgreement;
 
 /**
  * Class ViewHelper
  *
  * @package Kendo\View
  */
-class ViewHelper
+class ViewHelper extends KernelServiceAgreement
 {
 
     /**
@@ -34,7 +35,7 @@ class ViewHelper
     /**
      * View helper start
      */
-    public function start()
+    public function bound()
     {
         \App::emitter()
             ->emit('onViewHelperStart', $this);
@@ -218,7 +219,7 @@ class ViewHelper
      */
     public static function content()
     {
-        return \App::requestService()->getInitiator()->getResponse();
+        return \App::requester()->getResponse();
     }
 
     /**
@@ -280,15 +281,15 @@ class ViewHelper
      */
     public static function nav()
     {
-        return \App::navigationService();
+        return \App::navigation();
     }
 
     /**
-     * @return \Kendo\Request\Manager
+     * @return \Kendo\Request\RequestManager
      */
     public function request()
     {
-        return \App::requestService();
+        return \App::requester();
     }
 
     /**
@@ -300,7 +301,7 @@ class ViewHelper
     }
 
     /**
-     * @return \Kendo\Acl\Manager
+     * @return \Kendo\Acl\AclManager
      */
     public function acl()
     {
@@ -385,7 +386,8 @@ class ViewHelper
      */
     public function getCover(AtomInterface $object)
     {
-        return \App::service('photo.cover')->getCover($object);
+        return \App::instance()->make('platform_photo')
+            ->getCover($object);
     }
 
     /**
@@ -413,7 +415,7 @@ class ViewHelper
      */
     public function isMobile()
     {
-        return \App::requestService()->isMobile();
+        return \App::requester()->isMobile();
     }
 
     /**
@@ -421,7 +423,7 @@ class ViewHelper
      */
     public function isTablet()
     {
-        return \App::requestService()->isTablet();
+        return \App::requester()->isTablet();
     }
 
     /**

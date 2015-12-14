@@ -3,6 +3,7 @@
 namespace Platform\Video\Service;
 
 use Kendo\Content\PosterInterface;
+use Kendo\Kernel\KernelServiceAgreement;
 use Kendo\Request\HttpRequest;
 use Platform\Video\Model\Video;
 use Platform\Video\Model\VideoCategory;
@@ -15,7 +16,7 @@ use Platform\Video\Provider\Youtube;
  *
  * @package Video\Service
  */
-class VideoService
+class VideoService extends KernelServiceAgreement
 {
 
     /**

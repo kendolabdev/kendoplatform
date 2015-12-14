@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
         stopOnIncomplete="false"
-        stopOnError="false"
-        stopOnFailure="false"
+        stopOnError="true"
+        stopOnFailure="true"
         backupGlobals="false"
         backupStaticAttributes="false"
         bootstrap="./../tests/bootstrap.php">

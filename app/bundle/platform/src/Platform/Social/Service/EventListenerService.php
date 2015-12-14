@@ -1,10 +1,10 @@
 <?php
 namespace Platform\Social\Service;
 
-use Kendo\Event\EventListener;
+use Kendo\Hook\EventListener;
 use Kendo\Assets\Requirejs;
-use Kendo\Event\HookEvent;
-use Kendo\Event\SimpleContainer;
+use Kendo\Hook\HookEvent;
+use Kendo\Hook\SimpleContainer;
 use Kendo\Routing\RoutingManager;
 
 /**
@@ -71,7 +71,7 @@ class EventListenerService extends EventListener
     }
 
     /**
-     * @param \Kendo\Event\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleJS(HookEvent $event)
     {

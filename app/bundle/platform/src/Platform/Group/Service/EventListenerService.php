@@ -6,10 +6,10 @@ use Kendo\Routing\FilterStuff;
 use Kendo\Routing\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Invitation\Model\Invitation;
-use Kendo\Event\EventListener;
+use Kendo\Hook\EventListener;
 use Kendo\Assets\Requirejs;
-use Kendo\Event\HookEvent;
-use Kendo\Event\SimpleContainer;
+use Kendo\Hook\HookEvent;
+use Kendo\Hook\SimpleContainer;
 use Kendo\View\View;
 use Platform\User\Model\User;
 
@@ -42,8 +42,6 @@ class EventListenerService extends EventListener
         $routing = $event->getPayload();
 
         if (!$routing instanceof RoutingManager) return;
-
-        $routing = \App::routingService();
 
         $routing->addRoute('groups', [
             'uri'      => 'groups',
@@ -88,7 +86,7 @@ class EventListenerService extends EventListener
     }
 
     /**
-     * @param \Kendo\Event\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleStylesheet(HookEvent $event)
     {
@@ -113,7 +111,7 @@ class EventListenerService extends EventListener
     }
 
     /**
-     * @param \Kendo\Event\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleJS(HookEvent $event)
     {

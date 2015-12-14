@@ -1,6 +1,7 @@
 <?php
 namespace Installation\Service;
 
+use Kendo\Package\ModuleInstaller;
 use Picaso\Application\ModuleInstallHandler;
 
 /**
@@ -102,9 +103,9 @@ class InstallHandlerService extends ModuleInstallHandler
         /**
          *
          */
-        foreach (\App::extensions()->getActiveModuleNames() as $module) {
-            $handler = \App::service("$module.install_handler");
-            if ($handler instanceof ModuleInstallHandler)
+        foreach (\App::instance()->getModules() as $module) {
+            $handler = \App::service("{$module}_installer");
+            if ($handler instanceof ModuleInstaller)
                 $handler->export();
         }
     }
@@ -117,8 +118,8 @@ class InstallHandlerService extends ModuleInstallHandler
         foreach ($this->finalData['core_extension'] as $data) {
             $module = $data['name'];
 
-            $handler = \App::service("$module.install_handler");
-            if ($handler instanceof ModuleInstallHandler)
+            $handler = \App::service("{$module}_installer");
+            if ($handler instanceof ModuleInstaller)
                 $handler->install();
         }
 

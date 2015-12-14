@@ -26,7 +26,7 @@ class SiteHeaderBlock extends Block
             $script .= '.logged';
         }
 
-        $q = \App::requestService()->getInitiator()->getParam('q');
+        $q = \App::requester()->getParam('q');
 
         $searchUrl = \App::routingService()->getUrl('search', []);
         $siteName = \App::setting('core', 'site_name');

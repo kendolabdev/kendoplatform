@@ -1,5 +1,5 @@
 <?php
-namespace Kendo\Event;
+namespace Kendo\Hook;
 
 /**
  * Class SimpleContainer

@@ -13,7 +13,6 @@ use Platform\Event\ViewHelper\ButtonMembership;
 use Kendo\Html\Form;
 use Kendo\Layout\Block;
 use Platform\User\Model\User;
-use Platform\User\Module;
 use Platform\User\ViewHelper\ButtonBearAccount;
 use Platform\User\ViewHelper\ButtonLoginAs;
 use Platform\User\ViewHelper\ButtonMemberCount;
@@ -234,13 +233,4 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
 
         $block->execute();
     }
-
-    public function testInitModule()
-    {
-        $module = new Module();
-
-        $module->start();
-        $module->complete();
-    }
-
 }

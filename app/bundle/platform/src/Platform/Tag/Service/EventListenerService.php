@@ -1,8 +1,8 @@
 <?php
 namespace Platform\Tag\Service;
 
-use Kendo\Event\EventListener;
-use Kendo\Event\HookEvent;
+use Kendo\Hook\EventListener;
+use Kendo\Hook\HookEvent;
 use Kendo\Routing\RoutingManager;
 
 /**

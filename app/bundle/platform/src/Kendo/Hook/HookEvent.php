@@ -1,6 +1,6 @@
 <?php
 
-namespace Kendo\Event;
+namespace Kendo\Hook;
 
 /**
  * Class HookEvent

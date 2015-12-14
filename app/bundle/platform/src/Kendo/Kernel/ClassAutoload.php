@@ -1,12 +1,5 @@
 <?php
-
-/**
- * @package    Kendo
- * @subpackage Autoload
- * @author     Nam Nguyen
- */
-
-namespace Kendo\Autoload;
+namespace Kendo\Kernel;
 
 /**
  *
@@ -16,11 +9,11 @@ namespace Kendo\Autoload;
  *
  * @package Kendo\Autoload
  */
-class Manager
+class ClassAutoload extends KernelServiceAgreement
 {
 
     /**
-     * @var Manager
+     * @var ClassAutoload
      */
     static private $instance;
 
@@ -39,7 +32,7 @@ class Manager
      *
      * @ignore
      */
-    private function __construct()
+    public function __construct()
     {
         $this->register('Kendo', [
             KENDO_BUNDLE_DIR . '/platform/src/Kendo',
@@ -67,18 +60,6 @@ class Manager
     }
 
     /**
-     * @return Manager
-     */
-    static public function getInstance()
-    {
-        if (null == self::$instance) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
-
-    /**
      * @param string       $package
      * @param string|array $paths
      *
@@ -99,20 +80,11 @@ class Manager
     /**
      * @param array $pairs [namespace => path]
      */
-    public function bindAll($pairs)
+    public function map($pairs)
     {
         foreach ($pairs as $class => $path) {
             $this->classes[ $class ] = $path;
         }
-    }
-
-    /**
-     * @param $class
-     * @param $path
-     */
-    public function bind($class, $path)
-    {
-        $this->classes[ $class ] = $path;
     }
 
     /**

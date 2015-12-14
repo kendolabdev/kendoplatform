@@ -3,10 +3,10 @@
 
 namespace Platform\Blog\Service;
 
-use Kendo\Event\EventListener;
+use Kendo\Hook\EventListener;
 use Kendo\Content\PosterInterface;
-use Kendo\Event\HookEvent;
-use Kendo\Event\SimpleContainer;
+use Kendo\Hook\HookEvent;
+use Kendo\Hook\SimpleContainer;
 use Kendo\Routing\FilterStuff;
 use Kendo\Routing\RoutingManager;
 use Kendo\View\View;
@@ -25,8 +25,6 @@ class EventListenerService extends EventListener
         $routing = $event->getPayload();
 
         if (!$routing instanceof RoutingManager) return;
-
-        $routing = \App::routingService();
 
         $routing->addRoute('blog_view', [
             'uri'      => 'blog-post(/<id>)',
@@ -83,7 +81,7 @@ class EventListenerService extends EventListener
     }
 
     /**
-     * @param \Kendo\Event\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleStylesheet(HookEvent $event)
     {

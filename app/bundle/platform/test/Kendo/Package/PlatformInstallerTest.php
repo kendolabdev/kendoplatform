@@ -16,8 +16,8 @@ class PlatformInstallerTest extends \PHPUnit_Framework_TestCase
      */
     public function testPlatformInstaller()
     {
-        $installer = new PlatformInstaller();
+//        $installer = new PlatformInstaller();
 
-        $installer->export();
+//        $installer->export();
     }
 }

@@ -7,13 +7,14 @@
  */
 
 namespace Kendo\Registry;
+use Kendo\Kernel\KernelServiceAgreement;
 
 /**
  * Class Manager
  *
  * @package Kendo
  */
-class Manager
+class Manager extends KernelServiceAgreement
 {
     /**
      * @var array

@@ -1,12 +1,12 @@
 <?php
-namespace Kendo\Storage;
+namespace Kendo\Upload;
 
 /**
- * Class InputFile
+ * Class UploadFile
  *
- * @package Kendo\Storage
+ * @package Kendo\Upload
  */
-class InputFile
+class UploadFile
 {
     /**
      * Uploaded file
@@ -143,6 +143,4 @@ class InputFile
     {
         $this->source = $source;
     }
-
-
 }

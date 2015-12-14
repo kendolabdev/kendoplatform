@@ -1,15 +1,16 @@
 <?php
 
-namespace Kendo\Event;
+namespace Kendo\Hook;
 
-use Kendo\Event\HookEvent;
+use Kendo\Kernel\KernelServiceAgreement;
+
 
 /**
  * Class EventEmitter
  *
  * @package Kendo\Hook
  */
-class EventManager
+class EventManager extends KernelServiceAgreement
 {
     /**
      * @var array
@@ -17,37 +18,11 @@ class EventManager
     private $events = [];
 
     /**
-     * @var bool
-     */
-    private $loaded = false;
-
-    /**
-     * Default constructor
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isLoaded()
-    {
-        return $this->loaded;
-    }
-
-    /**
-     * @param boolean $loaded
-     */
-    public function setLoaded($loaded)
-    {
-        $this->loaded = $loaded;
-    }
-
-    /**
      *  Start hook
+     *
+     * @predecated
      */
-    public function start()
+    public function bound()
     {
         $this->events = $this->loadAllHookEvents();
     }
@@ -63,9 +38,7 @@ class EventManager
         if (empty($this->events[ $eventName ]))
             return null;
 
-        $callable = $this->events[ $eventName ][0];
-
-        return \App::service($callable)->{$eventName}($payload);
+        return \App::instance()->make($this->events[ $eventName ][0])->{$eventName}($payload);
     }
 
     /**
@@ -74,7 +47,8 @@ class EventManager
      * @param string $eventName
      * @param null   $payload
      *
-     * @return HookEvent
+     * @return mixed
+     * @throws \Exception
      */
     public function emit($eventName, $payload = null)
     {
@@ -84,11 +58,19 @@ class EventManager
         if (empty($this->events[ $eventName ]))
             return $event;
 
-        foreach ($this->events[ $eventName ] as $callable) {
+
+        foreach ($this->events[ $eventName ] as $listener) {
             try {
-                \App::service($callable)->{$eventName}($event);
+                $instance = \App::instance()
+                    ->make($listener);
+
+                if (!$instance instanceof EventListener)
+                    continue;
+
+                $instance->{$eventName}($event);
+
             } catch (\Exception $ex) {
-                echo $ex->getMessage();
+                throw $ex;
             }
         }
 
@@ -152,8 +134,6 @@ class EventManager
      */
     public function loadAllHookEvents()
     {
-        $this->setLoaded(true);
-
         return \App::cacheService()
             ->get(['Kendo', 'hook', 'loadAllEvents'], 0, function () {
                 return $this->loadAllHookEventFromRepository();
@@ -168,9 +148,9 @@ class EventManager
     {
         $result = [];
 
-        $items = \App::table('platform_core_hook')
+        $items = $this->app->table('platform_core_hook')
             ->select()
-            ->where('module_name IN ?', \App::extensions()->getActiveModuleNames())
+            ->where('module_name IN ?', \App::packages()->getActiveModules())
             ->order('event_name, load_order', 1)
             ->toAssocs();
 

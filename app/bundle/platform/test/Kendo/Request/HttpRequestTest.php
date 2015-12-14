@@ -8,7 +8,6 @@
 
 namespace Kendo\Request;
 
-
 class HttpRequestTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -58,14 +57,6 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($exception, $httpRequest->getException());
 
-        $result = new HttpResult();
-
-        $httpRequest->setResult($result);
-        $this->assertEquals($result, $httpRequest->getResult());
-
-        $result->setData('example');
-
-        $this->assertEquals($result->getData(), $httpRequest->getResponse());
 
         $httpRequest->example_params = 12;
 
@@ -86,9 +77,6 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($httpRequest->getActionName(), 'index');
 
         $httpRequest->dispatch();
-
-        $this->assertFalse($httpRequest->isPAjax());
-
 
         $httpRequest->setParams(['more' => '2']);
         $this->assertNotEmpty($httpRequest->getParams());

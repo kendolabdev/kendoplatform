@@ -9,13 +9,16 @@
  */
 
 namespace Kendo\Content;
+use Kendo\Kernel\DbUniqueIdGenerator;
+use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\UniqueIdGeneratorInterface;
 
 /**
  * Class Manager
  *
  * @package Kendo\Content
  */
-class Manager
+class Manager extends KernelServiceAgreement
 {
     const MIN_NEXT_ID = 1000;
 
@@ -34,7 +37,7 @@ class Manager
     ];
 
     /**
-     * @var UniqueIdInterface
+     * @var UniqueIdGeneratorInterface
      */
     protected $idGenerator;
 
@@ -134,12 +137,12 @@ class Manager
     }
 
     /**
-     * @return UniqueIdInterface
+     * @return UniqueIdGeneratorInterface
      */
     public function getIdGenerator()
     {
         if (null == $this->idGenerator) {
-            $this->idGenerator = new DbUniqueId();
+            $this->idGenerator = new DbUniqueIdGenerator();
         }
 
         return $this->idGenerator;

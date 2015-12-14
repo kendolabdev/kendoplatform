@@ -6,6 +6,8 @@
  * Time: 2:16 PM
  */
 namespace Kendo\Storage;
+use Kendo\Upload\UploadFile;
+use Kendo\Upload\UploadFileList;
 
 
 /**
@@ -15,23 +17,6 @@ namespace Kendo\Storage;
  */
 interface StorageManagerInterface
 {
-    /**
-     * @param $fileName
-     * @param $options
-     *
-     * @return InputFileList
-     */
-    public function getUploadFileList($fileName, $options);
-
-    /**
-     * @param $fileName
-     * @param $options
-     *
-     * @return InputFile
-     */
-    public function getUploadFile($fileName, $options);
-
-
     /**
      * @param string $dir
      * @param string $filename
@@ -99,7 +84,7 @@ interface StorageManagerInterface
     /**
      * @param array $tempIdList
      *
-     * @return InputFileList
+     * @return UploadFileList
      */
     public function getTempInputFileList($tempIdList);
 
@@ -113,12 +98,12 @@ interface StorageManagerInterface
     /**
      * saved temporaty photo to token by something we need to process
      *
-     * @param  InputFile        $item
+     * @param  UploadFile       $item
      * @param  StorageInterface $storage
      *
      * @return mixed
      */
-    public function saveToTemporary(InputFile $item, StorageInterface $storage = null);
+    public function saveToTemporary(UploadFile $item, StorageInterface $storage = null);
 
     /**
      * @param array            $data

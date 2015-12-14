@@ -2,9 +2,9 @@
 
 namespace Platform\Page\Service;
 
-use Kendo\Event\EventListener;
-use Kendo\Event\HookEvent;
-use Kendo\Event\SimpleContainer;
+use Kendo\Hook\EventListener;
+use Kendo\Hook\HookEvent;
+use Kendo\Hook\SimpleContainer;
 use Kendo\Routing\FilterProfileSlug;
 use Kendo\Routing\FilterStuff;
 use Kendo\Routing\RoutingManager;
@@ -110,7 +110,7 @@ class EventListenerService extends EventListener
     }
 
     /**
-     * @param \Kendo\Event\HookEvent $event
+     * @param \Kendo\Hook\HookEvent $event
      */
     public function onBeforeBuildBundleStylesheet(HookEvent $event)
     {

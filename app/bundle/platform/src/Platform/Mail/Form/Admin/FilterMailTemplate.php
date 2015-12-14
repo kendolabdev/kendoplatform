@@ -25,7 +25,9 @@ class FilterMailTemplate extends Form
             'class'  => 'form-control',
         ]);
 
-        $moduleOptions = \App::extensions()->getModuleOptions();
+        $moduleOptions = \App::instance()
+            ->make('platform_core_extension')
+            ->getModuleOptions();
 
         $this->addElement([
             'plugin'   => 'select',

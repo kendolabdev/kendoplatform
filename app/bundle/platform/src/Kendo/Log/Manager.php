@@ -1,14 +1,14 @@
 <?php
 
 namespace Kendo\Log;
-
+use Kendo\Kernel\KernelServiceAgreement;
 
 /**
  * Class Manager
  *
  * @package Kendo\Log
  */
-class Manager
+class Manager extends KernelServiceAgreement
 {
 
     /**

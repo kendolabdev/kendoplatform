@@ -2,6 +2,7 @@
 
 namespace Platform\Photo\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Photo\Model\Photo;
 use Platform\Photo\Model\PhotoAlbum;
 use Platform\Photo\Model\PhotoCategory;
@@ -10,15 +11,15 @@ use Platform\Photo\Model\PhotoCover;
 use Kendo\Content\AtomInterface;
 use Kendo\Content\PosterInterface;
 use Kendo\Request\HttpRequest;
-use Kendo\Storage\InputFile;
-use Kendo\Storage\InputFileList;
+use Kendo\Upload\UploadFile;
+use Kendo\Upload\UploadFileList;
 
 /**
  * Class Platform\PhotoService
  *
  * @package Platform\Photo\Service
  */
-class PhotoService
+class PhotoService extends KernelServiceAgreement
 {
 
     /**
@@ -625,13 +626,13 @@ class PhotoService
     /**
      * Process cover photo upload
      *
-     * @param         InputFile $inputFile
-     * @param         array     $thumbs
+     * @param         UploadFile $inputFile
+     * @param         array      $thumbs
      *
      * @return int
      * @throws \InvalidArgumentException
      */
-    public function processCover(InputFile $inputFile, $thumbs)
+    public function processCover(UploadFile $inputFile, $thumbs)
     {
         if (null == $thumbs) {
             $thumbs = $this->getDefaultPhotoThumbsSettings();
@@ -642,7 +643,7 @@ class PhotoService
 
         $fileData = [];
         $uploadTemporaryDir = KENDO_UPLOAD_DIR . '/';
-        $imageService = \App::imageService();
+        $imageService = \App::imageProcess();
 
         $path = $inputFile->getPath();
 
@@ -750,7 +751,7 @@ class PhotoService
         $thumbs = $this->getDefaultAvatarThumbsSettings();
 
         $uploadTemporaryDir = KENDO_UPLOAD_DIR . '/';
-        $imageService = \App::imageService();
+        $imageService = \App::imageProcess();
 
         $file = \App::storageService()->getFileItem($photoFileId, 'origin');
 
@@ -863,13 +864,13 @@ class PhotoService
     /**
      * Process Upload photo from file input list => file item list
      *
-     * @param         InputFileList $fileList
-     * @param         array         $thumbs
+     * @param         UploadFileList $fileList
+     * @param         array          $thumbs
      *
      * @return array|null
      * @throws \InvalidArgumentException
      */
-    public function processUploadPhotos(InputFileList $fileList, $thumbs)
+    public function processUploadPhotos(UploadFileList $fileList, $thumbs)
     {
         if (null == $thumbs) {
             $thumbs = $this->getDefaultPhotoThumbsSettings();
@@ -879,7 +880,7 @@ class PhotoService
 
         $fileData = [];
         $uploadTemporaryDir = KENDO_UPLOAD_DIR . '/';
-        $imageService = \App::imageService();
+        $imageService = \App::imageProcess();
 
         foreach ($fileList->getFiles() as $file) {
 

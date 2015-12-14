@@ -1,13 +1,13 @@
 <?php
 
-namespace Kendo\Content;
+namespace Kendo\Kernel;
 
 /**
- * Class DbUniqueId
+ * Class DbUniqueIdGenerate
  *
- * @package Kendo\Content
+ * @package Kendo\Kernel
  */
-class DbUniqueId implements UniqueIdInterface
+class DbUniqueIdGenerator implements UniqueIdGeneratorInterface
 {
 
     /**

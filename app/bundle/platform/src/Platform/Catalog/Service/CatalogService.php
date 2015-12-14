@@ -2,6 +2,7 @@
 
 namespace Platform\Catalog\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Catalog\Form\AttributeCustomForm;
 use Platform\Catalog\Form\AttributeInternalForm;
 use Platform\Catalog\Model\AttributeField;
@@ -21,7 +22,7 @@ use Kendo\Html\FormField;
  *
  * @package Attribute\Service
  */
-class CatalogService
+class CatalogService extends KernelServiceAgreement
 {
 
     /**
@@ -773,7 +774,7 @@ class CatalogService
     {
         $select = \App::table('platform_core_type')
             ->select()
-            ->where('module_name in ?', \App::extensions()->getActiveModuleNames())
+            ->where('module_name in ?', \App::packages()->getActiveModules())
             ->where('has_attribute_catalog=?', 1);
 
 

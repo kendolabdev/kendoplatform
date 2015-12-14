@@ -1,12 +1,13 @@
 <?php
 namespace Platform\Captcha\Service;
+use Kendo\Kernel\KernelServiceAgreement;
 
 /**
  * Class CaptchaService
  *
  * @package Captcha\Service
  */
-class CaptchaService
+class CaptchaService extends KernelServiceAgreement
 {
 
     /**

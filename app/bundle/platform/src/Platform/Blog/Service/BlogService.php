@@ -2,6 +2,7 @@
 
 namespace Platform\Blog\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Blog\Model\BlogCategory;
 use Platform\Blog\Model\BlogPost;
 use Kendo\Content\PosterInterface;
@@ -11,7 +12,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Base\Blog\Service
  */
-class BlogService
+class BlogService extends KernelServiceAgreement
 {
 
     /**

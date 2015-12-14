@@ -2,6 +2,7 @@
 
 namespace Platform\Group\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Group\Model\Group;
 use Platform\Group\Model\GroupCategory;
 use Kendo\Content\PosterInterface;
@@ -11,7 +12,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Group\Service
  */
-class GroupService
+class GroupService extends KernelServiceAgreement
 {
     /**
      * @param string $id

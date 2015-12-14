@@ -2,8 +2,7 @@
 
 namespace Platform\Comment\Service;
 
-use Kendo\Event\HookEvent;
-use Kendo\View\ViewHelper;
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Comment\Model\Comment;
 use Kendo\Content\AtomInterface;
 use Kendo\Content\PosterInterface;
@@ -13,7 +12,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Activity\Service
  */
-class CommentService
+class CommentService extends KernelServiceAgreement
 {
 
 

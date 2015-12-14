@@ -1,13 +1,14 @@
 <?php
 
 namespace Kendo\I18n;
+use Kendo\Kernel\KernelServiceAgreement;
 
 /**
  * Class Manager
  *
  * @package Kendo\I18n
  */
-class Manager
+class Manager extends KernelServiceAgreement
 {
     /**
      * @var string

@@ -1,6 +1,7 @@
 <?php
 namespace Platform\Link\Service;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Feed\Model\Feed;
 use Platform\Link\Model\Link;
 use Kendo\Content\PosterInterface;
@@ -11,7 +12,7 @@ use Kendo\Request\HttpRequest;
  *
  * @package Base\Link\Service
  */
-class LinkService
+class LinkService extends KernelServiceAgreement
 {
     /**
      * @param string $url

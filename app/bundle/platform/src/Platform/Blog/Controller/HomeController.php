@@ -240,7 +240,7 @@ class HomeController extends DefaultController
      */
     public function actionDeleteBlog()
     {
-        $blogService = \App::service('blog');
+        $blogService = \App::blogService();
 
         if ($blogService instanceof BlogService) ;
 

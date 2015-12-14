@@ -2,6 +2,7 @@
 
 namespace Kendo\Package;
 
+use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Layout\Model\Layout;
 
 /**
@@ -11,7 +12,7 @@ use Platform\Layout\Model\Layout;
  *
  * @package Kendo\Package
  */
-class BaseInstaller implements InstallerInterface
+class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
 {
 
     /**

@@ -25,7 +25,7 @@ class BlockController extends AjaxController
 
         $viewer = \App::authService()->getViewer();
 
-        $blockService = \App::service('core.block');
+        $blockService = \App::instance()->make('platform_core_block');
 
         if (!$blockService instanceof BlockService) ;
 
@@ -49,7 +49,7 @@ class BlockController extends AjaxController
 
         $viewer = \App::authService()->getViewer();
 
-        $blockService = \App::service('core.block');
+        $blockService = \App::instance()->make('platform_core_block');
 
         if (!$blockService instanceof BlockService) ;
 
@@ -67,7 +67,7 @@ class BlockController extends AjaxController
 
         $viewer = \App::authService()->getViewer();
 
-        $blockService = \App::service('core.block');
+        $blockService = \App::instance()->make('platform_core_block');
 
         if (!$blockService instanceof BlockService) ;
 
