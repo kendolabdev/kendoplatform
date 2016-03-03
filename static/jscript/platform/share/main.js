@@ -10,7 +10,7 @@ define(['jquery'],function(){
     var debug = true,
         propKey = 'shareComposer',
         statusBox = 'textarea.mentions-input',
-        postUrl = 'ajax/share/share/add',
+        postUrl = 'ajax/platform/share/share/add',
         ShareComposer,
         defaults = {
         };
@@ -62,7 +62,7 @@ define(['jquery'],function(){
 
             onLoadingStart();
 
-            K.ajax(postUrl, sendData)
+            $kd.ajax(postUrl, sendData)
                 .always(onComplete)
                 .done(onSuccess)
                 .fail(onError);
@@ -129,9 +129,9 @@ define(['jquery'],function(){
         var $e = $(this),
             data = $e.data('object');
 
-        if(!K.authRequired()) return;
+        if(!$kd.authRequired()) return;
 
-        K.modal('ajax/share/share/modal', data);
+        $kd.modal('ajax/platform/share/share/modal', data);
     });
 
     /**
@@ -146,9 +146,9 @@ define(['jquery'],function(){
             data.contentTxt = text;
         });
 
-        K.ajax('ajax/share/share/add', data)
+        $kd.ajax('ajax/platform/share/share/add', data)
             .done(function () {
-                K.closeModal();
+                $kd.closeModal();
             });
     });
 

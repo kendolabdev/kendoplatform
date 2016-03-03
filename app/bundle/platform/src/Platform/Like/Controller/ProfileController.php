@@ -26,12 +26,12 @@ class ProfileController extends ProfileBaseController
 
         $paging = \App::likeService()->loadLikePaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/like/like/paging',
+                'pagingUrl' => 'ajax/platform/like/like/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,

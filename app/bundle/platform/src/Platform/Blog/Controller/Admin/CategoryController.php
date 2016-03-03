@@ -22,11 +22,11 @@ class CategoryController extends AdminController
             'label' => 'core.create_new_category',
             'props' => [
                 'class' => 'btn btn-sm btn-danger',
-                'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'blog/category/create']),
+                'href'  => \App::routing()->getUrl('admin', ['stuff' => 'blog/category/create']),
             ]
         ];
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('blog.manage_categories')
             ->setPageButtons([$createButton])
@@ -70,14 +70,14 @@ class CategoryController extends AdminController
 
         $lp = new BlockParams(['base_path' => 'layout/partial/form-edit']);
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
             \App::blogService()->addCategory($data);
 
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', ['stuff' => 'blog/category/browse']);
+            \App::routing()->redirect('admin', ['stuff' => 'blog/category/browse']);
         }
 
         $this->view->setScript($lp)
@@ -98,11 +98,11 @@ class CategoryController extends AdminController
 
         $form = new EditBlogCategory();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             $entry->setFromArray($data);
@@ -112,7 +112,7 @@ class CategoryController extends AdminController
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', ['stuff' => 'blog/category/browse']);
+            \App::routing()->redirect('admin', ['stuff' => 'blog/category/browse']);
         }
 
         $lp = new BlockParams(['base_path' => 'layout/partial/form-edit']);
@@ -133,17 +133,17 @@ class CategoryController extends AdminController
 
         $form = new DeleteBlogCategory();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $entry->delete();
 
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', ['stuff' => 'blog/category/browse']);
+            \App::routing()->redirect('admin', ['stuff' => 'blog/category/browse']);
         }
 
         $lp = new BlockParams(['base_path' => 'layout/partial/form-delete']);

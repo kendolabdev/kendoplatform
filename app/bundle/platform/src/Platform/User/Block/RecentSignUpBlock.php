@@ -2,14 +2,14 @@
 
 namespace Platform\User\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class RecentSignUpBlock
  *
  * @package Platform\User\Block
  */
-class RecentSignUpBlock extends Block
+class RecentSignUpBlock extends BlockController
 {
 
     /**

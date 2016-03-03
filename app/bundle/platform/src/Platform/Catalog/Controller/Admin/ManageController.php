@@ -21,7 +21,7 @@ class ManageController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_attribute', 'admin_attribute_attribute');
     }
@@ -33,14 +33,14 @@ class ManageController extends AdminController
     {
         $filter = new FilterAttributeCatalog();
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('attribute.manage_catalogs')
             ->setPageFilter($filter)
             ->setPageButtons([
                 [
                     'label' => 'attribute.add_new_catalogs',
                     'props' => [
-                        'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'attribute/manage/create']),
+                        'href'  => \App::routing()->getUrl('admin', ['stuff' => 'attribute/manage/create']),
                         'class' => 'btn btn-sm btn-danger'
                     ]]
             ]);
@@ -80,7 +80,7 @@ class ManageController extends AdminController
     {
         $form = new CreateAttributeCatalog();
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             $catalog = \App::catalogService()
@@ -89,7 +89,7 @@ class ManageController extends AdminController
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff'      => 'attribute/manage/browse',
                 'content_id' => $catalog->getContentId()]);
         }
@@ -176,11 +176,11 @@ class ManageController extends AdminController
 
         $form = new EditAttributeCatalog();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             $entry->setFromArray($data);
@@ -190,7 +190,7 @@ class ManageController extends AdminController
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff'      => 'attribute/manage/browse',
                 'content_id' => $entry->getContentId()]);
         }
@@ -222,18 +222,18 @@ class ManageController extends AdminController
 
         $form = new EditAttributeCatalog();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
 
             $entry->delete();
 
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff'      => 'attribute/manage/browse',
                 'content_id' => $entry->getContentId()
             ]);

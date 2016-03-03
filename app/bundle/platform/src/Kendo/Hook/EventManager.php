@@ -47,7 +47,7 @@ class EventManager extends KernelServiceAgreement
      * @param string $eventName
      * @param null   $payload
      *
-     * @return mixed
+     * @return HookEvent
      * @throws \Exception
      */
     public function emit($eventName, $payload = null)

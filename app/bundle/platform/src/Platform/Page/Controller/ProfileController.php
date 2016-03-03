@@ -23,7 +23,7 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseMember()
     {
-        return $this->forward('\Activity\Controller\ProfileController', 'browse-like');
+        return $this->request->forward('Platform\Feed\Controller\ProfileController', 'browse-like');
     }
 
     /**
@@ -32,7 +32,7 @@ class ProfileController extends ProfileBaseController
     public function actionBrowsePage()
     {
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('page.pages');
 
         $profile = \App::registryService()->get('profile');
@@ -46,7 +46,7 @@ class ProfileController extends ProfileBaseController
 
         $paging = \App::pageService()->loadPagePaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp->itemScript())

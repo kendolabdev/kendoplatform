@@ -33,7 +33,7 @@
 
         if (typeof remote != 'undefined' && remote) {
             $this.data('remote', false);
-            K.ajax(remote, $this.data('object'))
+            $kd.ajax(remote, $this.data('object'))
                 .done(function (res) {
                     $parent.find('ul').html(res.html);
                 });

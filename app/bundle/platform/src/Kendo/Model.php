@@ -211,7 +211,7 @@ class Model
     {
         if ($this instanceof UniqueId) {
             if (!$this->getId()) {
-                $this->setId(\App::resources()->nextId());
+                $this->setId(\App::uid()->nextId());
             }
         }
 

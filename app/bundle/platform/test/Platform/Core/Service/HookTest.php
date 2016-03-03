@@ -20,8 +20,7 @@ class HookTest extends TestCase
 
         $hookService->scanHookFromEnableModulesThenImportToRepository();
 
-        $hookService->cleanupHooks();
-        $hookService->getListHookByModuleName(['platform_core']);
+//        $hookService->cleanupHooks();
 
     }
 }

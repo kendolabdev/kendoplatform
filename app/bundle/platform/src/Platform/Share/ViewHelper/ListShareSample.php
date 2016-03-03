@@ -28,7 +28,7 @@ class ListShareSample
         return \App::viewHelper()->partial('platform/share/partial/list-share-sample', [
             'about'    => $about,
             'total'    => $total,
-            'modalUrl' => 'ajax/share/share/shared-this/?' . http_build_query($about->toTokenArray(), null, '&')
+            'modalUrl' => 'ajax/platform/share/share/shared-this/?' . http_build_query($about->toTokenArray(), null, '&')
         ]);
     }
 }

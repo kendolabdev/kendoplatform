@@ -148,7 +148,7 @@ class JsFile implements Collection
             if (empty($attributes)) {
                 continue;
             }
-            $response[] = '<script type="text/javascript" ' . Manager::implodeAttributes($attributes) . ' ></script>';
+            $response[] = '<script type="text/javascript" ' . AssetsManager::implodeAttributes($attributes) . ' ></script>';
         }
 
         return implode(PHP_EOL, $response);

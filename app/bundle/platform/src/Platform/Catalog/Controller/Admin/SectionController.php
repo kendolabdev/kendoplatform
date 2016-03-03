@@ -20,7 +20,7 @@ class SectionController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_attribute', 'admin_attribute_section');
     }
@@ -32,14 +32,14 @@ class SectionController extends AdminController
     {
         $filter = new FilterAttributeSection();
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('attribute.manage_sections')
             ->setPageFilter($filter)
             ->setPageButtons([
                 [
                     'label' => 'attribute.add_new_section',
                     'props' => [
-                        'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'attribute/section/create']),
+                        'href'  => \App::routing()->getUrl('admin', ['stuff' => 'attribute/section/create']),
                         'class' => 'btn btn-sm btn-danger'
                     ]]
             ]);
@@ -149,7 +149,7 @@ class SectionController extends AdminController
         if ($catalog)
             $form->removeElement('content_id');
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             if ($catalog)
@@ -171,7 +171,7 @@ class SectionController extends AdminController
             if ($catalog)
                 $params['catalogId'] = $catalog->getId();
 
-            \App::routingService()->redirect('admin', $params);
+            \App::routing()->redirect('admin', $params);
         }
 
         $lp = new BlockParams([
@@ -201,11 +201,11 @@ class SectionController extends AdminController
 
         $form = new EditAttributeSection();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             $entry->setFromArray($data);
@@ -215,7 +215,7 @@ class SectionController extends AdminController
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff'   => 'attribute/section/browse',
                 'content' => $data['content_type']]);
         }
@@ -247,18 +247,18 @@ class SectionController extends AdminController
 
         $form = new EditAttributeSection();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
 
             $entry->delete();
 
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff' => 'attribute/section/browse']);
         }
 

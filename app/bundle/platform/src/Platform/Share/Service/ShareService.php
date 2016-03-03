@@ -19,7 +19,7 @@ class ShareService extends KernelServiceAgreement
      */
     public function getAdminStatisticCount()
     {
-        return \App::table('share')
+        return \App::table('platform_share')
             ->select()
             ->count();
     }

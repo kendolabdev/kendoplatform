@@ -6,8 +6,7 @@ use Kendo\Assets\Requirejs;
 use Kendo\Content\PosterInterface;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Routing\FilterStuff;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\User\Model\User;
 
@@ -29,7 +28,7 @@ class EventListenerService extends EventListener
         if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
-            'btnBearInvitation' => '\Invitation\ViewHelper\ButtonBearInvitation',
+            'btnBearInvitation' => '\Platform\Invitation\ViewHelper\ButtonBearInvitation',
         ]);
     }
 
@@ -42,16 +41,21 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->getRoute('profile')
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'requests',
-                'controller' => '\Invitation\Controller\ProfileController',
-                'action'     => 'browse-invitation']));
+        $routing->add([
+                'name'     => 'profile/requests',
+                'replacements'=>[
+                    '<any>'=>'requests',
+                ],
+                'defaults' => [
+                    'controller' => 'Platform\Invitation\Controller\ProfileController',
+                    'action'     => 'browse-invitation'
+                ]]);
 
-        $routing->addRoute('requests', [
+        $routing->add([
+            'name'     => 'requests',
             'uri'      => 'requests',
             'defaults' => [
-                'controller' => '\Invitation\Controller\HomeController',
+                'controller' => 'Platform\Invitation\Controller\HomeController',
                 'action'     => 'browse-invitation',
             ],
         ]);

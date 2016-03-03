@@ -1,4 +1,4 @@
-<form method="post" data-url="ajax/photo/photo/submit-photos" async>
+<form method="post" data-url="ajax/platform/photo/photo/submit-photos" async>
     <input type="hidden" name="context" value="<?php echo $context; ?>" />
     <div class="hyves-content">
         <div class="hyves-header">
@@ -26,9 +26,9 @@
                    accept="image/*"
                    multiple
                    data-more=true
-                   data-url="ajax/photo/upload/temp"
+                   data-url="ajax/platform/photo/upload/temp"
                    ride="ajaxUploadHandler"
-                   data-modal="ajax/photo/photo/upload-photo-dialog"
+                   data-modal="ajax/platform/photo/photo/upload-photo-dialog"
                    data-preview="#upload-album-preview" />
         </div>
         <div class="hyves-body">

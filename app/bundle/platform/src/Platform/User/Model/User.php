@@ -90,7 +90,7 @@ class User extends Model implements PosterInterface, CatalogInterface
      */
     public function getModuleName()
     {
-        return 'user';
+        return 'platform_user';
     }
 
 
@@ -114,14 +114,12 @@ class User extends Model implements PosterInterface, CatalogInterface
         if ($this->getProfileName()) {
             $params['name'] = $this->getProfileName();
 
-            return \App::routingService()->getUrl('user_slug', $params);
+            return \App::routing()->getUrl('profile', $params);
         } else {
-            $params['profileId'] = $this->getId();
+            $params['name'] = $this->getId();
 
-            return \App::routingService()->getUrl('user_profile', $params);
+            return \App::routing()->getUrl('user_profile', $params);
         }
-
-
     }
 
     /**
@@ -153,7 +151,7 @@ class User extends Model implements PosterInterface, CatalogInterface
      */
     public function getType()
     {
-        return 'user';
+        return 'platform_user';
     }
 
     /**
@@ -161,7 +159,7 @@ class User extends Model implements PosterInterface, CatalogInterface
      */
     public function getModuleId()
     {
-        return 'user';
+        return 'platform_user';
     }
 
     /**

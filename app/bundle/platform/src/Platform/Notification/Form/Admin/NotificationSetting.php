@@ -13,7 +13,7 @@ class NotificationSetting extends BaseSettingForm
     /**
      * @var string
      */
-    protected $group = 'notification';
+    protected $group = 'platform_notification';
 
     /**
      *

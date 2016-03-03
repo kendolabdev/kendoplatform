@@ -14,7 +14,7 @@ class AttributeController extends AdminController
 
     protected function onBeforeRender()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_manage_member', 'user_attribute');
 

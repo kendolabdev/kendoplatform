@@ -2,7 +2,7 @@ define(['jquery'],function(){
     var _debug = false,
         _dataKey = 'feedComposer',
         statusBox = 'textarea.mentions-input',
-        postUrl = 'ajax/feed/feed/post',
+        postUrl = 'ajax/platform/feed/feed/post',
         FeedComposer,
         defaults = {};
 
@@ -53,7 +53,7 @@ define(['jquery'],function(){
 
             onLoadingStart();
 
-            K.ajax(postUrl, sendData)
+            $kd.ajax(postUrl, sendData)
                 .always(onComplete)
                 .done(onSuccess)
                 .fail(onError);

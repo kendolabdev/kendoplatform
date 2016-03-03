@@ -56,7 +56,7 @@ class HelpPost extends Model implements UniqueId
     {
         $topic = $this->getTopic();
 
-        return \App::routingService()->getUrl('help', [
+        return \App::routing()->getUrl('help', [
             'category' => $topic->getCategoryId(),
             'topic'    => $topic->getId(),
             'post'     => $this->getId(),

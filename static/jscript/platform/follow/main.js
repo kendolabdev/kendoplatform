@@ -10,7 +10,7 @@ define(['jquery'], function () {
 
         data.ctx = ctx;
 
-        K.ajax('ajax/follow/follow/toggle', data)
+        $kd.ajax('ajax/platform/follow/follow/toggle', data)
             .done(function (res) {
                 btn.closest('.btn-follow').replaceWith(res.html);
             }).always(function () {
@@ -28,7 +28,7 @@ define(['jquery'], function () {
 
         ele.prop('disabled', true);
 
-        K.ajax('ajax/follow/follow/link-toggle', data)
+        $kd.ajax('ajax/platform/follow/follow/link-toggle', data)
             .always(function () {
                 ele.prop('disabled', false)
             }).done(function (response) {

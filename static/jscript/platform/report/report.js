@@ -5,9 +5,9 @@ define(['jquery','underscore'],function(){
                 data = ele.data('object');
 
             if (_.isEmpty(data)) {
-                K.modal('ajax/report/general-report/dialog', data);
+                $kd.modal('ajax/platform/report/general-report/dialog', data);
             } else {
-                K.modal('ajax/report/report/dialog', data);
+                $kd.modal('ajax/platform/report/report/dialog', data);
             }
         })
     })(jQuery, _);

@@ -20,7 +20,7 @@ class OptionController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_attribute', 'admin_attribute_field');
     }
@@ -31,13 +31,13 @@ class OptionController extends AdminController
     public function actionBrowse()
     {
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('attribute.manage_options')
             ->setPageButtons([
                 [
                     'label' => 'attribute.add_new_option',
                     'props' => [
-                        'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'attribute/option/create']),
+                        'href'  => \App::routing()->getUrl('admin', ['stuff' => 'attribute/option/create']),
                         'class' => 'btn btn-sm btn-danger'
                     ]]
             ]);
@@ -73,11 +73,11 @@ class OptionController extends AdminController
 
         $form = new CreateAttributeOption();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData(['field_id' => $fieldId]);
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             \App::catalogService()
@@ -86,7 +86,7 @@ class OptionController extends AdminController
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff'   => 'attribute/option/browse',
                 'fieldId' => $data['field_id']]);
         }
@@ -118,11 +118,11 @@ class OptionController extends AdminController
 
         $form = new EditAttributeOption();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             $entry->setFromArray($data);
@@ -132,7 +132,7 @@ class OptionController extends AdminController
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff'   => 'attribute/option/browse',
                 'fieldId' => $data['field_id']]);
         }
@@ -163,18 +163,18 @@ class OptionController extends AdminController
 
         $form = new DeleteAttributeOption();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
 
             $entry->delete();
 
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff'   => 'attribute/option/browse',
                 'fieldId' => $entry->getFieldId(),
             ]);

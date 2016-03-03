@@ -26,7 +26,7 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseEvent()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('event.events');
 
         $profile = \App::registryService()->get('profile');
@@ -41,12 +41,12 @@ class ProfileController extends ProfileBaseController
         $paging = \App::eventService()
             ->loadEventPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/event/event/paging',
+                'pagingUrl' => 'ajax/platform/event/event/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,
@@ -73,12 +73,12 @@ class ProfileController extends ProfileBaseController
 
         $paging = \App::relationService()->loadMemberPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/event/event/paging',
+                'pagingUrl' => 'ajax/platform/event/event/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,

@@ -2,7 +2,7 @@
 
 namespace Kendo\Controller;
 
-use Kendo\Request\HttpRequest;
+use Kendo\Http\HttpRequest;
 use Kendo\View\View;
 
 /**
@@ -41,7 +41,7 @@ class DefaultController implements ControllerInterface
      */
     protected function init()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageName($this->request->getFullControllerName());
     }
 
@@ -85,7 +85,7 @@ class DefaultController implements ControllerInterface
      */
     public function prepareRenderByContentLayoutParams()
     {
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams();
 
         $this->view->setScript($lp);
@@ -96,7 +96,6 @@ class DefaultController implements ControllerInterface
      */
     protected function onBeforeRender()
     {
-
     }
 
     /**
@@ -120,12 +119,12 @@ class DefaultController implements ControllerInterface
 
             if (!$this->passNetworkBrowseMode()) {
                 $accept = false;
-                $this->forward('\User\Controller\AuthController', 'login');
+                $this->request->forward('\Platform\User\Controller\AuthController', 'login');
             }
 
             if (!$this->passMaintenanceMode()) {
                 $accept = false;
-                $this->forward('\Core\Controller\MaintenanceController', 'index');
+                $this->request->forward('\Platform\Core\Controller\MaintenanceController', 'index');
             }
 
             if ($accept) {
@@ -137,22 +136,8 @@ class DefaultController implements ControllerInterface
             }
         } catch (\Exception $e) {
             $this->request->setException($e);
-            $this->forward('\Core\Controller\ErrorController', 'exception');
+            $this->request->forward('\Platform\Core\Controller\ErrorController', 'exception');
         }
-
-        return true;
-    }
-
-
-    /**
-     * @param string $controllerName
-     * @param string $actionName
-     *
-     * @return bool
-     */
-    public function forward($controllerName, $actionName)
-    {
-        $this->request->forward($controllerName, $actionName, false);
 
         return true;
     }
@@ -175,27 +160,6 @@ class DefaultController implements ControllerInterface
         }
 
         return $methodName;
-    }
-
-    /**
-     * @param string $name
-     * @param array  $params
-     *
-     * @return true
-     */
-    public function redirect($name, $params = null)
-    {
-        return \App::routingService()->redirect($name, $params);
-    }
-
-    /**
-     * @param $url
-     *
-     * @return bool
-     */
-    public function redirectToUrl($url)
-    {
-        return \App::routingService()->redirectToUrl($url);
     }
 
     /**

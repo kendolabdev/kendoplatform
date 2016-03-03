@@ -19,7 +19,7 @@ define(['jquery'],function(){
         var btn = $(e.currentTarget);
         var obj = btn.data('object');
 
-        K.ajax('ajax/message/chat/open', obj)
+        $kd.ajax('ajax/platform/message/chat/open', obj)
             .complete()
             .done(function (result) {
                 $('#docklet-ow').prepend(result.html);

@@ -7,8 +7,8 @@ use Kendo\Content\ContentInterface;
 use Kendo\Content\PosterInterface;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Routing\FilterStuff;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\FilterStuff;
+use Kendo\Http\RoutingManager;
 use Kendo\View\ViewHelper;
 
 /**
@@ -29,7 +29,7 @@ class EventListenerService extends EventListener
         if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
-            'btnBearNotification' => '\Notification\ViewHelper\ButtonBearNotification',
+            'btnBearNotification' => '\Platform\Notification\ViewHelper\ButtonBearNotification',
         ]);
     }
 
@@ -42,16 +42,21 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->getRoute('profile')
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'notifications',
-                'controller' => '\Notification\Controller\ProfileController',
-                'action'     => 'browse-notification']));
+        $routing->add([
+            'name'     => 'profile/notifications',
+            'replacements'=>[
+                '<any>'=>'notifications',
+            ],
+            'defaults' => [
+                'controller' => 'Platform\Notification\Controller\ProfileController',
+                'action'     => 'browse-notification'
+            ]]);
 
-        $routing->addRoute('notifications', [
+        $routing->add([
+            'name'     => 'notifications',
             'uri'      => 'notifications',
             'defaults' => [
-                'controller' => '\Notification\Controller\HomeController',
+                'controller' => 'Platform\Notification\Controller\HomeController',
                 'action'     => 'browse-notification',
             ],
         ]);

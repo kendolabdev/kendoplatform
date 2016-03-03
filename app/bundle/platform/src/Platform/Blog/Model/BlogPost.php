@@ -39,7 +39,7 @@ class BlogPost extends Model implements ContentInterface
      */
     public function getType()
     {
-        return 'blog.blog_post';
+        return 'platform_blog_post';
     }
 
     /**
@@ -51,7 +51,7 @@ class BlogPost extends Model implements ContentInterface
     {
         $params['id'] = $this->getId();
 
-        return \App::routingService()->getUrl('blog_view', $params);
+        return \App::routing()->getUrl('blog_view', $params);
     }
 
     /**

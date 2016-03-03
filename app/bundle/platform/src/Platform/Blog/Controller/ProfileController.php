@@ -16,7 +16,7 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseBlog()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('blog.blogs');
 
         $profile = \App::registryService()->get('profile');
@@ -30,12 +30,12 @@ class ProfileController extends ProfileBaseController
 
         $paging = \App::blogService()->loadPostPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/blog/post/paging',
+                'pagingUrl' => 'ajax/platform/blog/post/paging',
                 'paging'    => $paging,
                 'query'     => $query,
                 'pager'     => $paging->getPager(),

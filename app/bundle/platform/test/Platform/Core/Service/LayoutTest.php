@@ -3,6 +3,7 @@ namespace Platform\Core\Service;
 
 use Kendo\Html\Form;
 use Kendo\Layout\Navigation;
+use Kendo\Test\ControllerTestCase;
 use Kendo\Test\TestCase;
 use Platform\Layout\Model\Layout;
 use Platform\Layout\Model\LayoutPage;
@@ -13,17 +14,11 @@ use Platform\Layout\Model\LayoutTheme;
  *
  * @package Platform\Core
  */
-class LayoutTest extends TestCase
+class LayoutTest extends ControllerTestCase
 {
     public function testGeneral()
     {
-        $layoutService = \App::layoutService();
-
-        $loader = $layoutService->getLoader();
-
-        $this->assertInstanceOf('\Kendo\Layout\LayoutLoaderInterface', $loader);
-
-        $this->assertEmpty($layoutService->getPageFilter());
+        $layoutService = \App::layouts();
 
         $layoutService->setPageFilter(new Form());
 
@@ -155,7 +150,7 @@ class LayoutTest extends TestCase
      */
     public function testThemeId($themeId)
     {
-        $layoutService = \App::layoutService();
+        $layoutService = \App::layouts();
 
         $this->assertEquals($layoutService->getThemeData($themeId), $layoutService->getThemeDataFromRepository($themeId));
 
@@ -196,7 +191,7 @@ class LayoutTest extends TestCase
      */
     public function testLayoutId($layoutId, $pageId, $themeId)
     {
-        $layoutService = \App::layoutService();
+        $layoutService = \App::layouts();
         $layout = $layoutService->findLayoutById($layoutId);
 
         $this->assertNotEmpty($layout);
@@ -236,7 +231,7 @@ class LayoutTest extends TestCase
             'default-dark',
         ];
 
-        $layoutService = \App::layoutService();
+        $layoutService = \App::layouts();
 
         foreach ($themeList as $themeId) {
             $layout = $layoutService->findLayout($pageName, 'desktop', $themeId);
@@ -253,7 +248,7 @@ class LayoutTest extends TestCase
 
     public function testCreateLayout()
     {
-        $layoutService = \App::layoutService();
+        $layoutService = \App::layouts();
 
         $page = \App::table('platform_layout_page')
             ->fetchNew([
@@ -279,7 +274,7 @@ class LayoutTest extends TestCase
 
     public function testCloneLayout()
     {
-        $layoutService = \App::layoutService();
+        $layoutService = \App::layouts();
 
         $layout = $layoutService->findClosestLayout('core_default', 'desktop', 'default');
 

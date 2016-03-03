@@ -59,7 +59,7 @@ class PhotoCollection extends Model implements ContentInterface
      */
     public function updatePhotoCount()
     {
-        $total = \App::table('photo')
+        $total = \App::table('platform_photo')
             ->select()
             ->where('collection_id=?', $this->getId())
             ->count();
@@ -86,7 +86,7 @@ class PhotoCollection extends Model implements ContentInterface
      */
     public function getPhotoForFeedAttachments($limit)
     {
-        return \App::table('photo')
+        return \App::table('platform_photo')
             ->select()
             ->where('collection_id=?', $this->getId())
             ->order('created_at', 1)
@@ -126,7 +126,7 @@ class PhotoCollection extends Model implements ContentInterface
      */
     public function getType()
     {
-        return 'photo.photo_collection';
+        return 'platform_photo_collection';
     }
 
 

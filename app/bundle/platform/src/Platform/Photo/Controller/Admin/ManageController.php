@@ -24,7 +24,7 @@ class ManageController extends AdminController
     {
         $filter = new FilterPhoto();
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('photo.manage_photos')
             ->setPageFilter($filter)
@@ -51,7 +51,7 @@ class ManageController extends AdminController
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/photo/photo/paging',
+                'pagingUrl' => 'ajax/platform/photo/photo/paging',
                 'lp'        => $lp,
                 'paging'    => $paging,
                 'query'     => $query,

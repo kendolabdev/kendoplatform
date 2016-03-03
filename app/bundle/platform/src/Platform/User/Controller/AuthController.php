@@ -32,7 +32,7 @@ class AuthController extends DefaultController
     {
         $form = new AuthLoginSmall();
 
-        if ($this->request->isPost() && $form->isValid($this->request->getParams())) {
+        if ($this->request->isMethod('post') && $form->isValid($this->request->getParams())) {
 
             $data = $form->getData();
 
@@ -46,33 +46,47 @@ class AuthController extends DefaultController
 
             $result = \App::authService()->login($driver, $params);
 
+
             if ($result->isValid()) {
 
                 \App::authService()->store($result->getUser(), null, false);
 
                 // try location redirect then exists
-                return $this->redirect('home');
+                return $this->request->redirect('home');
             }
 
             switch (true) {
+                case $result->isInvalidIdentity():
+                    exit('invalid identity');
+                case $result->isInvalidCredentical():
+                    exit('invalid credentical');
                 case $result->isValid():
                     break;
                 case $result->isEmptyIdentity():
+                    exit('isEmptyIdentity');
                 case $result->isEmptyCredentical():
-                case $result->isInvalidIdentity():
+                    exit('isEmptyCredentical');
                 case $result->isBlocked():
+                    exit('isBlocked');
                 case $result->isDisabled():
+                    exit('isDisabled');
                 case $result->isUnapproved():
+                    exit('isUnapproved');
                 case $result->isUnverfied():
+                    exit('isUnverfied');
+                default:
+                    exit('what happend');
                     break;
             }
+        } else {
+            // do no thing
         }
 
         $enableSocialAuth = \App::setting('login', 'social_auth');
 
         $social = \App::socialService()->getListAuth();
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams();
 
 
@@ -85,11 +99,14 @@ class AuthController extends DefaultController
             ]);
     }
 
+    /**
+     * logout controller
+     */
     public function actionLogout()
     {
         \App::authService()->logout();
 
-        return $this->redirect('home');
+        return $this->request->redirect('home');
     }
 
     /**
@@ -108,7 +125,7 @@ class AuthController extends DefaultController
 
         \App::authService()->saveViewer($poster);
 
-        \App::routingService()->redirectToUrl($poster->toHref());
+        $this->request->redirectToUrl($poster->toHref());
     }
 
     /**
@@ -118,11 +135,12 @@ class AuthController extends DefaultController
     {
         $form = new ForgotPasswordForm([]);
 
+
         $this->view->assign([
             'form' => $form
         ]);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
         $this->view->setScript($lp);
     }
 }

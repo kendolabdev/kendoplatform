@@ -1,14 +1,14 @@
 <?php
 namespace Platform\Core\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class AdminStatisticBlock
  *
  * @package Core\Block
  */
-class AdminStatisticBlock extends Block
+class AdminStatisticBlock extends BlockController
 {
 
     /**

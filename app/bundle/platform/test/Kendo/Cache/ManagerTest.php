@@ -14,7 +14,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testGeneral()
     {
-        $manager = new Manager();
+        $manager = new CacheManager();
 
         $this->assertEquals('default', $manager->getDefaultDriverName());
 

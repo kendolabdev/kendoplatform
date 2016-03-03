@@ -22,7 +22,7 @@ define(['jquery'],function(){
 
             btn.prop('disabled', false);
 
-            K.ajax('ajax/core/block/toggle', data)
+            $kd.ajax('ajax/platform/core/block/toggle', data)
                 .done(function (res) {
                     btn.closest('.btn-blocking').replaceWith(res.html);
                 }).always(function () {
@@ -34,7 +34,7 @@ define(['jquery'],function(){
             var ele = $(evt.currentTarget),
                 data = ele.data('object');
 
-            K.ajax('ajax/core/block/remove', data)
+            $kd.ajax('ajax/platform/core/block/remove', data)
                 .done(function (response) {
                     _debug && console.log(response);
                 });
@@ -136,7 +136,7 @@ define(['jquery'],function(){
 
             outer.hide();
 
-            K.ajax('ajax/feed/feed/remove', data)
+            $kd.ajax('ajax/platform/feed/feed/remove', data)
                 .done(function (response) {
 
                 });
@@ -153,7 +153,7 @@ define(['jquery'],function(){
                 outer.hide()
             });
 
-            K.ajax('ajax/feed/feed/remove', data)
+            $kd.ajax('ajax/platform/feed/feed/remove', data)
                 .done(function (response) {
 
                 });
@@ -186,7 +186,7 @@ define(['jquery'],function(){
 
             ele.prop('disabled', true);
 
-            K.ajax('ajax/feed/feed/toggle-hidden', data)
+            $kd.ajax('ajax/platform/feed/feed/toggle-hidden', data)
                 .always(function () {
                     ele.prop('disabled', false)
                 }).done(function (response) {
@@ -208,7 +208,7 @@ define(['jquery'],function(){
 
             ele.prop('disabled', true);
 
-            K.ajax('ajax/feed/feed/toggle-hide-timeline', data)
+            $kd.ajax('ajax/platform/feed/feed/toggle-hide-timeline', data)
                 .always(function () {
                     ele.prop('disabled', false)
                 }).done(function (response) {
@@ -234,7 +234,7 @@ define(['jquery'],function(){
 
             form.prop('disabled', true);
 
-            K.ajax('ajax/feed/feed/save-inline-edit', data)
+            $kd.ajax('ajax/platform/feed/feed/save-inline-edit', data)
                 .always(function () {
                     form.prop('disabled', false);
                 }).done(function (response) {
@@ -256,7 +256,7 @@ define(['jquery'],function(){
 
             form.prop('disabled', true);
 
-            K.ajax('ajax/feed/feed/cancel-inline-edit', data)
+            $kd.ajax('ajax/platform/feed/feed/cancel-inline-edit', data)
                 .always(function () {
                     form.prop('disabled', false);
                 }).done(function (response) {
@@ -275,7 +275,7 @@ define(['jquery'],function(){
 
             evt.preventDefault();
 
-            K.ajax('ajax/feed/feed/toggle-subscribe', data)
+            $kd.ajax('ajax/platform/feed/feed/toggle-subscribe', data)
                 .always(function () {
                     ele.prop('disabled', false)
                 }).done(function (response) {
@@ -295,7 +295,7 @@ define(['jquery'],function(){
             if (!stage.length)
                 stage = $('<div class="fs-story-ow">').insertAfter($(parent).find('.fs-headline-ow'));
 
-            K.ajax('ajax/feed/feed/edit-inline', data)
+            $kd.ajax('ajax/platform/feed/feed/edit-inline', data)
                 .done(function (response) {
                     stage.html(response.html)
                         .removeClass('hidden')

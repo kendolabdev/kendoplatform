@@ -16,7 +16,7 @@ class PrivacyController extends AjaxController
      */
     public function actionUpdatePrivacy()
     {
-        list($type, $id, $eid) = $this->request->get('type', 'id', 'eid');
+        list($type, $id, $eid) = $this->request->getList('type', 'id', 'eid');
 
         $about = \App::find($type, $id);
 
@@ -46,8 +46,8 @@ class PrivacyController extends AjaxController
     {
         $poster = \App::authService()->getViewer();
 
-        list($type, $id, $eid) = $this->request->get('type', 'id', 'eid');
-        list($accepts, $excludes) = $this->request->get('accepts', 'excludes');
+        list($type, $id, $eid) = $this->request->getList('type', 'id', 'eid');
+        list($accepts, $excludes) = $this->request->getList('accepts', 'excludes');
 
         $about = \App::find($type, $id);
 
@@ -82,8 +82,8 @@ class PrivacyController extends AjaxController
     {
         $poster = \App::authService()->getViewer();
 
-        list($parentType, $parentId, $eid) = $this->request->get('parentType', 'parentId', 'eid');
-        list($accepts, $excludes) = $this->request->get('accepts', 'excludes');
+        list($parentType, $parentId, $eid) = $this->request->getList('parentType', 'parentId', 'eid');
+        list($accepts, $excludes) = $this->request->getList('accepts', 'excludes');
 
         $parent = \App::find($parentType, $parentId);
 
@@ -117,7 +117,7 @@ class PrivacyController extends AjaxController
         $privacy = $this->request->getArray('privacy');
 
 
-        list($parentType, $parentId) = $this->request->get('parentType', 'parentId');
+        list($parentType, $parentId) = $this->request->getList('parentType', 'parentId');
 
         $parent = \App::find($parentType, $parentId);
 

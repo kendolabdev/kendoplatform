@@ -11,7 +11,7 @@ namespace Platform\User\Service;
 
 use Platform\Event\ViewHelper\ButtonMembership;
 use Kendo\Html\Form;
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 use Platform\User\Model\User;
 use Platform\User\ViewHelper\ButtonBearAccount;
 use Platform\User\ViewHelper\ButtonLoginAs;
@@ -229,7 +229,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
     {
         $block = new $blockClass($blockParams);
 
-        if (!$block instanceof Block) ;
+        if (!$block instanceof BlockController) ;
 
         $block->execute();
     }

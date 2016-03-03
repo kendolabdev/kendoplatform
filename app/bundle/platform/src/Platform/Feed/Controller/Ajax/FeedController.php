@@ -19,7 +19,7 @@ class FeedController extends AjaxController
      */
     public function actionSaveInlineEdit()
     {
-        list($type, $id, $status) = $this->request->get('type', 'id', 'statusTxt');
+        list($type, $id, $status) = $this->request->getList('type', 'id', 'statusTxt');
         $feed = \App::find($type, $id);
 
         if (!$feed instanceof Feed)
@@ -46,7 +46,7 @@ class FeedController extends AjaxController
      */
     public function actionCancelInlineEdit()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
         $feed = \App::find($type, $id);
 
         if (!$feed instanceof Feed)
@@ -69,7 +69,7 @@ class FeedController extends AjaxController
      */
     public function actionToggleHidden()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $feed = \App::find($type, $id);
 
@@ -93,7 +93,7 @@ class FeedController extends AjaxController
      */
     public function actionToggleHideTimeline()
     {
-        list($type, $id, $profileId, $profileType) = $this->request->get('type', 'id', 'profileId', 'profileType');
+        list($type, $id, $profileId, $profileType) = $this->request->getList('type', 'id', 'profileId', 'profileType');
 
         $feed = \App::find($type, $id);
 
@@ -120,7 +120,7 @@ class FeedController extends AjaxController
      */
     public function actionToggleSubscribe()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $feed = \App::find($type, $id);
 
@@ -159,7 +159,7 @@ class FeedController extends AjaxController
         $videoTmp = $this->request->getArray('video');
         $attachment = $this->request->getArray('attachment');
 
-        $serviceName = 'feed';
+        $serviceName = 'platform_feed';
 
         /**
          * process uploaded photo before check other
@@ -216,8 +216,8 @@ class FeedController extends AjaxController
             'canSubscribe'    => true,
         ];
 
-        list($id, $eid) = $this->request->get('id', 'eid');
-        $feed = \App::find('feed', $id);
+        list($id, $eid) = $this->request->getList('id', 'eid');
+        $feed = \App::find('platform_feed', $id);
 
         $context = [
             'profileId'   => $this->request->getString('profileId'),
@@ -302,7 +302,7 @@ class FeedController extends AjaxController
         ];
 
         $this->response['vars'] = $vars;
-        $this->response['html'] = $this->partial('/base/feed/partial/feed-options', $vars);
+        $this->response['html'] = $this->partial('platform/feed/partial/feed-options', $vars);
     }
 
     /**
@@ -325,7 +325,7 @@ class FeedController extends AjaxController
     public function actionPaging()
     {
 
-        list($query, $minId, $maxId, $mode) = $this->request->get('query', 'minId', 'maxId', 'mode');
+        list($query, $minId, $maxId, $mode) = $this->request->getList('query', 'minId', 'maxId', 'mode');
 
         $query['minId'] = $minId;
         $query['maxId'] = $maxId;
@@ -334,7 +334,7 @@ class FeedController extends AjaxController
         $paging = \App::feedService()->loadFeedPaging($query);
 
         $this->response['count'] = $paging->count();
-        $this->response['html'] = $this->partial('/base/feed/controller/ajax/feed/load-feeds', [
+        $this->response['html'] = $this->partial('platform/feed/controller/ajax/feed/load-feeds', [
             'paging' => $paging,
         ]);
     }
@@ -344,7 +344,7 @@ class FeedController extends AjaxController
      */
     public function actionEditInline()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $about = \App::find($type, $id);
 
@@ -381,7 +381,7 @@ class FeedController extends AjaxController
         $privacy = \App::relationService()->getRelationOptionForSelect($parent, $poster, 'share_status');
 
 
-        $this->response['html'] = \App::viewHelper()->partial('/base/feed/partial/edit-feed-inline', [
+        $this->response['html'] = \App::viewHelper()->partial('platform/feed/partial/edit-feed-inline', [
             'about'             => $about,
             'story'             => $story,
             'type'              => $type,

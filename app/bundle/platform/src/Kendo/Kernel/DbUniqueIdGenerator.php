@@ -18,7 +18,7 @@ class DbUniqueIdGenerator implements UniqueIdGeneratorInterface
         $db = \App::db();
         $conn = $db->getMaster();
 
-        $table = $db->getName('core_uid_generator');
+        $table = $db->getName('platform_core_uid_generator');
 
         $conn->exec('INSERT INTO ' . $table . ' VALUES ()');
 

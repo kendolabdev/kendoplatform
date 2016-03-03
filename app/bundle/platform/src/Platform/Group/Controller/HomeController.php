@@ -17,16 +17,22 @@ class HomeController extends DefaultController
      */
     public function actionBrowseGroup()
     {
-        $filter = new FilterGroup();
 
+        $filter = new FilterGroup();
         $page = $this->request->getParam('page', 1);
         $query = [];
 
+
+        $lp = \App::layouts()->getContentLayoutParams();
+
+
+
         $paging = \App::groupService()->loadGroupPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
 
-        \App::layoutService()
+
+
+        \App::layouts()
             ->setupSecondaryNavigation('group_main', null, 'group_browse')
             ->setPageFilter($filter)
             ->setPageTitle('group.groups');
@@ -34,13 +40,12 @@ class HomeController extends DefaultController
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/group/group/paging',
+                'pagingUrl' => 'ajax/platform/group/group/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,
                 'lp'        => $lp,
             ]);
-
     }
 
     /**
@@ -50,7 +55,7 @@ class HomeController extends DefaultController
     {
         $page = $this->request->getParam('page', 1);
 
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('group_main', null, 'group_my')
             ->setPageTitle('group.groups');
 
@@ -63,12 +68,12 @@ class HomeController extends DefaultController
 
         $paging = \App::groupService()->loadGroupPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/group/group/paging',
+                'pagingUrl' => 'ajax/platform/group/group/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,
@@ -78,7 +83,7 @@ class HomeController extends DefaultController
 
     public function actionCreateGroup()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('group_main', null, 'group_my')
             ->setPageTitle('group.groups');
     }

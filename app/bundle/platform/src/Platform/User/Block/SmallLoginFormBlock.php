@@ -1,14 +1,14 @@
 <?php
 namespace Platform\User\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class SmallLoginFormBlock
  *
  * @package Platform\User\Block
  */
-class SmallLoginFormBlock extends Block
+class SmallLoginFormBlock extends BlockController
 {
     /**
      * @var string

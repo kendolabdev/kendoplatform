@@ -1,7 +1,7 @@
 <?php
 namespace Platform\User\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 
 /**
@@ -9,7 +9,7 @@ use Kendo\Layout\Block;
  *
  * @package Platform\User\Block
  */
-class UserProfileInfoBlock extends Block
+class UserProfileInfoBlock extends BlockController
 {
 
     /**

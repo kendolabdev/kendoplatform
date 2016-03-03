@@ -5,7 +5,7 @@ use Kendo\Hook\EventListener;
 use Kendo\Assets\Requirejs;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\RoutingManager;
 
 /**
  * Class EventHandlerService
@@ -24,34 +24,38 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->addRoute('connect', [
+        $routing->add([
+            'name'     => 'connect',
             'uri'      => 'connect/<service>',
             'defaults' => [
-                'controller' => 'Social\Controller\ConnectController',
+                'controller' => 'Platform\Social\Controller\ConnectController',
                 'action'     => 'connect',
             ]
         ]);
 
-        $routing->addRoute('oauth_callback', [
+        $routing->add([
+            'name'     => 'oauth_callback',
             'uri'      => 'oauth-callback/<service>',
             'defaults' => [
-                'controller' => 'Social\Controller\ConnectController',
+                'controller' => 'Platform\Social\Controller\ConnectController',
                 'action'     => 'callback',
             ]
         ]);
 
-        $routing->addRoute('oauth_success', [
+        $routing->add([
+            'name'     => 'oauth_success',
             'uri'      => 'oauth-success/<service>',
             'defaults' => [
-                'controller' => 'Social\Controller\ConnectController',
+                'controller' => 'Platform\Social\Controller\ConnectController',
                 'action'     => 'success',
             ]
         ]);
 
-        $routing->addRoute('oauth_failure', [
+        $routing->add([
+            'name'     => 'oauth_failure',
             'uri'      => 'oauth_failure/<service>',
             'defaults' => [
-                'controller' => 'Social\Controller\ConnectController',
+                'controller' => 'Platform\Social\Controller\ConnectController',
                 'action'     => 'failure',
             ]
         ]);

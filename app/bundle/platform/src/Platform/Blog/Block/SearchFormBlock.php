@@ -1,14 +1,14 @@
 <?php
 namespace Platform\Blog\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class SearchFormBlock
  *
  * @package Base\Blog\Block
  */
-class SearchFormBlock extends Block
+class SearchFormBlock extends BlockController
 {
     /**
      * @var string

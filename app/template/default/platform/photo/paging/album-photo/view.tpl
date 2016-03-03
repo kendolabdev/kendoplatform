@@ -27,7 +27,7 @@
                            class="right"
                            data-toggle="options"
                            data-for="for-btn"
-                           data-remote="ajax/photo/photo/photo-options?photoId=<?php echo $item->getId();?>"
+                           data-remote="ajax/platform/photo/photo/photo-options?photoId=<?php echo $item->getId();?>"
                            data-object="{}">
                             <i class="ion-ios-gear"></i>
                         </a>

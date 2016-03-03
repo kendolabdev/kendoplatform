@@ -22,7 +22,7 @@ class MessageController extends AjaxController
 
         $poster = \App::authService()->getViewer();
 
-        if ($this->request->isPost() && empty($_POST['send'])) {
+        if ($this->request->isMethod('post')&& empty($_POST['send'])) {
 
             $values = [];
 
@@ -41,7 +41,7 @@ class MessageController extends AjaxController
         $messageService = \App::messageService();
 
 
-        if ($this->request->isPost() && !empty($_POST['send']) && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& !empty($_POST['send']) && $form->isValid($_POST)) {
 
             $data = $form->getData();
 
@@ -73,7 +73,7 @@ class MessageController extends AjaxController
 
             $messageService->addMessage($poster, $users, $subject, $content);
 
-            \App::routingService()->redirect('message_inbox');
+            \App::routing()->redirect('message_inbox');
 
         }
 
@@ -95,12 +95,12 @@ class MessageController extends AjaxController
         $paging = \App::messageService()
             ->loadMessagePaging($query, $page);
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams('message_ajax_bear_dialog');
 
         $this->response = [
             'html' => $this->partial($lp->script(), [
-                'pagingUrl' => 'ajax/message/message/paging',
+                'pagingUrl' => 'ajax/platform/message/message/paging',
                 'profile'   => $viewer,
                 'paging'    => $paging,
                 'query'     => $query,

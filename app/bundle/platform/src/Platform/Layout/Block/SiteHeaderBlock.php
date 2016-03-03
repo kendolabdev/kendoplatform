@@ -1,14 +1,14 @@
 <?php
 namespace Platform\Layout\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class SiteHeaderBlock
  *
  * @package Platform\Layout\Block
  */
-class SiteHeaderBlock extends Block
+class SiteHeaderBlock extends BlockController
 {
     /**
      * Override this method to execute this block by page manager
@@ -17,7 +17,7 @@ class SiteHeaderBlock extends Block
      */
     public function execute()
     {
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getHeaderLayoutParams();
 
         $script = $lp->script();
@@ -28,7 +28,7 @@ class SiteHeaderBlock extends Block
 
         $q = \App::requester()->getParam('q');
 
-        $searchUrl = \App::routingService()->getUrl('search', []);
+        $searchUrl = \App::routing()->getUrl('search', []);
         $siteName = \App::setting('core', 'site_name');
 
         if (!$siteName)

@@ -22,5 +22,6 @@ class ProfileControllerTest extends ControllerTestCase
     {
         $this->dispatch('/tHoeger');
 
+        $this->assertFullControllerName('platform_feed_profile_timeline');
     }
 }

@@ -70,7 +70,7 @@ class TabDecorator extends Decorator
         if ($item['type'] == 'separator') {
             return '<li class="divider"></li>';
         } else if ($item['type'] == 'route') {
-            $href = \App::routingService()->getUrl($item['route'], $item['params']);
+            $href = \App::routing()->getUrl($item['route'], $item['params']);
         } else if ($item['type'] == 'plugin') {
             $item = \App::navigation()->signal($item['event'], $item);
         }

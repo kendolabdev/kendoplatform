@@ -14,7 +14,7 @@ class UserController extends AjaxController
      */
     public function actionEnable()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $user = \App::find($type, $id);
 
@@ -34,7 +34,7 @@ class UserController extends AjaxController
      */
     public function actionDisable()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $user = \App::find($type, $id);
 
@@ -54,7 +54,7 @@ class UserController extends AjaxController
      */
     public function actionVerify()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $user = \App::find($type, $id);
 
@@ -74,7 +74,7 @@ class UserController extends AjaxController
      */
     public function actionApprove()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $user = \App::find($type, $id);
 
@@ -95,7 +95,7 @@ class UserController extends AjaxController
      */
     public function actionOptions()
     {
-        list($type, $id, $eid) = $this->request->get('type', 'id', 'eid');
+        list($type, $id, $eid) = $this->request->getList('type', 'id', 'eid');
 
         $user = \App::find($type, $id);
 

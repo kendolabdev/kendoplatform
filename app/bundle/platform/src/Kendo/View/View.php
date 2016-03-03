@@ -87,7 +87,7 @@ class View
 
     /**
      * @return string
-     * @throws \InvalidArgumentException
+     * @throws \Exception
      */
     public function render()
     {
@@ -104,14 +104,21 @@ class View
         $script = \App::viewFinder()->findPath($script);
 
         if (false == $script) {
-            throw new \InvalidArgumentException("Could not find " . $this->getScript());
+            throw new \Exception(sprintf('Unexpected view "%s"', $this->getScript()));
         }
 
         ob_start();
 
-        extract($this->data, EXTR_SKIP);
-
-        include $script;
+        /**
+         * Ensure output buffers must be close
+         */
+        try {
+            extract($this->data, EXTR_SKIP);
+            include $script;
+        } catch (\Exception $ex) {
+            echo ob_get_clean();
+            throw $ex;
+        }
 
         return ob_get_clean();
     }

@@ -1,14 +1,14 @@
 <?php
 namespace Platform\Layout\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class SidebarMenuBlock
  *
  * @package Platform\Layout\Block
  */
-class SidebarMenuBlock extends Block
+class SidebarMenuBlock extends BlockController
 {
     /**
      * @var string
@@ -28,7 +28,7 @@ class SidebarMenuBlock extends Block
      */
     public function execute()
     {
-        $nav = \App::layoutService()
+        $nav = \App::layouts()
             ->getSecondaryNavigation();
 
         if (!$nav->getNav()) {

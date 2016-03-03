@@ -72,7 +72,7 @@ class PageService extends KernelServiceAgreement
     public function loadPagePaging($context, $page, $limit = 12)
     {
 
-        $select = \App::table('page')->select();
+        $select = \App::table('platform_page')->select();
 
         $isOwner = false;
 
@@ -125,7 +125,7 @@ class PageService extends KernelServiceAgreement
      */
     public function getActivePageCount()
     {
-        return \App::table('page')
+        return \App::table('platform_page')
             ->select()
             ->where('is_approved=?', 1)
             ->where('is_published=?', 1)

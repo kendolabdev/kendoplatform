@@ -108,14 +108,11 @@ class Page extends Model implements PosterInterface
      */
     public function toHref($params = [])
     {
+        $params['name'] = $this->getId();
         if (null != $this->getProfileName()) {
-            $params['name'] = $this->getProfileName();
-
-            return \App::routingService()->getUrl('page_slug', $params);
+            return \App::routing()->getUrl('page_profile', $params);
         } else {
-            $params['profileId'] = $this->getId();
-
-            return \App::routingService()->getUrl('page_profile', $params);
+            return \App::routing()->getUrl('profile', $params);
         }
     }
 

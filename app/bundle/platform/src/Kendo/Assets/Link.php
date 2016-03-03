@@ -138,7 +138,7 @@ class Link implements Collection
             if (empty($attributes)) {
                 continue;
             }
-            $response[] = '<link ' . Manager::implodeAttributes($attributes) . '/>';
+            $response[] = '<link ' . AssetsManager::implodeAttributes($attributes) . '/>';
         }
 
         return implode(PHP_EOL, $response);

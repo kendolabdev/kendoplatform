@@ -28,10 +28,10 @@ class HomeController extends DefaultController
             ->title()->set(\App::text('core.home_page'));
 
         if ($poster instanceof PosterInterface) {
-            $this->forward(null, 'member');
+            $this->request->forward(null, 'member');
         } else {
-            \App::layoutService()->setPageName('core_home_index');
-            $this->view->setScript('/base/core/controller/home/index');
+            \App::layouts()->setPageName('platform_core_home_index');
+            $this->view->setScript('/platform/core/controller/home/index');
         }
     }
 
@@ -43,11 +43,11 @@ class HomeController extends DefaultController
         $poster = \App::authService()->getViewer();
 
         if (!$poster instanceof PosterInterface) {
-            return $this->forward(null, 'index');
+            return $this->request->forward(null, 'index');
         }
 
         \App::registryService()->set('profile', $poster);
-        \App::layoutService()->setPageName('core_home_member');
+        \App::layouts()->setPageName('platform_core_home_member');
         \App::registryService()->set('isMainFeed', true);
     }
 
@@ -65,6 +65,6 @@ class HomeController extends DefaultController
             throw new NotFoundException();
         }
 
-        \App::routingService()->redirectToUrl($item->toHref());
+        $this->request->redirectToUrl($item->toHref());
     }
 }

@@ -15,7 +15,7 @@ class SettingController extends AdminController
 {
     public function actionEdit()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'photo_extension', 'photo_settings');
 
@@ -24,11 +24,11 @@ class SettingController extends AdminController
         $form = new PhotoSetting([]);
 
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->save();
         }
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 

@@ -55,7 +55,7 @@ class HomeController extends DefaultController
             ->where('message_id IN ?', $messageIdList)
             ->all();
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams();
 
         $this->view
@@ -93,7 +93,7 @@ class HomeController extends DefaultController
             ->where('message_id IN ?', $messageIdList)
             ->all();
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams();
 
         $this->view
@@ -118,7 +118,7 @@ class HomeController extends DefaultController
             ->where('poster_id=?', $viewer->getId())
             ->all();
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams();
 
         $this->view
@@ -153,7 +153,7 @@ class HomeController extends DefaultController
 
         $poster = \App::authService()->getViewer();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
 
             $values = [];
 
@@ -166,7 +166,7 @@ class HomeController extends DefaultController
 
         $messageService = \App::messageService();
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             $subject = $data['subject'];
@@ -197,7 +197,7 @@ class HomeController extends DefaultController
 
             $messageService->addMessage($poster, $users, $subject, $content);
 
-            \App::routingService()->redirect('message_inbox');
+            \App::routing()->redirect('message_inbox');
         }
 
         $this->prepareRenderByContentLayoutParams();

@@ -17,7 +17,7 @@ class GroupController extends AjaxController
      */
     public function actionPaging()
     {
-        list($page, $query, $lp) = $this->request->get('page', 'query', 'lp');
+        list($page, $query, $lp) = $this->request->getList('page', 'query', 'lp');
 
         $lp = new BlockParams($lp);
 

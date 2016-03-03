@@ -108,7 +108,7 @@ class Video extends Model implements ContentInterface
         $params['id'] = $this->getId();
         $params['slug'] = \App::toSlug($this->getTitle());
 
-        return \App::routingService()->getUrl('video_view', $params);
+        return \App::routing()->getUrl('video_view', $params);
     }
 
 

@@ -23,7 +23,7 @@ class PhotoCategory extends Model implements UniqueId
      */
     public function getType()
     {
-        return 'photo.photo_category';
+        return 'platform_photo_category';
     }
 
     /**

@@ -1,324 +1,368 @@
 <?php
-
 namespace Kendo\Auth;
 
 
+use Kendo\Content\ContentInterface;
+use Kendo\Content\PosterInterface;
 use Kendo\Kernel\KernelServiceAgreement;
 use Platform\User\Model\User;
-use Platform\User\Model\UserToken;
-
 
 /**
- * Class AuthManager
+ * Provide flexiable way to support login as
+ * now user can logged in as any page, group, event, ... hey manage that implement Poster interface
+ * Class Manager
+ *
  *
  * @package Kendo\Auth
  */
 class AuthManager extends KernelServiceAgreement
 {
-    CONST TOKEN_LENGTH = 32;
 
     /**
-     * @var string
+     * @var \Platform\User\Model\User
      */
-    private $token = '';
+    private $user;
 
     /**
-     * Auth cookie name
+     * @var \Kendo\Content\PosterInterface
+     */
+    private $viewer;
+
+    /**
+     * @var array
+     */
+    private $hashTypes = [
+        'default' => '\Kendo\Auth\DefaultHashGenerator',
+    ];
+
+    /**
+     * @var array
+     */
+    private $authTypes = [
+        'default' => '\Platform\User\Auth\AuthPassword',
+        'remote'  => '\Platform\User\Auth\AuthRemote',
+    ];
+
+    /**
+     * @var array
+     */
+    private $storageTypes = [
+        'default' => '\Platform\User\Auth\AuthStorage',
+    ];
+
+    /**
+     * Restore bould service
+     */
+    public function bound()
+    {
+        parent::bound();
+        $this->restore();
+    }
+
+
+    /**
+     * @return \Platform\User\Model\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param \Platform\User\Model\User $user
      *
-     * @var string
+     * @throws AuthException
      */
-    private $cookieName = 'psau';
+    public function setUser($user = null)
+    {
+
+        if (null == $user && !$user instanceof User) {
+            throw new AuthException("Could not set user of none user object");
+        }
+        $this->user = $user;
+
+        // false back to user
+        if (null == $this->viewer) {
+            $this->viewer = $user;
+
+        }
+
+    }
 
     /**
-     * Auth cookie path
-     *
-     * @var string
+     * @return \Kendo\Content\PosterInterface
      */
-    private $cookiePath = '/';
+    public function getViewer()
+    {
+
+        return $this->viewer;
+    }
 
     /**
-     * Keep alive within 1 day
+     * @param \Kendo\Content\PosterInterface $viewer
      *
-     * @var int
+     * @throws AuthException
      */
-    private $lifetime = 86400;
+    public function setViewer($viewer)
+    {
+        if (null != $viewer && !$viewer instanceof PosterInterface) {
+            throw new AuthException("Could not set viewer from object that does not support Poster interface");
+
+        }
+        $this->viewer = $viewer;
+    }
 
     /**
-     * Keep alive within 30 days
-     *
-     * @var int
+     * @return int
      */
-    private $rememberLifetime = 2592000;
+    public function getUserRoleId()
+    {
+        return null != $this->user ? (int)$this->user->getRoleId() : KENDO_DEFAULT_ROLE_ID;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRoleId()
+    {
+        return null != $this->viewer ? (int)$this->viewer->getRoleId() : KENDO_DEFAULT_ROLE_ID;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return null != $this->viewer ? (int)$this->viewer->getId() : 0;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return null != $this->viewer ? $this->viewer->getType() : '';
+    }
+
+    /**
+     * @return int|null|string
+     */
+    public function getUserId()
+    {
+        return null != $this->user ? $this->user->getId() : 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function logged()
+    {
+        return null != $this->user;
+    }
+
+    /**
+     * @param $adapter
+     *
+     * @return AuthInterface
+     * @throws  \InvalidArgumentException
+     */
+    public function getAdapter($adapter)
+    {
+        if (null == $adapter) {
+            $adapter = 'default';
+        }
+
+        if (empty($this->authTypes[ $adapter ])) {
+            throw new \InvalidArgumentException("Adaptee [$adapter] does not support");
+        }
+
+        $class = $this->authTypes[ $adapter ];
+
+        $auth = new $class;
+
+        if (!$auth instanceof AuthInterface) {
+            throw new AuthException("Adaptee must implement AuthInterface ");
+        }
+
+        return $auth;
+    }
+
+    /**
+     * @param string $encrypt
+     *
+     * @return AuthHashInterface
+     */
+    public function getHashGenerator($encrypt = null)
+    {
+        if (null == $encrypt) {
+            $encrypt = 'default';
+        }
+
+        if (empty($this->hashTypes[ $encrypt ])) {
+            throw new \InvalidArgumentException("Unsupported hash type [$encrypt]");
+        }
+
+        $className = $this->hashTypes[ $encrypt ];
+
+        if (!class_exists($className)) {
+            throw new \InvalidArgumentException("Class [$className] does not found");
+        }
+
+        $hashGenerator = new $className;
+
+        if (!$hashGenerator instanceof AuthHashInterface) {
+            throw new AuthException("Invalid arguments");
+        }
+
+        return $hashGenerator;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUser()
+    {
+        return $this->viewer instanceof User;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSupportHashTypes()
+    {
+        return array_keys($this->hashTypes);
+    }
+
+    /**
+     * @param         $user
+     * @param  bool   $remember
+     * @param  string $adaptee
+     */
+    public function store($user, $remember = false, $adaptee = null)
+    {
+        $this->getStorage($adaptee)->store($user, $remember);
+    }
+
+    /**
+     * @param        $poster
+     * @param string $adaptee
+     */
+    public function saveViewer($poster, $adaptee = null)
+    {
+        $this->getStorage($adaptee)->saveViewer($poster);
+    }
 
     /**
      * @param string $adapter
      * @param array  $params
      *
      * @return AuthResult
-     * @throws AuthException
      */
     public function login($adapter, $params)
     {
-        $result = $this->getAdapter($adapter)->auth($params);
+        $auth = $this->getAdapter($adapter);
 
-        if ($result->isValid()) {
-            $this->store($result);
-            \App::authService()->setViewer($result->getUser());
-        } else {
-            $this->forget();
-            \App::authService()->setViewer(null);
-        }
+        $result = $auth->auth($params);
 
         return $result;
     }
 
     /**
-     * Store current authenticate state
+     * @param $adapter
      *
-     * @param AuthResult $result
-     * @param bool       $remember
-     *
-     * @return bool
+     * @return AuthStorageInterface
      */
-    public function store(AuthResult $result, $remember = false)
+    public function getStorage($adapter)
     {
-
-        // Invalid result
-        if (!$result->isValid()) {
-            return false;
+        if (null == $adapter) {
+            $adapter = 'default';
         }
 
-        // Header is already sents
-        if (headers_sent()) {
-            return false;
+        if (empty($this->storageTypes[ $adapter ])) {
+            throw new \InvalidArgumentException("Un-support Auth Storage Type [$adapter]");
         }
 
-        // Run command line
-        if (KENDO_CLI) {
-            return false;
+        $class = $this->storageTypes[ $adapter ];
+
+        $obj = new $class;
+
+        if (!$obj instanceof AuthStorageInterface) {
+            throw new \InvalidArgumentException("Does not support Auth Storage Type");
         }
 
-        $tokenId = $this->makeToken();
+        return $obj;
 
-        // save to session storage.
-
-        $this->saveTokenData($result, $tokenId);
-
-        setcookie($this->getCookieName(), $tokenId, $this->getExpire($remember), $this->getCookiePath());
-
-        return true;
     }
 
     /**
-     * Save auth result to user_token table
-     *
-     * @param AuthResult $result
-     * @param string     $tokenId
-     *
-     * @return bool
-     */
-    private function saveTokenData(AuthResult $result, $tokenId)
-    {
-        $userId = $result->getUser()->getId();
-
-        $dataText = json_encode([
-            'user_id' => $userId,
-        ]);
-
-        $userToken = new UserToken([
-            'token_id'  => $tokenId,
-            'user_id'   => $userId,
-            'timestamp' => time(),
-            'data_text' => $dataText,
-        ]);
-
-        $userToken->save();
-
-        return true;
-    }
-
-    /**
-     * Restore last session authenticate state
-     *
-     * @return bool
-     */
-    public function restore()
-    {
-        // Run command line
-        if (KENDO_CLI) {
-            return false;
-        }
-
-        $cookieName = $this->getCookieName();
-
-        if (empty($_COOKIE[ $cookieName ])) {
-            return false;
-        }
-
-        $tokenId = (string)$_COOKIE[ $cookieName ];
-
-        if (empty($tokenId)) {
-            return false;
-        }
-
-        $tokenEntry = \App::table('platform_user_token')
-            ->findById($tokenId);
-
-        if (null == $tokenEntry) {
-            return false;
-        }
-
-        $userId = $tokenEntry->getUserId();
-
-        if (empty($userId)) {
-            return false;
-        }
-
-        $userEntry = \App::table('platform_user')
-            ->findById($userId);
-
-        if (empty($userEntry) or !$userEntry instanceof User) {
-            return false;
-        }
-
-
-        \App::authService()
-            ->setUser($userEntry);
-
-        // process user by entry then process load but there are nothing to loose fromt this touch
-    }
-
-    /**
-     * Forget current authenticate state
-     */
-    public function forget()
-    {
-        if (KENDO_CLI) {
-            return false;
-        }
-
-        if (headers_sent()) {
-            return false;
-        }
-
-        setcookie($this->getCookieName(), '', $this->getExpire(), $this->getCookiePath());
-    }
-
-    /**
-     * @return int
-     */
-    public function getLifetime()
-    {
-        return $this->lifetime;
-    }
-
-    /**
-     * @param int $lifetime
-     */
-    public function setLifetime($lifetime)
-    {
-        $this->lifetime = $lifetime;
-    }
-
-    /**
-     * @return int
-     */
-    public function getRememberLifetime()
-    {
-        return $this->rememberLifetime;
-    }
-
-    /**
-     * @param int $rememberLifetime
-     */
-    public function setRememberLifetime($rememberLifetime)
-    {
-        $this->rememberLifetime = $rememberLifetime;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCookieName()
-    {
-        return $this->cookieName;
-    }
-
-    /**
-     * @param string $cookieName
-     */
-    public function setCookieName($cookieName)
-    {
-        $this->cookieName = $cookieName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCookiePath()
-    {
-        return $this->cookiePath;
-    }
-
-    /**
-     * @param string $cookiePath
-     */
-    public function setCookiePath($cookiePath)
-    {
-        $this->cookiePath = $cookiePath;
-    }
-
-    /**
-     * @param bool $remember
-     *
-     * @return int
-     */
-    public function getExpire($remember = false)
-    {
-        return time() + ($remember ? $this->getRememberLifetime() : $this->getLifetime());
-    }
-
-    /**
-     * @return string
-     */
-    public function getToken()
-    {
-        if (null == $this->token) {
-            $this->token = $this->makeToken();
-        }
-
-        return $this->token;
-    }
-
-    /**
-     * @param string $token
-     */
-    public function setToken($token)
-    {
-        $this->token = $token;
-    }
-
-    /**
-     * @return string
-     */
-    private function makeToken()
-    {
-        $seeks = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
-        $max = strlen($seeks) - 1;
-        $response = '';
-
-        for ($index = 0; $index < self::TOKEN_LENGTH; ++$index) {
-            $response .= substr($seeks, mt_rand(0, $max), 1);
-        }
-
-        return $response;
-    }
-
-    /**
-     * Clear current logged state
+     * Forget current auth result
      */
     public function logout()
     {
-        $this->forget();
+        $this->forget(null);
+    }
+
+    /**
+     * @param null $adapter
+     */
+    public function restore($adapter = null)
+    {
+        $this->getStorage($adapter)->restore();
+    }
+
+
+
+    /**
+     * @param null $adapter
+     */
+    public function forget($adapter = null)
+    {
+        $this->getStorage($adapter)->forget();
+    }
+
+    /**
+     * Is poster or owner
+     *
+     * @param ContentInterface|PosterInterface $item
+     *
+     * @return bool
+     */
+    public function isOwner($item)
+    {
+        if (!$this->logged())
+            return false;
+
+        return (bool)array_intersect(
+            [$item->getId(), $item->getParentId(), $item->getParentUserId(),
+                $item->getPosterId(), $item->getPosterId(), $item->getUserId()],
+            [$this->getId(), $this->getUserId()]);
+    }
+
+    /**
+     * @param ContentInterface|PosterInterface $item
+     *
+     * @return bool
+     */
+    public function isPoster($item)
+    {
+        if (!$this->logged())
+            return false;
+
+        return (bool)array_intersect([$this->getId(), $this->getUserId()],
+            [$item->getId(), $item->getPosterId(), $item->getUserId()]);
+    }
+
+    /**
+     * @param ContentInterface|PosterInterface $item
+     *
+     * @return bool
+     */
+    public function isParent($item)
+    {
+        if (!$this->logged())
+            return false;
+
+        return (bool)array_intersect([$this->getId(), $this->getUserId()],
+            [$item->getId(), $item->getParentId(), $item->getParentUserId()]);
     }
 }

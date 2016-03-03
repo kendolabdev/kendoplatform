@@ -1,2 +1,2 @@
-<?php echo \App::navigationService()->render('storage_admin',1, 'tab',[]); ?>
+<?php echo \App::navigation()->render('storage_admin',1, 'tab',[]); ?>
 <br />

@@ -4,7 +4,7 @@ namespace Platform\Layout\Service;
 use Kendo\Hook\EventListener;
 use Kendo\Assets\Requirejs;
 use Kendo\Hook\HookEvent;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\RoutingManager;
 
 /**
  * Class EventHandlerService
@@ -22,10 +22,11 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->addRoute('layout_theme', [
+        $routing->add( [
+            'name'=>'layout_theme',
             'uri'      => 'layout/select-theme',
             'defaults' => [
-                'controller' => '\Layout\Controller\HomeController',
+                'controller' => 'Platform\Layout\Controller\HomeController',
                 'action'     => 'select-theme',
             ]
         ]);

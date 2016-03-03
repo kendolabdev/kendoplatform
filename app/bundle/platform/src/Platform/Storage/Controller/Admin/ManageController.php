@@ -20,7 +20,7 @@ class ManageController extends AdminController
      */
     public function actionBrowse()
     {
-        \App::layoutService()->setPageName('admin_simple')
+        \App::layouts()->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_storage', 'browse');
 
         $limit = 100;
@@ -48,10 +48,10 @@ class ManageController extends AdminController
      */
     public function actionTransfer()
     {
-        \App::layoutService()->setPageName('admin_simple')
+        \App::layouts()->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_storage', 'transfer');
 
-        $this->view->setScript('/base/core/controller/admin/storage/transfer-storage');
+        $this->view->setScript('/platform/core/controller/admin/storage/transfer-storage');
     }
 
     /**
@@ -59,7 +59,7 @@ class ManageController extends AdminController
      */
     public function actionCreate()
     {
-        \App::layoutService()->setPageName('admin_simple')
+        \App::layouts()->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_storage', 'add');
 
 
@@ -81,7 +81,7 @@ class ManageController extends AdminController
      */
     public function actionCreateComplete()
     {
-        \App::layoutService()->setPageName('admin_simple')
+        \App::layouts()->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_storage', 'browse');
 
         $type = $this->request->getString('adapter', 'local');
@@ -108,7 +108,7 @@ class ManageController extends AdminController
      */
     public function actionEdit()
     {
-        \App::layoutService()->setPageName('admin_simple')
+        \App::layouts()->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_storage', 'browse');
 
         $id = $this->request->getInt('id', 1);

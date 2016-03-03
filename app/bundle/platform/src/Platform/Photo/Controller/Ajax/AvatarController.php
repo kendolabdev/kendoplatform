@@ -17,7 +17,7 @@ class AvatarController extends AjaxController
      */
     public function actionEditAvatarDialog()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $photo = null;
         $photoSrc = null;

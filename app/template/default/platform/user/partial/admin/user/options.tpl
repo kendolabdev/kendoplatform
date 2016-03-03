@@ -14,7 +14,7 @@
             <a role="button" class=""
                data-toggle="dismiss"
                data-closest=".options-dialog"
-               data-url="ajax/user/admin/user/disable"
+               data-url="ajax/platform/user/admin/user/disable"
                data-object='<?php echo $token;?>'>
                 <i class="ion-locked"></i> Un-active this member
             </a>
@@ -24,7 +24,7 @@
             <a role="button" class=""
                data-toggle="dismiss"
                data-closest=".options-dialog"
-               data-url="ajax/user/admin/user/enable"
+               data-url="ajax/platform/user/admin/user/enable"
                data-object='<?php echo $token;?>'>
                 <i class="ion-unlocked"></i> Active this member
             </a>
@@ -36,7 +36,7 @@
                data-toggle="dismiss"
                data-closest="li"
                data-object='<?php echo $token;?>'
-               data-url="ajax/user/admin/user/verify">
+               data-url="ajax/platform/user/admin/user/verify">
                 <i class="ion-checkmark"></i> Set email verified
             </a>
         </li>
@@ -47,7 +47,7 @@
                data-toggle="dismiss"
                data-closest="li"
                data-object='<?php echo $token;?>'
-               data-url="ajax/user/admin/user/approve">
+               data-url="ajax/platform/user/admin/user/approve">
                 <i class="ion-checkmark"></i>Approve this member
             </a>
         </li>

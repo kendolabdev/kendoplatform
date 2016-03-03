@@ -35,7 +35,7 @@ class PageController extends AjaxController
     public function actionMembershipOptions()
     {
 
-        list($type, $id, $eid) = $this->request->get('type', 'id', 'eid');
+        list($type, $id, $eid) = $this->request->getList('type', 'id', 'eid');
 
         $item = \App::find($type, $id);
 

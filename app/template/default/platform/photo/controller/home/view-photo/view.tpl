@@ -21,7 +21,7 @@
                class="right"
                data-toggle="btn-options"
                data-for="for-btn"
-               data-remote="ajax/photo/photo/photo-options?photoId=<?php echo $photo->getId();?>"
+               data-remote="ajax/platform/photo/photo/photo-options?photoId=<?php echo $photo->getId();?>"
                data-object="{}">
                 <?php echo $this->helper()->text('core.options'); ?>
             </a>
@@ -49,4 +49,4 @@
 </div>
 
 
-<?php echo \App::layoutService()->renderBlock('\Activity\Block\ActivityAbout',['about'=> $photo]); ?>
+<?php echo \App::layouts()->renderBlock('\Activity\Block\ActivityAbout',['about'=> $photo]); ?>

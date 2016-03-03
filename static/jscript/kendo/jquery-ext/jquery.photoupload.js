@@ -203,7 +203,7 @@ define(['jquery'],function(){
             this.queue.push(file);
 
             var index = this.queue.length - 1;
-            var eid = K.newId('e');
+            var eid = $kd.newId('e');
             file.eid = eid;
 
             this.settings.onNewFile.call(this.input, eid, index, file, this.input, this);

@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Comment\Service;
 
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Comment\Model\Comment;
 use Kendo\Hook\EventListener;
@@ -27,8 +27,8 @@ class EventListenerService extends EventListener
         if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
-            'lnComment'         => '\Comment\ViewHelper\LinkComment',
-            'lnViewMoreComment' => '\Comment\ViewHelper\LinkViewMoreComment',
+            'lnComment'         => '\Platform\Comment\ViewHelper\LinkComment',
+            'lnViewMoreComment' => '\Platform\Comment\ViewHelper\LinkViewMoreComment',
         ]);
     }
 

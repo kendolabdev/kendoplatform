@@ -74,11 +74,11 @@ class CacheFilesystem implements CacheInterface
     /**
      * @param string|array  $key
      * @param int           $minutes
-     * @param \Closure|null $closure
+     * @param \Closure|null $fallback
      *
      * @return mixed
      */
-    public function get($key, $minutes = 0, \Closure $closure = null)
+    public function get($key, $minutes = 0, \Closure $fallback = null)
     {
         $key = $this->key($key);
 
@@ -91,9 +91,9 @@ class CacheFilesystem implements CacheInterface
             }
         }
 
-        if (null != $closure) {
+        if (null != $fallback) {
 
-            $data = $closure();
+            $data = $fallback();
 
             $this->set($key, $data, $minutes);
 

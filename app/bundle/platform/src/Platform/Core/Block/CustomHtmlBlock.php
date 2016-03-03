@@ -2,14 +2,14 @@
 
 namespace Platform\Core\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class CustomHtmlBlock
  *
  * @package Core\Block
  */
-class CustomHtmlBlock extends Block
+class CustomHtmlBlock extends BlockController
 {
 
     /**

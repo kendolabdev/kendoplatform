@@ -22,7 +22,7 @@ class InvitationService extends KernelServiceAgreement
      */
     public function findType($id)
     {
-        return \App::table('invitation.type')
+        return \App::table('platform_invitation_type')
             ->findById($id);
     }
 
@@ -35,7 +35,7 @@ class InvitationService extends KernelServiceAgreement
      */
     public function loadInvitationPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('invitation')->select();
+        $select = \App::table('platform_invitation')->select();
 
         $isValid = false;
 
@@ -69,7 +69,7 @@ class InvitationService extends KernelServiceAgreement
 
         if (!$parent instanceof PosterInterface) return 0;
 
-        return \App::table('invitation')
+        return \App::table('platform_invitation')
             ->select()
             ->where('parent_id=?', $parent->getId())
             ->where('`read`=?', 0)
@@ -90,7 +90,7 @@ class InvitationService extends KernelServiceAgreement
         if (!$parent instanceof PosterInterface)
             return 0;
 
-        return \App::table('invitation')
+        return \App::table('platform_invitation')
             ->select()
             ->where('parent_id=?', (string)$parent->getId())
             ->where('`mitigated`=?', '0')
@@ -110,7 +110,7 @@ class InvitationService extends KernelServiceAgreement
             throw new AuthorizationRestrictException();
 
 
-        \App::table('invitation')
+        \App::table('platform_invitation')
             ->update(['mitigated' => 1])
             ->where('parent_id=?', $parent->getId())
             ->execute();
@@ -164,7 +164,7 @@ class InvitationService extends KernelServiceAgreement
      */
     public function removeRequest($type, PosterInterface $poster, PosterInterface $parent)
     {
-        \App::table('invitation')
+        \App::table('platform_invitation')
             ->delete()
             ->where('type_id=?', $type)
             ->where('poster_id=?', $poster->getId())
@@ -209,7 +209,7 @@ class InvitationService extends KernelServiceAgreement
      */
     public function getListTypeByModuleName($moduleList)
     {
-        return \App::table('invitation.invitation_type')
+        return \App::table('platform_invitation_type')
             ->select()
             ->where('module_name IN ?', $moduleList)
             ->toAssocs();

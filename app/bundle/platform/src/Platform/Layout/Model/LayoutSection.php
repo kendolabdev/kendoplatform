@@ -22,7 +22,7 @@ class LayoutSection extends Model
     public function _beforeInsert()
     {
         if (empty($this->getSectionId()))
-            $this->setSectionId(\App::layoutService()->_generateNewId());
+            $this->setSectionId(\App::layouts()->_generateNewId());
 
         parent::_beforeInsert();
     }

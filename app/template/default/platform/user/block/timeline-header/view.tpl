@@ -94,6 +94,6 @@
 </div>
 <div class="user-tlh-nav-ow">
     <div class="user-tlh-nav-iw clearfix">
-        <?php echo \App::navigationService()->render('dropdown','profile', null,[], 1, $profileTabMenuOptions);?>
+        <?php echo \App::navigation()->render('dropdown','profile', null,[], 1, $profileTabMenuOptions);?>
     </div>
 </div>

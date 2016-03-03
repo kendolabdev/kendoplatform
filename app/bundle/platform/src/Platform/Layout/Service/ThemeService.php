@@ -144,12 +144,12 @@ class ThemeService
     public function rebuildStylesheetForTheme($themeId = null)
     {
         if (empty($themeId)) {
-            $themeId = \App::layoutService()
+            $themeId = \App::layouts()
                 ->theme()
                 ->getDefaultThemeId();
         }
 
-        $theme = \App::layoutService()
+        $theme = \App::layouts()
             ->theme()
             ->findThemeById($themeId);
 

@@ -7,3 +7,17 @@
 ## Refactor
 + Instead of using ServiceManager=> App\ServiceContainer
 
+routing->addRoute(profile,[
+    domain: "",
+    uri:     "<profilename>/*",
+    defaults: {},
+    filter: how to filter this touch.
+])->addChild('event',[
+    'uri'=>'<profile>/events',
+])->addChild('groups',{
+    'uri'=>'<profile>/groups',
+    defaults: [],
+});
+
+//
+routing->getUrl('profile_event', "sentalated the id but not moment");

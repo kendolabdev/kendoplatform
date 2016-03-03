@@ -17,9 +17,9 @@ class ManageController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layoutService()->setPageName('admin_simple');
+        \App::layouts()->setPageName('admin_simple');
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('core.manage_navigations')
             ->setupSecondaryNavigation('admin', 'admin_navigation', 'navigation');

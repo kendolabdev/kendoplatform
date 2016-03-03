@@ -45,8 +45,8 @@ class CreateTheme extends Form
             'value'  => '1.0.0',
         ]);
 
-        $templateOptions = \App::layoutService()->getTemplateOptions();
-        $themeOptions = \App::layoutService()->getThemeOptions();
+        $templateOptions = \App::layouts()->getTemplateOptions();
+        $themeOptions = \App::layouts()->getThemeOptions();
 
         $this->addElement([
             'plugin'   => 'radio',

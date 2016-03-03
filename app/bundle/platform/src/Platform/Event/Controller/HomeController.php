@@ -19,7 +19,7 @@ class HomeController extends DefaultController
     {
         $filter = new FilterEvent();
 
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('event_main', null, 'event_browse')
             ->setPageFilter($filter)
             ->setPageTitle('event.events');
@@ -31,12 +31,12 @@ class HomeController extends DefaultController
         $paging = \App::eventService()->loadEventPaging($query, $page);
 
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/event/event/paging',
+                'pagingUrl' => 'ajax/platform/event/event/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,
@@ -49,7 +49,7 @@ class HomeController extends DefaultController
      */
     public function actionMyEvent()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('event_main', null, 'event_my')
             ->setPageTitle('event.events');
 
@@ -69,12 +69,12 @@ class HomeController extends DefaultController
 
         $paging = \App::eventService()->loadEventPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/event/event/paging',
+                'pagingUrl' => 'ajax/platform/event/event/paging',
                 'query'     => $query,
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
@@ -88,7 +88,7 @@ class HomeController extends DefaultController
      */
     public function actionCreateEvent()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('event_main', null, 'event_my')
             ->setPageTitle('event.events');
     }

@@ -19,8 +19,8 @@ class SettingController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layoutService()->setPageName('admin_simple');
-        \App::layoutService()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_setting_notification');
+        \App::layouts()->setPageName('admin_simple');
+        \App::layouts()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_setting_notification');
     }
 
     /**
@@ -31,11 +31,11 @@ class SettingController extends AdminController
 
         $form = new NotificationSetting();
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->save();
         }
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 
@@ -97,14 +97,14 @@ class SettingController extends AdminController
             'notificationType' => $notificationType
         ]);
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->save();
 
-            \App::routingService()->redirect('admin', ['stuff' => 'notification/setting/type']);
+            \App::routing()->redirect('admin', ['stuff' => 'notification/setting/type']);
         }
 
         $lp = new BlockParams([

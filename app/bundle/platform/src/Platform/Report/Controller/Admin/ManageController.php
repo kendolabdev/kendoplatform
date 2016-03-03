@@ -27,7 +27,7 @@ class ManageController extends AdminController
         ];
 
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('core.abuse_reports')
             ->setPageButtons([$deleteButton])
@@ -41,7 +41,7 @@ class ManageController extends AdminController
     {
         $filter = new FilterReport();
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('core.abuse_reports')
             ->setPageFilter($filter);
 

@@ -18,7 +18,7 @@ class SearchController extends DefaultController
     public function actionIndex()
     {
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams();
 
 

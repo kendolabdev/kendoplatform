@@ -6,7 +6,8 @@
  * Time: 9:53 AM
  */
 
-namespace Kendo\Request;
+namespace Kendo\Http;
+
 
 class HttpRequestTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,7 +16,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     {
         $httpRequest = new HttpRequest('http://tuoitre.com.vn/conduongcuqua?q=example_query&page=2&t[]=4');
 
-        $this->assertEquals(['example_query'], $httpRequest->get('q'));
+        $this->assertEquals(['example_query'], $httpRequest->getList('q'));
         $this->assertEquals('example_query', $httpRequest->getParam('q'));
         $this->assertEquals('example_query', $httpRequest->getString('q'));
 
@@ -37,15 +38,8 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($defaultValue, $httpRequest->getString('no_query', $defaultValue));
         $this->assertEquals($defaultValue, $httpRequest->getParam('no_query', $defaultValue));
 
-        $this->assertTrue($httpRequest->isGet());
+        $this->assertTrue($httpRequest->isMethod('get'));
         $httpRequest->getResponse();
-
-        $this->assertFalse($httpRequest->isPut());
-        $this->assertFalse($httpRequest->isPost());
-        $this->assertFalse($httpRequest->isPost());
-        $this->assertFalse($httpRequest->isAjax());
-        $this->assertFalse($httpRequest->isDelete());
-        $this->assertFalse($httpRequest->isOptions());
         $this->assertEmpty($httpRequest->getFragment());
 
         $httpRequest->setMethod('post');

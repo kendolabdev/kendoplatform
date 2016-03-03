@@ -21,7 +21,7 @@ class HomeController extends DefaultController
 
         $filter = new FilterVideo();
 
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('video_main', null, 'video_browse')
             ->setPageFilter($filter)
             ->setPageTitle('video.videos');
@@ -32,11 +32,11 @@ class HomeController extends DefaultController
 
         $paging = \App::videoService()->loadVideoPaging([], $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/video/video/paging',
+                'pagingUrl' => 'ajax/platform/video/video/paging',
                 'paging'    => $paging,
                 'query'     => $query,
                 'lp'        => $lp,
@@ -50,7 +50,7 @@ class HomeController extends DefaultController
     public function actionMyVideo()
     {
 
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('video_main', null, 'video_my')
             ->setPageTitle('video.videos');
 
@@ -62,11 +62,11 @@ class HomeController extends DefaultController
 
         $paging = \App::videoService()->loadVideoPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/video/video/paging',
+                'pagingUrl' => 'ajax/platform/video/video/paging',
                 'paging'    => $paging,
                 'query'     => $query,
                 'lp'        => $lp,
@@ -79,7 +79,7 @@ class HomeController extends DefaultController
     public function actionEmbedVideo()
     {
 
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('video_main', null, 'video_embed')
             ->setPageTitle('video.videos');
 
@@ -88,7 +88,7 @@ class HomeController extends DefaultController
         $poster = \App::authService()->getViewer();
         $parent = $poster;
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         if ($this->request->isPost()) {
 
@@ -107,7 +107,7 @@ class HomeController extends DefaultController
 
                 \App::feedService()->addItemFeed('video_shared', $video);
 
-                \App::routingService()->redirect('videos');
+                \App::routing()->redirect('videos');
             }
         }
 
@@ -123,7 +123,7 @@ class HomeController extends DefaultController
     public function actionUploadVideo()
     {
 
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('video_main', null, 'video_create')
             ->setPageTitle('video.videos');
 
@@ -132,7 +132,7 @@ class HomeController extends DefaultController
         $poster = \App::authService()->getViewer();
         $parent = $poster;
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         if ($this->request->isPost()) {
             $form->setData($_POST);
@@ -147,7 +147,7 @@ class HomeController extends DefaultController
 
             \App::feedService()->addItemFeed('video_shared', $video);
 
-            \App::routingService()->redirect('videos');
+            \App::routing()->redirect('videos');
 
         }
 
@@ -175,7 +175,7 @@ class HomeController extends DefaultController
 
         \App::registryService()->set('about', $video);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([

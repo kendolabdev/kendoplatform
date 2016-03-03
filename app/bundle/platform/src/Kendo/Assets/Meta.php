@@ -106,7 +106,7 @@ class Meta implements Collection
             if (empty($attributes)) {
                 continue;
             }
-            $response[] = '<meta ' . Manager::implodeAttributes($attributes) . '/>';
+            $response[] = '<meta ' . AssetsManager::implodeAttributes($attributes) . '/>';
         }
 
         return implode(PHP_EOL, $response);

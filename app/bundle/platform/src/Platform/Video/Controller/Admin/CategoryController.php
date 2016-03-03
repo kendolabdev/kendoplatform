@@ -23,11 +23,11 @@ class CategoryController extends AdminController
             'label' => 'core.create_new_category',
             'props' => [
                 'class' => 'btn btn-sm btn-danger',
-                'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'video/category/create']),
+                'href'  => \App::routing()->getUrl('admin', ['stuff' => 'video/category/create']),
             ]
         ];
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('video.manage_categories')
             ->setPageButtons([$createButton])
@@ -69,14 +69,14 @@ class CategoryController extends AdminController
 
         $lp = new BlockParams(['base_path' => 'layout/partial/form-edit']);
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
             \App::videoService()->addCategory($data);
 
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', ['stuff' => 'video/category/browse']);
+            \App::routing()->redirect('admin', ['stuff' => 'video/category/browse']);
         }
 
         $this->view->setScript($lp)
@@ -97,11 +97,11 @@ class CategoryController extends AdminController
 
         $form = new EditVideoCategory();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             $entry->setFromArray($data);
@@ -111,7 +111,7 @@ class CategoryController extends AdminController
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', ['stuff' => 'video/category/browse']);
+            \App::routing()->redirect('admin', ['stuff' => 'video/category/browse']);
         }
 
         $lp = new BlockParams(['base_path' => 'layout/partial/form-edit']);
@@ -132,17 +132,17 @@ class CategoryController extends AdminController
 
         $form = new DeleteVideoCategory();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $entry->delete();
 
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', ['stuff' => 'video/category/browse']);
+            \App::routing()->redirect('admin', ['stuff' => 'video/category/browse']);
         }
 
         $lp = new BlockParams(['base_path' => 'layout/partial/form-delete']);

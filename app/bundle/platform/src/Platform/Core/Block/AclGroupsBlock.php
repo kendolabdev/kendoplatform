@@ -1,14 +1,14 @@
 <?php
 namespace Platform\Core\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class AclGroupsBlock
  *
  * @package Core\Block
  */
-class AclGroupsBlock extends Block
+class AclGroupsBlock extends BlockController
 {
 
     /**

@@ -1,14 +1,14 @@
 <?php
 namespace Platform\User\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class EditProfileMenuBlock
  *
  * @package Platform\User\Block
  */
-class EditProfileMenuBlock extends Block
+class EditProfileMenuBlock extends BlockController
 {
     /**
      * @var string

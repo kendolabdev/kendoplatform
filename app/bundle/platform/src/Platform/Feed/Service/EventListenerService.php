@@ -2,8 +2,8 @@
 
 namespace Platform\Feed\Service;
 
-use Kendo\Routing\FilterStuff;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\FilterStuff;
+use Kendo\Http\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Core\Form\PosterPrivacySetting;
 use Kendo\Hook\EventListener;
@@ -32,7 +32,7 @@ class EventListenerService extends EventListener
         if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
-            'decorateStory' => '\Feed\ViewHelper\DecorateStory',
+            'decorateStory' => '\Platform\Feed\ViewHelper\DecorateStory',
         ]);
     }
 
@@ -45,30 +45,36 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->addRoute('hashtag', [
+        $routing->add([
+            'name'     => 'hashtag',
             'uri'      => 'hashtag',
             'defaults' => [
-                'controller' => '\Feed\Controller\HomeController',
+                'controller' => 'Platform\Feed\Controller\HomeController',
                 'action'     => 'hashtag',
             ],
         ]);
 
-        $routing->addRoute('feed_view', [
+        $routing->add([
+            'name'     => 'feed_view',
             'uri'      => 'feed/<id>',
             'uri_expr' => [
                 'id' => '\d+',
             ],
             'defaults' => [
-                'controller' => '\Feed\Controller\HomeController',
+                'controller' => 'Platform\Feed\Controller\HomeController',
                 'action'     => 'view-feed',
             ]
         ]);
 
-        $routing->getRoute('profile')
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'timeline',
-                'controller' => '\Feed\Controller\ProfileController',
-                'action'     => 'timeline']));
+        $routing->add([
+            'name'         => 'profile/timeline',
+            'replacements' => [
+                '<any>' => 'timeline',
+            ],
+            'defaults'     => [
+                'controller' => 'Platform\Feed\Controller\ProfileController',
+                'action'     => 'timeline']
+        ]);
     }
 
     /**

@@ -7,8 +7,7 @@ use Kendo\Hook\EventListener;
 use Kendo\Content\PosterInterface;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Routing\FilterStuff;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\RoutingManager;
 use Kendo\View\View;
 
 /**
@@ -26,58 +25,68 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->addRoute('blog_view', [
+        $routing->add([
+            'name'     => 'blog_view',
             'uri'      => 'blog-post(/<id>)',
             'defaults' => [
-                'controller' => '\Blog\Controller\HomeController',
+                'controller' => 'Platform\Blog\Controller\HomeController',
                 'action'     => 'view-blog',
             ]
         ]);
 
-        $routing->addRoute('blog_cmd', [
+        $routing->add([
+            'name'     => 'blog_cmd',
             'uri'      => 'blog/<id>/<action>',
             'defaults' => [
-                'controller' => '\Blog\Controller\HomeController',
+                'controller' => 'Platform\Blog\Controller\HomeController',
             ]
         ]);
 
-        $routing->addRoute('blogs', [
+        $routing->add([
+                'name'     => 'blogs',
                 'uri'      => 'blogs(/<action>)',
                 'defaults' => [
-                    'controller' => '\Blog\Controller\HomeController',
+                    'controller' => 'Platform\Blog\Controller\HomeController',
                     'action'     => 'browse-blog',
                 ]]
         );
 
-        $routing->addRoute('blog_my', [
+        $routing->add([
+                'name'     => 'blog_my',
                 'uri'      => 'my-blogs',
                 'defaults' => [
-                    'controller' => '\Blog\Controller\HomeController',
+                    'controller' => 'Platform\Blog\Controller\HomeController',
                     'action'     => 'my-blog',
                 ]]
         );
 
-        $routing->addRoute('blog_add', [
+        $routing->add([
+                'name'     => 'blog_add',
                 'uri'      => 'add-blogs',
                 'defaults' => [
-                    'controller' => '\Blog\Controller\HomeController',
+                    'controller' => 'Platform\Blog\Controller\HomeController',
                     'action'     => 'create-blog',
                 ]]
         );
 
-        $routing->addRoute('blog_import', [
+        $routing->add([
+                'name'     => 'blog_import',
                 'uri'      => 'import-blogs',
                 'defaults' => [
-                    'controller' => '\Blog\Controller\HomeController',
+                    'controller' => 'Platform\Blog\Controller\HomeController',
                     'action'     => 'import-blog',
                 ]]
         );
 
-        $routing->getRoute('profile')
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'blogs',
-                'controller' => '\Blog\Controller\ProfileController',
-                'action'     => 'browse-blog']));
+        $routing->add([
+            'name'         => 'profile/blogs',
+            'replacements' => [
+                '<any>' => 'blogs',
+            ],
+            'defaults'     => [
+                'controller' => 'Platform\Blog\Controller\ProfileController',
+                'action'     => 'browse-blog'
+            ]]);
     }
 
     /**

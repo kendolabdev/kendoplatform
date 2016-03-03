@@ -24,7 +24,7 @@ class ManageController extends AdminController
     {
         $filter = new FilterVideo();
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('video.manage_videos')
             ->setPageFilter($filter)
@@ -51,7 +51,7 @@ class ManageController extends AdminController
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/video/video/paging',
+                'pagingUrl' => 'ajax/platform/video/video/paging',
                 'lp'        => $lp,
                 'paging'    => $paging,
                 'filter'    => $filter,

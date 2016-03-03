@@ -1,14 +1,14 @@
 <?php
 namespace Platform\Core\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class HorizontalContainer
  *
  * @package Core\Block
  */
-class HorizontalContainer extends Block
+class HorizontalContainer extends BlockController
 {
     /**
      * @return string
@@ -34,7 +34,7 @@ class HorizontalContainer extends Block
             $grid = $grids[ $offset ];
             $response[] = '<div class="col-md-' . $grid . ' col-sm-' . $grid . '">';
             foreach ($blocks as $blockData) {
-                $response[] = \App::layoutService()->renderBlock($blockData['block_class'], $blockData);
+                $response[] = \App::layouts()->renderBlock($blockData['block_class'], $blockData);
             }
             $response [] = '</div>';
 

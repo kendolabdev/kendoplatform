@@ -21,7 +21,7 @@ class ManageController extends AdminController
 
         $filter = new FilterEvent();
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('event.manage_events')
             ->setPageFilter($filter)
@@ -48,7 +48,7 @@ class ManageController extends AdminController
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/event/event/paging',
+                'pagingUrl' => 'ajax/platform/event/event/paging',
                 'lp'        => $lp,
                 'paging'    => $paging,
                 'query'     => $query,

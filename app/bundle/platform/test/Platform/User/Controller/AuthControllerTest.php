@@ -9,8 +9,6 @@
 namespace Platform\User\Controller;
 
 use Kendo\Test\ControllerTestCase;
-use Platform\User\Form\UserCreateAccount;
-use Platform\User\Form\UserCreateAvatar;
 
 /**
  * Class ManageControllerTest
@@ -77,10 +75,6 @@ class AuthControllerTest extends ControllerTestCase
      */
     public function testActionLoginAs()
     {
-        $this->dispatch('/user/login-as', 'get', [
-            'type' => 'user',
-            'id'   => 1,
-        ]);
     }
 
     public function testForgotPassword()
@@ -89,20 +83,5 @@ class AuthControllerTest extends ControllerTestCase
 
         $this->assertControllerName('\Platform\User\Controller\AuthController');
         $this->assertActionName('forgot-password');
-    }
-
-    /**
-     * TODO: Assert UserCreateAttribute
-     */
-    public function _testFormSignup()
-    {
-        $form1 = new UserCreateAccount();
-        $form1->asList([]);
-
-        $form2 = new UserCreateAvatar();
-        $form2->asList([]);
-
-//        $form3 = new UserCreateAttribute();
-//        $form3->asList([]);
     }
 }

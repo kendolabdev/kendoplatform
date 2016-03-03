@@ -19,7 +19,7 @@ class HomeController extends DefaultController
     {
         $filter = new FilterPage();
 
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('page_main', null, 'page_browse')
             ->setPageFilter($filter)
             ->setPageTitle('page.pages');
@@ -30,12 +30,12 @@ class HomeController extends DefaultController
 
         $paging = \App::pageService()->loadPagePaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/page/page/paging',
+                'pagingUrl' => 'ajax/platform/page/page/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,
@@ -48,7 +48,7 @@ class HomeController extends DefaultController
      */
     public function actionMyPage()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('page_main', null, 'page_my')
             ->setPageTitle('page.pages');
 
@@ -60,12 +60,12 @@ class HomeController extends DefaultController
 
         $paging = \App::pageService()->loadPagePaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/page/page/paging',
+                'pagingUrl' => 'ajax/platform/page/page/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,
@@ -78,7 +78,7 @@ class HomeController extends DefaultController
      */
     public function actionCreatePage()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('page_main', null, 'page_my')
             ->setPageTitle('page.pages');
     }

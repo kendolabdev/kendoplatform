@@ -5,7 +5,7 @@ use Kendo\Hook\EventListener;
 use Kendo\Assets\Requirejs;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\RoutingManager;
 use Kendo\View\ViewHelper;
 
 /**
@@ -26,7 +26,7 @@ class EventListenerService extends EventListener
         if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
-            'btnReport' => '\Report\ViewHelper\ButtonReport',
+            'btnReport' => '\Platform\Report\ViewHelper\ButtonReport',
         ]);
     }
 

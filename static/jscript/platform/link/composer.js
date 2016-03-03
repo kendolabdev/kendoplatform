@@ -84,7 +84,7 @@ define(['jquery', 'underscore'], function () {
 
             _form.trigger('onLoading:start');
 
-            K.ajax('ajax/core/link/composer-preview', {url: link})
+            $kd.ajax('ajax/platform/core/link/composer-preview', {url: link})
                 .done(success)
                 .error()
                 .complete(complete);

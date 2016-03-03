@@ -22,7 +22,7 @@ class ManageController extends AdminController
     {
         $filter = new FilterPage();
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageFilter($filter)
             ->setPageTitle('page.manage_pages')
@@ -49,7 +49,7 @@ class ManageController extends AdminController
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/page/page/paging',
+                'pagingUrl' => 'ajax/platform/page/page/paging',
                 'lp'        => $lp,
                 'paging'    => $paging,
                 'query'     => $query,
@@ -63,7 +63,7 @@ class ManageController extends AdminController
     public function actionBrowseCategory()
     {
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'page_extension', 'page_category');
 
@@ -76,7 +76,7 @@ class ManageController extends AdminController
     public function actionSettings()
     {
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'page_extension', 'page_settings');
 
@@ -85,11 +85,11 @@ class ManageController extends AdminController
         $form = new PageSetting([]);
 
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post') && $form->isValid($_POST)) {
             $form->save();
         }
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 
@@ -110,13 +110,13 @@ class ManageController extends AdminController
      */
     public function actionPermission()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'page_extension', 'page_permission');
 
         $this->request->setParam('groupId', 'page');
         $this->request->setParam('forward', true);
 
-        $this->forward('\Core\Controller\Admin\PermissionController', 'edit');
+        $this->request->forward('Platform\Feed\Controller\Admin\PermissionController', 'edit');
     }
 }

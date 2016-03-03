@@ -108,7 +108,7 @@ define(['jquery'],function(){
             }
 
 
-            K.ajax(url, sendData)
+            $kd.ajax(url, sendData)
                 .always(loadMoreComplete)
                 .success(loadMoreDone)
                 .error(loadMoreFail);
@@ -167,7 +167,7 @@ define(['jquery'],function(){
             }
 
 
-            K.ajax(url, sendData)
+            $kd.ajax(url, sendData)
                 .always(loadNewComplete)
                 .success(loadNewDone)
                 .error(loadNewFail);
@@ -226,7 +226,7 @@ define(['jquery'],function(){
             loadNextStart();
 
 
-            K.ajax(url, $.extend({}, pager, {query: query, lp: lp}))
+            $kd.ajax(url, $.extend({}, pager, {query: query, lp: lp}))
                 .always(loadNextComplete)
                 .success(loadNextDone)
                 .error(loadNextFail);
@@ -295,7 +295,7 @@ define(['jquery'],function(){
 
             loadPrevStart();
 
-            K.ajax(url, $.extend({}, pager, {query: query}))
+            $kd.ajax(url, $.extend({}, pager, {query: query}))
                 .always(loadPrevComplete)
                 .success(loadPrevDone)
                 .error(loadPrevFail);

@@ -21,7 +21,7 @@ class ManageController extends AdminController
     {
         $filter = new FilterGroup();
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('group.manage_groups')
             ->setPageFilter($filter)
@@ -48,7 +48,7 @@ class ManageController extends AdminController
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/group/group/paging',
+                'pagingUrl' => 'ajax/platform/group/group/paging',
                 'lp'        => $lp,
                 'paging'    => $paging,
                 'query'     => $query,

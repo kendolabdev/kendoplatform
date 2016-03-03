@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Core\Service;
 
-use Kendo\Request\HttpRequest;
+use Kendo\Http\HttpRequest;
 use Kendo\Test\TestCase;
 
 /**
@@ -26,29 +26,29 @@ class RoutingTest extends TestCase
             ->select()
             ->one();
 
-        $result[] = [$user->toHref(), '\Platform\User\Controller\ProfileController', 'index'];
+        $result[] = [$user->toHref(), '\Platform\Feed\Controller\ProfileController', 'timeline'];
         $result[] = ['/admin', '\Platform\Core\Controller\Admin\DashboardController', 'index'];
 
         return $result;
     }
 
     /**
+     *
      * @dataProvider provideRoutingResult
      *
      * @param $url
-     * @param $controllerName
-     * @param $actionName
+     * @param $expectedControllerName
+     * @param $expectedActionName
      */
-    public function testRoutingResult($url, $controllerName, $actionName)
+    public function testRoutingResult($url, $expectedControllerName, $expectedActionName)
     {
-        $routingService = \App::routingService();
+        $routingService = \App::routing();
 
         $request = new HttpRequest($url);
 
-        $result = $routingService->match($request);
+        $routingService->resolve($request);
 
-        $this->assertTrue($result);
-        $this->assertEquals($request->getControllerName(), $controllerName);
-        $this->assertEquals($request->getActionName(), $actionName);
+        $this->assertEquals($expectedControllerName, $request->getControllerName(), $url);
+        $this->assertEquals($expectedActionName, $request->getActionName(), $url);
     }
 }

@@ -17,7 +17,7 @@ class PageController extends AdminController
 {
     protected function onBeforeRender()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_help', 'manage_page');
     }
@@ -62,13 +62,13 @@ class PageController extends AdminController
     {
         $form = new CreateHelpPage();
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             \App::helpService()
                 ->addHelpCategory($data);
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff' => 'help/page/browse',
             ]);
         }
@@ -97,17 +97,17 @@ class PageController extends AdminController
 
         $form = new EditHelpPage();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             $entry->setFromArray($data);
             $entry->save();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff' => 'help/page/browse',
             ]);
         }
@@ -138,18 +138,18 @@ class PageController extends AdminController
         if (!$entry)
             throw new \InvalidArgumentException("Post not found");
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
 
             $entry->delete();
 
             \App::cacheService()->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff' => 'help/page/browse',
             ]);
         }

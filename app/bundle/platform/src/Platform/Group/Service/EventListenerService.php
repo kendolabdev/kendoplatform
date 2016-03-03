@@ -2,8 +2,8 @@
 
 namespace Platform\Group\Service;
 
-use Kendo\Routing\FilterStuff;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\FilterStuff;
+use Kendo\Http\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Invitation\Model\Invitation;
 use Kendo\Hook\EventListener;
@@ -30,7 +30,7 @@ class EventListenerService extends EventListener
         if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
-            'btnGroupMembership' => 'Group\ViewHelper\ButtonMembership',
+            'btnGroupMembership' => '\Platform\Group\ViewHelper\ButtonMembership',
         ]);
     }
 
@@ -43,46 +43,45 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->addRoute('groups', [
+
+        $routing->add([
+            'name'     => 'groups',
             'uri'      => 'groups',
             'defaults' => [
-                'controller' => '\Group\Controller\HomeController',
+                'controller' => 'Platform\Group\Controller\HomeController',
                 'action'     => 'browse-group',
             ],
         ]);
 
-        $routing->addRoute('group_my', [
+        $routing->add([
+            'name'     => 'group_my',
             'uri'      => 'my-groups',
             'defaults' => [
-                'controller' => '\Group\Controller\HomeController',
+                'controller' => 'Platform\Group\Controller\HomeController',
                 'action'     => 'my-group',
             ],
         ]);
 
-        $routing->addRoute('group_add', [
+        $routing->add([
+            'name'     => 'group_add',
             'uri'      => 'add-group',
             'defaults' => [
-                'controller' => '\Group\Controller\HomeController',
+                'controller' => 'Platform\Group\Controller\HomeController',
                 'action'     => 'create-group',
             ],
         ]);
 
-        $routing->getRoute('profile')
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'groups',
-                'controller' => '\Group\Controller\ProfileController',
-                'action'     => 'browse-group']));
-
-        $routing->addRoute('group_profile', [
-            'uri'      => 'group/<profileId>(/<stuff>)',
+        $routing->add([
+            'name'     => 'group_profile',
+            'delegate' => 'profile',
+            'uri'      => 'groups/<name>(/<any>)',
             'uri_expr' => [
-                'stuff' => '.+',
+                'any' => '.+',
             ],
             'defaults' => [
-                'controller'  => '\Group\Controller\ProfileController',
-                'profileType' => 'group',
+                'controller' => 'Platform\Group\Controller\ProfileController',
             ]
-        ])->forward('profile');
+        ]);
     }
 
     /**

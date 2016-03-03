@@ -76,7 +76,7 @@ class Event extends Model implements PosterInterface
      */
     public function getModuleName()
     {
-        return 'event';
+        return 'platform_event';
     }
 
     /**
@@ -108,9 +108,9 @@ class Event extends Model implements PosterInterface
      */
     public function toHref($params = [])
     {
-        $params['profileId'] = $this->getId();
+        $params['name'] = $this->getId();
 
-        return \App::routingService()->getUrl('event_profile', $params);
+        return \App::routing()->getUrl('event_profile', $params);
     }
 
 

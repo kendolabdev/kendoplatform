@@ -5,7 +5,7 @@
 <input id="upload-new-album-photo" type="file" class="hidden fc-att-photo-input-add" name="photos[]"
        accept="image/*"
        multiple
-       data-url="ajax/photo/upload/temp"
+       data-url="ajax/platform/photo/upload/temp"
        ride="ajaxUploadHandler"
-       data-modal="ajax/photo/photo/upload-photo-dialog?albumId=0&mode=1&context=feed"
+       data-modal="ajax/platform/photo/photo/upload-photo-dialog?albumId=0&mode=1&context=feed"
        data-preview="#upload-album-preview"/>

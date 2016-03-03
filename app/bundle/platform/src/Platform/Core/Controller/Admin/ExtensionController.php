@@ -16,11 +16,11 @@ class ExtensionController extends AdminController
      */
     public function actionBrowse()
     {
-        \App::layoutService()->setPageName('admin_simple')
+        \App::layouts()->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_manage_package', 'manage_package')
             ->setPageTitle('core.your_packages');
 
-        if ($this->request->isPost() && !empty($_POST['select_packages'])) {
+        if ($this->request->isMethod('post')&& !empty($_POST['select_packages'])) {
             \App::coreService()->extension()->doInstallPackages($_POST['select_packages']);
             \App::cacheService()->flush();
         }
@@ -33,7 +33,7 @@ class ExtensionController extends AdminController
         ]);
 
 
-        if ($this->request->isPost() && !empty($_POST['extension_name']) && !empty($_POST['_cmd'])) {
+        if ($this->request->isMethod('post')&& !empty($_POST['extension_name']) && !empty($_POST['_cmd'])) {
             $name = $_POST['extension_name'];
             $cmd = $_POST['_cmd'];
 
@@ -93,7 +93,7 @@ class ExtensionController extends AdminController
             'packages'       => $packages
         ]);
 
-        $this->view->setScript('/base/core/controller/admin/extension/browse-extension');
+        $this->view->setScript('/platform/core/controller/admin/extension/browse-extension');
     }
 
     /**
@@ -101,11 +101,11 @@ class ExtensionController extends AdminController
      */
     public function actionConnect()
     {
-        \App::layoutService()->setPageName('admin_simple')
+        \App::layouts()->setPageName('admin_simple')
             ->setPageTitle('core.connect_store')
             ->setupSecondaryNavigation('admin', 'admin_manage_package', 'KENDO_connect');
 
-        $this->view->setScript('/base/core/controller/admin/extension/connect-extension');
+        $this->view->setScript('/platform/core/controller/admin/extension/connect-extension');
     }
 
     /**
@@ -114,7 +114,7 @@ class ExtensionController extends AdminController
     public function actionImport()
     {
 
-        \App::layoutService()->setPageName('admin_simple')
+        \App::layouts()->setPageName('admin_simple')
             ->setPageTitle('core.upload_packages')
             ->setupSecondaryNavigation('admin', 'admin_manage_package', 'import_package');
 
@@ -124,7 +124,7 @@ class ExtensionController extends AdminController
             'form' => $form,
         ]);
 
-        $this->view->setScript('/base/core/controller/admin/extension/import-extension');
+        $this->view->setScript('/platform/core/controller/admin/extension/import-extension');
     }
 
     /**
@@ -134,7 +134,7 @@ class ExtensionController extends AdminController
     {
         parent::init();
 
-        \App::layoutService()->setPageName('admin_simple');
+        \App::layouts()->setPageName('admin_simple');
 
         \App::registryService()->set('subnav', [
             'navId'    => 'admin',

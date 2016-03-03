@@ -53,7 +53,7 @@ class PhotoAlbum extends Model implements ContentInterface
         $params['id'] = $this->getId();
         $params['slug'] = \App::toSlug($this->getTitle());
 
-        return \App::routingService()->getUrl('photo_album_view', $params);
+        return \App::routing()->getUrl('photo_album_view', $params);
     }
 
     /**
@@ -87,7 +87,7 @@ class PhotoAlbum extends Model implements ContentInterface
      */
     public function getType()
     {
-        return 'photo.photo_album';
+        return 'platform_photo_album';
     }
 
     //START_TABLE_GENERATOR

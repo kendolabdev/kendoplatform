@@ -21,7 +21,7 @@ define(['jquery','underscore','jquery-ext'], function () {
 
         _debug && console.log(_data);
 
-        K.ajax(_url, _data)
+        $kd.ajax(_url, _data)
             .done(function (response) {
                 _form.trigger('postSuccess', response);
                 Hyves.destroy();
@@ -39,7 +39,7 @@ define(['jquery','underscore','jquery-ext'], function () {
 
 
     _AjaxUploadHandler = function (input) {
-        var _url = K.getUrl(input.data('url'), {}),
+        var _url = $kd.getUrl(input.data('url'), {}),
             _modalUrl = input.data('modal'),
             _more = input.data('more');
 
@@ -54,7 +54,7 @@ define(['jquery','underscore','jquery-ext'], function () {
                 if (_more) {
                     plugin.processQueue();
                 } else {
-                    K.modal(_modalUrl, {})
+                    $kd.modal(_modalUrl, {})
                         .done(function () {
                             window.setTimeout(function () {
                                 plugin.processQueue();
@@ -86,7 +86,7 @@ define(['jquery','underscore','jquery-ext'], function () {
     }
 
     _AjaxUploadMoreHandler = function (input) {
-        var url = K.getUrl(input.data('url'), {}),
+        var url = $kd.getUrl(input.data('url'), {}),
             modalUrl = input.data('modal');
 
         input.on('clearBootInit', function () {
@@ -97,7 +97,7 @@ define(['jquery','underscore','jquery-ext'], function () {
             url: url,
             fileName: 'fileUpload',
             onQueue: function (plugin) {
-                K.modal(modalUrl, {})
+                $kd.modal(modalUrl, {})
                     .done(function () {
                         window.setTimeout(function () {
                             plugin.processQueue();

@@ -40,13 +40,13 @@ class MaintenanceController extends DefaultController
         if ($this->request->getParam('code') == \App::setting('core', 'maintenance_code')) {
             $_SESSION['maintenance'] = $this->request->getParam('code');
 
-            \App::routingService()->redirect('home');
+            \App::routing()->redirect('home');
         }
 
-        \App::layoutService()
+        \App::layouts()
             ->setMasterScript('layout/master/blank');
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams();
 
         $this->view

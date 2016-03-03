@@ -169,7 +169,7 @@ class ViewHelper extends KernelServiceAgreement
         }
 
         if ($route) {
-            $attributes['href'] = \App::routingService()->getUrl($route, $params, $hash);
+            $attributes['href'] = \App::routing()->getUrl($route, $params, $hash);
         }
 
         return '<a ' . $this->_flat($attributes) . '>' . $label . '</a>';
@@ -194,7 +194,7 @@ class ViewHelper extends KernelServiceAgreement
         }
 
         if ($route) {
-            $attributes['href'] = \App::routingService()->getUrl($route, $params, $hash);
+            $attributes['href'] = \App::routing()->getUrl($route, $params, $hash);
 
         }
 
@@ -285,7 +285,7 @@ class ViewHelper extends KernelServiceAgreement
     }
 
     /**
-     * @return \Kendo\Request\RequestManager
+     * @return \Kendo\Http\RequestManager
      */
     public function request()
     {
@@ -309,11 +309,11 @@ class ViewHelper extends KernelServiceAgreement
     }
 
     /**
-     * @return \Kendo\Routing\RoutingManager
+     * @return \Kendo\Http\RoutingManager
      */
     public function routing()
     {
-        return \App::routingService();
+        return \App::routing();
     }
 
     /**
@@ -343,7 +343,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public function layout()
     {
-        return \App::layoutService();
+        return \App::layouts();
     }
 
     /**
@@ -364,7 +364,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public function url($route, $params = [])
     {
-        return \App::routingService()->getUrl($route, $params);
+        return \App::routing()->getUrl($route, $params);
     }
 
     /**
@@ -427,7 +427,7 @@ class ViewHelper extends KernelServiceAgreement
     }
 
     /**
-     * @return \Kendo\Auth\Manager
+     * @return \Kendo\Auth\AuthManager
      */
     public function auth()
     {

@@ -19,7 +19,7 @@ class BlockController extends AjaxController
     public function actionToggle()
     {
 
-        list($type, $id, $ctx) = $this->request->get('type', 'id', 'ctx');
+        list($type, $id, $ctx) = $this->request->getList('type', 'id', 'ctx');
 
         $object = \App::find($type, $id);
 

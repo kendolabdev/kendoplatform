@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Blog\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 
 /**
@@ -9,7 +9,7 @@ use Kendo\Layout\Block;
  *
  * @package Base\Blog\Block
  */
-class ListingBlogItemBlock extends Block
+class ListingBlogItemBlock extends BlockController
 {
     /**
      *

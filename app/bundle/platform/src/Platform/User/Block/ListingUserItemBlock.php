@@ -1,14 +1,14 @@
 <?php
 namespace Platform\User\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class ListingUserItemBlock
  *
  * @package Platform\User\Block
  */
-class ListingUserItemBlock extends Block
+class ListingUserItemBlock extends BlockController
 {
 
     /**

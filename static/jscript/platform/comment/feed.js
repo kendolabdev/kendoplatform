@@ -5,13 +5,13 @@ define(['jquery'],function(){
             eid = ele.data('eid'),
             stage = $(eid).closest('.cmt-item');
 
-        if(!K.authRequired()) return;
+        if(!$kd.authRequired()) return;
 
         stage.animate({opacity:0},500, function(){stage.addClass('hidden')})
 
         ele.prop('disabled');
 
-        K.ajax('ajax/comment/comment/remove', data)
+        $kd.ajax('ajax/platform/comment/comment/remove', data)
             .always(function () {
                 ele.prop('disabled', false)
             })
@@ -27,9 +27,9 @@ define(['jquery'],function(){
             data = ele.data(),
             eid = ele.data('eid');
 
-        if(!K.authRequired()) return;
+        if(!$kd.authRequired()) return;
 
-        K.ajax('ajax/comment/comment/inline-edit', data)
+        $kd.ajax('ajax/platform/comment/comment/inline-edit', data)
             .done(function () {
             });
     });
@@ -42,7 +42,7 @@ define(['jquery'],function(){
             stage = ele.closest('.feed-item'),
             form = stage.find('.fs-cmf-ow');
 
-        if(!K.authRequired()) return;
+        if(!$kd.authRequired()) return;
 
         form.removeClass('hidden');
         form.find('.fc-mention-input').focus();
@@ -101,7 +101,7 @@ define(['jquery'],function(){
 
         ele.data('loading', true);
 
-        K.ajax('ajax/comment/comment/view-more', sendData)
+        $kd.ajax('ajax/platform/comment/comment/view-more', sendData)
             .done(onSuccess)
             .complete(onComplete)
             .error();

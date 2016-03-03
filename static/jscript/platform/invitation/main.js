@@ -9,7 +9,7 @@ define(['jquery'],function(){
 
         btn.closest('.card-invitation').addClass('hidden');
 
-        K.ajax('ajax/invitation/invitation/cmd', data)
+        $kd.ajax('ajax/platform/invitation/invitation/cmd', data)
             .always(function () {
                 btn.prop('disabled', false);
             }).done(

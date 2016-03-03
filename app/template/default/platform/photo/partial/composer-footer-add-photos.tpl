@@ -8,6 +8,6 @@
        name="photos[]"
        accept="image/*"
        multiple
-       data-url="ajax/photo/upload/temp"
+       data-url="ajax/platform/photo/upload/temp"
        ride="photoComposer"
        data-preview=".fc-upload-photo-preview" />

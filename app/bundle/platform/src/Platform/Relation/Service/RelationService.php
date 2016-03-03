@@ -43,7 +43,7 @@ class RelationService extends KernelServiceAgreement
             $viewerId = (string)\App::authService()->getId();
         }
 
-        return strtr("(:alias.privacy_type in (:public,:registered) OR (:alias.poster_id=:viewerId) OR (:alias.privacy_value=:viewerId) OR (:alias.privacy_value IN ( SELECT relation_id FROM :prefix_relation_item WHERE poster_id=:viewerId UNION SELECT relation_id FROM :prefix_relation WHERE parent_id=:viewerId)))", [
+        return strtr("(:alias.privacy_type in (:public,:registered) OR (:alias.poster_id=:viewerId) OR (:alias.privacy_value=:viewerId) OR (:alias.privacy_value IN ( SELECT relation_id FROM :prefix_platform_relation_item WHERE poster_id=:viewerId UNION SELECT relation_id FROM :prefix_platform_relation WHERE parent_id=:viewerId)))", [
             ':public'     => RELATION_TYPE_ANYONE,
             ':registered' => RELATION_TYPE_REGISTERED,
             ':prefix_'    => \App::db()->getPrefix(),

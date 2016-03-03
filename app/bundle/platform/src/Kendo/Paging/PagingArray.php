@@ -232,7 +232,7 @@ class PagingArray implements PagingInterface
 
         $params['page'] = $pageNumber;
 
-        return \App::routingService()->getUrl($this->routeName, $params);
+        return \App::routing()->getUrl($this->routeName, $params);
     }
 
     /**

@@ -6,7 +6,7 @@ define(['jquery'], function () {
             url = $this.data('url'),
             data = $this.data('object');
 
-        K.ajax(url, data)
+        $kd.ajax(url, data)
             .done(function (result) {
                 switch (result.directive) {
                     case 'success':
@@ -47,7 +47,7 @@ define(['jquery'], function () {
         });
 
         if (url)
-            K.ajax(url, object)
+            $kd.ajax(url, object)
                 .done(function (result) {
                     if (!_.isEmpty(result.success))
                         Toast.success(result.success);

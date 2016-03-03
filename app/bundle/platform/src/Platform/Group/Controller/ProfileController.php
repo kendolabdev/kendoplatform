@@ -23,7 +23,7 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseGroup()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('group.groups');
 
         $profile = \App::registryService()->get('profile');
@@ -37,12 +37,12 @@ class ProfileController extends ProfileBaseController
 
         $paging = \App::groupService()->loadGroupPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
 
         $this->view->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/group/group/paging',
+                'pagingUrl' => 'ajax/platform/group/group/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,
@@ -67,18 +67,18 @@ class ProfileController extends ProfileBaseController
 
         $paging = \App::relationService()->loadMemberPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/group/member/paging',
+                'pagingUrl' => 'ajax/platform/group/member/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,
                 'profile'   => $profile,
                 'isOwner'   => $profile->viewerIsParent(),
-                'lp'        => \App::layoutService()->getContentLayoutParams(),
+                'lp'        => \App::layouts()->getContentLayoutParams(),
             ]);
     }
 }

@@ -1,1 +1,1 @@
-define(["base/message/chat"],function(){});
+define(["platform/message/chat"],function(){});

@@ -1,7 +1,7 @@
 <?php
 namespace Kendo\Test;
 
-use Kendo\Request\HttpRequest;
+use Kendo\Http\HttpRequest;
 
 /**
  * Class ControllerTestCase
@@ -11,7 +11,7 @@ use Kendo\Request\HttpRequest;
 class ControllerTestCase extends TestCase
 {
     /**
-     * @var \Kendo\Request\HttpRequest
+     * @var \Kendo\Http\HttpRequest
      */
     protected $request;
 
@@ -98,7 +98,5 @@ class ControllerTestCase extends TestCase
                 echo var_export($exception, 1);
             }
         }
-
-        echo $this->request->getFullControllerName(), PHP_EOL;
     }
 }

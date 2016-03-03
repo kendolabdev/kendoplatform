@@ -21,17 +21,17 @@ class SettingController extends AdminController
 
         $form = new BlogSetting([]);
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('blog.manage_settings')
             ->setPageNote('These settings affected to all members')
             ->setupSecondaryNavigation('admin', 'blog_extension', 'blog_settings');
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->save();
         }
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 

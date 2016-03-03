@@ -64,18 +64,18 @@ class RegisterController extends DefaultController
 
         $step = $this->request->getParam('_step');
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         if (!$step) {
             $form = new UserCreateAccount();
 
-            if ($this->request->isGet()) {
+            if ($this->request->isMethod('get')) {
                 $form->setData($this->getData());
             }
 
-            if ($this->request->isPost() && $form->isValid($_POST)) {
+            if ($this->request->isMethod('post') && $form->isValid($_POST)) {
                 $this->mergeData($form->getData());
-                \App::routingService()
+                \App::routing()
                     ->redirect('register', ['_step' => 1]);
             }
         } else if ($step == 1) {
@@ -83,13 +83,13 @@ class RegisterController extends DefaultController
             $catalogId = 3;
             $form = new UserCreateAttribute(['catalogId' => $catalogId]);
 
-            if ($this->request->isGet()) {
+            if ($this->request->isMethod('get')) {
                 $form->setData($this->getData());
             }
 
-            if ($this->request->isPost() && $form->isValid($_POST)) {
+            if ($this->request->isMethod('post') && $form->isValid($_POST)) {
                 $this->mergeData($form->getData());
-                \App::routingService()
+                \App::routing()
                     ->redirect('register', ['_step' => 2]);
             }
 
@@ -98,15 +98,15 @@ class RegisterController extends DefaultController
 
             $form = new UserCreateAvatar();
 
-            if ($this->request->isGet()) {
+            if ($this->request->isMethod('get')) {
                 $form->setData($this->getData());
             }
 
-            if ($this->request->isPost() && $form->isValid($_POST)) {
+            if ($this->request->isMethod('post') && $form->isValid($_POST)) {
 
                 $this->mergeData($form->getData());
 
-                $this->forward(null, 'complete');
+                $this->request->forward(null, 'complete');
             }
         }
 
@@ -135,7 +135,7 @@ class RegisterController extends DefaultController
 
         if ($user) {
             \App::authService()->store($user);
-            \App::routingService()->redirect('home');
+            \App::routing()->redirect('home');
         }
     }
 

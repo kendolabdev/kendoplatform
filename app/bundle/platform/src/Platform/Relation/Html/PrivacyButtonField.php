@@ -323,7 +323,7 @@ class PrivacyButtonField extends HtmlElement implements FormField
             'name'      => $this->getName(),
         ];
 
-        return (new View('/base/relation/partial/button-privacy', $params))->render();
+        return (new View('platform/relation/partial/button-privacy', $params))->render();
 
     }
 }

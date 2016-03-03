@@ -3,7 +3,7 @@ define(['jquery'],function(){
         var ele = $(this),
             data = ele.data('object');
 
-        K.ajax('ajax/photo/photo/make-album-cover', data)
+        $kd.ajax('ajax/platform/photo/photo/make-album-cover', data)
             .done(function (response) {
                 if (response.message) {
                     Toast.success(response.message);
@@ -22,7 +22,7 @@ define(['jquery'],function(){
             wrap.remove()
         });
 
-        K.ajax('ajax/photo/photo/delete-photo', data)
+        $kd.ajax('ajax/platform/photo/photo/delete-photo', data)
             .done(function (response) {
                 if (response.message) {
                     Toast.success(response.message);
@@ -33,6 +33,6 @@ define(['jquery'],function(){
     $(document).on('click', '[data-toggle="photo-make-profile-photo"]', function () {
         var data = $(this).data('object');
 
-        K.modal('ajax/photo/avatar/edit-avatar-dialog', data);
+        $kd.modal('ajax/platform/photo/avatar/edit-avatar-dialog', data);
     });
 });

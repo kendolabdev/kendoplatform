@@ -2,7 +2,7 @@
 
 namespace Kendo\Controller;
 
-use Kendo\Request\HttpRequest;
+use Kendo\Http\HttpRequest;
 
 /**
  * Interface Controller
@@ -22,28 +22,7 @@ interface ControllerInterface
     public function execute();
 
     /**
-     * @param string $controllerName
-     * @param string $actionName
-     */
-    public function forward($controllerName, $actionName);
-
-    /**
      * @return string
      */
     public function render();
-
-    /**
-     * @param string $name
-     * @param array  $params
-     *
-     * @return true
-     */
-    public function redirect($name, $params = null);
-
-    /**
-     * @param string $url
-     *
-     * @return true
-     */
-    public function redirectToUrl($url);
 }

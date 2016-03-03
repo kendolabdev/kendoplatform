@@ -6,8 +6,7 @@ use Kendo\Hook\EventListener;
 use Kendo\Content\PosterInterface;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Routing\FilterStuff;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\RoutingManager;
 use Kendo\View\View;
 
 /**
@@ -27,62 +26,71 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->addRoute('videos', [
+        $routing->add([
+            'name'     => 'videos',
             'uri'      => 'videos',
             'defaults' => [
-                'controller' => '\Video\Controller\HomeController',
+                'controller' => 'Platform\Video\Controller\HomeController',
                 'action'     => 'browse-video',
             ],
         ]);
 
-        $routing->addRoute('video_add', [
+        $routing->add([
+            'name'     => 'video_add',
             'uri'      => 'add-video',
             'defaults' => [
-                'controller' => '\Video\Controller\HomeController',
+                'controller' => 'Platform\Video\Controller\HomeController',
                 'action'     => 'create-video',
             ],
         ]);
 
-        $routing->addRoute('video_my', [
+        $routing->add([
+            'name'     => 'video_my',
             'uri'      => 'my-videos',
             'defaults' => [
-                'controller' => '\Video\Controller\HomeController',
+                'controller' => 'Platform\Video\Controller\HomeController',
                 'action'     => 'my-video',
             ],
         ]);
 
-        $routing->addRoute('video_upload', [
+        $routing->add([
+            'name'     => 'video_upload',
             'uri'      => 'upload-video',
             'defaults' => [
-                'controller' => '\Video\Controller\HomeController',
+                'controller' => 'Platform\Video\Controller\HomeController',
                 'action'     => 'upload-video',
             ],
         ]);
 
-        $routing->addRoute('video_embed', [
+        $routing->add([
+            'name'     => 'video_embed',
             'uri'      => 'embed-video',
             'defaults' => [
-                'controller' => '\Video\Controller\HomeController',
+                'controller' => 'Platform\Video\Controller\HomeController',
                 'action'     => 'embed-video',
             ],
         ]);
 
-        $routing->addRoute('video_view', [
+        $routing->add([
+            'name'     => 'video_view',
             'uri'      => 'video/<id>(/<slug>)',
             'defaults' => [
-                'controller' => '\Video\Controller\HomeController',
+                'controller' => 'Platform\Video\Controller\HomeController',
                 'action'     => 'view-video',
                 'slug'       => 'untilted',
             ],
         ]);
 
-        $routing->getRoute('profile')
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'videos',
-                'controller' => '\Video\Controller\ProfileController',
-                'tab'        => 'browse_video',
+        $routing->add([
+            'name'         => 'profile/videos',
+            'replacements' => [
+                '<any>' => 'videos',
+            ],
+            'defaults'     => [
+                'controller' => 'Platform\Video\Controller\ProfileController',
                 'action'     => 'browse-video'
-            ]));
+            ]
+        ]);
     }
 
     /**

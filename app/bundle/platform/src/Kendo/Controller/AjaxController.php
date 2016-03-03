@@ -2,7 +2,7 @@
 
 namespace Kendo\Controller;
 
-use Kendo\Request\HttpRequest;
+use Kendo\Http\HttpRequest;
 
 /**
  * Class AjaxController
@@ -65,7 +65,7 @@ class AjaxController implements ControllerInterface
 
         } catch (\Exception $e) {
             $this->request->setException($e);
-            $this->forward('\Core\Controller\Ajax\ErrorController', 'exception');
+            $this->request->forward('\Platform\Core\Controller\Ajax\ErrorController', 'exception');
         }
 
         return true;
@@ -91,44 +91,10 @@ class AjaxController implements ControllerInterface
     }
 
     /**
-     * @param string $controllerName
-     * @param string $actionName
-     *
-     * @return true
-     */
-    public function forward($controllerName, $actionName)
-    {
-        $this->request->forward($controllerName, $actionName, false);
-
-        return true;
-    }
-
-    /**
      * @return string
      */
     public function render()
     {
         return json_encode($this->response);
-    }
-
-    /**
-     * @param string $name
-     * @param array  $params
-     *
-     * @return true
-     */
-    public function redirect($name, $params = null)
-    {
-        return \App::routingService()->redirect($name, $params);
-    }
-
-    /**
-     * @param $url
-     *
-     * @return bool
-     */
-    public function redirectToUrl($url)
-    {
-        return \App::routingService()->redirectToUrl($url);
     }
 }

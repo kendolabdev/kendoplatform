@@ -21,7 +21,7 @@ class HomeController extends DefaultController
 
         $filter = new FilterUser();
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageFilter($filter)
             ->setPageTitle('user.browse_members');
 
@@ -31,12 +31,12 @@ class HomeController extends DefaultController
 
         $paging = \App::userService()->loadUserPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/user/user/paging',
+                'pagingUrl' => 'ajax/platform/user/user/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,
@@ -55,12 +55,12 @@ class HomeController extends DefaultController
 
         $paging = \App::userService()->loadUserPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/user/user/paging',
+                'pagingUrl' => 'ajax/platform/user/user/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,

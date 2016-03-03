@@ -1,8 +1,8 @@
 <?php
 namespace Platform\Follow\Service;
 
-use Kendo\Routing\FilterStuff;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\FilterStuff;
+use Kendo\Http\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Follow\Model\Follow;
 use Kendo\Hook\EventListener;
@@ -29,7 +29,7 @@ class EventListenerService extends EventListener
         if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
-            'btnFollow' => '\Follow\ViewHelper\ButtonFollow',
+            'btnFollow' => '\Platform\Follow\ViewHelper\ButtonFollow',
         ]);
     }
 
@@ -42,15 +42,24 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->getRoute('profile')
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'followers',
-                'controller' => '\Follow\Controller\ProfileController',
-                'action'     => 'browse-follower']))
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'following',
-                'controller' => '\Follow\Controller\ProfileController',
-                'action'     => 'browse-following']));
+        $routing->add([
+            'name'         => 'profile/followers',
+            'replacements' => [
+                '<any>' => 'followers',
+            ],
+            'defaults'     => [
+                'controller' => 'Platform\Follow\Controller\ProfileController',
+                'action'     => 'browse-follower']]);
+
+        $routing->add([
+            'name'         => 'profile/following',
+            'replacements' => [
+                '<any>' => 'following',
+            ],
+            'defaults'     => [
+                'controller' => 'Platform\Follow\ControllerProfileController',
+                'action'     => 'browse-following'
+            ]]);
     }
 
     /**

@@ -7,7 +7,7 @@ use Kendo\Content\AtomInterface;
 use Kendo\Content\PosterInterface;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Share\Model\Share;
 
@@ -29,8 +29,8 @@ class EventListenerService extends EventListener
         if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
-            'lnShare'         => '\Share\ViewHelper\LinkShare',
-            'listShareSample' => '\Share\ViewHelper\ListShareSample',
+            'lnShare'         => '\Platform\Share\ViewHelper\LinkShare',
+            'listShareSample' => '\Platform\Share\ViewHelper\ListShareSample',
         ]);
     }
 

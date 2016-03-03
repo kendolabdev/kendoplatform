@@ -1,1 +1,1 @@
-<?php echo \App::navigationService()->render('user_settings', 1, 'tab', array('level0'=>'menu')); ?>
+<?php echo \App::navigation()->render('user_settings', 1, 'tab', array('level0'=>'menu')); ?>

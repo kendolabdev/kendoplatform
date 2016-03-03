@@ -16,8 +16,8 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowsePhoto()
     {
-        \App::layoutService()
-            ->setPageTitle('photo.photos');
+        \App::layouts()
+            ->setPageTitle('platform_photos');
 
         $profile = \App::registryService()->get('profile');
 
@@ -30,11 +30,11 @@ class ProfileController extends ProfileBaseController
 
         $paging = \App::photoService()->loadPhotoPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/photo/photo/paging',
+                'pagingUrl' => 'ajax/platform/photo/photo/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,
@@ -53,7 +53,7 @@ class ProfileController extends ProfileBaseController
 
         $albumId = $this->request->getParam('albumId');
 
-        $album = \App::table('photo.photo_album')->findById($albumId);
+        $album = \App::table('platform_photo_album')->findById($albumId);
 
         $page = $this->request->getParam('page', 1);
 
@@ -65,11 +65,11 @@ class ProfileController extends ProfileBaseController
 
         $paging = \App::photoService()->loadPhotoPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/photo/photo/paging',
+                'pagingUrl' => 'ajax/platform/photo/photo/paging',
                 'profile'   => $profile,
                 'paging'    => $paging,
                 'album'     => $album,
@@ -86,7 +86,7 @@ class ProfileController extends ProfileBaseController
     public function actionBrowseAlbum()
     {
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('photo.albums');
 
         $profile = \App::registryService()->get('profile');
@@ -100,11 +100,11 @@ class ProfileController extends ProfileBaseController
 
         $paging = \App::photoService()->loadAlbumPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/photo/album/paging',
+                'pagingUrl' => 'ajax/platform/photo/album/paging',
                 'paging'    => $paging,
                 'profile'   => $profile,
                 'pager'     => $paging->getPager(),

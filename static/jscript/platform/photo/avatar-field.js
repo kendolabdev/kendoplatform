@@ -44,7 +44,7 @@ define(['jquery'],function(){
         var btn = $(e.currentTarget),
             input = $(btn.data('target')),
             outer = input.closest('.field-avatar-ow'),
-            url = K.getUrl('ajax/photo/upload/temp', {}),
+            url = $kd.getUrl('ajax/platform/photo/upload/temp', {}),
             hiddenValue = $('input.avatar-value', outer),
             cropImg = $('.field-crop-img', outer),
             previewImg = $('.field-preview-img', outer),

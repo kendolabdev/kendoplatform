@@ -1,14 +1,15 @@
 <?php
 namespace Platform\User\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
+use Platform\User\Form\UserCreateAccount;
 
 /**
  * Class SmallRegisterBlock
  *
  * @package Platform\User\Block
  */
-class SmallRegisterBlock extends Block
+class SmallRegisterBlock extends BlockController
 {
     /**
      * Execute block layout
@@ -28,7 +29,7 @@ class SmallRegisterBlock extends Block
             ->order('sort_order', 1)
             ->all();
 
-        $form = \App::htmlService()->factory('\User\Form\UserCreateAccount');
+        $form = new UserCreateAccount();
 
         $this->view->assign([
             'note'        => $this->lp->get('note', ''),

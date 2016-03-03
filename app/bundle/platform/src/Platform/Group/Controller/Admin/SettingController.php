@@ -18,17 +18,17 @@ class SettingController extends AdminController
     public function actionEdit()
     {
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'group_extension', 'group_settings');
 
         $form = new GroupSetting([]);
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->save();
         }
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 

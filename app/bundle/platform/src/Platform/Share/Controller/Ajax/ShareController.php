@@ -136,7 +136,7 @@ class ShareController extends AjaxController
      */
     public function actionSharedThis()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $about = \App::find($type, $id);
 

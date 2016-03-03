@@ -179,7 +179,7 @@ define(['jquery','underscore'],function(){
             that.dialog.bootInit();
         }
 
-        K.ajax(url, obj)
+        $kd.ajax(url, obj)
             .done(loadSuccess);
     }
 
@@ -224,7 +224,7 @@ define(['jquery','underscore'],function(){
     $(document).on('click', '.pl-bear-state', function () {
         var ele = $(this);
         ele.find('>span.badge').html('').addClass('hidden');
-        K.ajax(ele.data('bear'), {});
+        $kd.ajax(ele.data('bear'), {});
     }).on('click', function (evt) {
         if (!evt.isDefaultPrevented()) clearMenus();
     }).on('pagechanged', function () {

@@ -10,7 +10,7 @@ use Platform\Photo\Model\PhotoCollection;
 use Platform\Photo\Model\PhotoCover;
 use Kendo\Content\AtomInterface;
 use Kendo\Content\PosterInterface;
-use Kendo\Request\HttpRequest;
+use Kendo\Http\HttpRequest;
 use Kendo\Upload\UploadFile;
 use Kendo\Upload\UploadFileList;
 
@@ -45,7 +45,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function findCategoryById($id)
     {
-        return \App::table('photo.photo_category')
+        return \App::table('platform_photo_category')
             ->findById(intval($id));
     }
 
@@ -77,7 +77,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('photo.photo_category')->select('t');
+        $select = \App::table('platform_photo_category')->select('t');
 
         if (!empty($query['q']))
             $select->where('category_name like ?', '%' . $query['q'] . '%');
@@ -95,7 +95,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function findAlbumById($albumId)
     {
-        return \App::table('photo.photo_album')
+        return \App::table('platform_photo_album')
             ->findById($albumId);
     }
 
@@ -111,7 +111,7 @@ class PhotoService extends KernelServiceAgreement
     public function loadPhotoPaging($context = [], $page = 1, $limit = 12)
     {
 
-        $select = \App::table('photo')->select('t');
+        $select = \App::table('platform_photo')->select('t');
 
         $isOwner = false;
         $inProfile = false;
@@ -154,7 +154,7 @@ class PhotoService extends KernelServiceAgreement
 
             $select->where('t.album_id=?', $albumId);
 
-            $album = \App::find('photo.photo_album', $albumId);
+            $album = \App::find('platform_photo_album', $albumId);
 
             if ($album instanceof PhotoAlbum) {
                 if ($album->viewerIsPosterOrParent()) {
@@ -215,7 +215,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function loadAlbumPaging($context = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('photo.photo_album')->select('t');
+        $select = \App::table('platform_photo_album')->select('t');
 
 
         $isOwner = false;
@@ -380,7 +380,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function getPhotoCount()
     {
-        return \App::table('photo')
+        return \App::table('platform_photo')
             ->select()
             ->count();
     }
@@ -392,7 +392,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function getAlbumCount()
     {
-        return \App::table('photo.photo_album')
+        return \App::table('platform_photo_album')
             ->select()
             ->count();
     }
@@ -450,7 +450,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function getSelectPhotoContext(Photo $photo, $context = null)
     {
-        $select = \App::table('photo')
+        $select = \App::table('platform_photo')
             ->select();
 
         switch ($context) {
@@ -992,7 +992,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function getSingletonAlbum(PosterInterface $parent)
     {
-        $album = \App::table('photo.photo_album')
+        $album = \App::table('platform_photo_album')
             ->select()
             ->where('parent_id=?', $parent->getId())
             ->where('parent_type=?', $parent->getType())
@@ -1256,7 +1256,7 @@ class PhotoService extends KernelServiceAgreement
      */
     private function findCoverByObject(AtomInterface $object)
     {
-        return \App::table('photo.photo_cover')
+        return \App::table('platform_photo_cover')
             ->select()
             ->where('object_id=?', $object->getId())
             ->where('object_type=?', $object->getType())

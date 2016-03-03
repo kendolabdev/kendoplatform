@@ -77,10 +77,12 @@ class HookService extends KernelServiceAgreement
      */
     public function scanHookFromEnableModulesThenImportToRepository()
     {
+
         $hooks = [];
         $priority = 0;
 
         $this->cleanupHooks();
+
 
         foreach (\App::packages()->getActiveModules() as $key) {
 
@@ -89,7 +91,7 @@ class HookService extends KernelServiceAgreement
             if (!\App::hasService($serviceKey))
                 continue;
 
-            $service = \App::service($serviceKey);
+            $service = \App::instance()->make($serviceKey);
 
             foreach (get_class_methods(get_class($service)) as $method) {
 
@@ -106,7 +108,7 @@ class HookService extends KernelServiceAgreement
 
         }
 
-        $this->insertHook($hooks);
+//        $this->insertHook($hooks);
     }
 
     /**
@@ -153,18 +155,5 @@ class HookService extends KernelServiceAgreement
 
             $entry->save();
         }
-    }
-
-    /**
-     * @param array $moduleList
-     *
-     * @return array
-     */
-    public function getListHookByModuleName($moduleList = [])
-    {
-        return \App::table('platform_core_hook')
-            ->select()
-            ->where('module_name IN ?', $moduleList)
-            ->toAssocs();
     }
 }

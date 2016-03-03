@@ -17,7 +17,7 @@ class LanguageController extends AdminController
     public function actionBrowse()
     {
 
-        \App::layoutService()->setPageName('admin_simple')
+        \App::layouts()->setPageName('admin_simple')
             ->setPageTitle('core.manage_languages')
             ->setupSecondaryNavigation('admin', 'admin_language', 'languages');
 

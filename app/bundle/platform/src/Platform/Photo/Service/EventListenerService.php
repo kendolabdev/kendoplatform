@@ -8,8 +8,7 @@ use Kendo\Content\ContentInterface;
 use Kendo\Content\PosterInterface;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Routing\FilterStuff;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\RoutingManager;
 use Kendo\View\View;
 use Kendo\View\ViewHelper;
 
@@ -31,8 +30,8 @@ class EventListenerService extends EventListener
         if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
-            'btnUpdateCover'        => '\Photo\ViewHelper\ButtonUpdateCover',
-            'btnUpdateCoverEditing' => '\Photo\ViewHelper\ButtonUpdateCoverEditing',
+            'btnUpdateCover'        => '\Platform\Photo\ViewHelper\ButtonUpdateCover',
+            'btnUpdateCoverEditing' => '\Platform\Photo\ViewHelper\ButtonUpdateCoverEditing',
         ]);
     }
 
@@ -45,83 +44,108 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->addRoute('photos', [
+        $routing->add([
+            'name'     => 'photos',
             'uri'      => 'photos',
             'defaults' => [
-                'controller' => '\Photo\Controller\HomeController',
+                'controller' => 'Platform\Photo\Controller\HomeController',
                 'action'     => 'browse-photo',
             ],
         ]);
 
-        $routing->addRoute('albums', [
+        $routing->add([
+            'name'     => 'albums',
             'uri'      => 'albums',
             'defaults' => [
-                'controller' => '\Photo\Controller\HomeController',
+                'controller' => 'Platform\Photo\Controller\HomeController',
                 'action'     => 'browse-album',
             ],
         ]);
 
-        $routing->addRoute('album_my', [
+        $routing->add([
+            'name'     => 'album_my',
             'uri'      => 'my-albums',
             'defaults' => [
-                'controller' => '\Photo\Controller\HomeController',
+                'controller' => 'Platform\Photo\Controller\HomeController',
                 'action'     => 'my-album',
             ],
         ]);
 
-        $routing->addRoute('album_add', [
+        $routing->add([
+            'name'     => 'album_add',
             'uri'      => 'add-album',
             'defaults' => [
-                'controller' => '\Photo\Controller\HomeController',
+                'controller' => 'Platform\Photo\Controller\HomeController',
                 'action'     => 'create-album',
             ],
         ]);
 
-        $routing->addRoute('photo_my', [
+        $routing->add([
+            'name'     => 'photo_my',
             'uri'      => 'my-photos',
             'defaults' => [
-                'controller' => '\Photo\Controller\HomeController',
+                'controller' => 'Platform\Photo\Controller\HomeController',
                 'action'     => 'my-photo',
             ],
         ]);
 
-        $routing->addRoute('photo_uploads', [
+        $routing->add([
+            'name'     => 'photo_uploads',
             'uri'      => 'upload-photos',
             'defaults' => [
-                'controller' => '\Photo\Controller\HomeController',
+                'namespace'  => 'Platform\Photo',
+                'controller' => 'HomeController',
                 'action'     => 'upload-photo',
             ],
         ]);
 
-        $routing->addRoute('photo_view', [
+        $routing->add([
+            'name'     => 'photo_view',
             'uri'      => 'photo/<id>(/<slug>)',
             'defaults' => [
-                'controller' => '\Photo\Controller\HomeController',
+                'controller' => 'Platform\Photo\Controller\HomeController',
                 'action'     => 'view-photo',
             ]
         ]);
 
-        $routing->addRoute('photo_album_view', [
+        $routing->add([
+            'name'     => 'photo_album_view',
             'uri'      => 'photo-album/<id>(/<slug>)',
             'defaults' => [
-                'controller' => '\Photo\Controller\HomeController',
+                'controller' => 'Platform\Photo\Controller\HomeController',
                 'action'     => 'view-album',
             ]
         ]);
 
-        $routing->getRoute('profile')
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'photos',
-                'controller' => '\Photo\Controller\ProfileController',
-                'action'     => 'browse-photo']))
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'albums',
-                'controller' => '\Photo\Controller\ProfileController',
-                'action'     => 'browse-album']))
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'album/<albumId>',
-                'controller' => '\Photo\Controller\ProfileController',
-                'action'     => 'view-album']));
+        $routing->add([
+            'name'     => 'profile/photos',
+            'replacements'=>[
+                '<any>'=>'photos',
+            ],
+            'defaults' => [
+                'controller' => 'Platform\Photo\Controller\ProfileController',
+                'action'     => 'browse-photo'
+            ]]);
+
+        $routing->add([
+            'name'     => 'profile/albums',
+            'replacements'=>[
+                '<any>'=>'albums',
+            ],
+            'defaults' => [
+                'controller' => 'Platform\Photo\Controller\ProfileController',
+                'action'     => 'browse-album'
+            ]]);
+
+        $routing->add([
+            'name'     => 'profile/album',
+            'replacements'=>[
+                '<any>'=>'albums/<albumId>',
+            ],
+            'defaults' => [
+                'controller' => 'Platform\Photo\Controller\ProfileController',
+                'action'     => 'view-album'
+            ]]);
     }
 
     /**
@@ -260,7 +284,7 @@ class EventListenerService extends EventListener
         $stats = $payload->__get('stats');
 
         $stats['photo'] = [
-            'label' => \App::text('photo.photos'),
+            'label' => \App::text('platform_photos'),
             'value' => \App::photoService()->getPhotoCount(),
         ];
 

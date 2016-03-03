@@ -87,7 +87,7 @@ define(['jquery', 'jqueryui'], function ()
     {
         var sendData = $.extend({}, {tpl: ele.data('tpl')});
 
-        K.ajax('admin/layout/ajax/editor/add-section', sendData)
+        $kd.ajax('admin/layout/ajax/editor/add-section', sendData)
             .done(function (response)
             {
                 $(response.html).prependTo('#layouteditor');
@@ -105,7 +105,7 @@ define(['jquery', 'jqueryui'], function ()
             sendData.sectionId =  main.eid();
         }
 
-        K.ajax('admin/layout/ajax/editor/change-section', sendData)
+        $kd.ajax('admin/layout/ajax/editor/change-section', sendData)
             .done(function (response)
             {
                 if(main.length)
@@ -275,7 +275,7 @@ define(['jquery', 'jqueryui'], function ()
 
         console.log(sendData);
 
-        K.ajax('admin/layout/ajax/editor/update-layout', sendData)
+        $kd.ajax('admin/layout/ajax/editor/update-layout', sendData)
             .done(function (response)
             {
                 console.log(response);
@@ -288,7 +288,7 @@ define(['jquery', 'jqueryui'], function ()
         var ele = $(this),
             url = 'admin/layout/ajax/editor/select-content-script',
             sendData = $.extend({layoutType: ele.data('layout')}, getLayoutConfigData());
-        K.modal(url, sendData);
+        $kd.modal(url, sendData);
     });
     $(document).on('click', '[data-toggle="layout-delete-content"]', function ()
     {
@@ -296,7 +296,7 @@ define(['jquery', 'jqueryui'], function ()
         var ele = $(this),
             url = 'admin/layout/ajax/editor/delete-content-setting',
             sendData = $.extend({layoutType: ele.data('layout')}, getLayoutConfigData());
-        K.ajax(url, sendData)
+        $kd.ajax(url, sendData)
             .done(function (result)
             {
                 Toast.success(result.message);
@@ -327,7 +327,7 @@ define(['jquery', 'jqueryui'], function ()
 
         sendData.blockId = $(sendData.eid).closest('.dragable-element').eid();
 
-        K.modal(url, sendData);
+        $kd.modal(url, sendData);
 
     });
 
@@ -340,7 +340,7 @@ define(['jquery', 'jqueryui'], function ()
 
         sendData.blockId = $(sendData.eid).closest('.dragable-element').eid();
 
-        K.modal(url, sendData);
+        $kd.modal(url, sendData);
 
     });
 
@@ -366,7 +366,7 @@ define(['jquery', 'jqueryui'], function ()
             sendData = form.serializeJSON(),
             block = $(sendData.eid).closest('.dragable-element');
 
-        K.ajax('admin/layout/ajax/editor/update-block-settings', sendData)
+        $kd.ajax('admin/layout/ajax/editor/update-block-settings', sendData)
             .done(function (response)
             {
                 if (response.code == 200)
@@ -400,7 +400,7 @@ define(['jquery', 'jqueryui'], function ()
             section.remove()
         });
 
-        K.ajax('admin/layout/ajax/editor/delete-section', {sectionId: sectionId})
+        $kd.ajax('admin/layout/ajax/editor/delete-section', {sectionId: sectionId})
             .done(function (result)
             {
                 Toast.success(result.message);

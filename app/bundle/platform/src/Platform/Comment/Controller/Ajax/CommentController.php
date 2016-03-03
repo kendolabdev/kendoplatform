@@ -15,7 +15,7 @@ class CommentController extends AjaxController
 
     public function actionOptions()
     {
-        list($eid, $id) = $this->request->get('eid', 'id');
+        list($eid, $id) = $this->request->getList('eid', 'id');
 
         $cmt = \App::commentService()->findComment($id);
 
@@ -28,7 +28,7 @@ class CommentController extends AjaxController
 
     public function actionRemove()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $cmt = \App::find($type, $id);
 

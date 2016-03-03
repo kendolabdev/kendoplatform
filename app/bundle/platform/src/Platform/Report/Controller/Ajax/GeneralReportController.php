@@ -37,7 +37,7 @@ class GeneralReportController extends AjaxController
      */
     public function actionAdd()
     {
-        list($message) = $this->request->get('message');
+        list($message) = $this->request->getList('message');
 
         $poster = \App::authService()->getViewer();
 
@@ -60,7 +60,7 @@ class GeneralReportController extends AjaxController
     public function actionDelete()
     {
 
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $entry = \App::find($type, $id);
 

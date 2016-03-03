@@ -525,7 +525,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      *
      * @return bool
      */
-    public function authorizeFor(PosterInterface $parent = null, $action, $defaultValue = false)
+    public function authorizeFor(PosterInterface $parent = null, $action, $defaultValue = true)
     {
         if (!$this->_authorize($roleId = null != $parent ? $parent->getRoleId() : KENDO_GUEST_ROLE_ID, $action, $defaultValue))
             return false;
@@ -541,7 +541,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      *
      * @return false|true
      */
-    public function authorize($action, $defaultValue = false)
+    public function authorize($action, $defaultValue = true)
     {
         return $this->_authorize(\App::authService()->getRoleId(), $action, $defaultValue);
     }
@@ -556,7 +556,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      *
      * @return true|false
      */
-    private function _authorize($roleId, $action, $defaultValue = false)
+    private function _authorize($roleId, $action, $defaultValue = true)
     {
 
 

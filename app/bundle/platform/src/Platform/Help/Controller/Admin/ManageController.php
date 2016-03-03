@@ -21,11 +21,11 @@ class ManageController extends AdminController
             'label' => 'help.create_new_post',
             'props' => [
                 'class' => 'btn btn-sm btn-primary',
-                'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'help/manage/create']),
+                'href'  => \App::routing()->getUrl('admin', ['stuff' => 'help/manage/create']),
             ],
         ];
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('help.manage_posts')
             ->setPageButtons([$createButton])
@@ -39,7 +39,7 @@ class ManageController extends AdminController
     {
         $filter = new FilterHelpPost();
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('help.manage_posts')
             ->setPageFilter($filter);
 
@@ -77,13 +77,13 @@ class ManageController extends AdminController
     {
         $form = new CreateHelpPost();
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             \App::helpService()
                 ->addHelpPost($data);
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff' => 'help/manage/browse',
                 'topic' => $data['topic_id'],
             ]);
@@ -113,17 +113,17 @@ class ManageController extends AdminController
 
         $form = new EditHelpPost();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             $entry->setFromArray($data);
             $entry->save();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff' => 'help/manage/browse',
                 'topic' => $entry->getTopicId(),
             ]);
@@ -155,18 +155,18 @@ class ManageController extends AdminController
         if (!$entry)
             throw new \InvalidArgumentException("Post not found");
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
 
             $entry->delete();
 
             \App::cacheService()->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff'    => 'help/manage/browse',
                 'category' => $entry->getTopicId()
             ]);

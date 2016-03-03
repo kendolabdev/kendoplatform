@@ -1,15 +1,10 @@
 <?php
 
 /**
- * @author  Nam Nguyen <namnv@younetco.com>
- * @version 1.0.1
- */
-
-/**
  * Security check constant. <br/>
  * defined('KENDO') or die("Access denied.");
  */
-define('KENDO', true);
+define('KENDO',true);
 
 /**
  * Check required version php
@@ -37,18 +32,6 @@ register_shutdown_function(function () {
         echo json_encode($err);
     }
 });
-
-
-/**
- * Is in command line mode
- */
-define('KENDO_CLI', PHP_SAPI === 'cli');
-
-/**
- * enabled disabled debug mode
- */
-define('KENDO_DEBUG', true);
-
 
 /**
  * Set default timezone
@@ -84,27 +67,37 @@ if (version_compare(PHP_VERSION, '5.6', '<')) {
 error_reporting(E_ALL & E_STRICT & E_NOTICE & E_WARNING);
 
 /**
+ * Is in command line mode
+ */
+defined('KENDO_CLI') or define('KENDO_CLI', PHP_SAPI === 'cli');
+
+/**
+ * enabled disabled debug mode
+ */
+defined('KENDO_DEBUG') or define('KENDO_DEBUG', true);
+
+/**
  * Example: 2015-12-29 11:20:00
  *
  * @var string 'YYYY-MM-DD HH:ii:ss'
  */
-define('KENDO_DATE_TIME', date('Y-m-d H:i:s'));
+defined('KENDO_DATE_TIME') or define('KENDO_DATE_TIME', date('Y-m-d H:i:s'));
 
 /**
  * Define picaso charset
  * value utf8
  */
-define('KENDO_CHARSET', 'utf8');
+defined('KENDO_CHARSET') or define('KENDO_CHARSET', 'utf8');
 
 /**
  * Kendo default language "en"
  */
-define('KENDO_LANGUAGE', 'en');
+defined('KENDO_LANGUAGE') or define('KENDO_LANGUAGE', 'en');
 
 /**
  * @var int
  */
-define('KENDO_START_TIME', microtime(true));
+defined('KENDO_START_TIME') or define('KENDO_START_TIME', microtime(true));
 
 /**
  * ./
@@ -123,7 +116,7 @@ defined('KENDO_CONFIG_DIR') or define('KENDO_CONFIG_DIR', KENDO_ROOT_DIR . '/app
 /**
  * Static Directory
  */
-define('KENDO_STATIC_DIR', KENDO_ROOT_DIR . '/static');
+defined('KENDO_STATIC_DIR') or define('KENDO_STATIC_DIR', KENDO_ROOT_DIR . '/static');
 
 /**
  *
@@ -169,113 +162,82 @@ defined('KENDO_UPLOAD_DIR') or define('KENDO_UPLOAD_DIR', KENDO_TEMP_DIR . '/upl
  *
  * @var string
  */
-define('KENDO_BUNDLE_DIR', KENDO_ROOT_DIR . '/app/bundle');
+defined('KENDO_BUNDLE_DIR') or define('KENDO_BUNDLE_DIR', KENDO_ROOT_DIR . '/app/bundle');
 
 
 /**
  * @var int
  * Default role id
  */
-define('KENDO_DEFAULT_ROLE_ID', 3);
+defined('KENDO_DEFAULT_ROLE_ID') or define('KENDO_DEFAULT_ROLE_ID', 3);
 
 /**
  * Default role id
  *
  * @var int
  */
-define('KENDO_GUEST_ROLE_ID', 1);
+defined('KENDO_GUEST_ROLE_ID') or define('KENDO_GUEST_ROLE_ID', 1);
+
 
 /**
  * Constant of secret key, private for your application.
  * WARNING! Do not share secret key to anyone.
  */
-define('KENDO_SECRET_KEY', 'abx');
-
-/**
- * Define all column name
- */
-define('KENDO_KEY_COLUMN', 'column');
-
-
-/**
- * Define identity column name
- */
-define('KENDO_KEY_IDENTITY', 'identity');
-
-/**
- * Define primary key
- */
-define('KENDO_KEY_PRIMARY', 'primary');
-
-/**
- * Define key driver
- */
-define('KENDO_KEY_DRIVER', 'driver');
-
-/**
- * Define Key table name
- */
-define('KENDO_KEY_TABLE', 'table');
-
-/**
- * Vendor autoload by composer
- */
-include_once KENDO_VENDOR_DIR . '/autoload.php';
-
+defined('KENDO_SECRET_KEY') or define('KENDO_SECRET_KEY', 'abx');
 
 /**
  * Owner only privacy
  */
-define('RELATION_TYPE_OWNER', 0);
+defined('RELATION_TYPE_OWNER') or define('RELATION_TYPE_OWNER', 0);
 
 /**
  * Public privacy
  */
-define('RELATION_TYPE_ANYONE', 1);
+defined('RELATION_TYPE_ANYONE') or define('RELATION_TYPE_ANYONE', 1);
 
 /**
  * Registered can view privacy
  */
-define('RELATION_TYPE_REGISTERED', 2);
+defined('RELATION_TYPE_REGISTERED') or define('RELATION_TYPE_REGISTERED', 2);
 
 /**
  * Member's of owner privacy
- */
-define('RELATION_TYPE_MEMBER', 4);
+RELATION_TYPE_MEMBER
+defined('RELATION_TYPE_MEMBER') or define('RELATION_TYPE_MEMBER', 4);
 
 /**
  * Member of member of owner privacy
  */
-define('RELATION_TYPE_MEMBER_OF_MEMBER', 5);
+defined('RELATION_TYPE_MEMBER_OF_MEMBER') or define('RELATION_TYPE_MEMBER_OF_MEMBER', 5);
 
 /**
  * Admin list
  * Preserve value for page, event, store etc ...
  */
-define('RELATION_TYPE_ADMIN', 6);
+defined('RELATION_TYPE_ADMIN') or define('RELATION_TYPE_ADMIN', 6);
 
 /**
  * Officier member list
  * Preserve value
  */
-define('RELATION_TYPE_OFFICER', 7);
+defined('RELATION_TYPE_OFFICER') or define('RELATION_TYPE_OFFICER', 7);
 
 /**
  * Moderator member list
  * Preserve value
  */
-define('RELATION_TYPE_MODERATOR', 8);
+defined('RELATION_TYPE_MODERATOR') or define('RELATION_TYPE_MODERATOR', 8);
 
 /**
  * Editor member list
  * Preserve value
  */
-define('RELATION_TYPE_EDITOR', 9);
+defined('RELATION_TYPE_EDITOR') or define('RELATION_TYPE_EDITOR', 9);
 
 /**
  * Custom list privacy added by member lists.
  */
-define('RELATION_TYPE_CUSTOM', 100);
+defined('RELATION_TYPE_CUSTOM') or define('RELATION_TYPE_CUSTOM', 100);
 
 /**
  * Check and define unitest
@@ -286,32 +248,40 @@ defined('KENDO_UNITEST') or define('KENDO_UNITEST', false);
 /**
  * Log level "LOG"
  */
-define('LOG_LEVEL_LOG', 'LOG');
+defined('LOG_LEVEL_LOG') or define('LOG_LEVEL_LOG', 'LOG');
 
 /**
  * Log level "DEBUG"
  */
-define('LOG_LEVEL_DEBUG', 'DEBUG');
+defined('LOG_LEVEL_DEBUG') or define('LOG_LEVEL_DEBUG', 'DEBUG');
 
 /**
  * Log level "INFO"
  */
-define('LOG_LEVEL_INFO', 'INFO');
+defined('LOG_LEVEL_INFO') or define('LOG_LEVEL_INFO', 'INFO');
 
 /**
  * Log level "NOTICE"
  */
-define('LOG_LEVEL_NOTICE', 'NOTICE');
+defined('LOG_LEVEL_NOTICE') or define('LOG_LEVEL_NOTICE', 'NOTICE');
 
 /**
  * Log level "WARN"
  */
-define('LOG_LEVEL_WARNING', 'WARN');
+defined('LOG_LEVEL_WARNING') or define('LOG_LEVEL_WARNING', 'WARN');
 
 /**
  * Log level "CRIT"
  */
-define('LOG_LEVEL_CRIT', 'CRIT');
+defined('define') or define('LOG_LEVEL_CRIT', 'CRIT');
+
+defined('KENDO_PROFILER') or define('KENDO_PROFILER', true);
+
+
+/**
+ * Vendor autoload by composer
+ */
+include_once KENDO_VENDOR_DIR . '/autoload.php';
 
 
 /**
@@ -352,7 +322,7 @@ include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Kernel/KernelServiceAgreeme
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Kernel/Application.php';
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Kernel/ClassAutoload.php';
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Registry/Manager.php';
-include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Db/Manager.php';
+include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Db/DbManager.php';
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/App.php';
 
 \App::instance()->start();
@@ -390,4 +360,44 @@ function _dump()
 function _array_get(&$array, $name, $default = '')
 {
     return isset($array[ $name ]) ? $array[ $name ] : $default;
+}
+
+/**
+ * Get Upper Words of string, No whitespace
+ *
+ * @param $string
+ *
+ * @return string Return "Upper Words" of string
+ */
+function _inflect($string)
+{
+    return str_replace(' ', '', ucwords(str_replace(['.', '-'], ' ', $string)));
+}
+
+/**
+ * Get Lower Case Words of string
+ *
+ * @param $string
+ *
+ * @return string Return "Lower Case Words" of string, joined White Space by "-"
+ */
+function _deflect($string)
+{
+    return strtolower(trim(preg_replace('/([a-z0-9])([A-Z])/', '\1-\2', $string), '-. '));
+}
+
+/**
+ * Get Lower Case Words of string
+ *
+ * @param string|array $string
+ *
+ * @return string Return "Lower Case Words" of string, joined White Space by "_"
+ */
+function _underscore($string)
+{
+    if (is_array($string)) {
+        $string = implode('.', $string);
+    }
+
+    return preg_replace('/\W+/', '', strtolower(trim(preg_replace('/([a-z0-9])([^a-z0-9])/', '\1_\2', $string), '.- ')));
 }

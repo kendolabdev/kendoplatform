@@ -32,7 +32,7 @@ class FilterGroup extends Form
             'name'    => 'category',
             'label'   => 'Category',
             'class'   => 'form-control',
-            'options' => \App::blogService()->getCategoryOptions(),
+//            'options' => \App::blogService()->getCategoryOptions(),
         ]);
 
         $this->addElement([

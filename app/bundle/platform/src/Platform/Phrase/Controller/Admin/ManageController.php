@@ -20,7 +20,7 @@ class ManageController extends AdminController
     {
         $filter = new FilterPhrase();
 
-        \App::layoutService()->setPageName('admin_simple')
+        \App::layouts()->setPageName('admin_simple')
             ->setPageFilter($filter)
             ->setPageTitle('core.manage_phrases')
             ->setupSecondaryNavigation('admin', 'admin_language', 'translation');
@@ -53,7 +53,7 @@ class ManageController extends AdminController
 
         $this->view->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/core/phrase/paging',
+                'pagingUrl' => 'ajax/platform/core/phrase/paging',
                 'query'     => $query,
                 'paging'    => $paging,
                 'filter'    => $filter,
@@ -94,7 +94,7 @@ class ManageController extends AdminController
      */
     public function actionImport()
     {
-        \App::layoutService()->setPageName('admin_simple')
+        \App::layouts()->setPageName('admin_simple')
             ->setPageTitle('phrase.import_phrases')
             ->setupSecondaryNavigation('admin', 'admin_language', 'import');
 

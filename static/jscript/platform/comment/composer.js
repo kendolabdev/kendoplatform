@@ -2,7 +2,7 @@ define(['jquery'], function () {
     var _debug = true,
         _dataKey = 'commentComposer',
         statusBox = 'textarea.mentions-input',
-        postUrl = 'ajax/comment/comment/add',
+        postUrl = 'ajax/platform/comment/comment/add',
         CommentComposer,
         defaults = {};
 
@@ -53,7 +53,7 @@ define(['jquery'], function () {
 
             onLoadingStart();
 
-            K.ajax(postUrl, sendData)
+            $kd.ajax(postUrl, sendData)
                 .always(onComplete)
                 .done(onSuccess)
                 .fail(onError);

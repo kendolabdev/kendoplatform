@@ -19,8 +19,8 @@ class SettingController extends BaseController
 {
     protected function onBeforeRender()
     {
-        \App::layoutService()->setPageName('admin_simple');
-        \App::layoutService()->setupSecondaryNavigation('admin', 'admin_setting', 'activity_settings');
+        \App::layouts()->setPageName('admin_simple');
+        \App::layouts()->setupSecondaryNavigation('admin', 'admin_setting', 'activity_settings');
     }
 
     /**
@@ -31,11 +31,11 @@ class SettingController extends BaseController
 
         $form = new ActivitySetting([]);
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->save();
         }
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 
@@ -98,13 +98,13 @@ class SettingController extends BaseController
         ]);
 
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->save();
-            \App::routingService()->redirect('admin', ['stuff' => 'feed/setting/type']);
+            \App::routing()->redirect('admin', ['stuff' => 'feed/setting/type']);
         }
 
         $lp = new BlockParams([

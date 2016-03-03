@@ -15,7 +15,7 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseInvitation()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('invitation.requests');
 
         $profile = \App::registryService()->get('profile');
@@ -29,13 +29,13 @@ class ProfileController extends ProfileBaseController
 
         $paging = \App::invitationService()->loadInvitationPaging($query, $page);
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/invitation/invitation/paging',
+                'pagingUrl' => 'ajax/platform/invitation/invitation/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,

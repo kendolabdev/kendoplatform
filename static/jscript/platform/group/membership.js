@@ -12,7 +12,7 @@ define(['jquery'],function(){
         var btn = $(this),
             obj = btn.data('object');
 
-        K.ajax('/ajax/group/membership/join', {
+        $kd.ajax('/ajax/group/membership/join', {
             id: obj.id,
             type: 'group',
             context: 'btn'
@@ -31,7 +31,7 @@ define(['jquery'],function(){
         var btn = $(evt.currentTarget);
         var obj = btn.data('object');
 
-        K.ajax('/ajax/group/membership/cancel', {
+        $kd.ajax('/ajax/group/membership/cancel', {
             id: obj.id,
             type: 'group',
             context: 'btn'
@@ -52,7 +52,7 @@ define(['jquery'],function(){
 
         obj.context = 'btn';
 
-        K.ajax('/ajax/group/membership/ignore', obj)
+        $kd.ajax('/ajax/group/membership/ignore', obj)
             .done(function (result) {
                 if (btn.data('eid')) {
                     $(btn.data('eid')).replaceWith(result.html)
@@ -70,7 +70,7 @@ define(['jquery'],function(){
 
         obj.context = 'btn';
 
-        K.ajax('/ajax/group/membership/accept', obj)
+        $kd.ajax('/ajax/group/membership/accept', obj)
             .done(function (result) {
                 if (btn.data('eid')) {
                     $(btn.data('eid')).replaceWith(result.html)
@@ -88,7 +88,7 @@ define(['jquery'],function(){
 
         obj.context = 'btn';
 
-        K.ajax('/ajax/group/membership/remove', obj)
+        $kd.ajax('/ajax/group/membership/remove', obj)
             .done(function (result) {
                 if (btn.data('eid')) {
                     $(btn.data('eid')).replaceWith(result.html)

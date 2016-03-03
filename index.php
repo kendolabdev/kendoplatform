@@ -10,11 +10,8 @@ include 'app/init.php';
 
 try {
     $requester = App::requester();
-
     $requester->dispatch();
-
     echo $requester->getResponse()->flush();
-
 } catch (Exception $ex) {
     // how to process in this errors?
 }

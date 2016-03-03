@@ -13,7 +13,7 @@ define(['jquery'],function(){
 
         btn.prop('disabled', true);
 
-        K.ajax('/ajax/user/friend/request', {
+        $kd.ajax('/ajax/user/friend/request', {
             friendId: friendId
         }).always(function () {
             btn.prop('disabled', false)
@@ -29,7 +29,7 @@ define(['jquery'],function(){
 
         btn.prop('disabled', true);
 
-        K.ajax('/ajax/user/friend/ignore', {
+        $kd.ajax('/ajax/user/friend/ignore', {
             friendId: friendId
         }).always(function () {
             btn.prop('disabled', false)
@@ -46,7 +46,7 @@ define(['jquery'],function(){
 
         btn.prop('disabled', true);
 
-        K.ajax('/ajax/user/friend/accept', {
+        $kd.ajax('/ajax/user/friend/accept', {
             friendId: friendId,
         }).always(function () {
             btn.prop('disabled', false)
@@ -61,7 +61,7 @@ define(['jquery'],function(){
 
         btn.prop('disabled', true);
 
-        K.ajax('/ajax/user/friend/cancel', {
+        $kd.ajax('/ajax/user/friend/cancel', {
             friendId: friendId
         }).always(function () {
             btn.prop('disabled', false)
@@ -77,7 +77,7 @@ define(['jquery'],function(){
 
         btn.prop('disabled', true);
 
-        K.ajax('/ajax/user/friend/remove', {
+        $kd.ajax('/ajax/user/friend/remove', {
             friendId: friendId
         }).done(function (response) {
             $(eid).replaceWith(response.html);

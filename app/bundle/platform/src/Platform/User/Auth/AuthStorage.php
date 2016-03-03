@@ -99,6 +99,7 @@ class AuthStorage implements AuthStorageInterface
      */
     public function restore()
     {
+
         // Run command line
         if (KENDO_CLI) {
             return false;
@@ -118,6 +119,8 @@ class AuthStorage implements AuthStorageInterface
 
         $tokenEntry = \App::table('platform_user_token')
             ->findById($tokenId);
+
+
 
 
         if (!$tokenEntry instanceof UserToken) {

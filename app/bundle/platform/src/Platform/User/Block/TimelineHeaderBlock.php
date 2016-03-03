@@ -1,14 +1,14 @@
 <?php
 namespace Platform\User\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class TimelineHeaderBlock
  *
  * @package Platform\User\Block
  */
-class TimelineHeaderBlock extends Block
+class TimelineHeaderBlock extends BlockController
 {
 
     /**
@@ -102,7 +102,7 @@ class TimelineHeaderBlock extends Block
             'dropdownIcon' => '',
         ];
 
-        if (\App::requester() && !\App::requester()>isTablet()) {
+        if (\App::requester() && !\App::requester()->isTablet()) {
             $profileTabMenuOptions['level0'] = 'nav nav-justify nav-profile-tab';
             $profileTabMenuOptions['moreLabel'] = '<b class="ion-more"></b>';
         }

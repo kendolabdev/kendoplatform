@@ -19,8 +19,8 @@ class TemplateController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layoutService()->setPageName('admin_simple');
-        \App::layoutService()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_manage_mail_template');
+        \App::layouts()->setPageName('admin_simple');
+        \App::layouts()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_manage_mail_template');
     }
 
     /**
@@ -62,7 +62,7 @@ class TemplateController extends AdminController
      */
     public function actionEdit()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple');
 
         $name = $this->request->getParam('name', 'user_welcome');

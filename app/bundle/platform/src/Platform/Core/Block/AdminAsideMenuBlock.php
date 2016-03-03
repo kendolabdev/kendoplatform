@@ -1,14 +1,14 @@
 <?php
 namespace Platform\Core\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class AdminAsideMenu
  *
  * @package Core\Block
  */
-class AdminAsideMenuBlock extends Block
+class AdminAsideMenuBlock extends BlockController
 {
     /**
      * @var string
@@ -21,7 +21,7 @@ class AdminAsideMenuBlock extends Block
     public function execute()
     {
 
-        $nav = \App::layoutService()
+        $nav = \App::layouts()
             ->getSecondaryNavigation();
 
         if (!$nav->getNav()) {

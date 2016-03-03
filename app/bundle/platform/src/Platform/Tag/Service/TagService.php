@@ -31,7 +31,7 @@ class TagService extends KernelServiceAgreement
             }
         }
 
-        $table = \App::table('tag.tag_people');
+        $table = \App::table('platform_tag_people');
 
         //delete all tags.
         $table->delete()
@@ -76,7 +76,7 @@ class TagService extends KernelServiceAgreement
      */
     public function loadPeople(ContentInterface $content, $limit = null)
     {
-        $select = \App::table('tag.tag_people')
+        $select = \App::table('platform_tag_people')
             ->select()
             ->where('content_id=?', $content->getId());
 

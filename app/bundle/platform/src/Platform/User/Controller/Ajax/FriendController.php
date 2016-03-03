@@ -155,7 +155,7 @@ class FriendController extends AjaxController
      */
     public function actionMembershipOptions()
     {
-        list($id, $eid) = $this->request->get('id', 'eid');
+        list($id, $eid) = $this->request->getList('id', 'eid');
 
         $item = \App::find('user', $id);
 

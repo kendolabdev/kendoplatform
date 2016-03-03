@@ -5,8 +5,8 @@ use Kendo\Hook\EventListener;
 use Kendo\Assets\Requirejs;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Routing\FilterStuff;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\FilterStuff;
+use Kendo\Http\RoutingManager;
 use Kendo\View\View;
 use Kendo\View\ViewHelper;
 use Platform\User\Model\User;
@@ -29,7 +29,7 @@ class EventListenerService extends EventListener
         if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
-            'btnEventMembership' => '\Event\ViewHelper\ButtonMembership',
+            'btnEventMembership' => '\Platform\Event\ViewHelper\ButtonMembership',
         ]);
     }
 
@@ -42,44 +42,54 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->addRoute('events', [
+        $routing->add([
+            'name'     => 'events',
             'uri'      => 'events',
             'defaults' => [
-                'controller' => '\Event\Controller\HomeController',
+                'controller' => 'Platform\Event\Controller\HomeController',
                 'action'     => 'browse-event',
             ],
         ]);
 
-        $routing->addRoute('event_my', [
+        $routing->add([
+            'name'     => 'event_my',
             'uri'      => 'my-events',
             'defaults' => [
-                'controller' => '\Event\Controller\HomeController',
+                'controller' => 'Platform\Event\Controller\HomeController',
                 'action'     => 'my-event',
             ],
         ]);
 
-        $routing->addRoute('event_add', [
+        $routing->add([
+            'name'     => 'event_add',
             'uri'      => 'add-event',
             'defaults' => [
-                'controller' => '\Event\Controller\HomeController',
+                'controller' => 'Platform\Event\Controller\HomeController',
                 'action'     => 'create-event',
             ],
         ]);
 
-        $routing->getRoute('profile')
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'events',
-                'controller' => '\Event\Controller\ProfileController',
-                'action'     => 'browse-event']));
-
-        $routing->addRoute('event_profile', [
-            'uri'      => 'event/<profileId>(/<stuff>)',
-            'uri_expr' => ['stuff' => '.+'],
-            'defaults' => [
-                'controller'  => '\Event\Controller\ProfileController',
-                'profileType' => 'event',
+        $routing->add([
+            'name'         => 'profile/events',
+            'replacements' => [
+                '<any>' => 'events',
+            ],
+            'defaults'     => [
+                'controller' => 'Platform\Event\Controller\ProfileController',
+                'action'     => 'browse-event'
             ]
-        ])->forward('profile');
+        ]);
+
+        $routing->add([
+            'name'     => 'event_profile',
+            'delegate' => 'profile',
+            'uri'      => 'events/<name>(/<any>)',
+            'uri_expr' => ['any' => '.+'],
+            'defaults' => [
+                'controller'  => 'Platform\Event\Controller\ProfileController',
+                'profileType' => 'platform_event',
+            ]
+        ]);
     }
 
     /**

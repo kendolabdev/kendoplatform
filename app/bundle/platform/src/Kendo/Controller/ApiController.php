@@ -2,8 +2,7 @@
 
 namespace Kendo\Controller;
 
-use Kendo\Request\HttpRequest;
-use Kendo\Request\RequestInterface;
+use Kendo\Http\HttpRequest;
 use Kendo\View\View;
 
 /**
@@ -54,7 +53,7 @@ class ApiController implements ControllerInterface
     }
 
     /**
-     * @return RequestInterface
+     * @return HttpRequest
      */
     public function getRequest()
     {
@@ -62,7 +61,7 @@ class ApiController implements ControllerInterface
     }
 
     /**
-     * @param RequestInterface $request
+     * @param HttpRequest $request
      */
     public function setRequest($request)
     {
@@ -92,19 +91,6 @@ class ApiController implements ControllerInterface
     }
 
     /**
-     * @param string $controllerName
-     * @param string $actionName
-     *
-     * @return true
-     */
-    public function forward($controllerName, $actionName)
-    {
-        $this->request->forward($controllerName, $actionName, false);
-
-        return true;
-    }
-
-    /**
      * @return string
      * @throws NotFoundException
      */
@@ -117,26 +103,5 @@ class ApiController implements ControllerInterface
         }
 
         return $methodName;
-    }
-
-    /**
-     * @param string $name
-     * @param array  $params
-     *
-     * @return true
-     */
-    public function redirect($name, $params = null)
-    {
-        return \App::routingService()->redirect($name, $params);
-    }
-
-    /**
-     * @param $url
-     *
-     * @return bool
-     */
-    public function redirectToUrl($url)
-    {
-        return \App::routingService()->redirectToUrl($url);
     }
 }

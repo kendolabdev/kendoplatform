@@ -11,24 +11,24 @@ $themeId = isset($argv[1]) ? $argv[1] : null;
 
 if (null == $themeId)
 {
-    $themeId = \App::layoutService()
+    $themeId = \App::layouts()
         ->getEditingThemeId();
 }
 
 
-$theme = \App::layoutService()
+$theme = \App::layouts()
     ->theme()
     ->findThemeById($themeId);
 
 echo "Compiling: ", $theme->getTitle(), PHP_EOL;
 
-\App::layoutService()
+\App::layouts()
     ->theme()
     ->rebuildStylesheetForTheme($themeId);
 
 echo "Set to system default: ", $theme->getTitle(), PHP_EOL;
 
-\App::layoutService()
+\App::layouts()
     ->theme()
     ->setDefaultTheme($theme);
 

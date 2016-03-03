@@ -17,7 +17,7 @@ class InformationController extends AdminController
      */
     public function actionSystem()
     {
-        $this->view->setScript('/base/core/controller/admin/info/system');
+        $this->view->setScript('/platform/core/controller/admin/info/system');
     }
 
     /**
@@ -25,7 +25,7 @@ class InformationController extends AdminController
      */
     public function actionServer()
     {
-        $this->view->setScript('/base/core/controller/admin/info/server');
+        $this->view->setScript('/platform/core/controller/admin/info/server');
 
     }
 }

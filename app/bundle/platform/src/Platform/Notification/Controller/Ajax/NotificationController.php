@@ -38,12 +38,12 @@ class NotificationController extends AjaxController
 
         $paging = \App::notificationService()->loadNotificationPaging($query, $page);
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams('notification_ajax_bear_dialog');
 
         $this->response = [
             'html' => $this->partial($lp->script(), [
-                'pagingUrl' => 'ajax/notification/notification/paging',
+                'pagingUrl' => 'ajax/platform/notification/notification/paging',
                 'profile'   => $viewer,
                 'paging'    => $paging,
                 'query'     => $query,

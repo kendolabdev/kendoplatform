@@ -62,7 +62,7 @@ class Share extends Model implements ContentInterface
         $params['id'] = $this->getId();
         $params['type'] = $this->getType();
 
-        return \App::routingService()->getUrl('feed_detail', $params);
+        return \App::routing()->getUrl('feed_detail', $params);
     }
 
     /**

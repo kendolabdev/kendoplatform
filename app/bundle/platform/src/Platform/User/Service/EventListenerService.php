@@ -2,9 +2,8 @@
 
 namespace Platform\User\Service;
 
-use Kendo\Routing\FilterProfileSlug;
-use Kendo\Routing\FilterStuff;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\RoutingResult;
+use Kendo\Http\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Invitation\Model\Invitation;
 use Platform\Page\Model\Page;
@@ -52,122 +51,160 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->addRoute('members', [
+        $routing->add([
+            'name'     => 'members',
             'uri'      => 'members',
             'defaults' => [
-                'controller' => '\Platform\User\Controller\HomeController',
+                'controller' => 'Platform\User\Controller\HomeController',
                 'action'     => 'browse-user'
             ],
         ]);
 
-        $routing->addRoute('find_friends', [
+        $routing->add([
+            'name'     => 'find_friends',
             'uri'      => 'find-friends',
             'defaults' => [
-                'controller' => '\Platform\User\Controller\HomeController',
+                'controller' => 'Platform\User\Controller\HomeController',
                 'action'     => 'find-friend',
             ],
         ]);
 
-        $routing->addRoute('forgot_password', [
+        $routing->add([
+            'name'     => 'forgot_password',
             'uri'      => 'forgot-password',
             'defaults' => [
-                'controller' => '\Platform\User\Controller\AuthController',
+                'controller' => 'Platform\User\Controller\AuthController',
                 'action'     => 'forgot-password',
             ],
         ]);
 
-        $routing->addRoute('login', [
+        $routing->add([
+            'name'     => 'login',
             'uri'      => 'login',
             'defaults' => [
-                'controller' => '\Platform\User\Controller\AuthController',
+                'controller' => 'Platform\User\Controller\AuthController',
                 'action'     => 'login',
             ],
         ]);
 
-        $routing->addRoute('login_as', [
+        $routing->add([
+            'name'     => 'login_as',
             'uri'      => 'login-as/<type>/<id>',
             'defaults' => [
-                'controller' => '\Platform\User\Controller\AuthController',
-                'action'     => 'loginAs',
+                'controller' => 'Platform\User\Controller\AuthController',
+                'action'     => 'login-as',
             ],
         ]);
 
-        $routing->addRoute('logout', [
+        $routing->add([
+            'name'     => 'logout',
             'uri'      => 'logout',
             'defaults' => [
-                'controller' => '\Platform\User\Controller\AuthController',
+                'controller' => 'Platform\User\Controller\AuthController',
                 'action'     => 'logout',
             ],
         ]);
 
-        $routing->addRoute('register', [
+        $routing->add([
+            'name'     => 'register',
             'uri'      => 'register',
             'defaults' => [
-                'controller' => '\Platform\User\Controller\RegisterController',
+                'controller' => 'Platform\User\Controller\RegisterController',
                 'action'     => 'index',
             ],
         ]);
 
-
-        $routing->addRoute('edit_profile', [
+        $routing->add([
+            'name'     => 'edit_profile',
             'uri'      => 'user/edit-profile',
             'defaults' => [
-                'controller' => '\Platform\User\Controller\ProfileController',
+                'controller' => 'Platform\User\Controller\ProfileController',
                 'action'     => 'edit',
             ],
         ]);
 
-        $routing->addRoute('user_settings', [
+        $routing->add([
+            'name'     => 'user_settings',
             'uri'      => 'settings(/<action>)',
             'defaults' => [
-                'controller' => '\Platform\User\Controller\SettingsController',
+                'controller' => 'Platform\User\Controller\SettingsController',
                 'action'     => 'account',
             ],
         ]);
 
-        $routing->getRoute('cardhover')
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'user',
-                'controller' => '\Platform\User\Controller\Ajax\CardhoverController',
+        $routing->add([
+            'name'         => 'cardhover/user',
+            'replacements' => [
+                '<type>' => 'user',
+            ],
+            'defaults'     => [
+                'controller' => 'Platform\User\Controller\Ajax\CardhoverController',
                 'action'     => 'preview',
-            ]));
-
-        $routing->addRoute('user_slug', [
-            'uri'      => '<name>(/<stuff>)',
-            'uri_expr' => [
-                'stuff' => '.+',
-            ],
-            'defaults' => [
-                'controller'  => '\Platform\User\Controller\ProfileController',
-                'profileType' => 'platform_user',
             ]
-        ])->addFilter(new FilterProfileSlug([
-            'table'  => 'platform_user',
-            'token'  => 'name',
-            'wheres' => 'profile_name=?'
-        ]))->forward('profile');
+        ]);
 
-        $routing->addRoute('user_profile', [
-            'uri'      => 'user/<profileId>(/<stuff>)',
+        $routing->add([
+            'name'     => 'user_profile',
+            'delegate' => 'profile',
+            'uri'      => 'profile/<name>(/<any>)',
             'uri_expr' => [
                 'stuff' => '.+',
             ],
             'defaults' => [
-                'controller'  => '\Platform\User\Controller\ProfileController',
+                'controller'  => 'Platform\User\Controller\ProfileController',
                 'profileType' => 'platform_user'
             ]
-        ])->forward('profile');
+        ]);
 
+        $routing->add([
+            'name'         => 'profile/friends',
+            'replacements' => [
+                '<any>' => 'friends',
+            ],
+            'defaults'     => ['action'     => 'browse-member'
+            ]
+        ]);
 
-        $routing->getRoute('profile')
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'friends',
-                'controller' => '\Platform\User\Controller\ProfileController',
-                'action'     => 'browse-member']))
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'about',
-                'controller' => '\Platform\User\Controller\ProfileController',
-                'action'     => 'view-about']));
+        $routing->add([
+            'name'         => 'profile/about',
+            'replacements' => [
+                '<any>' => 'about',
+            ],
+            'defaults'     => ['action'     => 'view-about']
+        ]);
+    }
+
+    /**
+     * @param \Kendo\Hook\HookEvent $event
+     *
+     * @return bool
+     */
+    public function onFilterProfileNameRun(HookEvent $event)
+    {
+        $result = $event->getPayload();
+
+        if (!$result instanceof RoutingResult)
+            return false;
+
+        $name = $result->get('name');
+
+        $entry = \App::table('platform_user')
+            ->select()
+            ->where('profile_name=? or user_id=?', (string)$name)
+            ->one();
+
+        if (!$entry) {
+            return false;
+        }
+
+        $event->append([
+            'controller'  => 'Platform\Feed\Controller\ProfileController',
+            'action'      => 'timeline',
+            'profileType' => $entry->getType(),
+            'profileId'   => $entry->getId(),
+        ]);
+
+        return true;
     }
 
     /**
@@ -275,13 +312,12 @@ class EventListenerService extends EventListener
         $stats = $payload->__get('stats');
 
         $stats['user'] = [
-            'label' => \App::text('user.members'),
+            'label' => \App::text('user . members'),
             'value' => \App::userService()->getActiveUserCount(),
         ];
 
         $payload->__set('stats', $stats);
     }
-
 
     /**
      * @param $item

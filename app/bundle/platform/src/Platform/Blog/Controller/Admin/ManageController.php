@@ -21,7 +21,7 @@ class ManageController extends AdminController
     {
         $filter = new FilterBlogPost();
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageFilter($filter)
             ->setPageTitle('blog.manage_blogs')

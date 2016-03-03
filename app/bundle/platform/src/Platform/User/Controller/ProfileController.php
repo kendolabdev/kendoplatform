@@ -30,7 +30,7 @@ class ProfileController extends ProfileBaseController
 //        ]);
 //
 //
-//        if ($this->request->isGet()) {
+//        if ($this->request->is('get')) {
 //
 //            $data = \App::catalogService()
 //                ->loadAttributeValue($poster, []);
@@ -38,7 +38,7 @@ class ProfileController extends ProfileBaseController
 //            $form->setData($data);
 //        }
 //
-//        if ($this->request->isPost() and $form->isValid($_POST)) {
+//        if ($this->request->isMethod('post')and $form->isValid($_POST)) {
 //            $data = $form->getData();
 //
 //            \App::catalogService()
@@ -61,7 +61,7 @@ class ProfileController extends ProfileBaseController
     public function actionViewAbout()
     {
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('core.about');
 
 
@@ -79,7 +79,7 @@ class ProfileController extends ProfileBaseController
             'about'   => $about,
         ]))->render();
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         /**
          * get about information
@@ -97,7 +97,7 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseMember()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('user.friends');
 
         $profile = \App::registryService()->get('profile');
@@ -115,12 +115,12 @@ class ProfileController extends ProfileBaseController
 
         $paging = \App::relationService()->loadMemberPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/user/friend/paging',
+                'pagingUrl' => 'ajax/platform/user/friend/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,

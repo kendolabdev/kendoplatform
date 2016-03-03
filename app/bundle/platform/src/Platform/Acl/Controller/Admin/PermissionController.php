@@ -17,7 +17,7 @@ class PermissionController extends AdminController
     protected function onBeforeRender()
     {
         $t = $this->request->getParam('t', 'general');
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_permission_edit', $t);
 
@@ -39,7 +39,7 @@ class PermissionController extends AdminController
         $groupId = $this->request->getParam('groupId', 'core');
         $roleId = $this->request->getParam('roleId', null);
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageFilter($filter)
             ->setPageTitle('core.manage_permission');
 
@@ -65,11 +65,11 @@ class PermissionController extends AdminController
         if (!$form instanceof BasePermission)
             throw new \InvalidArgumentException();
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->commit();
         }
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 

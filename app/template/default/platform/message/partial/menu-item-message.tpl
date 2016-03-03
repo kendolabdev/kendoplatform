@@ -1,0 +1,11 @@
+<li>
+    <a class=""
+       data-remote="ajax/platform/message/message/compose"
+       data-object='<?php _escape($attrs);?>'
+       data-toggle="modal">
+        <b class="ion-email-unread"></b>
+    <span class="btn-txt">
+        <?php echo $this->helper()->text('core.message'); ?>
+    </span>
+    </a>
+</li>

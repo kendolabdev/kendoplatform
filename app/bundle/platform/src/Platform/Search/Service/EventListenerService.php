@@ -5,7 +5,7 @@ use Kendo\Hook\EventListener;
 use Kendo\Assets\Requirejs;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\RoutingManager;
 
 /**
  * Class EventHandlerService
@@ -23,10 +23,11 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->addRoute('search', [
+        $routing->add([
+            'name'     => 'search',
             'uri'      => 'search',
             'defaults' => [
-                'controller' => 'Search\Controller\HomeController',
+                'controller' => 'Platform\Search\Controller\HomeController',
                 'action'     => 'browse',
             ],
         ]);

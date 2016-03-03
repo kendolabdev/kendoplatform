@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Video\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 
 /**
@@ -9,7 +9,7 @@ use Kendo\Layout\Block;
  *
  * @package Video\Block
  */
-class ListingVideoItemBlock extends Block
+class ListingVideoItemBlock extends BlockController
 {
     /**
      *

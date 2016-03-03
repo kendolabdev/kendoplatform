@@ -2,19 +2,19 @@
 namespace Platform\Layout\Block;
 
 use Kendo\Html\Form;
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class SidebarFilterBlock
  *
  * @package Platform\Layout\Block
  */
-class SidebarFilterBlock extends Block
+class SidebarFilterBlock extends BlockController
 {
 
     public function execute()
     {
-        $filter = \App::layoutService()
+        $filter = \App::layouts()
             ->getPageFilter();
 
         if (!$filter instanceof Form) {

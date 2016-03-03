@@ -72,7 +72,7 @@ class EventService extends KernelServiceAgreement
      */
     public function loadEventPaging($query = [], $page = 1, $limit = 2)
     {
-        $select = \App::table('event')->select();
+        $select = \App::table('platform_event')->select();
 
         $isOwner = false;
 
@@ -123,7 +123,7 @@ class EventService extends KernelServiceAgreement
      */
     public function getEventCount()
     {
-        return \App::table('event')
+        return \App::table('platform_event')
             ->select()
             ->count();
     }

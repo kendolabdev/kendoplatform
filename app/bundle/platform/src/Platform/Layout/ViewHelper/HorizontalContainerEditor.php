@@ -37,7 +37,7 @@ class HorizontalContainerEditor
                 $response[] = '';
             } else {
                 foreach ($data['locations'][ $location ] as $blockData) {
-                    $response[] = \App::layoutService()->renderBlockForEdit($blockData);
+                    $response[] = \App::layouts()->renderBlockForEdit($blockData);
                 }
             }
             $response[] = '</div>';

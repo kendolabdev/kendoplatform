@@ -14,7 +14,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testGeneral()
     {
-        $manager = new Manager();
+        $manager = new AssetsManager();
 
         $manager->getDescription();
         $manager->getUrl('/test');

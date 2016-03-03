@@ -1,14 +1,14 @@
 <?php
 namespace Platform\Photo\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class ListingPhotoItemBlock
  *
  * @package Platform\Photo\Block
  */
-class ListingPhotoItemBlock extends Block
+class ListingPhotoItemBlock extends BlockController
 {
     public function getTitle()
     {

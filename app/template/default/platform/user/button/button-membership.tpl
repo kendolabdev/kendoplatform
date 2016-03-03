@@ -24,7 +24,7 @@
 <?php if($membership == -2): ?>
 <button class="btn btn-danger btn-sm btn-membership"
         data-toggle="options"
-        data-remote="ajax/user/friend/membership-options"
+        data-remote="ajax/platform/user/friend/membership-options"
         data-object='<?php echo _escape($friend->toTokenArray());?>'>
     <span class="ion-person-add"></span>
     <span class="btn-txt"><?php echo $this->helper()->text('friend.request_friend');?></span>
@@ -35,7 +35,7 @@
 <?php if(is_array($membership)): ?>
 <button class="btn btn-default btn-sm btn-membership"
         data-toggle="options"
-        data-remote="ajax/user/friend/membership-options"
+        data-remote="ajax/platform/user/friend/membership-options"
         data-object='<?php echo _escape($friend->toTokenArray());?>'>
     <span class="ion-star"></span>
     <span class="btn-txt"><?php echo $this->helper()->text('friend.friend');?></span>

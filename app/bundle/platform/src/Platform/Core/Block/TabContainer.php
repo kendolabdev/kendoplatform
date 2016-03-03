@@ -1,14 +1,14 @@
 <?php
 namespace Platform\Core\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class TabContainer
  *
  * @package Core\Block
  */
-class TabContainer extends Block
+class TabContainer extends BlockController
 {
     /**
      *
@@ -35,7 +35,7 @@ class TabContainer extends Block
             $class = $blockData['block_class'];
             $block = new $class($blockData);
 
-            if (!$block instanceof Block) continue;
+            if (!$block instanceof BlockController) continue;
 
             $block->execute();
 

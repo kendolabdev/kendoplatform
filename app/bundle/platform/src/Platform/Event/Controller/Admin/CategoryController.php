@@ -22,11 +22,11 @@ class CategoryController extends AdminController
             'label' => 'core.create_new_category',
             'props' => [
                 'class' => 'btn btn-sm btn-primary',
-                'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'photo/category/create']),
+                'href'  => \App::routing()->getUrl('admin', ['stuff' => 'photo/category/create']),
             ]
         ];
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('event.manage_categories')
             ->setPageButtons([$createButton])
@@ -68,14 +68,14 @@ class CategoryController extends AdminController
 
         $lp = new BlockParams(['base_path' => 'layout/partial/form-edit']);
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
             \App::eventService()->addCategory($data);
 
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', ['stuff' => 'event/category/browse']);
+            \App::routing()->redirect('admin', ['stuff' => 'event/category/browse']);
         }
 
         $this->view->setScript($lp)
@@ -96,11 +96,11 @@ class CategoryController extends AdminController
 
         $form = new EditEventCategory();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             $entry->setFromArray($data);
@@ -110,7 +110,7 @@ class CategoryController extends AdminController
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', ['stuff' => 'event/category/browse']);
+            \App::routing()->redirect('admin', ['stuff' => 'event/category/browse']);
         }
 
         $lp = new BlockParams(['base_path' => 'layout/partial/form-edit']);
@@ -131,17 +131,17 @@ class CategoryController extends AdminController
 
         $form = new DeleteEventCategory();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $entry->delete();
 
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', ['stuff' => 'event/category/browse']);
+            \App::routing()->redirect('admin', ['stuff' => 'event/category/browse']);
         }
 
         $lp = new BlockParams(['base_path' => 'layout/partial/form-delete']);

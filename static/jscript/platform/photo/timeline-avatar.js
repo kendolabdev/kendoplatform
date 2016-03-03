@@ -34,15 +34,15 @@ define(['jquery','underscore'],function(){
         });
 
         if (_isDialog)
-            K.closeModal();
+            $kd.closeModal();
 
     });
 
     $(document).on('click', '[data-toggle="field-avatar-upload"]', function () {
         var btn = $(this),
             input = $(btn.data('target')),
-            url = K.getUrl('ajax/photo/upload/temp', {}),
-            _modalUrl = 'ajax/photo/field-avatar/dialog',
+            url = $kd.getUrl('ajax/platform/photo/upload/temp', {}),
+            _modalUrl = 'ajax/platform/photo/field-avatar/dialog',
             _container = '.cropit-container';
 
         requirejs(['primary/jquery.cropit'], function () {
@@ -53,7 +53,7 @@ define(['jquery','underscore'],function(){
                 url: url,
                 fileName: 'fileUpload',
                 onQueue: function (plugin) {
-                    K.modal(_modalUrl, {})
+                    $kd.modal(_modalUrl, {})
                         .done(function () {
                             window.setTimeout(function () {
                                 plugin.processQueue();
@@ -84,8 +84,8 @@ define(['jquery','underscore'],function(){
     $(document).on('click', '[data-toggle="tl-avatar-upload"]', function () {
         var btn = $(this),
             input = $(btn.data('target')),
-            url = K.getUrl('ajax/photo/upload/temp', {}),
-            _modalUrl = 'ajax/photo/avatar/edit-avatar-dialog',
+            url = $kd.getUrl('ajax/platform/photo/upload/temp', {}),
+            _modalUrl = 'ajax/platform/photo/avatar/edit-avatar-dialog',
             _container = '.cropit-container';
 
         requirejs(['primary/jquery.cropit'], function () {
@@ -96,7 +96,7 @@ define(['jquery','underscore'],function(){
                 url: url,
                 fileName: 'fileUpload',
                 onQueue: function (plugin) {
-                    K.modal(_modalUrl, {})
+                    $kd.modal(_modalUrl, {})
                         .done(function () {
                             window.setTimeout(function () {
                                 plugin.processQueue();

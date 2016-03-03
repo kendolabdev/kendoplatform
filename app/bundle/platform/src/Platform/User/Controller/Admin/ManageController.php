@@ -24,7 +24,7 @@ class ManageController extends AdminController
 
         $filter = new FilterUser();
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('user.manage_members')
             ->setPageFilter($filter)
@@ -54,7 +54,7 @@ class ManageController extends AdminController
             ->setScript($lp)
             ->assign([
                 'filter'    => $filter,
-                'pagingUrl' => 'ajax/user/admin/user/paging',
+                'pagingUrl' => 'ajax/platform/user/admin/user/paging',
                 'lp'        => $lp,
                 'paging'    => $paging,
                 'query'     => $query,

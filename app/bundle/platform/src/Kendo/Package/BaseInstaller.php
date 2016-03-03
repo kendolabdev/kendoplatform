@@ -934,7 +934,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         }
 
         if (!empty($this->installData['platform_setting_value'])) {
-            \App::settingService()
+            \App::settings()
                 ->save($this->installData['platform_setting_value']);
         }
     }

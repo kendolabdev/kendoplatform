@@ -38,7 +38,7 @@ class FollowController extends AjaxController
      */
     public function actionLinkToggle()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $item = \App::find($type, $id);
 

@@ -6,8 +6,8 @@ use Kendo\Assets\Requirejs;
 use Kendo\Content\AtomInterface;
 use Kendo\Content\PosterInterface;
 use Kendo\Hook\HookEvent;
-use Kendo\Routing\FilterStuff;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\FilterStuff;
+use Kendo\Http\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Relation\Model\Relation;
 use Platform\Relation\Model\RelationItem;
@@ -30,7 +30,7 @@ class EventListenerService extends EventListener
         if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
-            'labelPrivacy' => '\Relation\ViewHelper\LabelPrivacy'
+            'labelPrivacy' => '\Platform\Relation\ViewHelper\LabelPrivacy'
         ]);
     }
 
@@ -43,10 +43,15 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->getRoute('profile')
-            ->addFilter(new FilterStuff([
-                'stuff'  => 'members',
-                'action' => 'browse-member',]));
+        $routing->add([
+            'name'         => 'profile/members',
+            'replacements' => [
+                '<any>' => 'members',
+            ],
+            'defaults'     => [
+                'controller' => 'Platform\User\Controller\HomeController',
+                'action'     => 'browse-member'
+            ]]);
     }
 
     /**

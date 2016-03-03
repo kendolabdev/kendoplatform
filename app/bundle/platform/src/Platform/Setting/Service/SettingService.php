@@ -2,7 +2,6 @@
 namespace Platform\Setting\Service;
 
 use Kendo\Kernel\KernelServiceAgreement;
-use Kendo\Setting\Manager;
 use Platform\Setting\Model\Setting;
 
 
@@ -11,134 +10,8 @@ use Platform\Setting\Model\Setting;
  *
  * @package Platform\Setting\Service
  */
-class SettingService extends KernelServiceAgreement implements Manager
+class SettingService extends KernelServiceAgreement
 {
-    /**
-     * @var array
-     */
-    private $data;
-
-    /**
-     * @var bool
-     */
-    private $loaded = false;
-
-
-    /**
-     * @return boolean
-     */
-    public function isLoaded()
-    {
-        return $this->loaded;
-    }
-
-    /**
-     * @param boolean $loaded
-     */
-    public function setLoaded($loaded)
-    {
-        $this->loaded = $loaded;
-    }
-
-    /**
-     * @return array
-     */
-    public function getData()
-    {
-        if (!$this->loaded) {
-            $this->load();
-        }
-
-        return $this->data;
-    }
-
-    /**
-     * @param array $data
-     */
-    public function setData($data)
-    {
-        $this->data = $data;
-    }
-
-
-    /**
-     * @param string  $group
-     * @param  string $name
-     * @param  mixed  $defaultValue
-     *
-     * @return mixed
-     */
-    public function get($group, $name = null, $defaultValue = null)
-    {
-        if (!$this->loaded) {
-            $this->load();
-        }
-
-        if (empty($name)) {
-            if (isset($this->data[ $group ])) {
-                return $this->data[ $group ];
-            }
-        } else if (isset($this->data[ $group ][ $name ])) {
-            return $this->data[ $group ][ $name ];
-        }
-
-        return $defaultValue;
-    }
-
-    /**
-     * @return \Kendo\Db\SqlSelect
-     */
-    private function getSelect()
-    {
-        return \App::table('platform_setting')
-            ->select('c')
-            ->join(":platform_setting_action", 'a', 'a.action_id=c.action_id', null, null)
-            ->columns('c.value_text, a.*');
-    }
-
-
-    /**
-     * Load all app configuration data
-     */
-    public function load()
-    {
-        if ($this->loaded) return;
-
-        $this->data = \App::cacheService()
-            ->get(['setting', 'load'], 0, function () {
-                return $this->loadFromRepository();
-            });
-    }
-
-
-    /**
-     * @return array
-     */
-    public function loadFromRepository()
-    {
-        return $this->_exportListItem($this->getSelect()->toAssocs());
-    }
-
-    /**
-     * @param array $items
-     *
-     * @return array
-     */
-    public function _exportListItem($items)
-    {
-        $result = [];
-        foreach ($items as $item) {
-            if (empty($result[ $item['action_group'] ])) {
-                $result[ $item['action_group'] ] = [];
-            }
-            $value = json_decode($item['value_text'], 1);
-            $result[ $item['action_group'] ][ $item['action_name'] ] = $value['val'];
-        }
-
-        return $result;
-    }
-
-
     /**
      * @param string $group
      * @param string $name

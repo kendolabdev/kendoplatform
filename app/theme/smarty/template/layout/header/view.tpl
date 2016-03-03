@@ -34,7 +34,7 @@
                     </button>
                     <a class="navbar-brand" href="<?php echo $this->helper()->url('home');?>">YouNet</a>
                 </div>
-                <?php echo \App::navigationService()->render('dropdown', 'main', null, [], 2, ['level0'=>'nav navbar-nav
+                <?php echo \App::navigation()->render('dropdown', 'main', null, [], 2, ['level0'=>'nav navbar-nav
                 navbar-right','depth' => 1,'max' => 6]); ?>
             </div>
             <!-- /.navbar-collapse -->

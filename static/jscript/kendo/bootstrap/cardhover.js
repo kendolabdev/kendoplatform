@@ -71,7 +71,7 @@
 
             var url = 'cardhover/' + cardInfo.replace('@', '/');
 
-            K.ajax(url, {cardInfo: cardInfo})
+            $kd.ajax(url, {cardInfo: cardInfo})
                 .complete(onRequestComplete)
                 .done(onRequestSuccess)
                 .error(onRequestError);

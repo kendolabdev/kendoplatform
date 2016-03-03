@@ -17,8 +17,8 @@ class UserController extends AjaxController
      */
     public function actionBearAccountDialog()
     {
-        $lp = \App::layoutService()
-            ->getContentLayoutParams('user_ajax_bear_account_dialog');
+        $lp = \App::layouts()
+            ->getContentLayoutParams('platform_user_ajax_bear_account_dialog');
 
         $this->response = [
             'html' => $this->partial($lp->script(), []),

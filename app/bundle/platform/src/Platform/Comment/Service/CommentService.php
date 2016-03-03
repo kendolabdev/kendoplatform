@@ -21,7 +21,7 @@ class CommentService extends KernelServiceAgreement
      */
     public function getAdminStatisticCount()
     {
-        return \App::table('comment')
+        return \App::table('platform_comment')
             ->select()
             ->count();
     }
@@ -33,7 +33,7 @@ class CommentService extends KernelServiceAgreement
      */
     public function findComment($commentId)
     {
-        return \App::table('comment')
+        return \App::table('platform_comment')
             ->select()
             ->where('comment_id=?', $commentId)
             ->one();
@@ -80,7 +80,7 @@ class CommentService extends KernelServiceAgreement
      */
     public function getCommentCount(AtomInterface $object)
     {
-        return \App::table('comment')
+        return \App::table('platform_comment')
             ->select()
             ->where('about_id=?', $object->getId())
             ->count();
@@ -123,7 +123,7 @@ class CommentService extends KernelServiceAgreement
             $limit = 3;
         }
 
-        $select = \App::table('comment')
+        $select = \App::table('platform_comment')
             ->select()
             ->where('about_id=?', $object->getId());
 
@@ -149,7 +149,7 @@ class CommentService extends KernelServiceAgreement
      */
     public function removeAllByAbout(AtomInterface $about)
     {
-        \App::table('comment')
+        \App::table('platform_comment')
             ->delete()
             ->where('about_id=?', $about->getId())
             ->execute();
@@ -164,7 +164,7 @@ class CommentService extends KernelServiceAgreement
      */
     public function removeAllByPoster(PosterInterface $poster)
     {
-        \App::table('comment')
+        \App::table('platform_comment')
             ->delete()
             ->where('poster_id=?', $poster->getId())
             ->orWhere('user_id=?', $poster->getId())

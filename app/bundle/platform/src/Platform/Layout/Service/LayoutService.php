@@ -11,7 +11,7 @@ use Platform\Layout\Model\LayoutSetting;
 use Platform\Layout\Model\LayoutTemplate;
 use Platform\Layout\Model\LayoutTheme;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 use Kendo\Layout\BlockParams;
 use Kendo\Layout\Decorator;
 use Kendo\Layout\LayoutLoaderInterface;
@@ -28,7 +28,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     /**
      * Root page name to search
      */
-    const PAGE_ROOT = 'core_default';
+    const PAGE_ROOT = 'platform_core_default';
 
     /**
      * Default template id
@@ -497,7 +497,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function getEditingThemeId()
     {
-        return \App::layoutService()
+        return \App::layouts()
             ->getEditingTheme()
             ->getId();
     }
@@ -895,7 +895,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function getTemplateSupportBlockSettings($path, $themeId)
     {
-        $theme = \App::layoutService()
+        $theme = \App::layouts()
             ->findThemeById($themeId);
 
         $paths = $theme->getViewFinderPaths();
@@ -976,7 +976,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     public function _getTemplateBlockRenderSettings($path, $themeId = 'default')
     {
 
-        $theme = \App::layoutService()
+        $theme = \App::layouts()
             ->findThemeById($themeId);
 
         $paths = $theme->getViewFinderPaths();
@@ -1736,8 +1736,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
 
         $request = \App::requester();
 
-        return \App::viewHelper()->partial($masterScript,
-            [
+        return \App::viewHelper()->partial($masterScript, [
                 'fullControllerName' => $request->getFullControllerName()
             ]
         );
@@ -1847,7 +1846,6 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
             ->get(['loadDataForRender', $pageName, $themeId, $screenSize], 0, function () use ($themeId, $pageName, $screenSize) {
                 return $this->getLoader()->loadDataForRender($pageName, $themeId, $screenSize);
             });
-
         $response = [];
 
         foreach ($layoutData['sections'] as $sectionData) {
@@ -1880,7 +1878,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
 
             $block = new $class($params);
 
-            if (!$block instanceof Block)
+            if (!$block instanceof BlockController)
                 throw new \InvalidArgumentException();
 
             $block->execute();
@@ -1903,6 +1901,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function getContentLayoutParams($pageName = null)
     {
+
         return new BlockParams($this->getLayoutParams('content', $pageName));
     }
 
@@ -1949,45 +1948,45 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
 
         return \App::cacheService()->get(['layoutParams', $templateId, $pageName, $screenSize, $layoutType],
             0, function () use ($templateId, $pageName, $screenSize, $layoutType) {
-                return $this->_getLayoutParams($templateId, $pageName, $screenSize, $layoutType);
+                return $this->_getLayoutParams($pageName, $screenSize, $layoutType);
             });
     }
 
     /**
-     * @param $templateId
      * @param $pageName
      * @param $screenSize
      * @param $layoutType
      *
      * @return array
      */
-    public function _getLayoutParams($templateId, $pageName, $screenSize, $layoutType)
+    public function _getLayoutParams($pageName, $screenSize, $layoutType)
     {
-        $data = $this->_getLayoutParamsDetail($templateId, $pageName, $screenSize, $layoutType);
+        $data = $this->_getLayoutParamsDetail($pageName, $screenSize, $layoutType);
+
 
         $itemPath = '';
         $basePath = '';
 
-
-        if ('header' == $layoutType)
+        if ('header' == $layoutType) {
             $basePath = 'layout/header';
+        }
 
-        if ('footer' == $layoutType)
+        if ('footer' == $layoutType) {
             $basePath = 'layout/footer';
-
+        }
 
         if ($layoutType == 'content') {
 
             $page = $this->findPageByName($pageName);
 
             if (!$page) {
-                throw new \InvalidArgumentException("Could not find correct page!");
+                throw new \InvalidArgumentException(sprintf('Unexpected page "%s"', $pageName));
             }
-
 
             $basePath = $page->getBasePath();
             $itemPath = $page->getItemPath();
         }
+
 
         $data['base_path'] = $basePath;
         $data['item_path'] = $itemPath;
@@ -1997,14 +1996,13 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     }
 
     /**
-     * @param $templateId
      * @param $pageName
      * @param $screenSize
      * @param $layoutType
      *
      * @return array
      */
-    public function _getLayoutParamsDetail($templateId, $pageName, $screenSize, $layoutType)
+    public function _getLayoutParamsDetail($pageName, $screenSize, $layoutType)
     {
 
         $pageIdList = [];
@@ -2063,7 +2061,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function header()
     {
-        return $this->renderBlockContent('\Layout\Block\SiteHeaderBlock', []);
+        return $this->renderBlockContent('\Platform\Layout\Block\SiteHeaderBlock', []);
 
     }
 
@@ -2072,7 +2070,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function footer()
     {
-        return $this->renderBlockContent('\Layout\Block\SiteFooterBlock', []);
+        return $this->renderBlockContent('\Platform\Layout\Block\SiteFooterBlock', []);
     }
 
     /**
@@ -2166,7 +2164,6 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
 
         $script = 'layout/section/' . $sectionData['section_template'];
 
-
         return \App::viewHelper()->partial($script, $responseData);
     }
 
@@ -2184,17 +2181,29 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     {
         try {
 
-            if (!class_exists($class))
+            if (!class_exists($class)) {
                 throw new \InvalidArgumentException();
+            }
+
+
+            if (KENDO_PROFILER) {
+                $profilerKey = \App::profiler()->start('layout', 'renderBlock', $class);
+            }
 
             $block = new $class($params);
 
-            if (!$block instanceof Block)
+            if (!$block instanceof BlockController)
                 throw new \InvalidArgumentException();
 
             $block->execute();
 
-            return $block->render();
+            $renderContent = $block->render();
+
+            if (KENDO_PROFILER and !empty($profilerKey)) {
+                \App::profiler()->stop($profilerKey);
+            }
+
+            return $renderContent;
 
         } catch (\Exception $ex) {
             if (KENDO_DEBUG) {

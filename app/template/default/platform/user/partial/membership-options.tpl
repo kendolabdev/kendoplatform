@@ -30,7 +30,7 @@
             </a>
         </li>
         <li data-toggle="btn-friend-ignore" class=""
-            data-remote="ajax/user/friend/friend-options"
+            data-remote="ajax/platform/user/friend/friend-options"
             data-eid="<?php echo $eid;?>"
             data-object="<?php echo $friend->getId();?>">
 

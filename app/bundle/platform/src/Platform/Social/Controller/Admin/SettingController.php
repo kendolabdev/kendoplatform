@@ -16,8 +16,8 @@ class SettingController extends AdminController
 
     protected function onBeforeRender()
     {
-        \App::layoutService()->setPageName('admin_simple');
-        \App::layoutService()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_setting_social');
+        \App::layouts()->setPageName('admin_simple');
+        \App::layouts()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_setting_social');
     }
 
     /**
@@ -57,10 +57,10 @@ class SettingController extends AdminController
         $p0 = array_shift($arr);
 
         foreach ($arr as $index => $ar) {
-            $arr[ $index ] = \App::inflect($ar);
+            $arr[ $index ] = _inflect($ar);
         }
 
-        $class = '\\' . \App::inflect($p0) . '\\Form\\' . implode('\\', $arr);
+        $class = '\\' . _inflect($p0) . '\\Form\\' . implode('\\', $arr);
 
         if (!class_exists($class))
             throw new \InvalidArgumentException();
@@ -71,12 +71,12 @@ class SettingController extends AdminController
         if (!$form instanceof BaseSettingForm)
             throw new \InvalidArgumentException();
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->save();
-            \App::routingService()->redirect('admin', ['stuff' => 'social/setting/browse']);
+            \App::routing()->redirect('admin', ['stuff' => 'social/setting/browse']);
         }
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 

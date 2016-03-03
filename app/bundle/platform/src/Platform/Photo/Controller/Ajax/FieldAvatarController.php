@@ -18,7 +18,7 @@ class FieldAvatarController extends AjaxController
      */
     public function actionDialog()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $photo = null;
         $photoSrc = null;

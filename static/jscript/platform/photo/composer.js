@@ -6,7 +6,7 @@ define(['jquery','underscore'],function(){
         _hiddenTpl = '<input type="hidden" name="photoTemp[]" class="hidden" value="<%= value %>"/>';
 
     PhotoComposer = function (input) {
-        var url = K.getUrl(input.data('url'),{}),
+        var url = $kd.getUrl(input.data('url'),{}),
             outer = input
                 .closest('form')
                 .find(input.data('preview'));

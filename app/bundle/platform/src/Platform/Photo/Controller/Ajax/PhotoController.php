@@ -19,7 +19,7 @@ class PhotoController extends AjaxController
 
     public function actionMakeAlbumCover()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $photo = \App::find($type, $id);
 
@@ -30,7 +30,7 @@ class PhotoController extends AjaxController
 
         $this->response = [
             'html'    => '',
-            'message' => \App::text('photo.photo_is_set_to_album_cover'),
+            'message' => \App::text('platform_photo_is_set_to_album_cover'),
         ];
     }
 
@@ -39,7 +39,7 @@ class PhotoController extends AjaxController
 
         $type = 'photo';
 
-        list($id, $eid) = $this->request->get('photoId', 'eid');
+        list($id, $eid) = $this->request->getList('photoId', 'eid');
 
         $item = \App::find($type, $id);
 
@@ -59,8 +59,8 @@ class PhotoController extends AjaxController
      */
     public function actionSubmitPhotos()
     {
-        list($albumId, $photoTemp) = $this->request->get('album_id', 'photoTemp');
-        list($albumName, $albumDesc, $newAlbum, $context) = $this->request->get('name', 'description', 'new_album', 'context');
+        list($albumId, $photoTemp) = $this->request->getList('album_id', 'photoTemp');
+        list($albumName, $albumDesc, $newAlbum, $context) = $this->request->getList('name', 'description', 'new_album', 'context');
 
         $photoService = \App::photoService();
 
@@ -132,7 +132,7 @@ class PhotoController extends AjaxController
     {
         $posterId = \App::authService()->getId();
 
-        $albums = \App::table('photo.photo_album')
+        $albums = \App::table('platform_photo_album')
             ->select()
             ->where('parent_id=?', (string)$posterId)
             ->all();
@@ -170,7 +170,7 @@ class PhotoController extends AjaxController
          * Create select album form for current poster
          */
 
-        list($albumId, $formMode, $context) = $this->request->get('albumId', 'mode', 'context');
+        list($albumId, $formMode, $context) = $this->request->getList('albumId', 'mode', 'context');
 
         $albumSelect = null;
         $album = null;
@@ -268,7 +268,7 @@ class PhotoController extends AjaxController
      */
     public function actionDeletePhoto()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $photo = \App::find($type, $id);
 
@@ -290,7 +290,7 @@ class PhotoController extends AjaxController
 
 
         $this->response = [
-            'message' => \App::text('photo.photo_is_deleted'),
+            'message' => \App::text('platform_photo_is_deleted'),
         ];
     }
 }

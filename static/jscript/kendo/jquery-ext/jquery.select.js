@@ -26,7 +26,7 @@ define(['jquery'],function(){
             input.trigger('pushitem', item)
         },
         source: function (val, context, suggest) {
-            K.ajax('ajax/core/suggest/list', {q: val, context: context})
+            $kd.ajax('ajax/platform/core/suggest/list', {q: val, context: context})
                 .done(function (res) {
                     suggest(res);
                 });

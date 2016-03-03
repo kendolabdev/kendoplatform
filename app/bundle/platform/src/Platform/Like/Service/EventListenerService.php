@@ -2,8 +2,8 @@
 
 namespace Platform\Like\Service;
 
-use Kendo\Routing\FilterStuff;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\FilterStuff;
+use Kendo\Http\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Like\Model\Like;
 use Kendo\Hook\EventListener;
@@ -31,9 +31,9 @@ class EventListenerService extends EventListener
         if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
-            'lnLike'         => '\Like\ViewHelper\LinkLike',
-            'lnLikeComment'  => '\Like\ViewHelper\LinkLikeComment',
-            'listLikeSample' => '\Like\ViewHelper\ListLikeSample',
+            'lnLike'         => '\Platform\Like\ViewHelper\LinkLike',
+            'lnLikeComment'  => '\Platform\Like\ViewHelper\LinkLikeComment',
+            'listLikeSample' => '\Platform\Like\ViewHelper\ListLikeSample',
         ]);
     }
 
@@ -46,11 +46,15 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->getRoute('profile')
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'likes',
-                'controller' => '\Like\Controller\ProfileController',
-                'action'     => 'browse-like']));
+        $routing->add([
+            'name'         => 'profile/likes',
+            'replacements' => [
+                '<any>' => 'likes',
+            ],
+            'defaults'     => [
+                'controller' => 'Platform\Like\Controller\ProfileController',
+                'action'     => 'browse-like'
+            ]]);
     }
 
     /**

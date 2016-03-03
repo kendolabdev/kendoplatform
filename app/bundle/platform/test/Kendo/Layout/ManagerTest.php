@@ -38,7 +38,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     public function testDecorator($decoratorClass, $decoratorType, $decoratorConfig)
     {
         $decoratorParams = new DecoratorParams($decoratorType, $decoratorConfig);
-        $block = new Block();
+        $block = new BlockController();
 
         $block->setTitle('sample_title');
         $block->setBadge('4');
@@ -53,7 +53,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testBlock()
     {
-        $block = new Block();
+        $block = new BlockController();
 
         $block->setIcon('sample_icon');
         $this->assertEquals('sample_icon', $block->getIcon());

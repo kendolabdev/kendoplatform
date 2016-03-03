@@ -15,7 +15,7 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseFollower()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('follow.followers');
 
         $profile = \App::registryService()->get('profile');
@@ -29,12 +29,12 @@ class ProfileController extends ProfileBaseController
 
         $paging = \App::followService()->loadFollowPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/feed/follower/paging',
+                'pagingUrl' => 'ajax/platform/feed/follower/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,
@@ -48,7 +48,7 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseFollowing()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('follow.following');
 
         $profile = \App::registryService()->get('profile');
@@ -62,12 +62,12 @@ class ProfileController extends ProfileBaseController
 
         $paging = \App::followService()->loadFollowPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/feed/following/paging',
+                'pagingUrl' => 'ajax/platform/feed/following/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,

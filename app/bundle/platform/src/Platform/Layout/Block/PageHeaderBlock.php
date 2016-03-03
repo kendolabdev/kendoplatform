@@ -1,14 +1,14 @@
 <?php
 namespace Platform\Layout\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class PageHeaderBlock
  *
  * @package Platform\Layout\Block
  */
-class PageHeaderBlock extends Block
+class PageHeaderBlock extends BlockController
 {
 
     /**
@@ -16,23 +16,23 @@ class PageHeaderBlock extends Block
      */
     public function execute()
     {
-        $nav = \App::layoutService()
+        $nav = \App::layouts()
             ->getSecondaryNavigation();
 
-        $title = \App::layoutService()
+        $title = \App::layouts()
             ->getPageTitle();
 
-        $note = \App::layoutService()
+        $note = \App::layouts()
             ->getPageNote();
 
-        $filter = \App::layoutService()
+        $filter = \App::layouts()
             ->getPageFilter();
 
         if (empty($title)) {
             $this->setNoRender(true);
         }
 
-        $buttons = \App::layoutService()->getPageButtons();
+        $buttons = \App::layouts()->getPageButtons();
 
         $this->view->assign([
             'buttons'  => $buttons,

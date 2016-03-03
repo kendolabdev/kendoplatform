@@ -97,7 +97,7 @@ class LikeController extends AjaxController
             $followStatus = $followService->getFollowStatus($viewer, $object->getId());
 
             $this->response['html'] = (new View(
-                '/base/core/partial/like-btn',
+                '/platform/core/partial/like-btn',
                 [
                     'item'         => $object,
                     'likeStatus'   => $likeStatus,
@@ -134,7 +134,7 @@ class LikeController extends AjaxController
             $followStatus = $followService->getFollowStatus($viewer, $object->getId());
 
             $this->response['html'] = (new View(
-                '/base/core/partial/like-btn',
+                '/platform/core/partial/like-btn',
                 [
                     'item'         => $object,
                     'likeStatus'   => $likeStatus,
@@ -151,7 +151,7 @@ class LikeController extends AjaxController
      */
     public function actionLikedThis()
     {
-        list($id, $type) = $this->request->get('id', 'type');
+        list($id, $type) = $this->request->getList('id', 'type');
 
         $about = \App::find($type, $id);
 
@@ -165,13 +165,13 @@ class LikeController extends AjaxController
         $paging = \App::likeService()
             ->loadLikedThisPaging($query, $page);
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams('like_ajax_dialog_liked_this');
 
         $lp->set('endless', true);
 
         $html = $this->partial($lp->script(), [
-            'pagingUrl' => 'ajax/like/like/liked-this-paging',
+            'pagingUrl' => 'ajax/platform/like/like/liked-this-paging',
             'paging'    => $paging,
             'lp'        => $lp,
             'query'     => $query,

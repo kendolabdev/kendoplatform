@@ -71,7 +71,7 @@ class FeedStatus extends Model implements ContentInterface
 
         $params['id'] = $this->getId();
 
-        return \App::routingService()->getRoute('feed_detail', $params);
+        return \App::routing()->getRoute('feed_detail', $params);
     }
 
     /**
@@ -101,7 +101,7 @@ class FeedStatus extends Model implements ContentInterface
      */
     public function getType()
     {
-        return 'feed.feed_status';
+        return 'platform_feed_status';
     }
 
     /**

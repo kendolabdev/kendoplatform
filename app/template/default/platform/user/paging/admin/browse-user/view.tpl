@@ -32,7 +32,7 @@
                         </div>
                         <a class="item-options btn btn-sm"
                            data-toggle="options"
-                           data-remote="ajax/user/admin/user/options"
+                           data-remote="ajax/platform/user/admin/user/options"
                            data-object='<?php echo _escape($item->toTokenArray());?>'
                            data-for="for-btn">
                             <i class="ion-ios-arrow-down"></i>

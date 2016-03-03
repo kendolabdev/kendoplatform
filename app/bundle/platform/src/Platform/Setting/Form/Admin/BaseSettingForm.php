@@ -45,7 +45,7 @@ class BaseSettingForm extends Form
     {
         $data = [];
 
-        $setting = \App::settingService();
+        $setting = \App::settings();
 
         foreach ($this->getKeyList() as $group => $actions) {
             foreach ($actions as $name => $defaultValue) {
@@ -86,6 +86,6 @@ class BaseSettingForm extends Form
             $assoc[ $group ][ $key ] = $value;
         }
 
-        \App::settingService()->save($assoc);
+        \App::settings()->save($assoc);
     }
 }

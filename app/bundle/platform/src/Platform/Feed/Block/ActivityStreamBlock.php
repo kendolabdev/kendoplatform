@@ -4,14 +4,14 @@ namespace Platform\Feed\Block;
 
 use Kendo\Content\ContentInterface;
 use Kendo\Content\PosterInterface;
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class ActivityStreamBlock
  *
  * @package Feed\Block
  */
-class ActivityStreamBlock extends Block
+class ActivityStreamBlock extends BlockController
 {
 
     /**

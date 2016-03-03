@@ -35,16 +35,6 @@ class Application
     private $hasStarted = false;
 
     /**
-     * @var array
-     */
-    private $modules = [];
-
-    /**
-     * @var array
-     */
-    private $bundles = [];
-
-    /**
      * @var bool
      */
     private $debug = false;
@@ -54,53 +44,57 @@ class Application
      */
     private $startByNames = [
         'autoload',
+        'profiler',
         'db',
         'cache',
         'log',
         'packages',
+        'settings',
         'resource',
         'hook',
+        'auth',
     ];
 
     /**
      * array
      */
     private $requires = [
-        'resource'       => '\Kendo\Kernel\KernelResourceProvider',
-        'autoload'       => '\Kendo\Kernel\ClassAutoload',
-        'packages'       => '\Kendo\Package\PackageManager',
-        'db'             => '\Kendo\Db\Manager',
-        'cache'          => '\Kendo\Cache\Manager',
-        'log'            => '\Kendo\Log\Manager',
-        'hook'           => '\Kendo\Hook\EventManager',
-        'upload'         => '\Kendo\Upload\UploadManager',
-        'routing'        => '\Kendo\Routing\RoutingManager',
-        'i18n'           => '\Kendo\I18n\Manager',
-        'phrase'         => '\Platform\Phrase\Service\PhraseService',
-        'acl'            => '\Platform\Acl\Service\AclService',
-        'help'           => '\Platform\Help\Service\HelpService',
-        'setting'        => '\Platform\Setting\Service\SettingService',
-        'requester'      => '\Kendo\Request\RequestManager',
-        'pusher'         => '\Kendo\PushNotification\Manager',
-        'viewFinder'     => '\Kendo\View\ViewFinder',
-        'viewHelper'     => '\Kendo\View\ViewHelper',
-        'assets'         => '\Kendo\Assets\Manager',
-        'navigation'     => '\Kendo\Navigation\Manager',
-        'html'           => '\Kendo\Html\Manager',
-        'layout'         => '\Platform\Layout\Service\LayoutService',
-        'registry'       => '\Kendo\Registry\Manager',
-        'image_process'  => '\Kendo\Image\ImageProcess',
-        'storage'        => '\Platform\Storage\Service\StorageService',
-        'auth'           => '\Kendo\Auth\Manager',
-        'user'           => '\Platform\User\Service\UserService',
-        'relation'       => '\Platform\Relation\Service\RelationService',
-        'paging'         => '\Kendo\Paging\Manager',
-        'validator'      => '\Kendo\Validator\Manager',
-        'sass'           => '\Kendo\Sass\Manager',
-        'session'        => '\Kendo\Session\Manager',
-        'twig'           => '\Kendo\Twig\Manager',
-        'comparator'     => '\Kendo\Comparator\Manager',
-        'query_profiler' => '\Kendo\Db\QueryProfiler',
+        'resource'      => '\Kendo\Resources\ResourcesContainer',
+        'settings'      => '\Kendo\Settings\SettingsContainer',
+        'autoload'      => '\Kendo\Kernel\ClassAutoload',
+        'packages'      => '\Kendo\Package\PackageManager',
+        'db'            => '\Kendo\Db\DbManager',
+        'cache'         => '\Kendo\Cache\CacheManager',
+        'log'           => '\Kendo\Log\Manager',
+        'hook'          => '\Kendo\Hook\EventManager',
+        'upload'        => '\Kendo\Upload\UploadManager',
+        'routing'       => '\Kendo\Http\RoutingManager',
+        'i18n'          => '\Kendo\I18n\Manager',
+        'phrase'        => '\Platform\Phrase\Service\PhraseService',
+        'acl'           => '\Platform\Acl\Service\AclService',
+        'help'          => '\Platform\Help\Service\HelpService',
+        'setting'       => '\Platform\Setting\Service\SettingService',
+        'requester'     => '\Kendo\Http\RequestManager',
+        'pusher'        => '\Kendo\PushNotification\Manager',
+        'viewFinder'    => '\Kendo\View\ViewFinder',
+        'viewHelper'    => '\Kendo\View\ViewHelper',
+        'assets'        => '\Kendo\Assets\AssetsManager',
+        'navigation'    => '\Kendo\Navigation\Manager',
+        'html'          => '\Kendo\Html\Manager',
+        'layout'        => '\Platform\Layout\Service\LayoutService',
+        'registry'      => '\Kendo\Registry\Manager',
+        'image_process' => '\Kendo\Image\ImageProcess',
+        'storage'       => '\Platform\Storage\Service\StorageService',
+        'auth'          => '\Kendo\Auth\AuthManager',
+        'user'          => '\Platform\User\Service\UserService',
+        'relation'      => '\Platform\Relation\Service\RelationService',
+        'paging'        => '\Kendo\Paging\Manager',
+        'validator'     => '\Kendo\Validator\Manager',
+        'sass'          => '\Kendo\Sass\Manager',
+        'session'       => '\Kendo\Session\Manager',
+        'twig'          => '\Kendo\Twig\Manager',
+        'profiler'      => '\Kendo\Profiler\ProfilerContainer',
+        'uid'           => '\Kendo\Kernel\UniqueIdProvider',
     ];
 
 
@@ -117,6 +111,9 @@ class Application
         $this->byNames = [];
     }
 
+    /**
+     * @return \Kendo\Kernel\Application
+     */
     public static function instance()
     {
         if (null == self::$app) {
@@ -127,7 +124,7 @@ class Application
     }
 
     /**
-     *
+     * reset all service
      */
     public function reset()
     {
@@ -181,7 +178,18 @@ class Application
      */
     public function has($name)
     {
-        return isset($this->byNames[ $name ]);
+        if (isset($this->byNames[ $name ]))
+            return true;
+
+        if (isset($this->requires[ $name ]))
+            return true;
+
+        $class = $this->normalizeClassName($name);
+
+        if (class_exists($class))
+            return true;
+
+        return false;
     }
 
     /**
@@ -320,7 +328,7 @@ class Application
      */
     public static function invitationService()
     {
-        return self::$app->make('invitation');
+        return self::$app->make('platform_invitation');
     }
 
     /**
@@ -328,7 +336,7 @@ class Application
      */
     public static function notificationService()
     {
-        return self::$app->make('notification');
+        return self::$app->make('platform_notification');
     }
 
     /**
@@ -336,7 +344,7 @@ class Application
      */
     public static function messageService()
     {
-        return self::$app->make('message');
+        return self::$app->make('platform_message');
     }
 
     /**
@@ -356,7 +364,7 @@ class Application
      */
     public static function hasService($name)
     {
-        return self::$app->hasService($name);
+        return self::$app->has($name);
     }
 
     /**
@@ -364,7 +372,7 @@ class Application
      */
     public static function feedService()
     {
-        return self::$app->make('feed');
+        return self::$app->make('platform_feed');
     }
 
     /**
@@ -372,7 +380,7 @@ class Application
      */
     public static function tagService()
     {
-        return self::$app->make('tag');
+        return self::$app->make('platform_tag');
     }
 
     /**
@@ -389,7 +397,7 @@ class Application
      */
     public static function mailService()
     {
-        return self::$app->make('mail');
+        return self::$app->make('platform_mail');
     }
 
     /**
@@ -402,28 +410,9 @@ class Application
         return preg_replace('/(\s+)/', '-', $string);
     }
 
-    /**
-     * @param $string
-     *
-     * @return mixed
-     */
-    public static function inflect($string)
-    {
-        return str_replace(' ', '', ucwords(str_replace(['.', '-'], ' ', $string)));
-    }
 
     /**
-     * @param $string
-     *
-     * @return string
-     */
-    public static function deflect($string)
-    {
-        return strtolower(trim(preg_replace('/([a-z0-9])([A-Z])/', '\1-\2', $string), '-. '));
-    }
-
-    /**
-     * Convert string from callmel case to underscore case
+     * Convert string to underscore case
      *
      * @param $string
      *
@@ -443,7 +432,7 @@ class Application
     }
 
     /**
-     * @return \Kendo\Db\Manager
+     * @return \Kendo\Db\DbManager
      */
     public static function db()
     {
@@ -475,7 +464,7 @@ class Application
     }
 
     /**
-     * @return \Kendo\Cache\Manager
+     * @return \Kendo\Cache\CacheManager
      */
     public static function cacheService()
     {
@@ -501,8 +490,6 @@ class Application
 
     /**
      * @usages \App::table('platform_user') <br />
-     * If you want to use full class name, use \App::db()->table('\User\Model\User')
-     *
      * @param string $alias
      *
      * @return \Kendo\Db\DbTable
@@ -513,7 +500,7 @@ class Application
     }
 
     /**
-     * @return \Kendo\Kernel\KernelResourceProvider
+     * @return \Kendo\Resources\ResourcesContainer
      */
     public static function resources()
     {
@@ -557,7 +544,7 @@ class Application
      */
     public static function videoService()
     {
-        return self::$app->make('base.video');
+        return self::$app->make('platform_video');
     }
 
     /**
@@ -565,7 +552,7 @@ class Application
      */
     public static function photoService()
     {
-        return self::$app->make('base.photo');
+        return self::$app->make('platform_photo');
     }
 
     /**
@@ -573,7 +560,7 @@ class Application
      */
     public static function pageService()
     {
-        return self::$app->make('base.page');
+        return self::$app->make('platform_page');
     }
 
     /**
@@ -581,7 +568,7 @@ class Application
      */
     public static function eventService()
     {
-        return self::$app->make('base.event');
+        return self::$app->make('platform_event');
     }
 
     /**
@@ -593,7 +580,7 @@ class Application
     }
 
     /**
-     * Shortcut to get site setting
+     * Shortcut to get global setting
      *
      * @param string $group
      * @param string $name
@@ -603,7 +590,7 @@ class Application
      */
     public static function setting($group, $name = null, $defaultValue = null)
     {
-        return self::settingService()->get($group, $name, $defaultValue);
+        return self::settings()->get($group, $name, $defaultValue);
     }
 
     /**
@@ -617,11 +604,11 @@ class Application
     /**
      * Get site setting service
      *
-     * @return \Platform\Setting\Service\SettingService
+     * @return \Kendo\Settings\SettingsContainer
      */
-    public static function settingService()
+    public static function settings()
     {
-        return self::$app->make('platform_setting');
+        return self::$app->make('settings');
     }
 
     /**
@@ -654,7 +641,7 @@ class Application
      */
     public static function helpService()
     {
-        return self::$app->make('help');
+        return self::$app->make('platform_help');
     }
 
     /**
@@ -662,7 +649,7 @@ class Application
      */
     public static function likeService()
     {
-        return self::$app->make('like');
+        return self::$app->make('platform_like');
     }
 
     /**
@@ -670,7 +657,7 @@ class Application
      */
     public static function followService()
     {
-        return self::$app->make('follow');
+        return self::$app->make('platform_follow');
     }
 
     /**
@@ -686,7 +673,7 @@ class Application
      */
     public static function commentService()
     {
-        return self::$app->make('comment');
+        return self::$app->make('platform_comment');
     }
 
     /**
@@ -694,7 +681,7 @@ class Application
      */
     public function searchService()
     {
-        return self::$app->make('search');
+        return self::$app->make('platform_search');
     }
 
     /**
@@ -702,7 +689,7 @@ class Application
      */
     public static function shareService()
     {
-        return self::$app->make('share');
+        return self::$app->make('platform_share');
     }
 
     /**
@@ -722,9 +709,9 @@ class Application
     }
 
     /**
-     * @return \Kendo\Routing\RoutingManager
+     * @return \Kendo\Http\RoutingManager
      */
-    public static function routingService()
+    public static function routing()
     {
         return self::$app->make('routing');
     }
@@ -754,7 +741,7 @@ class Application
     }
 
     /**
-     * @return \Kendo\Assets\Manager
+     * @return \Kendo\Assets\AssetsManager
      */
     public static function assetService()
     {
@@ -795,9 +782,9 @@ class Application
     /**
      * @return \Platform\Layout\Service\LayoutService
      */
-    public static function layoutService()
+    public static function layouts()
     {
-        return self::$app->make('layout');
+        return self::$app->make('platform_layout');
     }
 
     /**
@@ -848,7 +835,7 @@ class Application
     }
 
     /**
-     * @return \Kendo\Auth\Manager
+     * @return \Kendo\Auth\AuthManager
      */
     public static function authService()
     {
@@ -897,15 +884,15 @@ class Application
     }
 
     /**
-     * @return \Kendo\Db\QueryProfiler
+     * @return \Kendo\Profiler\ProfilerContainer
      */
-    public static function queryProfiler()
+    public static function profiler()
     {
-        return self::$app->make('query_profiler');
+        return self::$app->make('profiler');
     }
 
     /**
-     * @return \Kendo\Request\RequestManager
+     * @return \Kendo\Http\RequestManager
      */
     public static function requester()
     {
@@ -920,15 +907,6 @@ class Application
     public static function packages()
     {
         return self::$app->make('packages');
-    }
-
-
-    /**
-     * @return array
-     */
-    public function getModules()
-    {
-        return $this->modules;
     }
 
     /**

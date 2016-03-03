@@ -110,7 +110,7 @@ class Group extends Model implements PosterInterface
     {
         $params['profileId'] = $this->getId();
 
-        return \App::routingService()->getUrl('group_profile', $params);
+        return \App::routing()->getUrl('group_profile', $params);
     }
 
 

@@ -19,7 +19,7 @@ class HomeController extends DefaultController
 
         \App::registryService()->set('activity_hashtag', $q);
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams();
 
         $this->view
@@ -46,7 +46,7 @@ class HomeController extends DefaultController
         $dataBundles = \App::feedService()
             ->loadDataBundles($poster, null, false, $options);
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams();
 
         $this->view->setScript($lp)

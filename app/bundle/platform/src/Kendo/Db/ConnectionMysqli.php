@@ -175,13 +175,17 @@ class ConnectionMysqli implements Connection
     public function query($sql)
     {
 
-        if (KENDO_DEBUG)
-            \App::queryProfiler()->bound($sql);
+        if (KENDO_PROFILER) {
+            $key = \App::profiler()->start('mysqli', 'query', $sql);
+        }
+
 
         $result = $this->connection->query($sql);
 
-        if (KENDO_DEBUG)
-            \App::queryProfiler()->end();
+        if (KENDO_PROFILER and !empty($key)) {
+            \App::profiler()->stop($key);
+        }
+
 
         if (false === $result) {
             throw new SqlException($this->getErrorMessage() . PHP_EOL . $sql);

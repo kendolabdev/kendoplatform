@@ -5,7 +5,7 @@ use Kendo\Kernel\KernelServiceAgreement;
 use Platform\Feed\Model\Feed;
 use Platform\Link\Model\Link;
 use Kendo\Content\PosterInterface;
-use Kendo\Request\HttpRequest;
+use Kendo\Http\HttpRequest;
 
 /**
  * Class Base\LinkService

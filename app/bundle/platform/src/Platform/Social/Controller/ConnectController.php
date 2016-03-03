@@ -50,7 +50,7 @@ class ConnectController extends DefaultController
 
         $url = $adapter->getLoginUrl([]);
 
-        \App::routingService()->redirectToUrl($url);
+        $this->request->redirectToUrl($url);
     }
 
     public function actionCallback()
@@ -71,12 +71,12 @@ class ConnectController extends DefaultController
         $url = null;
 
         if ($token) {
-            $url = \App::routingService()->getUrl('oauth_success', ['service' => $service]);
+            $url = \App::routing()->getUrl('oauth_success', ['service' => $service]);
         } else {
-            $url = \App::routingService()->getUrl('oauth_failure', ['service' => $service]);
+            $url = \App::routing()->getUrl('oauth_failure', ['service' => $service]);
 
         }
-        \App::routingService()->redirectToUrl($url);
+        $this->request->redirectToUrl($url);
     }
 
 
@@ -126,7 +126,7 @@ class ConnectController extends DefaultController
 
                 \App::authService()->store($user, null, false);
 
-                \App::routingService()->redirect('home');
+                \App::routing()->redirect('home');
 
             }
         }
@@ -142,7 +142,7 @@ class ConnectController extends DefaultController
             $this->getUserService()->addRemoteUser(\App::authService()->getUser(), $me['remote_uid'], $me['remote_service']);
 
             // try location redirect then exists
-            return $this->redirect('home');
+            $this->request->redirect('home');
         } else {
             // try to logged in to this account with back
             if (null == $remote) {
@@ -166,7 +166,7 @@ class ConnectController extends DefaultController
                         \App::authService()->store($result->getUser(), null, false);
 
                         // try location redirect then exists
-                        return $this->redirect('home');
+                        return $this->request->redirect('home');
                     }
                 }
             }
@@ -176,7 +176,7 @@ class ConnectController extends DefaultController
 
         if ($gotoRegister) {
             $_SESSION['user_create'] = $me;
-            $this->redirect('register', ['remote_service' => $me['remote_service']]);
+            $this->request->redirect('register', ['remote_service' => $me['remote_service']]);
         }
     }
 

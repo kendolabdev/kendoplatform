@@ -39,7 +39,7 @@ class Feed extends Model implements UniqueId
 
         $this->save();
 
-        \App::table('feed.feed_stream')
+        \App::table('platform_feed_stream')
             ->update(['privacy_type' => $privacyType, 'privacy_value' => $privacyValue])
             ->where('feed_id=?', $this->getId())
             ->execute();
@@ -51,7 +51,7 @@ class Feed extends Model implements UniqueId
      */
     public function isStatusUpdate()
     {
-        return $this->getAboutType() == 'feed.feed_status';
+        return $this->getAboutType() == 'platform_feed_status';
     }
 
     /**
@@ -94,7 +94,7 @@ class Feed extends Model implements UniqueId
     {
         $params['id'] = $this->getId();
 
-        return \App::routingService()->getUrl('feed_view', $params);
+        return \App::routing()->getUrl('feed_view', $params);
     }
 
     /**

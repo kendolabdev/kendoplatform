@@ -13,12 +13,7 @@ class SettingServiceTest extends \PHPUnit_Framework_TestCase
 {
     public function testGeneral()
     {
-        $settingService = \App::settingService();
+        $settingService = \App::settings();
 
-        $settingService->setLoaded(false);
-        $settingService->loadFromRepository();
-        $settingService->load();
-        $settingService->getData();
-        $settingService->isLoaded();
     }
 }

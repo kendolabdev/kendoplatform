@@ -42,7 +42,7 @@ define(['jquery','underscore'],function(){
         },
         onDataRequest: function (mode, query, callback) {
             var data = {q: query, context: 'tags'};
-            K.ajax('ajax/core/suggest/list', data)
+            $kd.ajax('ajax/platform/core/suggest/list', data)
                 .done(function (data) {
                     data = _.filter(data, function (item) {
                         return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1

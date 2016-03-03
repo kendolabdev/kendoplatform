@@ -4,7 +4,7 @@
         <a role="button"
            class="privacy-label"
            data-toggle="options"
-           data-remote="ajax/core/privacy/edit-privacy-options"
+           data-remote="ajax/platform/core/privacy/edit-privacy-options"
            data-for="for-icon"
            data-object='<?php echo _escape($about->toTokenArray());?>'
            data-hover="tooltip" data-label='<?php echo _escape($label) ?>'>

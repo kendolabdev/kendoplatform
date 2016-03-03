@@ -17,7 +17,7 @@ class TopicController extends AdminController
 {
     protected function onBeforeRender()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_help', 'manage_topic');
     }
@@ -62,13 +62,13 @@ class TopicController extends AdminController
     {
         $form = new CreateHelpTopic();
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             \App::helpService()
                 ->addHelpTopic($data);
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff' => 'help/topic/browse',
             ]);
         }
@@ -98,12 +98,12 @@ class TopicController extends AdminController
         if (!$entry)
             throw new \InvalidArgumentException("Topic not found");
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             $entry->setFromArray($data);
@@ -111,7 +111,7 @@ class TopicController extends AdminController
 
             \App::cacheService()->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff'    => 'help/topic/browse',
                 'category' => $entry->getCategoryId(),
             ]);
@@ -142,18 +142,18 @@ class TopicController extends AdminController
         if (!$entry)
             throw new \InvalidArgumentException("Topic not found");
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
 
             $entry->delete();
 
             \App::cacheService()->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff'    => 'help/topic/browse',
                 'category' => $entry->getCategoryId(),
             ]);

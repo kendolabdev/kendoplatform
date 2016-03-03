@@ -2,14 +2,14 @@
 
 namespace Platform\Feed\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class ActivityComposerBlock
  *
  * @package Feed\Block
  */
-class ActivityComposerBlock extends Block
+class ActivityComposerBlock extends BlockController
 {
     /**
      * @var string

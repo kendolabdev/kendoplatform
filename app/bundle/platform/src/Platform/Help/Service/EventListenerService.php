@@ -4,7 +4,7 @@ namespace Platform\Help\Service;
 use Kendo\Hook\EventListener;
 use Kendo\Assets\Requirejs;
 use Kendo\Hook\HookEvent;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\RoutingManager;
 
 class EventListenerService extends EventListener
 {
@@ -18,18 +18,20 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->addRoute('help_page', [
+        $routing->add([
+            'name'     => 'help_page',
             'uri'      => 'help/page/<page>',
             'defaults' => [
-                'controller' => 'Help\Controller\HomeController',
+                'controller' => 'Platform\Help\Controller\HomeController',
                 'action'     => 'view-page',
             ],
         ]);
 
-        $routing->addRoute('help', [
+        $routing->add([
+            'name'     => 'help',
             'uri'      => 'help(/<category>)(/<topic>)(/<post>)',
             'defaults' => [
-                'controller' => 'Help\Controller\HomeController',
+                'controller' => 'Platform\Help\Controller\HomeController',
                 'action'     => 'view',
             ],
         ]);

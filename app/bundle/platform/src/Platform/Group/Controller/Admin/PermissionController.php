@@ -18,7 +18,7 @@ class PermissionController extends AdminController
 
     public function actionEdit()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'group_extension', 'group_permission');
 
@@ -34,11 +34,11 @@ class PermissionController extends AdminController
 
         $form = new GroupPermission(['role' => $role]);
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->commit();
         }
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 

@@ -22,7 +22,7 @@ class BlogService extends KernelServiceAgreement
      */
     public function findCategoryById($id)
     {
-        return \App::table('blog.blog_category')
+        return \App::table('platform_blog_category')
             ->findById(intval($id));
     }
 
@@ -54,7 +54,7 @@ class BlogService extends KernelServiceAgreement
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('blog.blog_category')->select('t');
+        $select = \App::table('platform_blog_category')->select('t');
 
         if (!empty($query['q']))
             $select->where('category_name like ?', '%' . $query['q'] . '%');
@@ -72,7 +72,7 @@ class BlogService extends KernelServiceAgreement
     public function loadAdminPostPaging($query, $page = 1, $limit = 12)
     {
 
-        $select = \App::table('blog.blog_post')->select('t');
+        $select = \App::table('platform_blog_post')->select('t');
 
         if (!empty($query['q']))
             $select->where('title like :q OR description like :q or content like :q', [
@@ -99,7 +99,7 @@ class BlogService extends KernelServiceAgreement
     public function loadPostPaging($query, $page = 1, $limit = 12)
     {
 
-        $select = \App::table('blog.blog_post')->select('t');
+        $select = \App::table('platform_blog_post')->select('t');
 
         $isOwner = false;
         $inProfile = false;
@@ -171,7 +171,7 @@ class BlogService extends KernelServiceAgreement
      */
     public function getActiveBlogCount()
     {
-        return \App::table('blog.blog_post')
+        return \App::table('platform_blog_post')
             ->select()
             ->count();
     }
@@ -185,7 +185,7 @@ class BlogService extends KernelServiceAgreement
      */
     public function findPostById($id)
     {
-        return \App::table('blog.blog_post')
+        return \App::table('platform_blog_post')
             ->findById($id);
     }
 
@@ -198,7 +198,7 @@ class BlogService extends KernelServiceAgreement
      */
     public function findPost($id)
     {
-        return \App::table('blog.blog_post')
+        return \App::table('platform_blog_post')
             ->findById($id);
     }
 
@@ -255,7 +255,7 @@ class BlogService extends KernelServiceAgreement
      */
     private function _getAdminCategoryOptions()
     {
-        $select = \App::table('blog.blog_category')
+        $select = \App::table('platform_blog_category')
             ->select()
             ->order('category_name', 1);
 
@@ -296,7 +296,7 @@ class BlogService extends KernelServiceAgreement
      */
     private function _getCategoryOptions()
     {
-        $select = \App::table('blog.blog_category')
+        $select = \App::table('platform_blog_category')
             ->select()
             ->order('category_name', 1);
 

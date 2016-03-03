@@ -25,13 +25,13 @@ class HomeController extends DefaultController
         $paging = \App::notificationService()
             ->loadNotificationPaging($query, $page, 10);
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/notification/notification/paging',
+                'pagingUrl' => 'ajax/platform/notification/notification/paging',
                 'query'     => $query,
                 'pager'     => $paging->getPager(),
                 'lp'        => $lp,

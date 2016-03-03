@@ -23,11 +23,11 @@ class CategoryController extends AdminController
             'label' => 'core.create_new_category',
             'props' => [
                 'class' => 'btn btn-sm btn-primary',
-                'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'report/category/create']),
+                'href'  => \App::routing()->getUrl('admin', ['stuff' => 'report/category/create']),
             ]
         ];
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageButtons([$createButton])
             ->setPageTitle('core.manage_categories')
@@ -76,11 +76,11 @@ class CategoryController extends AdminController
 
         $form = new EditReportCategory();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($cat->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
             $cat->setFromArray($data);
             $cat->save();
@@ -88,7 +88,7 @@ class CategoryController extends AdminController
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()
+            \App::routing()
                 ->redirect('admin', ['stuff' => 'report/category/browse']);
         }
 
@@ -112,7 +112,7 @@ class CategoryController extends AdminController
         $form = new CreateReportCategory();
 
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
 
             $data = $form->getData();
 
@@ -121,7 +121,7 @@ class CategoryController extends AdminController
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()
+            \App::routing()
                 ->redirect('admin', ['stuff' => 'report/category/browse']);
 
         }

@@ -56,7 +56,7 @@ define(['jquery'],function(){
             parent: btn.data('object')
         };
 
-        K.ajax('ajax/photo/cover/remove', send)
+        $kd.ajax('ajax/platform/photo/cover/remove', send)
             .success(function () {
                 img.attr('src', '');
                 outer.removeClass('has-cover');
@@ -88,7 +88,7 @@ define(['jquery'],function(){
 
         _debug && console.log(send);
 
-        K.ajax('ajax/photo/cover/save', send)
+        $kd.ajax('ajax/platform/photo/cover/save', send)
             .success(function (response) {
                 stopReposition(img);
                 endEditing();
@@ -120,7 +120,7 @@ define(['jquery'],function(){
     $(document).on('click', toggle.upload, function () {
         var btn = $(this),
             input = $(btn.data('target')),
-            url = K.getUrl('ajax/photo/upload/temp', {}),
+            url = $kd.getUrl('ajax/platform/photo/upload/temp', {}),
             img = $('.user-cover-img');
 
         if (!img.attr('reset')) {

@@ -1,14 +1,14 @@
 <?php
 namespace Platform\Blog\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class ListingPosterBlock
  *
  * @package Base\Blog\Block
  */
-class ListingPosterBlock extends Block
+class ListingPosterBlock extends BlockController
 {
 
     /**
@@ -25,7 +25,7 @@ class ListingPosterBlock extends Block
 
         $limit = $this->lp->get('limit', 5);
 
-        $select = \App::table('blog.blog_post')
+        $select = \App::table('platform_blog_post')
             ->select()
             ->where('poster_type=?', 'user')// fetch user only
             ->group('poster_id')

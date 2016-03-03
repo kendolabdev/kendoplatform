@@ -1,14 +1,14 @@
 <?php
 namespace Platform\Layout\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class SiteFooterBlock
  *
  * @package Platform\Layout\Block
  */
-class SiteFooterBlock extends Block
+class SiteFooterBlock extends BlockController
 {
     /**
      * Override this method to execute this block by page manager
@@ -17,7 +17,7 @@ class SiteFooterBlock extends Block
      */
     public function execute()
     {
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getFooterLayoutParams();
 
         $this->view->setScript($lp)

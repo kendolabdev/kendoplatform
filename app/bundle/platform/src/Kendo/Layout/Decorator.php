@@ -11,10 +11,10 @@ interface Decorator
 {
 
     /**
-     * @param Block           $block
+     * @param BlockController $block
      * @param DecoratorParams $params
      *
      * @return mixed
      */
-    public function render(Block $block, DecoratorParams $params);
+    public function render(BlockController $block, DecoratorParams $params);
 }

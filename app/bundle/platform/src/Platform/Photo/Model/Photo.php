@@ -57,7 +57,7 @@ class Photo extends Model implements ContentInterface
      */
     public function getAlbum()
     {
-        return \App::find('photo.photo_album', $this->getAlbumId());
+        return \App::find('platform_photo_album', $this->getAlbumId());
     }
 
     /**
@@ -70,7 +70,7 @@ class Photo extends Model implements ContentInterface
         $params['id'] = $this->getId();
         $params['slug'] = \App::toSlug($this->getTitle());
 
-        return \App::routingService()->getUrl('photo_view', $params);
+        return \App::routing()->getUrl('photo_view', $params);
     }
 
     /**

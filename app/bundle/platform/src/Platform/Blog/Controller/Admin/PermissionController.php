@@ -16,7 +16,7 @@ class PermissionController extends AdminController
     {
         $filter = new FilterAclRole();
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('blog.manage_permission')
             ->setPageFilter($filter)
@@ -32,11 +32,11 @@ class PermissionController extends AdminController
 
         $form = new BlogPermission(['role' => $role]);
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->commit();
         }
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 

@@ -1,4 +1,4 @@
-<form method="post" async data-action="ajax/photo/avatar/update-avatar">
+<form method="post" async data-action="ajax/platform/photo/avatar/update-avatar">
     <div class="hyves-content">
         <div class="hyves-header">
             <h4 class="hyves-title"><?php echo $this->helper()->text('user.edit_profile_photo');?></h4>

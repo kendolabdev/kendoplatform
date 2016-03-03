@@ -19,7 +19,7 @@ class DashboardController extends AdminController
         \App::assetService()
             ->setTitle('Admin dashboard');
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_dashboard');
     }
 }

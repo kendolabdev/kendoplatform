@@ -6,7 +6,7 @@ use Kendo\Hook\EventListener;
 use Kendo\Assets\Requirejs;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\RoutingManager;
 use Kendo\View\ViewHelper;
 
 /**
@@ -27,59 +27,9 @@ class EventListenerService extends EventListener
         if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
-            'btnChat'        => '\Message\ViewHelper\ButtonChat',
-            'btnMessage'     => '\Message\ViewHelper\ButtonMessage',
-            'btnBearMessage' => '\Message\ViewHelper\ButtonBearMessage',
-        ]);
-    }
-
-    /**
-     * @param HookEvent $event
-     */
-    public function onRoutingStart(HookEvent $event)
-    {
-        $routing = $event->getPayload();
-
-        if (!$routing instanceof RoutingManager) return;
-
-        $routing->addRoute('messages', [
-            'uri'      => 'messages',
-            'defaults' => [
-                'controller' => '\Message\Controller\HomeController',
-                'action'     => 'inbox-message',
-            ],
-        ]);
-
-        $routing->addRoute('message_inbox', [
-            'uri'      => 'messages',
-            'defaults' => [
-                'controller' => '\Message\Controller\HomeController',
-                'action'     => 'inbox-message',
-            ],
-        ]);
-
-        $routing->addRoute('message_unread', [
-            'uri'      => 'unread-messages',
-            'defaults' => [
-                'controller' => '\Message\Controller\HomeController',
-                'action'     => 'unread-message',
-            ],
-        ]);
-
-        $routing->addRoute('message_sent', [
-            'uri'      => 'sent-message',
-            'defaults' => [
-                'controller' => '\Message\Controller\HomeController',
-                'action'     => 'sent-message',
-            ],
-        ]);
-
-        $routing->addRoute('message_compose', [
-            'uri'      => 'compose-message(/<recipientType>)(/<recipientId>)',
-            'defaults' => [
-                'controller' => '\Message\Controller\HomeController',
-                'action'     => 'compose-message',
-            ],
+            'btnChat'        => '\Platform\Message\ViewHelper\ButtonChat',
+            'btnMessage'     => '\Platform\Message\ViewHelper\ButtonMessage',
+            'btnBearMessage' => '\Platform\Message\ViewHelper\ButtonBearMessage',
         ]);
     }
 
@@ -120,7 +70,6 @@ class EventListenerService extends EventListener
         $requirejs->addDependency(['platform/message/main']);
     }
 
-
     /**
      * @param $item
      *
@@ -134,5 +83,61 @@ class EventListenerService extends EventListener
         $item['class'] = 'visible-xs ni-message';
 
         return $item;
+    }
+
+
+    /**
+     * @param HookEvent $event
+     */
+    public function onRoutingStart(HookEvent $event)
+    {
+        $routing = $event->getPayload();
+
+        if (!$routing instanceof RoutingManager) return;
+
+        $routing->add([
+            'name'     => 'messages',
+            'uri'      => 'messages',
+            'defaults' => [
+                'controller' => 'Platform\Message\Controller\HomeController',
+                'action'     => 'inbox-message',
+            ],
+        ]);
+
+        $routing->add([
+            'name'     => 'message_inbox',
+            'uri'      => 'messages',
+            'defaults' => [
+                'controller' => 'Platform\Message\Controller\HomeController',
+                'action'     => 'inbox-message',
+            ],
+        ]);
+
+        $routing->add([
+            'name'     => 'message_unread',
+            'uri'      => 'unread-messages',
+            'defaults' => [
+                'controller' => 'Platform\Message\Controller\HomeController',
+                'action'     => 'unread-message',
+            ],
+        ]);
+
+        $routing->add([
+            'name'     => 'message_sent',
+            'uri'      => 'sent-message',
+            'defaults' => [
+                'controller' => 'Platform\Message\Controller\HomeController',
+                'action'     => 'sent-message',
+            ],
+        ]);
+
+        $routing->add([
+            'name'     => 'message_compose',
+            'uri'      => 'compose-message(/<recipientType>)(/<recipientId>)',
+            'defaults' => [
+                'controller' => 'Platform\Message\Controller\HomeController',
+                'action'     => 'compose-message',
+            ],
+        ]);
     }
 }

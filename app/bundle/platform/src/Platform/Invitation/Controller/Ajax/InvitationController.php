@@ -30,7 +30,7 @@ class InvitationController extends AjaxController
      */
     public function actionCmd()
     {
-        list($id, $cmd, $context) = $this->request->get('id', 'cmd', 'ctx');
+        list($id, $cmd, $context) = $this->request->getList('id', 'cmd', 'ctx');
 
         if (empty($context))
             $context = 'profile';
@@ -41,7 +41,7 @@ class InvitationController extends AjaxController
             throw new \InvalidArgumentException("Could not find alert");
         }
 
-        $callbackName = \App::inflect(strtr($obj->getTypeId(), ['.' => '-', '_' => '-']));
+        $callbackName = _inflect(strtr($obj->getTypeId(), ['.' => '-', '_' => '-']));
 
         switch ($cmd) {
             case 'accept':
@@ -68,12 +68,12 @@ class InvitationController extends AjaxController
 
         $paging = \App::invitationService()->loadInvitationPaging($query, $page);
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams('invitation_ajax_bear_dialog');
 
         $this->response = [
             'html' => $this->partial($lp->script(), [
-                'pagingUrl' => 'ajax/invitation/invitation/paging',
+                'pagingUrl' => 'ajax/platform/invitation/invitation/paging',
                 'profile'   => $viewer,
                 'paging'    => $paging,
                 'query'     => $query,

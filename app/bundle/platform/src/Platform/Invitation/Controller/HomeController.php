@@ -29,7 +29,7 @@ class HomeController extends DefaultController
         $paging = \App::invitationService()
             ->loadInvitationPaging($query, $page);
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams();
 
         $this->view

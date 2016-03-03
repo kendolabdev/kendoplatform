@@ -22,7 +22,7 @@ class ReportController extends AjaxController
      */
     public function actionDialog()
     {
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $about = \App::find($type, $id);
 
@@ -52,7 +52,7 @@ class ReportController extends AjaxController
      */
     public function actionAdd()
     {
-        list($aboutType, $aboutId, $message, $categoryId) = $this->request->get('aboutType', 'aboutId', 'message', 'category_id');
+        list($aboutType, $aboutId, $message, $categoryId) = $this->request->getList('aboutType', 'aboutId', 'message', 'category_id');
 
         $about = \App::find($aboutType, $aboutId);
 
@@ -86,7 +86,7 @@ class ReportController extends AjaxController
     public function actionDelete()
     {
 
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $entry = \App::find($type, $id);
 
@@ -107,7 +107,7 @@ class ReportController extends AjaxController
     public function actionDeleteContent()
     {
 
-        list($type, $id) = $this->request->get('type', 'id');
+        list($type, $id) = $this->request->getList('type', 'id');
 
         $entry = \App::find($type, $id);
 

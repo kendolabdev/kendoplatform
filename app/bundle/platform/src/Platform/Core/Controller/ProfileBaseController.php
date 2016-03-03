@@ -18,7 +18,7 @@ class ProfileBaseController extends DefaultController
         /**
          * based on profile type, we might have the difference correcting table.
          */
-        return $this->forward('\Feed\Controller\ProfileController', 'timeline');
+        $this->request->forward('\Platform\Feed\Controller\ProfileController', 'timeline');
     }
 
     /**
@@ -30,7 +30,7 @@ class ProfileBaseController extends DefaultController
 
         $profile = \App::registryService()->get('profile');
 
-        list($profileType, $profileId) = $this->request->get('profileType', 'profileId');
+        list($profileType, $profileId) = $this->request->getList('profileType', 'profileId');
 
         if (empty($profile) && empty($profileType)) {
             $profile = \App::authService()->getViewer();
@@ -44,7 +44,7 @@ class ProfileBaseController extends DefaultController
             if (preg_match('#^(\d+)$#', $profileId)) {
                 $profile = \App::find($profileType, $profileId);
             } else {
-                $profile = \App::db()->getTable($profileType)
+                $profile = \App::table($profileType)
                     ->select()
                     ->where('profile_name=?', (string)$profileId)
                     ->one();
@@ -60,7 +60,7 @@ class ProfileBaseController extends DefaultController
         \App::assetService()
             ->setTitle($profile->getTitle());
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName($profile->getType() . '_profile_' . $actionName);
     }
 

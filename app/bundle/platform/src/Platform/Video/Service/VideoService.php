@@ -4,7 +4,7 @@ namespace Platform\Video\Service;
 
 use Kendo\Content\PosterInterface;
 use Kendo\Kernel\KernelServiceAgreement;
-use Kendo\Request\HttpRequest;
+use Kendo\Http\HttpRequest;
 use Platform\Video\Model\Video;
 use Platform\Video\Model\VideoCategory;
 use Platform\Video\Provider\ProviderInterface;
@@ -76,7 +76,7 @@ class VideoService extends KernelServiceAgreement
     public function loadVideoPaging($query = [], $page = 1, $limit = 10)
     {
 
-        $select = \App::table('video')->select();
+        $select = \App::table('platform_video')->select();
 
         $isOwner = false;
 
@@ -237,7 +237,7 @@ class VideoService extends KernelServiceAgreement
      */
     public function getActiveVideoCount()
     {
-        return \App::table('video')
+        return \App::table('platform_video')
             ->select()
 //            ->where('is_published=?', 1)
             ->count();
@@ -250,7 +250,7 @@ class VideoService extends KernelServiceAgreement
      */
     public function findVideo($id)
     {
-        return \App::table('video')
+        return \App::table('platform_video')
             ->findById($id);
     }
 

@@ -35,15 +35,15 @@ class HomeController extends DefaultController
 
         $query = [];
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('blog_main', null, 'blog_browse')
             ->setPageTitle('blog.blogs')
             ->setPageFilter($filter)
             ->setBreadcrumbs([
                 [
-                    'url'   => \App::routingService()->getUrl('blogs'),
+                    'url'   => \App::routing()->getUrl('blogs'),
                     'label' => 'blog.blogs',
                 ],
             ]);
@@ -51,7 +51,7 @@ class HomeController extends DefaultController
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/blog/post/paging',
+                'pagingUrl' => 'ajax/platform/blog/post/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,
@@ -69,16 +69,16 @@ class HomeController extends DefaultController
 
         $page = $this->request->getParam('page', 1);
 
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('blog_main', null, 'blog_my')
             ->setPageTitle('blog.my_blogs')
             ->setBreadcrumbs([
                 [
                     'label' => 'blog.blogs',
-                    'url'   => \App::routingService()->getUrl('blogs')],
+                    'url'   => \App::routing()->getUrl('blogs')],
                 [
                     'label' => 'blog.my_blogs',
-                    'url'   => \App::routingService()->getUrl('blog_my')]
+                    'url'   => \App::routing()->getUrl('blog_my')]
             ]);
 
         $poster = \App::authService()->getViewer();
@@ -87,12 +87,12 @@ class HomeController extends DefaultController
 
         $paging = \App::blogService()->loadPostPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/blog/post/paging',
+                'pagingUrl' => 'ajax/platform/blog/post/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,
@@ -107,19 +107,19 @@ class HomeController extends DefaultController
     {
         \App::aclService()->required('blog__create');
 
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('blog_main', null, 'blog_import')
             ->setPageTitle('blog.import_blogs')
             ->setBreadcrumbs([
                 [
-                    'url'   => \App::routingService()->getUrl('blogs'),
+                    'url'   => \App::routing()->getUrl('blogs'),
                     'label' => 'blog.blogs'],
                 [
-                    'url'   => \App::routingService()->getUrl('blog_my'),
+                    'url'   => \App::routing()->getUrl('blog_my'),
                     'label' => 'blog.import_blogs']
             ]);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp);
     }
@@ -132,15 +132,15 @@ class HomeController extends DefaultController
 
         \App::aclService()->required('blog__create');
 
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('blog_main', null, 'blog_create')
             ->setPageTitle('blog.create_blog')
             ->setBreadcrumbs([
                 [
-                    'url'   => \App::routingService()->getUrl('blogs'),
+                    'url'   => \App::routing()->getUrl('blogs'),
                     'label' => 'blog.blogs'],
                 [
-                    'url'   => \App::routingService()->getUrl('blog_my'),
+                    'url'   => \App::routing()->getUrl('blog_my'),
                     'label' => 'blog.create_blogs']
             ]);
 
@@ -154,7 +154,7 @@ class HomeController extends DefaultController
             ]);
         }
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
@@ -164,7 +164,7 @@ class HomeController extends DefaultController
         /**
          * Is Post method
          */
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
 
             $data = $form->getData();
 
@@ -175,7 +175,7 @@ class HomeController extends DefaultController
 
             \App::feedService()->addItemFeed('blog_post_add', $post);
 
-            \App::routingService()->redirect('blog_my');
+            \App::routing()->redirect('blog_my');
         }
     }
 
@@ -194,13 +194,13 @@ class HomeController extends DefaultController
             throw new \InvalidArgumentException("Could not find blog post");
         }
 
-        \App::layoutService()
+        \App::layouts()
             ->setupSecondaryNavigation('blog_main', null, 'blog_browse')
             ->setPageTitle('blog.edit_blog');
 
         $form = \App::htmlService()->factory('\Blog\Form\EditPost');
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
 
             $form->setData($post);
 
@@ -216,7 +216,7 @@ class HomeController extends DefaultController
             $form->removeElement('is_published');
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
 
             $data = $form->getData($_POST);
 
@@ -226,7 +226,7 @@ class HomeController extends DefaultController
 
             $post->save();
 
-            \App::routingService()->redirect('blog_my');
+            \App::routing()->redirect('blog_my');
         }
 
         $this->view->assign(['form' => $form]);
@@ -254,13 +254,13 @@ class HomeController extends DefaultController
 
         $form = new DeletePost();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($post);
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $post->delete();
-            \App::routingService()->redirect('blog_my');
+            \App::routing()->redirect('blog_my');
         }
 
         $this->view->assign(['form' => $form]);
@@ -285,18 +285,18 @@ class HomeController extends DefaultController
             ->setTitle($post->getTitle())
             ->setDescription($post->getDescription());
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle($post->getTitle())
             ->setBreadcrumbs([
                 [
-                    'url'   => \App::routingService()->getUrl('blogs'),
+                    'url'   => \App::routing()->getUrl('blogs'),
                     'label' => \App::text('blog.blogs'),],
                 [
-                    'url'   => \App::routingService()->getUrl('blog_my'),
+                    'url'   => \App::routing()->getUrl('blog_my'),
                     'label' => \App::text('blog.my_blogs'),]
             ]);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         \App::registryService()
             ->set('about', $post);

@@ -1,7 +1,7 @@
 <div class="btn-group">
     <a class="btn <?php echo $sizeClass?> btn-default dropdown-toggle"
        data-toggle="options"
-       data-remote="ajax/relation/privacy/options"
+       data-remote="ajax/platform/relation/privacy/options"
        data-for="for-btn"
        data-object='<?php echo $attrs; ?>'>
     <span class="text">

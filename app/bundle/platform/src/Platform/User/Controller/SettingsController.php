@@ -20,7 +20,7 @@ class SettingsController extends DefaultController
     {
         parent::init();
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('user_settings');
 
         if (!\App::authService()->logged())
@@ -61,11 +61,11 @@ class SettingsController extends DefaultController
         $form = new PosterNotificationTypeSetting(['poster' => $user]);
 
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->save();
         }
 

@@ -28,7 +28,7 @@ define(['jquery'],function(){
                 btn.find('input.privacy-type').val(data.type);
             }
 
-            K.ajax('ajax/relation/privacy/change-default', sendData)
+            $kd.ajax('ajax/platform/relation/privacy/change-default', sendData)
                 .done(function (json) {
                     console.log(json);
                 });
@@ -57,7 +57,7 @@ define(['jquery'],function(){
             /**
              * update privacy value
              */
-            K.ajax('ajax/relation/privacy/update-privacy', sendData)
+            $kd.ajax('ajax/platform/relation/privacy/update-privacy', sendData)
                 .always(function(){
                     btn.prop('disabled',false);
                 }).done(function (response) {

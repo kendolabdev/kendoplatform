@@ -18,7 +18,7 @@ class ProfileController extends ProfileBaseController
         $profile = \App::registryService()
             ->get('profile');
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('notification.notifications');
 
         $page = $this->request->getParam('page', 1);
@@ -31,13 +31,13 @@ class ProfileController extends ProfileBaseController
         $paging = \App::notificationService()
             ->loadNotificationPaging($query, $page);
 
-        $lp = \App::layoutService()
+        $lp = \App::layouts()
             ->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
             ->assign([
-                'pagingUrl' => 'ajax/notification/notification/paging',
+                'pagingUrl' => 'ajax/platform/notification/notification/paging',
                 'paging'    => $paging,
                 'pager'     => $paging->getPager(),
                 'query'     => $query,

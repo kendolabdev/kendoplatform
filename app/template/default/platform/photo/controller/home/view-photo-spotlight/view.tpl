@@ -38,7 +38,7 @@
                            class="right"
                            data-toggle="options"
                            data-for="for-link"
-                           data-remote="ajax/photo/photo/photo-options?photoId=<?php echo $photo->getId();?>"
+                           data-remote="ajax/platform/photo/photo/photo-options?photoId=<?php echo $photo->getId();?>"
                                 >Options</a>
                     </div>
                 </div>
@@ -50,6 +50,6 @@
         <div class="header-ow">
             <a class="ion-close" data-toggle="spotlight-close"></a>
         </div>
-        <?php echo \App::layoutService()->renderBlock('\Activity\Block\ActivityAboutBlock',['about'=> $photo]); ?>
+        <?php echo \App::layouts()->renderBlock('\Activity\Block\ActivityAboutBlock',['about'=> $photo]); ?>
     </div>
 </div>

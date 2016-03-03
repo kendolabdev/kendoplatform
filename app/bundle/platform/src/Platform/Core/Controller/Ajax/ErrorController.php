@@ -5,9 +5,9 @@ namespace Platform\Core\Controller\Ajax;
 use Kendo\Controller\AjaxController;
 
 /**
- * Class ErrorController
+ * Class AjaxErrorController
  *
- * @package Core\Controller\Ajax
+ * @package Platform\Core\Controller\Ajax
  */
 class ErrorController extends AjaxController
 {

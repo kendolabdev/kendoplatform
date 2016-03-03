@@ -53,11 +53,11 @@ class HomeController extends DefaultController
         $paging = \App::helpService()
             ->loadCategoryPaging($query, $page);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->setData([
-                'pagingUrl' => 'ajax/help/category/paging',
+                'pagingUrl' => 'ajax/platform/help/category/paging',
                 'paging'    => $paging,
                 'query'     => $query,
                 'lp'        => $lp,
@@ -80,7 +80,7 @@ class HomeController extends DefaultController
         $paging = \App::helpService()
             ->loadTopicPaging($query, $page = 1, $limit = 10);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
@@ -88,7 +88,7 @@ class HomeController extends DefaultController
                 'paging'    => $paging,
                 'lp'        => $lp,
                 'query'     => 'query',
-                'pagingUrl' => 'ajax/help/topic/paging',
+                'pagingUrl' => 'ajax/platform/help/topic/paging',
             ]);
     }
 
@@ -102,7 +102,7 @@ class HomeController extends DefaultController
         $topic = \App::helpService()
             ->findTopic($slug);
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $query = [
             'topic' => $topic->getId(),
@@ -118,7 +118,7 @@ class HomeController extends DefaultController
                 'paging'    => $paging,
                 'lp'        => $lp,
                 'query'     => $query,
-                'pagingUrl' => 'ajax/help/post/paging'
+                'pagingUrl' => 'ajax/platform/help/post/paging'
             ]);
     }
 
@@ -132,12 +132,12 @@ class HomeController extends DefaultController
         $post = \App::helpService()->findPost($slug);
 
         if (!$post) {
-            $this->forward(null, 'index');
+            $this->request->forward(null, 'index');
 
             return;
         }
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $topic = $post->getTopic();
 
@@ -158,9 +158,9 @@ class HomeController extends DefaultController
             ->findPage($slug);
 
         if (!$page)
-            return $this->forward(null, 'index');
+            return $this->request->forward(null, 'index');
 
-        $lp = \App::layoutService()->getContentLayoutParams();
+        $lp = \App::layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
@@ -169,21 +169,22 @@ class HomeController extends DefaultController
 
     /**
      * view post
+     *
      */
     public function actionView()
     {
-        list($categoryId, $topicId, $postId) = $this->request->get('category', 'topic', 'post');
+        list($categoryId, $topicId, $postId) = $this->request->getList('category', 'topic', 'post');
 
 
         if (empty($categoryId))
-            return $this->forward(null, 'index');
+            return $this->request->forward(null, 'index');
 
         if (empty($topicId))
-            return $this->forward(null, 'view-category');
+            return $this->request->forward(null, 'view-category');
 
         if (empty($postId))
-            return $this->forward(null, 'view-topic');
+            return $this->request->forward(null, 'view-topic');
 
-        return $this->forward(null, 'view-post');
+        return $this->request->forward(null, 'view-post');
     }
 }

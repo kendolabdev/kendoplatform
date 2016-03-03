@@ -20,7 +20,7 @@ class SettingController extends AdminController
     public function actionLogin()
     {
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_manage_member', 'user_login_settings');
 
@@ -29,11 +29,11 @@ class SettingController extends AdminController
         $form = new LoginSetting([]);
 
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->save();
         }
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 
@@ -55,7 +55,7 @@ class SettingController extends AdminController
     public function actionRegister()
     {
 
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_manage_member', 'user_register_settings');
 
@@ -64,11 +64,11 @@ class SettingController extends AdminController
         $form = new RegisterSetting([]);
 
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->save();
         }
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 

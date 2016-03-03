@@ -11,7 +11,7 @@ define(['jquery'], function () {
 
         btn.prop('disabled', true);
 
-        K.ajax('/ajax/like/like/add', {
+        $kd.ajax('/ajax/like/like/add', {
             id: obj.id,
             type: obj.type,
             context: 'btn'
@@ -28,7 +28,7 @@ define(['jquery'], function () {
 
         btn.prop('disabled', true);
 
-        K.ajax('/ajax/like/like/remove', {
+        $kd.ajax('/ajax/like/like/remove', {
             id: obj.id,
             type: obj.type,
             context: 'btn'
@@ -47,7 +47,7 @@ define(['jquery'], function () {
             data = ele.data('object'),
             stage = ele.closest('.card-feed');
 
-        if (!K.authRequired()) return;
+        if (!$kd.authRequired()) return;
 
         function success(response) {
 
@@ -62,7 +62,7 @@ define(['jquery'], function () {
             }
         }
 
-        K.ajax('ajax/like/like/toggle', data)
+        $kd.ajax('ajax/platform/like/like/toggle', data)
             .done(success);
     });
 
@@ -74,7 +74,7 @@ define(['jquery'], function () {
             data = ele.data('object'),
             stage = ele.closest('.fs-cm-asset');
 
-        if (!K.authRequired()) return;
+        if (!$kd.authRequired()) return;
 
         function success(response) {
             ele.text(response.label);
@@ -91,7 +91,7 @@ define(['jquery'], function () {
             }
         }
 
-        K.ajax('ajax/like/like/toggle', data)
+        $kd.ajax('ajax/platform/like/like/toggle', data)
             .done(success);
     });
 
@@ -103,7 +103,7 @@ define(['jquery'], function () {
             data = ele.data('object'),
             eid = ele.data('eid');
 
-        if (!K.authRequired()) return;
+        if (!$kd.authRequired()) return;
 
         function success(response) {
             if (eid) {
@@ -113,7 +113,7 @@ define(['jquery'], function () {
             }
         }
 
-        K.ajax('ajax/like/like/membership-like-toggle', data)
+        $kd.ajax('ajax/platform/like/like/membership-like-toggle', data)
             .done(success);
     });
 });

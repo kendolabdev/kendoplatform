@@ -5,8 +5,7 @@ namespace Platform\Core\Service;
 use Kendo\Hook\EventListener;
 use Kendo\Assets\Requirejs;
 use Kendo\Hook\HookEvent;
-use Kendo\Routing\FilterPrefix;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\RoutingManager;
 use Kendo\View\ViewHelper;
 
 /**
@@ -27,7 +26,7 @@ class EventListenerService extends EventListener
         if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
-            'btnBlock' => '\Core\ViewHelper\ButtonBlock',
+            'btnBlock' => '\Platform\Core\ViewHelper\ButtonBlock',
         ]);
     }
 
@@ -40,103 +39,78 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->addRoute('ajax', [
-                'uri'      => 'ajax/<stuff>',
-                'uri_expr' => [
-                    'stuff' => '.+',
-                ],
-                'defaults' => []]
-        )->addFilter(new FilterPrefix(
-            [
-                'prefix' => 'ajax'
-            ]
-        ));
+        $routing->add([
+                'name'     => 'ajax',
+                'class'    => '\Kendo\Http\RouterAjax',
+                'uri'      => 'ajax(/<any>)',
+                'uri_expr' => ['any' => '.+'],
+                'defaults' => ['prefix' => '',]]
+        );
 
-        $routing->addRoute('cardhover', [
-            'uri'      => 'cardhover/<id>/<stuff>',
+        $routing->add([
+                'name'     => 'admin',
+                'class'    => '\Kendo\Http\RouterAdmin',
+                'uri'      => 'admin(/<any>)',
+                'uri_expr' => ['any' => '.+'],
+                'defaults' => ['prefix' => 'admin',]]
+        );
+
+        $routing->add([
+            'name'     => 'cardhover',
+            'uri'      => 'cardhover/<type>/<id>',
             'uri_expr' => [
                 'type' => '\w+',
                 'id'   => '\d+',
             ]
         ]);
 
-        $routing->addRoute('api', [
-                'uri'      => 'api/<stuff>',
-                'uri_expr' => [
-                    'stuff' => '.+',
-                ],
-                'defaults' => []]
-        )->addFilter(new FilterPrefix(
-            [
-                'prefix' => 'api'
-            ]
-        ));
-
-        $routing->addRoute('admin', [
-                'uri'      => 'admin/<stuff>',
-                'uri_expr' => [
-                    'stuff' => '.+',
-                ],
-                'defaults' => [
-                    'stuff' => 'core/dashboard/index'
-                ]]
-        )->addFilter(new FilterPrefix(['prefix' => 'admin']));
-
-        $routing->addRoute('admin_dashboard', [
-            'uri'      => 'admin',
-            'defaults' => [
-                'controller' => '\Platform\Core\Controller\Admin\DashboardController',
-                'action'     => 'index',
-            ]
-        ]);
-
-        $routing->addRoute('search', [
-            'uri'      => 'search',
-            'defaults' => [
-                'controller' => '\Platform\Core\Controller\SearchController',
-                'action'     => 'index',
-            ]
-        ]);
-
-        $routing->addRoute('home', [
+        $routing->add([
+            'name'     => 'home',
             'uri'      => '/',
             'defaults' => [
-                'controller' => '\Platform\Core\Controller\HomeController',
+                'controller' => 'Platform\Core\Controller\HomeController',
             ],
         ]);
 
-        $routing->addRoute('ref_link', [
+        $routing->add([
+            'name'     => 'ref_link',
             'uri'      => 'ref/<type>/<id>',
             'uri_expr' => [
                 'type' => '\w+',
                 'id'   => '\d+'
             ],
             'defaults' => [
-                'controller' => '\Platform\Core\Controller\HomeController',
+                'controller' => 'Platform\Core\Controller\HomeController',
                 'action'     => 'ref',
             ],
         ]);
 
-        $routing->addRoute('profile', [
-            'uri'      => '<name>(/<stuff>)',
+        $routing->add([
+            'name'     => 'profile',
+            'class'    => '\Kendo\Http\RouterProfileName',
+            'uri'      => '<name>(/<any>)',
             'uri_expr' => [
-                'name'  => '',
-                'stuff' => '.+',
+                'any' => '.+',
             ],
-        ]);
-
-
-        $routing->addRoute('indev(/<action>)', [
-            'uri'      => 'indev',
             'defaults' => [
-                'controller' => '\Platform\Core\Controller\IndevController'
+                'controller' => 'Platform\Core\Controller\ProfileController',
+                'action'     => 'index',
             ]
         ]);
 
-        $routing->addRoute('maintenance', [
+        $routing->add([
+            'name'     => 'indev',
+            'uri'      => 'indev/<action>',
+            'defaults' => [
+                'controller' => 'Platform\Core\Controller\IndevController'
+            ]
+        ]);
+
+        $routing->add([
+            'name'     => 'maintenance',
             'uri'      => 'maintenance',
             'defaults' => [
-                'controller' => '\Platform\Core\Controller\MaintenanceController'
+                'controller' => 'Platform\Core\Controller\MaintenanceController'
             ]
         ]);
     }
@@ -156,7 +130,7 @@ class EventListenerService extends EventListener
             'jqueryui'   => 'kendo/jquery-ui/jqueryui',
             'underscore' => 'kendo/underscore/underscore.min',
             'jquery-ext' => 'kendo/jquery-ext/jquery-ext',
-            'platform'   => 'kendo/platform/platform'
+            'kd'         => 'kendo/core/main'
         ])
             ->shim('bootstrap', ['jquery'], 'bootstrap')
             ->shim('jqueryui', ['jquery'], 'jqueryui')
@@ -165,8 +139,8 @@ class EventListenerService extends EventListener
                 'jquery',
                 'underscore',
                 'bootstrap',
-                'platform',
                 'jquery-ext',
+                'kd',
             ]);
     }
 
@@ -193,20 +167,20 @@ class EventListenerService extends EventListener
             'jqueryui'   => 'kendo/jquery-ui/jqueryui',
             'underscore' => 'kendo/underscore/underscore.min',
             'jquery-ext' => 'kendo/jquery-ext/jquery-ext',
-            'platform'   => 'kendo/platform/platform'
+            'kd'         => 'kendo/core/main'
         ])
             ->addDependency([
                 'jquery',
                 'underscore',
                 'bootstrap',
-                'platform',
+                'kd',
                 'jquery-ext'
             ])
             ->addPrimaryBundle([
                 'jquery',
                 'underscore',
                 'bootstrap',
-                'platform',
+                'kd',
                 'jquery-ext'
             ]);
 
@@ -217,7 +191,7 @@ class EventListenerService extends EventListener
             'isUser'    => \App::authService()->isUser()
         ];
 
-        $script = 'K.setOptions(' . json_encode($options, JSON_PRETTY_PRINT) . ')';
+        $script = '$kd.setOptions(' . json_encode($options, JSON_PRETTY_PRINT) . ')';
         $requirejs->prependScript('options', $script);
     }
 
@@ -239,7 +213,7 @@ class EventListenerService extends EventListener
             ]);
 
 
-        $themeId = \App::layoutService()->getThemeId();
+        $themeId = \App::layouts()->getThemeId();
 
         if (!empty($_COOKIE['themeId'])) {
             $themeId = $_COOKIE['themeId'];
@@ -263,6 +237,6 @@ class EventListenerService extends EventListener
         ];
 
         $assets->script()
-            ->add('base', 'K.setOptions(' . json_encode($options) . ')');
+            ->add('base', '$kd.setOptions(' . json_encode($options) . ')');
     }
 }

@@ -22,7 +22,7 @@ class FieldController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_attribute', 'admin_attribute_field');
     }
@@ -32,13 +32,13 @@ class FieldController extends AdminController
      */
     public function actionBrowse()
     {
-        \App::layoutService()
+        \App::layouts()
             ->setPageTitle('attribute.manage_fields')
             ->setPageButtons([
                 [
                     'label' => 'attribute.add_new_field',
                     'props' => [
-                        'href'  => \App::routingService()->getUrl('admin', ['stuff' => 'attribute/field/create']),
+                        'href'  => \App::routing()->getUrl('admin', ['stuff' => 'attribute/field/create']),
                         'class' => 'btn btn-sm btn-danger'
                     ]]
             ]);
@@ -77,7 +77,7 @@ class FieldController extends AdminController
     {
         $form = new CreateAttributeField();
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             \App::catalogService()
@@ -86,7 +86,7 @@ class FieldController extends AdminController
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff'   => 'attribute/field/browse',
                 'content' => $data['content_type']]);
         }
@@ -126,18 +126,18 @@ class FieldController extends AdminController
         $form->setTitle('Field Setting: ' . $entry->getTitle());
         $form->setNote('Edit setting for <b>' . $entry->getCode() . '</b>');
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->load();
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
 
             $form->save();
 
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff'      => 'attribute/field/browse',
                 'content_id' => $entry->getContentId(),
             ]);
@@ -170,11 +170,11 @@ class FieldController extends AdminController
 
         $form = new EditAttributeField();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
             $entry->setFromArray($data);
@@ -184,7 +184,7 @@ class FieldController extends AdminController
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff'      => 'attribute/field/browse',
                 'content_id' => $entry->getContentId()]);
         }
@@ -216,18 +216,18 @@ class FieldController extends AdminController
 
         $form = new DeleteAttributeField();
 
-        if ($this->request->isGet()) {
+        if ($this->request->isMethod('get')) {
             $form->setData($entry->toArray());
         }
 
-        if ($this->request->isPost() && $form->isValid($_POST)) {
+        if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
 
             $entry->delete();
 
             \App::cacheService()
                 ->flush();
 
-            \App::routingService()->redirect('admin', [
+            \App::routing()->redirect('admin', [
                 'stuff'      => 'attribute/field/browse',
                 'content_id' => $entry->getContentId()]);
         }

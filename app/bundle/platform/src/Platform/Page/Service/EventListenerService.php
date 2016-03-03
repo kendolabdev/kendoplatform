@@ -5,9 +5,7 @@ namespace Platform\Page\Service;
 use Kendo\Hook\EventListener;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Routing\FilterProfileSlug;
-use Kendo\Routing\FilterStuff;
-use Kendo\Routing\RoutingManager;
+use Kendo\Http\RoutingManager;
 use Kendo\View\View;
 use Kendo\View\ViewHelper;
 use Platform\User\Model\User;
@@ -31,7 +29,7 @@ class EventListenerService extends EventListener
         if (!$helper instanceof ViewHelper) return;
 
         $helper->addClassMaps([
-            'btnPageMembership' => '\Page\ViewHelper\ButtonMembership'
+            'btnPageMembership' => '\Platform\Page\ViewHelper\ButtonMembership'
         ]);
 
     }
@@ -45,68 +43,67 @@ class EventListenerService extends EventListener
 
         if (!$routing instanceof RoutingManager) return;
 
-        $routing->addRoute('pages', [
+        $routing->add([
+            'name'     => 'pages',
             'uri'      => 'pages',
             'defaults' => [
-                'controller' => '\Page\Controller\HomeController',
+                'controller' => 'Platform\Page\Controller\HomeController',
                 'action'     => 'browse-page',
             ],
         ]);
 
-        $routing->addRoute('page_add', [
+        $routing->add([
+            'name'     => 'page_add',
             'uri'      => 'add-page',
             'defaults' => [
-                'controller' => '\Page\Controller\HomeController',
+                'controller' => 'Platform\Page\Controller\HomeController',
                 'action'     => 'create-page',
             ],
         ]);
 
-        $routing->addRoute('page_my', [
+        $routing->add([
+            'name'     => 'page_my',
             'uri'      => 'my-pages',
             'defaults' => [
-                'controller' => '\Page\Controller\HomeController',
+                'controller' => 'Platform\Page\Controller\HomeController',
                 'action'     => 'my-page',
             ],
         ]);
 
-        $routing->getRoute('cardhover')
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'page',
-                'controller' => '\Page\Controller\Ajax\Cardhover',
+        $routing->add([
+            'name'         => 'cardhover/page',
+            'replacements' => [
+                '<type>' => 'page',
+            ],
+            'defaults'     => [
+                'controller' => 'Platform\Page\Controller\Ajax\Cardhover',
                 'action'     => 'preview',
-            ]));
+            ]
+        ]);
 
-        $routing->getRoute('profile')
-            ->addFilter(new FilterStuff([
-                'stuff'      => 'pages',
-                'controller' => '\Page\Controller\ProfileController',
-                'action'     => 'browse-page']));
+        $routing->add([
+            'name'         => 'profile/pages',
+            'replacements' => [
+                '<any>' => 'pages',
+            ],
+            'defaults'     => [
+                'namespace'  => 'Platform\Page',
+                'controller' => 'ProfileController',
+                'action'     => 'browse-page'
+            ]]);
 
-        $routing->addRoute('page_slug', [
-            'uri'      => '<name>(/<stuff>)',
+        $routing->add([
+            'name'     => 'page_profile',
+            'delegate' => 'profile',
+            'uri'      => 'pages/<name>(/<any>)',
             'uri_expr' => [
-                'stuff' => '.+',
+                'any' => '.+',
             ],
             'defaults' => [
-                'controller'  => '\Page\Controller\ProfileController',
+                'controller'  => 'Platform\Page\Controller\ProfileController',
                 'profileType' => 'page',
             ]
-        ])->addFilter(new FilterProfileSlug([
-            'table'  => 'platform_page',
-            'token'  => 'name',
-            'wheres' => 'profile_name=?'
-        ]))->forward('profile');
-
-        $routing->addRoute('page_profile', [
-            'uri'      => 'page/<profileId>(/<stuff>)',
-            'uri_expr' => [
-                'stuff' => '.+',
-            ],
-            'defaults' => [
-                'controller'  => '\Page\Controller\ProfileController',
-                'profileType' => 'page',
-            ]
-        ])->forward('profile');
+        ]);
     }
 
     /**

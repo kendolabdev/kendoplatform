@@ -1,14 +1,14 @@
 <?php
 namespace Platform\User\Block;
 
-use Kendo\Layout\Block;
+use Kendo\Layout\BlockController;
 
 /**
  * Class MenuSettingsBlock
  *
  * @package Platform\User\Block
  */
-class MenuSettingsBlock extends Block
+class MenuSettingsBlock extends BlockController
 {
     /**
      * @var string

@@ -15,9 +15,9 @@ class HomeController extends DefaultController
      */
     public function actionSelectTheme()
     {
-        if ($this->request->isPost() && !empty($_POST['theme_id'])) {
+        if ($this->request->isMethod('post')&& !empty($_POST['theme_id'])) {
             @setcookie('themeId', $_POST['theme_id'], time() + 365 * 86400, '/');
-            \App::routingService()->redirect('home');
+            \App::routing()->redirect('home');
         }
 
         $paging = \App::table('platform_layout_theme')

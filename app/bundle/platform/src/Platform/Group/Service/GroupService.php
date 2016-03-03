@@ -70,7 +70,7 @@ class GroupService extends KernelServiceAgreement
      */
     public function loadGroupPaging($query, $page = 1, $limit = 2)
     {
-        $select = \App::table('group')
+        $select = \App::table('platform_group')
             ->select();
 
         $isOwner = false;
@@ -123,7 +123,7 @@ class GroupService extends KernelServiceAgreement
      */
     public function getAdminStatisticCount()
     {
-        return \App::table('group')
+        return \App::table('platform_group')
             ->select()
             ->count();
     }
