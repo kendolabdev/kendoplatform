@@ -18,7 +18,7 @@ class ExtensionServiceTest extends TestCase
 {
     public function testGeneral()
     {
-        $extService = \App::coreService()->extension();
+        $extService = app()->coreService()->extension();
 
         $extService->findExensionById(1);
         $extService->findExtensionByName('platform_core');

@@ -20,11 +20,11 @@ class FriendController extends AjaxController
      */
     public function actionSuggest()
     {
-        $select = \App::table('platform_user')
+        $select = app()->table('platform_user')
             ->select()
             ->limit(20, 0);
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         if ($poster != null) {
             $select->where('user_id<>?', $poster->getId());
@@ -51,11 +51,11 @@ class FriendController extends AjaxController
     {
         $friendId = $this->request->getString('friendId');
 
-        $friend = \App::find('user', $friendId);
+        $friend = app()->find('user', $friendId);
 
         $ctx = $this->request->getParam('ctx', 'btn');
 
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
         if (!$friend instanceof User) {
             throw new \InvalidArgumentException("friendId is not user");
@@ -70,7 +70,7 @@ class FriendController extends AjaxController
         $friendService->{$method}($viewer, $friend);
 
 
-        $this->response['html'] = \App::viewHelper()->btnUserMembership($friend, null, $ctx);
+        $this->response['html'] = app()->viewHelper()->btnUserMembership($friend, null, $ctx);
     }
 
     /**
@@ -82,9 +82,9 @@ class FriendController extends AjaxController
 
         $ctx = $this->request->getParam('ctx', 'btn');
 
-        $friend = \App::find('user', $friendId);
+        $friend = app()->find('user', $friendId);
 
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
         if (!$friend instanceof User) {
             throw new \InvalidArgumentException("friendId is not user");
@@ -98,7 +98,7 @@ class FriendController extends AjaxController
 
         $friendService->{$method}($friend, $viewer);
 
-        $this->response['html'] = \App::viewHelper()->btnUserMembership($friend, null, $ctx);
+        $this->response['html'] = app()->viewHelper()->btnUserMembership($friend, null, $ctx);
     }
 
     /**
@@ -106,7 +106,7 @@ class FriendController extends AjaxController
      */
     public function getFriendService()
     {
-        return \App::relationService();
+        return app()->relation();
     }
 
     /**
@@ -157,11 +157,11 @@ class FriendController extends AjaxController
     {
         list($id, $eid) = $this->request->getList('id', 'eid');
 
-        $item = \App::find('user', $id);
+        $item = app()->find('user', $id);
 
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
-        $membership = \App::userService()->membership()->getMembershipStatus($viewer, $item);
+        $membership = app()->user()->membership()->getMembershipStatus($viewer, $item);
 
         $this->response = [
             'html' => $this->partial('platform/user/partial/membership-options', [

@@ -53,7 +53,7 @@ class TwitterAdapter implements SocialLoginAdapterInterface
     {
         if (null == $this->client) {
 
-            $config = \App::setting('twitter');
+            $config = app()->setting('twitter');
 
             $client = new Twitter($config['consumer_key'], $config['consumer_secret']);
 
@@ -93,7 +93,7 @@ class TwitterAdapter implements SocialLoginAdapterInterface
             $host = 'localhost';
         }
 
-        $detailUrl = \App::routing()->getUrl('oauth_callback', [
+        $detailUrl = app()->routing()->getUrl('oauth_callback', [
             'service' => 'twitter'
         ]);
 

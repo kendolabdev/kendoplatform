@@ -62,7 +62,7 @@ class AuthRemote implements AuthInterface
     protected function findUser($uid, $service)
     {
 
-        $remoteUser = \App::table('user.use_auth_remote')
+        $remoteUser = app()->table('user.use_auth_remote')
             ->select()
             ->where('remote_uid=:uid and remote_service = :service', [
                 ':uid'     => (string)$uid,
@@ -79,7 +79,7 @@ class AuthRemote implements AuthInterface
             return null;
         }
 
-        return \App::table('platform_user')
+        return app()->table('platform_user')
             ->select()
             ->where('user_id=?', $remoteUser->getUserId())
             ->one();

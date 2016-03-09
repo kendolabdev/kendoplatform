@@ -16,16 +16,16 @@ class ExtensionController extends AdminController
      */
     public function actionBrowse()
     {
-        \App::layouts()->setPageName('admin_simple')
+        app()->layouts()->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_manage_package', 'manage_package')
             ->setPageTitle('core.your_packages');
 
         if ($this->request->isMethod('post')&& !empty($_POST['select_packages'])) {
-            \App::coreService()->extension()->doInstallPackages($_POST['select_packages']);
-            \App::cacheService()->flush();
+            app()->coreService()->extension()->doInstallPackages($_POST['select_packages']);
+            app()->cacheService()->flush();
         }
 
-        $packages = \App::coreService()->extension()->collectListAvailablePackageInformation();
+        $packages = app()->coreService()->extension()->collectListAvailablePackageInformation();
 
         $this->view->assign([
             'isEmptyPackage' => empty($packages),
@@ -37,12 +37,12 @@ class ExtensionController extends AdminController
             $name = $_POST['extension_name'];
             $cmd = $_POST['_cmd'];
 
-            $item = \App::table('platform_core_extension')
+            $item = app()->table('platform_core_extension')
                 ->select()
                 ->where('name=?', (string)$name)
                 ->one();
 
-            $ext = \App::coreService()
+            $ext = app()->coreService()
                 ->extension();
 
             if ($item instanceof CoreExtension) {
@@ -63,7 +63,7 @@ class ExtensionController extends AdminController
                         $item->save();
                         break;
                 }
-                \App::cacheService()
+                app()->cacheService()
                     ->flush();
             }
         }
@@ -71,14 +71,14 @@ class ExtensionController extends AdminController
         $page = 1;
         $limit = 1000;
 
-        $modules = \App::table('platform_core_extension')
+        $modules = app()->table('platform_core_extension')
             ->select()
             ->where('extension_type=?', 'module')
             ->where('is_installed=?', 1)
             ->order('is_system', -1)
             ->paging($page, $limit);
 
-        $themes = \App::table('platform_core_extension')
+        $themes = app()->table('platform_core_extension')
             ->select()
             ->where('extension_type=?', 'theme')
             ->where('is_installed=?', 1)
@@ -101,7 +101,7 @@ class ExtensionController extends AdminController
      */
     public function actionConnect()
     {
-        \App::layouts()->setPageName('admin_simple')
+        app()->layouts()->setPageName('admin_simple')
             ->setPageTitle('core.connect_store')
             ->setupSecondaryNavigation('admin', 'admin_manage_package', 'KENDO_connect');
 
@@ -114,11 +114,11 @@ class ExtensionController extends AdminController
     public function actionImport()
     {
 
-        \App::layouts()->setPageName('admin_simple')
+        app()->layouts()->setPageName('admin_simple')
             ->setPageTitle('core.upload_packages')
             ->setupSecondaryNavigation('admin', 'admin_manage_package', 'import_package');
 
-        $form = \App::htmlService()->factory('\Platform\Core\Form\Admin\ImportExtension');
+        $form = app()->html()->factory('\Platform\Core\Form\Admin\ImportExtension');
 
         $this->view->assign([
             'form' => $form,
@@ -134,9 +134,9 @@ class ExtensionController extends AdminController
     {
         parent::init();
 
-        \App::layouts()->setPageName('admin_simple');
+        app()->layouts()->setPageName('admin_simple');
 
-        \App::registryService()->set('subnav', [
+        app()->registryService()->set('subnav', [
             'navId'    => 'admin',
             'parentId' => 'admin_manage_package',
         ]);

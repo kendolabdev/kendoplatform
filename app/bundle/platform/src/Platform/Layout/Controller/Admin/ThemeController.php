@@ -18,9 +18,9 @@ class ThemeController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layouts()->setPageName('admin_simple');
+        app()->layouts()->setPageName('admin_simple');
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_appearance', 'themes');
     }
@@ -34,10 +34,10 @@ class ThemeController extends AdminController
         $limit = 100;
         $page = 1;
 
-        \App::assetService()
-            ->setTitle(\App::text('core_layout.manage_templates'));
+        app()->assetService()
+            ->setTitle(app()->text('core_layout.manage_templates'));
 
-        $paging = \App::layouts()
+        $paging = app()->layouts()
             ->setPageTitle('layout.manage_themes')
             ->loadAdminThemePaging($query, $page, $limit);
 
@@ -56,7 +56,7 @@ class ThemeController extends AdminController
     {
 
         $id = $this->request->getParam('id', 'default');
-        $theme = \App::layouts()->findThemeById($id);
+        $theme = app()->layouts()->findThemeById($id);
 
         $form = new LayoutEditTheme();
 
@@ -66,7 +66,7 @@ class ThemeController extends AdminController
 
         if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
-            unset($data['theme_id'], $data['template_id']);
+            unset($data['theme_id']);
 
             if ($data['is_default']) {
                 $data['is_active'] = 1;
@@ -76,7 +76,7 @@ class ThemeController extends AdminController
             $theme->save();
 
             if ($theme->isDefault()) {
-                \App::table('platform_layout_theme')
+                app()->table('platform_layout_theme')
                     ->update(['is_default' => 0])
                     ->where('theme_id <> ?', $id)
                     ->execute();
@@ -84,17 +84,17 @@ class ThemeController extends AdminController
 
 
             if ($theme->isEditing()) {
-                \App::table('platform_layout_theme')
+                app()->table('platform_layout_theme')
                     ->update(['is_editing' => 0])
                     ->where('theme_id <> ?', $id)
                     ->execute();
             }
 
-            \App::cacheService()
+            app()->cacheService()
                 ->flush();
 
-            \App::routing()
-                ->redirect('admin', ['stuff' => 'layout/theme/browse']);
+            app()->routing()
+                ->redirect('admin', ['any' => 'layout/theme/browse']);
         }
 
         $lp = new BlockParams([

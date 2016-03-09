@@ -28,7 +28,7 @@ class ShareController extends AjaxController
         $type = $this->request->getString('type');
         $id = $this->request->getInt('id');
 
-        $origin = \App::find($type, $id);
+        $origin = app()->find($type, $id);
 
         if ($origin instanceof Feed) {
             $about = $origin->getAbout();
@@ -43,7 +43,7 @@ class ShareController extends AjaxController
             $about = $origin;
         }
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         /**
          * throw new content exception, you share none attachable content
@@ -106,7 +106,7 @@ class ShareController extends AjaxController
         $privacyType = 1;
         $privacyValue = 1;
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
         $profile = null;
         $profileString = $this->request->getString('profile');
 
@@ -115,7 +115,7 @@ class ShareController extends AjaxController
             list($profileId, $profileType) = explode('@', $profileString);
 
             if ($profileId && $profileType) {
-                $profile = \App::find($profileType, $profileId);
+                $profile = app()->find($profileType, $profileId);
             }
         }
 
@@ -123,9 +123,9 @@ class ShareController extends AjaxController
             $profile = $poster;
         }
 
-        $about = \App::find($type, $id);
+        $about = app()->find($type, $id);
 
-        $feed = \App::shareService()->add($contentTxt, $poster, $profile, $about, $privacyType, $privacyValue);
+        $feed = app()->shareService()->add($contentTxt, $poster, $profile, $about, $privacyType, $privacyValue);
 
 
         $this->response = ['code' => 200, 'feedId' => $feed->getId()];
@@ -138,14 +138,14 @@ class ShareController extends AjaxController
     {
         list($type, $id) = $this->request->getList('type', 'id');
 
-        $about = \App::find($type, $id);
+        $about = app()->find($type, $id);
 
         $query = [
             'sharedType' => $about->getType(),
             'sharedId'   => $about->getId(),
         ];
 
-        $paging = \App::feedService()
+        $paging = app()->feedService()
             ->loadFeedPaging($query);
 
         $data = [

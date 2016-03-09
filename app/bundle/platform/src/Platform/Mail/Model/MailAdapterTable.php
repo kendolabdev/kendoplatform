@@ -24,54 +24,50 @@ class MailAdapterTable extends DbTable
      * @see `picaso_platform_mail_adapter`
      * @var string
      */
-    protected $class = '\Platform\Mail\Model\MailAdapter';
+    protected $class =  '\Platform\Mail\Model\MailAdapter';
 
     /**
      * @var string
      */
-    protected $name = 'platform_mail_adapter';
+    protected $name =  'platform_mail_adapter';
 
     /**
      * @var array
      */
-    protected $column = [
-        'id'           => 1,
-        'name'         => 1,
-        'setting_form' => 1];
+    protected $column = array(
+		'id'=>1,
+		'name'=>1,
+		'setting_form'=>1);
 
     /**
      * @var array
      */
-    protected $primary = ['id' => 1];
+    protected $primary = array( 'id'=>1);
 
     /**
      * @var string
      */
     protected $identity = '';
 
-
+    
     /**
      * @param  string|int $value
-     *
      * @return \Platform\Mail\Model\MailAdapter
      */
-    public function findById($value)
-    {
-        return $this->select()
-            ->where('id=?', $value)
-            ->one();
+    public function findById($value){
+       return $this->select()
+           ->where('id=?', $value)
+           ->one();
     }
 
     /**
      * @param  array $value
-     *
      * @return array
      */
-    public function findByIdList($value)
-    {
-        return $this->select()
-            ->where('id IN ?', $value)
-            ->all();
+    public function findByIdList($value){
+       return $this->select()
+           ->where('id IN ?', $value)
+           ->all();
     }
 
     //END_TABLE_GENERATOR

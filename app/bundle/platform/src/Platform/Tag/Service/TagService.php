@@ -3,7 +3,7 @@ namespace Platform\Tag\Service;
 
 use Kendo\Content\ContentInterface;
 use Kendo\Content\PosterInterface;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Tag\Model\TagPeople;
 
 /**
@@ -11,7 +11,7 @@ use Platform\Tag\Model\TagPeople;
  *
  * @package Base\Tag\Service
  */
-class TagService extends KernelServiceAgreement
+class TagService extends KernelService
 {
     /**
      * @param ContentInterface $content
@@ -31,7 +31,7 @@ class TagService extends KernelServiceAgreement
             }
         }
 
-        $table = \App::table('platform_tag_people');
+        $table = app()->table('platform_tag_people');
 
         //delete all tags.
         $table->delete()
@@ -46,7 +46,7 @@ class TagService extends KernelServiceAgreement
 
         foreach ($idList as $type => $list) {
             try {
-                foreach (\App::table($type)->findByIdList($list) as $poster) {
+                foreach (app()->table($type)->findByIdList($list) as $poster) {
                     if ($poster instanceof PosterInterface) {
                         $people = new TagPeople([
                             'content_id'   => $content->getId(),
@@ -76,7 +76,7 @@ class TagService extends KernelServiceAgreement
      */
     public function loadPeople(ContentInterface $content, $limit = null)
     {
-        $select = \App::table('platform_tag_people')
+        $select = app()->table('platform_tag_people')
             ->select()
             ->where('content_id=?', $content->getId());
 
@@ -93,7 +93,7 @@ class TagService extends KernelServiceAgreement
         }
 
         foreach ($idList as $type => $list) {
-            foreach (\App::table($type)->findByIdList($list) as $item) {
+            foreach (app()->table($type)->findByIdList($list) as $item) {
                 if ($item instanceof PosterInterface) {
                     $id = $item->getId();
                     $pairs[ $id ] = $item;

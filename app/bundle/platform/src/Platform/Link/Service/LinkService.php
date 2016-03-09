@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Link\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Feed\Model\Feed;
 use Platform\Link\Model\Link;
 use Kendo\Content\PosterInterface;
@@ -12,7 +12,7 @@ use Kendo\Http\HttpRequest;
  *
  * @package Base\Link\Service
  */
-class LinkService extends KernelServiceAgreement
+class LinkService extends KernelService
 {
     /**
      * @param string $url
@@ -357,7 +357,7 @@ class LinkService extends KernelServiceAgreement
         if ($needUpdate) {
             $link->save();
         }
-        $feed = \App::feedService()->addItemFeed('update_status', $link);
+        $feed = app()->feedService()->addItemFeed('update_status', $link);
 
         return $feed;
     }

@@ -43,7 +43,7 @@ class AjaxController implements ControllerInterface
      */
     public function partial($script, $data)
     {
-        return \App::viewHelper()->partial($script, $data);
+        return app()->viewHelper()->partial($script, $data);
     }
 
     /**

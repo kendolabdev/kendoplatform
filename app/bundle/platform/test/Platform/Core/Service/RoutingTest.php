@@ -22,7 +22,7 @@ class RoutingTest extends TestCase
         $result[] = ['/', '\Platform\Core\Controller\HomeController', 'index'];
 
 
-        $user = \App::table('platform_user')
+        $user = app()->table('platform_user')
             ->select()
             ->one();
 
@@ -42,7 +42,7 @@ class RoutingTest extends TestCase
      */
     public function testRoutingResult($url, $expectedControllerName, $expectedActionName)
     {
-        $routingService = \App::routing();
+        $routingService = app()->routing();
 
         $request = new HttpRequest($url);
 

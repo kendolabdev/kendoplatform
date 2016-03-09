@@ -20,7 +20,7 @@ class FilterLayout extends Form
         parent::init();
 
 
-        $moduleOptions = \App::instance()
+        $moduleOptions = app()->instance()
             ->make('platform_core_extension')
             ->getModuleOptions();
 

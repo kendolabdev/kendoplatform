@@ -49,7 +49,7 @@ class RequestMembership implements InvitationInterface
     {
         $poster = '<b>' . $this->invitation->getPoster()->getTitle() . '</b>';
 
-        return \App::text('group.$poster_request_join_groups', ['$poster' => $poster]);
+        return app()->text('group.$poster_request_join_groups', ['$poster' => $poster]);
     }
 
     /**

@@ -49,7 +49,7 @@ class RequestMembership implements InvitationInterface
     {
         $poster = '<b>' . $this->invitation->getPoster()->getTitle() . '</b>';
 
-        return \App::text('user.$poster_request_to_be_your_friends', ['$poster' => $poster]);
+        return app()->text('user.$poster_request_to_be_your_friends', ['$poster' => $poster]);
     }
 
     /**
@@ -75,7 +75,7 @@ class RequestMembership implements InvitationInterface
             'type' => $this->invitation->getType(),
         ];
 
-        return \App::viewHelper()->partial('platform/user/invitation/request-membership', [
+        return app()->viewHelper()->partial('platform/user/invitation/request-membership', [
             'headline' => $this->getHeadline(),
             'poster'   => $this->invitation->getPoster(),
             'parent'   => $this->invitation->getParent(),

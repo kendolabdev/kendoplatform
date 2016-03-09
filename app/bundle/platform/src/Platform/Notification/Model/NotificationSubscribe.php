@@ -21,7 +21,7 @@ class NotificationSubscribe extends Model
      */
     public function getAbout()
     {
-        return \App::find($this->getAboutType(), $this->getAboutId());
+        return app()->find($this->getAboutType(), $this->getAboutId());
     }
 
     /**
@@ -29,98 +29,87 @@ class NotificationSubscribe extends Model
      */
     public function getPoster()
     {
-        return \App::find($this->getPosterType(), $this->getPosterId());
+        return app()->find($this->getPosterType(), $this->getPosterId());
     }
 
     //START_TABLE_GENERATOR
 
-
+    
     /**
      * @return null|string
      */
-    public function getPosterId()
-    {
-        return $this->__get('poster_id');
+    public function getPosterId(){
+       return $this->__get('poster_id');
     }
 
     /**
      * @param $value
      */
-    public function setPosterId($value)
-    {
-        $this->__set('poster_id', $value);
+    public function setPosterId($value){
+       $this->__set('poster_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getAboutId()
-    {
-        return $this->__get('about_id');
+    public function getAboutId(){
+       return $this->__get('about_id');
     }
 
     /**
      * @param $value
      */
-    public function setAboutId($value)
-    {
-        $this->__set('about_id', $value);
+    public function setAboutId($value){
+       $this->__set('about_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPosterType()
-    {
-        return $this->__get('poster_type');
+    public function getPosterType(){
+       return $this->__get('poster_type');
     }
 
     /**
      * @param $value
      */
-    public function setPosterType($value)
-    {
-        $this->__set('poster_type', $value);
+    public function setPosterType($value){
+       $this->__set('poster_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getAboutType()
-    {
-        return $this->__get('about_type');
+    public function getAboutType(){
+       return $this->__get('about_type');
     }
 
     /**
      * @param $value
      */
-    public function setAboutType($value)
-    {
-        $this->__set('about_type', $value);
+    public function setAboutType($value){
+       $this->__set('about_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCreatedAt()
-    {
-        return $this->__get('created_at');
+    public function getCreatedAt(){
+       return $this->__get('created_at');
     }
 
     /**
      * @param $value
      */
-    public function setCreatedAt($value)
-    {
-        $this->__set('created_at', $value);
+    public function setCreatedAt($value){
+       $this->__set('created_at', $value);
     }
 
     /**
      * @return \Platform\Notification\Model\NotificationSubscribeTable
      */
-    public function table()
-    {
-        return \App::table('platform_notification_subscribe');
+    public function table(){
+        return app()->table('platform_notification_subscribe');
     }
     //END_TABLE_GENERATOR
 }

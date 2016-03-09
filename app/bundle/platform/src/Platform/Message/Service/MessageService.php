@@ -2,7 +2,7 @@
 
 namespace Platform\Message\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Message\Model\Conversation;
 use Platform\Message\Model\Message;
 use Platform\Message\Model\Recipient;
@@ -13,7 +13,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Message\Service
  */
-class MessageService extends KernelServiceAgreement
+class MessageService extends KernelService
 {
 
     /**
@@ -35,7 +35,7 @@ class MessageService extends KernelServiceAgreement
      */
     public function findConversation($convId)
     {
-        return \App::table('platform_message_conversation')
+        return app()->table('platform_message_conversation')
             ->findById($convId);
     }
 
@@ -46,7 +46,7 @@ class MessageService extends KernelServiceAgreement
      */
     public function findMessage($msgId)
     {
-        return \App::table('platform_message')
+        return app()->table('platform_message')
             ->findById($msgId);
     }
 
@@ -60,7 +60,7 @@ class MessageService extends KernelServiceAgreement
      */
     public function findRecipient($convId, $recipientId)
     {
-        return \App::table('platform_message_recipient')
+        return app()->table('platform_message_recipient')
             ->select()
             ->where('conversation_id=?', (string)$convId)
             ->where('recipient_id=?', (string)$recipientId)
@@ -74,7 +74,7 @@ class MessageService extends KernelServiceAgreement
      */
     public function selectRecipients($convId)
     {
-        return \App::table('platform_message_recipient')
+        return app()->table('platform_message_recipient')
             ->select()
             ->where('conversation_id=?', (string)$convId);
     }
@@ -107,12 +107,12 @@ class MessageService extends KernelServiceAgreement
     public function getUnreadConversationCount(PosterInterface $parent = null)
     {
         if (null == $parent) {
-            $parent = \App::authService()->getViewer();
+            $parent = app()->auth()->getViewer();
         }
 
         if (!$parent instanceof PosterInterface) return 0;
 
-        $select = \App::table('platform_message_recipient')
+        $select = app()->table('platform_message_recipient')
             ->select()
             ->where('recipient_id=?', $parent->getId())
             ->where('is_active=?', 1)
@@ -135,7 +135,7 @@ class MessageService extends KernelServiceAgreement
         $minId = $fromId < $toId ? $fromId : $toId;
         $maxId = $fromId < $toId ? $toId : $fromId;
 
-        return \App::table('platform_message_conversation')
+        return app()->table('platform_message_conversation')
             ->select()
             ->where('from_id=?', $minId)
             ->where('to_id=?', $maxId)
@@ -170,7 +170,7 @@ class MessageService extends KernelServiceAgreement
      */
     public function hasRecipient($recipientId, $msgId)
     {
-        return null != \App::table('platform_message_recipient')
+        return null != app()->table('platform_message_recipient')
             ->select()
             ->where('recipient_id=?', (string)$recipientId)
             ->where('message_id=?', (string)$msgId)
@@ -503,7 +503,7 @@ class MessageService extends KernelServiceAgreement
      */
     public function getConversationIdForPoster(PosterInterface $poster)
     {
-        return \App::table('platform_message_recipient')
+        return app()->table('platform_message_recipient')
             ->select()
             ->where('recipient_id=?', $poster->getId());
     }
@@ -515,12 +515,12 @@ class MessageService extends KernelServiceAgreement
      */
     public function getOtherRecipients($convId)
     {
-        $select = \App::table('platform_message_recipient')
+        $select = app()->table('platform_message_recipient')
             ->select()
             ->where('conversation_id=?', $convId);
 
-        if (\App::authService()->getId() > 0) {
-            $select->where('recipient_id<>?', \App::authService()->getId());
+        if (app()->auth()->getId() > 0) {
+            $select->where('recipient_id<>?', app()->auth()->getId());
         }
 
         $pairs = $select->toPairs('recipient_id', 'recipient_type');
@@ -534,7 +534,7 @@ class MessageService extends KernelServiceAgreement
         $response = [];
 
         foreach ($types as $type => $idList) {
-            foreach (\App::table($type)->findByIdList($idList) as $item) {
+            foreach (app()->table($type)->findByIdList($idList) as $item) {
                 $response[] = $item;
             }
         }
@@ -551,9 +551,9 @@ class MessageService extends KernelServiceAgreement
      */
     public function loadMessagePaging($query = [], $page = 1, $limit = 12)
     {
-        $parentId = !empty($query['parentId']) ? $query['parentId'] : \App::authService()->getId();
+        $parentId = !empty($query['parentId']) ? $query['parentId'] : app()->auth()->getId();
 
-        $messageIdList = \App::table('platform_message_recipient')
+        $messageIdList = app()->table('platform_message_recipient')
             ->select()
             ->where('recipient_id=?', $parentId)
             ->where('is_active=?', 1)
@@ -571,7 +571,7 @@ class MessageService extends KernelServiceAgreement
          * Select message
          */
 
-        return \App::table('platform_message')
+        return app()->table('platform_message')
             ->select()
             ->where('message_id IN ?', $messageIdList)
             ->paging($page, $limit);

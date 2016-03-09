@@ -20,7 +20,7 @@ class DecorateStory
             return '';
         }
 
-        return \App::feedService()->decorateStory($story);
+        return app()->feedService()->decorateStory($story);
     }
 
 }

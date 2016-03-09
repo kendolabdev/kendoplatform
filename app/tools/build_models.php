@@ -1,7 +1,7 @@
 <?php
 include '../init.php';
 
-$db = \App::db()->getMaster();
+$db = app()->db()->getMaster();
 $generator = new Kendo\CodeGenerator\DbTable();
 
 foreach ($db->tables() as $table) {

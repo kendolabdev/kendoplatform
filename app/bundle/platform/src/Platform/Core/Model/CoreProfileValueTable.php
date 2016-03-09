@@ -24,56 +24,52 @@ class CoreProfileValueTable extends DbTable
      * @see `picaso_platform_core_profile_value`
      * @var string
      */
-    protected $class = '\Platform\Core\Model\CoreProfileValue';
+    protected $class =  '\Platform\Core\Model\CoreProfileValue';
 
     /**
      * @var string
      */
-    protected $name = 'platform_core_profile_value';
+    protected $name =  'platform_core_profile_value';
 
     /**
      * @var array
      */
-    protected $column = [
-        'id'         => 1,
-        'profile_id' => 1,
-        'name'       => 1,
-        'sort_order' => 1,
-        'value'      => 1];
+    protected $column = array(
+		'id'=>1,
+		'profile_id'=>1,
+		'name'=>1,
+		'sort_order'=>1,
+		'value'=>1);
 
     /**
      * @var array
      */
-    protected $primary = ['id' => 1];
+    protected $primary = array( 'id'=>1);
 
     /**
      * @var string
      */
     protected $identity = 'id';
 
-
+    
     /**
      * @param  string|int $value
-     *
      * @return \Platform\Core\Model\CoreProfileValue
      */
-    public function findById($value)
-    {
-        return $this->select()
-            ->where('id=?', $value)
-            ->one();
+    public function findById($value){
+       return $this->select()
+           ->where('id=?', $value)
+           ->one();
     }
 
     /**
      * @param  array $value
-     *
      * @return array
      */
-    public function findByIdList($value)
-    {
-        return $this->select()
-            ->where('id IN ?', $value)
-            ->all();
+    public function findByIdList($value){
+       return $this->select()
+           ->where('id IN ?', $value)
+           ->all();
     }
 
     //END_TABLE_GENERATOR

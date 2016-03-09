@@ -2,7 +2,7 @@
 
 namespace Platform\Page\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Page\Model\Page;
 use Platform\Page\Model\PageCategory;
 use Kendo\Content\PosterInterface;
@@ -12,7 +12,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Page\Service
  */
-class PageService extends KernelServiceAgreement
+class PageService extends KernelService
 {
 
     /**
@@ -22,7 +22,7 @@ class PageService extends KernelServiceAgreement
      */
     public function findCategoryById($id)
     {
-        return \App::table('page.page_category')
+        return app()->table('page.page_category')
             ->findById(intval($id));
     }
 
@@ -54,7 +54,7 @@ class PageService extends KernelServiceAgreement
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('page.page_category')->select('t');
+        $select = app()->table('page.page_category')->select('t');
 
         if (!empty($query['q']))
             $select->where('category_name like ?', '%' . $query['q'] . '%');
@@ -72,7 +72,7 @@ class PageService extends KernelServiceAgreement
     public function loadPagePaging($context, $page, $limit = 12)
     {
 
-        $select = \App::table('platform_page')->select();
+        $select = app()->table('platform_page')->select();
 
         $isOwner = false;
 
@@ -82,7 +82,7 @@ class PageService extends KernelServiceAgreement
 
             $select->where('poster_id=?', $posterId);
 
-            if ($posterId == \App::authService()->getId()) {
+            if ($posterId == app()->auth()->getId()) {
 
                 $isOwner = true;
             }
@@ -94,7 +94,7 @@ class PageService extends KernelServiceAgreement
 
             $select->where('user_id=?', $userId);
 
-            if ($userId == \App::authService()->getUserId()) {
+            if ($userId == app()->auth()->getUserId()) {
                 $isOwner = true;
             }
         }
@@ -125,7 +125,7 @@ class PageService extends KernelServiceAgreement
      */
     public function getActivePageCount()
     {
-        return \App::table('platform_page')
+        return app()->table('platform_page')
             ->select()
             ->where('is_approved=?', 1)
             ->where('is_published=?', 1)
@@ -166,7 +166,7 @@ class PageService extends KernelServiceAgreement
     public function getCategoryOptions()
     {
 
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['page', 'getCategoryOptions'], 0, function () {
                 return $this->_getCategoryOptions();
             });
@@ -179,7 +179,7 @@ class PageService extends KernelServiceAgreement
      */
     private function _getCategoryOptions()
     {
-        $select = \App::table('page.category')->select()
+        $select = app()->table('page.category')->select()
             ->order('category_name', 1);
 
         $items = $select->all();

@@ -5,7 +5,7 @@ use Kendo\Hook\EventListener;
 use Kendo\Assets\Requirejs;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\ViewHelper;
 
 /**

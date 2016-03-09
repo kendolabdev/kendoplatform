@@ -18,9 +18,9 @@ class InvitationController extends AjaxController
      */
     public function actionResetMitigated()
     {
-        $parent = \App::authService()->getViewer();
+        $parent = app()->auth()->getViewer();
 
-        \App::invitationService()
+        app()->invitationService()
             ->clearMitigatedNotificationState($parent);
 
     }
@@ -35,7 +35,7 @@ class InvitationController extends AjaxController
         if (empty($context))
             $context = 'profile';
 
-        $obj = \App::find('invitation', $id);
+        $obj = app()->find('invitation', $id);
 
         if (!$obj instanceof Invitation) {
             throw new \InvalidArgumentException("Could not find alert");
@@ -46,11 +46,11 @@ class InvitationController extends AjaxController
         switch ($cmd) {
             case 'accept':
                 $callbackName = 'onAccept' . $callbackName;
-                $this->response['html'] = \App::emitter()->callback($callbackName, $obj, $context);
+                $this->response['html'] = app()->emitter()->callback($callbackName, $obj, $context);
                 break;
             case 'deny':
                 $callbackName = 'onIgnore' . $callbackName;
-                $this->response['html'] = \App::emitter()->callback($callbackName, $obj, $context);
+                $this->response['html'] = app()->emitter()->callback($callbackName, $obj, $context);
                 break;
         }
         $this->response['callbackName'] = $callbackName;
@@ -61,14 +61,14 @@ class InvitationController extends AjaxController
      */
     public function actionBearDialog()
     {
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
         $page = $this->request->getParam('page', 1);
         $query = $this->request->getArray('query');
 
-        $paging = \App::invitationService()->loadInvitationPaging($query, $page);
+        $paging = app()->invitationService()->loadInvitationPaging($query, $page);
 
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams('invitation_ajax_bear_dialog');
 
         $this->response = [

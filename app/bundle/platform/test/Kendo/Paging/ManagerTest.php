@@ -20,7 +20,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
         return [
             [range(1, 100)],
-            [\App::table('platform_user')->select()],
+            [app()->table('platform_user')->select()],
         ];
 
     }

@@ -32,7 +32,7 @@ class FilterPhoto extends Form
             'name'    => 'category',
             'label'   => 'Category',
             'class'   => 'form-control',
-            'options' => \App::blogService()->getCategoryOptions(),
+            'options' => app()->blogService()->getCategoryOptions(),
         ]);
 
         $this->addElement([

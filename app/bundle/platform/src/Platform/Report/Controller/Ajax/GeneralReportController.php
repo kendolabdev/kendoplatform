@@ -39,14 +39,14 @@ class GeneralReportController extends AjaxController
     {
         list($message) = $this->request->getList('message');
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         if (!$poster instanceof PosterInterface) ;
 
         $params = [
         ];
 
-        \App::reportService()->addGeneralReport($poster, $message, $params);
+        app()->reportService()->addGeneralReport($poster, $message, $params);
 
         $this->response = [
             'directive' => 'close',
@@ -62,7 +62,7 @@ class GeneralReportController extends AjaxController
 
         list($type, $id) = $this->request->getList('type', 'id');
 
-        $entry = \App::find($type, $id);
+        $entry = app()->find($type, $id);
 
         if (!$entry instanceof ReportGeneral)
             throw new \InvalidArgumentException("Report does not exists!");

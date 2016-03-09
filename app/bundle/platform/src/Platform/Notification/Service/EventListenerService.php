@@ -8,7 +8,7 @@ use Kendo\Content\PosterInterface;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
 use Kendo\Http\FilterStuff;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\ViewHelper;
 
 /**
@@ -106,7 +106,7 @@ class EventListenerService extends EventListener
      */
     public function onMenuMainNotifications($item)
     {
-        if (!\App::authService()->logged())
+        if (!app()->auth()->logged())
             return false;
 
         $item['class'] = 'visible-xs ni-notification';
@@ -121,13 +121,13 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemNotifications($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         if (!$profile instanceof PosterInterface) return false;
 
         if (!$profile->viewerIsParent()) return false;
 
-        $item['href'] = $profile->toHref(['stuff' => 'notifications']);
+        $item['href'] = $profile->toHref(['any' => 'notifications']);
 
         return $item;
     }
@@ -144,7 +144,7 @@ class EventListenerService extends EventListener
 
         $poster = $about->getPoster();
 
-        \App::notificationService()
+        app()->notificationService()
             ->subscribe($poster, $about);
     }
 
@@ -158,7 +158,7 @@ class EventListenerService extends EventListener
 
         if (!$about instanceof ContentInterface) return;
 
-        \App::notificationService()
+        app()->notificationService()
             ->removeAllByAbout($about);
     }
 
@@ -183,7 +183,7 @@ class EventListenerService extends EventListener
 
         if (!$poster instanceof PosterInterface) return;
 
-        \App::notificationService()
+        app()->notificationService()
             ->removeAllByPoster($poster);
     }
 
@@ -197,7 +197,7 @@ class EventListenerService extends EventListener
 
         if (!$parent instanceof PosterInterface or !$poster instanceof PosterInterface) return;
 
-        \App::notificationService()->addAcceptMembershipNotification($parent, $poster);
+        app()->notificationService()->addAcceptMembershipNotification($parent, $poster);
 
     }
 }

@@ -18,7 +18,7 @@ class HomeController extends DefaultController
     protected function _addPageButtons()
     {
         $btnPhoto = [
-            'label' => \App::text('photo.upload_photos'),
+            'label' => app()->text('photo.upload_photos'),
             'icon'  => 'ion-plus',
             'props' => [
                 'data-target' => '#upload-album-photo',
@@ -29,7 +29,7 @@ class HomeController extends DefaultController
         ];
 
         $btnAlbum = [
-            'label' => \App::text('photo.upload_photos'),
+            'label' => app()->text('photo.upload_photos'),
             'icon'  => 'ion-plus',
             'props' => [
                 'data-target' => '#upload-new-album-photo',
@@ -39,7 +39,7 @@ class HomeController extends DefaultController
             ],
         ];
 
-        \App::layouts()
+        app()->layouts()
             ->setPageButtons([$btnAlbum, $btnPhoto]);
     }
 
@@ -51,7 +51,7 @@ class HomeController extends DefaultController
 
         $filter = new FilterPhoto();
 
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('photo_main', null, 'photo_browse')
             ->setPageFilter($filter)
             ->setPageTitle('platform_photos');
@@ -62,11 +62,11 @@ class HomeController extends DefaultController
 
         $query = [];
 
-        $paging = \App::photoService()->loadPhotoPaging($query, $page);
+        $paging = app()->photoService()->loadPhotoPaging($query, $page);
 
         $paging->setRouting('photos', []);
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
@@ -84,23 +84,23 @@ class HomeController extends DefaultController
     public function actionMyPhoto()
     {
 
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('photo_main', null, 'photo_my')
             ->setPageTitle('photo.my_photos');;
 
         $this->_addPageButtons();
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         $page = $this->request->getParam('page', 1);
 
         $query = ['posterId' => $poster->getId(), 'posterType' => $poster->getType()];
 
-        $paging = \App::photoService()->loadPhotoPaging($query, $page);
+        $paging = app()->photoService()->loadPhotoPaging($query, $page);
 
         $paging->setRouting('photo_my', []);
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
@@ -117,15 +117,15 @@ class HomeController extends DefaultController
     public function actionUploadPhoto()
     {
 
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('photo_main', null, 'photo_upload')
             ->setPageTitle('photo.upload_photos');;
 
         $this->_addPageButtons();
 
-        $photoService = \App::photoService();
+        $photoService = app()->photoService();
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         if ($this->request->isPost()) {
 
@@ -134,7 +134,7 @@ class HomeController extends DefaultController
             /**
              * create photo item from those
              */
-            $poster = \App::authService()->getViewer();
+            $poster = app()->auth()->getViewer();
 
             if (empty($fileIdList)) {
 
@@ -153,19 +153,19 @@ class HomeController extends DefaultController
     public function actionCreateAlbum()
     {
 
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('photo_main', null, 'create_album')
             ->setPageTitle('photo.create_album');;
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         /**
          * init form
          */
 
-        $form = \App::htmlService()->factory('\Photo\Form\CreateAlbum');
+        $form = app()->html()->factory('\Photo\Form\CreateAlbum');
 
-        $photoService = \App::photoService();
+        $photoService = app()->photoService();
 
         if (!$photoService instanceof PhotoService) ;
 
@@ -183,9 +183,9 @@ class HomeController extends DefaultController
              */
             $data = $form->getData();
 
-            $fileList = \App::photoService()->processPhotoUploadFromClient('photos', null);
+            $fileList = app()->photoService()->processPhotoUploadFromClient('photos', null);
 
-            $privacy = \App::relationService()->getRelationFromDataForSave($_POST, ['view', 'comment']);
+            $privacy = app()->relation()->getRelationFromDataForSave($_POST, ['view', 'comment']);
 
             $album = $photoService->addAlbum($poster, $poster, array_merge($data, $privacy));
 
@@ -201,11 +201,11 @@ class HomeController extends DefaultController
              * go to albums list
              */
             if ($album) {
-                \App::routing()->redirect('album_my');
+                app()->routing()->redirect('album_my');
             }
         }
 
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams();
 
         $this->view
@@ -223,7 +223,7 @@ class HomeController extends DefaultController
     {
         $filter = new FilterAlbum();
 
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('photo_main', null, 'browse_album')
             ->setPageFilter($filter)
             ->setPageTitle('photo.albums');
@@ -234,9 +234,9 @@ class HomeController extends DefaultController
 
         $query = [];
 
-        $paging = \App::photoService()->loadAlbumPaging($query, $page);
+        $paging = app()->photoService()->loadAlbumPaging($query, $page);
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
@@ -252,23 +252,23 @@ class HomeController extends DefaultController
      */
     public function actionMyAlbum()
     {
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('photo_main', null, 'my_album')
             ->setPageTitle('photo.my_albums');
 
         $this->_addPageButtons();
 
         $page = $this->request->getParam('page', 1);
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         $query = [
             'posterId'   => $poster->getId(),
             'posterType' => $poster->getType(),
         ];
 
-        $paging = \App::photoService()->loadAlbumPaging($query, $page);
+        $paging = app()->photoService()->loadAlbumPaging($query, $page);
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
@@ -284,24 +284,24 @@ class HomeController extends DefaultController
      */
     public function actionViewAlbum()
     {
-        \App::layouts()
+        app()->layouts()
             ->setPageTitle('View Album');
 
         $this->_addPageButtons();
 
         $id = $this->request->getString('id');
 
-        $album = \App::table('platform_photo_album')
+        $album = app()->table('platform_photo_album')
             ->findById($id);
 
         if (!$album instanceof PhotoAlbum) {
             throw new \InvalidArgumentException("Album not found");
         }
 
-        \App::assetService()
+        app()->assetService()
             ->setTitle($album->getTitle());
 
-        \App::layouts()
+        app()->layouts()
             ->setPageTitle($album->getTitle());
 
         $page = $this->request->getParam('page', 1);
@@ -310,9 +310,9 @@ class HomeController extends DefaultController
             'albumId' => $album->getId()
         ];
 
-        $paging = \App::photoService()->loadPhotoPaging($query, $page);
+        $paging = app()->photoService()->loadPhotoPaging($query, $page);
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
@@ -333,16 +333,16 @@ class HomeController extends DefaultController
 
         $id = $this->request->getString('id');
 
-        $photo = \App::table('platform_photo')
+        $photo = app()->table('platform_photo')
             ->findById($id);
 
-        $photoService = \App::photoService();
+        $photoService = app()->photoService();
 
         if (!$photo instanceof Photo) {
             throw new \InvalidArgumentException("Photo not found");
         }
 
-        $album = \App::find('platform_photo_album', $photo->getAlbumId());
+        $album = app()->find('platform_photo_album', $photo->getAlbumId());
 
         $poster = $photo->getPoster();
 
@@ -374,17 +374,17 @@ class HomeController extends DefaultController
             'currentUrl' => $currentUrl,
         ]);
 
-        \App::registryService()->set('about', $photo);
+        app()->registryService()->set('about', $photo);
 
 
         $mode = $this->request->getString('mode');
 
         if ($mode == 'spotlight') {
-            \App::layouts()
+            app()->layouts()
                 ->setPageName('photo_home_view_photo_spotlight');
         }
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         if ($mode == 'spotlight') {
             $this->view->setScript($lp);

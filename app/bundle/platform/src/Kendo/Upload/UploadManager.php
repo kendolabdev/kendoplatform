@@ -1,14 +1,14 @@
 <?php
 namespace Kendo\Upload;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class UploadManager
  *
  * @package Kendo\Upload
  */
-class UploadManager extends KernelServiceAgreement
+class UploadManager extends KernelService
 {
     /**
      * @param $fileName

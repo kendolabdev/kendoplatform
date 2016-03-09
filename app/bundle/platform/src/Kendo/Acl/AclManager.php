@@ -2,14 +2,14 @@
 
 namespace Kendo\Acl;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class AclManager
  *
  * @package Kendo\Acl
  */
-class AclManager extends KernelServiceAgreement
+class AclManager extends KernelService
 {
 
 }

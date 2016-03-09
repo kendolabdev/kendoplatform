@@ -18,16 +18,16 @@ class AdminController extends DefaultController
     protected function init()
     {
 
-        if (\App::instance()->isUnitest()) {
+        if (app()->instance()->isUnitest()) {
 
         } else {
-            if (!\App::aclService()->authorizeFor(\App::authService()->getUser(), 'is_admin'))
+            if (!app()->aclService()->authorizeFor(app()->auth()->getUser(), 'is_admin'))
                 throw new AdminRestrictException("Login required");
         }
 
-        \App::layouts()
+        app()->layouts()
             ->setThemeId('admin');
 
-        \App::registryService()->set('is_admin', true);
+        app()->registryService()->set('is_admin', true);
     }
 }

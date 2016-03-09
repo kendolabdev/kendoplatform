@@ -13,7 +13,7 @@ class PhraseServiceTest extends \PHPUnit_Framework_TestCase
 {
     public function testGeneral()
     {
-        $phraseService = \App::phraseService();
+        $phraseService = app()->phraseService();
 
         $phraseService->loadFromRepository('en');
 

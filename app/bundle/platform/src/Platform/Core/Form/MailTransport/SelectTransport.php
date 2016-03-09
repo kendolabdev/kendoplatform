@@ -22,7 +22,7 @@ class SelectTransport extends Form
 
         $options = [];
 
-        $adapters = \App::table('core.mail_adapter')
+        $adapters = app()->table('core.mail_adapter')
             ->select()
             ->where('id <> ?', 'mail')
             ->all();
@@ -45,7 +45,7 @@ class SelectTransport extends Form
         $this->addElement([
             'plugin' => 'submit',
             'name'   => '_submit',
-            'label'  => \App::text('core.continue'),
+            'label'  => app()->text('core.continue'),
             'class'  => 'btn btn-primary btn-sm'
         ]);
     }

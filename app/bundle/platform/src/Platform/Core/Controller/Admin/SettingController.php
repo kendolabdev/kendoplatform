@@ -16,7 +16,7 @@ class SettingController extends AdminController
     {
         parent::init();
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_edit');
     }
 
@@ -29,7 +29,7 @@ class SettingController extends AdminController
         $active = $this->request->getParam('t', 'admin_setting_general');
 
 
-        \App::layouts()->setupSecondaryNavigation('admin', 'admin_setting', $active);
+        app()->layouts()->setupSecondaryNavigation('admin', 'admin_setting', $active);
 
         $this->request->forward( null, 'edit');
     }
@@ -40,22 +40,23 @@ class SettingController extends AdminController
     public function actionEdit()
     {
 
-        $name = $this->request->getParam('name', 'core.admin.general-setting');
+        $name = $this->request->getParam('name', 'platform.core.admin.general-setting');
 
         $arr = explode('.', $name);
 
         $p0 = array_shift($arr);
+        $p1  = array_shift($arr);
 
         foreach ($arr as $index => $ar) {
             $arr[ $index ] = _inflect($ar);
         }
 
-        $class = '\\' . _inflect($p0) . '\\Form\\' . implode('\\', $arr);
+        $class = '\\' . _inflect($p0) .'\\'. _inflect($p1) . '\\Form\\' . implode('\\', $arr);
 
         if (!class_exists($class))
-            throw new \InvalidArgumentException();
+            throw new \InvalidArgumentException("class $class does not exists.");
 
-        $form = \App::htmlService()->factory($class);
+        $form = app()->html()->factory($class);
 
 
         if (!$form instanceof BaseSettingForm)

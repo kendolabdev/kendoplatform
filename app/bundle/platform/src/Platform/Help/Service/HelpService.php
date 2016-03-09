@@ -2,7 +2,7 @@
 
 namespace Platform\Help\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Help\Model\HelpCategory;
 use Platform\Help\Model\HelpPage;
 use Platform\Help\Model\HelpPost;
@@ -13,7 +13,7 @@ use Platform\Help\Model\HelpTopic;
  *
  * @package Help\Service
  */
-class HelpService extends KernelServiceAgreement
+class HelpService extends KernelService
 {
 
     /**
@@ -21,7 +21,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function loadAdminTopicOptions()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['HelpService', 'loadAdminTopicOptions', ''], 0, function () {
                 return $this->_loadTopicOptions();
             });
@@ -32,7 +32,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function loadAdminCategoryOptions()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['HelpService', 'loadAdminCategoryOptions', ''], 0, function () {
                 return $this->_loadCategoryOptions();
             });
@@ -45,7 +45,7 @@ class HelpService extends KernelServiceAgreement
     {
         $options = [];
 
-        $select = \App::table('help.help_topic')->select()
+        $select = app()->table('help.help_topic')->select()
             ->order('topic_title', 1);
 
         $items = $select->all();
@@ -66,7 +66,7 @@ class HelpService extends KernelServiceAgreement
     {
         $options = [];
 
-        $select = \App::table('help.help_category')->select()
+        $select = app()->table('help.help_category')->select()
             ->order('category_name', 1);
 
         $items = $select->all();
@@ -190,7 +190,7 @@ class HelpService extends KernelServiceAgreement
     public function loadAdminPagePaging($query = [], $page = 1, $limit = 10)
     {
 
-        $select = \App::table('help.help_page')
+        $select = app()->table('help.help_page')
             ->select();
 
         if (!empty($query['q']))
@@ -209,7 +209,7 @@ class HelpService extends KernelServiceAgreement
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 10)
     {
 
-        $select = \App::table('help.help_category')
+        $select = app()->table('help.help_category')
             ->select();
 
         if (!empty($query)) ;
@@ -227,7 +227,7 @@ class HelpService extends KernelServiceAgreement
     public function loadAdminTopicPaging($query = [], $page = 1, $limit = 10)
     {
 
-        $select = \App::table('help.help_topic')
+        $select = app()->table('help.help_topic')
             ->select();
 
         if (!empty($query['category']))
@@ -250,7 +250,7 @@ class HelpService extends KernelServiceAgreement
     public function loadAdminPostPaging($query = [], $page = 1, $limit = 10)
     {
 
-        $select = \App::table('help . help_post')
+        $select = app()->table('help . help_post')
             ->select();
 
         if (!empty($query['topic']))
@@ -273,7 +273,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function loadCategoryPaging($context = [], $page = 1, $limit = 10)
     {
-        $select = \App::table('help . help_category')
+        $select = app()->table('help . help_category')
             ->select()
             ->order('category_sort_order', 1);
 
@@ -295,7 +295,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function loadTopicPaging($context = [], $page = 1, $limit = 10)
     {
-        $select = \App::table('help . help_topic')
+        $select = app()->table('help . help_topic')
             ->select()
             ->order('topic_sort_order', 1);
 
@@ -323,7 +323,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function loadPostPaging($context = [], $page = 1, $limit = 10)
     {
-        $select = \App::table('help . help_post')
+        $select = app()->table('help . help_post')
             ->select()
             ->order('post_sort_order', 1);
 
@@ -348,7 +348,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function findCategoryById($categoryId)
     {
-        return \App::table('help . help_category')
+        return app()->table('help . help_category')
             ->findById($categoryId);
     }
 
@@ -359,7 +359,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function findCategoryBySlug($slug)
     {
-        return \App::table('help . help_category')
+        return app()->table('help . help_category')
             ->select()
             ->where('category_slug =?', (string)$slug)
             ->one();
@@ -373,7 +373,7 @@ class HelpService extends KernelServiceAgreement
 
     public function findCategory($slug)
     {
-        return \App::table('help . help_category')
+        return app()->table('help . help_category')
             ->select()
             ->where('category_slug =?', (string)$slug)
             ->orWhere('category_id =?', (string)$slug)
@@ -387,7 +387,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function findTopicById($topicId)
     {
-        return \App::table('help . help_topic')
+        return app()->table('help . help_topic')
             ->findById($topicId);
     }
 
@@ -398,7 +398,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function findTopicBySlug($slug)
     {
-        return \App::table('help . help_topic')
+        return app()->table('help . help_topic')
             ->select()
             ->where('topic_slug =?', (string)$slug)
             ->one();
@@ -412,7 +412,7 @@ class HelpService extends KernelServiceAgreement
 
     public function findTopic($slug)
     {
-        return \App::table('help . help_topic')
+        return app()->table('help . help_topic')
             ->select()
             ->where('topic_slug =?', (string)$slug)
             ->orWhere('topic_id =?', (string)$slug)
@@ -426,7 +426,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function findPostById($postId)
     {
-        return \App::table('help . help_post')
+        return app()->table('help . help_post')
             ->findById($postId);
     }
 
@@ -437,7 +437,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function findPostBySlug($slug)
     {
-        return \App::table('help . help_post')
+        return app()->table('help . help_post')
             ->select()
             ->where('post_slug =?', (string)$slug)
             ->one();
@@ -450,7 +450,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function findPost($slug)
     {
-        return \App::table('help . help_post')
+        return app()->table('help . help_post')
             ->select()
             ->where('post_slug =?', (string)$slug)
             ->orWhere('post_id =?', (string)$slug)
@@ -464,7 +464,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function findPageById($pageId)
     {
-        return \App::table('help . help_page')
+        return app()->table('help . help_page')
             ->findById($pageId);
     }
 
@@ -475,7 +475,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function findPageBySlug($slug)
     {
-        return \App::table('help . help_page')
+        return app()->table('help . help_page')
             ->select()
             ->where('page_slug =?', (string)$slug)
             ->one();
@@ -488,7 +488,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function findPage($slug)
     {
-        return \App::table('help . help_page')
+        return app()->table('help . help_page')
             ->select()
             ->where('page_slug =?', (string)$slug)
             ->orWhere('page_id =?', (string)$slug)
@@ -502,7 +502,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function getListCategory($active)
     {
-        $select = \App::table('help . help_category')
+        $select = app()->table('help . help_category')
             ->select()
             ->order('category_sort_order', 1);
 
@@ -521,7 +521,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function getListTopicInCategory($categoryId, $active = null)
     {
-        $select = \App::table('help . help_topic')
+        $select = app()->table('help . help_topic')
             ->select()
             ->where('category_id =?', $categoryId)
             ->order('topic_sort_order', 1);
@@ -541,7 +541,7 @@ class HelpService extends KernelServiceAgreement
      */
     public function getListPostInTopic($topicId, $active = null)
     {
-        $select = \App::table('help . help_post')
+        $select = app()->table('help . help_post')
             ->select()
             ->where('topic_id =?', $topicId)
             ->order('post_sort_order', 1);

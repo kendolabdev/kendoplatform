@@ -21,22 +21,22 @@ class TimelineHeaderBlock extends BlockController
      */
     public function execute()
     {
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
         $isFollowed = false;
         $membershipStatus = '';
         $coverPhotoUrl = null;
         $coverPositionTop = 0;
 
 
-        $editcover = \App::requester()->getParam('editcover', 0);
+        $editcover = app()->requester()->getParam('editcover', 0);
 
-        $fileId = \App::requester()->getParam('fileId');
+        $fileId = app()->requester()->getParam('fileId');
 
         if ($fileId) {
-            $coverPhotoUrl = \App::storageService()->getUrlByOriginAndMaker($fileId, 'origin');
+            $coverPhotoUrl = app()->storageService()->getUrlByOriginAndMaker($fileId, 'origin');
         }
 
-        $subject = \App::registryService()->get('profile');
+        $subject = app()->registryService()->get('profile');
 
 
         $canEditCover = false;
@@ -50,7 +50,7 @@ class TimelineHeaderBlock extends BlockController
         $canFriend = false;
 
 
-        if (\App::authService()->logged() && \App::authService()->getId() != $subject->getId()) {
+        if (app()->auth()->logged() && app()->auth()->getId() != $subject->getId()) {
             $canFriend = true;
             /**
              * TO DO
@@ -60,7 +60,7 @@ class TimelineHeaderBlock extends BlockController
             $canChat = true;
         }
 
-        if (\App::authService()->getId() == $subject->getId() || \App::authService()->getId() == $subject->getUserId()) {
+        if (app()->auth()->getId() == $subject->getId() || app()->auth()->getId() == $subject->getUserId()) {
             $canEditProfile = true;
             $canEditCover = true;
         }
@@ -68,14 +68,14 @@ class TimelineHeaderBlock extends BlockController
         /**
          * disabled friend function is user is logged as user
          */
-        if (\App::authService()->getType() != 'user' || $subject->getType() != 'user') {
+        if (app()->auth()->getType() != 'user' || $subject->getType() != 'user') {
             $canChat = false;
             $canFriend = false;
             $canBlock = false;
         }
 
         if (empty($coverPhotoUrl)) {
-            $cover = \App::photoService()->getCover($subject);
+            $cover = app()->photoService()->getCover($subject);
             if ($cover) {
                 $coverPhotoUrl = $cover->getPhoto('origin');
                 $coverPositionTop = $cover->getPositionTop() . 'px';
@@ -87,8 +87,8 @@ class TimelineHeaderBlock extends BlockController
         $canLogin = false;
 
         // must be login as admin
-        if (\App::aclService()->authorize('is_admin')) {
-            if (\App::authService()->getId() != $subject->getId()) {
+        if (app()->aclService()->authorize('is_admin')) {
+            if (app()->auth()->getId() != $subject->getId()) {
                 $canLogin = true;
             }
         }
@@ -102,7 +102,7 @@ class TimelineHeaderBlock extends BlockController
             'dropdownIcon' => '',
         ];
 
-        if (\App::requester() && !\App::requester()->isTablet()) {
+        if (app()->requester() && !app()->requester()->isTablet()) {
             $profileTabMenuOptions['level0'] = 'nav nav-justify nav-profile-tab';
             $profileTabMenuOptions['moreLabel'] = '<b class="ion-more"></b>';
         }
@@ -129,12 +129,12 @@ class TimelineHeaderBlock extends BlockController
             'editing'               => $editing,
             'profileTabMenuOptions' => $profileTabMenuOptions,
             'fileId'                => $fileId,
-            'isOwner'               => \App::authService()->getId() == $subject->getId() ? 1 : 0,
+            'isOwner'               => app()->auth()->getId() == $subject->getId() ? 1 : 0,
 
         ]);
 
         if ($editing) {
-            \App::assetService()
+            app()->assetService()
                 ->requirejs()
                 ->addScript('editcover', 'startDraggableTimelineCoverImgForEdit()');
         }

@@ -40,7 +40,7 @@ class WindowAdapter implements SocialLoginAdapterInterface
      */
     function __construct()
     {
-        $config = \App::setting('window');
+        $config = app()->setting('window');
 
         $this->setClientId($config['client_id']);
         $this->setClientSecret($config['client_secret']);
@@ -102,7 +102,7 @@ class WindowAdapter implements SocialLoginAdapterInterface
                 $host = 'localhost';
             }
 
-            $detailUrl = \App::routing()->getUrl('oauth_callback', [
+            $detailUrl = app()->routing()->getUrl('oauth_callback', [
                 'service' => 'window'
             ]);
 

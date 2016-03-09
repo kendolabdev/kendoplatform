@@ -148,7 +148,7 @@ class :modelClass extends Model{
      * @return :fullTableClass
      */
     public function table(){
-        return \App::table(\':tableAlias\');
+        return app()->table(\':tableAlias\');
     }
     //END_TABLE_GENERATOR';
 
@@ -299,7 +299,7 @@ class :tableClass extends DbTable{
         $tableFrameString = null;
         $tableContentString = strtr($this->tableContent, $vars);
 
-        $tablePath = \App::autoload()->getPath($fullTableClass);
+        $tablePath = app()->autoload()->getPath($fullTableClass);
 
         if (!$tablePath)
             throw new \InvalidArgumentException("namespace for $tablePath does not exists");
@@ -316,7 +316,7 @@ class :tableClass extends DbTable{
         file_put_contents($tablePath, $tableFrameString);
 
         // generate for model class
-        $modelPath = \App::autoload()->getPath($fullModelClass);
+        $modelPath = app()->autoload()->getPath($fullModelClass);
 
         if (!$modelPath)
             throw new \InvalidArgumentException("namespace for $modelPath does not exists");
@@ -335,7 +335,7 @@ class :tableClass extends DbTable{
 
         $modelFrameString = str_replace(self::PREPARE_FOR_REPLACMENT, $modelContentString, $this->prepareForReplaceTable($modelFrameString, $modelClass));
 
-        \App::table('platform_core_type')
+        app()->table('platform_core_type')
             ->insertIgnore([
                 'type_id'               => $tableAlias,
                 'table_name'            => $fullTableClass,
@@ -373,7 +373,7 @@ class :tableClass extends DbTable{
      */
     public function getMetadata($table)
     {
-        return \App::db()->getMaster()->describe($table);
+        return app()->db()->getMaster()->describe($table);
     }
 
     /**

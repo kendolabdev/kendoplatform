@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Invitation\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Invitation\Model\Invitation;
 use Kendo\Acl\AuthorizationRestrictException;
 use Kendo\Content\ContentInterface;
@@ -12,7 +12,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Platform\Invitation\Service
  */
-class InvitationService extends KernelServiceAgreement
+class InvitationService extends KernelService
 {
 
     /**
@@ -22,7 +22,7 @@ class InvitationService extends KernelServiceAgreement
      */
     public function findType($id)
     {
-        return \App::table('platform_invitation_type')
+        return app()->table('platform_invitation_type')
             ->findById($id);
     }
 
@@ -35,7 +35,7 @@ class InvitationService extends KernelServiceAgreement
      */
     public function loadInvitationPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('platform_invitation')->select();
+        $select = app()->table('platform_invitation')->select();
 
         $isValid = false;
 
@@ -50,7 +50,7 @@ class InvitationService extends KernelServiceAgreement
         }
 
         if (!$isValid) {
-            $select->where('parent_id=?', (string)\App::authService()->getId());
+            $select->where('parent_id=?', (string)app()->auth()->getId());
         }
 
         return $select->paging($page, $limit);
@@ -64,12 +64,12 @@ class InvitationService extends KernelServiceAgreement
     public function getUnreadRequestCount(PosterInterface $parent = null)
     {
         if (null == $parent) {
-            $parent = \App::authService()->getViewer();
+            $parent = app()->auth()->getViewer();
         }
 
         if (!$parent instanceof PosterInterface) return 0;
 
-        return \App::table('platform_invitation')
+        return app()->table('platform_invitation')
             ->select()
             ->where('parent_id=?', $parent->getId())
             ->where('`read`=?', 0)
@@ -84,13 +84,13 @@ class InvitationService extends KernelServiceAgreement
     public function getUnmitigatedNotificationCount(PosterInterface $parent = null)
     {
         if (null == $parent)
-            $parent = \App::authService()->getViewer();
+            $parent = app()->auth()->getViewer();
 
 
         if (!$parent instanceof PosterInterface)
             return 0;
 
-        return \App::table('platform_invitation')
+        return app()->table('platform_invitation')
             ->select()
             ->where('parent_id=?', (string)$parent->getId())
             ->where('`mitigated`=?', '0')
@@ -103,14 +103,14 @@ class InvitationService extends KernelServiceAgreement
     public function clearMitigatedNotificationState(PosterInterface $parent = null)
     {
         if (null == $parent)
-            $parent = \App::authService()->getViewer();
+            $parent = app()->auth()->getViewer();
 
 
         if (!$parent instanceof PosterInterface)
             throw new AuthorizationRestrictException();
 
 
-        \App::table('platform_invitation')
+        app()->table('platform_invitation')
             ->update(['mitigated' => 1])
             ->where('parent_id=?', $parent->getId())
             ->execute();
@@ -164,7 +164,7 @@ class InvitationService extends KernelServiceAgreement
      */
     public function removeRequest($type, PosterInterface $poster, PosterInterface $parent)
     {
-        \App::table('platform_invitation')
+        app()->table('platform_invitation')
             ->delete()
             ->where('type_id=?', $type)
             ->where('poster_id=?', $poster->getId())
@@ -209,7 +209,7 @@ class InvitationService extends KernelServiceAgreement
      */
     public function getListTypeByModuleName($moduleList)
     {
-        return \App::table('platform_invitation_type')
+        return app()->table('platform_invitation_type')
             ->select()
             ->where('module_name IN ?', $moduleList)
             ->toAssocs();

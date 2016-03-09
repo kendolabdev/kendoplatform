@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Acl\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Acl\Model\AclAction;
 use Platform\Acl\Model\AclGroup;
 use Platform\Acl\Model\AclRole;
@@ -18,7 +18,7 @@ use Kendo\Db\SqlSelect;
  *
  * @package Kendo
  */
-class AclService extends KernelServiceAgreement implements AclLoaderInterface
+class AclService extends KernelService implements AclLoaderInterface
 {
 
     /**
@@ -54,7 +54,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      */
     public function findGroupById($id)
     {
-        return \App::table('platform_acl_group')
+        return app()->table('platform_acl_group')
             ->findById($id);
     }
 
@@ -65,7 +65,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      */
     public function findRoleById($id)
     {
-        return \App::table('platform_acl_role')
+        return app()->table('platform_acl_role')
             ->findById((int)$id);
     }
 
@@ -75,7 +75,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
     protected function getSelect()
     {
 
-        return \App::table('platform_acl_allow')
+        return app()->table('platform_acl_allow')
             ->select('allow')
             ->join(':platform_acl_action', 'action', 'action.action_id=allow.action_id', null, null)
             ->columns('group_name, action_name,allow.*');
@@ -100,7 +100,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      */
     public function loadForRole($roleId)
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['acl', 'loadForRole', $roleId], 0, function () use ($roleId) {
                 return $this->_loadForRole($roleId);
             });
@@ -114,7 +114,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      */
     protected function getFlatValForRoleId($roleId)
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['acl', '_getMapForRoleId', $roleId], 0,
                 function () use ($roleId) {
                     $response = [];
@@ -136,9 +136,9 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      */
     protected function countAllAction()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['acl', 'countAllAction'], 0, function () {
-                return \App::table('platform_acl_action')
+                return app()->table('platform_acl_action')
                     ->select()
                     ->columns('group_name, action_name')
                     ->count();
@@ -155,7 +155,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      */
     public function _loadForRole($roleId)
     {
-        $roleItem = \App::table('platform_acl_role')
+        $roleItem = app()->table('platform_acl_role')
             ->findById($roleId);
 
         if (!$roleItem instanceof AclRole) {
@@ -200,7 +200,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      */
     public function addActionList($module, $group, $actions)
     {
-        $table = \App::table('platform_acl_action');
+        $table = app()->table('platform_acl_action');
 
         if (empty($module))
             throw new \InvalidArgumentException("Module name is required");
@@ -277,7 +277,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
             }
         }
 
-        $allowTable = \App::table('platform_acl_allow');
+        $allowTable = app()->table('platform_acl_allow');
 
         foreach ($insertData as $actionId => $actionValue) {
             $row = $allowTable->select()
@@ -303,7 +303,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
         /**
          * forget cached value
          */
-        \App::cacheService()
+        app()->cacheService()
             ->flush();
     }
 
@@ -317,7 +317,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
     {
         $response = [];
 
-        $select = \App::table('platform_acl_action')->select();
+        $select = app()->table('platform_acl_action')->select();
 
         if (!empty($groups)) {
             $select->where('group_name in ?', $groups);
@@ -344,7 +344,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      */
     public function getRoleOptions($type = null)
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['acl.role', 'getRoleOptions', $type], 0, function () use ($type) {
                 return $this->_getRoleOptions($type);
             });
@@ -357,7 +357,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      */
     public function _getRoleOptions($type = null)
     {
-        $select = \App::table('platform_acl_role')
+        $select = app()->table('platform_acl_role')
             ->select();
 
         if ($type)
@@ -382,7 +382,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      */
     public function getGroupOptions()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['acl.acl', 'getGroupOptions', null], 0, function () {
                 return $this->getGroupOptionsFromRepository();
             });
@@ -396,9 +396,9 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
     {
         $options = [];
 
-        $items = \App::table('platform_acl_group')
+        $items = app()->table('platform_acl_group')
             ->select()
-            ->where('module_name IN ?', \App::packages()->getActiveModules())
+            ->where('module_name IN ?', app()->packages()->getActiveModules())
             ->order('module_name', -1)
             ->order('sort_order', 1)
             ->all();
@@ -419,7 +419,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      */
     public function getRoleTypeOptions()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['acl.acl', 'getRoleTypeOptions', null], 0, function () {
                 return $this->getRoleTypeOptionsFromRepository();
             });
@@ -432,10 +432,10 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
     {
         $options = [];
 
-        $posters = \App::table('platform_core_type')
+        $posters = app()->table('platform_core_type')
             ->select()
             ->where('is_poster=?', 1)
-            ->where('module_name IN ?', \App::packages()->getActiveModules())
+            ->where('module_name IN ?', app()->packages()->getActiveModules())
             ->all();
 
         foreach ($posters as $poster) {
@@ -481,7 +481,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
     public function getLoader()
     {
         if (null == $this->loader) {
-            $this->loader = \App::service(\App::registryService()->get('AclLoader', 'platform_acl'));
+            $this->loader = app()->service(app()->registryService()->get('AclLoader', 'platform_acl'));
         }
 
         return $this->loader;
@@ -505,7 +505,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      */
     public function allow($action, $defaultValue = true)
     {
-        $roleId = \App::authService()->getRoleId();
+        $roleId = app()->auth()->getRoleId();
 
         if (!isset($this->data[ $roleId ])) {
             $this->data[ $roleId ] = $this->getLoader()->loadForRole($roleId);
@@ -543,7 +543,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
      */
     public function authorize($action, $defaultValue = true)
     {
-        return $this->_authorize(\App::authService()->getRoleId(), $action, $defaultValue);
+        return $this->_authorize(app()->auth()->getRoleId(), $action, $defaultValue);
     }
 
     /**
@@ -596,7 +596,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
     {
 
 
-        $viewerId = \App::authService()->getId();
+        $viewerId = app()->auth()->getId();
         $parentId = $content->getParentId();
         $isRegistered = $viewerId > 0;
 
@@ -626,7 +626,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
         /**
          * load relation between theme.
          */
-        $list = \App::relationService()->getListRelationIdBetween($parentId, $viewerId);
+        $list = app()->relation()->getListRelationIdBetween($parentId, $viewerId);
 
         /**
          * check membership of viewer & content
@@ -639,7 +639,7 @@ class AclService extends KernelServiceAgreement implements AclLoaderInterface
          */
 
         if (RELATION_TYPE_MEMBER_OF_MEMBER == $type) {
-            return \App::relationService()->isMemberOfMember($parentId, $viewerId);
+            return app()->relation()->isMemberOfMember($parentId, $viewerId);
         }
 
         return false;

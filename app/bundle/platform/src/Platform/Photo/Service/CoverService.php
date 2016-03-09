@@ -21,7 +21,7 @@ class CoverService
      */
     private function findCoverByObject(AtomInterface $object)
     {
-        return \App::table('photo.cover')
+        return app()->table('photo.cover')
             ->select()
             ->where('object_id=?', $object->getId())
             ->where('object_type=?', $object->getType())

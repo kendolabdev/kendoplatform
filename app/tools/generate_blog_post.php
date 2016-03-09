@@ -4,11 +4,11 @@ include '../init.php';
 
 $faker = \Faker\Factory::create();
 
-$users = \App::userService()
+$users = app()->user()
     ->loadUserPaging([]);
 
 foreach ($users->items() as $user) {
-    \App::blogService()
+    app()->blogService()
         ->addPost($user, $user, [
             'title'       => $faker->sentence,
             'description' => $faker->paragraph(3, true),

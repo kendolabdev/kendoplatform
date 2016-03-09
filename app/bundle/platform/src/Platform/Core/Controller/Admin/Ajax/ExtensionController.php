@@ -19,7 +19,7 @@ class ExtensionController extends AjaxController
     {
         $id = $this->request->getParam('id');
 
-        $extension = \App::coreService()
+        $extension = app()->coreService()
             ->extension()
             ->findExensionById($id);
 
@@ -27,7 +27,7 @@ class ExtensionController extends AjaxController
             if (!$extension instanceof CoreExtension)
                 throw new \InvalidArgumentException("Invalid extension");
 
-            \App::coreService()
+            app()->coreService()
                 ->extension()
                 ->export($extension);
 

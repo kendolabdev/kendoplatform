@@ -9,7 +9,7 @@ namespace Kendo\Kernel;
  *
  * @package Kendo\Autoload
  */
-class ClassAutoload extends KernelServiceAgreement
+class ClassAutoload extends KernelService
 {
 
     /**

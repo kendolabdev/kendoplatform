@@ -23,7 +23,7 @@ class PosterNotificationTypeSetting extends Form
     {
         $poster = $this->getPoster();
 
-        $values = \App::value($poster, 'notification', []);
+        $values = app()->value($poster, 'notification', []);
 
         $this->setData($values);
     }
@@ -34,7 +34,7 @@ class PosterNotificationTypeSetting extends Form
     public function getPoster()
     {
         if (null == $this->poster) {
-            $this->poster = \App::authService()->getUser();
+            $this->poster = app()->auth()->getUser();
         }
 
         return $this->poster;
@@ -63,7 +63,7 @@ class PosterNotificationTypeSetting extends Form
             }
         }
 
-        \App::values()->setValue($this->getPoster(), 'notification', $disabled);
+        app()->values()->setValue($this->getPoster(), 'notification', $disabled);
     }
 
     /**
@@ -74,7 +74,7 @@ class PosterNotificationTypeSetting extends Form
         $this->setTitle('form_notification_setting.form_title');
         $this->setNote('form_notification_setting.form_note');
 
-        $groups = \App::notificationService()
+        $groups = app()->notificationService()
             ->getListTypeGroup();
 
         /**
@@ -82,7 +82,7 @@ class PosterNotificationTypeSetting extends Form
          */
         foreach ($groups as $group) {
             $options = [];
-            $items = \App::notificationService()
+            $items = app()->notificationService()
                 ->getListTypeByGroup($group);
 
             $item = null;

@@ -209,7 +209,7 @@ class HtmlElement
      */
     public function setLabel($label)
     {
-        $this->label = \App::text($label);
+        $this->label = app()->text($label);
     }
 
     /**
@@ -225,7 +225,7 @@ class HtmlElement
      */
     public function setNote($note)
     {
-        $this->note = \App::text($note);
+        $this->note = app()->text($note);
     }
 
     /**
@@ -323,7 +323,7 @@ class HtmlElement
      */
     public function setPlaceholder($placeholder)
     {
-        $this->setAttribute('placeholder', \App::text($placeholder));
+        $this->setAttribute('placeholder', app()->text($placeholder));
     }
 
     /**
@@ -331,7 +331,7 @@ class HtmlElement
      */
     public function setTooltip($tooltip)
     {
-        $this->setAttribute('tooltip', \App::text($tooltip));
+        $this->setAttribute('tooltip', app()->text($tooltip));
     }
 
     /**
@@ -464,7 +464,7 @@ class HtmlElement
             return true;
         }
 
-        $rule = \App::validationService()->factory($this->rules);
+        $rule = app()->validation()->factory($this->rules);
 
         $isValid = $rule->isValid($value);
 

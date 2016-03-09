@@ -4,7 +4,7 @@ namespace Platform\Catalog\Service;
 use Kendo\Hook\EventListener;
 use Kendo\Content\CatalogInterface;
 use Kendo\Hook\HookEvent;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 
 /**
  * Class EventHandlerService
@@ -38,7 +38,7 @@ class EventListenerService extends EventListener
 
         if (!$item instanceof CatalogInterface) return;
 
-        \App::catalogService()
+        app()->catalogService()
             ->updateItemAttribute($item, $data);
     }
 }

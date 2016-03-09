@@ -14,7 +14,7 @@ class PermissionController extends AdminController
      */
     public function actionEdit()
     {
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'video_extension', 'video_permission');
 
@@ -26,7 +26,7 @@ class PermissionController extends AdminController
             'roleId' => $roleId,
         ]);
 
-        $role = \App::aclService()->findRoleById($roleId);
+        $role = app()->aclService()->findRoleById($roleId);
 
         $form = new VideoPermission(['role' => $role]);
 

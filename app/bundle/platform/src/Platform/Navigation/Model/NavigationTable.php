@@ -24,56 +24,52 @@ class NavigationTable extends DbTable
      * @see `picaso_platform_navigation`
      * @var string
      */
-    protected $class = '\Platform\Navigation\Model\Navigation';
+    protected $class =  '\Platform\Navigation\Model\Navigation';
 
     /**
      * @var string
      */
-    protected $name = 'platform_navigation';
+    protected $name =  'platform_navigation';
 
     /**
      * @var array
      */
-    protected $column = [
-        'nav_id'      => 1,
-        'is_system'   => 1,
-        'is_admin'    => 1,
-        'nav_name'    => 1,
-        'module_name' => 1];
+    protected $column = array(
+		'nav_id'=>1,
+		'is_system'=>1,
+		'is_admin'=>1,
+		'nav_name'=>1,
+		'module_name'=>1);
 
     /**
      * @var array
      */
-    protected $primary = ['nav_id' => 1];
+    protected $primary = array( 'nav_id'=>1);
 
     /**
      * @var string
      */
     protected $identity = '';
 
-
+    
     /**
      * @param  string|int $value
-     *
      * @return \Platform\Navigation\Model\Navigation
      */
-    public function findById($value)
-    {
-        return $this->select()
-            ->where('nav_id=?', $value)
-            ->one();
+    public function findById($value){
+       return $this->select()
+           ->where('nav_id=?', $value)
+           ->one();
     }
 
     /**
      * @param  array $value
-     *
      * @return array
      */
-    public function findByIdList($value)
-    {
-        return $this->select()
-            ->where('nav_id IN ?', $value)
-            ->all();
+    public function findByIdList($value){
+       return $this->select()
+           ->where('nav_id IN ?', $value)
+           ->all();
     }
 
     //END_TABLE_GENERATOR

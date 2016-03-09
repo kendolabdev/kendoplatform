@@ -26,7 +26,7 @@ class ManageController extends AdminController
      */
     public function actionBrowseModule()
     {
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('admin', 'admin_rad', 'admin_rad_browse_module')
             ->setPageTitle('Your Modules');
 
@@ -36,7 +36,7 @@ class ManageController extends AdminController
         $vendorId = $this->getVendorId();
 
 
-        $paging = \App::table('platform_core_extension')
+        $paging = app()->table('platform_core_extension')
             ->select()
             ->where('extension_type=?', 'module')
             ->where('vendor_id=?', $vendorId)
@@ -54,13 +54,13 @@ class ManageController extends AdminController
      */
     public function actionBrowseTheme()
     {
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('admin', 'admin_rad', 'admin_rad_browse_theme')
             ->setPageTitle('Your Themes');
 
         $vendorId = $this->getVendorId();
 
-        $themes = \App::table('platform_core_extension')
+        $themes = app()->table('platform_core_extension')
             ->select()
             ->where('extension_type=?', 'theme')
             ->where('vendor_id=?', $vendorId)
@@ -80,7 +80,7 @@ class ManageController extends AdminController
 
         $form = new CreateModule();
 
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('admin', 'admin_rad', 'admin_rad_create_module')
             ->setPageTitle('Create Module')
             ->setPageNote('Start create new module');
@@ -104,7 +104,7 @@ class ManageController extends AdminController
     public function actionCreateTheme()
     {
 
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('admin', 'admin_rad', 'admin_rad_create_theme')
             ->setPageTitle('Create Theme');
 

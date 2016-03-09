@@ -36,11 +36,11 @@ class LinkController extends AjaxController
         $this->response['code'] = 200;
 
         if ($data['link_type'] == 'video') {
-            $data['duration'] = \App::trans()->toDuration($data['video_duration']);
+            $data['duration'] = app()->trans()->toDuration($data['video_duration']);
 
         }
 
-        $this->response['html'] = \App::viewHelper()
+        $this->response['html'] = app()->viewHelper()
             ->partial('platform/core/controller/ajax/link/composer-preview-link', $data);
     }
 
@@ -66,7 +66,7 @@ class LinkController extends AjaxController
         $data = null;
 
         try {
-            $data = \App::videoService()->parseFromUrl($url);
+            $data = app()->videoService()->parseFromUrl($url);
 
             $data = $data->toArray();
 
@@ -77,11 +77,11 @@ class LinkController extends AjaxController
         }
 
         if (empty($data)) {
-            $data = \App::linkService()->parseEmbedly($url);
+            $data = app()->linkService()->parseEmbedly($url);
         }
 
         if (empty($data)) {
-            $data = \App::linkService()->parseUrl($url);
+            $data = app()->linkService()->parseUrl($url);
         }
 
         return $data;

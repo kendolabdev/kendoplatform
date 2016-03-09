@@ -36,7 +36,7 @@ class FilterGroup extends Form
             ]
         ]);
 
-        $roleOptions = \App::aclService()->getRoleOptions('group');
+        $roleOptions = app()->aclService()->getRoleOptions('group');
 
         array_unshift($roleOptions, ['value' => 'all', 'label' => 'All']);
 

@@ -14,13 +14,13 @@ class NavigationServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testDecorator()
     {
-        \App::navigation()->render('dropdown', 'main', null);
+        app()->navigation()->render('dropdown', 'main', null);
 
-        \App::navigation()->render('dropdown', 'main', 'main_blog');
+        app()->navigation()->render('dropdown', 'main', 'main_blog');
 
-        \App::navigation()->render('tab', 'main', null);
+        app()->navigation()->render('tab', 'main', null);
 
-        \App::navigation()->render('tab', 'main', 'main_blog');
+        app()->navigation()->render('tab', 'main', 'main_blog');
 
     }
 }

@@ -9,7 +9,7 @@ if (false == file_exists('app/config/database.conf.php')) {
 include 'app/init.php';
 
 try {
-    $requester = App::requester();
+    $requester = app()->requester();
     $requester->dispatch();
     echo $requester->getResponse()->flush();
 } catch (Exception $ex) {

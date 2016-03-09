@@ -5,7 +5,7 @@ namespace Platform\Core\Service;
 use Kendo\Hook\EventListener;
 use Kendo\Assets\Requirejs;
 use Kendo\Hook\HookEvent;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\ViewHelper;
 
 /**
@@ -41,7 +41,7 @@ class EventListenerService extends EventListener
 
         $routing->add([
                 'name'     => 'ajax',
-                'class'    => '\Kendo\Http\RouterAjax',
+                'class'    => '\Kendo\Routing\RouterAjax',
                 'uri'      => 'ajax(/<any>)',
                 'uri_expr' => ['any' => '.+'],
                 'defaults' => ['prefix' => '',]]
@@ -49,7 +49,7 @@ class EventListenerService extends EventListener
 
         $routing->add([
                 'name'     => 'admin',
-                'class'    => '\Kendo\Http\RouterAdmin',
+                'class'    => '\Kendo\Routing\RouterAdmin',
                 'uri'      => 'admin(/<any>)',
                 'uri_expr' => ['any' => '.+'],
                 'defaults' => ['prefix' => 'admin',]]
@@ -87,7 +87,7 @@ class EventListenerService extends EventListener
 
         $routing->add([
             'name'     => 'profile',
-            'class'    => '\Kendo\Http\RouterProfileName',
+            'class'    => '\Kendo\Routing\RouterProfileName',
             'uri'      => '<name>(/<any>)',
             'uri_expr' => [
                 'any' => '.+',
@@ -156,7 +156,7 @@ class EventListenerService extends EventListener
         if (!$requirejs instanceof Requirejs)
             return;
 
-        $staticUrl = \App::staticBaseUrl();
+        $staticUrl = app()->staticBaseUrl();
 
         $requirejs->baseUrl($staticUrl . 'static/jscript');
 
@@ -187,8 +187,8 @@ class EventListenerService extends EventListener
         $options = [
             'baseUrl'   => KENDO_BASE_URL,
             'staticUrl' => $staticUrl,
-            'logged'    => \App::authService()->logged(),
-            'isUser'    => \App::authService()->isUser()
+            'logged'    => app()->auth()->logged(),
+            'isUser'    => app()->auth()->isUser()
         ];
 
         $script = '$kd.setOptions(' . json_encode($options, JSON_PRETTY_PRINT) . ')';
@@ -201,9 +201,9 @@ class EventListenerService extends EventListener
      */
     public function onBeforeRenderAssetsHeader()
     {
-        $assets = \App::assetService();
+        $assets = app()->assetService();
 
-        $staticUrl = \App::staticBaseUrl();
+        $staticUrl = app()->staticBaseUrl();
 
         $assets->js()
             ->prependAll([
@@ -213,7 +213,7 @@ class EventListenerService extends EventListener
             ]);
 
 
-        $themeId = \App::layouts()->getThemeId();
+        $themeId = app()->layouts()->getThemeId();
 
         if (!empty($_COOKIE['themeId'])) {
             $themeId = $_COOKIE['themeId'];

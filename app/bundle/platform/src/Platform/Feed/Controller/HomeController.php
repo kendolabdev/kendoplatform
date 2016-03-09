@@ -17,9 +17,9 @@ class HomeController extends DefaultController
     {
         $q = $this->request->getParam('q');
 
-        \App::registryService()->set('activity_hashtag', $q);
+        app()->registryService()->set('activity_hashtag', $q);
 
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams();
 
         $this->view
@@ -34,19 +34,19 @@ class HomeController extends DefaultController
 
         $id = $this->request->getParam('id');
 
-        $feed = \App::find('feed', $id);
+        $feed = app()->find('feed', $id);
 
         if (!$feed)
             throw new \InvalidArgumentException();
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         $options = ['feedIdList' => [$id]];
 
-        $dataBundles = \App::feedService()
+        $dataBundles = app()->feedService()
             ->loadDataBundles($poster, null, false, $options);
 
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams();
 
         $this->view->setScript($lp)

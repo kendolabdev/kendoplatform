@@ -33,7 +33,7 @@ class TextareaField extends HtmlElement implements FormField
 
         if ($this->isHtmlEditor()) {
 
-            \App::assetService()
+            app()->assetService()
                 ->requirejs()
                 ->addDependency('platform/core/html_editor')
                 ->addScript('checkEditors', 'checkEditors()');

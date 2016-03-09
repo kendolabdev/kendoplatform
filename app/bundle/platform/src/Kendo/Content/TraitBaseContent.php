@@ -24,14 +24,14 @@ Trait TraitBaseContent
         if (!$this instanceof ContentInterface) return '';
 
         if ($this->getPhotoFileId() > 0) {
-            if (null != ($src = \App::storageService()
+            if (null != ($src = app()->storageService()
                     ->getUrlByOriginAndMaker($this->getPhotoFileId(), $maker))
             ) {
                 return $src;
             }
         }
 
-        return \App::assetService()->getUrl('/static/nophoto/' . $this->getType() . '_' . $maker . '.jpg');
+        return app()->assetService()->getUrl('/static/nophoto/' . $this->getType() . '_' . $maker . '.jpg');
     }
 
     /**
@@ -87,7 +87,7 @@ Trait TraitBaseContent
      */
     public function getPoster()
     {
-        return \App::find($this->getPosterType(), $this->getPosterId());
+        return app()->find($this->getPosterType(), $this->getPosterId());
     }
 
     /**
@@ -95,7 +95,7 @@ Trait TraitBaseContent
      */
     public function getParent()
     {
-        return \App::find($this->getParentType(), $this->getParentId());
+        return app()->find($this->getParentType(), $this->getParentId());
     }
 
     /**
@@ -103,7 +103,7 @@ Trait TraitBaseContent
      */
     public function getUser()
     {
-        return \App::find('user', $this->getUserId());
+        return app()->find('user', $this->getUserId());
     }
 
 
@@ -112,10 +112,10 @@ Trait TraitBaseContent
      */
     public function viewerIsPoster()
     {
-        if (!\App::authService()->logged())
+        if (!app()->auth()->logged())
             return false;
 
-        return (bool)array_intersect([\App::authService()->getId(), \App::authService()->getUserId()],
+        return (bool)array_intersect([app()->auth()->getId(), app()->auth()->getUserId()],
             [$this->getId(), $this->getPosterId(), $this->getUserId()]);
     }
 
@@ -124,10 +124,10 @@ Trait TraitBaseContent
      */
     public function viewerIsParent()
     {
-        if (!\App::authService()->logged())
+        if (!app()->auth()->logged())
             return false;
 
-        return (bool)array_intersect([\App::authService()->getId(), \App::authService()->getUserId()],
+        return (bool)array_intersect([app()->auth()->getId(), app()->auth()->getUserId()],
             [$this->getId(), $this->getParentId(), $this->getParentUserId()]);
     }
 
@@ -136,10 +136,10 @@ Trait TraitBaseContent
      */
     public function viewerIsPosterOrParent()
     {
-        if (!\App::authService()->logged())
+        if (!app()->auth()->logged())
             return false;
 
-        return (bool)array_intersect([\App::authService()->getId(), \App::authService()->getUserId()],
+        return (bool)array_intersect([app()->auth()->getId(), app()->auth()->getUserId()],
             [$this->getId(), $this->getparentId(), $this->getParentUserId(), $this->getUserId(), $this->getPosterId()]);
     }
 
@@ -170,7 +170,7 @@ Trait TraitBaseContent
      */
     public function getAbout()
     {
-        return \App::find($this->getAboutType(), $this->getAboutId());
+        return app()->find($this->getAboutType(), $this->getAboutId());
     }
 
     /**
@@ -206,7 +206,7 @@ Trait TraitBaseContent
     {
 
         if (null != $this->getPlaceId()) {
-            return \App::find($this->getPlaceType(), $this->getPlaceId());
+            return app()->find($this->getPlaceType(), $this->getPlaceId());
         }
 
         return null;
@@ -222,7 +222,7 @@ Trait TraitBaseContent
         if (!$this instanceof ContentInterface) ;
 
         if (!$place instanceof ContentInterface) {
-//            $place = \App::make('place')->tryPlace($place);
+//            $place = app()->make('place')->tryPlace($place);
         }
 
         if ($place instanceof ContentInterface) {
@@ -238,7 +238,7 @@ Trait TraitBaseContent
      */
     public function getPeople($limit = null)
     {
-        return \App::tagService()->loadPeople($this, $limit);
+        return app()->tagService()->loadPeople($this, $limit);
     }
 
     /**
@@ -246,7 +246,7 @@ Trait TraitBaseContent
      */
     public function setPeople($people)
     {
-        $total = \App::tagService()->tagPeople($this, $people);
+        $total = app()->tagService()->tagPeople($this, $people);
         $this->setPeopleCount($total);
     }
 
@@ -271,7 +271,7 @@ Trait TraitBaseContent
             $this->__set('privacy_type', $type);
             $this->__set('privacy_value', $value);
 
-            \App::feedService()->updatePrivacy($this);
+            app()->feedService()->updatePrivacy($this);
         }
 
         $privacy[ $name ] = ['type' => $type, 'value' => $value];

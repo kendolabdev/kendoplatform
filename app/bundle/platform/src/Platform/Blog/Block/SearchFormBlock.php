@@ -20,7 +20,7 @@ class SearchFormBlock extends BlockController
      */
     public function execute()
     {
-        $form = \App::htmlService()->factory('\Blog\Form\SearchBlog', []);
+        $form = app()->html()->factory('\Blog\Form\SearchBlog', []);
 
         $this->view->assign([
             'form' => $form,

@@ -32,10 +32,10 @@ class ProfileController extends ProfileBaseController
     public function actionBrowsePage()
     {
 
-        \App::layouts()
+        app()->layouts()
             ->setPageTitle('page.pages');
 
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         $query = [
             'parentId'   => $profile->getId(),
@@ -44,9 +44,9 @@ class ProfileController extends ProfileBaseController
 
         $page = $this->request->getParam('page', 1);
 
-        $paging = \App::pageService()->loadPagePaging($query, $page);
+        $paging = app()->pageService()->loadPagePaging($query, $page);
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp->itemScript())

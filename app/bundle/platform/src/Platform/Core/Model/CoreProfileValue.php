@@ -20,93 +20,82 @@ class CoreProfileValue extends Model
 
     //START_TABLE_GENERATOR
 
-
+    
     /**
      * @return null|string
      */
-    public function getId()
-    {
-        return $this->__get('id');
+    public function getId(){
+       return $this->__get('id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value)
-    {
-        $this->__set('id', $value);
+    public function setId($value){
+       $this->__set('id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getProfileId()
-    {
-        return $this->__get('profile_id');
+    public function getProfileId(){
+       return $this->__get('profile_id');
     }
 
     /**
      * @param $value
      */
-    public function setProfileId($value)
-    {
-        $this->__set('profile_id', $value);
+    public function setProfileId($value){
+       $this->__set('profile_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getName()
-    {
-        return $this->__get('name');
+    public function getName(){
+       return $this->__get('name');
     }
 
     /**
      * @param $value
      */
-    public function setName($value)
-    {
-        $this->__set('name', $value);
+    public function setName($value){
+       $this->__set('name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getSortOrder()
-    {
-        return $this->__get('sort_order');
+    public function getSortOrder(){
+       return $this->__get('sort_order');
     }
 
     /**
      * @param $value
      */
-    public function setSortOrder($value)
-    {
-        $this->__set('sort_order', $value);
+    public function setSortOrder($value){
+       $this->__set('sort_order', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getValue()
-    {
-        return $this->__get('value');
+    public function getValue(){
+       return $this->__get('value');
     }
 
     /**
      * @param $value
      */
-    public function setValue($value)
-    {
-        $this->__set('value', $value);
+    public function setValue($value){
+       $this->__set('value', $value);
     }
 
     /**
      * @return \Platform\Core\Model\CoreProfileValueTable
      */
-    public function table()
-    {
-        return \App::table('platform_core_profile_value');
+    public function table(){
+        return app()->table('platform_core_profile_value');
     }
     //END_TABLE_GENERATOR
 }

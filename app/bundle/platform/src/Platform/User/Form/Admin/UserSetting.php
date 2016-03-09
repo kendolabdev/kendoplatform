@@ -23,9 +23,9 @@ class UserSetting extends Form
             'name'    => 'register_mode',
             'label'   => 'core.user_registration',
             'options' => [
-                ['value' => 'public', 'label' => \App::text('core.public')],
-                ['value' => 'invite_only', 'label' => \App::text('core.invite_only')],
-                ['value' => 'disabled', 'label' => \App::text('core.disabled')],
+                ['value' => 'public', 'label' => app()->text('core.public')],
+                ['value' => 'invite_only', 'label' => app()->text('core.invite_only')],
+                ['value' => 'disabled', 'label' => app()->text('core.disabled')],
             ],
             'value'   => 1,
         ]);
@@ -33,10 +33,10 @@ class UserSetting extends Form
         $this->addElement([
             'plugin'  => 'radio',
             'name'    => 'verify_register_email',
-            'label'   => \App::text('core.verify_register_email'),
+            'label'   => app()->text('core.verify_register_email'),
             'options' => [
-                ['value' => 0, 'label' => \App::text('core.no')],
-                ['value' => 1, 'label' => \App::text('core.yes')],
+                ['value' => 0, 'label' => app()->text('core.no')],
+                ['value' => 1, 'label' => app()->text('core.yes')],
             ],
             'value'   => 1,
         ]);
@@ -59,10 +59,10 @@ class UserSetting extends Form
         $this->addElement([
             'plugin'  => 'radio',
             'name'    => 'register_approval',
-            'label'   => \App::text('core.user_approval'),
+            'label'   => app()->text('core.user_approval'),
             'options' => [
-                ['value' => 0, 'label' => \App::text('core.automatic')],
-                ['value' => 1, 'label' => \App::text('core.manually')],
+                ['value' => 0, 'label' => app()->text('core.automatic')],
+                ['value' => 1, 'label' => app()->text('core.manually')],
             ],
             'value'   => 1,
         ]);
@@ -70,10 +70,10 @@ class UserSetting extends Form
         $this->addElement([
             'plugin'  => 'radio',
             'name'    => 'register_notify',
-            'label'   => \App::text('core.register_notify'),
+            'label'   => app()->text('core.register_notify'),
             'options' => [
-                ['value' => 0, 'label' => \App::text('core.no')],
-                ['value' => 1, 'label' => \App::text('core.yes')],
+                ['value' => 0, 'label' => app()->text('core.no')],
+                ['value' => 1, 'label' => app()->text('core.yes')],
             ],
             'value'   => 1,
         ]);
@@ -82,7 +82,7 @@ class UserSetting extends Form
             'plugin' => 'submit',
             'name'   => '_submit',
             'class'  => 'btn btn-primary',
-            'label'  => \App::text('core.save_changes')
+            'label'  => app()->text('core.save_changes')
         ]);
     }
 }

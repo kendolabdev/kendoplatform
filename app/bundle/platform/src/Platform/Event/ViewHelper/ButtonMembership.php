@@ -20,18 +20,18 @@ class ButtonMembership
     function __invoke($item, $membership = null)
     {
         if (!$item instanceof Event) return '';
-        if (!\App::authService()->isUser()) return '';
+        if (!app()->auth()->isUser()) return '';
         // TODO: Implement __invoke() method.
 
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
         if (!$viewer instanceof PosterInterface) return '';
 
         if (null === $membership) {
-            $membership = \App::groupService()->membership()->getMembershipStatus($viewer, $item);
+            $membership = app()->groupService()->membership()->getMembershipStatus($viewer, $item);
         }
 
-        return \App::viewHelper()->partial('platform/event/partial/button-membership', [
+        return app()->viewHelper()->partial('platform/event/partial/button-membership', [
             'item'       => $item,
             'membership' => $membership,
         ]);

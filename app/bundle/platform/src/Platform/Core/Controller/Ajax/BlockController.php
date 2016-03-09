@@ -21,11 +21,11 @@ class BlockController extends AjaxController
 
         list($type, $id, $ctx) = $this->request->getList('type', 'id', 'ctx');
 
-        $object = \App::find($type, $id);
+        $object = app()->find($type, $id);
 
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
-        $blockService = \App::instance()->make('platform_core_block');
+        $blockService = app()->instance()->make('platform_core_block');
 
         if (!$blockService instanceof BlockService) ;
 
@@ -36,7 +36,7 @@ class BlockController extends AjaxController
 
         $result = $blockService->toggle($viewer, $object);
 
-        $this->response['html'] = \App::viewHelper()->btnBlock($object, $result, $ctx);
+        $this->response['html'] = app()->viewHelper()->btnBlock($object, $result, $ctx);
     }
 
     /**
@@ -45,11 +45,11 @@ class BlockController extends AjaxController
     public function actionAdd()
     {
 
-        $object = \App::find($this->request->getString('type'), $this->request->getInt('id'));
+        $object = app()->find($this->request->getString('type'), $this->request->getInt('id'));
 
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
-        $blockService = \App::instance()->make('platform_core_block');
+        $blockService = app()->instance()->make('platform_core_block');
 
         if (!$blockService instanceof BlockService) ;
 
@@ -63,11 +63,11 @@ class BlockController extends AjaxController
 
     public function actionRemove()
     {
-        $object = \App::find($this->request->getString('type'), $this->request->getInt('id'));
+        $object = app()->find($this->request->getString('type'), $this->request->getInt('id'));
 
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
-        $blockService = \App::instance()->make('platform_core_block');
+        $blockService = app()->instance()->make('platform_core_block');
 
         if (!$blockService instanceof BlockService) ;
 

@@ -41,7 +41,7 @@ class DefaultController implements ControllerInterface
      */
     protected function init()
     {
-        \App::layouts()
+        app()->layouts()
             ->setPageName($this->request->getFullControllerName());
     }
 
@@ -85,7 +85,7 @@ class DefaultController implements ControllerInterface
      */
     public function prepareRenderByContentLayoutParams()
     {
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams();
 
         $this->view->setScript($lp);
@@ -167,10 +167,10 @@ class DefaultController implements ControllerInterface
      */
     protected function passNetworkBrowseMode()
     {
-        if (\App::authService()->logged())
+        if (app()->auth()->logged())
             return true;
 
-        return \App::setting('core', 'network_mode') ? false : true;
+        return app()->setting('core', 'network_mode') ? false : true;
     }
 
     /**
@@ -178,10 +178,10 @@ class DefaultController implements ControllerInterface
      */
     protected function passMaintenanceMode()
     {
-        if (!\App::setting('core', 'maintenance'))
+        if (!app()->setting('core', 'maintenance'))
             return true;
 
-        if (!empty($_SESSION['maintenance']) and $_SESSION['maintenance'] == \App::setting('core', 'maintenance_code'))
+        if (!empty($_SESSION['maintenance']) and $_SESSION['maintenance'] == app()->setting('core', 'maintenance_code'))
             return true;
 
         return false;

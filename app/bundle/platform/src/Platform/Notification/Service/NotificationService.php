@@ -2,7 +2,7 @@
 
 namespace Platform\Notification\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Feed\Model\Feed;
 use Platform\Notification\Model\Notification;
 use Platform\Notification\Model\NotificationSubscribe;
@@ -15,7 +15,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Platform\Notification\Service
  */
-class NotificationService extends KernelServiceAgreement
+class NotificationService extends KernelService
 {
 
     /**
@@ -23,10 +23,10 @@ class NotificationService extends KernelServiceAgreement
      */
     public function getAllType()
     {
-        return \App::table('platform_notification_type')
+        return app()->table('platform_notification_type')
             ->select()
             ->where('user_edit=?', 1)
-            ->where('module_name IN ?', \App::packages()->getActiveModules())
+            ->where('module_name IN ?', app()->packages()->getActiveModules())
             ->all();
     }
 
@@ -37,7 +37,7 @@ class NotificationService extends KernelServiceAgreement
      */
     public function findNotificationTypeById($id)
     {
-        return \App::table('platform_notification_type')
+        return app()->table('platform_notification_type')
             ->findById($id);
     }
 
@@ -51,9 +51,9 @@ class NotificationService extends KernelServiceAgreement
      */
     public function loadAdminNotificationTypePaging($query = [], $page = 1, $limit = 100)
     {
-        $select = \App::table('platform_notification_type')
+        $select = app()->table('platform_notification_type')
             ->select()
-            ->where('module_name IN ?', \App::packages()->getActiveModules());
+            ->where('module_name IN ?', app()->packages()->getActiveModules());
 
         if (!empty($query)) ; // skip this params
 
@@ -65,10 +65,10 @@ class NotificationService extends KernelServiceAgreement
      */
     public function getListType()
     {
-        return \App::table('platform_notification_type')
+        return app()->table('platform_notification_type')
             ->select()
             ->where('user_edit=?', 1)
-            ->where('module_name IN ?', \App::packages()->getActiveModules())
+            ->where('module_name IN ?', app()->packages()->getActiveModules())
             ->all();
     }
 
@@ -79,10 +79,10 @@ class NotificationService extends KernelServiceAgreement
      */
     public function getListTypeByGroup($group)
     {
-        return \App::table('platform_notification_type')
+        return app()->table('platform_notification_type')
             ->select()
             ->where('user_edit=?', 1)
-            ->where('module_name IN ?', \App::packages()->getActiveModules())
+            ->where('module_name IN ?', app()->packages()->getActiveModules())
             ->where('notification_group=?', $group)
             ->all();
 
@@ -93,7 +93,7 @@ class NotificationService extends KernelServiceAgreement
      */
     public function getListTypeGroup()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get([], 0, function () {
                 return $this->_getListTypeGroup();
             });
@@ -104,10 +104,10 @@ class NotificationService extends KernelServiceAgreement
      */
     public function _getListTypeGroup()
     {
-        return \App::table('platform_notification_type')
+        return app()->table('platform_notification_type')
             ->select()
             ->where('user_edit=?', 1)
-            ->where('module_name IN ?', \App::packages()->getActiveModules())
+            ->where('module_name IN ?', app()->packages()->getActiveModules())
             ->order('n1 ', 1)
             ->columns('distinct(notification_group) as n1')
             ->fields('n1');
@@ -122,7 +122,7 @@ class NotificationService extends KernelServiceAgreement
      */
     public function findSubscribe(PosterInterface $poster, $about)
     {
-        return \App::table('platform_notification_subscribe')
+        return app()->table('platform_notification_subscribe')
             ->select()
             ->where('about_id=?', $about->getId())
             ->where('poster_id=?', $poster->getId())
@@ -181,12 +181,12 @@ class NotificationService extends KernelServiceAgreement
      */
     public function removeAllByAbout($about)
     {
-        \App::table('platform_notification')
+        app()->table('platform_notification')
             ->delete()
             ->where('about_id=?', $about->getId())
             ->execute();
 
-        \App::table('notification.subscribe')
+        app()->table('notification.subscribe')
             ->delete()
             ->where('about_id=?', $about->getId())
             ->execute();
@@ -197,12 +197,12 @@ class NotificationService extends KernelServiceAgreement
      */
     public function removeAllByPoster($poster)
     {
-        \App::table('platform_notification_subscribe')
+        app()->table('platform_notification_subscribe')
             ->delete()
             ->where('poster_id=?', $poster->getId())
             ->execute();
 
-        \App::table('platform_notification')
+        app()->table('platform_notification')
             ->delete()
             ->where('poster_id=?', $poster->getId())
             ->orWhere('user_id=?', $poster->getId())
@@ -258,7 +258,7 @@ class NotificationService extends KernelServiceAgreement
      */
     public function loadNotificationPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('platform_notification')->select();
+        $select = app()->table('platform_notification')->select();
 
         $isValid = true;
 
@@ -273,7 +273,7 @@ class NotificationService extends KernelServiceAgreement
         }
 
         if (!$isValid)
-            $select->where('parent_id=?', (string)\App::authService()->getId());
+            $select->where('parent_id=?', (string)app()->auth()->getId());
 
 
         return $select->paging($page, $limit);
@@ -288,13 +288,13 @@ class NotificationService extends KernelServiceAgreement
     public function getUnreadNotificationCount(PosterInterface $parent = null)
     {
         if (null == $parent)
-            $parent = \App::authService()->getViewer();
+            $parent = app()->auth()->getViewer();
 
 
         if (!$parent instanceof PosterInterface)
             return 0;
 
-        return \App::table('platform_notification')
+        return app()->table('platform_notification')
             ->select()
             ->where('parent_id=?', (string)$parent->getId())
             ->where('`read`=?', '0')
@@ -309,13 +309,13 @@ class NotificationService extends KernelServiceAgreement
     public function getUnmitigatedNotificationCount(PosterInterface $parent = null)
     {
         if (null == $parent)
-            $parent = \App::authService()->getViewer();
+            $parent = app()->auth()->getViewer();
 
 
         if (!$parent instanceof PosterInterface)
             return 0;
 
-        return \App::table('platform_notification')
+        return app()->table('platform_notification')
             ->select()
             ->where('parent_id=?', (string)$parent->getId())
             ->where('`mitigated`=?', '0')
@@ -328,14 +328,14 @@ class NotificationService extends KernelServiceAgreement
     public function clearMitigatedNotificationState(PosterInterface $parent = null)
     {
         if (null == $parent)
-            $parent = \App::authService()->getViewer();
+            $parent = app()->auth()->getViewer();
 
 
         if (!$parent instanceof PosterInterface)
             throw new AuthorizationRestrictException();
 
 
-        \App::table('platform_notification')
+        app()->table('platform_notification')
             ->update(['mitigated' => 1])
             ->where('parent_id=?', $parent->getId())
             ->execute();
@@ -397,7 +397,7 @@ class NotificationService extends KernelServiceAgreement
      */
     public function removeNotification($type, PosterInterface $poster, PosterInterface $parent)
     {
-        \App::table('platform_notification')
+        app()->table('platform_notification')
             ->delete()
             ->where('poster_id=?', $poster->getId())
             ->where('parent_id=?', $parent->getId())
@@ -444,7 +444,7 @@ class NotificationService extends KernelServiceAgreement
      */
     public function getListSubscriber($about, $limit = 100, $offset = 0)
     {
-        return \App::table('platform_notification_subscribe')
+        return app()->table('platform_notification_subscribe')
             ->select()
             ->where('about_id=?', $about->getId())
             ->limit($limit, $offset)
@@ -490,7 +490,7 @@ class NotificationService extends KernelServiceAgreement
      */
     public function getListTypeByModuleName($moduleList)
     {
-        return \App::table('platform_notification_type')
+        return app()->table('platform_notification_type')
             ->select()
             ->where('module_name IN ?', $moduleList)
             ->toAssocs();

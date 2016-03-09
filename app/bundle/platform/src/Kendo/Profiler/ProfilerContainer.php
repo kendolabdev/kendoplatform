@@ -2,14 +2,14 @@
 
 namespace Kendo\Profiler;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class ProfilerrContainer
  *
  * @package Kendo\Profiller
  */
-class ProfilerContainer extends KernelServiceAgreement
+class ProfilerContainer extends KernelService
 {
     /**
      * Contain data

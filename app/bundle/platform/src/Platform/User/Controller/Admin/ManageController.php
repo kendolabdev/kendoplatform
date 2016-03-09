@@ -14,17 +14,12 @@ use Platform\User\Form\Admin\FilterUser;
 class ManageController extends AdminController
 {
 
-    protected function init()
-    {
-        parent::init();
-    }
-
     public function actionBrowse()
     {
 
         $filter = new FilterUser();
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('user.manage_members')
             ->setPageFilter($filter)
@@ -41,7 +36,7 @@ class ManageController extends AdminController
          */
         $query = $filter->getData();
 
-        $paging = \App::userService()
+        $paging = app()->user()
             ->loadAdminUserPaging($query, $page);
 
         $lp = new BlockParams([

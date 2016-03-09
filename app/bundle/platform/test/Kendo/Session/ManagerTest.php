@@ -39,7 +39,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSessionHandler($sessionName)
     {
-        \App::registryService()->set('SessionHandler', $sessionName);
+        app()->registryService()->set('SessionHandler', $sessionName);
 
         $id = 'unitest2';
 
@@ -58,7 +58,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     public function testInvalidSaveHandler()
     {
 
-        \App::registryService()->set('SessionHandler', 'NoClass');
+        app()->registryService()->set('SessionHandler', 'NoClass');
         ($manager = new Manager());
     }
 
@@ -68,7 +68,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     public function testInvalidSaveHandler2()
     {
 
-        \App::registryService()->set('SessionHandler', 'StdClass');
+        app()->registryService()->set('SessionHandler', 'StdClass');
         ($manager = new Manager());
     }
 }

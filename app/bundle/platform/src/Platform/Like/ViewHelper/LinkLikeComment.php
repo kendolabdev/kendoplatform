@@ -18,13 +18,13 @@ class LinkLikeComment
      */
     function __invoke($item, $isLiked = null)
     {
-        if ($isLiked === null && \App::authService()->logged()) {
-            $isLiked = \App::likeService()->isLiked(\App::authService()->getViewer(), $item);
+        if ($isLiked === null && app()->auth()->logged()) {
+            $isLiked = app()->likeService()->isLiked(app()->auth()->getViewer(), $item);
         }
 
         return strtr('<a role="button" data-toggle="like-comment-toggle" data-object=\':obj\'>:text</a>', [
             ':obj'  => $item->toTokenJson(),
-            ':text' => $isLiked ? \App::text('core.unlike') : \App::text('core.like'),
+            ':text' => $isLiked ? app()->text('core.unlike') : app()->text('core.like'),
         ]);
     }
 }

@@ -29,10 +29,10 @@ class AvatarController extends AjaxController
         ];
 
         if (!empty($type) && !empty($id)) {
-            $photo = \App::find($type, $id);
+            $photo = app()->find($type, $id);
 
             if (!$photo instanceof Photo)
-                throw new \InvalidArgumentException(\App::text('photo.invalid_photo'));
+                throw new \InvalidArgumentException(app()->text('photo.invalid_photo'));
         }
 
         if ($photo) {
@@ -70,37 +70,37 @@ class AvatarController extends AjaxController
         ];
 
         $photo = null;
-        $poster = \App::authService()->getViewer();
-        $parent = \App::authService()->getViewer();
-        $album = \App::photoService()->getSingletonAlbum($parent);
+        $poster = app()->auth()->getViewer();
+        $parent = app()->auth()->getViewer();
+        $album = app()->photoService()->getSingletonAlbum($parent);
 
         if (!empty($cropit['photoId'])) {
-            $photo = \App::find('photo', $cropit['photoId']);
+            $photo = app()->find('photo', $cropit['photoId']);
         } else if (!empty($cropit['tempId'])) {
 
             $photoTemp = $cropit['tempId'];
 
-            $fileId = \App::photoService()->processSinglePhotoUploadFromTemporary($photoTemp);
+            $fileId = app()->photoService()->processSinglePhotoUploadFromTemporary($photoTemp);
 
             $addParams = array_merge([], ['type' => 1, 'value' => 1]);
 
-            $photo = \App::photoService()->addPhoto($fileId, $poster, $parent, $album, $addParams);
+            $photo = app()->photoService()->addPhoto($fileId, $poster, $parent, $album, $addParams);
         }
 
         if (!$photo instanceof Photo)
-            throw new \InvalidArgumentException(\App::text('photo.can_not_update_avatar'));
+            throw new \InvalidArgumentException(app()->text('photo.can_not_update_avatar'));
 
-        $response = \App::photoService()->processAvatar($parent, $photo->getPhotoFileId(), $options);
+        $response = app()->photoService()->processAvatar($parent, $photo->getPhotoFileId(), $options);
 
         if (empty($response))
-            throw new \InvalidArgumentException(\App::text('photo.can_not_update_avatar'));
+            throw new \InvalidArgumentException(app()->text('photo.can_not_update_avatar'));
 
         if ($poster instanceof ContentInterface) {
             $poster->setPhotoFileId($photo->getPhotoFileId());
             $poster->save();
         }
 
-        $html = \App::storageService()->getUrlByOriginAndMaker($photo->getPhotoFileId(), 'avatar_md');
+        $html = app()->storageService()->getUrlByOriginAndMaker($photo->getPhotoFileId(), 'avatar_md');
 
         $this->response = [
             'html'      => $html,

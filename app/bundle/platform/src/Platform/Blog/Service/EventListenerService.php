@@ -7,7 +7,7 @@ use Kendo\Hook\EventListener;
 use Kendo\Content\PosterInterface;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\View;
 
 /**
@@ -108,7 +108,7 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemBlogs($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         if (!$profile instanceof PosterInterface)
             return false;
@@ -116,10 +116,10 @@ class EventListenerService extends EventListener
         if (!$profile->authorize('blog__blog_tab_exists'))
             return false;
 
-        if (!\App::aclService()->pass($profile, 'blog__blog_tab_view'))
+        if (!app()->aclService()->pass($profile, 'blog__blog_tab_view'))
             return false;
 
-        $item['href'] = $profile->toHref(['stuff' => 'blogs']);
+        $item['href'] = $profile->toHref(['any' => 'blogs']);
 
         return $item;
     }
@@ -137,8 +137,8 @@ class EventListenerService extends EventListener
         $stats = $payload->__get('stats');
 
         $stats['blog'] = [
-            'label' => \App::text('blog.blogs'),
-            'value' => \App::blogService()->getActiveBlogCount(),
+            'label' => app()->text('blog.blogs'),
+            'value' => app()->blogService()->getActiveBlogCount(),
         ];
 
         $payload->__set('stats', $stats);

@@ -1,13 +1,13 @@
 <?php
 namespace Platform\Captcha\Service;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class CaptchaService
  *
  * @package Captcha\Service
  */
-class CaptchaService extends KernelServiceAgreement
+class CaptchaService extends KernelService
 {
 
     /**
@@ -19,7 +19,7 @@ class CaptchaService extends KernelServiceAgreement
      */
     public function loadAdminAdapterPaging($query = [], $page = 1, $limit = 100)
     {
-        $select = \App::table('platform_captcha_adapter')
+        $select = app()->table('platform_captcha_adapter')
             ->select();
 
         if (!empty($query)) ;

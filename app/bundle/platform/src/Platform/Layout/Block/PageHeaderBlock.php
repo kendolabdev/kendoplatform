@@ -16,23 +16,23 @@ class PageHeaderBlock extends BlockController
      */
     public function execute()
     {
-        $nav = \App::layouts()
+        $nav = app()->layouts()
             ->getSecondaryNavigation();
 
-        $title = \App::layouts()
+        $title = app()->layouts()
             ->getPageTitle();
 
-        $note = \App::layouts()
+        $note = app()->layouts()
             ->getPageNote();
 
-        $filter = \App::layouts()
+        $filter = app()->layouts()
             ->getPageFilter();
 
         if (empty($title)) {
             $this->setNoRender(true);
         }
 
-        $buttons = \App::layouts()->getPageButtons();
+        $buttons = app()->layouts()->getPageButtons();
 
         $this->view->assign([
             'buttons'  => $buttons,

@@ -23,7 +23,7 @@ class UserProfileInfoBlock extends BlockController
     public function execute()
     {
         $this->view->assign([
-            'profile' => \App::registryService()->get('profile'),
+            'profile' => app()->registryService()->get('profile'),
         ]);
     }
 }

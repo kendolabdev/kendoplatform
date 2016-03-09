@@ -22,15 +22,15 @@ class FollowController extends AjaxController
         $id = $this->request->getInt('id');
         $ctx = $this->request->getString('ctx', 'label');
 
-        $object = \App::find($type, $id);
+        $object = app()->find($type, $id);
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         if (!$object instanceof PosterInterface) ;
 
-        \App::followService()->toggle($poster, $object);
+        app()->followService()->toggle($poster, $object);
 
-        $this->response['html'] = \App::viewHelper()->btnFollow($object, null, $ctx);
+        $this->response['html'] = app()->viewHelper()->btnFollow($object, null, $ctx);
     }
 
     /**
@@ -40,11 +40,11 @@ class FollowController extends AjaxController
     {
         list($type, $id) = $this->request->getList('type', 'id');
 
-        $item = \App::find($type, $id);
+        $item = app()->find($type, $id);
 
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
-        $followService = \App::followService();
+        $followService = app()->followService();
 
         if ($item instanceof PosterInterface) {
             $poster = $item;
@@ -61,16 +61,16 @@ class FollowController extends AjaxController
         if ($item instanceof Feed) {
             $script = 'platform/follow/partial/toggle-follow-feed';
             if ($following) {
-                $vars['followLabel'] = \App::text('core.unfollow_$poster', ['$poster' => substr($poster->getTitle(), 0, 15)]);
+                $vars['followLabel'] = app()->text('core.unfollow_$poster', ['$poster' => substr($poster->getTitle(), 0, 15)]);
             } else {
-                $vars['followLabel'] = \App::text('core.follow_$poster', ['$poster' => substr($poster->getTitle(), 0, 15)]);
+                $vars['followLabel'] = app()->text('core.follow_$poster', ['$poster' => substr($poster->getTitle(), 0, 15)]);
             }
         } else {
             $script = 'platform/follow/partial/toggle-follow';
             if ($following) {
-                $vars['followLabel'] = \App::text('core.following');
+                $vars['followLabel'] = app()->text('core.following');
             } else {
-                $vars['followLabel'] = \App::text('core.follow');
+                $vars['followLabel'] = app()->text('core.follow');
             }
         }
 
@@ -84,17 +84,17 @@ class FollowController extends AjaxController
      */
     public function actionRemove()
     {
-        $object = \App::find($this->request->getString('type'), $this->request->getInt('id'));
+        $object = app()->find($this->request->getString('type'), $this->request->getInt('id'));
 
-        $followService = \App::followService();
+        $followService = app()->followService();
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         if (!$object instanceof PosterInterface) ;
 
         $followService->remove($poster, $object);
 
-        $this->response['label'] = \App::text('core.follow');
+        $this->response['label'] = app()->text('core.follow');
     }
 
     /**
@@ -102,17 +102,17 @@ class FollowController extends AjaxController
      */
     public function actionAdd()
     {
-        $object = \App::find($this->request->getString('type'), $this->request->getInt('id'));
+        $object = app()->find($this->request->getString('type'), $this->request->getInt('id'));
 
-        $followService = \App::followService();
+        $followService = app()->followService();
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         if (!$object instanceof PosterInterface) ;
 
         $followService->add($poster, $object);
 
-        $this->response['label'] = \App::text('core.unfollow');
+        $this->response['label'] = app()->text('core.unfollow');
     }
 
 }

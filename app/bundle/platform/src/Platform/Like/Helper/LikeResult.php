@@ -146,7 +146,7 @@ class LikeResult
         $posters = implode(', ', $arr1);
         $prop = sprintf('data-toggle="hyves" role="button" data-remote="ajax/like/like/liked-this?id=%s&type=%s"', $about->getId(), $about->getType());
 
-        return \App::text($context, [
+        return app()->text($context, [
             '$sample' => $posters,
             '$count'  => $remain,
             '$prop'   => $prop,

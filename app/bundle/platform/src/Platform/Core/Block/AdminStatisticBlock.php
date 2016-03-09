@@ -32,7 +32,7 @@ class AdminStatisticBlock extends BlockController
 
         $this->view->assign(['stats' => []]);
 
-        \App::emitter()
+        app()->emitter()
             ->emit('onAdminStatisticBlockRender', $this->view);
 
     }

@@ -1,14 +1,14 @@
 <?php
 namespace Kendo\Package;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class PackageManager
  *
  * @package Kendo\Package
  */
-class PackageManager extends KernelServiceAgreement
+class PackageManager extends KernelService
 {
 
     /**
@@ -76,7 +76,7 @@ class PackageManager extends KernelServiceAgreement
 
     public function bound()
     {
-        $this->activeModules = \App::cacheService()
+        $this->activeModules = app()->cacheService()
             ->get(['kendo_packake_manager', 'get_active_modules'], 0, function () {
                 return $this->app->table('platform_core_extension')
                     ->select()
@@ -85,7 +85,7 @@ class PackageManager extends KernelServiceAgreement
                     ->fields('name');
             });
 
-        $this->activeThemes = \App::cacheService()
+        $this->activeThemes = app()->cacheService()
             ->get(['kendo_packake_manager', 'get_active_themes'], 0, function () {
                 return $this->app->table('platform_core_extension')
                     ->select()

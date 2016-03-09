@@ -21,14 +21,14 @@ class ButtonFollow
     function __invoke($item, $following = null, $ctx = 'btn')
     {
         if (!$item instanceof PosterInterface) return '';
-        if (!\App::authService()->logged()) return '';
-        if (!\App::aclService()->pass($item, 'activity.follow')) return '';
-        if (\App::authService()->getId() == $item->getId()) return '';
+        if (!app()->auth()->logged()) return '';
+        if (!app()->aclService()->pass($item, 'activity.follow')) return '';
+        if (app()->auth()->getId() == $item->getId()) return '';
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         if (null === $following) {
-            $following = \App::followService()->getFollowStatus($poster, $item->getId());
+            $following = app()->followService()->getFollowStatus($poster, $item->getId());
         }
 
         $script = 'platform/follow/partial/button-follow';
@@ -36,7 +36,7 @@ class ButtonFollow
         if ($ctx == 'menu')
             $script = 'platform/follow/partial/menu-item-follow';
 
-        return \App::viewHelper()->partial($script, [
+        return app()->viewHelper()->partial($script, [
             'item'      => $item,
             'following' => $following,
             'attrs'     => ['id' => $item->getId(), 'type' => $item->getType()],

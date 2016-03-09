@@ -24,55 +24,51 @@ class LayoutBlockDecoratorTable extends DbTable
      * @see `picaso_platform_layout_block_decorator`
      * @var string
      */
-    protected $class = '\Platform\Layout\Model\LayoutBlockDecorator';
+    protected $class =  '\Platform\Layout\Model\LayoutBlockDecorator';
 
     /**
      * @var string
      */
-    protected $name = 'platform_layout_block_decorator';
+    protected $name =  'platform_layout_block_decorator';
 
     /**
      * @var array
      */
-    protected $column = [
-        'id'              => 1,
-        'name'            => 1,
-        'form_class'      => 1,
-        'decorator_class' => 1];
+    protected $column = array(
+		'id'=>1,
+		'name'=>1,
+		'form_class'=>1,
+		'decorator_class'=>1);
 
     /**
      * @var array
      */
-    protected $primary = ['id' => 1];
+    protected $primary = array( 'id'=>1);
 
     /**
      * @var string
      */
     protected $identity = '';
 
-
+    
     /**
      * @param  string|int $value
-     *
      * @return \Platform\Layout\Model\LayoutBlockDecorator
      */
-    public function findById($value)
-    {
-        return $this->select()
-            ->where('id=?', $value)
-            ->one();
+    public function findById($value){
+       return $this->select()
+           ->where('id=?', $value)
+           ->one();
     }
 
     /**
      * @param  array $value
-     *
      * @return array
      */
-    public function findByIdList($value)
-    {
-        return $this->select()
-            ->where('id IN ?', $value)
-            ->all();
+    public function findByIdList($value){
+       return $this->select()
+           ->where('id IN ?', $value)
+           ->all();
     }
 
     //END_TABLE_GENERATOR

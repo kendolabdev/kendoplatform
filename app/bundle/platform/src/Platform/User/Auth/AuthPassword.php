@@ -45,7 +45,7 @@ class AuthPassword implements AuthInterface
             return new AuthResult(AuthResult::EMPTY_CREDENTICAL);
         }
 
-        $user = \App::table('platform_user')
+        $user = app()->table('platform_user')
             ->select()
             ->where('profile_name=?', $identity)
             ->orWhere('email=?', $identity)
@@ -57,9 +57,9 @@ class AuthPassword implements AuthInterface
 
         $userId = $user->getId();
 
-        $enctypes = \App::authService()->getSupportHashTypes();
+        $enctypes = app()->auth()->getSupportHashTypes();
 
-        $rows = \App::table('platform_user_auth_password')
+        $rows = app()->table('platform_user_auth_password')
             ->select()
             ->where('user_id=?', $userId)
             ->where('is_active=?', 1)
@@ -67,7 +67,7 @@ class AuthPassword implements AuthInterface
             ->toAssocs();
 
         foreach ($rows as $row) {
-            $hash = \App::authService()->getHashGenerator($row['enctype']);
+            $hash = app()->auth()->getHashGenerator($row['enctype']);
 
             if ($hash->getHash($credentital, $row['salt']) == $row['hash']) {
                 return new AuthResult(AuthResult::SUCCESS, $user);

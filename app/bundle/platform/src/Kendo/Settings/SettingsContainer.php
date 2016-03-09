@@ -2,14 +2,14 @@
 
 namespace Kendo\Settings;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class Manager
  *
  * @package Kendo\Setting
  */
-class SettingsContainer extends KernelServiceAgreement
+class SettingsContainer extends KernelService
 {
     /**
      * @var array
@@ -22,7 +22,7 @@ class SettingsContainer extends KernelServiceAgreement
     public function bound()
     {
 
-        $this->data = \App::cacheService()
+        $this->data = app()->cacheService()
             ->get(['setting', 'load'], 0, function () {
                 return $this->buildFromRepository();
             });
@@ -35,7 +35,7 @@ class SettingsContainer extends KernelServiceAgreement
     {
         $result = [];
 
-        $items = \App::table('platform_setting')
+        $items = app()->table('platform_setting')
             ->select('c')
             ->join(":platform_setting_action", 'a', 'a.action_id=c.action_id', null, null)
             ->columns('c.value_text, a.*')

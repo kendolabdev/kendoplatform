@@ -19,7 +19,7 @@ class LinkComment
     {
         return strtr('<a role="button" data-toggle="btn-comment" data-object=\':obj\'>:text</a>', [
             ':obj'  => $item->toTokenJson(),
-            ':text' => \App::text('core.comment'),
+            ':text' => app()->text('core.comment'),
         ]);
     }
 }

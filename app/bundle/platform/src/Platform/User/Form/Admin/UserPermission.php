@@ -25,18 +25,18 @@ class UserPermission extends BasePermission
 
         $role = $this->getRole();
 
-        \App::emitter()
+        app()->emitter()
             ->emit('onBeforeInitUserPermissionForm', $this);
 
         /**
          * Add privacy options
          */
         if (!$role->isGuest() && $role->getModuleName() == 'user') {
-            $relationTypes = \App::relationService()->getAllSystemRelationType('user');
+            $relationTypes = app()->relation()->getAllSystemRelationType('user');
 
             $privacyOptions = [
-                ['value' => RELATION_TYPE_ANYONE, 'label' => \App::text('core.public'),],
-                ['value' => RELATION_TYPE_REGISTERED, 'label' => \App::text('core.registered')],
+                ['value' => RELATION_TYPE_ANYONE, 'label' => app()->text('core.public'),],
+                ['value' => RELATION_TYPE_REGISTERED, 'label' => app()->text('core.registered')],
             ];
 
             foreach ($relationTypes as $type) {
@@ -164,7 +164,7 @@ class UserPermission extends BasePermission
                 'value'    => 5,
             ]);
 
-        \App::emitter()
+        app()->emitter()
             ->emit('onAfterInitUserPermissionForm', $this);
     }
 }

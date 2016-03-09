@@ -22,7 +22,7 @@ class ButtonUpdateCover
     {
         if (!$item instanceof AtomInterface) return '';
         if (!$item instanceof PosterInterface) return '';
-        if (!\App::authService()->logged()) return '';
+        if (!app()->auth()->logged()) return '';
         if (!$item->viewerIsParent()) return '';
 
         switch ($type) {
@@ -34,7 +34,7 @@ class ButtonUpdateCover
                 $script = 'platform/photo/partial/button-updatecover';
         }
 
-        return \App::viewHelper()->partial($script, [
+        return app()->viewHelper()->partial($script, [
             'dataSubject' => $item->toSimpleAttrs(),
         ]);
     }

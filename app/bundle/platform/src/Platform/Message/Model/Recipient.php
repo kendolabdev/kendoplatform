@@ -162,7 +162,7 @@ class Recipient extends Model
      */
     public function table()
     {
-        return \App::table('platform_message_recipient');
+        return app()->table('platform_message_recipient');
     }
     //END_TABLE_GENERATOR
 }

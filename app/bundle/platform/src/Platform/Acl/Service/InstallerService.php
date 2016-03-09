@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Acl\Service;
 
-use Kendo\Kernel\ServiceInterface;
+use Kendo\Kernel\KernelServiceInterface;
 use Kendo\Package\ModuleInstaller;
 
 /**

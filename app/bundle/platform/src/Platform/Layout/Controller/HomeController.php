@@ -17,10 +17,10 @@ class HomeController extends DefaultController
     {
         if ($this->request->isMethod('post')&& !empty($_POST['theme_id'])) {
             @setcookie('themeId', $_POST['theme_id'], time() + 365 * 86400, '/');
-            \App::routing()->redirect('home');
+            app()->routing()->redirect('home');
         }
 
-        $paging = \App::table('platform_layout_theme')
+        $paging = app()->table('platform_layout_theme')
             ->select()
             ->where('is_active=?', 1)
             ->paging(1, 100);

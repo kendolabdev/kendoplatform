@@ -22,7 +22,7 @@ class Conversation extends Model
      */
     public function getOtherRecipients()
     {
-        return \App::messageService()->getOtherRecipients($this->getConversationId());
+        return app()->messageService()->getOtherRecipients($this->getConversationId());
     }
 
     //START_TABLE_GENERATOR
@@ -145,7 +145,7 @@ class Conversation extends Model
      */
     public function table()
     {
-        return \App::table('platform_message_conversation');
+        return app()->table('platform_message_conversation');
     }
     //END_TABLE_GENERATOR
 }

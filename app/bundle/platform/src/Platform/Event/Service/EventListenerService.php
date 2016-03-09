@@ -6,7 +6,7 @@ use Kendo\Assets\Requirejs;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
 use Kendo\Http\FilterStuff;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\View;
 use Kendo\View\ViewHelper;
 use Platform\User\Model\User;
@@ -136,7 +136,7 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemEvents($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         if (!$profile instanceof User)
             return false;
@@ -145,10 +145,10 @@ class EventListenerService extends EventListener
             return false;
 
 
-        if (!\App::aclService()->pass($profile, 'event__event_tab_view'))
+        if (!app()->aclService()->pass($profile, 'event__event_tab_view'))
             return false;
 
-        $item['href'] = $profile->toHref(['stuff' => 'events']);
+        $item['href'] = $profile->toHref(['any' => 'events']);
 
         return $item;
     }
@@ -165,8 +165,8 @@ class EventListenerService extends EventListener
         $stats = $payload->__get('stats');
 
         $stats['event'] = [
-            'label' => \App::text('event.events'),
-            'value' => \App::eventService()->getEventCount(),
+            'label' => app()->text('event.events'),
+            'value' => app()->eventService()->getEventCount(),
         ];
 
         $payload->__set('stats', $stats);

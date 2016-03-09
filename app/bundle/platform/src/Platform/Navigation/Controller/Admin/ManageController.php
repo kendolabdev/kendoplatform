@@ -17,9 +17,9 @@ class ManageController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layouts()->setPageName('admin_simple');
+        app()->layouts()->setPageName('admin_simple');
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('core.manage_navigations')
             ->setupSecondaryNavigation('admin', 'admin_navigation', 'navigation');
@@ -34,7 +34,7 @@ class ManageController extends AdminController
         $page = 1;
         $limit = 100;
 
-        $paging = \App::navigation()
+        $paging = app()->navigation()
             ->loadAdminNavigationPaging($query, $page, $limit);
 
         $lp = new BlockParams([
@@ -56,8 +56,8 @@ class ManageController extends AdminController
      */
     public function actionEdit()
     {
-        \App::assetService()
-            ->setTitle(\App::text('core_layout.edit_menu'));
+        app()->assetService()
+            ->setTitle(app()->text('core_layout.edit_menu'));
 
         $lp = new BlockParams([
             'base_path' => 'platform/navigation/controller/admin/manage/edit-navigation',

@@ -2,7 +2,7 @@
 namespace Platform\Follow\Service;
 
 use Kendo\Http\FilterStuff;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Follow\Model\Follow;
 use Kendo\Hook\EventListener;
@@ -94,7 +94,7 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemFollowers($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         if (!$profile instanceof PosterInterface)
             return false;
@@ -102,10 +102,10 @@ class EventListenerService extends EventListener
         if (!$profile->authorize('activity__follower_tab_exists'))
             return false;
 
-        if (!\App::aclService()->pass($profile, 'activity__follower_tab_view'))
+        if (!app()->aclService()->pass($profile, 'activity__follower_tab_view'))
             return false;
 
-        $item['href'] = $profile->toHref(['stuff' => 'followers']);
+        $item['href'] = $profile->toHref(['any' => 'followers']);
 
         return $item;
     }
@@ -117,7 +117,7 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemFollowing($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         if (!$profile instanceof PosterInterface)
             return false;
@@ -125,13 +125,13 @@ class EventListenerService extends EventListener
         if (!$profile->authorize('activity__following_tab_exists'))
             return false;
 
-        if (!\App::aclService()->pass($profile, 'activity__following_tab_view'))
+        if (!app()->aclService()->pass($profile, 'activity__following_tab_view'))
             return false;
 
         if (!$profile->viewerIsParent())
             return false;
 
-        $item['href'] = $profile->toHref(['stuff' => 'following']);
+        $item['href'] = $profile->toHref(['any' => 'following']);
 
         return $item;
     }
@@ -155,7 +155,7 @@ class EventListenerService extends EventListener
 
         if (!$poster instanceof PosterInterface) return;
 
-        \App::notificationService()->notify('item_followed', $poster, $poster);
+        app()->notificationService()->notify('item_followed', $poster, $poster);
 
     }
 
@@ -185,13 +185,13 @@ class EventListenerService extends EventListener
 
         if (!$parent instanceof PosterInterface or !$poster instanceof PosterInterface) return;
 
-        \App::followService()->add($poster, $parent);
+        app()->followService()->add($poster, $parent);
 
         /**
          * 2 ways friends for required.
          */
         if ($parent instanceof User && $poster instanceof User) {
-            \App::followService()->add($parent, $poster);
+            app()->followService()->add($parent, $poster);
         }
     }
 }

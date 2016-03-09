@@ -19,7 +19,7 @@ class HomeController extends DefaultController
     {
         $filter = new FilterPage();
 
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('page_main', null, 'page_browse')
             ->setPageFilter($filter)
             ->setPageTitle('page.pages');
@@ -28,9 +28,9 @@ class HomeController extends DefaultController
 
         $query = [];
 
-        $paging = \App::pageService()->loadPagePaging($query, $page);
+        $paging = app()->pageService()->loadPagePaging($query, $page);
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
@@ -48,19 +48,19 @@ class HomeController extends DefaultController
      */
     public function actionMyPage()
     {
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('page_main', null, 'page_my')
             ->setPageTitle('page.pages');
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         $page = $this->request->getParam('page', 1);
 
         $query = ['posterId' => $poster->getId(), 'posterType' => $poster->getType()];
 
-        $paging = \App::pageService()->loadPagePaging($query, $page);
+        $paging = app()->pageService()->loadPagePaging($query, $page);
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
@@ -78,7 +78,7 @@ class HomeController extends DefaultController
      */
     public function actionCreatePage()
     {
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('page_main', null, 'page_my')
             ->setPageTitle('page.pages');
     }

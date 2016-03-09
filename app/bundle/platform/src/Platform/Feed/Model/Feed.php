@@ -39,7 +39,7 @@ class Feed extends Model implements UniqueId
 
         $this->save();
 
-        \App::table('platform_feed_stream')
+        app()->table('platform_feed_stream')
             ->update(['privacy_type' => $privacyType, 'privacy_value' => $privacyValue])
             ->where('feed_id=?', $this->getId())
             ->execute();
@@ -78,7 +78,7 @@ class Feed extends Model implements UniqueId
     {
         $msgId = 'feed_headline.' . $this->getFeedType();
 
-        return \App::twig()
+        return app()->twig()
             ->renderHeadline($msgId, ['feed'   => $this,
                                       'poster' => $this->getPoster(),
                                       'parent' => $this->getParent(),
@@ -94,7 +94,7 @@ class Feed extends Model implements UniqueId
     {
         $params['id'] = $this->getId();
 
-        return \App::routing()->getUrl('feed_view', $params);
+        return app()->routing()->getUrl('feed_view', $params);
     }
 
     /**
@@ -105,9 +105,9 @@ class Feed extends Model implements UniqueId
      */
     public function validate($willSilent = true, $willDelete = false)
     {
-        $parent = \App::find($this->getParentType(), $this->getParentId());
-        $poster = \App::find($this->getPosterType(), $this->getPosterId());
-        $about = \App::find($this->getAboutType(), $this->getAboutId());
+        $parent = app()->find($this->getParentType(), $this->getParentId());
+        $poster = app()->find($this->getPosterType(), $this->getPosterId());
+        $about = app()->find($this->getAboutType(), $this->getAboutId());
 
         if (empty($parent) || empty($poster) || empty($about)) {
             if ($willDelete) {
@@ -126,221 +126,194 @@ class Feed extends Model implements UniqueId
 
     //START_TABLE_GENERATOR
 
-
+    
     /**
      * @return null|string
      */
-    public function getId()
-    {
-        return $this->__get('feed_id');
+    public function getId(){
+       return $this->__get('feed_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value)
-    {
-        $this->__set('feed_id', $value);
+    public function setId($value){
+       $this->__set('feed_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getFeedId()
-    {
-        return $this->__get('feed_id');
+    public function getFeedId(){
+       return $this->__get('feed_id');
     }
 
     /**
      * @param $value
      */
-    public function setFeedId($value)
-    {
-        $this->__set('feed_id', $value);
+    public function setFeedId($value){
+       $this->__set('feed_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getFeedType()
-    {
-        return $this->__get('feed_type');
+    public function getFeedType(){
+       return $this->__get('feed_type');
     }
 
     /**
      * @param $value
      */
-    public function setFeedType($value)
-    {
-        $this->__set('feed_type', $value);
+    public function setFeedType($value){
+       $this->__set('feed_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPosterId()
-    {
-        return $this->__get('poster_id');
+    public function getPosterId(){
+       return $this->__get('poster_id');
     }
 
     /**
      * @param $value
      */
-    public function setPosterId($value)
-    {
-        $this->__set('poster_id', $value);
+    public function setPosterId($value){
+       $this->__set('poster_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPosterType()
-    {
-        return $this->__get('poster_type');
+    public function getPosterType(){
+       return $this->__get('poster_type');
     }
 
     /**
      * @param $value
      */
-    public function setPosterType($value)
-    {
-        $this->__set('poster_type', $value);
+    public function setPosterType($value){
+       $this->__set('poster_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentId()
-    {
-        return $this->__get('parent_id');
+    public function getParentId(){
+       return $this->__get('parent_id');
     }
 
     /**
      * @param $value
      */
-    public function setParentId($value)
-    {
-        $this->__set('parent_id', $value);
+    public function setParentId($value){
+       $this->__set('parent_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentType()
-    {
-        return $this->__get('parent_type');
+    public function getParentType(){
+       return $this->__get('parent_type');
     }
 
     /**
      * @param $value
      */
-    public function setParentType($value)
-    {
-        $this->__set('parent_type', $value);
+    public function setParentType($value){
+       $this->__set('parent_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getAboutId()
-    {
-        return $this->__get('about_id');
+    public function getAboutId(){
+       return $this->__get('about_id');
     }
 
     /**
      * @param $value
      */
-    public function setAboutId($value)
-    {
-        $this->__set('about_id', $value);
+    public function setAboutId($value){
+       $this->__set('about_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getAboutType()
-    {
-        return $this->__get('about_type');
+    public function getAboutType(){
+       return $this->__get('about_type');
     }
 
     /**
      * @param $value
      */
-    public function setAboutType($value)
-    {
-        $this->__set('about_type', $value);
+    public function setAboutType($value){
+       $this->__set('about_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPrivacyType()
-    {
-        return $this->__get('privacy_type');
+    public function getPrivacyType(){
+       return $this->__get('privacy_type');
     }
 
     /**
      * @param $value
      */
-    public function setPrivacyType($value)
-    {
-        $this->__set('privacy_type', $value);
+    public function setPrivacyType($value){
+       $this->__set('privacy_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPrivacyValue()
-    {
-        return $this->__get('privacy_value');
+    public function getPrivacyValue(){
+       return $this->__get('privacy_value');
     }
 
     /**
      * @param $value
      */
-    public function setPrivacyValue($value)
-    {
-        $this->__set('privacy_value', $value);
+    public function setPrivacyValue($value){
+       $this->__set('privacy_value', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParamsText()
-    {
-        return $this->__get('params_text');
+    public function getParamsText(){
+       return $this->__get('params_text');
     }
 
     /**
      * @param $value
      */
-    public function setParamsText($value)
-    {
-        $this->__set('params_text', $value);
+    public function setParamsText($value){
+       $this->__set('params_text', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCreatedAt()
-    {
-        return $this->__get('created_at');
+    public function getCreatedAt(){
+       return $this->__get('created_at');
     }
 
     /**
      * @param $value
      */
-    public function setCreatedAt($value)
-    {
-        $this->__set('created_at', $value);
+    public function setCreatedAt($value){
+       $this->__set('created_at', $value);
     }
 
     /**
      * @return \Platform\Feed\Model\FeedTable
      */
-    public function table()
-    {
-        return \App::table('platform_feed');
+    public function table(){
+        return app()->table('platform_feed');
     }
     //END_TABLE_GENERATOR
 }

@@ -86,7 +86,7 @@ class DbTable
      */
     public function getMaster()
     {
-        return \App::db()->getMaster($this->getDriver());
+        return app()->db()->getMaster($this->getDriver());
     }
 
     /**
@@ -102,7 +102,7 @@ class DbTable
      */
     public function getName()
     {
-        return \App::db()->getName($this->name);
+        return app()->db()->getName($this->name);
     }
 
     /**
@@ -257,7 +257,7 @@ class DbTable
      */
     public function getSlave()
     {
-        return \App::db()->getSlave($this->getDriver());
+        return app()->db()->getSlave($this->getDriver());
     }
 
     /**
@@ -341,7 +341,7 @@ class DbTable
          * how to process with hundred of thousand entry need to be delete?
          */
         foreach ($getTypeList() as $type) {
-            $table = \App::table($type);
+            $table = app()->table($type);
             $primary = $table->getPrimary();
             if (count($primary) > 0) continue;
             $primary = array_pop(array_keys($primary));

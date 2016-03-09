@@ -17,7 +17,7 @@ Trait TraitBasePoster
      */
     public function authorize($action, $defaultValue = true)
     {
-        return \App::aclService()->authorizeFor($this, $action, $defaultValue);
+        return app()->aclService()->authorizeFor($this, $action, $defaultValue);
     }
 
     /**
@@ -33,7 +33,7 @@ Trait TraitBasePoster
      */
     public function getCoverService()
     {
-        return \App::photoService();
+        return app()->photoService();
     }
 
     /**

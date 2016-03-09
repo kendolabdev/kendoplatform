@@ -13,7 +13,7 @@ class HookTest extends TestCase
 {
     public function testGeneral()
     {
-        $hookService = \App::coreService()
+        $hookService = app()->coreService()
             ->hook();
 
         $this->assertEquals($hookService->loadAllHooks(), $hookService->loadAllHookFromRepository());

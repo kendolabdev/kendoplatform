@@ -2,7 +2,7 @@
 
 namespace Platform\Comment\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Comment\Model\Comment;
 use Kendo\Content\AtomInterface;
 use Kendo\Content\PosterInterface;
@@ -12,7 +12,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Activity\Service
  */
-class CommentService extends KernelServiceAgreement
+class CommentService extends KernelService
 {
 
 
@@ -21,7 +21,7 @@ class CommentService extends KernelServiceAgreement
      */
     public function getAdminStatisticCount()
     {
-        return \App::table('platform_comment')
+        return app()->table('platform_comment')
             ->select()
             ->count();
     }
@@ -33,7 +33,7 @@ class CommentService extends KernelServiceAgreement
      */
     public function findComment($commentId)
     {
-        return \App::table('platform_comment')
+        return app()->table('platform_comment')
             ->select()
             ->where('comment_id=?', $commentId)
             ->one();
@@ -80,7 +80,7 @@ class CommentService extends KernelServiceAgreement
      */
     public function getCommentCount(AtomInterface $object)
     {
-        return \App::table('platform_comment')
+        return app()->table('platform_comment')
             ->select()
             ->where('about_id=?', $object->getId())
             ->count();
@@ -110,20 +110,20 @@ class CommentService extends KernelServiceAgreement
      */
     public function getCommentList(AtomInterface $object = null, $minId = 3, $maxId = 0, $limit = null, $excludes = null)
     {
-        $order = \App::setting('activity', 'comment_sort');
+        $order = app()->setting('activity', 'comment_sort');
 
         if (null == $object) {
             return [];
         }
 
         if (null == $limit) {
-            $limit = (int)\App::setting('activity', 'comment_limit', 3);
+            $limit = (int)app()->setting('activity', 'comment_limit', 3);
         }
         if ($limit < 1) {
             $limit = 3;
         }
 
-        $select = \App::table('platform_comment')
+        $select = app()->table('platform_comment')
             ->select()
             ->where('about_id=?', $object->getId());
 
@@ -149,7 +149,7 @@ class CommentService extends KernelServiceAgreement
      */
     public function removeAllByAbout(AtomInterface $about)
     {
-        \App::table('platform_comment')
+        app()->table('platform_comment')
             ->delete()
             ->where('about_id=?', $about->getId())
             ->execute();
@@ -164,7 +164,7 @@ class CommentService extends KernelServiceAgreement
      */
     public function removeAllByPoster(PosterInterface $poster)
     {
-        \App::table('platform_comment')
+        app()->table('platform_comment')
             ->delete()
             ->where('poster_id=?', $poster->getId())
             ->orWhere('user_id=?', $poster->getId())

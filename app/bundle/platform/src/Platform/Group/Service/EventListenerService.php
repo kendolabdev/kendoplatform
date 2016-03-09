@@ -3,7 +3,7 @@
 namespace Platform\Group\Service;
 
 use Kendo\Http\FilterStuff;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Invitation\Model\Invitation;
 use Kendo\Hook\EventListener;
@@ -133,7 +133,7 @@ class EventListenerService extends EventListener
 
         $parent = $invitation->getParent();
 
-        \App::relationService()->acceptMembershipRequest($poster, $parent, false);
+        app()->relation()->acceptMembershipRequest($poster, $parent, false);
     }
 
     /**
@@ -143,7 +143,7 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemGroups($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
 
         if (!$profile instanceof User)
@@ -152,10 +152,10 @@ class EventListenerService extends EventListener
         if (!$profile->authorize('group__group_tab_exists'))
             return false;
 
-        if (!\App::aclService()->pass($profile, 'group__group_tab_view'))
+        if (!app()->aclService()->pass($profile, 'group__group_tab_view'))
             return false;
 
-        $item['href'] = $profile->toHref(['stuff' => 'groups']);
+        $item['href'] = $profile->toHref(['any' => 'groups']);
 
         return $item;
     }
@@ -173,8 +173,8 @@ class EventListenerService extends EventListener
         $stats = $payload->__get('stats');
 
         $stats['group'] = [
-            'label' => \App::text('group.groups'),
-            'value' => \App::groupService()->getAdminStatisticCount(),
+            'label' => app()->text('group.groups'),
+            'value' => app()->groupService()->getAdminStatisticCount(),
         ];
 
         $payload->__set('stats', $stats);

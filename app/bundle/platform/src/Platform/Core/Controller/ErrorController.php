@@ -55,14 +55,14 @@ class ErrorController extends DefaultController
             $pageName = 'platform_core_error_authorization_restrict';
         } else if ($exception instanceof PrivacyRestrictException) {
             $pageName = 'platform_core_error_privacy_restrict';
-            \App::layouts()
+            app()->layouts()
                 ->setPageName('platform_core_error_privacy_restrict');
         }
 
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams($pageName);
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName($pageName);
 
         $this->view->setScript($lp)

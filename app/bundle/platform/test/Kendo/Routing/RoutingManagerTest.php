@@ -43,7 +43,7 @@ class RoutingManagerTest extends \PHPUnit_Framework_TestCase
     {
         $request = new HttpRequest($uri);
 
-        \App::routing()->resolve($request);
+        app()->routing()->resolve($request);
 
         $this->assertEquals($controllerName, $request->getControllerName(), $uri);
         $this->assertEquals($actionName, $request->getActionName(), $uri);
@@ -70,7 +70,7 @@ class RoutingManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testRouteUrl($name, $params, $url)
     {
-        $str = \App::routing()->getUrl($name, $params);
+        $str = app()->routing()->getUrl($name, $params);
 
         $this->assertEquals($url, $str);
     }

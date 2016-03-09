@@ -21,7 +21,7 @@ class ManageController extends AdminController
 
         $filter = new FilterEvent();
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('event.manage_events')
             ->setPageFilter($filter)
@@ -33,7 +33,7 @@ class ManageController extends AdminController
         $limit = 24;
         $query = $filter->getData();
 
-        $paging = \App::eventService()
+        $paging = app()->eventService()
             ->loadEventPaging($query, $page, $limit);
 
         $lp = new BlockParams([

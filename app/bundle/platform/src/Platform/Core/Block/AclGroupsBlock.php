@@ -21,7 +21,7 @@ class AclGroupsBlock extends BlockController
      */
     public function execute()
     {
-        $groups = \App::table('platform_acl_group')
+        $groups = app()->table('platform_acl_group')
             ->select()
             ->all();
 

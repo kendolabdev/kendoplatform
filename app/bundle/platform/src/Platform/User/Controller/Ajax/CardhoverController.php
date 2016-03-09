@@ -21,9 +21,9 @@ class CardhoverController extends AjaxController
     {
         $id = $this->request->getString('id');
 
-        $subject = \App::find('user', $id);
+        $subject = app()->find('user', $id);
 
-        $followService = \App::followService();
+        $followService = app()->followService();
 
         if (!$subject instanceof User) {
             throw new \InvalidArgumentException();
@@ -31,7 +31,7 @@ class CardhoverController extends AjaxController
 
         $cover = $subject->getCover();
 
-        $canFriend = \App::authService()->getType() == 'user';
+        $canFriend = app()->auth()->getType() == 'user';
         $canMessage = true;
         $canChat = false;
         $canFollow = false;
@@ -40,7 +40,7 @@ class CardhoverController extends AjaxController
         $coverPhotoUrl = null;
         $coverPositionTop = null;
 
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
 
         if ($viewer && $subject) {
@@ -48,7 +48,7 @@ class CardhoverController extends AjaxController
 
         }
 
-        if (\App::authService()->logged() && \App::authService()->getId() != $subject->getId()) {
+        if (app()->auth()->logged() && app()->auth()->getId() != $subject->getId()) {
             $isFollowing = $followService->isFollowed($viewer, $subject);
 
 
@@ -61,8 +61,8 @@ class CardhoverController extends AjaxController
             $canMessage = true;
             $canChat = true;
 
-            $friendStatus = \App::relationService()
-                ->getMembershipStatus(\App::authService()->getViewer(), $subject);
+            $friendStatus = app()->relation()
+                ->getMembershipStatus(app()->auth()->getViewer(), $subject);
         }
 
 
@@ -72,7 +72,7 @@ class CardhoverController extends AjaxController
         }
 
         $this->response['cardInfo'] = $this->request->getString('cardInfo');
-        $this->response['html'] = \App::viewHelper()->partial('platform/user/partial/cardhover-user', [
+        $this->response['html'] = app()->viewHelper()->partial('platform/user/partial/cardhover-user', [
             'profile'          => $subject,
             'canFriend'        => $canFriend,
             'canMessage'       => $canMessage,

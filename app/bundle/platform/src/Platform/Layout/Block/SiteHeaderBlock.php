@@ -17,19 +17,19 @@ class SiteHeaderBlock extends BlockController
      */
     public function execute()
     {
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getHeaderLayoutParams();
 
         $script = $lp->script();
 
-        if (\App::authService()->logged()) {
+        if (app()->auth()->logged()) {
             $script .= '.logged';
         }
 
-        $q = \App::requester()->getParam('q');
+        $q = app()->requester()->getParam('q');
 
-        $searchUrl = \App::routing()->getUrl('search', []);
-        $siteName = \App::setting('core', 'site_name');
+        $searchUrl = app()->routing()->getUrl('search', []);
+        $siteName = app()->setting('core', 'site_name');
 
         if (!$siteName)
             $siteName = 'YouNet';
@@ -39,9 +39,9 @@ class SiteHeaderBlock extends BlockController
                 'searchUrl' => $searchUrl,
                 'q'         => $q,
                 'siteName'  => $siteName,
-                'viewer'    => \App::authService()->getViewer(),
-                'logged'    => \App::authService()->logged(),
-                'contact'   => \App::setting('contact'),
+                'viewer'    => app()->auth()->getViewer(),
+                'logged'    => app()->auth()->logged(),
+                'contact'   => app()->setting('contact'),
             ]);
     }
 }

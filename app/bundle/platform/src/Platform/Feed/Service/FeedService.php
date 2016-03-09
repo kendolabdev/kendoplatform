@@ -2,7 +2,7 @@
 
 namespace Platform\Feed\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Feed\Model\Feed;
 use Platform\Feed\Model\FeedHash;
 use Platform\Feed\Model\FeedHashtag;
@@ -20,7 +20,7 @@ use Platform\Share\Model\Share;
  *
  * @package Feed\Service
  */
-class FeedService extends KernelServiceAgreement
+class FeedService extends KernelService
 {
 
     /**
@@ -52,7 +52,7 @@ class FeedService extends KernelServiceAgreement
      */
     public function loadAdminFeedTypePaging($query = [], $page = 1, $limit = 100)
     {
-        $select = \App::table('platform_feed_type')
+        $select = app()->table('platform_feed_type')
             ->select();
 
         if (!empty($query['module'])) {
@@ -69,7 +69,7 @@ class FeedService extends KernelServiceAgreement
      */
     public function findFeedTypeById($id)
     {
-        return \App::table('platform_feed_type')
+        return app()->table('platform_feed_type')
             ->findById($id);
     }
 
@@ -81,7 +81,7 @@ class FeedService extends KernelServiceAgreement
      */
     public function findHidden($viewerId, $feedId)
     {
-        return \App::table('platform_feed_hidden')
+        return app()->table('platform_feed_hidden')
             ->select()
             ->where('viewer_id=?', (string)$viewerId)
             ->where('feed_id=?', (string)$feedId)
@@ -162,7 +162,7 @@ class FeedService extends KernelServiceAgreement
     public function getFeedTypeShowOnTarget($type, $excludes = null)
     {
 
-        $data = \App::cacheService()
+        $data = app()->cacheService()
             ->get(['getFeedTypeShowOnTarget', $type], 0, function () use ($type) {
                 return $this->_getFeedTypShowOnTarget($type);
             });
@@ -180,9 +180,9 @@ class FeedService extends KernelServiceAgreement
      */
     public function _getFeedTypShowOnTarget($type)
     {
-        $select = \App::table('platform_feed_type')
+        $select = app()->table('platform_feed_type')
             ->select()
-            ->where('module_name IN ?', \App::packages()->getActiveModules())
+            ->where('module_name IN ?', app()->packages()->getActiveModules())
             ->where('is_active=?', 1);
 
         switch ($type) {
@@ -221,7 +221,7 @@ class FeedService extends KernelServiceAgreement
             'tagged' => false
         ];
 
-        $item = \App::table('platform_feed_type')
+        $item = app()->table('platform_feed_type')
             ->select()
             ->where('feed_type=?', (string)$feedType)
             ->one();
@@ -250,10 +250,10 @@ class FeedService extends KernelServiceAgreement
         /**
          * check in support module list.
          */
-        return \App::table('platform_feed_type')
+        return app()->table('platform_feed_type')
             ->select()
             ->where('feed_type=?', (string)$feedType)
-            ->where('module_name IN ?', \App::packages()->getActiveModules())
+            ->where('module_name IN ?', app()->packages()->getActiveModules())
             ->field('feed_id') > 0;
     }
 
@@ -262,7 +262,7 @@ class FeedService extends KernelServiceAgreement
      */
     public function updatePrivacy(ContentInterface $about)
     {
-        \App::table('platform_feed')
+        app()->table('platform_feed')
             ->update([
                 'privacy_type'  => $about->getPrivacyType(),
                 'privacy_value' => $about->getPrivacyValue(),
@@ -271,7 +271,7 @@ class FeedService extends KernelServiceAgreement
             ->where('about_type=?', $about->getType())
             ->execute();
 
-        \App::table('platform_feed_stream')
+        app()->table('platform_feed_stream')
             ->update([
                 'privacy_type'  => $about->getPrivacyType(),
                 'privacy_value' => $about->getPrivacyValue(),
@@ -332,7 +332,7 @@ class FeedService extends KernelServiceAgreement
      */
     public function getAdminStatisticCount()
     {
-        return \App::table('platform_feed')
+        return app()->table('platform_feed')
             ->select()
             ->count();
     }
@@ -345,7 +345,7 @@ class FeedService extends KernelServiceAgreement
      */
     public function getPublicFeedSelect($query)
     {
-        $select = \App::table('platform_feed')
+        $select = app()->table('platform_feed')
             ->select('f')
             ->order('f.feed_id', -1)
             ->where('f.privacy_type=?', RELATION_TYPE_ANYONE);
@@ -366,10 +366,10 @@ class FeedService extends KernelServiceAgreement
      */
     public function getPublicTaggedFeedSelect($tagId, $query)
     {
-        $hashTable = \App::table('platform_feed_hashtag')
+        $hashTable = app()->table('platform_feed_hashtag')
             ->getName();
 
-        $select = \App::table('platform_feed')
+        $select = app()->table('platform_feed')
             ->select('f')
             ->join($hashTable, 'h', 'h.feed_id=f.feed_id', null, null)
             ->order('f.feed_id', -1)
@@ -393,7 +393,7 @@ class FeedService extends KernelServiceAgreement
     public function getHiddenConditionString($viewerId, $alias = 'f')
     {
         return strtr('f.feed_id NOT IN (SELECT feed_id FROM :prefix_platform_feed_hidden WHERE viewer_id=:viewerId)',
-            [':prefix_'  => \App::db()->getPrefix(),
+            [':prefix_'  => app()->db()->getPrefix(),
              ':viewerId' => $viewerId,
              ':alias'    => $alias,]
         );
@@ -408,11 +408,11 @@ class FeedService extends KernelServiceAgreement
      */
     public function getTaggedFeedSelect(PosterInterface $viewer, $tagId, $query)
     {
-        $tagTable = \App::table('platform_feed_hashtag')->getName();
+        $tagTable = app()->table('platform_feed_hashtag')->getName();
 
-        $relationCondition = \App::relationService()->getPrivacyConditionForQuery($viewer->getId(), 'f');
+        $relationCondition = app()->relation()->getPrivacyConditionForQuery($viewer->getId(), 'f');
 
-        $select = \App::table('platform_feed')
+        $select = app()->table('platform_feed')
             ->select('f')
             ->join($tagTable, 'h', 'h.feed_id=f.feed_id', null, null)
             ->order('f.feed_id', -1)
@@ -449,11 +449,11 @@ class FeedService extends KernelServiceAgreement
      */
     public function getMainFeedSelect(PosterInterface $viewer, $query)
     {
-        $followIdList = \App::followService()->getFollowedIdList($viewer->getId());
+        $followIdList = app()->followService()->getFollowedIdList($viewer->getId());
 
-        $relationCondition = \App::relationService()->getPrivacyConditionForQuery($viewer->getId(), 'f');
+        $relationCondition = app()->relation()->getPrivacyConditionForQuery($viewer->getId(), 'f');
 
-        $select = \App::table('platform_feed')
+        $select = app()->table('platform_feed')
             ->select('f')
             ->order('f.feed_id', -1)
             ->where('f.poster_id IN ?', $followIdList)
@@ -562,7 +562,7 @@ class FeedService extends KernelServiceAgreement
      */
     public function getPublicSharedFeedSelect(ContentInterface $about, $options)
     {
-        $select = \App::table('platform_share')
+        $select = app()->table('platform_share')
             ->select('f')
             ->order('f.feed_id', -1)
             ->where('feed_id>?', 0)
@@ -584,7 +584,7 @@ class FeedService extends KernelServiceAgreement
             $feedIdList[] = -1;
         }
 
-        return \App::table('platform_feed')
+        return app()->table('platform_feed')
             ->select('f')
             ->where('f.feed_id IN ? ', $feedIdList)
             ->order('f.feed_id', -1);
@@ -600,9 +600,9 @@ class FeedService extends KernelServiceAgreement
     public function getSharedFeedSelect(PosterInterface $viewer, $about, $options)
     {
 
-        $relationCondition = \App::relationService()->getPrivacyConditionForQuery($viewer->getId(), 'f');
+        $relationCondition = app()->relation()->getPrivacyConditionForQuery($viewer->getId(), 'f');
 
-        $select = \App::table('platform_share')
+        $select = app()->table('platform_share')
             ->select('f')
             ->order('f.feed_id', -1)
             ->where('feed_id>?', 0)
@@ -625,7 +625,7 @@ class FeedService extends KernelServiceAgreement
             $feedIdList[] = -1;
         }
 
-        return \App::table('platform_feed')
+        return app()->table('platform_feed')
             ->select('f')
             ->where('f.feed_id IN ? ', $feedIdList)
             ->order('f.feed_id', -1);
@@ -658,7 +658,7 @@ class FeedService extends KernelServiceAgreement
      */
     public function getPublicProfileFeedSelect(PosterInterface $profile, $query)
     {
-        $select = \App::table('platform_feed_stream')
+        $select = app()->table('platform_feed_stream')
             ->select('f')
             ->where('f.profile_id=?', $profile->getId())
             ->where('f.privacy_value=?', 1)
@@ -677,7 +677,7 @@ class FeedService extends KernelServiceAgreement
             $feedIdList[] = -1;
         }
 
-        return \App::table('platform_feed')
+        return app()->table('platform_feed')
             ->select('f')
             ->where('f.feed_id IN ? ', $feedIdList)
             ->order('f.feed_id', -1);
@@ -692,9 +692,9 @@ class FeedService extends KernelServiceAgreement
      */
     public function getProfileFeedSelect(PosterInterface $profile, PosterInterface $viewer, $query)
     {
-        $relationCondition = \App::relationService()->getPrivacyConditionForQuery($viewer->getId(), 'f');
+        $relationCondition = app()->relation()->getPrivacyConditionForQuery($viewer->getId(), 'f');
 
-        $select = \App::table('platform_feed_stream')
+        $select = app()->table('platform_feed_stream')
             ->select('f')
             ->where('f.profile_id=?', $profile->getId())
             ->where('f.is_hidden=?', 0)
@@ -714,7 +714,7 @@ class FeedService extends KernelServiceAgreement
             $feedIdList[] = -1;
         }
 
-        return \App::table('platform_feed')
+        return app()->table('platform_feed')
             ->select('f')
             ->where('f.feed_id in ?', $feedIdList)
             ->order('f.feed_id', -1);
@@ -728,7 +728,7 @@ class FeedService extends KernelServiceAgreement
      */
     public function getFeedByIdList($feedIdList)
     {
-        return \App::table('platform_feed')
+        return app()->table('platform_feed')
             ->select()
             ->where('feed_id IN ?', $feedIdList)
             ->order('feed_id', -1)
@@ -778,7 +778,7 @@ class FeedService extends KernelServiceAgreement
     {
         if (empty($tag)) return 0;
 
-        $id = \App::table('feed.hash')
+        $id = app()->table('feed.hash')
             ->select()
             ->where('name=?', (string)$tag)
             ->field('hash_id');
@@ -797,7 +797,7 @@ class FeedService extends KernelServiceAgreement
      */
     public function clearHashTag(Feed $feed)
     {
-        \App::table('platform_feed_hashtag')
+        app()->table('platform_feed_hashtag')
             ->delete()
             ->where('feed_id=?', $feed->getId())
             ->execute();
@@ -833,7 +833,7 @@ class FeedService extends KernelServiceAgreement
      */
     public function hideOnTimeline(PosterInterface $parent, Feed $feed)
     {
-        $stream = \App::table('platform_feed_stream')
+        $stream = app()->table('platform_feed_stream')
             ->select()
             ->where('profile_id=?', $parent->getId())
             ->where('feed_id=?', $feed->getId())
@@ -859,8 +859,8 @@ class FeedService extends KernelServiceAgreement
     {
         list($privacyType, $privacyValue) = $about->getPrivacy('view');
 
-        $poster = \App::find($about->getPosterType(), $about->getPosterId());
-        $parent = \App::find($about->getParentType(), $about->getParentId());
+        $poster = app()->find($about->getPosterType(), $about->getPosterId());
+        $parent = app()->find($about->getParentType(), $about->getParentId());
 
         $story = null;
         $hashtag = null;
@@ -904,7 +904,7 @@ class FeedService extends KernelServiceAgreement
 
         $this->putFeedToStream($feed, $poster, $parent, $peopletag);
 
-        \App::notificationService()->subscribe($poster, $about);
+        app()->notificationService()->subscribe($poster, $about);
 
         return $feed;
     }
@@ -964,9 +964,9 @@ class FeedService extends KernelServiceAgreement
      */
     public function removeFeed(Feed $feed)
     {
-        $parent = \App::find($feed->getParentType(), $feed->getParentId());
+        $parent = app()->find($feed->getParentType(), $feed->getParentId());
 
-        $poster = \App::find($feed->getPosterType(), $feed->getPosterId());
+        $poster = app()->find($feed->getPosterType(), $feed->getPosterId());
 
         if (!$parent instanceof PosterInterface) {
             throw new \InvalidArgumentException("Invalid feed parent");
@@ -987,7 +987,7 @@ class FeedService extends KernelServiceAgreement
         $feed->delete();
 
         // delete related data
-        \App::table('platform_feed_stream')
+        app()->table('platform_feed_stream')
             ->delete()
             ->where('feed_id=?', $feed->getId())
             ->execute();
@@ -1122,19 +1122,19 @@ class FeedService extends KernelServiceAgreement
 
 
         if (!empty($query['profileType']) && !empty($query['profileId'])) {
-            $profile = \App::find($query['profileType'], $query['profileId']);
+            $profile = app()->find($query['profileType'], $query['profileId']);
         }
 
         if (!empty($query['posterType']) && !empty(!$query['posterId'])) {
-            $viewer = \App::find($query['posterType'], $query['posterId']);
+            $viewer = app()->find($query['posterType'], $query['posterId']);
         }
 
         if (!empty($query['sharedType']) && !empty($query['sharedId'])) {
-            $shared = \App::find($query['sharedType'], $query['sharedId']);
+            $shared = app()->find($query['sharedType'], $query['sharedId']);
         }
 
         if (empty($viewer))
-            $viewer = \App::authService()->getViewer();
+            $viewer = app()->auth()->getViewer();
 
         if ($profile) {
             $profileId = $profile->getId();
@@ -1167,9 +1167,9 @@ class FeedService extends KernelServiceAgreement
             }
         }
 
-        $limitCommentCount = (int)\App::setting('activity', 'comment_limit', 3);
-        $commentService = \App::commentService();
-        $likeService = \App::likeService();
+        $limitCommentCount = (int)app()->setting('activity', 'comment_limit', 3);
+        $commentService = app()->commentService();
+        $likeService = app()->likeService();
 
 
         /**
@@ -1237,7 +1237,7 @@ class FeedService extends KernelServiceAgreement
             ];
         }
 
-        $paging = \App::pagingService()->factory($bundles);
+        $paging = app()->paging()->factory($bundles);
 
         $paging->noLimit();
 
@@ -1254,10 +1254,10 @@ class FeedService extends KernelServiceAgreement
     {
         $limitCommentCount = 3;
         $remainCommentCount = 0;
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
-        $commentService = \App::commentService();
-        $likeService = \App::likeService();
+        $commentService = app()->commentService();
+        $likeService = app()->likeService();
 
         if ($about instanceof ContentInterface) {
             if ($about->getCommentCount() > $limitCommentCount) {
@@ -1300,7 +1300,7 @@ class FeedService extends KernelServiceAgreement
      */
     public function getListTypeByModuleName($moduleList)
     {
-        return \App::table('platform_feed_type')
+        return app()->table('platform_feed_type')
             ->select()
             ->where('module_name IN ?', $moduleList)
             ->toAssocs();

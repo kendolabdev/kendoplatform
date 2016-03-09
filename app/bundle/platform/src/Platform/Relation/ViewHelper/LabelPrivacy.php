@@ -52,13 +52,13 @@ class LabelPrivacy
         }
 
 
-        return \App::viewHelper()->partial('platform/relation/partial/label-privacy', [
+        return app()->viewHelper()->partial('platform/relation/partial/label-privacy', [
             'about'   => $about,
             'type'    => $type,
             'value'   => $value,
             'icon'    => $icon,
             'isOwner' => $isOwner,
-            'label'   => \App::text('core.shared') . ' : ' . \App::relationService()->getPrivacyLabel($about),
+            'label'   => app()->text('core.shared') . ' : ' . app()->relation()->getPrivacyLabel($about),
         ]);
     }
 

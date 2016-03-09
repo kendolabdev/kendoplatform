@@ -37,7 +37,7 @@ class FormCreateGroup extends Form
         $this->addElement([
             'plugin' => 'submit',
             'name'   => '_submit',
-            'label'  => \App::text('core.submit'),
+            'label'  => app()->text('core.submit'),
             'class'  => 'btn btn-primary',
         ]);
     }

@@ -31,7 +31,7 @@ class AcceptMembership implements NotificationInterface
     {
         $poster = '<b>' . $this->notification->getPoster()->getTitle() . '</b>';
 
-        return \App::text('user.$poster_become_your_friends', ['$poster' => $poster]);
+        return app()->text('user.$poster_become_your_friends', ['$poster' => $poster]);
     }
 
     /**
@@ -41,7 +41,7 @@ class AcceptMembership implements NotificationInterface
      */
     public function toHtml($context = [])
     {
-        return \App::viewHelper()->partial('platform/user/notification/accept-membership', [
+        return app()->viewHelper()->partial('platform/user/notification/accept-membership', [
             'headline' => $this->getHeadline(),
             'item'     => $this->notification,
             'href'     => $this->toHref(),

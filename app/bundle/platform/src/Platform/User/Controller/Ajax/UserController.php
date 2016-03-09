@@ -17,7 +17,7 @@ class UserController extends AjaxController
      */
     public function actionBearAccountDialog()
     {
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams('platform_user_ajax_bear_account_dialog');
 
         $this->response = [
@@ -34,7 +34,7 @@ class UserController extends AjaxController
 
         $query = $this->request->getArray('query');
 
-        $paging = \App::userService()->loadUserPaging($query, $page);
+        $paging = app()->user()->loadUserPaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 

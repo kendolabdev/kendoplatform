@@ -29,12 +29,12 @@ class AdminInfoBlock extends BlockController
      */
     public function execute()
     {
-        $license = \App::setting('license');
+        $license = app()->setting('license');
 
         $this->view->assign([
             'date'    => date('Y-m-d H:i:s'),
             'license' => $license,
-            'version' => \App::version(),
+            'version' => app()->version(),
         ]);
     }
 }

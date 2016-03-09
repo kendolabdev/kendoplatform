@@ -90,6 +90,9 @@ class BlockParams
     {
         $name = !empty($this->params['base_script']) ? $this->params['base_script'] : $default;
 
+//        if(empty($this->params['base_path']))
+//            return null;
+
         return $this->params['base_path'] . '/' . $name;
     }
 

@@ -31,7 +31,7 @@ class FilterBlogPost extends Form
             'name'    => 'category',
             'label'   => 'Category',
             'class'   => 'form-control',
-            'options' => \App::blogService()->getAdminCategoryOptions(),
+            'options' => app()->blogService()->getAdminCategoryOptions(),
         ]);
 
         $this->addElement([

@@ -74,7 +74,7 @@ class Aggregate extends Model
      */
     public function table()
     {
-        return \App::table('core.aggregate');
+        return app()->table('core.aggregate');
     }
     //END_TABLE_GENERATOR
 }

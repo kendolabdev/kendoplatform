@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Core\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Core\Model\CoreHook;
 
 /**
@@ -9,14 +9,14 @@ use Platform\Core\Model\CoreHook;
  *
  * @package Core\Service
  */
-class HookService extends KernelServiceAgreement
+class HookService extends KernelService
 {
     /**
      * @return array
      */
     public function loadAllHooks()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['HookService', 'load'], 0, function () {
                 return $this->loadAllHookFromRepository();
             });
@@ -29,9 +29,9 @@ class HookService extends KernelServiceAgreement
     {
         $hooks = [];
 
-        $items = \App::table('platform_core_hook')
+        $items = app()->table('platform_core_hook')
             ->select()
-            ->where('module_name IN ?', \App::packages()->getActiveModules())
+            ->where('module_name IN ?', app()->packages()->getActiveModules())
             ->order('event_name, load_order', 1)
             ->toAssocs();
 
@@ -54,14 +54,14 @@ class HookService extends KernelServiceAgreement
             foreach ($listService as $serviceName) {
                 $valid = true;
 
-                if (!\App::hasService($serviceName))
+                if (!app()->hasService($serviceName))
                     $valid = false;
 
-                if ($valid && !method_exists(\App::service($serviceName), $eventName))
+                if ($valid && !method_exists(app()->service($serviceName), $eventName))
                     $valid = false;
 
                 if (!$valid)
-                    \App::table('platform_core_hook')
+                    app()->table('platform_core_hook')
                         ->delete()
                         ->where('service_name=?', $serviceName)
                         ->where('event_name=?', $eventName)
@@ -84,14 +84,14 @@ class HookService extends KernelServiceAgreement
         $this->cleanupHooks();
 
 
-        foreach (\App::packages()->getActiveModules() as $key) {
+        foreach (app()->packages()->getActiveModules() as $key) {
 
             $serviceKey = "{$key}_event_listener";
 
-            if (!\App::hasService($serviceKey))
+            if (!app()->hasService($serviceKey))
                 continue;
 
-            $service = \App::instance()->make($serviceKey);
+            $service = app()->instance()->make($serviceKey);
 
             foreach (get_class_methods(get_class($service)) as $method) {
 
@@ -119,7 +119,7 @@ class HookService extends KernelServiceAgreement
      */
     public function findHookByName($serviceName, $eventName)
     {
-        return \App::table('platform_core_hook')
+        return app()->table('platform_core_hook')
             ->select()
             ->where('event_name=?', $eventName)
             ->where('service_name=?', $serviceName)

@@ -16,11 +16,11 @@ class MessageController extends AjaxController
 
     public function actionCompose()
     {
-        $form = \App::htmlService()->factory('\Message\Form\ComposeMessage');
+        $form = app()->html()->factory('\Message\Form\ComposeMessage');
 
         $recipient = null;
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         if ($this->request->isMethod('post')&& empty($_POST['send'])) {
 
@@ -30,7 +30,7 @@ class MessageController extends AjaxController
             $type = $this->request->getString('type');
 
             if (!empty($type) && !empty($id)) {
-                $recipient = \App::find($type, $id);
+                $recipient = app()->find($type, $id);
                 if ($recipient instanceof PosterInterface) {
                     $values['recipients'][] = $recipient->getId() . '@' . $recipient->getType();
                 }
@@ -38,7 +38,7 @@ class MessageController extends AjaxController
             $form->setData($values);
         }
 
-        $messageService = \App::messageService();
+        $messageService = app()->messageService();
 
 
         if ($this->request->isMethod('post')&& !empty($_POST['send']) && $form->isValid($_POST)) {
@@ -61,7 +61,7 @@ class MessageController extends AjaxController
              */
             foreach ($recipients as $recipient) {
                 list($rid, $rtype) = explode('@', $recipient);
-                $user = \App::find($rtype, $rid);
+                $user = app()->find($rtype, $rid);
 
                 if (!null == $user && $user instanceof PosterInterface) {
                     $users[] = $user;
@@ -73,11 +73,11 @@ class MessageController extends AjaxController
 
             $messageService->addMessage($poster, $users, $subject, $content);
 
-            \App::routing()->redirect('message_inbox');
+            app()->routing()->redirect('message_inbox');
 
         }
 
-        $this->response['html'] = \App::viewHelper()->partial('/base/message/controller/ajax/compose-message', [
+        $this->response['html'] = app()->viewHelper()->partial('/base/message/controller/ajax/compose-message', [
             'form' => $form,
         ]);
     }
@@ -87,15 +87,15 @@ class MessageController extends AjaxController
      */
     public function actionBearDialog()
     {
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
         $page = $this->request->getParam('page', 1);
         $query = $this->request->getArray('query');
 
-        $paging = \App::messageService()
+        $paging = app()->messageService()
             ->loadMessagePaging($query, $page);
 
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams('message_ajax_bear_dialog');
 
         $this->response = [

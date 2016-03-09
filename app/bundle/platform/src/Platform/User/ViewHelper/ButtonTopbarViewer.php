@@ -12,9 +12,9 @@ class ButtonTopbarViewer
      */
     public function __invoke()
     {
-        if (!\App::authService()->logged()) return '';
+        if (!app()->auth()->logged()) return '';
 
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
         $title = $viewer->getTitle();
         $firstName = $title;
         $avatar = $viewer->getPhoto('avatar_sm');
@@ -24,7 +24,7 @@ class ButtonTopbarViewer
         }
 
 
-        return \App::viewHelper()->partial('platform/user/button/topbar-viewer', [
+        return app()->viewHelper()->partial('platform/user/button/topbar-viewer', [
             'avatar'    => $avatar,
             'viewer'    => $viewer,
             'title'     => $title,

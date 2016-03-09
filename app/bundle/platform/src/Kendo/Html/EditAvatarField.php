@@ -76,7 +76,7 @@ class EditAvatarField extends HtmlElement implements FormField
             }
         }
 
-        return \App::viewHelper()
+        return app()->viewHelper()
             ->partial('layout/partial/form-render/edit-avatar-field', $data);
     }
 }

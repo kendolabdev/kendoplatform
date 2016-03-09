@@ -1,7 +1,7 @@
 <?php
 namespace Kendo\Resources;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Kendo\Kernel\UniqueIdGeneratorInterface;
 
 /**
@@ -9,7 +9,7 @@ use Kendo\Kernel\UniqueIdGeneratorInterface;
  *
  * @package Kendo\Kernel
  */
-class ResourcesContainer extends KernelServiceAgreement
+class ResourcesContainer extends KernelService
 {
     /**
      * @var int

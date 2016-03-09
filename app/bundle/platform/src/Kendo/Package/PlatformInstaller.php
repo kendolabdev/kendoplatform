@@ -21,7 +21,7 @@ class PlatformInstaller extends BaseInstaller
      */
     public function __construct()
     {
-        $this->moduleList = \App::table('platform_core_extension')
+        $this->moduleList = app()->table('platform_core_extension')
             ->select()
             ->where('is_system=?', 1)
             ->where('extension_type=?', 'module')
@@ -29,8 +29,8 @@ class PlatformInstaller extends BaseInstaller
             ->fields('name');
 
         foreach ($this->moduleList as $moduleName) {
-            if (\App::hasService($installerServiceName = $moduleName . '_installer')) {
-                $installerService = \App::instance()
+            if (app()->hasService($installerServiceName = $moduleName . '_installer')) {
+                $installerService = app()->instance()
                     ->make($installerServiceName);
 
                 if (!$installerService instanceof ModuleInstaller) {
@@ -51,7 +51,7 @@ class PlatformInstaller extends BaseInstaller
          * export theme lists
          */
         $this->themeList = [];
-        $themes = \App::table('platform_core_extension')
+        $themes = app()->table('platform_core_extension')
             ->select()
             ->where('is_system=?', 1)
             ->where('extension_type=?', 'theme')

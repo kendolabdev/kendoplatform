@@ -19,7 +19,7 @@ class ListingUserItemBlock extends BlockController
 
         $limit = $this->lp->get('limit', 5);
 
-        $paging = \App::userService()->loadUserPaging([], 1, $limit);
+        $paging = app()->user()->loadUserPaging([], 1, $limit);
 
 
         $this->view->assign([

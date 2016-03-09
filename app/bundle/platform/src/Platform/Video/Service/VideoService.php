@@ -3,7 +3,7 @@
 namespace Platform\Video\Service;
 
 use Kendo\Content\PosterInterface;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Kendo\Http\HttpRequest;
 use Platform\Video\Model\Video;
 use Platform\Video\Model\VideoCategory;
@@ -16,7 +16,7 @@ use Platform\Video\Provider\Youtube;
  *
  * @package Video\Service
  */
-class VideoService extends KernelServiceAgreement
+class VideoService extends KernelService
 {
 
     /**
@@ -26,7 +26,7 @@ class VideoService extends KernelServiceAgreement
      */
     public function findCategoryById($id)
     {
-        return \App::table('video.video_category')
+        return app()->table('video.video_category')
             ->findById(intval($id));
     }
 
@@ -58,7 +58,7 @@ class VideoService extends KernelServiceAgreement
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('video.video_category')->select('t');
+        $select = app()->table('video.video_category')->select('t');
 
         if (!empty($query['q']))
             $select->where('category_name like ?', '%' . $query['q'] . '%');
@@ -76,7 +76,7 @@ class VideoService extends KernelServiceAgreement
     public function loadVideoPaging($query = [], $page = 1, $limit = 10)
     {
 
-        $select = \App::table('platform_video')->select();
+        $select = app()->table('platform_video')->select();
 
         $isOwner = false;
 
@@ -86,7 +86,7 @@ class VideoService extends KernelServiceAgreement
 
             $select->where('poster_id=?', $posterId);
 
-            if ($posterId == \App::authService()->getId()) {
+            if ($posterId == app()->auth()->getId()) {
 
                 $isOwner = true;
             }
@@ -98,7 +98,7 @@ class VideoService extends KernelServiceAgreement
 
             $select->where('user_id=?', $userId);
 
-            if ($userId == \App::authService()->getUserId()) {
+            if ($userId == app()->auth()->getUserId()) {
                 $isOwner = true;
             }
         }
@@ -200,7 +200,7 @@ class VideoService extends KernelServiceAgreement
             $video->save();
         }
 
-        $feed = \App::feedService()->addItemFeed('video_shared', $video);
+        $feed = app()->feedService()->addItemFeed('video_shared', $video);
 
         return $feed;
     }
@@ -237,7 +237,7 @@ class VideoService extends KernelServiceAgreement
      */
     public function getActiveVideoCount()
     {
-        return \App::table('platform_video')
+        return app()->table('platform_video')
             ->select()
 //            ->where('is_published=?', 1)
             ->count();
@@ -250,7 +250,7 @@ class VideoService extends KernelServiceAgreement
      */
     public function findVideo($id)
     {
-        return \App::table('platform_video')
+        return app()->table('platform_video')
             ->findById($id);
     }
 
@@ -328,7 +328,7 @@ class VideoService extends KernelServiceAgreement
     public function getCategoryOptions()
     {
 
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['video', 'getCategoryOptions'], 0, function () {
                 return $this->_getCategoryOptions();
             });
@@ -341,7 +341,7 @@ class VideoService extends KernelServiceAgreement
      */
     private function _getCategoryOptions()
     {
-        $select = \App::table('video.video_category')->select()
+        $select = app()->table('video.video_category')->select()
             ->order('category_name', 1);
 
         $items = $select->all();

@@ -17,12 +17,12 @@ class SiteFooterBlock extends BlockController
      */
     public function execute()
     {
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getFooterLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
-                'contact' => \App::setting('contact'),
+                'contact' => app()->setting('contact'),
             ]);
     }
 }

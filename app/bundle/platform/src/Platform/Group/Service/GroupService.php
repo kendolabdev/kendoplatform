@@ -2,7 +2,7 @@
 
 namespace Platform\Group\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Group\Model\Group;
 use Platform\Group\Model\GroupCategory;
 use Kendo\Content\PosterInterface;
@@ -12,7 +12,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Group\Service
  */
-class GroupService extends KernelServiceAgreement
+class GroupService extends KernelService
 {
     /**
      * @param string $id
@@ -21,7 +21,7 @@ class GroupService extends KernelServiceAgreement
      */
     public function findCategoryById($id)
     {
-        return \App::table('group.group_category')
+        return app()->table('group.group_category')
             ->findById(intval($id));
     }
 
@@ -53,7 +53,7 @@ class GroupService extends KernelServiceAgreement
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('group.group_category')->select('t');
+        $select = app()->table('group.group_category')->select('t');
 
         if (!empty($query['q']))
             $select->where('category_name like ?', '%' . $query['q'] . '%');
@@ -70,7 +70,7 @@ class GroupService extends KernelServiceAgreement
      */
     public function loadGroupPaging($query, $page = 1, $limit = 2)
     {
-        $select = \App::table('platform_group')
+        $select = app()->table('platform_group')
             ->select();
 
         $isOwner = false;
@@ -81,7 +81,7 @@ class GroupService extends KernelServiceAgreement
 
             $select->where('poster_id=?', $posterId);
 
-            if ($posterId == \App::authService()->getId()) {
+            if ($posterId == app()->auth()->getId()) {
 
                 $isOwner = true;
             }
@@ -93,7 +93,7 @@ class GroupService extends KernelServiceAgreement
 
             $select->where('user_id=?', $userId);
 
-            if ($userId == \App::authService()->getUserId()) {
+            if ($userId == app()->auth()->getUserId()) {
                 $isOwner = true;
             }
         }
@@ -123,7 +123,7 @@ class GroupService extends KernelServiceAgreement
      */
     public function getAdminStatisticCount()
     {
-        return \App::table('platform_group')
+        return app()->table('platform_group')
             ->select()
             ->count();
     }
@@ -160,7 +160,7 @@ class GroupService extends KernelServiceAgreement
      */
     public function membership()
     {
-        return \App::relationService();
+        return app()->relation();
     }
 
     /**
@@ -169,7 +169,7 @@ class GroupService extends KernelServiceAgreement
     public function getCategoryOptions()
     {
 
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['group', 'getCategoryOptions'], 0, function () {
                 return $this->_getCategoryOptions();
             });
@@ -182,7 +182,7 @@ class GroupService extends KernelServiceAgreement
      */
     private function _getCategoryOptions()
     {
-        $select = \App::table('group.category')->select()
+        $select = app()->table('group.category')->select()
             ->order('category_name', 1);
 
         $items = $select->all();

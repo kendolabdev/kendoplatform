@@ -3,7 +3,7 @@
 namespace Platform\Storage\Service;
 
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Kendo\Upload\UploadFile;
 use Kendo\Upload\UploadFileList;
 use Kendo\Storage\LocalStorage;
@@ -20,7 +20,7 @@ use Platform\Storage\Model\StorageFileTmp;
  *
  * @package Kendo\Storage
  */
-class StorageService extends KernelServiceAgreement implements StorageManagerInterface
+class StorageService extends KernelService implements StorageManagerInterface
 {
     /**
      * @var int
@@ -99,7 +99,7 @@ class StorageService extends KernelServiceAgreement implements StorageManagerInt
     public function getDefaultId()
     {
         if (null == $this->defaultId) {
-            $id = \App::setting('core', 'storage', "1");
+            $id = app()->setting('core', 'storage', "1");
 
             $this->defaultId = $id ? (int)$id : 1;
         }
@@ -150,7 +150,7 @@ class StorageService extends KernelServiceAgreement implements StorageManagerInt
      */
     public function getParamsForStorage($id)
     {
-        $entry = \App::table('platform_storage')
+        $entry = app()->table('platform_storage')
             ->findById((int)$id);
 
         if (!$entry) {
@@ -179,7 +179,7 @@ class StorageService extends KernelServiceAgreement implements StorageManagerInt
      */
     public function getFileItem($fileId, $maker)
     {
-        return \App::table('platform_storage_file')
+        return app()->table('platform_storage_file')
             ->select()
             ->where('origin_id=?', (int)$fileId)
             ->where('maker=?', (string)$maker)
@@ -194,7 +194,7 @@ class StorageService extends KernelServiceAgreement implements StorageManagerInt
      */
     public function getUrlByOriginAndMaker($originalId, $maker)
     {
-        $data = \App::table('platform_storage_file')
+        $data = app()->table('platform_storage_file')
             ->select()
             ->where('origin_id=?', (int)$originalId)
             ->where('maker=?', (string)$maker)
@@ -224,7 +224,7 @@ class StorageService extends KernelServiceAgreement implements StorageManagerInt
 
         $list = new UploadFileList();
 
-        $items = \App::table('platform_storage_file_tmp')
+        $items = app()->table('platform_storage_file_tmp')
             ->select()
             ->where('id IN ?', $tempIdList)
             ->all();
@@ -245,7 +245,7 @@ class StorageService extends KernelServiceAgreement implements StorageManagerInt
      */
     public function getTempInputFile($tempId)
     {
-        $item = \App::table('platform_storage_file_tmp')
+        $item = app()->table('platform_storage_file_tmp')
             ->findById($tempId);
 
         if ($item instanceof StorageFileTmp) {
@@ -376,7 +376,7 @@ class StorageService extends KernelServiceAgreement implements StorageManagerInt
         if (empty($makers) || empty($originId))
             return;
 
-        \App::table('platform_storage_file')
+        app()->table('platform_storage_file')
             ->delete()
             ->where('origin_id=?', $originId)
             ->where('maker IN ?', $makers)
@@ -434,7 +434,7 @@ class StorageService extends KernelServiceAgreement implements StorageManagerInt
      */
     public function loadAdminPagingStorage($query = [], $page = 1, $limit = 100)
     {
-        $select = \App::table('platform_storage')
+        $select = app()->table('platform_storage')
             ->select();
 
         if (!empty($query))
@@ -450,7 +450,7 @@ class StorageService extends KernelServiceAgreement implements StorageManagerInt
      */
     public function findStorageById($id)
     {
-        return \App::table('platform_storage')
+        return app()->table('platform_storage')
             ->findById((int)$id);
     }
 
@@ -461,7 +461,7 @@ class StorageService extends KernelServiceAgreement implements StorageManagerInt
      */
     public function findAdapterById($id)
     {
-        return \App::table('platform_storage_adapter')
+        return app()->table('platform_storage_adapter')
             ->findById((string)$id);
     }
 
@@ -472,7 +472,7 @@ class StorageService extends KernelServiceAgreement implements StorageManagerInt
      */
     public function findAdapterByType($type)
     {
-        return \App::table('platform_storage_adapter')
+        return app()->table('platform_storage_adapter')
             ->findById((string)$type);
     }
 }

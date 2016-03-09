@@ -20,20 +20,20 @@ class SmallLoginFormBlock extends BlockController
      */
     public function execute()
     {
-        if (\App::authService()->logged()) {
+        if (app()->auth()->logged()) {
 
             $this->setNoRender(true);
 
             return;
         }
 
-        $services = \App::table('platform_social_service')
+        $services = app()->table('platform_social_service')
             ->select()
             ->where('is_active=?', 1)
             ->order('sort_order', 1)
             ->all();
 
-        $form = \App::htmlService()->factory('\Platform\User\Form\AuthLoginSmall');
+        $form = app()->html()->factory('\Platform\User\Form\AuthLoginSmall');
 
         $this->view->assign([
             'form'        => $form,

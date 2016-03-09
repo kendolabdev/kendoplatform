@@ -22,7 +22,7 @@ class PageController extends AjaxController
 
         $query = $this->request->getArray('query');
 
-        $paging = \App::pageService()->loadPagePaging($query, $page);
+        $paging = app()->pageService()->loadPagePaging($query, $page);
 
         $this->response = [
             'html'    => $this->partial('platform/page/partial/page-paging', ['paging' => $paging]),
@@ -37,16 +37,16 @@ class PageController extends AjaxController
 
         list($type, $id, $eid) = $this->request->getList('type', 'id', 'eid');
 
-        $item = \App::find($type, $id);
+        $item = app()->find($type, $id);
 
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
         if (!$item instanceof Page)
             throw new \InvalidArgumentException();
 
-        $likeStatus = \App::likeService()->getLikeStatus($viewer, $item->getId());
+        $likeStatus = app()->likeService()->getLikeStatus($viewer, $item->getId());
 
-        $followStatus = \App::followService()->getFollowStatus($viewer, $item->getId());
+        $followStatus = app()->followService()->getFollowStatus($viewer, $item->getId());
 
 
         $this->response = [

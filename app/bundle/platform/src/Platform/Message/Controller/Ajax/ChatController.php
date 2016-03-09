@@ -20,15 +20,15 @@ class ChatController extends AjaxController
         $type = $this->request->getString('type');
         $id = $this->request->getString('id');
 
-        $person = \App::find($type, $id);
+        $person = app()->find($type, $id);
 
         if (!$person instanceof PosterInterface) {
             throw new \InvalidArgumentException("Could not find person");
         }
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
-        $this->response['html'] = \App::viewHelper()->partial('/base/message/partial/chat-popup', [
+        $this->response['html'] = app()->viewHelper()->partial('/base/message/partial/chat-popup', [
             'person' => $person,
             'owner'  => $poster,
         ]);

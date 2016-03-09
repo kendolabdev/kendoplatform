@@ -45,7 +45,7 @@ class AclServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testExport()
     {
-        $installer = \App::instance()->make('platform_acl_installer');
+        $installer = app()->instance()->make('platform_acl_installer');
 
         if ($installer instanceof BaseInstaller) {
             $installer->export();

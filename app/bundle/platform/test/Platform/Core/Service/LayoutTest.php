@@ -18,7 +18,7 @@ class LayoutTest extends ControllerTestCase
 {
     public function testGeneral()
     {
-        $layoutService = \App::layouts();
+        $layoutService = app()->layouts();
 
         $layoutService->setPageFilter(new Form());
 
@@ -129,7 +129,7 @@ class LayoutTest extends ControllerTestCase
      */
     public function themeIdProvider()
     {
-        $themes = \App::table('platform_layout_theme')
+        $themes = app()->table('platform_layout_theme')
             ->select()
             ->all();
 
@@ -150,7 +150,7 @@ class LayoutTest extends ControllerTestCase
      */
     public function testThemeId($themeId)
     {
-        $layoutService = \App::layouts();
+        $layoutService = app()->layouts();
 
         $this->assertEquals($layoutService->getThemeData($themeId), $layoutService->getThemeDataFromRepository($themeId));
 
@@ -169,7 +169,7 @@ class LayoutTest extends ControllerTestCase
      */
     public function layoutIdProvider()
     {
-        $layoutList = \App::table('platform_layout')
+        $layoutList = app()->table('platform_layout')
             ->select()
             ->all();
 
@@ -191,7 +191,7 @@ class LayoutTest extends ControllerTestCase
      */
     public function testLayoutId($layoutId, $pageId, $themeId)
     {
-        $layoutService = \App::layouts();
+        $layoutService = app()->layouts();
         $layout = $layoutService->findLayoutById($layoutId);
 
         $this->assertNotEmpty($layout);
@@ -204,7 +204,7 @@ class LayoutTest extends ControllerTestCase
      */
     public function pageNameProvider()
     {
-        $pageList = \App::table('platform_layout_page')
+        $pageList = app()->table('platform_layout_page')
             ->select()
             ->all();
 
@@ -231,7 +231,7 @@ class LayoutTest extends ControllerTestCase
             'default-dark',
         ];
 
-        $layoutService = \App::layouts();
+        $layoutService = app()->layouts();
 
         foreach ($themeList as $themeId) {
             $layout = $layoutService->findLayout($pageName, 'desktop', $themeId);
@@ -248,9 +248,9 @@ class LayoutTest extends ControllerTestCase
 
     public function testCreateLayout()
     {
-        $layoutService = \App::layouts();
+        $layoutService = app()->layouts();
 
-        $page = \App::table('platform_layout_page')
+        $page = app()->table('platform_layout_page')
             ->fetchNew([
                 'page_name'        => 'test_page',
                 'parent_page_name' => 'core_default',
@@ -274,7 +274,7 @@ class LayoutTest extends ControllerTestCase
 
     public function testCloneLayout()
     {
-        $layoutService = \App::layouts();
+        $layoutService = app()->layouts();
 
         $layout = $layoutService->findClosestLayout('core_default', 'desktop', 'default');
 

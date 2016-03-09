@@ -38,7 +38,7 @@ class GoogleAdapter implements SocialLoginAdapterInterface
     {
         if (null == $this->client) {
 
-            $config = \App::setting('google');
+            $config = app()->setting('google');
 
             $client = new \Google_Client();
 
@@ -84,7 +84,7 @@ class GoogleAdapter implements SocialLoginAdapterInterface
             $host = 'localhost';
         }
 
-        $detailUrl = \App::routing()->getUrl('oauth_callback', [
+        $detailUrl = app()->routing()->getUrl('oauth_callback', [
             'service' => 'google'
         ]);
 

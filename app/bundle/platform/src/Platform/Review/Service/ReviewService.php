@@ -4,7 +4,7 @@ namespace Platform\Review\Service;
 
 use Kendo\Content\ContentInterface;
 use Kendo\Content\PosterInterface;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Review\Model\Review;
 
 /**
@@ -12,7 +12,7 @@ use Platform\Review\Model\Review;
  *
  * @package Review\Service
  */
-class ReviewService extends KernelServiceAgreement
+class ReviewService extends KernelService
 {
 
     const MIN_SCORE = 1;
@@ -27,7 +27,7 @@ class ReviewService extends KernelServiceAgreement
      */
     public function findReview($posterId, $objectId)
     {
-        return \App::table('activity.review')
+        return app()->table('activity.review')
             ->select()
             ->where('poster_id=?', $posterId)
             ->where('object_id=?', $objectId)
@@ -117,7 +117,7 @@ class ReviewService extends KernelServiceAgreement
      */
     public function getReviewedSelect($posterId)
     {
-        return \App::table('activity.review')
+        return app()->table('activity.review')
             ->select()
             ->where('poster_id=?', $posterId);
     }
@@ -129,7 +129,7 @@ class ReviewService extends KernelServiceAgreement
      */
     public function getReviewedBySelect($objectId)
     {
-        return \App::table('activity.review')
+        return app()->table('activity.review')
             ->select()
             ->where('object_id=?', $objectId);
     }

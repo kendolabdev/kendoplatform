@@ -28,7 +28,7 @@ class SidebarMenuBlock extends BlockController
      */
     public function execute()
     {
-        $nav = \App::layouts()
+        $nav = app()->layouts()
             ->getSecondaryNavigation();
 
         if (!$nav->getNav()) {

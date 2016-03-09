@@ -37,7 +37,7 @@ class HorizontalContainerEditor
                 $response[] = '';
             } else {
                 foreach ($data['locations'][ $location ] as $blockData) {
-                    $response[] = \App::layouts()->renderBlockForEdit($blockData);
+                    $response[] = app()->layouts()->renderBlockForEdit($blockData);
                 }
             }
             $response[] = '</div>';
@@ -45,6 +45,6 @@ class HorizontalContainerEditor
         $data['item'] = $item;
         $data['content'] = implode(PHP_EOL, $response);
 
-        return \App::viewHelper()->partial('platform/layout/partial/horizontal-container-editor', $data);
+        return app()->viewHelper()->partial('platform/layout/partial/horizontal-container-editor', $data);
     }
 }

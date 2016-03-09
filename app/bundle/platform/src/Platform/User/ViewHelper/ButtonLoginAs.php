@@ -22,15 +22,15 @@ class ButtonLoginAs
         if (!$item instanceof PosterInterface)
             return '';
 
-        if (!\App::authService()->logged())
+        if (!app()->auth()->logged())
             return '';
 
-        if (!\App::aclService()->authorizeFor(\App::authService()->getUser(), 'is_admin'))
+        if (!app()->aclService()->authorizeFor(app()->auth()->getUser(), 'is_admin'))
             return '';
 
-        if (\App::authService()->getId() == $item->getId())
+        if (app()->auth()->getId() == $item->getId())
             return '';
 
-        return \App::viewHelper()->partial('platform/user/button/login-as', ['item' => $item]);
+        return app()->viewHelper()->partial('platform/user/button/login-as', ['item' => $item]);
     }
 }

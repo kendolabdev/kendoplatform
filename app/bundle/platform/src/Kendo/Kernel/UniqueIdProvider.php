@@ -6,7 +6,7 @@ namespace Kendo\Kernel;
  *
  * @package Kendo\Kernel
  */
-class UniqueIdProvider extends KernelServiceAgreement
+class UniqueIdProvider extends KernelService
 {
 
     /**

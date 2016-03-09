@@ -185,7 +185,7 @@ class BlockController
             }
             $decoratorParams = $this->getDecoratorParams();
 
-            return \App::layouts()
+            return app()->layouts()
                 ->getBlockDecorator($decoratorParams->getPlugin())
                 ->render($this, $decoratorParams);
         } catch (\RuntimeException $ex) {

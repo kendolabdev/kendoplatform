@@ -20,7 +20,7 @@ class SettingController extends AdminController
     public function actionEdit()
     {
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'video_extension', 'video_settings');
 

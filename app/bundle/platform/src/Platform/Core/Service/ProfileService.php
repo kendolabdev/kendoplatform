@@ -16,9 +16,9 @@ class ProfileService
      */
     public function getStorageTypes()
     {
-        return \App::table('core.process_data_type')
+        return app()->table('core.process_data_type')
             ->select()
-            ->where('module_name IN ?', \App::packages()->getActiveModules())
+            ->where('module_name IN ?', app()->packages()->getActiveModules())
             ->toPairs('data_type', 'storage');
     }
 
@@ -56,7 +56,7 @@ class ProfileService
         foreach ($storages as $storage => $names) {
 
 
-            $rows = \App::table($storage)->loadContentValues($profile->getId(), $names);
+            $rows = app()->table($storage)->loadContentValues($profile->getId(), $names);
 
             foreach ($rows as $row) {
                 $name = $row->__get('name');
@@ -81,9 +81,9 @@ class ProfileService
      */
     public function getProfileFields($contentType)
     {
-        $dataType = \App::table('core.process_data_type');
+        $dataType = app()->table('core.process_data_type');
 
-        $fields = \App::table('core.profile_field')
+        $fields = app()->table('core.profile_field')
             ->select('pt')
             ->where('content_type=?', $contentType)
             ->join($dataType->getName(), 'dt', 'dt.data_type=pt.data_type', null, null)
@@ -106,7 +106,7 @@ class ProfileService
      */
     public function findValueRows($profileId, $names = [])
     {
-        return \App::table('core.profile_value')
+        return app()->table('core.profile_value')
             ->select()
             ->where('content_id=?', $profileId)
             ->where('name in ?', $names)
@@ -144,7 +144,7 @@ class ProfileService
             $value = $data[ $name ];
             $field = $fields[ $name ];
 
-            $table = \App::table($field['storage']);
+            $table = app()->table($field['storage']);
 
             $table->updateContentValues($profile->getId(), $name, $field['is_multiple'], $value);
         }
@@ -158,7 +158,7 @@ class ProfileService
      */
     public function findSupportedFields($contentType)
     {
-        return \App::table('core.profile_field')
+        return app()->table('core.profile_field')
             ->select()
             ->where('content_type=?', $contentType)
             ->fields('field_name');
@@ -171,7 +171,7 @@ class ProfileService
      */
     public function getAbout(PosterInterface $profile)
     {
-        $processService = \App::instance()->make('platform_core_process');
+        $processService = app()->instance()->make('platform_core_process');
 
         if (!$processService instanceof ProcessService) ;
 
@@ -225,7 +225,7 @@ class ProfileService
         foreach ($storages as $storage => $names) {
 
 
-            $rows = \App::table($storage)->loadContentValues($profile->getId(), $names);
+            $rows = app()->table($storage)->loadContentValues($profile->getId(), $names);
 
             foreach ($rows as $row) {
 

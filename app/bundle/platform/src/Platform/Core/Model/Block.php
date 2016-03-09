@@ -104,7 +104,7 @@ class Block extends Model
      */
     public function table()
     {
-        return \App::table('core.block');
+        return app()->table('core.block');
     }
     //END_TABLE_GENERATOR
 }

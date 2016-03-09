@@ -28,13 +28,13 @@ class ProfileBaseController extends DefaultController
     {
         parent::init();
 
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         list($profileType, $profileId) = $this->request->getList('profileType', 'profileId');
 
         if (empty($profile) && empty($profileType)) {
-            $profile = \App::authService()->getViewer();
-            \App::registryService()->set('profile', $profile);
+            $profile = app()->auth()->getViewer();
+            app()->registryService()->set('profile', $profile);
         }
 
         if (null == $profile) {
@@ -42,14 +42,14 @@ class ProfileBaseController extends DefaultController
              * check is numeric
              */
             if (preg_match('#^(\d+)$#', $profileId)) {
-                $profile = \App::find($profileType, $profileId);
+                $profile = app()->find($profileType, $profileId);
             } else {
-                $profile = \App::table($profileType)
+                $profile = app()->table($profileType)
                     ->select()
                     ->where('profile_name=?', (string)$profileId)
                     ->one();
             }
-            \App::registryService()->set('profile', $profile);
+            app()->registryService()->set('profile', $profile);
         }
 
         /**
@@ -57,10 +57,10 @@ class ProfileBaseController extends DefaultController
          */
         $actionName = preg_replace('#\W+#m', '_', strtolower($this->request->getActionName()));
 
-        \App::assetService()
+        app()->assetService()
             ->setTitle($profile->getTitle());
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName($profile->getType() . '_profile_' . $actionName);
     }
 

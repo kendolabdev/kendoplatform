@@ -35,7 +35,7 @@ class Youtube implements ProviderInterface
 
         $iframe = '<iframe ' . implode(' ', $attrs) . '></iframe>';
 
-        return \App::viewHelper()->partial('platform/video/partial/embed-video-youtube', [
+        return app()->viewHelper()->partial('platform/video/partial/embed-video-youtube', [
             'iframe' => $iframe,
             'id'     => $id
         ]);
@@ -152,7 +152,7 @@ class Youtube implements ProviderInterface
      */
     public function getApiKey()
     {
-        return \App::setting('google', 'public_key');
+        return app()->setting('google', 'public_key');
 
     }
 

@@ -35,7 +35,7 @@ class FilterUser extends Form
             ]
         ]);
 
-        $roleOptions = \App::aclService()->getRoleOptions('user');
+        $roleOptions = app()->aclService()->getRoleOptions('user');
 
         array_unshift($roleOptions, ['value' => 'all', 'label' => 'All']);
 

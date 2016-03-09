@@ -61,7 +61,7 @@ class MailSetting extends BaseSettingForm
 
         $options = [];
 
-        $adapters = \App::table('core.mail_adapter')
+        $adapters = app()->table('core.mail_adapter')
             ->select()
             ->all();
 

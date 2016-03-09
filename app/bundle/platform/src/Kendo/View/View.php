@@ -48,7 +48,7 @@ class View
      */
     public static function helper()
     {
-        return \App::viewHelper();
+        return app()->viewHelper();
     }
 
     /**
@@ -101,7 +101,8 @@ class View
             return '';
         }
 
-        $script = \App::viewFinder()->findPath($script);
+        $script = app()->viewFinder()->findPath($script);
+
 
         if (false == $script) {
             throw new \Exception(sprintf('Unexpected view "%s"', $this->getScript()));

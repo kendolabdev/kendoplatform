@@ -31,7 +31,7 @@ class Form extends HtmlCollection
      */
     public function setTitle($title)
     {
-        $this->title = \App::text($title);
+        $this->title = app()->text($title);
     }
 
     /**
@@ -129,7 +129,7 @@ class Form extends HtmlCollection
      */
     public function renderElements($plugin, $options = [])
     {
-        return \App::htmlService()->render($plugin, $this, $options);
+        return app()->html()->render($plugin, $this, $options);
     }
 
     /**

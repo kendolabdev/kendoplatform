@@ -14,7 +14,7 @@ class AlbumController extends AdminController
     {
         $filter = new FilterPhotoAlbum();
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('photo.manage_albums')
             ->setPageFilter($filter)
@@ -26,7 +26,7 @@ class AlbumController extends AdminController
         $limit = 24;
         $query = $filter->getData();
 
-        $paging = \App::photoService()
+        $paging = app()->photoService()
             ->loadPhotoPaging($query, $page, $limit);
 
         $lp = new BlockParams([

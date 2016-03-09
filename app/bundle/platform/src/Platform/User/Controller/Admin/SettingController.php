@@ -20,7 +20,7 @@ class SettingController extends AdminController
     public function actionLogin()
     {
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_manage_member', 'user_login_settings');
 
@@ -55,7 +55,7 @@ class SettingController extends AdminController
     public function actionRegister()
     {
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_manage_member', 'user_register_settings');
 

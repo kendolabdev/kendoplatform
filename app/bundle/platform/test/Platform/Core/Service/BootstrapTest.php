@@ -19,7 +19,7 @@ class BootstrapTest extends TestCase
 
         $tableList = [];
 
-        $items = \App::table('platform_core_type')
+        $items = app()->table('platform_core_type')
             ->select()
             ->toPairs('type_id', 'table_name');
 
@@ -38,7 +38,7 @@ class BootstrapTest extends TestCase
      */
     public function testTableName($tableName)
     {
-        $item = \App::table($tableName)
+        $item = app()->table($tableName)
             ->select()
             ->one();
 

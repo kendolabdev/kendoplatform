@@ -14,7 +14,7 @@ class CaptchaServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testGeneral()
     {
-        $captchaService =  \App::captcha();
+        $captchaService =  app()->captcha();
 
         $captchaService->loadAdminAdapterPaging();
     }

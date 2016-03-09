@@ -2,14 +2,14 @@
 
 namespace Platform\Navigation\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class Platform\NavigationService
  *
  * @package Platform\Navigation\Service
  */
-class NavigationService extends KernelServiceAgreement
+class NavigationService extends KernelService
 {
     /**
      * @param array $query
@@ -20,7 +20,7 @@ class NavigationService extends KernelServiceAgreement
      */
     public function loadAdminNavigationPaging($query = [], $page = 1, $limit = 10)
     {
-        $select = \App::table('navigation')
+        $select = app()->table('navigation')
             ->select()
             ->where('is_admin=?', 0);
 

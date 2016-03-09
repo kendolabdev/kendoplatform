@@ -1,14 +1,14 @@
 <?php
 
 namespace Kendo\Cache;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class CacheManager
  *
  * @package Kendo
  */
-class CacheManager extends KernelServiceAgreement
+class CacheManager extends KernelService
 {
 
     /**

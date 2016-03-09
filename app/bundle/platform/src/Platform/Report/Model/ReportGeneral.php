@@ -23,7 +23,7 @@ class ReportGeneral extends Model implements UniqueId
      */
     public function getPoster()
     {
-        return \App::find($this->getPosterType(), $this->getPosterId());
+        return app()->find($this->getPosterType(), $this->getPosterId());
     }
 
     /**
@@ -48,109 +48,96 @@ class ReportGeneral extends Model implements UniqueId
 
     //START_TABLE_GENERATOR
 
-
+    
     /**
      * @return null|string
      */
-    public function getId()
-    {
-        return $this->__get('general_id');
+    public function getId(){
+       return $this->__get('general_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value)
-    {
-        $this->__set('general_id', $value);
+    public function setId($value){
+       $this->__set('general_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getGeneralId()
-    {
-        return $this->__get('general_id');
+    public function getGeneralId(){
+       return $this->__get('general_id');
     }
 
     /**
      * @param $value
      */
-    public function setGeneralId($value)
-    {
-        $this->__set('general_id', $value);
+    public function setGeneralId($value){
+       $this->__set('general_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPosterId()
-    {
-        return $this->__get('poster_id');
+    public function getPosterId(){
+       return $this->__get('poster_id');
     }
 
     /**
      * @param $value
      */
-    public function setPosterId($value)
-    {
-        $this->__set('poster_id', $value);
+    public function setPosterId($value){
+       $this->__set('poster_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPosterType()
-    {
-        return $this->__get('poster_type');
+    public function getPosterType(){
+       return $this->__get('poster_type');
     }
 
     /**
      * @param $value
      */
-    public function setPosterType($value)
-    {
-        $this->__set('poster_type', $value);
+    public function setPosterType($value){
+       $this->__set('poster_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCreatedAt()
-    {
-        return $this->__get('created_at');
+    public function getCreatedAt(){
+       return $this->__get('created_at');
     }
 
     /**
      * @param $value
      */
-    public function setCreatedAt($value)
-    {
-        $this->__set('created_at', $value);
+    public function setCreatedAt($value){
+       $this->__set('created_at', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getMessage()
-    {
-        return $this->__get('message');
+    public function getMessage(){
+       return $this->__get('message');
     }
 
     /**
      * @param $value
      */
-    public function setMessage($value)
-    {
-        $this->__set('message', $value);
+    public function setMessage($value){
+       $this->__set('message', $value);
     }
 
     /**
      * @return \Platform\Report\Model\ReportGeneralTable
      */
-    public function table()
-    {
-        return \App::table('platform_report_general');
+    public function table(){
+        return app()->table('platform_report_general');
     }
     //END_TABLE_GENERATOR
 }

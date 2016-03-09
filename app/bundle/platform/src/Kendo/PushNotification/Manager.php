@@ -1,14 +1,14 @@
 <?php
 
 namespace Kendo\PushNotification;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class Manager
  *
  * @package Kendo\PushNotification
  */
-class Manager extends KernelServiceAgreement
+class Manager extends KernelService
 {
 
     /**

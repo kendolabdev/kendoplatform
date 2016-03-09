@@ -36,7 +36,7 @@ class LinkedinAdapter implements SocialLoginAdapterInterface
     public function getClient()
     {
         if (null == $this->client) {
-            $config = \App::setting('linkedin');
+            $config = app()->setting('linkedin');
 
             $this->client = new LinkedIn([
                 'api_key'      => $config['client_id'],
@@ -76,7 +76,7 @@ class LinkedinAdapter implements SocialLoginAdapterInterface
             $host = 'localhost';
         }
 
-        $detailUrl = \App::routing()->getUrl('oauth_callback', [
+        $detailUrl = app()->routing()->getUrl('oauth_callback', [
             'service' => 'linkedin'
         ]);
 

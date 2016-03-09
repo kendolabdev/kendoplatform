@@ -24,61 +24,57 @@ class LayoutPageTable extends DbTable
      * @see `picaso_platform_layout_page`
      * @var string
      */
-    protected $class = '\Platform\Layout\Model\LayoutPage';
+    protected $class =  '\Platform\Layout\Model\LayoutPage';
 
     /**
      * @var string
      */
-    protected $name = 'platform_layout_page';
+    protected $name =  'platform_layout_page';
 
     /**
      * @var array
      */
-    protected $column = [
-        'page_id'          => 1,
-        'page_name'        => 1,
-        'parent_page_name' => 1,
-        'module_name'      => 1,
-        'item_module_name' => 1,
-        'page_params_text' => 1,
-        'page_condition'   => 1,
-        'is_admin'         => 1,
-        'base_path'        => 1,
-        'item_path'        => 1];
+    protected $column = array(
+		'page_id'=>1,
+		'page_name'=>1,
+		'parent_page_name'=>1,
+		'module_name'=>1,
+		'item_module_name'=>1,
+		'page_params_text'=>1,
+		'page_condition'=>1,
+		'is_admin'=>1,
+		'base_path'=>1,
+		'item_path'=>1);
 
     /**
      * @var array
      */
-    protected $primary = ['page_id' => 1];
+    protected $primary = array( 'page_id'=>1);
 
     /**
      * @var string
      */
     protected $identity = 'page_id';
 
-
+    
     /**
      * @param  string|int $value
-     *
      * @return \Platform\Layout\Model\LayoutPage
      */
-    public function findById($value)
-    {
-        return $this->select()
-            ->where('page_id=?', $value)
-            ->one();
+    public function findById($value){
+       return $this->select()
+           ->where('page_id=?', $value)
+           ->one();
     }
 
     /**
      * @param  array $value
-     *
      * @return array
      */
-    public function findByIdList($value)
-    {
-        return $this->select()
-            ->where('page_id IN ?', $value)
-            ->all();
+    public function findByIdList($value){
+       return $this->select()
+           ->where('page_id IN ?', $value)
+           ->all();
     }
 
     //END_TABLE_GENERATOR

@@ -29,7 +29,7 @@ class FilterHelpTopic extends Form
             'name'    => 'category',
             'label'   => 'Category',
             'class'   => 'form-control',
-            'options' => \App::helpService()->loadAdminCategoryOptions(),
+            'options' => app()->helpService()->loadAdminCategoryOptions(),
         ]);
 
     }

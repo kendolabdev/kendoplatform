@@ -17,11 +17,11 @@ class LanguageController extends AdminController
     public function actionBrowse()
     {
 
-        \App::layouts()->setPageName('admin_simple')
+        app()->layouts()->setPageName('admin_simple')
             ->setPageTitle('core.manage_languages')
             ->setupSecondaryNavigation('admin', 'admin_language', 'languages');
 
-        $items = \App::table('platform_phrase_language')
+        $items = app()->table('platform_phrase_language')
             ->select()
             ->all();
 

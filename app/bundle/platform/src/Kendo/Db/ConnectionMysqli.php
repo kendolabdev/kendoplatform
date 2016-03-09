@@ -176,14 +176,14 @@ class ConnectionMysqli implements Connection
     {
 
         if (KENDO_PROFILER) {
-            $key = \App::profiler()->start('mysqli', 'query', $sql);
+            $key = app()->profiler()->start('mysqli', 'query', $sql);
         }
 
 
         $result = $this->connection->query($sql);
 
         if (KENDO_PROFILER and !empty($key)) {
-            \App::profiler()->stop($key);
+            app()->profiler()->stop($key);
         }
 
 

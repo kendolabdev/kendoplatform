@@ -21,7 +21,7 @@ class ListLikeSample
     {
         if (!$item instanceof LikeResult) {
 
-            $item = \App::likeService()->getLikeResult(\App::authService()->getViewer(), $item, 4);
+            $item = app()->likeService()->getLikeResult(app()->auth()->getViewer(), $item, 4);
         }
 
         return $item->getSampleHtml();

@@ -13,7 +13,7 @@ class CacheController extends AjaxController
 
     public function actionClear()
     {
-        \App::cacheService()
+        app()->cacheService()
             ->flush();
 
         $this->response = [

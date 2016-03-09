@@ -2,10 +2,10 @@
 
 namespace Platform\Core\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Core\Model\CoreType;
 
-class CoreService extends KernelServiceAgreement
+class CoreService extends KernelService
 {
 
     /**
@@ -13,7 +13,7 @@ class CoreService extends KernelServiceAgreement
      */
     public function loadTypeOptions()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['core', 'loadTypeOptions'], 0, function () {
                 return $this->loadTypeOptionsFromRepository();
             });
@@ -24,7 +24,7 @@ class CoreService extends KernelServiceAgreement
      */
     public function loadTypeOptionsFromRepository()
     {
-        $select = \App::table('platform_core_type')
+        $select = app()->table('platform_core_type')
             ->select();
 
         $items = $select->all();
@@ -47,7 +47,7 @@ class CoreService extends KernelServiceAgreement
      */
     public function hook()
     {
-        return \App::instance()->make('platform_core_hook');
+        return app()->instance()->make('platform_core_hook');
     }
 
     /**
@@ -55,7 +55,7 @@ class CoreService extends KernelServiceAgreement
      */
     public function extension()
     {
-        return \App::instance()->make('platform_core_extension');
+        return app()->instance()->make('platform_core_extension');
     }
 
 
@@ -66,7 +66,7 @@ class CoreService extends KernelServiceAgreement
      */
     public function getListTypeByModuleName($moduleList)
     {
-        return \App::table('platform_core_type')
+        return app()->table('platform_core_type')
             ->select()
             ->where('module_name IN ?', $moduleList)
             ->toAssocs();

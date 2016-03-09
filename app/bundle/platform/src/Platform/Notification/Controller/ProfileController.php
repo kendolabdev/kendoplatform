@@ -15,10 +15,10 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseNotification()
     {
-        $profile = \App::registryService()
+        $profile = app()->registryService()
             ->get('profile');
 
-        \App::layouts()
+        app()->layouts()
             ->setPageTitle('notification.notifications');
 
         $page = $this->request->getParam('page', 1);
@@ -28,10 +28,10 @@ class ProfileController extends ProfileBaseController
             'parentType' => $profile->getType(),
         ];
 
-        $paging = \App::notificationService()
+        $paging = app()->notificationService()
             ->loadNotificationPaging($query, $page);
 
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams();
 
         $this->view

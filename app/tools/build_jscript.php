@@ -2,6 +2,6 @@
 
 include '../init.php';
 
-\App::coreService()
+app()->coreService()
     ->extension()
     ->updateJsBundleConfiguration();

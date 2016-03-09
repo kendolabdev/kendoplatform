@@ -36,7 +36,7 @@ class FilterEvent extends Form
             ]
         ]);
 
-        $roleOptions = \App::aclService()->getRoleOptions('event');
+        $roleOptions = app()->aclService()->getRoleOptions('event');
 
         array_unshift($roleOptions, ['value' => 'all', 'label' => 'All']);
 

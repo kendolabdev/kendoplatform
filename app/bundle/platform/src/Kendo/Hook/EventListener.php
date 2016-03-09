@@ -1,14 +1,14 @@
 <?php
 
 namespace Kendo\Hook;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class EventHandler
  *
  * @package Kendo\Application
  */
-class EventListener extends KernelServiceAgreement
+class EventListener extends KernelService
 {
     /**
      * @codeCoverageIgnore

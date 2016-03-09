@@ -21,24 +21,24 @@ class ActivityComposerBlock extends BlockController
      */
     public function execute()
     {
-        if (!\App::authService()->logged()) {
+        if (!app()->auth()->logged()) {
             $this->view->setNoRender(true);
 
             return;
         }
 
-        $profile = \App::registryService()->get('profile');
-        $viewer = \App::authService()->getViewer();
+        $profile = app()->registryService()->get('profile');
+        $viewer = app()->auth()->getViewer();
 
         if (!$profile) {
-            $profile = \App::authService()->getViewer();
+            $profile = app()->auth()->getViewer();
         }
 
         /**
          * check privacy of profile with current viewer
          */
 
-        if (!\App::aclService()->pass($profile, 'activity__update_status')) {
+        if (!app()->aclService()->pass($profile, 'activity__update_status')) {
             $this->setNoRender(true);
 
             return;
@@ -55,7 +55,7 @@ class ActivityComposerBlock extends BlockController
             $canControlPrivacy = true;
         }
 
-        $privacyButton = \App::htmlService()->create([
+        $privacyButton = app()->html()->create([
             'plugin'    => 'privacyButton',
             'name'      => 'privacy',
             'forParent' => $profile,
@@ -65,17 +65,17 @@ class ActivityComposerBlock extends BlockController
             'alignment' => 'right',
         ]);
 
-        $headerHtml = \App::emitter()
+        $headerHtml = app()->emitter()
             ->emit('onRenderActivityComposerHeader', $profile)->__toString();
 
-        $footerHtml = \App::emitter()
+        $footerHtml = app()->emitter()
             ->emit('onRenderActivityComposerFooter', $profile)->__toString();
 
-        $privacy = \App::relationService()->getRelationOptionForSelect($profile, $viewer, 'share_status');
+        $privacy = app()->relation()->getRelationOptionForSelect($profile, $viewer, 'share_status');
 
         $targetId = uniqid('stream');
 
-        \App::registryService()->set('composerTargetId', $targetId);
+        app()->registryService()->set('composerTargetId', $targetId);
 
         $this->view->assign([
             'headerHtml'        => $headerHtml,

@@ -10,6 +10,11 @@ namespace Kendo\Kernel;
 class Application
 {
     /**
+     * Version base
+     */
+    const VERSION = '4.1.0';
+
+    /**
      * @var Application
      */
     public static $app;
@@ -59,42 +64,42 @@ class Application
      * array
      */
     private $requires = [
-        'resource'      => '\Kendo\Resources\ResourcesContainer',
-        'settings'      => '\Kendo\Settings\SettingsContainer',
-        'autoload'      => '\Kendo\Kernel\ClassAutoload',
-        'packages'      => '\Kendo\Package\PackageManager',
-        'db'            => '\Kendo\Db\DbManager',
-        'cache'         => '\Kendo\Cache\CacheManager',
-        'log'           => '\Kendo\Log\Manager',
-        'hook'          => '\Kendo\Hook\EventManager',
-        'upload'        => '\Kendo\Upload\UploadManager',
-        'routing'       => '\Kendo\Http\RoutingManager',
-        'i18n'          => '\Kendo\I18n\Manager',
-        'phrase'        => '\Platform\Phrase\Service\PhraseService',
-        'acl'           => '\Platform\Acl\Service\AclService',
-        'help'          => '\Platform\Help\Service\HelpService',
-        'setting'       => '\Platform\Setting\Service\SettingService',
-        'requester'     => '\Kendo\Http\RequestManager',
-        'pusher'        => '\Kendo\PushNotification\Manager',
-        'viewFinder'    => '\Kendo\View\ViewFinder',
-        'viewHelper'    => '\Kendo\View\ViewHelper',
-        'assets'        => '\Kendo\Assets\AssetsManager',
-        'navigation'    => '\Kendo\Navigation\Manager',
-        'html'          => '\Kendo\Html\Manager',
-        'layout'        => '\Platform\Layout\Service\LayoutService',
-        'registry'      => '\Kendo\Registry\Manager',
-        'image_process' => '\Kendo\Image\ImageProcess',
-        'storage'       => '\Platform\Storage\Service\StorageService',
-        'auth'          => '\Kendo\Auth\AuthManager',
-        'user'          => '\Platform\User\Service\UserService',
-        'relation'      => '\Platform\Relation\Service\RelationService',
-        'paging'        => '\Kendo\Paging\Manager',
-        'validator'     => '\Kendo\Validator\Manager',
-        'sass'          => '\Kendo\Sass\Manager',
-        'session'       => '\Kendo\Session\Manager',
-        'twig'          => '\Kendo\Twig\Manager',
-        'profiler'      => '\Kendo\Profiler\ProfilerContainer',
-        'uid'           => '\Kendo\Kernel\UniqueIdProvider',
+        'resource'    => '\Kendo\Resources\ResourcesContainer',
+        'settings'    => '\Kendo\Settings\SettingsContainer',
+        'autoload'    => '\Kendo\Kernel\ClassAutoload',
+        'packages'    => '\Kendo\Package\PackageManager',
+        'db'          => '\Kendo\Db\DbManager',
+        'cache'       => '\Kendo\Cache\CacheManager',
+        'log'         => '\Kendo\Log\Manager',
+        'hook'        => '\Kendo\Hook\EventManager',
+        'upload'      => '\Kendo\Upload\UploadManager',
+        'routing'     => '\Kendo\Routing\RoutingManager',
+        'i18n'        => '\Kendo\I18n\Manager',
+        'phrase'      => '\Platform\Phrase\Service\PhraseService',
+        'acl'         => '\Platform\Acl\Service\AclService',
+        'help'        => '\Platform\Help\Service\HelpService',
+        'setting'     => '\Platform\Setting\Service\SettingService',
+        'requester'   => '\Kendo\Http\RequestManager',
+        'pusher'      => '\Kendo\PushNotification\Manager',
+        'view_finder' => '\Kendo\View\ViewFinder',
+        'view_helper' => '\Kendo\View\ViewHelper',
+        'assets'      => '\Kendo\Assets\AssetsManager',
+        'navigation'  => '\Kendo\Navigation\Manager',
+        'html'        => '\Kendo\Html\Manager',
+        'layout'      => '\Platform\Layout\Service\LayoutService',
+        'registry'    => '\Kendo\Registry\Manager',
+        'image'       => '\Kendo\Image\ImageManager',
+        'storage'     => '\Platform\Storage\Service\StorageService',
+        'auth'        => '\Kendo\Auth\AuthManager',
+        'user'        => '\Platform\User\Service\UserService',
+        'relation'    => '\Platform\Relation\Service\RelationService',
+        'paging'      => '\Kendo\Paging\Manager',
+        'validator'   => '\Kendo\Validator\Manager',
+        'sass'        => '\Kendo\Sass\Manager',
+        'session'     => '\Kendo\Session\Manager',
+        'twig'        => '\Kendo\Twig\Manager',
+        'profiler'    => '\Kendo\Profiler\ProfilerContainer',
+        'uid'         => '\Kendo\Kernel\UniqueIdProvider',
     ];
 
 
@@ -103,12 +108,21 @@ class Application
      */
     static public $cachedItem = [];
 
+
     /**
      * Prevent public construct
      */
     public function __construct()
     {
         $this->byNames = [];
+    }
+
+    /**
+     * @return string
+     */
+    public static function version()
+    {
+        return self::VERSION;
     }
 
     /**
@@ -135,7 +149,7 @@ class Application
     /**
      * @param string $name Service Alias
      *
-     * @return ServiceInterface
+     * @return KernelServiceInterface
      * @throws \InvalidArgumentException
      */
     private function create($name)
@@ -146,17 +160,15 @@ class Application
             throw new \InvalidArgumentException("Missing class " . $class);
         }
 
-        $instance = new $class();
+        $maker = new $class();
 
-        if (!$instance instanceof ServiceInterface) {
+        if (!$maker instanceof KernelServiceInterface) {
             throw new \InvalidArgumentException(sprintf('Unexpected service "%s"', $name));
         }
 
-        $instance->bind($this);
+        $this->byInstances[ $name ] = $maker->bind($this);
 
-        $this->share([$name, $class] + $instance->alias(), $instance);
-
-        $instance->bound();
+        $maker->bound();
 
         return $this->byInstances[ $name ];
     }
@@ -164,7 +176,7 @@ class Application
     /**
      * @param string $name
      *
-     * @return ServiceInterface
+     * @return KernelServiceInterface
      */
     public function make($name)
     {
@@ -234,32 +246,6 @@ class Application
     }
 
     /**
-     * Shared a instance as alias, example some time we call platform_user and user is map to one instance.
-     * so we call these two method to shared instance from themes.
-     *
-     * @param array            $alias
-     * @param ServiceInterface $instance
-     */
-    public function share($alias, $instance)
-    {
-        foreach ($alias as $name) {
-            $this->byInstances[ $name ] = $instance;
-        }
-    }
-
-    /**
-     * @param array $names
-     */
-    public function needs($names)
-    {
-        foreach ($names as $name) {
-            if (!isset($this->byInstances[ $name ])) {
-                $this->make($name);
-            }
-        }
-    }
-
-    /**
      * Start service
      */
     public function start()
@@ -297,23 +283,13 @@ class Application
         $this->unitest = $unitest;
     }
 
-    /**
-     * @param string $name
-     * @param array  $arguments
-     *
-     * @return ServiceInterface
-     */
-    public static function __callStatic($name, $arguments)
-    {
-        return self::$app->make($name);
-    }
 
     /**
      * @return string
      */
     public static function staticBaseUrl()
     {
-        $staticUrl = \App::setting('core', 'static_base_url');
+        $staticUrl = app()->setting('core', 'static_base_url');
 
         if (!$staticUrl OR defined('KENDO_DEVELOPMENT') && KENDO_DEVELOPMENT) {
             $staticUrl = KENDO_BASE_URL;
@@ -325,6 +301,7 @@ class Application
 
     /**
      * @return \Platform\Invitation\Service\InvitationService
+     *
      */
     public static function invitationService()
     {
@@ -350,7 +327,7 @@ class Application
     /**
      * @param $name
      *
-     * @return \Kendo\Kernel\ServiceInterface
+     * @return \Kendo\Kernel\KernelServiceInterface
      */
     public static function service($name)
     {
@@ -381,14 +358,6 @@ class Application
     public static function tagService()
     {
         return self::$app->make('platform_tag');
-    }
-
-    /**
-     * @return \Kendo\Twig\Manager
-     */
-    public static function twig()
-    {
-        return self::$app->make('twig');
     }
 
 
@@ -432,30 +401,6 @@ class Application
     }
 
     /**
-     * @return \Kendo\Db\DbManager
-     */
-    public static function db()
-    {
-        return self::$app->make('db');
-    }
-
-    /**
-     * @return \Kendo\Session\Manager
-     */
-    public static function sessionService()
-    {
-        return self::$app->make('session');
-    }
-
-    /**
-     * @return \Kendo\Paging\Manager
-     */
-    public static function pagingService()
-    {
-        return self::$app->make('paging');
-    }
-
-    /**
      * @return \Kendo\Kernel\ClassAutoload
      */
     public static function autoload()
@@ -489,7 +434,8 @@ class Application
     }
 
     /**
-     * @usages \App::table('platform_user') <br />
+     * @usages app()->table('platform_user') <br />
+     *
      * @param string $alias
      *
      * @return \Kendo\Db\DbTable
@@ -571,13 +517,6 @@ class Application
         return self::$app->make('platform_event');
     }
 
-    /**
-     * @return \Platform\User\Service\UserService
-     */
-    public static function userService()
-    {
-        return self::$app->make('platform_user');
-    }
 
     /**
      * Shortcut to get global setting
@@ -588,9 +527,9 @@ class Application
      *
      * @return mixed
      */
-    public static function setting($group, $name = null, $defaultValue = null)
+    public function setting($group, $name = null, $defaultValue = null)
     {
-        return self::settings()->get($group, $name, $defaultValue);
+        return $this->settings()->get($group, $name, $defaultValue);
     }
 
     /**
@@ -601,15 +540,6 @@ class Application
         return self::$app->make('platform_captcha');
     }
 
-    /**
-     * Get site setting service
-     *
-     * @return \Kendo\Settings\SettingsContainer
-     */
-    public static function settings()
-    {
-        return self::$app->make('settings');
-    }
 
     /**
      * Get content from database table has single primary key.
@@ -705,11 +635,11 @@ class Application
      */
     public static function viewFinder()
     {
-        return self::$app->make('viewFinder');
+        return self::$app->make('view_finder');
     }
 
     /**
-     * @return \Kendo\Http\RoutingManager
+     * @return \Kendo\Routing\RoutingManager
      */
     public static function routing()
     {
@@ -721,7 +651,7 @@ class Application
      */
     public static function viewHelper()
     {
-        return self::$app->make('viewHelper');
+        return self::$app->make('view_helper');
     }
 
     /**
@@ -759,7 +689,7 @@ class Application
     /**
      * @return \Kendo\Html\Manager
      */
-    public static function htmlService()
+    public static function html()
     {
         return self::$app->make('html');
     }
@@ -795,13 +725,6 @@ class Application
         return self::$app->make('registry');
     }
 
-    /**
-     * @return \Kendo\Image\ImageProcess
-     */
-    public static function imageProcess()
-    {
-        return self::$app->make('image_process');
-    }
 
     /**
      * Get Poster Value settings. It is used for "Parent" content only
@@ -829,23 +752,16 @@ class Application
     /**
      * @return \Kendo\Validator\Manager
      */
-    public static function validationService()
+    public static function validation()
     {
         return self::$app->make('validator');
     }
 
-    /**
-     * @return \Kendo\Auth\AuthManager
-     */
-    public static function authService()
-    {
-        return self::$app->make('auth');
-    }
 
     /**
      * @return \Platform\Relation\Service\RelationService
      */
-    public static function relationService()
+    public static function relation()
     {
         return self::$app->make('relation');
     }
@@ -853,7 +769,7 @@ class Application
     /**
      * @return \Kendo\Sass\Manager
      */
-    public static function styleService()
+    public static function sass()
     {
         return self::$app->make('sass');
     }
@@ -874,15 +790,6 @@ class Application
         return self::$app->make('attribute');
     }
 
-
-    /**
-     * @return \Platform\Report\Service\ReportService
-     */
-    public static function reportService()
-    {
-        return self::$app->make('report');
-    }
-
     /**
      * @return \Kendo\Profiler\ProfilerContainer
      */
@@ -891,23 +798,6 @@ class Application
         return self::$app->make('profiler');
     }
 
-    /**
-     * @return \Kendo\Http\RequestManager
-     */
-    public static function requester()
-    {
-        return self::$app->make('requester');
-    }
-
-    /**
-     * Package information
-     *
-     * @return \Kendo\Package\PackageManager
-     */
-    public static function packages()
-    {
-        return self::$app->make('packages');
-    }
 
     /**
      * @return boolean
@@ -923,5 +813,116 @@ class Application
     public function setDebug($debug)
     {
         $this->debug = $debug;
+    }
+
+    /**
+     * @return \Kendo\Image\InterventionManager
+     */
+    public function image()
+    {
+        return $this->make('image');
+    }
+
+    /**
+     * @return \Platform\User\Service\UserService
+     */
+    public function user()
+    {
+        return $this->make('user');
+    }
+
+    /**
+     * @return \Platform\Report\Service\ReportService
+     */
+    public function report()
+    {
+        return $this->make('platform_report');
+    }
+
+    /**
+     * @return \Kendo\Settings\SettingsContainer
+     */
+    public function settings()
+    {
+        return $this->make('settings');
+    }
+
+    /**
+     * @return \Kendo\Paging\Manager
+     */
+    public function paging()
+    {
+        return $this->make('paging');
+    }
+
+    /**
+     * @return \Kendo\Session\Manager
+     */
+    public function session()
+    {
+        return $this->make('session');
+
+    }
+
+    /**
+     * @return \Kendo\Twig\Manager
+     */
+    public function twig()
+    {
+        return $this->make('twig');
+    }
+
+    /**
+     * @return \Kendo\Db\DbManager
+     */
+    public function db()
+    {
+        return $this->make('db');
+    }
+
+    /**
+     * @return \Kendo\Auth\AuthManager
+     */
+    public function auth()
+    {
+        return $this->make('auth');
+    }
+
+    /**
+     * @return \Kendo\Http\RequestManager
+     */
+    public function requester()
+    {
+        return $this->make('requester');
+    }
+
+    /**
+     * @return \Kendo\Package\PackageManager
+     */
+    public function packages()
+    {
+        return $this->make('packages');
+    }
+
+    /**
+     * @param $name
+     * @param $arguments
+     *
+     * @return \Kendo\Kernel\KernelServiceInterface
+     */
+    function __call($name, $arguments)
+    {
+        return isset($this->byInstances[ $name ]) ? $this->byInstances[ $name ] : $this->create($name);
+    }
+
+    /**
+     * @param string $name
+     * @param array  $arguments
+     *
+     * @return KernelServiceInterface
+     */
+    public static function __callStatic($name, $arguments)
+    {
+        return self::$app->make($name);
     }
 }

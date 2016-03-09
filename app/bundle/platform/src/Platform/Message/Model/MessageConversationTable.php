@@ -24,57 +24,53 @@ class MessageConversationTable extends DbTable
      * @see `picaso_platform_message_conversation`
      * @var string
      */
-    protected $class = '\Platform\Message\Model\MessageConversation';
+    protected $class =  '\Platform\Message\Model\MessageConversation';
 
     /**
      * @var string
      */
-    protected $name = 'platform_message_conversation';
+    protected $name =  'platform_message_conversation';
 
     /**
      * @var array
      */
-    protected $column = [
-        'conversation_id' => 1,
-        'title'           => 1,
-        'from_id'         => 1,
-        'to_id'           => 1,
-        'last_message_id' => 1,
-        'created_at'      => 1];
+    protected $column = array(
+		'conversation_id'=>1,
+		'title'=>1,
+		'from_id'=>1,
+		'to_id'=>1,
+		'last_message_id'=>1,
+		'created_at'=>1);
 
     /**
      * @var array
      */
-    protected $primary = ['conversation_id' => 1];
+    protected $primary = array( 'conversation_id'=>1);
 
     /**
      * @var string
      */
     protected $identity = 'conversation_id';
 
-
+    
     /**
      * @param  string|int $value
-     *
      * @return \Platform\Message\Model\MessageConversation
      */
-    public function findById($value)
-    {
-        return $this->select()
-            ->where('conversation_id=?', $value)
-            ->one();
+    public function findById($value){
+       return $this->select()
+           ->where('conversation_id=?', $value)
+           ->one();
     }
 
     /**
      * @param  array $value
-     *
      * @return array
      */
-    public function findByIdList($value)
-    {
-        return $this->select()
-            ->where('conversation_id IN ?', $value)
-            ->all();
+    public function findByIdList($value){
+       return $this->select()
+           ->where('conversation_id IN ?', $value)
+           ->all();
     }
 
     //END_TABLE_GENERATOR

@@ -35,7 +35,7 @@ class RuleUnique extends Rule
             return true;
         }
 
-        $table = \App::table($this->getTableName());
+        $table = app()->table($this->getTableName());
 
         $column = $this->getColumnName();
 
@@ -87,6 +87,6 @@ class RuleUnique extends Rule
      */
     public function getMessage()
     {
-        return \App::text($this->message, ['$value' => $this->getValue()]);
+        return app()->text($this->message, ['$value' => $this->getValue()]);
     }
 }

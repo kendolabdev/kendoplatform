@@ -2,7 +2,7 @@
 
 namespace Platform\Like\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Feed\Model\Feed;
 use Platform\Like\Helper\LikeResult;
 use Platform\Like\Model\Like;
@@ -14,7 +14,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Like\Service
  */
-class LikeService extends KernelServiceAgreement
+class LikeService extends KernelService
 {
     /**
      * IS UN-LIKE
@@ -31,7 +31,7 @@ class LikeService extends KernelServiceAgreement
      */
     public function getAdminStatisticCount()
     {
-        return \App::table('platform_like')
+        return app()->table('platform_like')
             ->select()
             ->count();
     }
@@ -45,7 +45,7 @@ class LikeService extends KernelServiceAgreement
      */
     public function loadLikePaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('platform_like')->select();
+        $select = app()->table('platform_like')->select();
 
         $isValid = false;
 
@@ -76,7 +76,7 @@ class LikeService extends KernelServiceAgreement
      */
     public function findLike(PosterInterface $poster, AtomInterface $about)
     {
-        return \App::table('platform_like')
+        return app()->table('platform_like')
             ->select()
             ->where('poster_id=?', $poster->getId())
             ->where('about_id=?', $about->getId())
@@ -157,7 +157,7 @@ class LikeService extends KernelServiceAgreement
     {
 
         if (null == $poster)
-            $poster = \App::authService()->getViewer();
+            $poster = app()->auth()->getViewer();
 
         $isLiked = false;
 
@@ -174,7 +174,7 @@ class LikeService extends KernelServiceAgreement
 
         if ($likeCount > 0) {
 
-            $select = \App::table('platform_like')
+            $select = app()->table('platform_like')
                 ->select()
                 ->where('about_id=?', $about->getId())
                 ->where('about_type=?', $about->getType())
@@ -204,7 +204,7 @@ class LikeService extends KernelServiceAgreement
      */
     public function getLikedSelect($posterId)
     {
-        return \App::table('platform_like')
+        return app()->table('platform_like')
             ->select()
             ->where('poster_id=?', $posterId);
     }
@@ -216,7 +216,7 @@ class LikeService extends KernelServiceAgreement
      */
     public function getLikedBySelect($objectId)
     {
-        return \App::table('platform_like')
+        return app()->table('platform_like')
             ->select()
             ->where('about_id=?', $objectId);
     }
@@ -241,7 +241,7 @@ class LikeService extends KernelServiceAgreement
 
         $posterId = $poster->getId();
 
-        $resultList = \App::table('platform_like')
+        $resultList = app()->table('platform_like')
             ->select()
             ->where('poster_id=?', $posterId)
             ->where('about_id IN ?', $itemIdList)
@@ -267,7 +267,7 @@ class LikeService extends KernelServiceAgreement
             return self::NOT_LIKE;
         }
 
-        $result = \App::table('platform_like')
+        $result = app()->table('platform_like')
             ->select()
             ->where('poster_id=?', $poster->getId())
             ->where('about_id = ?', $objectId)
@@ -295,7 +295,7 @@ class LikeService extends KernelServiceAgreement
      */
     public function removeAllByAbout($about)
     {
-        \App::table('platform_like')
+        app()->table('platform_like')
             ->delete()
             ->where('about_id=?', $about->getId())
             ->execute();
@@ -309,7 +309,7 @@ class LikeService extends KernelServiceAgreement
      */
     public function removeAllByPoster($poster)
     {
-        $table = \App::table('platform_like');
+        $table = app()->table('platform_like');
 
         $table->partialUpdateWhenPosterRemove($poster, 'like_count', '-1', 100, function () use (&$table, &$poster) {
             return
@@ -328,7 +328,7 @@ class LikeService extends KernelServiceAgreement
                 ->limit($limit, 0)
                 ->fields('about_id');
         }, function ($idList) use (&$table, &$poster) {
-            \App::table('platform_like')
+            app()->table('platform_like')
                 ->delete()
                 ->where('poster_id=?', $poster->getId())
                 ->where('about_id IN ?', $idList);
@@ -344,7 +344,7 @@ class LikeService extends KernelServiceAgreement
      */
     public function loadLikedThisPaging($query = [], $page = 1, $limit = 10)
     {
-        $select = \App::table('platform_like')
+        $select = app()->table('platform_like')
             ->select()
             ->where('about_type=?', $query['aboutType'])
             ->where('about_id=?', $query['aboutId'])

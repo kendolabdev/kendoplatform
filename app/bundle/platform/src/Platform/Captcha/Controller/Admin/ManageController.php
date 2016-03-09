@@ -16,8 +16,8 @@ class ManageController extends AdminController
 
     protected function onBeforeRender()
     {
-        \App::layouts()->setPageName('admin_simple');
-        \App::layouts()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_setting_captcha');
+        app()->layouts()->setPageName('admin_simple');
+        app()->layouts()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_setting_captcha');
     }
 
     /**
@@ -30,7 +30,7 @@ class ManageController extends AdminController
         $page = 1;
         $limit = 100;
 
-        $paging = \App::captcha()->loadAdminAdapterPaging($query, $page, $limit);
+        $paging = app()->captcha()->loadAdminAdapterPaging($query, $page, $limit);
 
 
         $lp = new BlockParams([
@@ -68,7 +68,7 @@ class ManageController extends AdminController
 //        if (!class_exists($class))
 //            throw new \InvalidArgumentException();
 
-        $form = \App::htmlService()->factory($class);
+        $form = app()->html()->factory($class);
 
 
         if (!$form instanceof BaseSettingForm)
@@ -76,7 +76,7 @@ class ManageController extends AdminController
 
         if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->save();
-            \App::routing()->redirect('admin', ['stuff' => 'captcha/manage/browse']);
+            app()->routing()->redirect('admin', ['stuff' => 'captcha/manage/browse']);
 
         }
 

@@ -3,7 +3,7 @@ namespace Platform\Relation\Service;
 
 use Kendo\Content\ContentInterface;
 use Kendo\Content\PosterInterface;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Relation\Model\Relation;
 use Platform\Relation\Model\RelationItem;
 use Platform\Relation\Model\RelationRequest;
@@ -13,7 +13,7 @@ use Platform\Relation\Model\RelationRequest;
  *
  * @package Core\Service
  */
-class RelationService extends KernelServiceAgreement
+class RelationService extends KernelService
 {
 
     /**
@@ -40,13 +40,13 @@ class RelationService extends KernelServiceAgreement
     public function getPrivacyConditionForQuery($viewerId = null, $alias = 'f')
     {
         if (null == $viewerId) {
-            $viewerId = (string)\App::authService()->getId();
+            $viewerId = (string)app()->auth()->getId();
         }
 
         return strtr("(:alias.privacy_type in (:public,:registered) OR (:alias.poster_id=:viewerId) OR (:alias.privacy_value=:viewerId) OR (:alias.privacy_value IN ( SELECT relation_id FROM :prefix_platform_relation_item WHERE poster_id=:viewerId UNION SELECT relation_id FROM :prefix_platform_relation WHERE parent_id=:viewerId)))", [
             ':public'     => RELATION_TYPE_ANYONE,
             ':registered' => RELATION_TYPE_REGISTERED,
-            ':prefix_'    => \App::db()->getPrefix(),
+            ':prefix_'    => app()->db()->getPrefix(),
             ':viewerId'   => $viewerId,
             ':alias'      => $alias,
         ]);
@@ -59,7 +59,7 @@ class RelationService extends KernelServiceAgreement
      */
     public function getMemberCount(PosterInterface $parent)
     {
-        return (int)\App::table('platform_relation_item')
+        return (int)app()->table('platform_relation_item')
             ->select()
             ->where('relation_id=?', $parent->getId())
             ->where('parent_id=?', $parent->getId())
@@ -75,7 +75,7 @@ class RelationService extends KernelServiceAgreement
      */
     public function getMemberIdList($parent, $type = null)
     {
-        $select = \App::table('platform_relation_item')
+        $select = app()->table('platform_relation_item')
             ->select()
             ->where('relation_id=?', $parent->getId())
             ->where('parent_id=?', $parent->getId());
@@ -180,7 +180,7 @@ class RelationService extends KernelServiceAgreement
             $relationType = RELATION_TYPE_MEMBER;
         }
 
-        $relation = \App::table('platform_relation')
+        $relation = app()->table('platform_relation')
             ->select()
             ->where('parent_id=?', $parent->getId())
             ->where('relation_type=?', $relationType)
@@ -200,7 +200,7 @@ class RelationService extends KernelServiceAgreement
      */
     private function removeItems(PosterInterface $parent, PosterInterface $poster, $relationId = null)
     {
-        $sql = \App::table('platform_relation_item')
+        $sql = app()->table('platform_relation_item')
             ->delete()
             ->where('poster_id=?', $poster->getId())
             ->where('parent_id=?', $parent->getId());
@@ -263,7 +263,7 @@ class RelationService extends KernelServiceAgreement
             throw new \InvalidArgumentException("Could not add relation");
         }
 
-        $item = \App::table('platform_relation_item')
+        $item = app()->table('platform_relation_item')
             ->select()
             ->where('relation_id=?', $relation->getId())
             ->where('poster_id=?', $poster->getId())
@@ -307,7 +307,7 @@ class RelationService extends KernelServiceAgreement
         if (null == $relationId) {
             $relation = $this->findList($parent, $relationType, true);
         } else {
-            $relation = \App::table('platform_relation')
+            $relation = app()->table('platform_relation')
                 ->findById($relationId);
         }
 
@@ -316,7 +316,7 @@ class RelationService extends KernelServiceAgreement
         }
 
         // force relation type is not member
-        $relationItem = \App::table('platform_relation_item')
+        $relationItem = app()->table('platform_relation_item')
             ->select()
             ->where('relation_id=?', $relation->getId())
             ->where('poster_id=?', $poster->getId())
@@ -350,7 +350,7 @@ class RelationService extends KernelServiceAgreement
      */
     public function clearRelationItem(PosterInterface $parent, PosterInterface $poster)
     {
-        \App::table('platform_relation_item')
+        app()->table('platform_relation_item')
             ->delete()
             ->where('poster_id=?', $poster->getId())
             ->where('parent_id=?', $parent->getId())
@@ -364,7 +364,7 @@ class RelationService extends KernelServiceAgreement
      */
     public function getRelationTypeForBuild($parentType)
     {
-        return \App::table('platform_relation_type')
+        return app()->table('platform_relation_type')
             ->select()
             ->where('parent_type =?', $parentType)
             ->where('is_build=?', 1)
@@ -398,7 +398,7 @@ class RelationService extends KernelServiceAgreement
      */
     private function hasMemberRelation(PosterInterface $parent, PosterInterface $poster)
     {
-        return null != \App::table('platform_relation_item')
+        return null != app()->table('platform_relation_item')
             ->select()
             ->where('parent_id=?', $parent->getId())
             ->where('poster_id=?', $poster->getId())
@@ -415,7 +415,7 @@ class RelationService extends KernelServiceAgreement
      */
     private function hasSpecificRelation(PosterInterface $parent, PosterInterface $poster, $relationId)
     {
-        return null != \App::table('platform_relation_item')
+        return null != app()->table('platform_relation_item')
             ->select()
             ->where('relation_id=?', (string)$relationId)
             ->where('parent_id=?', $parent->getId())
@@ -492,12 +492,12 @@ class RelationService extends KernelServiceAgreement
      */
     public function getMutualMemberSelect($parentId, $objectId)
     {
-        $subquery = \App::table('platform_relation_item')
+        $subquery = app()->table('platform_relation_item')
             ->select()
             ->where('parent_id=?', $objectId)
             ->columns('poster_id');
 
-        return \App::table('platform_relation_item')
+        return app()->table('platform_relation_item')
             ->select()
             ->where('parent_id=?', $parentId)
             ->where('poster_id IN (?)', $subquery);
@@ -513,7 +513,7 @@ class RelationService extends KernelServiceAgreement
     public function getPrivacyListByParentId($parentId)
     {
 
-        return \App::table('platform_relation')
+        return app()->table('platform_relation')
             ->select()
             ->where('parent_id=?', $parentId)
             ->all();
@@ -526,7 +526,7 @@ class RelationService extends KernelServiceAgreement
      */
     public function getPrivacyIdListByParentId($parentId)
     {
-        return \App::table('platform_relation')
+        return app()->table('platform_relation')
             ->select()
             ->where('parent_id=?', $parentId)
             ->toInts('relation_id');
@@ -543,7 +543,7 @@ class RelationService extends KernelServiceAgreement
     public function getAllRelationTypes($parentType)
     {
 
-        return \App::table('platform_relation_type')
+        return app()->table('platform_relation_type')
             ->select()
             ->where('parent_type=?', $parentType)
             ->order('relation_type', -1)
@@ -560,7 +560,7 @@ class RelationService extends KernelServiceAgreement
      */
     public function getAllSystemRelationType($parentType)
     {
-        return \App::table('platform_relation_type')
+        return app()->table('platform_relation_type')
             ->select()
             ->where('parent_type=?', $parentType)
             ->where('relation_type<?', RELATION_TYPE_CUSTOM)
@@ -578,7 +578,7 @@ class RelationService extends KernelServiceAgreement
      */
     public function getPrivacyOptions(PosterInterface $poster, PosterInterface $parent, $accepts = [], $excludes = [])
     {
-        $typeIdList = \App::aclService()->allow(sprintf('%s__privacy_option', $parent->getType()), [1, 2, 0]);
+        $typeIdList = app()->aclService()->allow(sprintf('%s__privacy_option', $parent->getType()), [1, 2, 0]);
 
         if (empty($typeIdList)) {
             return [];
@@ -627,7 +627,7 @@ class RelationService extends KernelServiceAgreement
 
             $response[] = [
                 'type'  => $typeId,
-                'label' => \App::text('relation.relation_type_' . $parentType . '_' . $typeId),
+                'label' => app()->text('relation.relation_type_' . $parentType . '_' . $typeId),
                 'value' => $value,
             ];
         }
@@ -685,7 +685,7 @@ class RelationService extends KernelServiceAgreement
      */
     public function findById($relationId)
     {
-        return \App::table('platform_relation')
+        return app()->table('platform_relation')
             ->findById((string)$relationId);
     }
 
@@ -724,11 +724,11 @@ class RelationService extends KernelServiceAgreement
             return [
                 'type'  => $relationType,
                 'value' => $relationId,
-                'label' => \App::text('relation.relation_type_' . $parentType . '_' . $relationType),
+                'label' => app()->text('relation.relation_type_' . $parentType . '_' . $relationType),
             ];
         }
 
-        $item = \App::relationService()->findById($relationId);
+        $item = app()->relation()->findById($relationId);
 
         if (!$item instanceof Relation)
             return [
@@ -764,7 +764,7 @@ class RelationService extends KernelServiceAgreement
          * Check in member list in groups.
          * In member list
          */
-        $map1 = \App::table('platform_relation_item')
+        $map1 = app()->table('platform_relation_item')
             ->select()
             ->where('poster_id =?', $posterId)
             ->where('parent_id IN ?', $parentIdList)
@@ -790,7 +790,7 @@ class RelationService extends KernelServiceAgreement
         /**
          * fetch relation type in relation list
          */
-        $map2 = \App::table('platform_relation')
+        $map2 = app()->table('platform_relation')
             ->select()
             ->where('relation_id IN ?', $relationIdList)
             ->columns('relation_type, parent_id')
@@ -827,7 +827,7 @@ class RelationService extends KernelServiceAgreement
          * Check in member list in groups.
          * In member list
          */
-        $map1 = \App::table('platform_relation_item')
+        $map1 = app()->table('platform_relation_item')
             ->select()
             ->where('poster_id =?', $posterId)
             ->where('parent_id IN ?', $parentIdList)
@@ -855,7 +855,7 @@ class RelationService extends KernelServiceAgreement
      */
     public function getListRelationIdBetween($parentId, $posterId)
     {
-        return \App::table('platform_relation_item')
+        return app()->table('platform_relation_item')
             ->select()
             ->where('poster_id = ?', $posterId)
             ->where('parent_id = ?', $parentId)
@@ -876,7 +876,7 @@ class RelationService extends KernelServiceAgreement
          * Check in member list in groups.
          * In member list
          */
-        $rows = \App::table('platform_relation_item')
+        $rows = app()->table('platform_relation_item')
             ->select()
             ->where('poster_id IN ?', $posterIdList)
             ->where('parent_id = ?', $parentId)
@@ -902,7 +902,7 @@ class RelationService extends KernelServiceAgreement
          * fetch relation type in relation list
          */
 
-        $pairs = \App::table('platform_relation')
+        $pairs = app()->table('platform_relation')
             ->select()
             ->where('relation_id IN ?', $relationIdList)
             ->toPairs('relation_id', 'relation_type');
@@ -937,7 +937,7 @@ class RelationService extends KernelServiceAgreement
          * Check in member list in groups.
          * In member list
          */
-        $rows = \App::table('platform_relation_item')
+        $rows = app()->table('platform_relation_item')
             ->select()
             ->where('poster_id IN ?', $posterIdList)
             ->where('parent_id = ?', $parentId)
@@ -969,7 +969,7 @@ class RelationService extends KernelServiceAgreement
          * Check in member list in groups.
          * In member list
          */
-        $relationIdList = \App::table('platform_relation_item')
+        $relationIdList = app()->table('platform_relation_item')
             ->select()
             ->where('poster_id=?', $posterId)
             ->where('parent_id =  ?', $parentId)
@@ -983,7 +983,7 @@ class RelationService extends KernelServiceAgreement
          * fetch relation type in relation list
          */
 
-        return \App::table('platform_relation')
+        return app()->table('platform_relation')
             ->select()
             ->where('relation_id=?', $relationIdList)
             ->fields('relation_type');
@@ -1060,12 +1060,12 @@ class RelationService extends KernelServiceAgreement
         $parent = $about->getParent();
 
         if ($isOwner) {
-            return \App::text($msgId, ['$parent\'s' => 'Your', '$parent' => 'You']);
+            return app()->text($msgId, ['$parent\'s' => 'Your', '$parent' => 'You']);
         }
 
         $label = $parent->getTitle();
 
-        return \App::text($msgId, ['$parent' => $label]);
+        return app()->text($msgId, ['$parent' => $label]);
     }
 
     /**
@@ -1080,7 +1080,7 @@ class RelationService extends KernelServiceAgreement
          * Check in member list in groups.
          * In member list
          */
-        return \App::table('platform_relation_item')
+        return app()->table('platform_relation_item')
             ->select()
             ->where('poster_id=?', $posterId)
             ->where('parent_id =  ?', $parentId)
@@ -1095,7 +1095,7 @@ class RelationService extends KernelServiceAgreement
      */
     public function getRelationIdForParent(PosterInterface $parent, $relationType = RELATION_TYPE_MEMBER)
     {
-        return \App::table('platform_relation')
+        return app()->table('platform_relation')
             ->select()
             ->where('parent_id =  ?', $parent->getId())
             ->where('relation_type=?', $relationType)
@@ -1166,13 +1166,13 @@ class RelationService extends KernelServiceAgreement
      */
     public function relationByPoster($poster)
     {
-        \App::table('platform_relation_item')
+        app()->table('platform_relation_item')
             ->delete()
             ->where('parent_id=?', $poster->getId())
             ->orWhere('poster_id=?', $poster->getId())
             ->execute();
 
-        \App::table('platform_relation')
+        app()->table('platform_relation')
             ->delete()
             ->where('parent_id=?', $poster->getId())
             ->execute();
@@ -1190,7 +1190,7 @@ class RelationService extends KernelServiceAgreement
         $profile = null;
 
         if (!empty($query['parentId']) && !empty($query['parentType'])) {
-            $profile = \App::find($query['parentType'], $query['parentId']);
+            $profile = app()->find($query['parentType'], $query['parentId']);
         }
 
         if (!$profile instanceof PosterInterface) {
@@ -1208,7 +1208,7 @@ class RelationService extends KernelServiceAgreement
      */
     public function findMembershipRequest(PosterInterface $poster, PosterInterface $parent)
     {
-        return \App::table('platform_relation_request')
+        return app()->table('platform_relation_request')
             ->select()
             ->where('poster_id=?', $poster->getId())
             ->where('parent_id=?', $parent->getId())
@@ -1258,7 +1258,7 @@ class RelationService extends KernelServiceAgreement
             /**
              * trigger resend membership request
              */
-            \App::emitter()
+            app()->emitter()
                 ->emit('onResendRelationRequest', [
                     'poster'  => $poster,
                     'parent'  => $parent,
@@ -1288,7 +1288,7 @@ class RelationService extends KernelServiceAgreement
             $request->setStatus('canceled');
             $request->save();
 
-            \App::emitter()
+            app()->emitter()
                 ->emit('onCancelRelationRequest', ['poster' => $poster, 'parent' => $parent, 'request' => $request]);
         }
 
@@ -1316,7 +1316,7 @@ class RelationService extends KernelServiceAgreement
             $request->delete();
         }
 
-        \App::emitter()
+        app()->emitter()
             ->emit('onAcceptRelationRequest', ['poster' => $poster, 'parent' => $parent, 'request' => $request]);
     }
 
@@ -1334,7 +1334,7 @@ class RelationService extends KernelServiceAgreement
             $request->setStatus('ignored');
             $request->save();
 
-            \App::emitter()
+            app()->emitter()
                 ->emit('onIgnoreRelationRequest', ['poster' => $poster, 'parent' => $parent, 'request' => $request]);
         }
 
@@ -1389,7 +1389,7 @@ class RelationService extends KernelServiceAgreement
             return $response;
         }
 
-        $relationList = \App::relationService()->getListRelationTypeForPoster($posterId, $parentIdList);
+        $relationList = app()->relation()->getListRelationTypeForPoster($posterId, $parentIdList);
 
         foreach ($relationList as $id => $type) {
             if ($response[ $id ] == 0) {
@@ -1406,7 +1406,7 @@ class RelationService extends KernelServiceAgreement
         /**
          * Request Received?
          */
-        $receivedIdList = \App::table('platform_relation_request')
+        $receivedIdList = app()->table('platform_relation_request')
             ->select()
             ->where('poster_id IN ?', $parentIdList)
             ->where('parent_id = ?', $posterId)
@@ -1431,7 +1431,7 @@ class RelationService extends KernelServiceAgreement
         /**
          * Request Sent?
          */
-        $sendIdList = \App::table('platform_relation_request')
+        $sendIdList = app()->table('platform_relation_request')
             ->select()
             ->where('poster_id=?', $posterId)
             ->where('parent_id IN ?', $parentIdList)
@@ -1484,7 +1484,7 @@ class RelationService extends KernelServiceAgreement
             return $response;
         }
 
-        $relationList = \App::relationService()->getListRelationTypeForParent($posterIdList, $parentId);
+        $relationList = app()->relation()->getListRelationTypeForParent($posterIdList, $parentId);
 
         foreach ($relationList as $id => $type) {
             if ($response[ $id ] == 0) {
@@ -1501,7 +1501,7 @@ class RelationService extends KernelServiceAgreement
         /**
          * Request received
          */
-        $receivedIdList = \App::table('platform_relation_request')
+        $receivedIdList = app()->table('platform_relation_request')
             ->select()
             ->where('poster_id IN ?', $posterIdList)
             ->where('parent_id = ?', $parentId)
@@ -1524,7 +1524,7 @@ class RelationService extends KernelServiceAgreement
         /**
          * Request sent?
          */
-        $sentIdList = \App::table('platform_relation_request')
+        $sentIdList = app()->table('platform_relation_request')
             ->select()
             ->where('poster_id = ?', $parentId)
             ->where('parent_id IN ?', $posterIdList)
@@ -1561,7 +1561,7 @@ class RelationService extends KernelServiceAgreement
             return RELATION_TYPE_OWNER;
         }
 
-        $highestRelation = \App::relationService()->getListRelationType($posterId, $parentId);
+        $highestRelation = app()->relation()->getListRelationType($posterId, $parentId);
 
         if ($highestRelation) {
             return $highestRelation;
@@ -1570,7 +1570,7 @@ class RelationService extends KernelServiceAgreement
         /**
          * Received request?
          */
-        $status = \App::table('platform_relation_request')
+        $status = app()->table('platform_relation_request')
             ->select()
             ->where('poster_id=?', $parentId)
             ->where('parent_id = ?', $posterId)
@@ -1584,7 +1584,7 @@ class RelationService extends KernelServiceAgreement
         /**
          * Sent request?
          */
-        $status = \App::table('platform_relation_request')
+        $status = app()->table('platform_relation_request')
             ->select()
             ->where('poster_id=?', $posterId)
             ->where('parent_id = ?', $parentId)
@@ -1609,7 +1609,7 @@ class RelationService extends KernelServiceAgreement
      */
     public function removeMembership(PosterInterface $poster, PosterInterface $parent)
     {
-        \App::emitter()
+        app()->emitter()
             ->emit('onClearMembership', ['poster' => $poster, 'parent' => $parent]);
     }
 
@@ -1620,7 +1620,7 @@ class RelationService extends KernelServiceAgreement
      */
     public function getSelectRelationRequestForParent(PosterInterface $parent)
     {
-        return \App::table('platform_relation_request')
+        return app()->table('platform_relation_request')
             ->select()
             ->where('parent_id=?', $parent->getId())
             ->where('status NOT IN ?', ['canceled', 'ignored', 'accepted']);
@@ -1636,7 +1636,7 @@ class RelationService extends KernelServiceAgreement
 
         $relationId = $parent->getId();
 
-        return \App::table('platform_relation_item')
+        return app()->table('platform_relation_item')
             ->select()
             ->where('relation_id=?', $relationId);
     }
@@ -1648,7 +1648,7 @@ class RelationService extends KernelServiceAgreement
      */
     public function getListRelationTypeByModuleName($moduleList)
     {
-        return \App::table('platform_relation_type')
+        return app()->table('platform_relation_type')
             ->select()
             ->where('module_name IN ?', $moduleList)
             ->toAssocs();

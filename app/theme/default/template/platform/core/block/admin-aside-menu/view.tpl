@@ -1,0 +1,1 @@
+<?php echo app()->navigation()->render('tab', $nav, $parentId, $active, 2, ['level0'=>'nav nav-aside-menu']); ?>

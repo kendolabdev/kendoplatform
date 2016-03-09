@@ -17,12 +17,12 @@ class PermissionController extends AdminController
     protected function onBeforeRender()
     {
         $t = $this->request->getParam('t', 'general');
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_permission_edit', $t);
 
-        \App::assetService()
-            ->title()->set(\App::text('core.manage_permissions'));
+        app()->assetService()
+            ->title()->set(app()->text('core.manage_permissions'));
     }
 
     /**
@@ -39,7 +39,7 @@ class PermissionController extends AdminController
         $groupId = $this->request->getParam('groupId', 'core');
         $roleId = $this->request->getParam('roleId', null);
 
-        \App::layouts()
+        app()->layouts()
             ->setPageFilter($filter)
             ->setPageTitle('core.manage_permission');
 
@@ -56,11 +56,11 @@ class PermissionController extends AdminController
                 $_SESSION['roleId'] = $roleId;
         }
 
-        $group = \App::aclService()->findGroupById($groupId);
-        $role = \App::aclService()->findRoleById($roleId);
+        $group = app()->aclService()->findGroupById($groupId);
+        $role = app()->aclService()->findRoleById($roleId);
         $formClass = $group->getFormClass();
 
-        $form = \App::htmlService()->factory($formClass, ['role' => $role]);
+        $form = app()->html()->factory($formClass, ['role' => $role]);
 
         if (!$form instanceof BasePermission)
             throw new \InvalidArgumentException();

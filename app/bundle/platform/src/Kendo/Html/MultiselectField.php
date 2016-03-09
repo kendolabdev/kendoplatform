@@ -89,7 +89,7 @@ class MultiSelectField extends HtmlElement implements FormField
 
         $optionTextKey = $this->getOptionTextKey();
 
-        $trans = \App::trans();
+        $trans = app()->trans();
 
 
         foreach ($this->options as $item) {

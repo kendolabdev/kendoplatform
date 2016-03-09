@@ -117,7 +117,7 @@ class AuthStorage implements AuthStorageInterface
             return false;
         }
 
-        $tokenEntry = \App::table('platform_user_token')
+        $tokenEntry = app()->table('platform_user_token')
             ->findById($tokenId);
 
 
@@ -133,7 +133,7 @@ class AuthStorage implements AuthStorageInterface
             return false;
         }
 
-        $userEntry = \App::table('platform_user')
+        $userEntry = app()->table('platform_user')
             ->findById($userId);
 
         if (empty($userEntry) or !$userEntry instanceof User) {
@@ -141,7 +141,7 @@ class AuthStorage implements AuthStorageInterface
         }
 
 
-        \App::authService()
+        app()->auth()
             ->setUser($userEntry);
 
         $viewerEntry = null;
@@ -150,14 +150,14 @@ class AuthStorage implements AuthStorageInterface
          *
          */
         if ($tokenEntry->getViewerId() && $tokenEntry->getViewerType()) {
-            $viewerEntry = \App::find($tokenEntry->getViewerType(), $tokenEntry->getViewerId());
+            $viewerEntry = app()->find($tokenEntry->getViewerType(), $tokenEntry->getViewerId());
         }
 
         if (!$viewerEntry) {
             $viewerEntry = $userEntry;
         }
 
-        \App::authService()
+        app()->auth()
             ->setViewer($viewerEntry);
 
         // process user by entry then process load but there are nothing to loose fromt this touch
@@ -207,7 +207,7 @@ class AuthStorage implements AuthStorageInterface
             return false;
         }
 
-        $tokenEntry = \App::table('platform_user_token')
+        $tokenEntry = app()->table('platform_user_token')
             ->findById($tokenId);
 
 
@@ -230,7 +230,7 @@ class AuthStorage implements AuthStorageInterface
     public function getLifetime()
     {
         if (null == $this->lifetime) {
-            $this->lifetime = (int)\App::setting('core', 'auth_life_time', 86400);
+            $this->lifetime = (int)app()->setting('core', 'auth_life_time', 86400);
         }
 
         return $this->lifetime;
@@ -250,7 +250,7 @@ class AuthStorage implements AuthStorageInterface
     public function getRememberLifetime()
     {
         if (null == $this->rememberLifetime) {
-            $this->rememberLifetime = \App::setting('core', 'auth_remember_lifetime', 2592000);
+            $this->rememberLifetime = app()->setting('core', 'auth_remember_lifetime', 2592000);
         }
 
         return $this->rememberLifetime;
@@ -270,7 +270,7 @@ class AuthStorage implements AuthStorageInterface
     public function getCookieName()
     {
         if (null == $this->cookieName) {
-            $this->cookieName = \App::setting('core', 'auth_cookie_name', 'psau');
+            $this->cookieName = app()->setting('core', 'auth_cookie_name', 'psau');
         }
 
         return $this->cookieName;
@@ -290,7 +290,7 @@ class AuthStorage implements AuthStorageInterface
     public function getCookiePath()
     {
         if (null == $this->cookiePath) {
-            $this->cookiePath = \App::setting('core', 'auth_cookie_path', '/');
+            $this->cookiePath = app()->setting('core', 'auth_cookie_path', '/');
         }
 
         return $this->cookiePath;

@@ -14,7 +14,7 @@ class SidebarFilterBlock extends BlockController
 
     public function execute()
     {
-        $filter = \App::layouts()
+        $filter = app()->layouts()
             ->getPageFilter();
 
         if (!$filter instanceof Form) {

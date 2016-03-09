@@ -16,7 +16,7 @@ class PermissionController extends AdminController
     {
         $filter = new FilterAclRole();
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('blog.manage_permission')
             ->setPageFilter($filter)
@@ -28,7 +28,7 @@ class PermissionController extends AdminController
             'roleId' => $roleId,
         ]);
 
-        $role = \App::aclService()->findRoleById($roleId);
+        $role = app()->aclService()->findRoleById($roleId);
 
         $form = new BlogPermission(['role' => $role]);
 

@@ -21,7 +21,7 @@ class ManageController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_attribute', 'admin_attribute_attribute');
     }
@@ -33,14 +33,14 @@ class ManageController extends AdminController
     {
         $filter = new FilterAttributeCatalog();
 
-        \App::layouts()
+        app()->layouts()
             ->setPageTitle('attribute.manage_catalogs')
             ->setPageFilter($filter)
             ->setPageButtons([
                 [
                     'label' => 'attribute.add_new_catalogs',
                     'props' => [
-                        'href'  => \App::routing()->getUrl('admin', ['stuff' => 'attribute/manage/create']),
+                        'href'  => app()->routing()->getUrl('admin', ['stuff' => 'attribute/manage/create']),
                         'class' => 'btn btn-sm btn-danger'
                     ]]
             ]);
@@ -54,7 +54,7 @@ class ManageController extends AdminController
 
         $query = $filter->getData();
 
-        $paging = \App::catalogService()
+        $paging = app()->catalogService()
             ->loadAdminCatalogPaging($query, $page);
 
         $lp = new BlockParams([
@@ -83,13 +83,13 @@ class ManageController extends AdminController
         if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
-            $catalog = \App::catalogService()
+            $catalog = app()->catalogService()
                 ->addCatalog($data);
 
-            \App::cacheService()
+            app()->cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', [
+            app()->routing()->redirect('admin', [
                 'stuff'      => 'attribute/manage/browse',
                 'content_id' => $catalog->getContentId()]);
         }
@@ -109,7 +109,7 @@ class ManageController extends AdminController
     {
         $catalogId = $this->request->getParam('catalogId');
 
-        $catalog = \App::catalogService()
+        $catalog = app()->catalogService()
             ->findCatalogById($catalogId);
 
         if (!$catalog)
@@ -135,7 +135,7 @@ class ManageController extends AdminController
     {
         $catalogId = $this->request->getParam('catalogId');
 
-        $catalog = \App::catalogService()
+        $catalog = app()->catalogService()
             ->findCatalogById($catalogId);
 
         if (!$catalog)
@@ -146,7 +146,7 @@ class ManageController extends AdminController
             'excludes'   => $catalog->getListSectionId(),
         ];
 
-        $paging = \App::catalogService()
+        $paging = app()->catalogService()
             ->loadAdminSectionPaging($query, 1, 1000);
 
         $lp = new BlockParams([
@@ -167,7 +167,7 @@ class ManageController extends AdminController
     {
         $id = $this->request->getParam('catalogId');
 
-        $entry = \App::catalogService()
+        $entry = app()->catalogService()
             ->findCatalogById($id);
 
 
@@ -187,10 +187,10 @@ class ManageController extends AdminController
 
             $entry->save();
 
-            \App::cacheService()
+            app()->cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', [
+            app()->routing()->redirect('admin', [
                 'stuff'      => 'attribute/manage/browse',
                 'content_id' => $entry->getContentId()]);
         }
@@ -213,7 +213,7 @@ class ManageController extends AdminController
     {
         $id = $this->request->getParam('catalogId');
 
-        $entry = \App::catalogService()
+        $entry = app()->catalogService()
             ->findCatalogById($id);
 
 
@@ -230,10 +230,10 @@ class ManageController extends AdminController
 
             $entry->delete();
 
-            \App::cacheService()
+            app()->cacheService()
                 ->flush();
 
-            \App::routing()->redirect('admin', [
+            app()->routing()->redirect('admin', [
                 'stuff'      => 'attribute/manage/browse',
                 'content_id' => $entry->getContentId()
             ]);

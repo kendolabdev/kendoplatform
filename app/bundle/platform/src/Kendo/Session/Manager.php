@@ -1,6 +1,6 @@
 <?php
 namespace Kendo\Session;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 
 /**
@@ -15,7 +15,7 @@ use Kendo\Kernel\KernelServiceAgreement;
  *
  * @package Kendo\Session
  */
-class Manager extends KernelServiceAgreement
+class Manager extends KernelService
 {
 
     /**
@@ -27,7 +27,7 @@ class Manager extends KernelServiceAgreement
      */
     public function __construct()
     {
-        $saveHandlerClassName = \App::registryService()->get('SessionHandler', '\Platform\Core\Session\FileSaveHandler');
+        $saveHandlerClassName = app()->registryService()->get('SessionHandler', '\Platform\Core\Session\FileSaveHandler');
 
         if (!class_exists($saveHandlerClassName)) {
             throw new \InvalidArgumentException('Unexpected session save handler');

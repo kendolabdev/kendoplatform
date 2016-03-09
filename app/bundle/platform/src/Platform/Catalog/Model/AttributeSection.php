@@ -23,7 +23,7 @@ class AttributeSection extends Model implements UniqueId
      */
     public function getListField()
     {
-        return \App::catalogService()
+        return app()->catalogService()
             ->getListFieldBySectionId($this->getId());
     }
 
@@ -191,7 +191,7 @@ class AttributeSection extends Model implements UniqueId
      */
     public function table()
     {
-        return \App::table('attribute.attribute_section');
+        return app()->table('attribute.attribute_section');
     }
     //END_TABLE_GENERATOR
 }

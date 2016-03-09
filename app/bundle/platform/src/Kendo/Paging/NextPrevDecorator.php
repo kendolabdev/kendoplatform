@@ -40,7 +40,7 @@ class NextPrevDecorator implements Decorator
 
         $page = $this->paging->getPage();
 
-        return \App::viewHelper()->partial('layout/partial/paging-next-prev', [
+        return app()->viewHelper()->partial('layout/partial/paging-next-prev', [
             'prevUrl' => $this->paging->getNextUrl(),
             'nextUrl' => $this->paging->getPrevUrl(),
             'hasNext' => $this->paging->hasNext(),

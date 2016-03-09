@@ -13,10 +13,10 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 {
     public function testGeneral()
     {
-        $users = \App::userService();
+        $users = app()->user();
 
         $this->assertNotNull($users);
 
-        \App::requester();
+        app()->requester();
     }
 }

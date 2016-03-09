@@ -1,7 +1,7 @@
 <?php
 include '../init.php';
 
-$themes = \App::table('platform_layout_layout_theme')
+$themes = app()->table('platform_layout_layout_theme')
     ->select()
     ->all();
 

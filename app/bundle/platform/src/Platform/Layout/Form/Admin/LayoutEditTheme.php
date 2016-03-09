@@ -26,12 +26,6 @@ class LayoutEditTheme extends Form
         ]);
 
         $this->addElement([
-            'plugin' => 'static',
-            'name'   => 'template_id',
-            'label'  => 'Template ID',
-        ]);
-
-        $this->addElement([
             'plugin' => 'yesno',
             'name'   => 'is_active',
             'label'  => 'Active',

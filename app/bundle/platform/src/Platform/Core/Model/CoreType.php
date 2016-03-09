@@ -20,133 +20,117 @@ class CoreType extends Model
 
     //START_TABLE_GENERATOR
 
-
+    
     /**
      * @return null|string
      */
-    public function getId()
-    {
-        return $this->__get('type_id');
+    public function getId(){
+       return $this->__get('type_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value)
-    {
-        $this->__set('type_id', $value);
+    public function setId($value){
+       $this->__set('type_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getTypeId()
-    {
-        return $this->__get('type_id');
+    public function getTypeId(){
+       return $this->__get('type_id');
     }
 
     /**
      * @param $value
      */
-    public function setTypeId($value)
-    {
-        $this->__set('type_id', $value);
+    public function setTypeId($value){
+       $this->__set('type_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getName()
-    {
-        return $this->__get('name');
+    public function getName(){
+       return $this->__get('name');
     }
 
     /**
      * @param $value
      */
-    public function setName($value)
-    {
-        $this->__set('name', $value);
+    public function setName($value){
+       $this->__set('name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isPoster()
-    {
-        return $this->__get('is_poster');
+    public function isPoster(){
+       return $this->__get('is_poster');
     }
 
     /**
      * @return null|string
      */
-    public function getPoster()
-    {
-        return $this->__get('is_poster');
+    public function getPoster(){
+       return $this->__get('is_poster');
     }
 
     /**
      * @param $value
      */
-    public function setPoster($value)
-    {
-        $this->__set('is_poster', $value);
+    public function setPoster($value){
+       $this->__set('is_poster', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getModuleName()
-    {
-        return $this->__get('module_name');
+    public function getModuleName(){
+       return $this->__get('module_name');
     }
 
     /**
      * @param $value
      */
-    public function setModuleName($value)
-    {
-        $this->__set('module_name', $value);
+    public function setModuleName($value){
+       $this->__set('module_name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getHasAttributeCatalog()
-    {
-        return $this->__get('has_attribute_catalog');
+    public function getHasAttributeCatalog(){
+       return $this->__get('has_attribute_catalog');
     }
 
     /**
      * @param $value
      */
-    public function setHasAttributeCatalog($value)
-    {
-        $this->__set('has_attribute_catalog', $value);
+    public function setHasAttributeCatalog($value){
+       $this->__set('has_attribute_catalog', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getTableName()
-    {
-        return $this->__get('table_name');
+    public function getTableName(){
+       return $this->__get('table_name');
     }
 
     /**
      * @param $value
      */
-    public function setTableName($value)
-    {
-        $this->__set('table_name', $value);
+    public function setTableName($value){
+       $this->__set('table_name', $value);
     }
 
     /**
      * @return \Platform\Core\Model\CoreTypeTable
      */
-    public function table()
-    {
-        return \App::table('platform_core_type');
+    public function table(){
+        return app()->table('platform_core_type');
     }
     //END_TABLE_GENERATOR
 }

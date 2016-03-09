@@ -1,14 +1,14 @@
 <?php
 
 namespace Kendo\Assets;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class Manager
  *
  * @package Kendo\Assets
  */
-class AssetsManager extends KernelServiceAgreement
+class AssetsManager extends KernelService
 {
 
     /**
@@ -144,7 +144,7 @@ class AssetsManager extends KernelServiceAgreement
      */
     public function header()
     {
-        \App::emitter()
+        app()->emitter()
             ->emit('onBeforeRenderAssetsHeader', $this);
 
         $response = [];
@@ -163,7 +163,7 @@ class AssetsManager extends KernelServiceAgreement
             $response[] = $accept->render();
         }
 
-        return \App::viewHelper()->partial('/layout/master/site-head', [
+        return app()->viewHelper()->partial('/layout/master/site-head', [
             'head' => implode(PHP_EOL, $response),
         ]);
     }
@@ -270,7 +270,7 @@ class AssetsManager extends KernelServiceAgreement
      */
     public function headCode()
     {
-        return \App::setting('core', 'head_script');
+        return app()->setting('core', 'head_script');
     }
 
     /**
@@ -278,6 +278,6 @@ class AssetsManager extends KernelServiceAgreement
      */
     public function bottomCode()
     {
-        return \App::setting('core', 'head_script');
+        return app()->setting('core', 'head_script');
     }
 }

@@ -25,42 +25,40 @@ class TagPeopleTable extends DbTable
      * @see `picaso_platform_tag_people`
      * @var string
      */
-    protected $class = '\Platform\Tag\Model\TagPeople';
+    protected $class =  '\Platform\Tag\Model\TagPeople';
 
     /**
      * @var string
      */
-    protected $name = 'platform_tag_people';
+    protected $name =  'platform_tag_people';
 
     /**
      * @var array
      */
-    protected $column = [
-        'content_id'   => 1,
-        'poster_id'    => 1,
-        'content_type' => 1,
-        'poster_type'  => 1];
+    protected $column = array(
+		'content_id'=>1,
+		'poster_id'=>1,
+		'content_type'=>1,
+		'poster_type'=>1);
 
     /**
      * @var array
      */
-    protected $primary = ['content_id' => 1, 'poster_id' => 1];
+    protected $primary = array( 'content_id'=>1, 'poster_id'=>1);
 
     /**
      * @var string
      */
     protected $identity = '';
 
-
+    
     /**
      * @param  string|int $value
-     *
      * @return null
      * @throws \Kendo\Db\Exception
      */
-    public function findById($value)
-    {
-        throw new \Kendo\Db\Exception('Can not find by id for ' . $value);
+    public function findById($value){
+       throw new \Kendo\Db\Exception('Can not find by id for '.$value);
     }
 
     //END_TABLE_GENERATOR

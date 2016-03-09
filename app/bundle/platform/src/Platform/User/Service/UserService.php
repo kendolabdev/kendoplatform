@@ -2,7 +2,7 @@
 
 namespace Platform\User\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Kendo\User\Manager;
 use Platform\User\Model\User;
 use Platform\User\Model\UserAuthPassword;
@@ -13,7 +13,7 @@ use Platform\User\Model\UserAuthRemote;
  *
  * @package Platform\User\Service
  */
-class UserService extends KernelServiceAgreement implements Manager
+class UserService extends KernelService implements Manager
 {
 
     /**
@@ -26,7 +26,7 @@ class UserService extends KernelServiceAgreement implements Manager
     public function loadAdminUserPaging($query, $page, $limit = 20)
     {
 
-        $select = \App::table('platform_user')->select('u');
+        $select = app()->table('platform_user')->select('u');
 
         if (!empty($query['role']) && !in_array($query['role'], ['', 'all'])) {
             $select->where('u.role_id=?', (string)$query['role']);
@@ -101,13 +101,13 @@ class UserService extends KernelServiceAgreement implements Manager
     public function loadUserPaging($query = [], $page = 1, $limit = 12)
     {
 
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
         if (!empty($query)) {
 
         }
 
-        $select = \App::table('platform_user')
+        $select = app()->table('platform_user')
             ->select()
             ->where('is_active=?', 1)
             ->order('created_at', -1);
@@ -135,7 +135,7 @@ class UserService extends KernelServiceAgreement implements Manager
      */
     public function getActiveUserCount()
     {
-        return \App::table('platform_user')
+        return app()->table('platform_user')
             ->select()
             ->where('is_approved=?', 1)
             ->where('is_published=?', 1)
@@ -148,7 +148,7 @@ class UserService extends KernelServiceAgreement implements Manager
      */
     public function membership()
     {
-        return \App::relationService();
+        return app()->relation();
     }
 
     /**
@@ -160,7 +160,7 @@ class UserService extends KernelServiceAgreement implements Manager
     {
         $identity = (string)$identity;
 
-        return \App::table('platform_user')
+        return app()->table('platform_user')
             ->select()
             ->where('email=?', $identity)
             ->orWhere('profile_name=?', $identity)
@@ -175,7 +175,7 @@ class UserService extends KernelServiceAgreement implements Manager
      */
     public function findUserByEmail($email)
     {
-        return \App::table('platform_user')
+        return app()->table('platform_user')
             ->select()
             ->where('email=?', $email)
             ->one();
@@ -188,7 +188,7 @@ class UserService extends KernelServiceAgreement implements Manager
      */
     public function findUserByProfileName($profileName)
     {
-        return \App::table('platform_user')
+        return app()->table('platform_user')
             ->select()
             ->where('profile_name=?', $profileName)
             ->one();
@@ -203,7 +203,7 @@ class UserService extends KernelServiceAgreement implements Manager
      */
     public function addRemoteUser(User $user, $remoteUID, $remoteService)
     {
-        $remote = \App::table('platform_user_auth_remote')
+        $remote = app()->table('platform_user_auth_remote')
             ->select()
             ->where('remote_uid=?', $remoteUID)
             ->where('remote_service=?', $remoteService)
@@ -235,7 +235,7 @@ class UserService extends KernelServiceAgreement implements Manager
     {
 
         if (empty($enctypes)) {
-            $enctypes = \App::authService()->getSupportHashTypes();
+            $enctypes = app()->auth()->getSupportHashTypes();
         }
 
         if (is_string($enctypes)) {
@@ -243,7 +243,7 @@ class UserService extends KernelServiceAgreement implements Manager
         }
 
 
-        return \App::table('platform_user_auth_password')
+        return app()->table('platform_user_auth_password')
             ->select()
             ->where('user_id=?', (string)$userId)
             ->where('is_active=?', 1)
@@ -300,7 +300,7 @@ class UserService extends KernelServiceAgreement implements Manager
             $this->addRemoteUser($user, $data['remote_uid'], $data['remote_service']);
         }
 
-        \App::emitter()
+        app()->emitter()
             ->emit('onCompleteCreatePoster', [
                 'poster' => $user,
                 'data'   => $data,
@@ -317,7 +317,7 @@ class UserService extends KernelServiceAgreement implements Manager
      */
     public function findPassword($userId, $encrypt_type)
     {
-        return \App::table('platform_user_auth_password')
+        return app()->table('platform_user_auth_password')
             ->select()
             ->where('user_id=?', $userId)
             ->where('is_active=?', 1)
@@ -349,7 +349,7 @@ class UserService extends KernelServiceAgreement implements Manager
             ]);
         }
 
-        $hashGenerator = \App::authService()->getHashGenerator($encrypt_type);
+        $hashGenerator = app()->auth()->getHashGenerator($encrypt_type);
 
         $salt = $hashGenerator->getSalt();
         $hash = $hashGenerator->getHash($password, $salt);

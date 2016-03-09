@@ -31,7 +31,7 @@ class FacebookAdapter implements SocialLoginAdapterInterface
      */
     public function __construct()
     {
-        $config = \App::setting('facebook');
+        $config = app()->setting('facebook');
 
         $this->facebook = new Facebook([
             'app_id'                => $config['app_id'],
@@ -59,7 +59,7 @@ class FacebookAdapter implements SocialLoginAdapterInterface
             $host = 'localhost';
         }
 
-        $detailUrl = \App::routing()->getUrl('oauth_callback', [
+        $detailUrl = app()->routing()->getUrl('oauth_callback', [
             'service' => 'facebook'
         ]);
 

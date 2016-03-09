@@ -43,7 +43,7 @@ class DbWriter implements WriterInterface
      */
     protected function write($level, $msg)
     {
-        \App::table('platform_core_log')
+        app()->table('platform_core_log')
             ->fetchNew([
                 'level'      => $level,
                 'uid'        => $this->uid,

@@ -4,7 +4,7 @@ namespace Platform\Help\Service;
 use Kendo\Hook\EventListener;
 use Kendo\Assets\Requirejs;
 use Kendo\Hook\HookEvent;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 
 class EventListenerService extends EventListener
 {

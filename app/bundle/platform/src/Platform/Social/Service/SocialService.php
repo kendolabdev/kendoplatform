@@ -1,13 +1,13 @@
 <?php
 namespace Platform\Social\Service;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class SocialService
  *
  * @package Social\Service
  */
-class SocialService extends KernelServiceAgreement
+class SocialService extends KernelService
 {
     /**
      * @var array
@@ -49,7 +49,7 @@ class SocialService extends KernelServiceAgreement
      */
     public function getListAuth()
     {
-        return \App::table('platform_social_service')
+        return app()->table('platform_social_service')
             ->select()
             ->where('id IN ?', ['facebook', 'twitter', 'google', 'window'])
             ->all();

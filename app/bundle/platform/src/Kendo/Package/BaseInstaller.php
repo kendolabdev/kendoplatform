@@ -2,7 +2,7 @@
 
 namespace Kendo\Package;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Layout\Model\Layout;
 
 /**
@@ -12,7 +12,7 @@ use Platform\Layout\Model\Layout;
  *
  * @package Kendo\Package
  */
-class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
+class BaseInstaller extends KernelService implements InstallerInterface
 {
 
     /**
@@ -336,7 +336,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!$this->hasModuleList()) return;
 
         $this->installData['platform_core_hook']
-            = \App::table('platform_core_hook')
+            = app()->table('platform_core_hook')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -350,7 +350,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!empty($this->installData['platform_core_hook'])) {
             foreach ($this->installData['platform_core_hook'] as $data) {
                 unset($data['id']);
-                \App::table('platform_core_hook')
+                app()->table('platform_core_hook')
                     ->insertIgnore($data);
             }
         }
@@ -364,7 +364,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!$this->hasModuleList()) return;
 
         $this->installData['platform_mail_template']
-            = \App::table('platform_mail_template')
+            = app()->table('platform_mail_template')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -378,7 +378,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!empty($this->installData['platform_mail_template'])) {
             foreach ($this->installData['platform_mail_template'] as $data) {
                 unset($data['template_id']);
-                \App::table('platform_mail_template')
+                app()->table('platform_mail_template')
                     ->insertIgnore($data);
             }
         }
@@ -392,13 +392,13 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!$this->hasModuleList()) return;
 
         $this->installData['platform_layout_support_block']
-            = \App::table('platform_layout_support_block')
+            = app()->table('platform_layout_support_block')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
 
         $this->installData['platform_layout_page']
-            = \App::table('platform_layout_page')
+            = app()->table('platform_layout_page')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -415,7 +415,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         $moduleList = $this->getModuleList();
         $themeList = $this->getThemeList();
 
-        $select = \App::table('platform_layout')
+        $select = app()->table('platform_layout')
             ->select('layout')
             ->join(':platform_layout_page', 'page', 'page.page_id=layout.page_id', null, null)
             ->columns('layout.*,page.page_name');
@@ -451,7 +451,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
      */
     public function _exportLayoutSectionListByLayoutId($layoutId)
     {
-        $select = \App::table('platform_layout_section')
+        $select = app()->table('platform_layout_section')
             ->select()
             ->where('layout_id=?', $layoutId);
 
@@ -477,7 +477,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
     public function _exportLayoutBlockListBySectionId($sectionId)
     {
 
-        $select = \App::table('platform_layout_block')
+        $select = app()->table('platform_layout_block')
             ->select('block')
             ->join(':platform_layout_support_block', 'support', 'support.support_block_id=block.support_block_id', null, null)
             ->where('block.section_id=?', $sectionId)
@@ -500,7 +500,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
     {
         foreach ($data as $row) {
 
-            $page = \App::table('platform_layout_page')
+            $page = app()->table('platform_layout_page')
                 ->select()
                 ->where('page_name=?', $row['page_name'])
                 ->one();
@@ -508,7 +508,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
             if (!$page)
                 continue;
 
-            $layout = \App::table('platform_layout')
+            $layout = app()->table('platform_layout')
                 ->select()
                 ->where('screen_size=?', $row['screen_size'])
                 ->where('page_id=?', $page->getId())
@@ -530,11 +530,11 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
             foreach ($row['listSection'] as $sectionData) {
                 $sectionData['layout_id'] = $layout->getId();
 
-                \App::table('platform_layout_section')
+                app()->table('platform_layout_section')
                     ->insertIgnore($sectionData);
 
                 foreach ($sectionData['listBlock'] as $blockData) {
-                    $supportBlock = \App::table('platform_layout_support_block')
+                    $supportBlock = app()->table('platform_layout_support_block')
                         ->select()
                         ->where('block_class=?', $blockData['block_class'])
                         ->one();
@@ -544,7 +544,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
 
                     $blockData['support_block_id'] = $supportBlock->getId();
 
-                    \App::table('platform_layout_block')
+                    app()->table('platform_layout_block')
                         ->insertIgnore($blockData);
                 }
             }
@@ -558,7 +558,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
     {
         if (!empty($this->installData['platform_layout_support_block'])) {
             foreach ($this->installData['platform_layout_support_block'] as $data) {
-                \App::table('platform_layout_support_block')
+                app()->table('platform_layout_support_block')
                     ->insertIgnore($data);
             }
         }
@@ -566,7 +566,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!empty($this->installData['platform_layout_page'])) {
             foreach ($this->installData['platform_layout_page'] as $data) {
                 unset($data['page_id']);
-                \App::table('platform_layout_page')
+                app()->table('platform_layout_page')
                     ->insertIgnore($data);
             }
         }
@@ -590,7 +590,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
     protected function exportRelation()
     {
         $this->installData['platform_relation_type']
-            = \App::table('platform_relation_type')
+            = app()->table('platform_relation_type')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -604,7 +604,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!empty($this->installData['platform_relation_type'])) {
             foreach ($this->installData['platform_relation_type'] as $data) {
                 unset($data['type_id']);
-                \App::table('platform_relation_type')
+                app()->table('platform_relation_type')
                     ->insertIgnore($data);
             }
         }
@@ -618,7 +618,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!$this->hasModuleList()) return;
 
         $this->installData['platform_feed_type']
-            = \App::table('platform_feed_type')
+            = app()->table('platform_feed_type')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -631,7 +631,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
     {
         if (!empty($this->installData['feed_type'])) {
             foreach ($this->installData['feed_type'] as $data) {
-                \App::table('platform_feed_type')
+                app()->table('platform_feed_type')
                     ->insertIgnore($data);
             }
         }
@@ -645,7 +645,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!$this->hasModuleList()) return;
 
         $this->installData['platform_core_extension']
-            = \App::table('platform_core_extension')
+            = app()->table('platform_core_extension')
             ->select()
             ->where('name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -660,11 +660,11 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
     {
         if (!empty($this->installData['platform_core_extension'])) {
             foreach ($this->installData['platform_core_extension'] as $data) {
-                \App::table('platform_core_extension')
+                app()->table('platform_core_extension')
                     ->insertIgnore($data);
 
                 if (!empty($data['namespace'])) {
-                    \App::autoload()
+                    app()->autoload()
                         ->register($data['namespace'], KENDO_BUNDLE_DIR . $data['path']);
                 }
             }
@@ -679,7 +679,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!$this->hasModuleList()) return;
 
         $this->installData['platform_notification_type']
-            = \App::table('platform_notification_type')
+            = app()->table('platform_notification_type')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -692,7 +692,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
     {
         if (!empty($this->installData['platform_notification_type'])) {
             foreach ($this->installData['platform_notification_type'] as $data) {
-                \App::table('platform_notification_type')
+                app()->table('platform_notification_type')
                     ->insertIgnore($data);
             }
         }
@@ -706,7 +706,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!$this->hasModuleList()) return;
 
         $this->installData['platform_invitation_type']
-            = \App::table('platform_invitation_type')
+            = app()->table('platform_invitation_type')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -720,7 +720,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
     {
         if (!empty($this->installData['platform_invitation_type'])) {
             foreach ($this->installData['platform_invitation_type'] as $data) {
-                \App::table('platform_invitation_type')
+                app()->table('platform_invitation_type')
                     ->insertIgnore($data);
             }
         }
@@ -735,7 +735,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!$this->hasModuleList()) return;
 
         $this->installData['platform_core_type']
-            = \App::table('platform_core_type')
+            = app()->table('platform_core_type')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -751,7 +751,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
          */
         if (!empty($this->installData['platform_core_type'])) {
             foreach ($this->installData['platform_core_type'] as $data) {
-                \App::table('platform_core_type')
+                app()->table('platform_core_type')
                     ->insertIgnore($data);
             }
         }
@@ -780,13 +780,13 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!$this->hasModuleList()) return;
 
         $this->installData['platform_navigation'] =
-            \App::table('platform_navigation')
+            app()->table('platform_navigation')
                 ->select()
                 ->where('module_name IN ?', $this->getModuleList())
                 ->toAssocs();
 
         $this->installData['platform_navigation_item']
-            = \App::table('platform_navigation_item')
+            = app()->table('platform_navigation_item')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
@@ -800,7 +800,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         // insert attribute plugins
         if (!empty($this->installData['platform_navigation'])) {
             foreach ($this->installData['platform_navigation'] as $data) {
-                \App::table('navigation')
+                app()->table('navigation')
                     ->insertIgnore($data);
             }
         }
@@ -808,7 +808,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         // insert attribute plugins
         if (!empty($this->installData['platform_navigation_item'])) {
             foreach ($this->installData['platform_navigation_item'] as $data) {
-                \App::table('platform_navigation_item')
+                app()->table('platform_navigation_item')
                     ->insertIgnore($data);
             }
         }
@@ -821,20 +821,20 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
     {
         if (!$this->hasModuleList()) return;
 
-        $this->installData['platform_acl_role'] = \App::table('platform_acl_role')
+        $this->installData['platform_acl_role'] = app()->table('platform_acl_role')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->columns('role_type, is_system, title, parent_role_id, is_super, is_admin, is_moderator, is_member, is_guest, module_name')
             ->toAssocs();
 
         $this->installData['platform_acl_group']
-            = \App::table('platform_acl_group')
+            = app()->table('platform_acl_group')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->toAssocs();
 
         $this->installData['platform_acl_action']
-            = \App::table('platform_acl_action')
+            = app()->table('platform_acl_action')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->columns('module_name, group_name, action_name, comment')
@@ -855,14 +855,14 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
 
         if (!empty($this->installData['platform_acl_role'])) {
             foreach ($this->installData['platform_acl_role'] as $data) {
-                \App::table('platform_acl_role')
+                app()->table('platform_acl_role')
                     ->insertIgnore($data);
             }
         }
 
         if (!empty($this->installData['platform_acl_group'])) {
             foreach ($this->installData['platform_acl_group'] as $data) {
-                \App::table('platform_acl_group')
+                app()->table('platform_acl_group')
                     ->insertIgnore($data);
             }
         }
@@ -870,7 +870,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!empty($this->installData['platform_acl_action'])) {
             foreach ($this->installData['platform_acl_action'] as $data) {
                 unset($data['action_id']);
-                \App::table('platform_acl_action')
+                app()->table('platform_acl_action')
                     ->insertIgnore($data);
             }
         }
@@ -890,14 +890,14 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!$this->hasModuleList()) return;
 
         $this->installData['platform_setting_action']
-            = \App::table('platform_setting_action')
+            = app()->table('platform_setting_action')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->columns('module_name, action_group, action_name')
             ->toAssocs();
 
         if (true) {
-            $items = \App::table('platform_setting')
+            $items = app()->table('platform_setting')
                 ->select('c')
                 ->where('a.module_name IN ?', $this->getModuleList())
                 ->join(":platform_setting_action", 'a', 'a.action_id=c.action_id', null, null)
@@ -928,13 +928,13 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!empty($this->installData['platform_setting_action'])) {
             foreach ($this->installData['platform_setting_action'] as $data) {
                 unset($data['action_id']);
-                \App::table('platform_setting_action')
+                app()->table('platform_setting_action')
                     ->insertIgnore($data);
             }
         }
 
         if (!empty($this->installData['platform_setting_value'])) {
-            \App::settings()
+            app()->settings()
                 ->save($this->installData['platform_setting_value']);
         }
     }
@@ -947,7 +947,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (!$this->hasModuleList()) return;
 
         $this->installData['platform_phrase']
-            = \App::table('platform_phrase')
+            = app()->table('platform_phrase')
             ->select()
             ->where('module_name IN ?', $this->getModuleList())
             ->columns('module_name, is_active, phrase_group, phrase_name, default_value')
@@ -964,7 +964,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
 
                 unset($data['phrase_id']);
 
-                \App::table('platform_phrase')
+                app()->table('platform_phrase')
                     ->insertIgnore($data);
             }
         }
@@ -975,7 +975,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
      */
     protected function exportTableStructural()
     {
-        $db = \App::db();
+        $db = app()->db();
 
         $allTableList = $db->getMaster()
             ->tables();
@@ -1004,7 +1004,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
 
             $correctName = ':table_prefix_' . $suffixName;
 
-            $createSql = \App::db()
+            $createSql = app()->db()
                 ->getMaster()
                 ->getCreateTableSql($tableName);
 
@@ -1030,7 +1030,7 @@ class BaseInstaller extends KernelServiceAgreement implements InstallerInterface
         if (empty($tables))
             return;
 
-        $db = \App::db();
+        $db = app()->db();
         $prefix = $db->getPrefix();
         $master = $db->getMaster();
 

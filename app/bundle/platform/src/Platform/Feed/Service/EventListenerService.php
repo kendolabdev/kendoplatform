@@ -3,7 +3,7 @@
 namespace Platform\Feed\Service;
 
 use Kendo\Http\FilterStuff;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Core\Form\PosterPrivacySetting;
 use Kendo\Hook\EventListener;
@@ -122,11 +122,11 @@ class EventListenerService extends EventListener
 
         $payload = $event->getPayload();
 
-        if (false == \App::authService()->logged()) return;
+        if (false == app()->auth()->logged()) return;
 
         if (!$payload instanceof PosterInterface) return;
 
-        $content = \App::viewHelper()->partial('platform/feed/partial/composer-header-add-status');
+        $content = app()->viewHelper()->partial('platform/feed/partial/composer-header-add-status');
 
         $event->prepend($content);
     }
@@ -139,13 +139,13 @@ class EventListenerService extends EventListener
 
         $payload = $event->getPayload();
 
-        if (false == \App::authService()->logged()) return;
+        if (false == app()->auth()->logged()) return;
 
         if (!$payload instanceof PosterInterface) return;
 
-        if (!\App::aclService()->pass($payload, 'activity__checkin')) return;
+        if (!app()->aclService()->pass($payload, 'activity__checkin')) return;
 
-        $content = \App::viewHelper()->partial('platform/feed/partial/composer-footer-add-place');
+        $content = app()->viewHelper()->partial('platform/feed/partial/composer-footer-add-place');
 
         $event->append($content);
     }
@@ -157,7 +157,7 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemTimeline($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         if (!$profile instanceof PosterInterface)
             return false;
@@ -165,11 +165,11 @@ class EventListenerService extends EventListener
         if (!$profile->authorize('activity__timeline_tab_exists'))
             return false;
 
-        if (!\App::aclService()->pass($profile, 'activity__timeline_tab_view'))
+        if (!app()->aclService()->pass($profile, 'activity__timeline_tab_view'))
             return false;
 
 
-        $item['href'] = $profile->toHref(['stuff' => 'timeline']);
+        $item['href'] = $profile->toHref(['any' => 'timeline']);
 
         return $item;
     }
@@ -186,23 +186,23 @@ class EventListenerService extends EventListener
         $stats = $payload->__get('stats');
 
         $stats['comment'] = [
-            'label' => \App::text('core.comments'),
-            'value' => \App::commentService()->getAdminStatisticCount(),
+            'label' => app()->text('core.comments'),
+            'value' => app()->commentService()->getAdminStatisticCount(),
         ];
 
         $stats['like'] = [
-            'label' => \App::text('core.likes'),
-            'value' => \App::likeService()->getAdminStatisticCount(),
+            'label' => app()->text('core.likes'),
+            'value' => app()->likeService()->getAdminStatisticCount(),
         ];
 
         $stats['share'] = [
-            'label' => \App::text('core.shares'),
-            'value' => \App::shareService()->getAdminStatisticCount(),
+            'label' => app()->text('core.shares'),
+            'value' => app()->shareService()->getAdminStatisticCount(),
         ];
 
         $stats['feed'] = [
-            'label' => \App::text('core.feeds'),
-            'value' => \App::feedService()->getAdminStatisticCount(),
+            'label' => app()->text('core.feeds'),
+            'value' => app()->feedService()->getAdminStatisticCount(),
         ];
 
         $payload->__set('stats', $stats);
@@ -237,7 +237,7 @@ class EventListenerService extends EventListener
             'forPoster' => $forPoster,
             'forAction' => 'profile__view',
             'alignment' => $alignment,
-            'value'     => \App::value($forParent, 'core__view_profile', RELATION_TYPE_ANYONE),
+            'value'     => app()->value($forParent, 'core__view_profile', RELATION_TYPE_ANYONE),
         ]);
 
         $form->addElement([
@@ -249,7 +249,7 @@ class EventListenerService extends EventListener
             'forPoster' => $forPoster,
             'forAction' => 'profile__view_timeline',
             'alignment' => $alignment,
-            'value'     => \App::value($forParent, 'profile__view_timeline', RELATION_TYPE_ANYONE),
+            'value'     => app()->value($forParent, 'profile__view_timeline', RELATION_TYPE_ANYONE),
         ]);
 
         $form->addElement([
@@ -261,7 +261,7 @@ class EventListenerService extends EventListener
             'forPoster' => $forPoster,
             'forAction' => 'update_status',
             'alignment' => $alignment,
-            'value'     => \App::value($forParent, 'activity__update_status', RELATION_TYPE_ANYONE),
+            'value'     => app()->value($forParent, 'activity__update_status', RELATION_TYPE_ANYONE),
         ]);
 
         $form->addElement([
@@ -274,7 +274,7 @@ class EventListenerService extends EventListener
             'forAction' => 'user__request_friends',
             'alignment' => $alignment,
             'accepts'   => [RELATION_TYPE_ANYONE, RELATION_TYPE_MEMBER_OF_MEMBER],
-            'value'     => \App::value($forParent, 'user__request_friends', RELATION_TYPE_REGISTERED),
+            'value'     => app()->value($forParent, 'user__request_friends', RELATION_TYPE_REGISTERED),
         ]);
 
         $form->addElement([
@@ -287,7 +287,7 @@ class EventListenerService extends EventListener
             'forAction' => 'activity__follow',
             'alignment' => $alignment,
             'accepts'   => [RELATION_TYPE_ANYONE, RELATION_TYPE_REGISTERED, RELATION_TYPE_MEMBER],
-            'value'     => \App::value($forParent, 'activity__follow', RELATION_TYPE_REGISTERED),
+            'value'     => app()->value($forParent, 'activity__follow', RELATION_TYPE_REGISTERED),
         ]);
 
         $form->addElement([
@@ -300,7 +300,7 @@ class EventListenerService extends EventListener
             'forAction' => 'activity__tag_people',
             'alignment' => $alignment,
             'accepts'   => [RELATION_TYPE_ANYONE, RELATION_TYPE_REGISTERED, RELATION_TYPE_MEMBER],
-            'value'     => \App::value($forParent, 'activity__tag_people', RELATION_TYPE_REGISTERED),
+            'value'     => app()->value($forParent, 'activity__tag_people', RELATION_TYPE_REGISTERED),
         ]);
 
         $form->addElement([
@@ -313,7 +313,7 @@ class EventListenerService extends EventListener
             'forAction' => 'message__send_message',
             'alignment' => $alignment,
             'accepts'   => [RELATION_TYPE_ANYONE, RELATION_TYPE_REGISTERED, RELATION_TYPE_MEMBER],
-            'value'     => \App::value($forParent, 'message__send_message', RELATION_TYPE_REGISTERED),
+            'value'     => app()->value($forParent, 'message__send_message', RELATION_TYPE_REGISTERED),
         ]);
     }
 

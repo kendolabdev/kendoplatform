@@ -1,14 +1,14 @@
 <?php
 
 namespace Kendo\Navigation;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class Manager
  *
  * @package Kendo\Navigation
  */
-class Manager extends KernelServiceAgreement
+class Manager extends KernelService
 {
     /**
      * define max level to load
@@ -75,7 +75,7 @@ class Manager extends KernelServiceAgreement
      */
     public function render($plugin, $navId, $parentId, $active = [], $level = 1, $params = [])
     {
-        $data = \App::cacheService()
+        $data = app()->cacheService()
             ->get(['nav', $navId, $parentId], 0, function () use ($navId, $parentId) {
                 return $this->load($navId, $parentId);
             });
@@ -221,12 +221,12 @@ class Manager extends KernelServiceAgreement
      */
     protected function loadFromRepository($navId, $parentId = null)
     {
-        $itemTable = \App::table('platform_navigation_item');
+        $itemTable = app()->table('platform_navigation_item');
 
         $select = $itemTable->select('item')
             ->where('item.nav_id = ?', $navId)
             ->where('item.is_active=?', 1)
-            ->where('item.module_name IN ?', \App::packages()->getActiveModules())
+            ->where('item.module_name IN ?', app()->packages()->getActiveModules())
             ->order('item.sort_order', 1);
 
         if ($parentId)

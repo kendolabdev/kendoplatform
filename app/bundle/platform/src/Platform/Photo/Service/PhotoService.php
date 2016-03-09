@@ -2,7 +2,7 @@
 
 namespace Platform\Photo\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Photo\Model\Photo;
 use Platform\Photo\Model\PhotoAlbum;
 use Platform\Photo\Model\PhotoCategory;
@@ -19,7 +19,7 @@ use Kendo\Upload\UploadFileList;
  *
  * @package Platform\Photo\Service
  */
-class PhotoService extends KernelServiceAgreement
+class PhotoService extends KernelService
 {
 
     /**
@@ -45,7 +45,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function findCategoryById($id)
     {
-        return \App::table('platform_photo_category')
+        return app()->table('platform_photo_category')
             ->findById(intval($id));
     }
 
@@ -77,7 +77,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('platform_photo_category')->select('t');
+        $select = app()->table('platform_photo_category')->select('t');
 
         if (!empty($query['q']))
             $select->where('category_name like ?', '%' . $query['q'] . '%');
@@ -95,7 +95,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function findAlbumById($albumId)
     {
-        return \App::table('platform_photo_album')
+        return app()->table('platform_photo_album')
             ->findById($albumId);
     }
 
@@ -111,7 +111,7 @@ class PhotoService extends KernelServiceAgreement
     public function loadPhotoPaging($context = [], $page = 1, $limit = 12)
     {
 
-        $select = \App::table('platform_photo')->select('t');
+        $select = app()->table('platform_photo')->select('t');
 
         $isOwner = false;
         $inProfile = false;
@@ -122,7 +122,7 @@ class PhotoService extends KernelServiceAgreement
 
             $select->where('t.poster_id=?', $posterId);
 
-            if ($posterId == \App::authService()->getId()) {
+            if ($posterId == app()->auth()->getId()) {
 
                 $isOwner = true;
             }
@@ -134,7 +134,7 @@ class PhotoService extends KernelServiceAgreement
 
             $select->where('t.user_id=?', $userId);
 
-            if ($userId == \App::authService()->getUserId()) {
+            if ($userId == app()->auth()->getUserId()) {
                 $isOwner = true;
             }
         }
@@ -154,7 +154,7 @@ class PhotoService extends KernelServiceAgreement
 
             $select->where('t.album_id=?', $albumId);
 
-            $album = \App::find('platform_photo_album', $albumId);
+            $album = app()->find('platform_photo_album', $albumId);
 
             if ($album instanceof PhotoAlbum) {
                 if ($album->viewerIsPosterOrParent()) {
@@ -172,23 +172,23 @@ class PhotoService extends KernelServiceAgreement
 
 
         if (!$inProfile) {
-            $browsingMode = \App::setting('photo', 'browsing_mode');
+            $browsingMode = app()->setting('photo', 'browsing_mode');
             switch ($browsingMode) {
                 case 0:
                     break;
                 case 1:
-                    $select->where(\App::followService()->getFollowingConditionForQuery(\App::authService()->getId(), 't'), null);
+                    $select->where(app()->followService()->getFollowingConditionForQuery(app()->auth()->getId(), 't'), null);
                     break;
             }
         }
 
         if (!$isOwner) {
-            switch (\App::setting('photo', 'browsing_filter')) {
+            switch (app()->setting('photo', 'browsing_filter')) {
                 case 0:
-                    $select->where(\App::relationService()->getPrivacyConditionForQuery(\App::authService()->getId(), 't'), null);
+                    $select->where(app()->relation()->getPrivacyConditionForQuery(app()->auth()->getId(), 't'), null);
                     break;
                 case 1:
-                    if (\App::authService()->logged())
+                    if (app()->auth()->logged())
                         $select->where('t.privacy_type IN ?', [1, 2]);
                     else
                         $select->where('t.privacy_type = ?', 1);
@@ -215,7 +215,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function loadAlbumPaging($context = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('platform_photo_album')->select('t');
+        $select = app()->table('platform_photo_album')->select('t');
 
 
         $isOwner = false;
@@ -227,7 +227,7 @@ class PhotoService extends KernelServiceAgreement
 
             $select->where('t.poster_id=?', $posterId);
 
-            if ($posterId == \App::authService()->getId()) {
+            if ($posterId == app()->auth()->getId()) {
 
                 $isOwner = true;
             }
@@ -239,7 +239,7 @@ class PhotoService extends KernelServiceAgreement
 
             $select->where('t.user_id=?', $userId);
 
-            if ($userId == \App::authService()->getUserId()) {
+            if ($userId == app()->auth()->getUserId()) {
                 $isOwner = true;
             }
         }
@@ -255,23 +255,23 @@ class PhotoService extends KernelServiceAgreement
 
 
         if (!$inProfile) {
-            $browsingMode = \App::setting('photo', 'browsing_mode');
+            $browsingMode = app()->setting('photo', 'browsing_mode');
             switch ($browsingMode) {
                 case 0:
                     break;
                 case 1:
-                    $select->where(\App::followService()->getFollowingConditionForQuery(\App::authService()->getId(), 't'), null);
+                    $select->where(app()->followService()->getFollowingConditionForQuery(app()->auth()->getId(), 't'), null);
                     break;
             }
         }
 
         if (!$isOwner) {
-            switch (\App::setting('photo', 'browsing_filter')) {
+            switch (app()->setting('photo', 'browsing_filter')) {
                 case 0:
-                    $select->where(\App::relationService()->getPrivacyConditionForQuery(\App::authService()->getId(), 't'), null);
+                    $select->where(app()->relation()->getPrivacyConditionForQuery(app()->auth()->getId(), 't'), null);
                     break;
                 case 1:
-                    if (\App::authService()->logged())
+                    if (app()->auth()->logged())
                         $select->where('t.privacy_type IN ?', [1, 2]);
                     else
                         $select->where('t.privacy_type = ?', 1);
@@ -325,7 +325,7 @@ class PhotoService extends KernelServiceAgreement
 
         // process to add feed
 
-        $activityService = \App::feedService();
+        $activityService = app()->feedService();
 
         if ($object instanceof PhotoCollection) {
             $feed = $activityService->addItemFeed('update_status', $object);
@@ -361,7 +361,7 @@ class PhotoService extends KernelServiceAgreement
         $people = $request->getArray('people');
 
         if (!empty($people)) {
-            $peopleCount = \App::tagService()->tagPeople($object, $people);
+            $peopleCount = app()->tagService()->tagPeople($object, $people);
             $object->setPeopleCount($peopleCount);
             $shouldUpdate = true;
         }
@@ -380,7 +380,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function getPhotoCount()
     {
-        return \App::table('platform_photo')
+        return app()->table('platform_photo')
             ->select()
             ->count();
     }
@@ -392,7 +392,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function getAlbumCount()
     {
-        return \App::table('platform_photo_album')
+        return app()->table('platform_photo_album')
             ->select()
             ->count();
     }
@@ -450,7 +450,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function getSelectPhotoContext(Photo $photo, $context = null)
     {
-        $select = \App::table('platform_photo')
+        $select = app()->table('platform_photo')
             ->select();
 
         switch ($context) {
@@ -565,7 +565,7 @@ class PhotoService extends KernelServiceAgreement
          * load file info from temp
          */
 
-        $storage = \App::storageService();
+        $storage = app()->storageService();
 
 
         $info = $storage->getTempInputFileList($tempIdList);
@@ -589,7 +589,7 @@ class PhotoService extends KernelServiceAgreement
          * load file info from temp
          */
 
-        $storage = \App::storageService();
+        $storage = app()->storageService();
 
         $info = $storage->getTempInputFileList([$tempId]);
 
@@ -617,7 +617,7 @@ class PhotoService extends KernelServiceAgreement
             'maxSize' => 10485760, // 10 Mb
         ];
 
-        $fileList = \App::storageService()->getUploadFileList($fileName, $options);
+        $fileList = app()->storageService()->getUploadFileList($fileName, $options);
 
 
         return $this->processUploadPhotos($fileList, $thumbs);
@@ -643,13 +643,13 @@ class PhotoService extends KernelServiceAgreement
 
         $fileData = [];
         $uploadTemporaryDir = KENDO_UPLOAD_DIR . '/';
-        $imageService = \App::imageProcess();
+        $imageService = app()->imageProcess();
 
         $path = $inputFile->getPath();
 
         $alloc = [];
 
-        $pathTemp = \App::storageService()->getPathPattern('photo', null, '.jpg');
+        $pathTemp = app()->storageService()->getPathPattern('photo', null, '.jpg');
 
         $dir = dirname($uploadTemporaryDir . $pathTemp);
 
@@ -713,7 +713,7 @@ class PhotoService extends KernelServiceAgreement
 
         if (!empty($fileData)) {
 
-            $storage = \App::storageService();
+            $storage = app()->storageService();
 
             $response = $storage->saveAllProcessedPhoto($fileData, $uploadTemporaryDir);
 
@@ -751,15 +751,15 @@ class PhotoService extends KernelServiceAgreement
         $thumbs = $this->getDefaultAvatarThumbsSettings();
 
         $uploadTemporaryDir = KENDO_UPLOAD_DIR . '/';
-        $imageService = \App::imageProcess();
+        $imageService = app()->imageProcess();
 
-        $file = \App::storageService()->getFileItem($photoFileId, 'origin');
+        $file = app()->storageService()->getFileItem($photoFileId, 'origin');
 
         $path = $file->getUrl();
 
         $alloc = [];
 
-        $pathTemp = \App::storageService()->getPathPattern('photo', null, '.jpg');
+        $pathTemp = app()->storageService()->getPathPattern('photo', null, '.jpg');
 
         $dir = dirname($uploadTemporaryDir . $pathTemp);
 
@@ -805,13 +805,13 @@ class PhotoService extends KernelServiceAgreement
 
         $makers = array_keys($alloc);
 
-        \App::storageService()->removeByOriginIdAndMakerList($photoFileId, $makers);
+        app()->storageService()->removeByOriginIdAndMakerList($photoFileId, $makers);
 
 
         if (empty($alloc))
             throw new \InvalidArgumentException("Could not process avatar");
 
-        return \App::storageService()->saveAllProcessedPhotoByOriginId($photoFileId, $alloc, $uploadTemporaryDir);
+        return app()->storageService()->saveAllProcessedPhotoByOriginId($photoFileId, $alloc, $uploadTemporaryDir);
 
     }
 
@@ -834,28 +834,28 @@ class PhotoService extends KernelServiceAgreement
 
         $photo = null;
         $parent = $poster;
-        $album = \App::photoService()->getSingletonAlbum($parent);
+        $album = app()->photoService()->getSingletonAlbum($parent);
 
         if (!empty($cropit['photoId'])) {
-            $photo = \App::find('photo', $cropit['photoId']);
+            $photo = app()->find('photo', $cropit['photoId']);
         } else if (!empty($cropit['tempId'])) {
 
             $photoTemp = $cropit['tempId'];
 
-            $fileId = \App::photoService()->processSinglePhotoUploadFromTemporary($photoTemp);
+            $fileId = app()->photoService()->processSinglePhotoUploadFromTemporary($photoTemp);
 
             $addParams = array_merge([], ['type' => 1, 'value' => 1]);
 
-            $photo = \App::photoService()->addPhoto($fileId, $poster, $parent, $album, $addParams);
+            $photo = app()->photoService()->addPhoto($fileId, $poster, $parent, $album, $addParams);
         }
 
         if (!$photo instanceof Photo)
-            throw new \InvalidArgumentException(\App::text('photo.can_not_update_avatar'));
+            throw new \InvalidArgumentException(app()->text('photo.can_not_update_avatar'));
 
-        $response = \App::photoService()->processAvatar($parent, $photo->getPhotoFileId(), $options);
+        $response = app()->photoService()->processAvatar($parent, $photo->getPhotoFileId(), $options);
 
         if (empty($response))
-            throw new \InvalidArgumentException(\App::text('photo.can_not_update_avatar'));
+            throw new \InvalidArgumentException(app()->text('photo.can_not_update_avatar'));
 
         $poster->setPhotoFileId($photo->getPhotoFileId());
         $poster->save();
@@ -880,7 +880,7 @@ class PhotoService extends KernelServiceAgreement
 
         $fileData = [];
         $uploadTemporaryDir = KENDO_UPLOAD_DIR . '/';
-        $imageService = \App::imageProcess();
+        $imageService = app()->imageProcess();
 
         foreach ($fileList->getFiles() as $file) {
 
@@ -888,7 +888,7 @@ class PhotoService extends KernelServiceAgreement
 
             $alloc = [];
 
-            $pathTemp = \App::storageService()->getPathPattern('photo', null, '.jpg');
+            $pathTemp = app()->storageService()->getPathPattern('photo', null, '.jpg');
 
             $dir = dirname($uploadTemporaryDir . $pathTemp);
 
@@ -958,7 +958,7 @@ class PhotoService extends KernelServiceAgreement
 
         if (!empty($fileData)) {
 
-            $storage = \App::storageService();
+            $storage = app()->storageService();
 
             $response = $storage->saveAllProcessedPhoto($fileData, $uploadTemporaryDir);
 
@@ -992,7 +992,7 @@ class PhotoService extends KernelServiceAgreement
      */
     public function getSingletonAlbum(PosterInterface $parent)
     {
-        $album = \App::table('platform_photo_album')
+        $album = app()->table('platform_photo_album')
             ->select()
             ->where('parent_id=?', $parent->getId())
             ->where('parent_type=?', $parent->getType())
@@ -1170,11 +1170,11 @@ class PhotoService extends KernelServiceAgreement
 
                 $firstPhoto = $photoList[0];
 
-                $feed = \App::feedService()->addItemFeed('photo_upload', $firstPhoto);
+                $feed = app()->feedService()->addItemFeed('photo_upload', $firstPhoto);
 
             } else if ($totalPhoto > 1) {
 
-                $feed = \App::feedService()->addItemFeed('photo_upload_collection', $collection, ['count' => $totalPhoto]);
+                $feed = app()->feedService()->addItemFeed('photo_upload_collection', $collection, ['count' => $totalPhoto]);
             }
         }
 
@@ -1241,7 +1241,7 @@ class PhotoService extends KernelServiceAgreement
         $album = $photo->getAlbum();
 
         if (!$album)
-            throw new \InvalidArgumentException(\App::text('photo.this_photo_does_not_has_album'));
+            throw new \InvalidArgumentException(app()->text('photo.this_photo_does_not_has_album'));
 
         $album->setPhotoFileId($photo->getPhotoFileId());
 
@@ -1256,7 +1256,7 @@ class PhotoService extends KernelServiceAgreement
      */
     private function findCoverByObject(AtomInterface $object)
     {
-        return \App::table('platform_photo_cover')
+        return app()->table('platform_photo_cover')
             ->select()
             ->where('object_id=?', $object->getId())
             ->where('object_type=?', $object->getType())
@@ -1369,7 +1369,7 @@ class PhotoService extends KernelServiceAgreement
     public function getCategoryOptions()
     {
 
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['photo', 'getCategoryOptions'], 0, function () {
                 return $this->_getCategoryOptions();
             });
@@ -1382,7 +1382,7 @@ class PhotoService extends KernelServiceAgreement
      */
     private function _getCategoryOptions()
     {
-        $select = \App::table('photo.category')->select()
+        $select = app()->table('photo.category')->select()
             ->order('category_name', 1);
 
         $items = $select->all();

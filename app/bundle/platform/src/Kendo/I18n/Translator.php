@@ -50,7 +50,7 @@ class Translator
     public function getLoader()
     {
         if (null == $this->loader) {
-            $this->loader = \App::phraseService();
+            $this->loader = app()->phraseService();
         }
 
         return $this->loader;
@@ -227,7 +227,7 @@ class Translator
         $value = ucfirst(str_replace('_', ' ', $name));
 
         try {
-            $entry = \App::table('platform_phrase')
+            $entry = app()->table('platform_phrase')
                 ->fetchNew([
                     'phrase_group'  => $group,
                     'phrase_name'   => $name,

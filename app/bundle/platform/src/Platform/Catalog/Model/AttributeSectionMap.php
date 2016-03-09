@@ -106,7 +106,7 @@ class AttributeSectionMap extends Model
      */
     public function table()
     {
-        return \App::table('attribute.attribute_section_map');
+        return app()->table('attribute.attribute_section_map');
     }
     //END_TABLE_GENERATOR
 }

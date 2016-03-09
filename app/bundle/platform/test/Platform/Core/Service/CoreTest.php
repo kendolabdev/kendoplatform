@@ -12,7 +12,7 @@ class CoreTest extends TestCase
 {
     public function testGeneral()
     {
-        $coreService = \App::coreService();
+        $coreService = app()->coreService();
 
         $coreService->loadTypeOptions();
 

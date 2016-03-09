@@ -3,12 +3,11 @@
 namespace Platform\Layout\Service;
 
 use Kendo\Html\Form;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Layout\Model\Layout;
 use Platform\Layout\Model\LayoutBlock;
 use Platform\Layout\Model\LayoutSection;
 use Platform\Layout\Model\LayoutSetting;
-use Platform\Layout\Model\LayoutTemplate;
 use Platform\Layout\Model\LayoutTheme;
 
 use Kendo\Layout\BlockController;
@@ -23,7 +22,7 @@ use Kendo\Layout\Navigation;
  *
  * @package Core\Service
  */
-class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterface, Manager
+class LayoutService extends KernelService implements LayoutLoaderInterface, Manager
 {
     /**
      * Root page name to search
@@ -33,7 +32,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     /**
      * Default template id
      */
-    const DEFAULT_TEMPLATE_ID = 'default';
+    const DEFAULT_THEME_ID = 'default';
 
     /**
      * Screen tablet
@@ -180,7 +179,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function setPageTitle($pageTitle, $translated = false)
     {
-        $this->pageTitle = $translated ? $pageTitle : \App::text($pageTitle);
+        $this->pageTitle = $translated ? $pageTitle : app()->text($pageTitle);
 
         return $this;
     }
@@ -254,7 +253,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function getThemeData($themeId)
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['layout', 'getThemeData', $themeId], 0, function () use ($themeId) {
                 return $this->getThemeDataFromRepository($themeId);
             });
@@ -272,14 +271,8 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
         if (!$theme)
             $theme = $this->findDefaultTheme();
 
-        $template = $this->findTemplateById($theme->getTemplateId());
-
         return [
             'theme_id'           => $theme->getId(),
-            'parent_theme_id'    => $theme->getParentThemeId(),
-            'template_id'        => $template->getId(),
-            'parent_template_id' => $template->getParentTemplateId(),
-            'super_template_id'  => $template->getSuperTemplateId(),
             'view_paths'         => $theme->getViewFinderPaths(),
         ];
     }
@@ -289,13 +282,13 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function findDefaultTheme()
     {
-        $theme = \App::table('platform_layout_theme')
+        $theme = app()->table('platform_layout_theme')
             ->select()
             ->where('is_default=?', 1)
             ->one();
 
         if (!$theme)
-            $theme = \App::table('platform_layout_theme')
+            $theme = app()->table('platform_layout_theme')
                 ->select()
                 ->where('theme_id=?', 'default')
                 ->one();
@@ -310,7 +303,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function findThemeById($themeId)
     {
-        return \App::table('platform_layout_theme')
+        return app()->table('platform_layout_theme')
             ->findById((string)$themeId);
     }
 
@@ -402,11 +395,9 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
 
         $themeData = $this->getThemeData($themeId);
 
-
-        $this->setTemplateId($themeData['template_id']);
         $this->themeId = $themeData['theme_id'];
 
-        \App::viewFinder()
+        app()->viewFinder()
             ->setPaths($themeData['view_paths']);
     }
 
@@ -415,13 +406,13 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function getEditingTheme()
     {
-        $theme = \App::table('platform_layout_theme')
+        $theme = app()->table('platform_layout_theme')
             ->select()
             ->where('is_editing=?', 1)
             ->one();
 
         if (empty($theme))
-            $theme = \App::table('platform_layout_theme')
+            $theme = app()->table('platform_layout_theme')
                 ->select()
                 ->one();
 
@@ -438,7 +429,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function loadAdminThemePaging($query = [], $page = 1, $limit = 10)
     {
-        $select = \App::table('platform_layout_theme')
+        $select = app()->table('platform_layout_theme')
             ->select()
             ->where('theme_id <> ?', 'admin');
 
@@ -458,7 +449,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function loadAdminLayoutPagePaging($params = [], $page = 1, $limit = 10)
     {
-        $select = \App::table('platform_layout_page')
+        $select = app()->table('platform_layout_page')
             ->select()
             ->where('is_admin=?', 0)
             ->order('module_name, page_name', 1);
@@ -466,7 +457,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
         if (!empty($params['module'])) {
             $select->where('module_name IN ?', explode(',', $params['module']));
         } else {
-            $select->where('module_name IN ?', \App::packages()->getActiveModules());
+            $select->where('module_name IN ?', app()->packages()->getActiveModules());
         }
 
         return $select->paging($page, $limit);
@@ -481,7 +472,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function loadAdminTemplatePaging($query = [], $page = 1, $limit = 10)
     {
-        $select = \App::table('platform_layout_template')
+        $select = app()->table('platform_layout_template')
             ->select();
 
         if (!empty($query)) {
@@ -497,7 +488,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function getEditingThemeId()
     {
-        return \App::layouts()
+        return app()->layouts()
             ->getEditingTheme()
             ->getId();
     }
@@ -512,7 +503,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function loadThemePaging($params = [], $page = 1, $limit = 10)
     {
-        $select = \App::table('platform_layout_theme')
+        $select = app()->table('platform_layout_theme')
             ->select();
 
         if (!empty($params)) {
@@ -531,7 +522,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     public function findBlockById($blockId)
     {
 
-        return \App::table('platform_layout_block')
+        return app()->table('platform_layout_block')
             ->findById((string)$blockId);
     }
 
@@ -542,7 +533,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function findLayoutById($layoutId)
     {
-        return \App::table('platform_layout')
+        return app()->table('platform_layout')
             ->findById($layoutId);
     }
 
@@ -558,7 +549,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     {
         $pageId = $this->findPageIdByPageName($pageName);
 
-        return \App::table('platform_layout')
+        return app()->table('platform_layout')
             ->select('layout')
             ->where('page_id=?', $pageId)
             ->where('screen_size=?', $screenSize)
@@ -590,7 +581,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function findPageByName($pageName)
     {
-        return \App::table('platform_layout_page')
+        return app()->table('platform_layout_page')
             ->select('t')
             ->where('page_name=?', $pageName)
             ->one();
@@ -616,7 +607,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
             'is_active'   => 1,
         ], $params);
 
-        $layout = \App::table('platform_layout')
+        $layout = app()->table('platform_layout')
             ->fetchNew($data);
 
         $layout->save();
@@ -633,7 +624,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function loadSupportSections($type = null)
     {
-        $select = \App::table('platform_layout_support_section')
+        $select = app()->table('platform_layout_support_section')
             ->select()
             ->order('support_section_order', 1);
 
@@ -679,7 +670,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
         $pageIdList = $this->getListAncestorsPageId($pageName);
         $themeIdList = $this->getListAncestorsThemeId($preferThemeId);
 
-        $select = \App::table('platform_layout')
+        $select = app()->table('platform_layout')
             ->select()
             ->where('page_id IN ?', $pageIdList);
 
@@ -736,7 +727,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function cloneLayout($layout, $forThemeId)
     {
-        $cloneLayout = \App::table('platform_layout')
+        $cloneLayout = app()->table('platform_layout')
             ->select()
             ->where('theme_id=?', $forThemeId)
             ->where('screen_size=?', $layout->getScreenSize())
@@ -755,7 +746,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
 
         $cloneLayout->save();
 
-        $sections = \App::table('platform_layout_section')
+        $sections = app()->table('platform_layout_section')
             ->select()
             ->where('layout_id=?', $layout->getId())
             ->all();
@@ -773,7 +764,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
             $cloneSection->save();
 
             /// checker about block
-            $blocks = \App::table('platform_layout_block')
+            $blocks = app()->table('platform_layout_block')
                 ->select()
                 ->where('section_id=?', $section->getId())
                 ->all();
@@ -825,7 +816,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function findTemplateById($templateId)
     {
-        return \App::table('platform_layout_template')
+        return app()->table('platform_layout_template')
             ->findById($templateId);
     }
 
@@ -836,7 +827,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function findLayoutPageByName($pageName)
     {
-        return \App::table('platform_layout_page')
+        return app()->table('platform_layout_page')
             ->select()
             ->where('page_name=?', $pageName)
             ->one();
@@ -895,7 +886,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function getTemplateSupportBlockSettings($path, $themeId)
     {
-        $theme = \App::layouts()
+        $theme = app()->layouts()
             ->findThemeById($themeId);
 
         $paths = $theme->getViewFinderPaths();
@@ -976,7 +967,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     public function _getTemplateBlockRenderSettings($path, $themeId = 'default')
     {
 
-        $theme = \App::layouts()
+        $theme = app()->layouts()
             ->findThemeById($themeId);
 
         $paths = $theme->getViewFinderPaths();
@@ -1038,7 +1029,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     public function getLayoutSettings($layoutType, $pageName, $screenSize, $themeId)
     {
         if (!$themeId)
-            $themeId = self::DEFAULT_TEMPLATE_ID;
+            $themeId = self::DEFAULT_THEME_ID;
 
         if (!$pageName)
             $pageName = self::PAGE_ROOT;
@@ -1054,7 +1045,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
         if (!$screenSize)
             $screenSize = self::SCREEN_DESKTOP;
 
-        $select = \App::table('platform_layout_setting')
+        $select = app()->table('platform_layout_setting')
             ->select()
             ->where('screen_size=?', $screenSize)
             ->where('layout_type=?', $layoutType)
@@ -1085,7 +1076,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function findParentPageName($pageName)
     {
-        return \App::table('platform_layout_page')
+        return app()->table('platform_layout_page')
             ->select('t')
             ->where('page_name=?', $pageName)
             ->field('parent_page_name');
@@ -1121,7 +1112,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     public function getListAncestorsThemeId($themeId)
     {
 
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['layout', 'getListAncestorsThemeId', $themeId], 0, function () use ($themeId) {
                 return $this->_getListAncestorsThemeId($themeId);
             });
@@ -1162,7 +1153,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     public function getListAncestorsTemplateId($templateId)
     {
 
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['layout', 'getListAncestorsTemplateId', $templateId], 0, function () use ($templateId) {
                 return $this->_getListAncestorsTemplateId($templateId);
             });
@@ -1289,7 +1280,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function loadSectionsByLayoutId($layoutId, $onlyActiveValue = null)
     {
-        $select = \App::table('platform_layout_section')
+        $select = app()->table('platform_layout_section')
             ->select()
             ->where('layout_id=?', $layoutId)
             ->order('section_order', 1);
@@ -1311,10 +1302,10 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
         $maxLevel = 3;
         $rows = [];
 
-        $supportBlockTable = \App::table('platform_layout_support_block')->getName();
+        $supportBlockTable = app()->table('platform_layout_support_block')->getName();
 
 
-        $allBlocks = \App::table('platform_layout_block')
+        $allBlocks = app()->table('platform_layout_block')
             ->select('b')
             ->join($supportBlockTable, 's', 's.support_block_id=b.support_block_id', null, null)
             ->where('section_id=?', $sectionId)
@@ -1401,7 +1392,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function findAvailableBlocks($type = 'block', $active = true)
     {
-        $select = \App::table('platform_layout_support_block')
+        $select = app()->table('platform_layout_support_block')
             ->select()
             ->order('module_name', 1);
 
@@ -1410,7 +1401,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
         }
 
         if ($active !== null) {
-            $select->where('module_name IN ?', \App::packages()->getActiveModules());
+            $select->where('module_name IN ?', app()->packages()->getActiveModules());
         }
 
         return $select->all();
@@ -1456,7 +1447,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     {
         if (empty($excludes) || empty($layoutId)) return;
 
-        $sections = \App::table('platform_layout_section')
+        $sections = app()->table('platform_layout_section')
             ->select()
             ->where('layout_id=?', (string)$layoutId)
             ->where('section_id NOT IN ?', (array)$excludes)
@@ -1477,7 +1468,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     protected function deleteLayoutBlockInSection($sectionId)
     {
-        \App::table('platform_layout_block')
+        app()->table('platform_layout_block')
             ->delete()
             ->where('section_id = ?', $sectionId)
             ->execute();
@@ -1538,7 +1529,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function findLayoutSectionById($id)
     {
-        return \App::table('platform_layout_section')->findById($id);
+        return app()->table('platform_layout_section')->findById($id);
     }
 
     /**
@@ -1570,7 +1561,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
             $excludes[] = '-1';
         }
 
-        \App::table('platform_layout_block')
+        app()->table('platform_layout_block')
             ->delete()
             ->where('section_id=?', $sectionId)
             ->where('block_id NOT IN ?', $excludes)
@@ -1634,7 +1625,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function findLayoutBlockById($id)
     {
-        return \App::table('platform_layout_block')->findById($id);
+        return app()->table('platform_layout_block')->findById($id);
     }
 
     /**
@@ -1697,7 +1688,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
 
         $script = 'layout/section/' . $sectionTemplate . '';
 
-        return \App::viewHelper()->partial($script, $response);
+        return app()->viewHelper()->partial($script, $response);
     }
 
     /**
@@ -1719,7 +1710,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function findSupportBlockById($id)
     {
-        return \App::table('platform_layout_support_block')
+        return app()->table('platform_layout_support_block')
             ->findById($id);
     }
 
@@ -1734,9 +1725,9 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
             $masterScript = $this->getMasterScript();
         }
 
-        $request = \App::requester();
+        $request = app()->requester();
 
-        return \App::viewHelper()->partial($masterScript, [
+        return app()->viewHelper()->partial($masterScript, [
                 'fullControllerName' => $request->getFullControllerName()
             ]
         );
@@ -1842,7 +1833,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
         $pageName = $this->getPageName();
         $screenSize = $this->getScreenSize();
 
-        $layoutData = \App::cacheService()
+        $layoutData = app()->cacheService()
             ->get(['loadDataForRender', $pageName, $themeId, $screenSize], 0, function () use ($themeId, $pageName, $screenSize) {
                 return $this->getLoader()->loadDataForRender($pageName, $themeId, $screenSize);
             });
@@ -1946,7 +1937,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
         if (!$templateId)
             $templateId = $this->getTemplateId();
 
-        return \App::cacheService()->get(['layoutParams', $templateId, $pageName, $screenSize, $layoutType],
+        return app()->cacheService()->get(['layoutParams', $templateId, $pageName, $screenSize, $layoutType],
             0, function () use ($templateId, $pageName, $screenSize, $layoutType) {
                 return $this->_getLayoutParams($pageName, $screenSize, $layoutType);
             });
@@ -2023,7 +2014,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
         $themeIdList = $this->getListAncestorsThemeId($this->themeId);
 
 
-        $select = \App::table('platform_layout_setting')
+        $select = app()->table('platform_layout_setting')
             ->select()
             ->where('layout_type=?', $layoutType)
             ->where('page_id IN ?', $pageIdList);
@@ -2102,9 +2093,9 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     {
         if (!$this->screenSize) {
 
-            if (\App::requester()->isTablet()) {
+            if (app()->requester()->isTablet()) {
                 $this->screenSize = self::SCREEN_DESKTOP;
-            } else if (\App::requester()->isMobile()) {
+            } else if (app()->requester()->isMobile()) {
                 $this->screenSize = self::SCREEN_MOBILE;
             } else {
                 $this->screenSize = self::SCREEN_DESKTOP;
@@ -2164,7 +2155,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
 
         $script = 'layout/section/' . $sectionData['section_template'];
 
-        return \App::viewHelper()->partial($script, $responseData);
+        return app()->viewHelper()->partial($script, $responseData);
     }
 
     /**
@@ -2187,7 +2178,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
 
 
             if (KENDO_PROFILER) {
-                $profilerKey = \App::profiler()->start('layout', 'renderBlock', $class);
+                $profilerKey = app()->profiler()->start('layout', 'renderBlock', $class);
             }
 
             $block = new $class($params);
@@ -2200,7 +2191,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
             $renderContent = $block->render();
 
             if (KENDO_PROFILER and !empty($profilerKey)) {
-                \App::profiler()->stop($profilerKey);
+                app()->profiler()->stop($profilerKey);
             }
 
             return $renderContent;
@@ -2221,7 +2212,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function getListSupportBlockByModuleName($moduleList = [])
     {
-        return \App::table('platform_layout_support_block')
+        return app()->table('platform_layout_support_block')
             ->select()
             ->where('module_name IN ?', $moduleList)
             ->toAssocs();
@@ -2234,7 +2225,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function getListPageByModuleName($moduleList = [])
     {
-        return \App::table('platform_layout_page')
+        return app()->table('platform_layout_page')
             ->select()
             ->where('module_name IN ?', $moduleList)
             ->toAssocs();
@@ -2248,7 +2239,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function exportLayoutData($moduleList = [], $themeList = [])
     {
-        $select = \App::table('platform_layout')
+        $select = app()->table('platform_layout')
             ->select('layout')
             ->join(':layout_page', 'page', 'page.page_id=layout.page_id', null, null)
             ->columns('layout.*,page.page_name');
@@ -2283,7 +2274,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function _exportSectionListByLayoutId($layoutId)
     {
-        $select = \App::table('platform_layout_section')
+        $select = app()->table('platform_layout_section')
             ->select()
             ->where('layout_id=?', $layoutId);
 
@@ -2304,7 +2295,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     public function _exportBlockListBySectionId($sectionId)
     {
 
-        $select = \App::table('platform_layout_block')
+        $select = app()->table('platform_layout_block')
             ->select('block')
             ->join(':layout_support_block', 'support', 'support.support_block_id=block.support_block_id', null, null)
             ->where('block.section_id=?', $sectionId)
@@ -2324,7 +2315,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     {
         foreach ($data as $row) {
 
-            $page = \App::table('platform_layout_page')
+            $page = app()->table('platform_layout_page')
                 ->select()
                 ->where('page_name=?', $row['page_name'])
                 ->one();
@@ -2332,7 +2323,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
             if (!$page)
                 continue;
 
-            $layout = \App::table('platform_layout')
+            $layout = app()->table('platform_layout')
                 ->select()
                 ->where('screen_size=?', $row['screen_size'])
                 ->where('page_id=?', $page->getId())
@@ -2354,11 +2345,11 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
             foreach ($row['listSection'] as $sectionData) {
                 $sectionData['layout_id'] = $layout->getId();
 
-                \App::table('platform_layout_section')
+                app()->table('platform_layout_section')
                     ->insertIgnore($sectionData);
 
                 foreach ($sectionData['listBlock'] as $blockData) {
-                    $supportBlock = \App::table('platform_layout_support_block')
+                    $supportBlock = app()->table('platform_layout_support_block')
                         ->select()
                         ->where('block_class=?', $blockData['block_class'])
                         ->one();
@@ -2368,7 +2359,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
 
                     $blockData['support_block_id'] = $supportBlock->getId();
 
-                    \App::table('platform_layout_block')
+                    app()->table('platform_layout_block')
                         ->insertIgnore($blockData);
                 }
             }
@@ -2380,32 +2371,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
      */
     public function theme()
     {
-        return \App::instance()->make('platform_layout_theme');
-    }
-
-    /**
-     * @return array
-     */
-    public function getTemplateOptions()
-    {
-        $options = [];
-
-        $items = \App::table('platform_layout_template')
-            ->select()
-            ->where('template_id<>?', 'admin')
-            ->all();
-
-        foreach ($items as $item) {
-
-            if (!$item instanceof LayoutTemplate) continue;
-
-            $options[] = [
-                'label' => $item->getTitle(),
-                'value' => $item->getId(),
-            ];
-        }
-
-        return $options;
+        return app()->instance()->make('platform_layout_theme');
     }
 
     /**
@@ -2415,7 +2381,7 @@ class LayoutService extends KernelServiceAgreement implements LayoutLoaderInterf
     {
         $options = [];
 
-        $items = \App::table('platform_layout_theme')
+        $items = app()->table('platform_layout_theme')
             ->select()
             ->where('theme_id<>?', 'admin')
             ->all();

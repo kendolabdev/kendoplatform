@@ -20,7 +20,7 @@ class HomeController extends DefaultController
     {
         parent::init();
 
-        if (!\App::authService()->logged()) {
+        if (!app()->auth()->logged()) {
             throw new AuthException("Login Required");
         }
     }
@@ -31,9 +31,9 @@ class HomeController extends DefaultController
      */
     public function actionUnreadMessage()
     {
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
-        $messageIdList = \App::table('platform_message_recipient')
+        $messageIdList = app()->table('platform_message_recipient')
             ->select()
             ->where('recipient_id=?', $viewer->getId())
             ->where('is_active=?', 1)
@@ -50,12 +50,12 @@ class HomeController extends DefaultController
         /**
          * Select message
          */
-        $paging = \App::table('platform_message')
+        $paging = app()->table('platform_message')
             ->select()
             ->where('message_id IN ?', $messageIdList)
             ->all();
 
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams();
 
         $this->view
@@ -70,9 +70,9 @@ class HomeController extends DefaultController
      */
     public function actionInboxMessage()
     {
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
-        $messageIdList = \App::table('platform_message_recipient')
+        $messageIdList = app()->table('platform_message_recipient')
             ->select()
             ->where('recipient_id=?', $viewer->getId())
             ->where('is_active=?', 1)
@@ -88,12 +88,12 @@ class HomeController extends DefaultController
         /**
          * Select message
          */
-        $paging = \App::table('platform_message')
+        $paging = app()->table('platform_message')
             ->select()
             ->where('message_id IN ?', $messageIdList)
             ->all();
 
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams();
 
         $this->view
@@ -108,17 +108,17 @@ class HomeController extends DefaultController
      */
     public function actionSentMessage()
     {
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
         /**
          * Select message
          */
-        $paging = \App::table('platform_message')
+        $paging = app()->table('platform_message')
             ->select()
             ->where('poster_id=?', $viewer->getId())
             ->all();
 
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams();
 
         $this->view
@@ -134,7 +134,7 @@ class HomeController extends DefaultController
     public function actionComposeMessage()
     {
 
-        $form = \App::htmlService()->factory('\Message\Form\ComposeMessage');
+        $form = app()->html()->factory('\Message\Form\ComposeMessage');
 
 
         $recipientType = $this->request->getParam('recipientType');
@@ -143,7 +143,7 @@ class HomeController extends DefaultController
         $recipient = null;
 
         if (!empty($recipientType) && !empty($recipientId)) {
-            $recipient = \App::find($recipientType, $recipientId);
+            $recipient = app()->find($recipientType, $recipientId);
         }
 
 
@@ -151,7 +151,7 @@ class HomeController extends DefaultController
             'form' => $form,
         ]);
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         if ($this->request->isMethod('get')) {
 
@@ -164,7 +164,7 @@ class HomeController extends DefaultController
             $form->setData($values);
         }
 
-        $messageService = \App::messageService();
+        $messageService = app()->messageService();
 
         if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
@@ -185,7 +185,7 @@ class HomeController extends DefaultController
              */
             foreach ($recipients as $recipient) {
                 list($rid, $rtype) = explode('@', $recipient);
-                $user = \App::find($rtype, $rid);
+                $user = app()->find($rtype, $rid);
 
                 if (!null == $user && $user instanceof PosterInterface) {
                     $users[] = $user;
@@ -197,7 +197,7 @@ class HomeController extends DefaultController
 
             $messageService->addMessage($poster, $users, $subject, $content);
 
-            \App::routing()->redirect('message_inbox');
+            app()->routing()->redirect('message_inbox');
         }
 
         $this->prepareRenderByContentLayoutParams();

@@ -7,7 +7,7 @@ use Kendo\Content\AtomInterface;
 use Kendo\Content\PosterInterface;
 use Kendo\Hook\HookEvent;
 use Kendo\Http\FilterStuff;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Relation\Model\Relation;
 use Platform\Relation\Model\RelationItem;
@@ -90,9 +90,9 @@ class EventListenerService extends EventListener
             return;
         }
 
-        \App::relationService()->buildRelationsForPoster($payload);
+        app()->relation()->buildRelationsForPoster($payload);
 
-        \App::values()->mergeValues($payload, [
+        app()->values()->mergeValues($payload, [
             'share_status' => RELATION_TYPE_ANYONE,
         ]);
     }
@@ -167,13 +167,13 @@ class EventListenerService extends EventListener
 
         if (!$parent instanceof PosterInterface or !$poster instanceof PosterInterface) return;
 
-        \App::relationService()->addRelationItem($parent, $poster, RELATION_TYPE_MEMBER);
+        app()->relation()->addRelationItem($parent, $poster, RELATION_TYPE_MEMBER);
 
         /**
          * 2 ways friends for required.
          */
         if ($parent instanceof User && $poster instanceof User) {
-            \App::relationService()->addRelationItem($poster, $parent, RELATION_TYPE_MEMBER);
+            app()->relation()->addRelationItem($poster, $parent, RELATION_TYPE_MEMBER);
         }
     }
 
@@ -187,13 +187,13 @@ class EventListenerService extends EventListener
 
         if (!$poster instanceof PosterInterface or !$parent instanceof PosterInterface) return;
 
-        \App::relationService()->clearRelationItem($parent, $poster);
+        app()->relation()->clearRelationItem($parent, $poster);
 
         /**
          * 2 ways membership need to required to clear
          */
         if ($poster instanceof User && $parent instanceof User) {
-            \App::relationService()->clearRelationItem($poster, $parent);
+            app()->relation()->clearRelationItem($poster, $parent);
 
         }
     }

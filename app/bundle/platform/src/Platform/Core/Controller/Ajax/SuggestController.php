@@ -17,11 +17,11 @@ class SuggestController extends AjaxController
     public function actionList()
     {
 
-        $select = \App::table('platform_user')
+        $select = app()->table('platform_user')
             ->select()
             ->limit(20, 0);
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         if ($poster != null) {
             $select->where('user_id<>?', $poster->getId());
@@ -29,7 +29,7 @@ class SuggestController extends AjaxController
 
         $q = $this->request->getString('q');
 
-        $ids = \App::relationService()->getMemberIdList($poster, 'user');
+        $ids = app()->relation()->getMemberIdList($poster, 'user');
 
         if (empty($ids)) {
             $ids = [0];

@@ -18,7 +18,7 @@ class SectionController extends AjaxController
     {
         $sectionId = $this->request->getParam('sectionId');
         $fieldId = $this->request->getParam('id');
-        $attribute = \App::catalogService();
+        $attribute = app()->catalogService();
         $section = $attribute->findSectionById($sectionId);
         $field = $attribute->findFieldById($fieldId);
 
@@ -46,7 +46,7 @@ class SectionController extends AjaxController
     {
         $sectionId = $this->request->getParam('sectionId');
         $fieldId = $this->request->getParam('id');
-        $attribute = \App::catalogService();
+        $attribute = app()->catalogService();
 
         $attribute->removeFieldMap($sectionId, $fieldId);
 

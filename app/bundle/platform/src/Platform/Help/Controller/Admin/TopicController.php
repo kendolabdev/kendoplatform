@@ -17,7 +17,7 @@ class TopicController extends AdminController
 {
     protected function onBeforeRender()
     {
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setupSecondaryNavigation('admin', 'admin_help', 'manage_topic');
     }
@@ -40,7 +40,7 @@ class TopicController extends AdminController
         $query = $filter->getData();
 
 
-        $paging = \App::helpService()
+        $paging = app()->helpService()
             ->loadAdminTopicPaging($query, $page, $limit);
 
         $lp = new BlockParams([
@@ -65,11 +65,11 @@ class TopicController extends AdminController
         if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $data = $form->getData();
 
-            \App::helpService()
+            app()->helpService()
                 ->addHelpTopic($data);
 
-            \App::routing()->redirect('admin', [
-                'stuff' => 'help/topic/browse',
+            app()->routing()->redirect('admin', [
+                'any' => 'help/topic/browse',
             ]);
         }
 
@@ -91,7 +91,7 @@ class TopicController extends AdminController
         $form = new EditHelpTopic();
         $id = $this->request->getParam('id');
 
-        $entry = \App::helpService()
+        $entry = app()->helpService()
             ->findTopicById($id);
 
 
@@ -109,10 +109,10 @@ class TopicController extends AdminController
             $entry->setFromArray($data);
             $entry->save();
 
-            \App::cacheService()->flush();
+            app()->cacheService()->flush();
 
-            \App::routing()->redirect('admin', [
-                'stuff'    => 'help/topic/browse',
+            app()->routing()->redirect('admin', [
+                'any'    => 'help/topic/browse',
                 'category' => $entry->getCategoryId(),
             ]);
         }
@@ -135,7 +135,7 @@ class TopicController extends AdminController
         $form = new DeleteHelpTopic();
         $id = $this->request->getParam('id');
 
-        $entry = \App::helpService()
+        $entry = app()->helpService()
             ->findTopicById($id);
 
 
@@ -151,10 +151,10 @@ class TopicController extends AdminController
 
             $entry->delete();
 
-            \App::cacheService()->flush();
+            app()->cacheService()->flush();
 
-            \App::routing()->redirect('admin', [
-                'stuff'    => 'help/topic/browse',
+            app()->routing()->redirect('admin', [
+                'any'    => 'help/topic/browse',
                 'category' => $entry->getCategoryId(),
             ]);
         }

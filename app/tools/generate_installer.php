@@ -2,9 +2,9 @@
 
 include '../init.php';
 
-$modules = \App::packages()->getActiveModules();
+$modules = app()->packages()->getActiveModules();
 
-$allTableList = \App::db()->getMaster()
+$allTableList = app()->db()->getMaster()
     ->tables();
 
 /**

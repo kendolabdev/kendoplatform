@@ -6,7 +6,7 @@ use Kendo\Hook\EventListener;
 use Kendo\Content\PosterInterface;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\View;
 
 /**
@@ -113,13 +113,13 @@ class EventListenerService extends EventListener
 
         $payload = $event->getPayload();
 
-        if (false == \App::authService()->logged()) return;
+        if (false == app()->auth()->logged()) return;
 
         if (!$payload instanceof PosterInterface) return;
 
-        if (!\App::aclService()->pass($payload, 'video__create')) return;
+        if (!app()->aclService()->pass($payload, 'video__create')) return;
 
-        $content = \App::viewHelper()->partial('platform/video/partial/composer-header-upload-video');
+        $content = app()->viewHelper()->partial('platform/video/partial/composer-header-upload-video');
 
         $event->append($content);
     }
@@ -131,7 +131,7 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemVideos($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         if (!$profile instanceof PosterInterface)
             return false;
@@ -139,10 +139,10 @@ class EventListenerService extends EventListener
         if (!$profile->authorize('video__video_tab_exists'))
             return false;
 
-        if (!\App::aclService()->pass($profile, 'video__video_tab_view'))
+        if (!app()->aclService()->pass($profile, 'video__video_tab_view'))
             return false;
 
-        $item['href'] = $profile->toHref(['stuff' => 'videos']);
+        $item['href'] = $profile->toHref(['any' => 'videos']);
 
         return $item;
     }
@@ -159,8 +159,8 @@ class EventListenerService extends EventListener
         $stats = $payload->__get('stats');
 
         $stats['video'] = [
-            'label' => \App::text('video.videos'),
-            'value' => \App::videoService()->getActiveVideoCount(),
+            'label' => app()->text('video.videos'),
+            'value' => app()->videoService()->getActiveVideoCount(),
         ];
 
         $payload->__set('stats', $stats);

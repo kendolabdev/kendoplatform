@@ -19,7 +19,7 @@ class AuthLoginSmall extends Form
     {
         $this->setMethod('post');
 
-        $this->setAction(\App::routing()->getUrl('login'));
+        $this->setAction(app()->routing()->getUrl('login'));
 
         $this->addElement([
             'plugin'      => 'email',
@@ -39,7 +39,7 @@ class AuthLoginSmall extends Form
             'class'       => 'form-control',
         ]);
 
-        if (\App::setting('login', 'show_remember')) {
+        if (app()->setting('login', 'show_remember')) {
             $this->addElement([
                 'plugin'   => 'checkbox',
                 'name'     => 'remember',
@@ -48,7 +48,7 @@ class AuthLoginSmall extends Form
             ]);
         }
 
-        if (\App::setting('login', 'use_captcha')) {
+        if (app()->setting('login', 'use_captcha')) {
             $this->addElement([
                 'plugin' => 'captcha',
             ]);

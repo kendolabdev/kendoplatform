@@ -16,8 +16,8 @@ class SettingController extends AdminController
 
     protected function onBeforeRender()
     {
-        \App::layouts()->setPageName('admin_simple');
-        \App::layouts()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_setting_social');
+        app()->layouts()->setPageName('admin_simple');
+        app()->layouts()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_setting_social');
     }
 
     /**
@@ -25,7 +25,7 @@ class SettingController extends AdminController
      */
     public function actionBrowse()
     {
-        $paging = \App::table('platform_social_service')
+        $paging = app()->table('platform_social_service')
             ->select()
             ->order('sort_order', 1)
             ->paging(1, 100);
@@ -65,7 +65,7 @@ class SettingController extends AdminController
         if (!class_exists($class))
             throw new \InvalidArgumentException();
 
-        $form = \App::htmlService()->factory($class);
+        $form = app()->htmlService()->factory($class);
 
 
         if (!$form instanceof BaseSettingForm)
@@ -73,7 +73,7 @@ class SettingController extends AdminController
 
         if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->save();
-            \App::routing()->redirect('admin', ['stuff' => 'social/setting/browse']);
+            app()->routing()->redirect('admin', ['stuff' => 'social/setting/browse']);
         }
 
         if ($this->request->isMethod('get')) {

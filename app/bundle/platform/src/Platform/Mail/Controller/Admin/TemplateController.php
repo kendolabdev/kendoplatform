@@ -19,8 +19,8 @@ class TemplateController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layouts()->setPageName('admin_simple');
-        \App::layouts()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_manage_mail_template');
+        app()->layouts()->setPageName('admin_simple');
+        app()->layouts()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_manage_mail_template');
     }
 
     /**
@@ -39,7 +39,7 @@ class TemplateController extends AdminController
 
         $query = $filter->getData();
 
-        $paging = \App::mailService()
+        $paging = app()->mailService()
             ->loadAdminTemplatePaging($query, $page, $limit);
 
         $lp = new BlockParams([
@@ -62,13 +62,13 @@ class TemplateController extends AdminController
      */
     public function actionEdit()
     {
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple');
 
         $name = $this->request->getParam('name', 'user_welcome');
         $languageId = 'en';
 
-        $mailService = \App::mailService();
+        $mailService = app()->mailService();
 
         $form = new EditMailTemplate();
 

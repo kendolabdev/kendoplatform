@@ -13,7 +13,7 @@ class UserCreateAccount extends Form
     {
         $this->setTitle('form_user_account.form_title');
         $this->setNote('form_user_account.form_note');
-        $this->setAction(\App::routing()->getUrl('register'));
+        $this->setAction(app()->routing()->getUrl('register'));
 
         // show first name last name or display name
         $this->addElement([
@@ -79,7 +79,7 @@ class UserCreateAccount extends Form
             'label'    => 'I have read and agree to terms of service',
         ]);
 
-        if (\App::setting('register', 'use_captcha')) {
+        if (app()->setting('register', 'use_captcha')) {
             $this->addElement([
                 'label'  => 'I am not robot',
                 'plugin' => 'captcha',

@@ -19,8 +19,8 @@ class SettingController extends BaseController
 {
     protected function onBeforeRender()
     {
-        \App::layouts()->setPageName('admin_simple');
-        \App::layouts()->setupSecondaryNavigation('admin', 'admin_setting', 'activity_settings');
+        app()->layouts()->setPageName('admin_simple');
+        app()->layouts()->setupSecondaryNavigation('admin', 'admin_setting', 'activity_settings');
     }
 
     /**
@@ -66,7 +66,7 @@ class SettingController extends BaseController
 
         $query = $filter->getData();
 
-        $paging = \App::feedService()
+        $paging = app()->feedService()
             ->loadAdminFeedTypePaging($query, $page, $limit);
 
         $lp = new BlockParams([
@@ -90,7 +90,7 @@ class SettingController extends BaseController
 
         $id = $this->request->getString('id', 'user_register');
 
-        $feedType = \App::feedService()
+        $feedType = app()->feedService()
             ->findFeedTypeById($id);
 
         $form = new FeedTypeSetting([
@@ -104,7 +104,7 @@ class SettingController extends BaseController
 
         if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->save();
-            \App::routing()->redirect('admin', ['stuff' => 'feed/setting/type']);
+            app()->routing()->redirect('admin', ['any' => 'feed/setting/type']);
         }
 
         $lp = new BlockParams([

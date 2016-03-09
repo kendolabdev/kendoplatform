@@ -11,8 +11,8 @@
                 </button>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <?php echo \App::navigation()->render('dropdown','admin',null,[], 1 ); ?>
-                <?php echo \App::navigation()->render('dropdown','admin_right',null, [], 2, ['level0'=>'nav navbar-nav
+                <?php echo app()->navigation()->render('dropdown','admin',null,[], 1 ); ?>
+                <?php echo app()->navigation()->render('dropdown','admin_right',null, [], 2, ['level0'=>'nav navbar-nav
                 navbar-right']); ?>
             </div>
         </div>

@@ -22,11 +22,11 @@ class ButtonUpdateCoverEditing
     {
         if (!$item instanceof AtomInterface) return '';
         if (!$item instanceof PosterInterface) return '';
-        if (!\App::authService()->logged()) return '';
+        if (!app()->auth()->logged()) return '';
         if (!$item->viewerIsParent()) return '';
 
 
-        return \App::viewHelper()->partial('platform/photo/partial/button-updatecover-editing', [
+        return app()->viewHelper()->partial('platform/photo/partial/button-updatecover-editing', [
             'dataSubject' => $item->toSimpleAttrs(),
         ]);
     }

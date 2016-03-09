@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Setting\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Setting\Model\Setting;
 
 
@@ -10,7 +10,7 @@ use Platform\Setting\Model\Setting;
  *
  * @package Platform\Setting\Service
  */
-class SettingService extends KernelServiceAgreement
+class SettingService extends KernelService
 {
     /**
      * @param string $group
@@ -27,7 +27,7 @@ class SettingService extends KernelServiceAgreement
             throw new \InvalidArgumentException("Invalid settings [group: $group, name: $name]");
         }
 
-        $setting = \App::table('platform_setting')
+        $setting = app()->table('platform_setting')
             ->select()
             ->where('action_id=?', $action->getId())
             ->one();
@@ -51,7 +51,7 @@ class SettingService extends KernelServiceAgreement
      */
     private function findAction($group, $name)
     {
-        return \App::table('platform_setting_action')
+        return app()->table('platform_setting_action')
             ->select()
             ->where('action_group=?', (string)$group)
             ->where('action_name=?', (string)$name)
@@ -79,7 +79,7 @@ class SettingService extends KernelServiceAgreement
             }
         }
 
-        \App::cacheService()
+        app()->cacheService()
             ->flush();
     }
 }

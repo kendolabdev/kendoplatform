@@ -8,7 +8,7 @@ use Kendo\Content\ContentInterface;
 use Kendo\Content\PosterInterface;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\View;
 use Kendo\View\ViewHelper;
 
@@ -195,13 +195,13 @@ class EventListenerService extends EventListener
 
         $payload = $event->getPayload();
 
-        if (false == \App::authService()->logged()) return;
+        if (false == app()->auth()->logged()) return;
 
         if (!$payload instanceof ContentInterface) return;
 
         if (!$payload->viewerIsParent()) return;
 
-        $content = \App::viewHelper()->partial('platform/photo/partial/composer-header-create-album');
+        $content = app()->viewHelper()->partial('platform/photo/partial/composer-header-create-album');
 
         $event->prepend($content);
     }
@@ -214,11 +214,11 @@ class EventListenerService extends EventListener
 
         $payload = $event->getPayload();
 
-        if (false == \App::authService()->logged()) return;
+        if (false == app()->auth()->logged()) return;
 
         if (!$payload instanceof PosterInterface) return;
 
-        $content = \App::viewHelper()->partial('platform/photo/partial/composer-footer-add-photos');
+        $content = app()->viewHelper()->partial('platform/photo/partial/composer-footer-add-photos');
 
         $event->prepend($content);
     }
@@ -230,7 +230,7 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemPhotos($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         if (!$profile instanceof PosterInterface)
             return false;
@@ -238,13 +238,13 @@ class EventListenerService extends EventListener
         if (!$profile->authorize('photo__photo_tab_exists'))
             return false;
 
-        if (!\App::aclService()->pass($profile, 'photo__photo_tab_view'))
+        if (!app()->aclService()->pass($profile, 'photo__photo_tab_view'))
             return false;
 
-        if (!\App::aclService()->authorize('photo__view'))
+        if (!app()->aclService()->authorize('photo__view'))
             return false;
 
-        $item['href'] = $profile->toHref(['stuff' => 'photos']);
+        $item['href'] = $profile->toHref(['any' => 'photos']);
 
         return $item;
     }
@@ -256,7 +256,7 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemAlbums($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         if (!$profile instanceof PosterInterface)
             return false;
@@ -264,10 +264,10 @@ class EventListenerService extends EventListener
         if (!$profile->authorize('photo__photo_tab_exists'))
             return false;
 
-        if (!\App::aclService()->pass($profile, 'photo__photo_tab_view'))
+        if (!app()->aclService()->pass($profile, 'photo__photo_tab_view'))
             return false;
 
-        $item['href'] = $profile->toHref(['stuff' => 'albums']);
+        $item['href'] = $profile->toHref(['any' => 'albums']);
 
         return $item;
     }
@@ -284,13 +284,13 @@ class EventListenerService extends EventListener
         $stats = $payload->__get('stats');
 
         $stats['photo'] = [
-            'label' => \App::text('platform_photos'),
-            'value' => \App::photoService()->getPhotoCount(),
+            'label' => app()->text('platform_photos'),
+            'value' => app()->photoService()->getPhotoCount(),
         ];
 
         $stats['album'] = [
-            'label' => \App::text('photo.albums'),
-            'value' => \App::photoService()->getAlbumCount(),
+            'label' => app()->text('photo.albums'),
+            'value' => app()->photoService()->getAlbumCount(),
         ];
 
         $payload->__set('stats', $stats);
@@ -306,7 +306,7 @@ class EventListenerService extends EventListener
         $data = $event->getPayload('data', []);
 
         if (!empty($data['avatar']))
-            \App::photoService()
+            app()->photoService()
                 ->setPosterAvatar($poster, $data['avatar']);
     }
 }

@@ -26,7 +26,7 @@ class SectionField extends HtmlElement
         $label = $this->label;
 
         if ($label) {
-            $label = \App::text($label);
+            $label = app()->text($label);
         }
 
         return sprintf('<%s class="form-section"><span>%s</span></%s>', self::SECTION_TAG, $label, self::SECTION_TAG);

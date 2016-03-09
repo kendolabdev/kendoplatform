@@ -226,13 +226,13 @@ class PagingArray implements PagingInterface
     public function getUrl($pageNumber)
     {
         if (null == $this->routeName) {
-            list($this->routeName, $this->routeParams) = \App::requester()->getRouting();
+            list($this->routeName, $this->routeParams) = app()->requester()->getRouting();
         }
         $params = $this->routeParams;
 
         $params['page'] = $pageNumber;
 
-        return \App::routing()->getUrl($this->routeName, $params);
+        return app()->routing()->getUrl($this->routeName, $params);
     }
 
     /**
@@ -252,7 +252,7 @@ class PagingArray implements PagingInterface
      */
     public function toHtml($name = 'nextPrev', $options = [])
     {
-        return \App::pagingService()->getDecorator($name, ['paging' => $this], $this)->render();
+        return app()->paging()->getDecorator($name, ['paging' => $this], $this)->render();
     }
 
     public function noLimit()

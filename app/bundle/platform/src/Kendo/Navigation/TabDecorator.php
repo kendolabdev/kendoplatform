@@ -60,7 +60,7 @@ class TabDecorator extends Decorator
     {
 
         if ($item['acl']) {
-            if (false == \App::aclService()->authorize($item['acl'])) {
+            if (false == app()->aclService()->authorize($item['acl'])) {
                 return '';
             }
         }
@@ -70,12 +70,12 @@ class TabDecorator extends Decorator
         if ($item['type'] == 'separator') {
             return '<li class="divider"></li>';
         } else if ($item['type'] == 'route') {
-            $href = \App::routing()->getUrl($item['route'], $item['params']);
+            $href = app()->routing()->getUrl($item['route'], $item['params']);
         } else if ($item['type'] == 'plugin') {
-            $item = \App::navigation()->signal($item['event'], $item);
+            $item = app()->navigation()->signal($item['event'], $item);
         }
 
-        $label = \App::i18n()->getTranslator()->text($item['label']);
+        $label = app()->i18n()->getTranslator()->text($item['label']);
 
         // process plugin but return false.
         if (!$item) {

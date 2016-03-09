@@ -17,7 +17,7 @@ class CommentController extends AjaxController
     {
         list($eid, $id) = $this->request->getList('eid', 'id');
 
-        $cmt = \App::commentService()->findComment($id);
+        $cmt = app()->commentService()->findComment($id);
 
         $this->response = [
             'html' => $this->partial('platform/comment/partial/comment-options', [
@@ -30,7 +30,7 @@ class CommentController extends AjaxController
     {
         list($type, $id) = $this->request->getList('type', 'id');
 
-        $cmt = \App::find($type, $id);
+        $cmt = app()->find($type, $id);
 
         if (!$cmt instanceof Comment)
             throw new \InvalidArgumentException();
@@ -39,7 +39,7 @@ class CommentController extends AjaxController
             throw new \InvalidArgumentException();
         }
 
-        \App::commentService()->remove($cmt);
+        app()->commentService()->remove($cmt);
 
         $this->response = [
             'code' => 200,
@@ -51,9 +51,9 @@ class CommentController extends AjaxController
      */
     public function actionAdd()
     {
-        $item = \App::find($this->request->getString('type'), $this->request->getInt('id'));
+        $item = app()->find($this->request->getString('type'), $this->request->getInt('id'));
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
         $parent = $poster;
 
         /**
@@ -96,7 +96,7 @@ class CommentController extends AjaxController
         }
 
         if (!empty($serviceName)) {
-            $callbackService = \App::instance()->make($serviceName);
+            $callbackService = app()->instance()->make($serviceName);
 
             if (!method_exists($callbackService, 'addFromCommentComposer')) ;
 
@@ -116,7 +116,7 @@ class CommentController extends AjaxController
         /**
          * TODO check privacy
          */
-        $comment = \App::commentService()->add($poster, $item, $commentTxt, $params);
+        $comment = app()->commentService()->add($poster, $item, $commentTxt, $params);
 
         $html = $this->partial('platform/comment/partial/comment-item', [
             'comment'    => $comment,
@@ -138,7 +138,7 @@ class CommentController extends AjaxController
         $type = $this->request->getString('type');
         $id = $this->request->getString('id');
 
-        $about = \App::find($type, $id);
+        $about = app()->find($type, $id);
 
         $excludes = $this->request->getArray('excludes');
 
@@ -152,18 +152,18 @@ class CommentController extends AjaxController
          * + else where of others
          */
 
-        $comments = \App::commentService()->getCommentList($about, 0, 0, null, $excludes);
+        $comments = app()->commentService()->getCommentList($about, 0, 0, null, $excludes);
 
-        $order = \App::setting('activity', 'comment_sort');
+        $order = app()->setting('activity', 'comment_sort');
 
-        $this->response['html'] = \App::viewHelper()->partial('platform/comment/partial/comment-list', [
+        $this->response['html'] = app()->viewHelper()->partial('platform/comment/partial/comment-list', [
             'comments' => $comments,
             'about'    => $about,
-            'viewer'   => \App::authService()->getViewer(),
+            'viewer'   => app()->auth()->getViewer(),
         ]);
 
         $this->response['order'] = $order;
         $this->response['commentCount'] = (int)$about->getCommentCount();
-        $this->response['cmds'] = \App::viewHelper()->lnViewMoreComment($about);
+        $this->response['cmds'] = app()->viewHelper()->lnViewMoreComment($about);
     }
 }

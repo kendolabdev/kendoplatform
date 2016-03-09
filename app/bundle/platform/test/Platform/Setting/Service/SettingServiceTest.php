@@ -13,7 +13,7 @@ class SettingServiceTest extends \PHPUnit_Framework_TestCase
 {
     public function testGeneral()
     {
-        $settingService = \App::settings();
+        $settingService = app()->settings();
 
     }
 }

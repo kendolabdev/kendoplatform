@@ -32,7 +32,7 @@ class RelationItem extends Model
      */
     public function getPoster()
     {
-        return \App::find($this->getPosterType(), $this->getPosterId());
+        return app()->find($this->getPosterType(), $this->getPosterId());
     }
 
     /**
@@ -40,83 +40,74 @@ class RelationItem extends Model
      */
     public function getRelation()
     {
-        return \App::table('core.relation')
+        return app()->table('core.relation')
             ->findById($this->getRelationId());
     }
 
     //START_TABLE_GENERATOR
 
-
+    
     /**
      * @return null|string
      */
-    public function getRelationId()
-    {
-        return $this->__get('relation_id');
+    public function getRelationId(){
+       return $this->__get('relation_id');
     }
 
     /**
      * @param $value
      */
-    public function setRelationId($value)
-    {
-        $this->__set('relation_id', $value);
+    public function setRelationId($value){
+       $this->__set('relation_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPosterId()
-    {
-        return $this->__get('poster_id');
+    public function getPosterId(){
+       return $this->__get('poster_id');
     }
 
     /**
      * @param $value
      */
-    public function setPosterId($value)
-    {
-        $this->__set('poster_id', $value);
+    public function setPosterId($value){
+       $this->__set('poster_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentId()
-    {
-        return $this->__get('parent_id');
+    public function getParentId(){
+       return $this->__get('parent_id');
     }
 
     /**
      * @param $value
      */
-    public function setParentId($value)
-    {
-        $this->__set('parent_id', $value);
+    public function setParentId($value){
+       $this->__set('parent_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPosterType()
-    {
-        return $this->__get('poster_type');
+    public function getPosterType(){
+       return $this->__get('poster_type');
     }
 
     /**
      * @param $value
      */
-    public function setPosterType($value)
-    {
-        $this->__set('poster_type', $value);
+    public function setPosterType($value){
+       $this->__set('poster_type', $value);
     }
 
     /**
      * @return \Platform\Relation\Model\RelationItemTable
      */
-    public function table()
-    {
-        return \App::table('platform_relation_item');
+    public function table(){
+        return app()->table('platform_relation_item');
     }
     //END_TABLE_GENERATOR
 }

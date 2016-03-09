@@ -18,7 +18,7 @@ class SearchBlog extends Form
     {
         parent::init();
 
-        $this->setAction(\App::routing()->getUrl('blogs'));
+        $this->setAction(app()->routing()->getUrl('blogs'));
 
         $this->setMethod('get');
 

@@ -10,7 +10,7 @@
 
 namespace Kendo\Content;
 use Kendo\Kernel\DbUniqueIdGenerator;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Kendo\Kernel\UniqueIdGeneratorInterface;
 
 /**
@@ -18,7 +18,7 @@ use Kendo\Kernel\UniqueIdGeneratorInterface;
  *
  * @package Kendo\Content
  */
-class Manager extends KernelServiceAgreement
+class Manager extends KernelService
 {
     const MIN_NEXT_ID = 1000;
 
@@ -76,7 +76,7 @@ class Manager extends KernelServiceAgreement
             $this->fill($alias);
         }
 
-        return \App::db()->getTable($this->tables[ $alias ]);
+        return app()->db()->getTable($this->tables[ $alias ]);
     }
 
     /**
@@ -88,7 +88,7 @@ class Manager extends KernelServiceAgreement
         if ($this->isLoaded())
             return;
 
-        $this->tables = \App::table('platform_core_type')
+        $this->tables = app()->table('platform_core_type')
             ->select()
             ->toPairs('type_id', 'table_name');
 

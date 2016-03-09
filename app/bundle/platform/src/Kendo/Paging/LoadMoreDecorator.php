@@ -37,7 +37,7 @@ class LoadMoreDecorator implements Decorator
      */
     public function render()
     {
-        return \App::viewHelper()->partial('layout/partial/paging-more', [
+        return app()->viewHelper()->partial('layout/partial/paging-more', [
             'hasNext'   => $this->paging->hasNext(),
             'pageCount' => $this->paging->pageCount(),
             'itemCount' => $this->paging->count(),

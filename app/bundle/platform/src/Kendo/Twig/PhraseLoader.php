@@ -15,7 +15,7 @@ class PhraseLoader implements \Twig_LoaderInterface
      */
     public function getSource($name)
     {
-        return \App::trans()->msgId($name);
+        return app()->trans()->msgId($name);
     }
 
     /**

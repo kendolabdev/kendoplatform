@@ -20,7 +20,7 @@ class ReportService
      */
     public function loadCategoryOptions()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['report', 'loadCateoryOptions', ''], 0, function () {
                 return $this->_loadCategoryOptions();
             });
@@ -31,7 +31,7 @@ class ReportService
      */
     public function _loadCategoryOptions()
     {
-        $select = \App::table('report.report_category')
+        $select = app()->table('report.report_category')
             ->select()
             ->order('category_name', 1);
 
@@ -57,7 +57,7 @@ class ReportService
      */
     public function findCategoryById($id)
     {
-        return \App::table('report.report_category')
+        return app()->table('report.report_category')
             ->findById(intval($id));
     }
 
@@ -89,7 +89,7 @@ class ReportService
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 100)
     {
-        $select = \App::table('report.report_category')->select();
+        $select = app()->table('report.report_category')->select();
 
         if (!empty($query)) ;
 
@@ -107,7 +107,7 @@ class ReportService
      */
     public function loadAdminGeneralReportPaging($query = [], $page = 1, $limit = 10)
     {
-        $select = \App::table('report.report_general')
+        $select = app()->table('report.report_general')
             ->select();
 
         if (!empty($query))
@@ -127,7 +127,7 @@ class ReportService
      */
     public function loadAdminReportPaging($query = [], $page = 1, $limit = 10)
     {
-        $select = \App::table('report')
+        $select = app()->table('report')
             ->select();
 
         if (!empty($query['aboutType'])) {

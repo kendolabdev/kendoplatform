@@ -16,7 +16,7 @@ class UserController extends AjaxController
     {
         list($type, $id) = $this->request->getList('type', 'id');
 
-        $user = \App::find($type, $id);
+        $user = app()->find($type, $id);
 
         if (!$user instanceof User)
             throw new \InvalidArgumentException("Not member");
@@ -36,7 +36,7 @@ class UserController extends AjaxController
     {
         list($type, $id) = $this->request->getList('type', 'id');
 
-        $user = \App::find($type, $id);
+        $user = app()->find($type, $id);
 
         if (!$user instanceof User)
             throw new \InvalidArgumentException("Not member");
@@ -56,7 +56,7 @@ class UserController extends AjaxController
     {
         list($type, $id) = $this->request->getList('type', 'id');
 
-        $user = \App::find($type, $id);
+        $user = app()->find($type, $id);
 
         if (!$user instanceof User)
             throw new \InvalidArgumentException("Not member");
@@ -76,7 +76,7 @@ class UserController extends AjaxController
     {
         list($type, $id) = $this->request->getList('type', 'id');
 
-        $user = \App::find($type, $id);
+        $user = app()->find($type, $id);
 
         if (!$user instanceof User)
             throw new \InvalidArgumentException("Not member");
@@ -97,7 +97,7 @@ class UserController extends AjaxController
     {
         list($type, $id, $eid) = $this->request->getList('type', 'id', 'eid');
 
-        $user = \App::find($type, $id);
+        $user = app()->find($type, $id);
 
         if (!$user instanceof User)
             throw new \InvalidArgumentException("Not member");
@@ -121,7 +121,7 @@ class UserController extends AjaxController
 
         $query = $this->request->getArray('query');
 
-        $paging = \App::userService()->loadAdminUserPaging($query, $page);
+        $paging = app()->user()->loadAdminUserPaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 

@@ -21,16 +21,16 @@ class PhotoController extends AjaxController
     {
         list($type, $id) = $this->request->getList('type', 'id');
 
-        $photo = \App::find($type, $id);
+        $photo = app()->find($type, $id);
 
         if (!$photo instanceof Photo)
-            throw new \InvalidArgumentException(\App::text('photo.invalid_photo'));
+            throw new \InvalidArgumentException(app()->text('photo.invalid_photo'));
 
-        \App::photoService()->makeAlbumCover($photo);
+        app()->photoService()->makeAlbumCover($photo);
 
         $this->response = [
             'html'    => '',
-            'message' => \App::text('platform_photo_is_set_to_album_cover'),
+            'message' => app()->text('platform_photo_is_set_to_album_cover'),
         ];
     }
 
@@ -41,12 +41,12 @@ class PhotoController extends AjaxController
 
         list($id, $eid) = $this->request->getList('photoId', 'eid');
 
-        $item = \App::find($type, $id);
+        $item = app()->find($type, $id);
 
         $data = [
             'eid'    => $eid,
             'item'   => $item,
-            'viewer' => \App::authService()->getViewer()
+            'viewer' => app()->auth()->getViewer()
         ];
 
         $this->response = [
@@ -62,22 +62,22 @@ class PhotoController extends AjaxController
         list($albumId, $photoTemp) = $this->request->getList('album_id', 'photoTemp');
         list($albumName, $albumDesc, $newAlbum, $context) = $this->request->getList('name', 'description', 'new_album', 'context');
 
-        $photoService = \App::photoService();
+        $photoService = app()->photoService();
 
         $album = null;
         $parent = null;
         $poster = null;
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         if (null == $parent) {
             $parent = $poster;
         }
 
-        $privacy = \App::relationService()->getRelationFromDataForSave($_POST, ['view', 'comment']);
+        $privacy = app()->relation()->getRelationFromDataForSave($_POST, ['view', 'comment']);
 
         if ($newAlbum) {
-            $album = \App::photoService()->addAlbum($poster, $parent, array_merge([
+            $album = app()->photoService()->addAlbum($poster, $parent, array_merge([
                 'name'        => $albumName,
                 'description' => $albumDesc,
             ], $privacy));
@@ -130,9 +130,9 @@ class PhotoController extends AjaxController
      */
     private function createAlbumSelectField()
     {
-        $posterId = \App::authService()->getId();
+        $posterId = app()->auth()->getId();
 
-        $albums = \App::table('platform_photo_album')
+        $albums = app()->table('platform_photo_album')
             ->select()
             ->where('parent_id=?', (string)$posterId)
             ->all();
@@ -145,11 +145,11 @@ class PhotoController extends AjaxController
         }
 
         if (empty($options)) {
-            $album = \App::photoService()->getSingletonAlbum(\App::authService()->getViewer());
+            $album = app()->photoService()->getSingletonAlbum(app()->auth()->getViewer());
             $options[] = ['value' => $album->getId(), 'label' => $album->getTitle()];
         }
 
-        $albumSelect = \App::htmlService()->create([
+        $albumSelect = app()->html()->create([
             'plugin'   => 'select',
             'name'     => 'album_id',
             'required' => true,
@@ -174,7 +174,7 @@ class PhotoController extends AjaxController
 
         $albumSelect = null;
         $album = null;
-        $modalTitle = \App::text('photo.upload');
+        $modalTitle = app()->text('photo.upload');
 
         // crate album select
         if (!$albumId) {
@@ -182,14 +182,14 @@ class PhotoController extends AjaxController
         }
 
         if ($albumId) {
-            $album = \App::photoService()->findAlbumById($albumId);
+            $album = app()->photoService()->findAlbumById($albumId);
 
             if ($album instanceof PhotoAlbum) {
 //                $modalTitle = $album->getTitle();
             }
         }
 
-        $formAlbum = \App::htmlService()->factory('\Photo\Form\CreateAlbum', []);
+        $formAlbum = app()->html()->factory('\Photo\Form\CreateAlbum', []);
 
         if ($formAlbum->hasElement('photos')) {
             $formAlbum->removeElement('photos');
@@ -208,8 +208,8 @@ class PhotoController extends AjaxController
         $shouldCreateAlbum = empty($albumId);
         $useNewAlbum = null;
 
-        $label1 = \App::text('photo.new_album');
-        $label0 = \App::text('photo.select_album');
+        $label1 = app()->text('photo.new_album');
+        $label0 = app()->text('photo.select_album');
 
         if (empty($formMode)) $formMode = 0;
 
@@ -245,7 +245,7 @@ class PhotoController extends AjaxController
         $page = $this->request->getParam('page', 1);
         $query = $this->request->getArray('query');
 
-        $paging = \App::photoService()->loadPhotoPaging($query, $page);
+        $paging = app()->photoService()->loadPhotoPaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 
@@ -270,7 +270,7 @@ class PhotoController extends AjaxController
     {
         list($type, $id) = $this->request->getList('type', 'id');
 
-        $photo = \App::find($type, $id);
+        $photo = app()->find($type, $id);
 
         /**
          * parent and poster can delete
@@ -282,7 +282,7 @@ class PhotoController extends AjaxController
         if (!$photo->viewerIsPosterOrParent())
             throw new AuthorizationRestrictException("You don't have permission to delete this photo");
 
-        if (!\App::aclService()->authorize('photo__delete'))
+        if (!app()->aclService()->authorize('photo__delete'))
             throw new AuthorizationRestrictException("You don't have permission to delete this photo");
 
 
@@ -290,7 +290,7 @@ class PhotoController extends AjaxController
 
 
         $this->response = [
-            'message' => \App::text('platform_photo_is_deleted'),
+            'message' => app()->text('platform_photo_is_deleted'),
         ];
     }
 }

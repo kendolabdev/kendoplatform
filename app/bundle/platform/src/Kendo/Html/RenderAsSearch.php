@@ -29,7 +29,7 @@ class RenderAsSearch implements RenderInterface
 
         $form->beforeRender();
 
-        return \App::viewHelper()
+        return app()->viewHelper()
             ->partial($this->getScript(),
                 ['form'    => $form,
                  'options' => $options,

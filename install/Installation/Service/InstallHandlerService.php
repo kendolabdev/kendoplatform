@@ -103,8 +103,8 @@ class InstallHandlerService extends ModuleInstallHandler
         /**
          *
          */
-        foreach (\App::packages()->getActiveModules() as $module) {
-            $handler = \App::service("{$module}_installer");
+        foreach (app()->packages()->getActiveModules() as $module) {
+            $handler = app()->service("{$module}_installer");
             if ($handler instanceof ModuleInstaller)
                 $handler->export();
         }
@@ -118,7 +118,7 @@ class InstallHandlerService extends ModuleInstallHandler
         foreach ($this->finalData['core_extension'] as $data) {
             $module = $data['name'];
 
-            $handler = \App::service("{$module}_installer");
+            $handler = app()->service("{$module}_installer");
             if ($handler instanceof ModuleInstaller)
                 $handler->install();
         }

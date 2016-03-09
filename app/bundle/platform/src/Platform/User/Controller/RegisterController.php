@@ -64,7 +64,7 @@ class RegisterController extends DefaultController
 
         $step = $this->request->getParam('_step');
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         if (!$step) {
             $form = new UserCreateAccount();
@@ -75,7 +75,7 @@ class RegisterController extends DefaultController
 
             if ($this->request->isMethod('post') && $form->isValid($_POST)) {
                 $this->mergeData($form->getData());
-                \App::routing()
+                app()->routing()
                     ->redirect('register', ['_step' => 1]);
             }
         } else if ($step == 1) {
@@ -89,7 +89,7 @@ class RegisterController extends DefaultController
 
             if ($this->request->isMethod('post') && $form->isValid($_POST)) {
                 $this->mergeData($form->getData());
-                \App::routing()
+                app()->routing()
                     ->redirect('register', ['_step' => 2]);
             }
 
@@ -125,17 +125,17 @@ class RegisterController extends DefaultController
     {
         $data = $this->getData();
 
-        $userService = \App::userService();
+        $user() = app()->user();
 
-        $user = $userService->addUser($data);
+        $user = $user()->addUser($data);
 
         if (!$user) {
 
         }
 
         if ($user) {
-            \App::authService()->store($user);
-            \App::routing()->redirect('home');
+            app()->auth()->store($user);
+            app()->routing()->redirect('home');
         }
     }
 

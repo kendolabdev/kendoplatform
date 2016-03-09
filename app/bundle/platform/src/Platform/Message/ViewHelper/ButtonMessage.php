@@ -22,9 +22,9 @@ class ButtonMessage
     {
 
         if (!$item instanceof User) return '';
-        if (!\App::authService()->logged()) return '';
-        if (!\App::aclService()->pass($item, 'message.send_message')) return '';
-        if (\App::authService()->getId() == $item->getId()) return '';
+        if (!app()->auth()->logged()) return '';
+        if (!app()->aclService()->pass($item, 'message.send_message')) return '';
+        if (app()->auth()->getId() == $item->getId()) return '';
 
         switch ($type) {
             case 'menu':
@@ -36,7 +36,7 @@ class ButtonMessage
         }
 
 
-        return \App::viewHelper()->partial($script, [
+        return app()->viewHelper()->partial($script, [
             'item'  => $item,
             'attrs' => ['id' => $item->getId(), 'type' => $item->getType()],
         ]);

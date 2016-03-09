@@ -3,7 +3,7 @@ namespace Platform\Setting\Service;
 
 use Kendo\Hook\EventListener;
 use Kendo\Hook\HookEvent;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 
 /**
  * Class EventHandlerService

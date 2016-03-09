@@ -23,11 +23,11 @@ class CategoryController extends AdminController
             'label' => 'core.create_new_category',
             'props' => [
                 'class' => 'btn btn-sm btn-primary',
-                'href'  => \App::routing()->getUrl('admin', ['stuff' => 'report/category/create']),
+                'href'  => app()->routing()->getUrl('admin', ['any' => 'report/category/create']),
             ]
         ];
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setPageButtons([$createButton])
             ->setPageTitle('core.manage_categories')
@@ -43,7 +43,7 @@ class CategoryController extends AdminController
         $limit = 100;
         $page = 1;
 
-        $paging = \App::reportService()
+        $paging = app()->reportService()
             ->loadAdminCategoryPaging($query, $page, $limit);
 
         $lp = new BlockParams([
@@ -68,7 +68,7 @@ class CategoryController extends AdminController
     public function actionEdit()
     {
         $id = $this->request->getParam('id');
-        $cat = \App::reportService()
+        $cat = app()->reportService()
             ->findCategoryById($id);
 
         if (!$cat)
@@ -85,11 +85,11 @@ class CategoryController extends AdminController
             $cat->setFromArray($data);
             $cat->save();
 
-            \App::cacheService()
+            app()->cacheService()
                 ->flush();
 
-            \App::routing()
-                ->redirect('admin', ['stuff' => 'report/category/browse']);
+            app()->routing()
+                ->redirect('admin', ['any' => 'report/category/browse']);
         }
 
         $lp = new BlockParams([
@@ -116,13 +116,13 @@ class CategoryController extends AdminController
 
             $data = $form->getData();
 
-            \App::reportService()->addCategory($data);
+            app()->reportService()->addCategory($data);
 
-            \App::cacheService()
+            app()->cacheService()
                 ->flush();
 
-            \App::routing()
-                ->redirect('admin', ['stuff' => 'report/category/browse']);
+            app()->routing()
+                ->redirect('admin', ['any' => 'report/category/browse']);
 
         }
 

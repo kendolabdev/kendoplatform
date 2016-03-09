@@ -20,93 +20,82 @@ class Catalog extends Model
 
     //START_TABLE_GENERATOR
 
-
+    
     /**
      * @return null|string
      */
-    public function getId()
-    {
-        return $this->__get('catalog_id');
+    public function getId(){
+       return $this->__get('catalog_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value)
-    {
-        $this->__set('catalog_id', $value);
+    public function setId($value){
+       $this->__set('catalog_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCatalogId()
-    {
-        return $this->__get('catalog_id');
+    public function getCatalogId(){
+       return $this->__get('catalog_id');
     }
 
     /**
      * @param $value
      */
-    public function setCatalogId($value)
-    {
-        $this->__set('catalog_id', $value);
+    public function setCatalogId($value){
+       $this->__set('catalog_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCatalogCode()
-    {
-        return $this->__get('catalog_code');
+    public function getCatalogCode(){
+       return $this->__get('catalog_code');
     }
 
     /**
      * @param $value
      */
-    public function setCatalogCode($value)
-    {
-        $this->__set('catalog_code', $value);
+    public function setCatalogCode($value){
+       $this->__set('catalog_code', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCatalogName()
-    {
-        return $this->__get('catalog_name');
+    public function getCatalogName(){
+       return $this->__get('catalog_name');
     }
 
     /**
      * @param $value
      */
-    public function setCatalogName($value)
-    {
-        $this->__set('catalog_name', $value);
+    public function setCatalogName($value){
+       $this->__set('catalog_name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getContentId()
-    {
-        return $this->__get('content_id');
+    public function getContentId(){
+       return $this->__get('content_id');
     }
 
     /**
      * @param $value
      */
-    public function setContentId($value)
-    {
-        $this->__set('content_id', $value);
+    public function setContentId($value){
+       $this->__set('content_id', $value);
     }
 
     /**
      * @return \Platform\Catalog\Model\CatalogTable
      */
-    public function table()
-    {
-        return \App::table('platform_catalog');
+    public function table(){
+        return app()->table('platform_catalog');
     }
     //END_TABLE_GENERATOR
 }

@@ -35,7 +35,7 @@ class FilterPage extends Form
             ]
         ]);
 
-        $roleOptions = \App::aclService()->getRoleOptions('page');
+        $roleOptions = app()->aclService()->getRoleOptions('page');
 
         array_unshift($roleOptions, ['value' => 'all', 'label' => 'All']);
 

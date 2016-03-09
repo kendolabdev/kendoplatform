@@ -309,7 +309,7 @@ class Requirejs implements Collection
      */
     public function renderConfig()
     {
-        \App::emitter()
+        app()->emitter()
             ->emit('onRequirejsRender', $this);
 
         $config = [

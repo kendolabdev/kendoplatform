@@ -46,7 +46,7 @@ class TabContainer extends BlockController
             $tabs[] = [
                 'active'  => $offset == 0 ? 1 : 0,
                 'content' => $block->getContent(),
-                'title'   => $title ? $title : \App::text('core.untitled'),
+                'title'   => $title ? $title : app()->text('core.untitled'),
                 'id'      => $block->getParam('block_id'),
             ];
             ++$offset;

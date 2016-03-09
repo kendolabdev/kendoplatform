@@ -58,7 +58,7 @@ class UidGenerator extends Model
      */
     public function table()
     {
-        return \App::table('core.uid_generator');
+        return app()->table('core.uid_generator');
     }
     //END_TABLE_GENERATOR
 }

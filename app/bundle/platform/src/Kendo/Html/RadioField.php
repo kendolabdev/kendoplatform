@@ -48,7 +48,7 @@ class RadioField extends HtmlElement implements FormField
 
         $optionName = $this->getName();
 
-        $trans = \App::trans();
+        $trans = app()->trans();
 
         $optionTextKey = $this->getOptionTextKey();
 

@@ -15,10 +15,10 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseFollower()
     {
-        \App::layouts()
+        app()->layouts()
             ->setPageTitle('follow.followers');
 
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         $page = $this->request->getParam('page', 1);
 
@@ -27,9 +27,9 @@ class ProfileController extends ProfileBaseController
             'parentType' => $profile->getType(),
         ];
 
-        $paging = \App::followService()->loadFollowPaging($query, $page);
+        $paging = app()->followService()->loadFollowPaging($query, $page);
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)
@@ -48,10 +48,10 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseFollowing()
     {
-        \App::layouts()
+        app()->layouts()
             ->setPageTitle('follow.following');
 
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         $page = $this->request->getParam('page', 1);
 
@@ -60,9 +60,9 @@ class ProfileController extends ProfileBaseController
             'posterType' => $profile->getType(),
         ];
 
-        $paging = \App::followService()->loadFollowPaging($query, $page);
+        $paging = app()->followService()->loadFollowPaging($query, $page);
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)

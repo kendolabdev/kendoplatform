@@ -74,7 +74,7 @@ class SelectField extends HtmlElement implements FormField
     {
         $this->beforeRender();
 
-        if (\App::registryService()->get('prefer_dropdown_button')) {
+        if (app()->registryService()->get('prefer_dropdown_button')) {
             return $this->toButtonHtml();
         } else {
             return $this->toOptionsHtml();
@@ -97,11 +97,11 @@ class SelectField extends HtmlElement implements FormField
         $name = $this->getName();
         $selectedValue = $this->getValue();
 
-        $trans = \App::trans();
+        $trans = app()->trans();
 
         $optionTextKey = $this->getOptionTextKey();
 
-        $selectedLablel = \App::text('core.all');
+        $selectedLablel = app()->text('core.all');
 
         foreach ($this->options as $item) {
             $value = $item['value'];
@@ -149,7 +149,7 @@ class SelectField extends HtmlElement implements FormField
             $response[] = '<option value="">' . $this->placeholder . '</option>';
         }
 
-        $trans = \App::trans();
+        $trans = app()->trans();
 
         $optionTextKey = $this->getOptionTextKey();
 
@@ -225,7 +225,7 @@ class SelectField extends HtmlElement implements FormField
     public function setPlaceholder($placeholder)
     {
         if (null != $placeholder) {
-            $this->placeholder = \App::text($placeholder);
+            $this->placeholder = app()->text($placeholder);
         } else {
             $this->placeholder = '';
         }

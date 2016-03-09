@@ -18,7 +18,7 @@ class FilterAclRoleType extends Form
     {
         parent::init();
 
-        $roleTypeOptions = \App::aclService()->getRoleTypeOptions();
+        $roleTypeOptions = app()->aclService()->getRoleTypeOptions();
 
         $this->addElement([
             'plugin'   => 'select',

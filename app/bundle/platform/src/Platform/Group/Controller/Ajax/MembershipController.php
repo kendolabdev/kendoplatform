@@ -22,19 +22,19 @@ class MembershipController extends AjaxController
         $type = 'group';
         $id = $this->request->getString('id');
 
-        $group = \App::find($type, $id);
+        $group = app()->find($type, $id);
 
         if (!$group instanceof Group) {
             throw new \InvalidArgumentException("Invalid group");
         }
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         if (!$poster instanceof PosterInterface) {
             throw new \InvalidArgumentException("Only member can member of request");
         }
 
-        \App::groupService()->membership()->{$method}($poster, $group);
+        app()->groupService()->membership()->{$method}($poster, $group);
 
         $this->response['html'] = $group->btnMembership();
 
@@ -55,9 +55,9 @@ class MembershipController extends AjaxController
 
         $context = $this->request->getString('context', 'label');
 
-        $group = \App::find($type, $id);
+        $group = app()->find($type, $id);
 
-        $item = \App::find($itemType, $itemId);
+        $item = app()->find($itemType, $itemId);
 
         if (!$group instanceof Group) {
             throw new \InvalidArgumentException("Invalid group");
@@ -70,13 +70,13 @@ class MembershipController extends AjaxController
             throw new \InvalidArgumentException("Invalid group");
         }
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         if (!$poster instanceof PosterInterface) {
             throw new \InvalidArgumentException("Only member can member of request");
         }
 
-        $groupService = \App::groupService();
+        $groupService = app()->groupService();
 
 
         $groupService->membership()->{$method}($item, $group);
@@ -87,7 +87,7 @@ class MembershipController extends AjaxController
             case 'btn':
             case 'button':
             case 'label':
-                $this->response['html'] = \App::viewHelper()->partial('/base/group/partial/button-manage-membership',
+                $this->response['html'] = app()->viewHelper()->partial('/base/group/partial/button-manage-membership',
                     [
                         'for'        => $item,
                         'item'       => $group,

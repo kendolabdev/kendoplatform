@@ -81,7 +81,7 @@ class DateField extends HtmlElement implements FormField
      */
     public function toHtml()
     {
-        $yearField = \App::htmlService()->create([
+        $yearField = app()->html()->create([
             'plugin'      => 'select',
             'name'        => $this->getName() . '[year]',
             'options'     => $this->getYearOptions(),
@@ -92,7 +92,7 @@ class DateField extends HtmlElement implements FormField
             'placeholder' => 'core.year',
         ]);
 
-        $monthField = \App::htmlService()->create([
+        $monthField = app()->html()->create([
             'plugin'      => 'select',
             'name'        => $this->getName() . '[month]',
             'options'     => $this->getMonthOptions(),
@@ -103,7 +103,7 @@ class DateField extends HtmlElement implements FormField
             'placeholder' => 'core.month',
         ]);
 
-        $dayField = \App::htmlService()->create([
+        $dayField = app()->html()->create([
             'plugin'      => 'select',
             'name'        => $this->getName() . '[day]',
             'options'     => $this->getMonthOptions(),
@@ -116,9 +116,9 @@ class DateField extends HtmlElement implements FormField
 
         if ($this->isRequired()) {
             return sprintf('%s %s %s %s %s %s',
-                \App::text('core.month'), $monthField->toHtml(),
-                \App::text('core.day'), $dayField->toHtml(),
-                \App::text('core.year'), $yearField->toHtml());
+                app()->text('core.month'), $monthField->toHtml(),
+                app()->text('core.day'), $dayField->toHtml(),
+                app()->text('core.year'), $yearField->toHtml());
         }
 
         return sprintf('<div class="form-inline">%s %s %s</div>', $monthField->toHtml(), $dayField->toHtml(), $yearField->toHtml());

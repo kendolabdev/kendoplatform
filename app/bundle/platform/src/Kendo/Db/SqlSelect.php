@@ -223,7 +223,7 @@ class SqlSelect implements Sql
      */
     public function paging($page, $limit)
     {
-        return \App::pagingService()->factory($this)->paging($page, $limit);
+        return app()->paging()->factory($this)->paging($page, $limit);
     }
 
     /**
@@ -268,7 +268,7 @@ class SqlSelect implements Sql
         }
 
         if (is_string($table) && substr($table, 0, 1) == ':')
-            $table = \App::db()->getPrefix() . substr($table, 1);
+            $table = app()->db()->getPrefix() . substr($table, 1);
 
         $this->_join->join(self::JOIN, $table, $alias, $expression, $data);
 

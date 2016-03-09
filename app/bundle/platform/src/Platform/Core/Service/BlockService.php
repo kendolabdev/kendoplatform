@@ -2,7 +2,7 @@
 
 namespace Platform\Core\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Core\Model\Block;
 use Kendo\Content\PosterInterface;
 
@@ -23,7 +23,7 @@ class BlockService extends KernelServiceAgreements
      */
     public function findBlock($poster, $object)
     {
-        return \App::table('core.block')
+        return app()->table('core.block')
             ->select()
             ->where('poster_id=?', $poster->getId())
             ->where('object_id=?', $object->getId())

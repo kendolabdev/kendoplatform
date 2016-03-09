@@ -23,14 +23,14 @@ class ButtonBlock
     {
 
         if (!$item instanceof User) return '';
-        if (!\App::authService()->logged()) return '';
-        if (!\App::aclService()->authorize('core.block_other')) return '';
-        if (\App::authService()->getId() == $item->getId()) return '';
+        if (!app()->auth()->logged()) return '';
+        if (!app()->aclService()->authorize('core.block_other')) return '';
+        if (app()->auth()->getId() == $item->getId()) return '';
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         if (null === $blocking) {
-            $service = \App::instance()->make('core.block');
+            $service = app()->instance()->make('core.block');
 
             if ($service instanceof BlockService) ;
 
@@ -47,7 +47,7 @@ class ButtonBlock
         }
 
 
-        return \App::viewHelper()->partial($script, [
+        return app()->viewHelper()->partial($script, [
             'blocking' => $blocking,
             'attrs'    => ['id' => $item->getId(), 'type' => $item->getType()]
         ]);

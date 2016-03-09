@@ -18,7 +18,7 @@ class ListingVideoItemBlock extends BlockController
     {
         $limit = $this->lp->get('limit', 5);
 
-        $paging = \App::videoService()
+        $paging = app()->videoService()
             ->loadVideoPaging([], 1, $limit);
 
         $this->view->assign([

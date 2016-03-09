@@ -25,46 +25,44 @@ class MessageRecipientTable extends DbTable
      * @see `picaso_platform_message_recipient`
      * @var string
      */
-    protected $class = '\Platform\Message\Model\MessageRecipient';
+    protected $class =  '\Platform\Message\Model\MessageRecipient';
 
     /**
      * @var string
      */
-    protected $name = 'platform_message_recipient';
+    protected $name =  'platform_message_recipient';
 
     /**
      * @var array
      */
-    protected $column = [
-        'recipient_id'       => 1,
-        'conversation_id'    => 1,
-        'is_active'          => 1,
-        'recipient_type'     => 1,
-        'history_message_id' => 1,
-        'unread_count'       => 1,
-        'last_message_id'    => 1,
-        'modified_at'        => 1];
+    protected $column = array(
+		'recipient_id'=>1,
+		'conversation_id'=>1,
+		'is_active'=>1,
+		'recipient_type'=>1,
+		'history_message_id'=>1,
+		'unread_count'=>1,
+		'last_message_id'=>1,
+		'modified_at'=>1);
 
     /**
      * @var array
      */
-    protected $primary = ['recipient_id' => 1, 'conversation_id' => 1];
+    protected $primary = array( 'recipient_id'=>1, 'conversation_id'=>1);
 
     /**
      * @var string
      */
     protected $identity = '';
 
-
+    
     /**
      * @param  string|int $value
-     *
      * @return null
      * @throws \Kendo\Db\Exception
      */
-    public function findById($value)
-    {
-        throw new \Kendo\Db\Exception('Can not find by id for ' . $value);
+    public function findById($value){
+       throw new \Kendo\Db\Exception('Can not find by id for '.$value);
     }
 
     //END_TABLE_GENERATOR

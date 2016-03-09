@@ -186,7 +186,7 @@ class MessageMessage extends Model
      */
     public function table()
     {
-        return \App::table('platform_message_message');
+        return app()->table('platform_message_message');
     }
     //END_TABLE_GENERATOR
 }

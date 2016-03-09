@@ -20,14 +20,14 @@ class ManageController extends AdminController
     {
         $filter = new FilterLayout();
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('layout.manage_layouts')
             ->setPageFilter($filter)
             ->setupSecondaryNavigation('admin', 'admin_appearance', 'layouts');
 
-        \App::assetService()
-            ->setTitle(\App::text('core_layout.manage_layouts'));
+        app()->assetService()
+            ->setTitle(app()->text('core_layout.manage_layouts'));
 
         $module = $this->request->getParam('module', 'core');
 
@@ -39,7 +39,7 @@ class ManageController extends AdminController
 
         $params = $filter->getData();
 
-        $paging = \App::layouts()
+        $paging = app()->layouts()
             ->loadAdminLayoutPagePaging($params, $page, $limit);
 
         $lp = new BlockParams([
@@ -59,15 +59,15 @@ class ManageController extends AdminController
      */
     public function actionEdit()
     {
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_layout_editor');
 
-        \App::assetService()
-            ->setTitle(\App::text('core_layout.edit_layout'));
+        app()->assetService()
+            ->setTitle(app()->text('core_layout.edit_layout'));
 
         $pageName = $this->request->getParam('pageName', 'core_home');
         $screenSize = $this->request->getParam('screenSize', 'medium');
-        $themeId = $theme = \App::layouts()->getEditingThemeId();
+        $themeId = $theme = app()->layouts()->getEditingThemeId();
 
         $layoutAttributes = [
             'pageName'   => $pageName,
@@ -76,7 +76,7 @@ class ManageController extends AdminController
         ];
 
 
-        $layoutService = \App::layouts();
+        $layoutService = app()->layouts();
 
 
         /**
@@ -113,7 +113,7 @@ class ManageController extends AdminController
         $supportSubSections = $layoutService->loadSupportSections(['sub']);
 
 
-        \App::assetService()
+        app()->assetService()
             ->requirejs()
             ->addDependency(['platform/core/layout_editor']);
 

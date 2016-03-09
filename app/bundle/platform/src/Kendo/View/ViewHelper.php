@@ -4,14 +4,14 @@ namespace Kendo\View;
 
 use Kendo\Content\AtomInterface;
 use Kendo\I18n\Timeago;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class ViewHelper
  *
  * @package Kendo\View
  */
-class ViewHelper extends KernelServiceAgreement
+class ViewHelper extends KernelService
 {
 
     /**
@@ -37,7 +37,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public function bound()
     {
-        \App::emitter()
+        app()->emitter()
             ->emit('onViewHelperStart', $this);
     }
 
@@ -161,7 +161,7 @@ class ViewHelper extends KernelServiceAgreement
     public function textLink($label, $attributes = [], $route = null, $params = [], $hash = [])
     {
         if (!empty($label)) {
-            $label = \App::text($label);
+            $label = app()->text($label);
         }
 
         if (empty($attributes['title'])) {
@@ -169,7 +169,7 @@ class ViewHelper extends KernelServiceAgreement
         }
 
         if ($route) {
-            $attributes['href'] = \App::routing()->getUrl($route, $params, $hash);
+            $attributes['href'] = app()->routing()->getUrl($route, $params, $hash);
         }
 
         return '<a ' . $this->_flat($attributes) . '>' . $label . '</a>';
@@ -194,7 +194,7 @@ class ViewHelper extends KernelServiceAgreement
         }
 
         if ($route) {
-            $attributes['href'] = \App::routing()->getUrl($route, $params, $hash);
+            $attributes['href'] = app()->routing()->getUrl($route, $params, $hash);
 
         }
 
@@ -211,7 +211,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public function text($msgId, $data = null, $count = null)
     {
-        return \App::trans()->text($msgId, $data, $count);
+        return app()->trans()->text($msgId, $data, $count);
     }
 
     /**
@@ -219,7 +219,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public static function content()
     {
-        return \App::requester()->getResponse();
+        return app()->requester()->getResponse();
     }
 
     /**
@@ -229,7 +229,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public static function date($value)
     {
-        return \App::trans()->toDate($value);
+        return app()->trans()->toDate($value);
     }
 
     /**
@@ -263,7 +263,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public function setting($group, $name, $defaultValue = null)
     {
-        return \App::setting($group, $name, $defaultValue);
+        return app()->setting($group, $name, $defaultValue);
     }
 
     /**
@@ -281,7 +281,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public static function nav()
     {
-        return \App::navigation();
+        return app()->navigation();
     }
 
     /**
@@ -289,7 +289,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public function request()
     {
-        return \App::requester();
+        return app()->requester();
     }
 
     /**
@@ -297,7 +297,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public function html()
     {
-        return \App::htmlService();
+        return app()->html();
     }
 
     /**
@@ -305,15 +305,15 @@ class ViewHelper extends KernelServiceAgreement
      */
     public function acl()
     {
-        return \App::aclService();
+        return app()->aclService();
     }
 
     /**
-     * @return \Kendo\Http\RoutingManager
+     * @return \Kendo\Routing\RoutingManager
      */
     public function routing()
     {
-        return \App::routing();
+        return app()->routing();
     }
 
     /**
@@ -343,7 +343,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public function layout()
     {
-        return \App::layouts();
+        return app()->layouts();
     }
 
     /**
@@ -364,7 +364,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public function url($route, $params = [])
     {
-        return \App::routing()->getUrl($route, $params);
+        return app()->routing()->getUrl($route, $params);
     }
 
     /**
@@ -376,6 +376,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public function partial($script, $data = [])
     {
+
         return (new View($script, $data))->render();
     }
 
@@ -386,7 +387,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public function getCover(AtomInterface $object)
     {
-        return \App::instance()->make('platform_photo')
+        return app()->instance()->make('platform_photo')
             ->getCover($object);
     }
 
@@ -415,7 +416,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public function isMobile()
     {
-        return \App::requester()->isMobile();
+        return app()->requester()->isMobile();
     }
 
     /**
@@ -423,7 +424,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public function isTablet()
     {
-        return \App::requester()->isTablet();
+        return app()->requester()->isTablet();
     }
 
     /**
@@ -431,7 +432,7 @@ class ViewHelper extends KernelServiceAgreement
      */
     public function auth()
     {
-        return \App::authService();
+        return app()->auth();
     }
 
     /**

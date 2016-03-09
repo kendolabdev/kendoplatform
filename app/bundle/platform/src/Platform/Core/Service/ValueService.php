@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Core\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Core\Model\Value;
 use Kendo\Content\PosterInterface;
 
@@ -10,7 +10,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Core\Service
  */
-class ValueService extends KernelServiceAgreement
+class ValueService extends KernelService
 {
     /**
      * List of poster value object by distance.
@@ -29,7 +29,7 @@ class ValueService extends KernelServiceAgreement
         if (empty($this->objects[ $parent->getId() ])) {
             $values = [];
 
-            $item = \App::table('core.value')
+            $item = app()->table('core.value')
                 ->select()
                 ->where('parent_id=?', $parent->getId())
                 ->one();
@@ -55,7 +55,7 @@ class ValueService extends KernelServiceAgreement
 
         $this->objects[ $parent->getId() ] = $values;
 
-        $item = \App::table('core.value')
+        $item = app()->table('core.value')
             ->findById($parent->getId());
 
         if (!$item) {

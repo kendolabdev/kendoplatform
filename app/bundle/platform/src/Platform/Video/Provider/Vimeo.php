@@ -38,7 +38,7 @@ class Vimeo implements ProviderInterface
 
         $iframe = '<iframe ' . implode(' ', $attrs) . '></iframe>';
 
-        return \App::viewHelper()->partial('platform/video/partial/embed-video-vimeo', [
+        return app()->viewHelper()->partial('platform/video/partial/embed-video-vimeo', [
             'iframe' => $iframe,
             'id'     => $id,
         ]);

@@ -56,7 +56,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadAdminUserPaging($query, $page, $limit = 2)
     {
-        $paging = \App::userService()
+        $paging = app()->user()
             ->loadAdminUserPaging($query, $page, $limit);
 
         $this->assertNotNull($paging);
@@ -83,7 +83,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadUserPaging($query, $page, $limit = 2)
     {
-        $paging = \App::userService()
+        $paging = app()->user()
             ->loadUserPaging($query, $page, $limit);
 
         $this->assertNotNull($paging);
@@ -91,26 +91,26 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testCountActiveUser()
     {
-        \App::userService()->getActiveUserCount();
+        app()->user()->getActiveUserCount();
     }
 
     public function testMembership()
     {
-        \App::userService()->membership();
+        app()->user()->membership();
     }
 
     public function testFindUserByIdentity()
     {
-        $user = \App::userService()->findUserByIdentity(1);
+        $user = app()->user()->findUserByIdentity(1);
 
         $this->assertNull($user);
 
-        $user = \App::table('platform_user')
+        $user = app()->table('platform_user')
             ->select()
             ->setOffset(2)
             ->one();
 
-        $user2 = \App::table('platform_user')
+        $user2 = app()->table('platform_user')
             ->select()
             ->one();
 
@@ -118,29 +118,29 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
 
         if (!$user instanceof User) ;
 
-        $user1 = \App::userService()->findUserByIdentity($user->getId());
+        $user1 = app()->user()->findUserByIdentity($user->getId());
         $this->assertEquals($user1, $user);
 
-        $user1 = \App::userService()->findUserByIdentity($user->getEmail());
+        $user1 = app()->user()->findUserByIdentity($user->getEmail());
         $this->assertEquals($user1, $user);
 
-        $user1 = \App::userService()->findUserByIdentity($user->getProfileName());
+        $user1 = app()->user()->findUserByIdentity($user->getProfileName());
         $this->assertEquals($user1, $user);
 
-        $user1 = \App::userService()->findUserByEmail($user->getEmail());
+        $user1 = app()->user()->findUserByEmail($user->getEmail());
         $this->assertEquals($user1, $user);
 
-        $user1 = \App::userService()->findUserByProfileName($user->getProfileName());
+        $user1 = app()->user()->findUserByProfileName($user->getProfileName());
         $this->assertEquals($user1, $user);
 
-        $password = \App::userService()->findPassword($user->getId(), 'default');
+        $password = app()->user()->findPassword($user->getId(), 'default');
 
         $this->assertNotEmpty($password);
 
         $user->btnMemberCount();
         $user->btnMembership();
 
-        \App::authService()
+        app()->auth()
             ->setViewer($user);
 
         (new ButtonLoginAs())->__invoke($user2);
@@ -153,9 +153,9 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testGeneral()
     {
-        \App::userService()->getGuestRoleId();
+        app()->user()->getGuestRoleId();
 
-        \App::userService()->getDefaultRoleId();
+        app()->user()->getDefaultRoleId();
     }
 
     /**
@@ -163,12 +163,12 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function userFormProvider()
     {
-        $guest = \App::table('platform_acl_role')
+        $guest = app()->table('platform_acl_role')
             ->select()
             ->where('is_guest=?', 1)
             ->one();
 
-        $member = \App::table('platform_acl_role')
+        $member = app()->table('platform_acl_role')
             ->select()
             ->where('is_member=?', 1)
             ->one();

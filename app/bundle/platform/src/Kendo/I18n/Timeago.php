@@ -178,6 +178,6 @@ class Timeago
                 }
         }
 
-        return \App::text('core.' . $timeago, $reps);
+        return app()->text('core.' . $timeago, $reps);
     }
 }

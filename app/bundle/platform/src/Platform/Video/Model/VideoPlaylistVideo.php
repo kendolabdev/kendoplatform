@@ -20,61 +20,54 @@ class VideoPlaylistVideo extends Model
 
     //START_TABLE_GENERATOR
 
-
+    
     /**
      * @return null|string
      */
-    public function getPlaylistId()
-    {
-        return $this->__get('playlist_id');
+    public function getPlaylistId(){
+       return $this->__get('playlist_id');
     }
 
     /**
      * @param $value
      */
-    public function setPlaylistId($value)
-    {
-        $this->__set('playlist_id', $value);
+    public function setPlaylistId($value){
+       $this->__set('playlist_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getVideoId()
-    {
-        return $this->__get('video_id');
+    public function getVideoId(){
+       return $this->__get('video_id');
     }
 
     /**
      * @param $value
      */
-    public function setVideoId($value)
-    {
-        $this->__set('video_id', $value);
+    public function setVideoId($value){
+       $this->__set('video_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCreatedAt()
-    {
-        return $this->__get('created_at');
+    public function getCreatedAt(){
+       return $this->__get('created_at');
     }
 
     /**
      * @param $value
      */
-    public function setCreatedAt($value)
-    {
-        $this->__set('created_at', $value);
+    public function setCreatedAt($value){
+       $this->__set('created_at', $value);
     }
 
     /**
      * @return \Platform\Video\Model\VideoPlaylistVideoTable
      */
-    public function table()
-    {
-        return \App::table('platform_video_playlist_video');
+    public function table(){
+        return app()->table('platform_video_playlist_video');
     }
     //END_TABLE_GENERATOR
 }

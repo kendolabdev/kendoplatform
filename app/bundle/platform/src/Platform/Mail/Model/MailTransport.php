@@ -20,117 +20,103 @@ class MailTransport extends Model
 
     //START_TABLE_GENERATOR
 
-
+    
     /**
      * @return null|string
      */
-    public function getId()
-    {
-        return $this->__get('transport_id');
+    public function getId(){
+       return $this->__get('transport_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value)
-    {
-        $this->__set('transport_id', $value);
+    public function setId($value){
+       $this->__set('transport_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getTransportId()
-    {
-        return $this->__get('transport_id');
+    public function getTransportId(){
+       return $this->__get('transport_id');
     }
 
     /**
      * @param $value
      */
-    public function setTransportId($value)
-    {
-        $this->__set('transport_id', $value);
+    public function setTransportId($value){
+       $this->__set('transport_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getTransportType()
-    {
-        return $this->__get('transport_type');
+    public function getTransportType(){
+       return $this->__get('transport_type');
     }
 
     /**
      * @param $value
      */
-    public function setTransportType($value)
-    {
-        $this->__set('transport_type', $value);
+    public function setTransportType($value){
+       $this->__set('transport_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isSystem()
-    {
-        return $this->__get('is_system');
+    public function isSystem(){
+       return $this->__get('is_system');
     }
 
     /**
      * @return null|string
      */
-    public function getSystem()
-    {
-        return $this->__get('is_system');
+    public function getSystem(){
+       return $this->__get('is_system');
     }
 
     /**
      * @param $value
      */
-    public function setSystem($value)
-    {
-        $this->__set('is_system', $value);
+    public function setSystem($value){
+       $this->__set('is_system', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getTransportName()
-    {
-        return $this->__get('transport_name');
+    public function getTransportName(){
+       return $this->__get('transport_name');
     }
 
     /**
      * @param $value
      */
-    public function setTransportName($value)
-    {
-        $this->__set('transport_name', $value);
+    public function setTransportName($value){
+       $this->__set('transport_name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParamsText()
-    {
-        return $this->__get('params_text');
+    public function getParamsText(){
+       return $this->__get('params_text');
     }
 
     /**
      * @param $value
      */
-    public function setParamsText($value)
-    {
-        $this->__set('params_text', $value);
+    public function setParamsText($value){
+       $this->__set('params_text', $value);
     }
 
     /**
      * @return \Platform\Mail\Model\MailTransportTable
      */
-    public function table()
-    {
-        return \App::table('platform_mail_transport');
+    public function table(){
+        return app()->table('platform_mail_transport');
     }
     //END_TABLE_GENERATOR
 }

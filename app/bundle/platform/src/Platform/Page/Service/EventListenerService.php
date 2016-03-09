@@ -5,7 +5,7 @@ namespace Platform\Page\Service;
 use Kendo\Hook\EventListener;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\View;
 use Kendo\View\ViewHelper;
 use Platform\User\Model\User;
@@ -125,7 +125,7 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemPages($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         if (!$profile instanceof User)
             return false;
@@ -133,10 +133,10 @@ class EventListenerService extends EventListener
         if (!$profile->authorize('page__page_tab_exists'))
             return false;
 
-        if (!\App::aclService()->pass($profile, 'page__page_tab_view'))
+        if (!app()->aclService()->pass($profile, 'page__page_tab_view'))
             return false;
 
-        $item['href'] = $profile->toHref(['stuff' => 'pages']);
+        $item['href'] = $profile->toHref(['any' => 'pages']);
 
         return $item;
     }
@@ -153,8 +153,8 @@ class EventListenerService extends EventListener
         $stats = $payload->__get('stats');
 
         $stats['page'] = [
-            'label' => \App::text('page.pages'),
-            'value' => \App::pageService()->getActivePageCount(),
+            'label' => app()->text('page.pages'),
+            'value' => app()->pageService()->getActivePageCount(),
         ];
 
         $payload->__set('stats', $stats);

@@ -64,7 +64,7 @@ class AttributeCustomForm extends Form
             'value'  => $this->getCatalogId(),
         ]);
 
-        $elements = \App::catalogService()
+        $elements = app()->catalogService()
             ->loadCatalogElements($this->getCatalogId());
 
         if (!empty($elements))

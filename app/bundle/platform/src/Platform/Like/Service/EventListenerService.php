@@ -3,7 +3,7 @@
 namespace Platform\Like\Service;
 
 use Kendo\Http\FilterStuff;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Like\Model\Like;
 use Kendo\Hook\EventListener;
@@ -89,7 +89,7 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemLikes($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         if ($profile instanceof User)
             return false;
@@ -100,10 +100,10 @@ class EventListenerService extends EventListener
         if (!$profile->authorize('activity__like_tab_exists'))
             return false;
 
-        if (!\App::aclService()->pass($profile, 'activity__like_tab_view'))
+        if (!app()->aclService()->pass($profile, 'activity__like_tab_view'))
             return false;
 
-        $item['href'] = $profile->toHref(['stuff' => 'likes']);
+        $item['href'] = $profile->toHref(['any' => 'likes']);
 
         return $item;
     }
@@ -123,7 +123,7 @@ class EventListenerService extends EventListener
         if ($about instanceof AtomInterface)
             $about->modify('like_count', 'like_count+1');
 
-        \App::notificationService()->notify('item_liked', $like->getPoster(), $about);
+        app()->notificationService()->notify('item_liked', $like->getPoster(), $about);
 
     }
 

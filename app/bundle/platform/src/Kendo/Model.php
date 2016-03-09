@@ -92,11 +92,11 @@ class Model
     protected function _beforeDelete()
     {
         if ($this->_signalGroup)
-            \App::emitter()
+            app()->emitter()
                 ->emit('onBeforeDelete' . $this->_signalGroup, $this);
 
         if ($this->_signalKey)
-            \App::emitter()
+            app()->emitter()
                 ->emit('onBeforeDelete' . $this->_signalKey, $this);
 
     }
@@ -126,11 +126,11 @@ class Model
     protected function _afterDelete()
     {
         if ($this->_signalGroup)
-            \App::emitter()
+            app()->emitter()
                 ->emit('onAfterDelete' . $this->_signalGroup, $this);
 
         if ($this->_signalKey)
-            \App::emitter()
+            app()->emitter()
                 ->emit('onAfterDelete' . $this->_signalKey, $this);
     }
 
@@ -211,16 +211,16 @@ class Model
     {
         if ($this instanceof UniqueId) {
             if (!$this->getId()) {
-                $this->setId(\App::uid()->nextId());
+                $this->setId(app()->uid()->nextId());
             }
         }
 
         if ($this->_signalGroup)
-            \App::emitter()
+            app()->emitter()
                 ->emit('onBeforeInsert' . $this->_signalGroup, $this);
 
         if ($this->_signalKey)
-            \App::emitter()
+            app()->emitter()
                 ->emit('onBeforeInsert' . $this->_signalKey, $this);
     }
 
@@ -269,11 +269,11 @@ class Model
     {
 
         if ($this->_signalGroup)
-            \App::emitter()
+            app()->emitter()
                 ->emit('onAfterInsert' . $this->_signalGroup, $this);
 
         if ($this->_signalKey)
-            \App::emitter()
+            app()->emitter()
                 ->emit('onAfterInsert' . $this->_signalKey, $this);
     }
 

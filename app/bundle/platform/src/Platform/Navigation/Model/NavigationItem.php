@@ -20,309 +20,271 @@ class NavigationItem extends Model
 
     //START_TABLE_GENERATOR
 
-
+    
     /**
      * @return null|string
      */
-    public function getId()
-    {
-        return $this->__get('item_id');
+    public function getId(){
+       return $this->__get('item_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value)
-    {
-        $this->__set('item_id', $value);
+    public function setId($value){
+       $this->__set('item_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getItemId()
-    {
-        return $this->__get('item_id');
+    public function getItemId(){
+       return $this->__get('item_id');
     }
 
     /**
      * @param $value
      */
-    public function setItemId($value)
-    {
-        $this->__set('item_id', $value);
+    public function setItemId($value){
+       $this->__set('item_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getNavId()
-    {
-        return $this->__get('nav_id');
+    public function getNavId(){
+       return $this->__get('nav_id');
     }
 
     /**
      * @param $value
      */
-    public function setNavId($value)
-    {
-        $this->__set('nav_id', $value);
+    public function setNavId($value){
+       $this->__set('nav_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isActive()
-    {
-        return $this->__get('is_active');
+    public function isActive(){
+       return $this->__get('is_active');
     }
 
     /**
      * @return null|string
      */
-    public function getActive()
-    {
-        return $this->__get('is_active');
+    public function getActive(){
+       return $this->__get('is_active');
     }
 
     /**
      * @param $value
      */
-    public function setActive($value)
-    {
-        $this->__set('is_active', $value);
+    public function setActive($value){
+       $this->__set('is_active', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getSortOrder()
-    {
-        return $this->__get('sort_order');
+    public function getSortOrder(){
+       return $this->__get('sort_order');
     }
 
     /**
      * @param $value
      */
-    public function setSortOrder($value)
-    {
-        $this->__set('sort_order', $value);
+    public function setSortOrder($value){
+       $this->__set('sort_order', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getModuleName()
-    {
-        return $this->__get('module_name');
+    public function getModuleName(){
+       return $this->__get('module_name');
     }
 
     /**
      * @param $value
      */
-    public function setModuleName($value)
-    {
-        $this->__set('module_name', $value);
+    public function setModuleName($value){
+       $this->__set('module_name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getItemName()
-    {
-        return $this->__get('item_name');
+    public function getItemName(){
+       return $this->__get('item_name');
     }
 
     /**
      * @param $value
      */
-    public function setItemName($value)
-    {
-        $this->__set('item_name', $value);
+    public function setItemName($value){
+       $this->__set('item_name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPhraseName()
-    {
-        return $this->__get('phrase_name');
+    public function getPhraseName(){
+       return $this->__get('phrase_name');
     }
 
     /**
      * @param $value
      */
-    public function setPhraseName($value)
-    {
-        $this->__set('phrase_name', $value);
+    public function setPhraseName($value){
+       $this->__set('phrase_name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentName()
-    {
-        return $this->__get('parent_name');
+    public function getParentName(){
+       return $this->__get('parent_name');
     }
 
     /**
      * @param $value
      */
-    public function setParentName($value)
-    {
-        $this->__set('parent_name', $value);
+    public function setParentName($value){
+       $this->__set('parent_name', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getItemType()
-    {
-        return $this->__get('item_type');
+    public function getItemType(){
+       return $this->__get('item_type');
     }
 
     /**
      * @param $value
      */
-    public function setItemType($value)
-    {
-        $this->__set('item_type', $value);
+    public function setItemType($value){
+       $this->__set('item_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getEvent()
-    {
-        return $this->__get('event');
+    public function getEvent(){
+       return $this->__get('event');
     }
 
     /**
      * @param $value
      */
-    public function setEvent($value)
-    {
-        $this->__set('event', $value);
+    public function setEvent($value){
+       $this->__set('event', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getAcl()
-    {
-        return $this->__get('acl');
+    public function getAcl(){
+       return $this->__get('acl');
     }
 
     /**
      * @param $value
      */
-    public function setAcl($value)
-    {
-        $this->__set('acl', $value);
+    public function setAcl($value){
+       $this->__set('acl', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getRoute()
-    {
-        return $this->__get('route');
+    public function getRoute(){
+       return $this->__get('route');
     }
 
     /**
      * @param $value
      */
-    public function setRoute($value)
-    {
-        $this->__set('route', $value);
+    public function setRoute($value){
+       $this->__set('route', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParamsText()
-    {
-        return $this->__get('params_text');
+    public function getParamsText(){
+       return $this->__get('params_text');
     }
 
     /**
      * @param $value
      */
-    public function setParamsText($value)
-    {
-        $this->__set('params_text', $value);
+    public function setParamsText($value){
+       $this->__set('params_text', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getQueryText()
-    {
-        return $this->__get('query_text');
+    public function getQueryText(){
+       return $this->__get('query_text');
     }
 
     /**
      * @param $value
      */
-    public function setQueryText($value)
-    {
-        $this->__set('query_text', $value);
+    public function setQueryText($value){
+       $this->__set('query_text', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getExtraText()
-    {
-        return $this->__get('extra_text');
+    public function getExtraText(){
+       return $this->__get('extra_text');
     }
 
     /**
      * @param $value
      */
-    public function setExtraText($value)
-    {
-        $this->__set('extra_text', $value);
+    public function setExtraText($value){
+       $this->__set('extra_text', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getIcon()
-    {
-        return $this->__get('icon');
+    public function getIcon(){
+       return $this->__get('icon');
     }
 
     /**
      * @param $value
      */
-    public function setIcon($value)
-    {
-        $this->__set('icon', $value);
+    public function setIcon($value){
+       $this->__set('icon', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getMobileIcon()
-    {
-        return $this->__get('mobile_icon');
+    public function getMobileIcon(){
+       return $this->__get('mobile_icon');
     }
 
     /**
      * @param $value
      */
-    public function setMobileIcon($value)
-    {
-        $this->__set('mobile_icon', $value);
+    public function setMobileIcon($value){
+       $this->__set('mobile_icon', $value);
     }
 
     /**
      * @return \Platform\Navigation\Model\NavigationItemTable
      */
-    public function table()
-    {
-        return \App::table('platform_navigation_item');
+    public function table(){
+        return app()->table('platform_navigation_item');
     }
     //END_TABLE_GENERATOR
 }

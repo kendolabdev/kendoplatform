@@ -3,14 +3,14 @@
 namespace Kendo\Http;
 
 use Kendo\Kernel\Application;
-use Kendo\Kernel\ServiceInterface;
+use Kendo\Kernel\KernelServiceInterface;
 
 /**
  * Class Manager
  *
  * @package Kendo\Request
  */
-class RequestManager extends HttpRequest implements ServiceInterface
+class RequestManager extends HttpRequest implements KernelServiceInterface
 {
 
     protected $app;
@@ -111,22 +111,19 @@ class RequestManager extends HttpRequest implements ServiceInterface
 
     /**
      * @param \Kendo\Kernel\Application $app
+     *
+     * @return RequestManager
      */
     public function bind(Application $app)
     {
         $this->app = $app;
+
+        return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function alias()
-    {
-        return [];
-    }
 
     /**
-     *
+     * init cache later
      */
     public function bound()
     {

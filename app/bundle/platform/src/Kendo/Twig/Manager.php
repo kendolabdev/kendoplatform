@@ -1,11 +1,11 @@
 <?php
 namespace Kendo\Twig;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Feed\Model\Feed;
 use Kendo\Content\PosterInterface;
 
-class Manager extends KernelServiceAgreement
+class Manager extends KernelService
 {
 
     /**
@@ -35,10 +35,10 @@ class Manager extends KernelServiceAgreement
             }));
 
             $this->env->addFunction(new \Twig_SimpleFunction('feed_context', function (Feed $item) {
-                $profile = \App::registryService()->get('profile');
+                $profile = app()->registryService()->get('profile');
 
                 if ($profile && $profile instanceof PosterInterface) {
-                    $isMainFeed = \App::registryService()->get('isMainFeed');
+                    $isMainFeed = app()->registryService()->get('isMainFeed');
 
                     if ($isMainFeed && $item->getParentId() == $item->getPosterId()) return '';
 
@@ -80,7 +80,7 @@ class Manager extends KernelServiceAgreement
     public function renderHeadline($msg, $context = [], $count = null)
     {
 
-        $msg = \App::trans()->msgId($msg, $count);
+        $msg = app()->trans()->msgId($msg, $count);
 
         return $this->getEnv()->createTemplate($msg)->render($context);
     }

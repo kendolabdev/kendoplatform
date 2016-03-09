@@ -18,15 +18,15 @@ class LikeController extends AjaxController
         $type = $this->request->getString('type');
         $id = $this->request->getInt('id');
 
-        $about = \App::find($type, $id);
+        $about = app()->find($type, $id);
 
         if (!$about instanceof AtomInterface) {
             throw new \InvalidArgumentException();
         }
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
-        $likeService = \App::likeService();
+        $likeService = app()->likeService();
 
         $likeService->toggle($poster, $about);
 
@@ -44,14 +44,14 @@ class LikeController extends AjaxController
         $type = $this->request->getString('type');
         $id = $this->request->getInt('id');
 
-        $about = \App::find($type, $id);
+        $about = app()->find($type, $id);
 
         if (!$about instanceof AtomInterface)
             throw new \InvalidArgumentException();
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
-        $likeService = \App::likeService();
+        $likeService = app()->likeService();
 
         $likeService->toggle($poster, $about);
 
@@ -59,14 +59,14 @@ class LikeController extends AjaxController
         /**
          * Refresh about object
          */
-        $about = \App::find($type, $id, false);
+        $about = app()->find($type, $id, false);
 
 
         $likeResult = $likeService->getLikeResult($poster, $about, 2);
 
         $sample = $likeResult->getSampleHtml();
 
-        $this->response['label'] = $likeResult->isLiked() ? \App::text('core.unlike') : \App::text('core.like');
+        $this->response['label'] = $likeResult->isLiked() ? app()->text('core.unlike') : app()->text('core.like');
         $this->response['sample'] = $sample;
         $this->response['hasSample'] = $sample != "";
         $this->response['likeCount'] = $about->getLikeCount();
@@ -79,15 +79,15 @@ class LikeController extends AjaxController
      */
     public function actionAdd()
     {
-        $object = \App::find($this->request->getString('type'), $this->request->getInt('id'));
+        $object = app()->find($this->request->getString('type'), $this->request->getInt('id'));
 
         $context = $this->request->getString('context', 'label');
 
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
-        $likeService = \App::likeService();
+        $likeService = app()->likeService();
 
-        $followService = \App::followService();
+        $followService = app()->followService();
 
         $likeService->add($viewer, $object);
 
@@ -106,7 +106,7 @@ class LikeController extends AjaxController
             ))->render();
 
         } else {
-            $this->response['label'] = \App::text('core.unlike');
+            $this->response['label'] = app()->text('core.unlike');
 
         }
     }
@@ -117,15 +117,15 @@ class LikeController extends AjaxController
      */
     public function actionRemove()
     {
-        $object = \App::find($this->request->getString('type'), $this->request->getInt('id'));
+        $object = app()->find($this->request->getString('type'), $this->request->getInt('id'));
 
         $context = $this->request->getString('context', 'label');
 
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
-        $likeService = \App::likeService();
+        $likeService = app()->likeService();
 
-        $followService = \App::followService();
+        $followService = app()->followService();
 
         $likeService->remove($viewer, $object);
 
@@ -142,7 +142,7 @@ class LikeController extends AjaxController
                 ]
             ))->render();
         } else {
-            $this->response['label'] = \App::text('core.like');
+            $this->response['label'] = app()->text('core.like');
         }
     }
 
@@ -153,7 +153,7 @@ class LikeController extends AjaxController
     {
         list($id, $type) = $this->request->getList('id', 'type');
 
-        $about = \App::find($type, $id);
+        $about = app()->find($type, $id);
 
         $page = 1;
 
@@ -162,10 +162,10 @@ class LikeController extends AjaxController
             'aboutType' => $about->getType(),
         ];
 
-        $paging = \App::likeService()
+        $paging = app()->likeService()
             ->loadLikedThisPaging($query, $page);
 
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams('like_ajax_dialog_liked_this');
 
         $lp->set('endless', true);
@@ -187,7 +187,7 @@ class LikeController extends AjaxController
         $page = $this->request->getParam('page', 1);
         $query = $this->request->getArray('query');
 
-        $paging = \App::likeService()->loadLikedThisPaging($query, $page);
+        $paging = app()->likeService()->loadLikedThisPaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 

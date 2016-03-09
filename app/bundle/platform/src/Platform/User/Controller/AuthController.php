@@ -44,12 +44,12 @@ class AuthController extends DefaultController
                 'remember'   => isset($data['remember']) ? $data['remember'] : false
             ];
 
-            $result = \App::authService()->login($driver, $params);
+            $result = app()->auth()->login($driver, $params);
 
 
             if ($result->isValid()) {
 
-                \App::authService()->store($result->getUser(), null, false);
+                app()->auth()->store($result->getUser(), null, false);
 
                 // try location redirect then exists
                 return $this->request->redirect('home');
@@ -82,11 +82,11 @@ class AuthController extends DefaultController
             // do no thing
         }
 
-        $enableSocialAuth = \App::setting('login', 'social_auth');
+        $enableSocialAuth = app()->setting('login', 'social_auth');
 
-        $social = \App::socialService()->getListAuth();
+        $social = app()->socialService()->getListAuth();
 
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams();
 
 
@@ -104,7 +104,7 @@ class AuthController extends DefaultController
      */
     public function actionLogout()
     {
-        \App::authService()->logout();
+        app()->auth()->logout();
 
         return $this->request->redirect('home');
     }
@@ -117,13 +117,13 @@ class AuthController extends DefaultController
         $type = $this->request->getString('type');
         $id = $this->request->getString('id');
 
-        $poster = \App::find($type, $id);
+        $poster = app()->find($type, $id);
 
         if (!$poster instanceof PosterInterface) {
             throw new \InvalidArgumentException("Unexpected login as member.");
         }
 
-        \App::authService()->saveViewer($poster);
+        app()->auth()->saveViewer($poster);
 
         $this->request->redirectToUrl($poster->toHref());
     }
@@ -140,7 +140,7 @@ class AuthController extends DefaultController
             'form' => $form
         ]);
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
         $this->view->setScript($lp);
     }
 }

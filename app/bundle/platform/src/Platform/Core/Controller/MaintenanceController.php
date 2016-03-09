@@ -37,16 +37,16 @@ class MaintenanceController extends DefaultController
      */
     public function actionIndex()
     {
-        if ($this->request->getParam('code') == \App::setting('core', 'maintenance_code')) {
+        if ($this->request->getParam('code') == app()->setting('core', 'maintenance_code')) {
             $_SESSION['maintenance'] = $this->request->getParam('code');
 
-            \App::routing()->redirect('home');
+            app()->routing()->redirect('home');
         }
 
-        \App::layouts()
+        app()->layouts()
             ->setMasterScript('layout/master/blank');
 
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams();
 
         $this->view

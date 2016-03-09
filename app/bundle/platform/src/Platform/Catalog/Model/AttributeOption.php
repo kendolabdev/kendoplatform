@@ -124,7 +124,7 @@ class AttributeOption extends Model implements UniqueId
      */
     public function table()
     {
-        return \App::table('attribute.attribute_option');
+        return app()->table('attribute.attribute_option');
     }
     //END_TABLE_GENERATOR
 }

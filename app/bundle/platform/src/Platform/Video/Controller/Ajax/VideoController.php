@@ -19,7 +19,7 @@ class VideoController extends AjaxController
 
         $query = $this->request->getArray('query');
 
-        $paging = \App::videoService()->loadVideoPaging($query, $page);
+        $paging = app()->videoService()->loadVideoPaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 
@@ -46,7 +46,7 @@ class VideoController extends AjaxController
 
         $videoId = $this->request->getParam('id');
 
-        $video = \App::find('video', $videoId);
+        $video = app()->find('video', $videoId);
 
         if (!$video instanceof Video) ;
 

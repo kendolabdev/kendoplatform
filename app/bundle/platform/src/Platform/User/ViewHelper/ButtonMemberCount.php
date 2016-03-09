@@ -26,7 +26,7 @@ class ButtonMemberCount
 
         // count friend of user.
         if (null == $count) {
-            $count = \App::relationService()->getMemberCount($user);
+            $count = app()->relation()->getMemberCount($user);
         }
 
         if ($count == 0) {
@@ -34,8 +34,8 @@ class ButtonMemberCount
         }
 
         return strtr('<a class="user-friends-count" role="button" href=":href">:text</a>', [
-            ':text' => \App::text('user.number_friends', ['$number' => $count], $count),
-            ':href' => $user->toHref(['stuff' => '/friends']),
+            ':text' => app()->text('user.number_friends', ['$number' => $count], $count),
+            ':href' => $user->toHref(['any' => '/friends']),
         ]);
     }
 

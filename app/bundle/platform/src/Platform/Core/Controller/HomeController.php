@@ -22,15 +22,15 @@ class HomeController extends DefaultController
     public function actionIndex()
     {
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
-        \App::assetService()
-            ->title()->set(\App::text('core.home_page'));
+        app()->assetService()
+            ->title()->set(app()->text('core.home_page'));
 
         if ($poster instanceof PosterInterface) {
             $this->request->forward(null, 'member');
         } else {
-            \App::layouts()->setPageName('platform_core_home_index');
+            app()->layouts()->setPageName('platform_core_home_index');
             $this->view->setScript('/platform/core/controller/home/index');
         }
     }
@@ -40,15 +40,15 @@ class HomeController extends DefaultController
      */
     public function actionMember()
     {
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         if (!$poster instanceof PosterInterface) {
             return $this->request->forward(null, 'index');
         }
 
-        \App::registryService()->set('profile', $poster);
-        \App::layouts()->setPageName('platform_core_home_member');
-        \App::registryService()->set('isMainFeed', true);
+        app()->registryService()->set('profile', $poster);
+        app()->layouts()->setPageName('platform_core_home_member');
+        app()->registryService()->set('isMainFeed', true);
     }
 
     /**
@@ -59,7 +59,7 @@ class HomeController extends DefaultController
         $type = $this->request->getString('type');
         $id = $this->request->getString('id');
 
-        $item = \App::find($type, $id);
+        $item = app()->find($type, $id);
 
         if (!$item instanceof ContentInterface) {
             throw new NotFoundException();

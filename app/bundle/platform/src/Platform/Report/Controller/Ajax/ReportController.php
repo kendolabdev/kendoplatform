@@ -24,7 +24,7 @@ class ReportController extends AjaxController
     {
         list($type, $id) = $this->request->getList('type', 'id');
 
-        $about = \App::find($type, $id);
+        $about = app()->find($type, $id);
 
         if (null == $about)
             throw new \InvalidArgumentException("Invalid Report Item");
@@ -54,9 +54,9 @@ class ReportController extends AjaxController
     {
         list($aboutType, $aboutId, $message, $categoryId) = $this->request->getList('aboutType', 'aboutId', 'message', 'category_id');
 
-        $about = \App::find($aboutType, $aboutId);
+        $about = app()->find($aboutType, $aboutId);
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         // validate content
 
@@ -72,7 +72,7 @@ class ReportController extends AjaxController
         ];
 
 
-        \App::reportService()->addReport($poster, $about, $data);
+        app()->reportService()->addReport($poster, $about, $data);
 
         $this->response = [
             'directive' => 'close',
@@ -88,7 +88,7 @@ class ReportController extends AjaxController
 
         list($type, $id) = $this->request->getList('type', 'id');
 
-        $entry = \App::find($type, $id);
+        $entry = app()->find($type, $id);
 
         if (!$entry instanceof Report)
             throw new \InvalidArgumentException("Report does not exists!");
@@ -109,7 +109,7 @@ class ReportController extends AjaxController
 
         list($type, $id) = $this->request->getList('type', 'id');
 
-        $entry = \App::find($type, $id);
+        $entry = app()->find($type, $id);
 
         if (!$entry instanceof Report)
             throw new \InvalidArgumentException("Report does not exists!");

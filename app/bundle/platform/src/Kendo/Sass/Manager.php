@@ -1,6 +1,6 @@
 <?php
 namespace Kendo\Sass;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class Manager
@@ -9,7 +9,7 @@ use Kendo\Kernel\KernelServiceAgreement;
  *
  * @package Kendo\Sass
  */
-class Manager extends KernelServiceAgreement
+class Manager extends KernelService
 {
 
     /**
@@ -40,7 +40,7 @@ class Manager extends KernelServiceAgreement
             $container->setVariables($variables);
         }
 
-        \App::emitter()->emit('sassCompileProcess', $container);
+        app()->emitter()->emit('sassCompileProcess', $container);
 
 
         $container->addContent($customize);

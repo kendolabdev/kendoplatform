@@ -212,7 +212,7 @@ class AttributePlugin extends Model
      */
     public function table()
     {
-        return \App::table('attribute.attribute_plugin');
+        return app()->table('attribute.attribute_plugin');
     }
     //END_TABLE_GENERATOR
 }

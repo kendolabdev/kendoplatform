@@ -64,7 +64,7 @@ class CreateModule extends Form
             'name'   => 'author',
             'class'  => 'form-control',
             'label'  => 'Author',
-            'value'  => \App::setting('license', 'email'),
+            'value'  => app()->setting('license', 'email'),
         ]);
 
         $this->addElement([

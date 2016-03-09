@@ -22,18 +22,18 @@ class PagePermission extends BasePermission
 
         $role = $this->getRole();
 
-        \App::emitter()
+        app()->emitter()
             ->emit('onBeforeInitPagePermissionForm', $this);
 
         /**
          * Privacy options
          */
         if (!$role->isGuest() && $role->getModuleName() == 'page') {
-            $relationTypes = \App::relationService()->getAllSystemRelationType('page');
+            $relationTypes = app()->relation()->getAllSystemRelationType('page');
 
             $privacyOptions = [
-                ['value' => RELATION_TYPE_ANYONE, 'label' => \App::text('core.public'),],
-                ['value' => RELATION_TYPE_REGISTERED, 'label' => \App::text('core.registered')],
+                ['value' => RELATION_TYPE_ANYONE, 'label' => app()->text('core.public'),],
+                ['value' => RELATION_TYPE_REGISTERED, 'label' => app()->text('core.registered')],
             ];
 
             foreach ($relationTypes as $type) {
@@ -110,7 +110,7 @@ class PagePermission extends BasePermission
                 'value'  => 20,
             ]);
 
-        \App::emitter()
+        app()->emitter()
             ->emit('onAfterInitPagePermissionForm', $this);
     }
 }

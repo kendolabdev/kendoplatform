@@ -18,7 +18,7 @@ class CacheFilesystem implements CacheInterface
     /**
      * @var string
      */
-    protected $prefix = 'Kendo.';
+    protected $prefix = 'kendo.';
 
     /**
      * @var int

@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Place\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Place\Model\Place;
 
 /**
@@ -9,7 +9,7 @@ use Platform\Place\Model\Place;
  *
  * @package Place\Service
  */
-class PlaceService extends KernelServiceAgreement
+class PlaceService extends KernelService
 {
     /**
      * @param $data
@@ -47,7 +47,7 @@ class PlaceService extends KernelServiceAgreement
      */
     public function findByGoogleId($googleId)
     {
-        return \App::table('place')
+        return app()->table('place')
             ->select()
             ->where('google_id=?', (string)$googleId)
             ->one();

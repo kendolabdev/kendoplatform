@@ -90,7 +90,7 @@ class Value extends Model
      */
     public function table()
     {
-        return \App::table('core.value');
+        return app()->table('core.value');
     }
     //END_TABLE_GENERATOR
 }

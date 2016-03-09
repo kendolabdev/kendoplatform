@@ -919,7 +919,7 @@ class Browser
      * Method gets the mobile detection rules + utilities.
      * The reason this is separate is because utilities rules
      * don't necessary imply mobile. This method is used inside
-     * the new $detect->is('stuff') method.
+     * the new $detect->is('any') method.
      *
      * @deprecated since version 2.6.9
      *

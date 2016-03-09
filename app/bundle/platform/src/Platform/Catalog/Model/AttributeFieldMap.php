@@ -122,7 +122,7 @@ class AttributeFieldMap extends Model
      */
     public function table()
     {
-        return \App::table('attribute.attribute_field_map');
+        return app()->table('attribute.attribute_field_map');
     }
     //END_TABLE_GENERATOR
 }

@@ -11,30 +11,30 @@ $themeId = isset($argv[1]) ? $argv[1] : null;
 
 if (null == $themeId)
 {
-    $themeId = \App::layouts()
+    $themeId = app()->layouts()
         ->getEditingThemeId();
 }
 
 
-$theme = \App::layouts()
+$theme = app()->layouts()
     ->theme()
     ->findThemeById($themeId);
 
 echo "Compiling: ", $theme->getTitle(), PHP_EOL;
 
-\App::layouts()
+app()->layouts()
     ->theme()
     ->rebuildStylesheetForTheme($themeId);
 
 echo "Set to system default: ", $theme->getTitle(), PHP_EOL;
 
-\App::layouts()
+app()->layouts()
     ->theme()
     ->setDefaultTheme($theme);
 
 echo "Flush cache ", PHP_EOL;
 
-\App::cacheService()
+app()->cacheService()
     ->flush();
 
 echo "Done!", PHP_EOL;

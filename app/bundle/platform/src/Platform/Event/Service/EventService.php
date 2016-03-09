@@ -2,7 +2,7 @@
 
 namespace Platform\Event\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Event\Model\Event;
 use Platform\Event\Model\EventCategory;
 use Kendo\Content\PosterInterface;
@@ -12,7 +12,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Event\Service
  */
-class EventService extends KernelServiceAgreement
+class EventService extends KernelService
 {
 
 
@@ -23,7 +23,7 @@ class EventService extends KernelServiceAgreement
      */
     public function findCategoryById($id)
     {
-        return \App::table('event.event_category')
+        return app()->table('event.event_category')
             ->findById(intval($id));
     }
 
@@ -55,7 +55,7 @@ class EventService extends KernelServiceAgreement
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('event.event_category')->select('t');
+        $select = app()->table('event.event_category')->select('t');
 
         if (!empty($query['q']))
             $select->where('category_name like ?', '%' . $query['q'] . '%');
@@ -72,7 +72,7 @@ class EventService extends KernelServiceAgreement
      */
     public function loadEventPaging($query = [], $page = 1, $limit = 2)
     {
-        $select = \App::table('platform_event')->select();
+        $select = app()->table('platform_event')->select();
 
         $isOwner = false;
 
@@ -82,7 +82,7 @@ class EventService extends KernelServiceAgreement
 
             $select->where('poster_id=?', $posterId);
 
-            if ($posterId == \App::authService()->getId()) {
+            if ($posterId == app()->auth()->getId()) {
 
                 $isOwner = true;
             }
@@ -94,7 +94,7 @@ class EventService extends KernelServiceAgreement
 
             $select->where('user_id=?', $userId);
 
-            if ($userId == \App::authService()->getUserId()) {
+            if ($userId == app()->auth()->getUserId()) {
                 $isOwner = true;
             }
         }
@@ -123,7 +123,7 @@ class EventService extends KernelServiceAgreement
      */
     public function getEventCount()
     {
-        return \App::table('platform_event')
+        return app()->table('platform_event')
             ->select()
             ->count();
     }
@@ -133,7 +133,7 @@ class EventService extends KernelServiceAgreement
      */
     public function membership()
     {
-        return \App::relationService();
+        return app()->relation();
     }
 
     /**
@@ -169,7 +169,7 @@ class EventService extends KernelServiceAgreement
     public function getCategoryOptions()
     {
 
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['event', 'getCategoryOptions'], 0, function () {
                 return $this->_getCategoryOptions();
             });
@@ -182,7 +182,7 @@ class EventService extends KernelServiceAgreement
      */
     private function _getCategoryOptions()
     {
-        $select = \App::table('event.event_category')->select()
+        $select = app()->table('event.event_category')->select()
             ->order('category_name', 1);
 
         $items = $select->all();

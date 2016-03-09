@@ -301,14 +301,15 @@ class HttpRequest
      */
     public function dispatch()
     {
-        if (KENDO_PROFILER) {
-            $profileKey = \App::profiler()->start('request', 'dispatch');
-        }
 
-        if (!$this->getControllerName()) {
-            \App::routing()->resolve($this);
+        try {
+            if (!$this->getControllerName()) {
+                app()->routing()->resolve($this);
+            }
+        } catch (\Exception $ex) {
+            $this->setControllerName('\Platform\Core\Controller\ErrorController');
+            $this->setException($ex);
         }
-
 
         $step = 0;
 
@@ -340,10 +341,6 @@ class HttpRequest
                 $this->setException($e);
                 $this->forward('Platform\Core\Controller\ErrorController', 'exception');
             }
-        }
-
-        if (KENDO_PROFILER and !empty($profileKey)) {
-            \App::profiler()->stop($profileKey);
         }
 
         return false;
@@ -581,7 +578,7 @@ class HttpRequest
      */
     public function redirect($routeName, $params = [], $httpStatusCode = 401)
     {
-        $this->redirectToUrl(\App::routing()->getUrl($routeName, $params), $httpStatusCode);
+        $this->redirectToUrl(app()->routing()->getUrl($routeName, $params), $httpStatusCode);
 
         return true;
     }
@@ -596,7 +593,7 @@ class HttpRequest
     {
         if ($this->isAjaxFragment()) {
 
-            $require = \App::assetService()
+            $require = app()->assetService()
                 ->requirejs();
 
             $require->addScript('redirect', sprintf('replacePage("%s")', $url));

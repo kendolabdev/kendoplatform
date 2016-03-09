@@ -38,7 +38,7 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <?php echo \App::navigation()->render('dropdown', 'main', null, [], 2, ['level0'=>'nav
+                        <?php echo app()->navigation()->render('dropdown', 'main', null, [], 2, ['level0'=>'nav
                         navbar-nav','depth' => 1,'max' => 6]); ?>
                     </div>
                 </div>

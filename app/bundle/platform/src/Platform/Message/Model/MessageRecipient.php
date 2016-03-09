@@ -20,149 +20,131 @@ class MessageRecipient extends Model
 
     //START_TABLE_GENERATOR
 
-
+    
     /**
      * @return null|string
      */
-    public function getRecipientId()
-    {
-        return $this->__get('recipient_id');
+    public function getRecipientId(){
+       return $this->__get('recipient_id');
     }
 
     /**
      * @param $value
      */
-    public function setRecipientId($value)
-    {
-        $this->__set('recipient_id', $value);
+    public function setRecipientId($value){
+       $this->__set('recipient_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getConversationId()
-    {
-        return $this->__get('conversation_id');
+    public function getConversationId(){
+       return $this->__get('conversation_id');
     }
 
     /**
      * @param $value
      */
-    public function setConversationId($value)
-    {
-        $this->__set('conversation_id', $value);
+    public function setConversationId($value){
+       $this->__set('conversation_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function isActive()
-    {
-        return $this->__get('is_active');
+    public function isActive(){
+       return $this->__get('is_active');
     }
 
     /**
      * @return null|string
      */
-    public function getActive()
-    {
-        return $this->__get('is_active');
+    public function getActive(){
+       return $this->__get('is_active');
     }
 
     /**
      * @param $value
      */
-    public function setActive($value)
-    {
-        $this->__set('is_active', $value);
+    public function setActive($value){
+       $this->__set('is_active', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getRecipientType()
-    {
-        return $this->__get('recipient_type');
+    public function getRecipientType(){
+       return $this->__get('recipient_type');
     }
 
     /**
      * @param $value
      */
-    public function setRecipientType($value)
-    {
-        $this->__set('recipient_type', $value);
+    public function setRecipientType($value){
+       $this->__set('recipient_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getHistoryMessageId()
-    {
-        return $this->__get('history_message_id');
+    public function getHistoryMessageId(){
+       return $this->__get('history_message_id');
     }
 
     /**
      * @param $value
      */
-    public function setHistoryMessageId($value)
-    {
-        $this->__set('history_message_id', $value);
+    public function setHistoryMessageId($value){
+       $this->__set('history_message_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getUnreadCount()
-    {
-        return $this->__get('unread_count');
+    public function getUnreadCount(){
+       return $this->__get('unread_count');
     }
 
     /**
      * @param $value
      */
-    public function setUnreadCount($value)
-    {
-        $this->__set('unread_count', $value);
+    public function setUnreadCount($value){
+       $this->__set('unread_count', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getLastMessageId()
-    {
-        return $this->__get('last_message_id');
+    public function getLastMessageId(){
+       return $this->__get('last_message_id');
     }
 
     /**
      * @param $value
      */
-    public function setLastMessageId($value)
-    {
-        $this->__set('last_message_id', $value);
+    public function setLastMessageId($value){
+       $this->__set('last_message_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getModifiedAt()
-    {
-        return $this->__get('modified_at');
+    public function getModifiedAt(){
+       return $this->__get('modified_at');
     }
 
     /**
      * @param $value
      */
-    public function setModifiedAt($value)
-    {
-        $this->__set('modified_at', $value);
+    public function setModifiedAt($value){
+       $this->__set('modified_at', $value);
     }
 
     /**
      * @return \Platform\Message\Model\MessageRecipientTable
      */
-    public function table()
-    {
-        return \App::table('platform_message_recipient');
+    public function table(){
+        return app()->table('platform_message_recipient');
     }
     //END_TABLE_GENERATOR
 }

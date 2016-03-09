@@ -35,7 +35,7 @@ class AddReport extends Form
             'value'  => $about->getType(),
         ]);
 
-        $categoryOptions = \App::reportService()->loadCategoryOptions();
+        $categoryOptions = app()->reportService()->loadCategoryOptions();
         $categoryPlugin = count($categoryOptions) > 1 ? 'select' : 'hidden';
 
         $this->addElement([

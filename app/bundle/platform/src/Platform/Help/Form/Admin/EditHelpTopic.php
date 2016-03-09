@@ -25,7 +25,7 @@ class EditHelpTopic extends Form
             'label'    => 'Category',
             'class'    => 'form-control',
             'required' => true,
-            'options'  => \App::helpService()->loadAdminCategoryOptions(),
+            'options'  => app()->helpService()->loadAdminCategoryOptions(),
         ]);
 
         $this->addElement([

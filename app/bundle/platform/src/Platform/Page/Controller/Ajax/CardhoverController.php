@@ -21,7 +21,7 @@ class CardhoverController extends AjaxController
     {
         $id = $this->request->getString('id');
 
-        $subject = \App::find('page', $id);
+        $subject = app()->find('page', $id);
 
         if (!$subject instanceof Page) {
             throw new \InvalidArgumentException();
@@ -29,7 +29,7 @@ class CardhoverController extends AjaxController
 
         $cover = $subject->getCover();
 
-        $canFriend = \App::authService()->getType() == 'user';
+        $canFriend = app()->auth()->getType() == 'user';
         $canMessage = false;
         $canChat = false;
         $canFollow = false;
@@ -43,17 +43,17 @@ class CardhoverController extends AjaxController
             $coverPositionTop = $cover->getPositionTop() . 'px';
         }
 
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
         if ($viewer && $subject) {
             $canFollow = true;
-            $followService = \App::followService();
+            $followService = app()->followService();
             $isFollowing = $followService->isFollowed($viewer, $subject);
         }
 
 
         $this->response['cardInfo'] = $this->request->getString('cardInfo');
-        $this->response['html'] = \App::viewHelper()->partial('platform/page/partial/cardhover-page', [
+        $this->response['html'] = app()->viewHelper()->partial('platform/page/partial/cardhover-page', [
             'profile'          => $subject,
             'canFriend'        => $canFriend,
             'canMessage'       => $canMessage,

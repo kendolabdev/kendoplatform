@@ -17,15 +17,15 @@ class CoverController extends AjaxController
 
         $parent = $this->request->getArray('parent');
 
-        $parent = \App::find($parent['type'], $parent['id']);
+        $parent = app()->find($parent['type'], $parent['id']);
 
         if (!$parent instanceof AtomInterface) {
             throw new \InvalidArgumentException("Could not set cover for current subject");
         }
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
-        \App::photoService()->removeCover($parent);
+        app()->photoService()->removeCover($parent);
 
         $this->response = [];
     }
@@ -41,25 +41,25 @@ class CoverController extends AjaxController
         $parent = $this->request->getParam('parent');
         $positionTop = $this->request->getInt('top', 0);
 
-        $parent = \App::find($parent['type'], $parent['id']);
+        $parent = app()->find($parent['type'], $parent['id']);
 
         if (!$parent instanceof AtomInterface) {
             throw new \InvalidArgumentException("Could not set cover for current subject");
         }
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         if (!$parent)
             throw new \InvalidArgumentException("Could not find parent");
 
 
-        $photoService = \App::photoService();
+        $photoService = app()->photoService();
 
         if ($fileId) {
             $album = $photoService->getSingletonAlbum($parent);
 
             if ($uploaded) {
-                $fileId = \App::photoService()->processSinglePhotoUploadFromTemporary($fileId);
+                $fileId = app()->photoService()->processSinglePhotoUploadFromTemporary($fileId);
 
                 $photo = $photoService->addPhoto($fileId, $poster, $parent, $album, $params = []);
                 $photoService->setCover($parent, $photo, $positionTop);
@@ -80,7 +80,7 @@ class CoverController extends AjaxController
 
         $this->response = [
             'url'     => $parent->toHref(),
-            'message' => \App::text('photo.profile_cover_is_updated')
+            'message' => app()->text('photo.profile_cover_is_updated')
         ];
     }
 }

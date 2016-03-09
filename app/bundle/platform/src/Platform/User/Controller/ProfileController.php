@@ -19,7 +19,7 @@ class ProfileController extends ProfileBaseController
      */
     public function actionEdit()
     {
-        $poster = \App::registryService()->get('profile');
+        $poster = app()->registryService()->get('profile');
 
         if (!$poster instanceof User) ;
 
@@ -32,7 +32,7 @@ class ProfileController extends ProfileBaseController
 //
 //        if ($this->request->is('get')) {
 //
-//            $data = \App::catalogService()
+//            $data = app()->catalogService()
 //                ->loadAttributeValue($poster, []);
 //
 //            $form->setData($data);
@@ -41,11 +41,11 @@ class ProfileController extends ProfileBaseController
 //        if ($this->request->isMethod('post')and $form->isValid($_POST)) {
 //            $data = $form->getData();
 //
-//            \App::catalogService()
+//            app()->catalogService()
 //                ->updateItemAttribute($poster, $data);
 //        }
 //
-//        $lp = \App::layoutService()
+//        $lp = app()->layoutService()
 //            ->getContentLayoutParams();
 //
 //        $this->view
@@ -61,15 +61,15 @@ class ProfileController extends ProfileBaseController
     public function actionViewAbout()
     {
 
-        \App::layouts()
+        app()->layouts()
             ->setPageTitle('core.about');
 
 
-        $profile = \App::registryService()->get('profile');
-        $poster = \App::authService()->getUser();
+        $profile = app()->registryService()->get('profile');
+        $poster = app()->auth()->getUser();
         $subject = $profile;
 
-        $about = \App::catalogService()
+        $about = app()->catalogService()
             ->getAbout($subject);
 
         $aboutHtml = (new View('/layout/partial/profile-about', [
@@ -79,7 +79,7 @@ class ProfileController extends ProfileBaseController
             'about'   => $about,
         ]))->render();
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         /**
          * get about information
@@ -97,10 +97,10 @@ class ProfileController extends ProfileBaseController
      */
     public function actionBrowseMember()
     {
-        \App::layouts()
+        app()->layouts()
             ->setPageTitle('user.friends');
 
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
 
         if (!$profile instanceof PosterInterface)
@@ -113,9 +113,9 @@ class ProfileController extends ProfileBaseController
 
         $page = $this->request->getParam('page', 1);
 
-        $paging = \App::relationService()->loadMemberPaging($query, $page);
+        $paging = app()->relation()->loadMemberPaging($query, $page);
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         $this->view
             ->setScript($lp)

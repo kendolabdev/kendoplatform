@@ -107,15 +107,15 @@ class HttpResponse
             if ($this->request->isAjaxFragment()) {
                 $json = json_encode([
                     'directive' => 'update',
-                    'title'     => \App::assetService()->title()->toText(),
-                    'html'      => \App::layouts()->render('/layout/master/site-ow')
+                    'title'     => app()->assetService()->title()->toText(),
+                    'html'      => app()->layouts()->render('/layout/master/site-ow')
                 ]);
                 echo '<script type="text/javascript">window.parent.onFetchPageComplete(' . $json . ')</script>';
             } else
                 if ($this->request->isAjax()) {
                     return $this->getContent();
                 } else {
-                    echo \App::layouts()->render();
+                    echo app()->layouts()->render();
                 }
         } catch (\Exception $e) {
             throw $e;

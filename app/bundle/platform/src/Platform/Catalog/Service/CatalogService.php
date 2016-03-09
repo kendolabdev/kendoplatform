@@ -2,7 +2,7 @@
 
 namespace Platform\Catalog\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Catalog\Form\AttributeCustomForm;
 use Platform\Catalog\Form\AttributeInternalForm;
 use Platform\Catalog\Model\AttributeField;
@@ -22,7 +22,7 @@ use Kendo\Html\FormField;
  *
  * @package Attribute\Service
  */
-class CatalogService extends KernelServiceAgreement
+class CatalogService extends KernelService
 {
 
     /**
@@ -51,7 +51,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function loadFieldIdConfig($contentId = 'user')
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['attribute', 'loadFieldIdConfig', $contentId], 0, function () use ($contentId) {
                 return $this->_loadFieldIdConfig($contentId);
             });
@@ -65,7 +65,7 @@ class CatalogService extends KernelServiceAgreement
     public function _loadFieldIdConfig($contentId = 'user')
     {
 
-        $fields = \App::table('attribute.attribute_field')
+        $fields = app()->table('attribute.attribute_field')
             ->select()
             ->where('content_id=?', $contentId)
             ->all();
@@ -186,7 +186,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function loadInternalListFieldByCatalogId($catalogId)
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['attribute', 'loadInternalListFieldByCatalogId', $catalogId], 0, function () use ($catalogId) {
                 return $this->_loadInternalListFieldByCatalogId($catalogId);
             });
@@ -225,7 +225,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function findSectionMap($catalogId, $sectionId)
     {
-        return \App::table('attribute.attribute_section_map')
+        return app()->table('attribute.attribute_section_map')
             ->select()
             ->where('catalog_id=?', $catalogId)
             ->where('section_id=?', $sectionId)
@@ -240,7 +240,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function findFieldMap($sectionId, $fieldId)
     {
-        return \App::table('attribute.attribute_field_map')
+        return app()->table('attribute.attribute_field_map')
             ->select()
             ->where('section_id=?', $sectionId)
             ->where('field_id=?', $fieldId)
@@ -277,7 +277,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function removeSectionMap($catalogId, $sectionId)
     {
-        \App::table('attribute.attribute_section_map')
+        app()->table('attribute.attribute_section_map')
             ->delete()
             ->where('catalog_id=?', $catalogId)
             ->where('section_id=?', $sectionId)
@@ -290,7 +290,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function removeFieldMap($sectionId, $fieldId)
     {
-        \App::table('attribute.attribute_field_map')
+        app()->table('attribute.attribute_field_map')
             ->delete()
             ->where('section_id=?', $sectionId)
             ->where('field_id=?', $fieldId)
@@ -331,7 +331,7 @@ class CatalogService extends KernelServiceAgreement
 
         $options = [];
 
-        $select = \App::table('attribute.attribute_option')
+        $select = app()->table('attribute.attribute_option')
             ->select()
             ->where('field_id=?', $fieldId)
             ->order('option_name', 1);
@@ -357,7 +357,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function getListFieldBySectionId($sectionId)
     {
-        return \App::table('attribute.attribute_field')
+        return app()->table('attribute.attribute_field')
             ->select('f')
             ->join(':attribute_field_map', 'm', 'f.field_id=m.field_id', null, null)
             ->where('m.section_id=?', (string)$sectionId)
@@ -373,7 +373,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function getListSectionByCatalogId($catalogId)
     {
-        return \App::table('attribute.attribute_section')
+        return app()->table('attribute.attribute_section')
             ->select('s')
             ->join(':attribute_section_map', 'm', 's.section_id=m.section_id', null, null)
             ->where('m.catalog_id=?', (string)$catalogId)
@@ -436,7 +436,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function findOptionById($id)
     {
-        return \App::table('attribute.attribute_option')
+        return app()->table('attribute.attribute_option')
             ->findById((string)$id);
     }
 
@@ -447,7 +447,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function findPluginById($id)
     {
-        return \App::table('attribute.attribute_plugin')
+        return app()->table('attribute.attribute_plugin')
             ->findById((string)$id);
     }
 
@@ -459,7 +459,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function findFieldById($id)
     {
-        return \App::table('attribute.attribute_field')
+        return app()->table('attribute.attribute_field')
             ->findById(intval($id));
     }
 
@@ -471,7 +471,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function findFieldByCode($code, $contentId)
     {
-        return \App::table('attribute.attribute_field')
+        return app()->table('attribute.attribute_field')
             ->select()
             ->where('field_code=?', (string)$code)
             ->where('content_id=?', (string)$contentId)
@@ -486,7 +486,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function findSectionById($id)
     {
-        return \App::table('attribute.attribute_section')
+        return app()->table('attribute.attribute_section')
             ->findById(intval($id));
     }
 
@@ -498,7 +498,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function findSectionByCode($code, $contentId)
     {
-        return \App::table('attribute.attribute_section')
+        return app()->table('attribute.attribute_section')
             ->select()
             ->where('section_code=?', (string)$code)
             ->where('content_id=?', (string)$contentId)
@@ -512,7 +512,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function findCatalogById($id)
     {
-        return \App::table('attribute.attribute_catalog')
+        return app()->table('attribute.attribute_catalog')
             ->findById(intval($id));
     }
 
@@ -524,7 +524,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function findCatalogByCode($code, $contentId)
     {
-        return \App::table('attribute.attribute_catalog')
+        return app()->table('attribute.attribute_catalog')
             ->select()
             ->where('catalog_code=?', (string)$code)
             ->where('content_id=?', (string)$contentId)
@@ -667,7 +667,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function loadAdminOptionPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('attribute.attribute_option')->select();
+        $select = app()->table('attribute.attribute_option')->select();
 
         if (!empty($query['field'])) {
             $select->where('field_id=?', (string)$query['field']);
@@ -685,7 +685,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function loadAdminFieldPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('attribute.attribute_field')
+        $select = app()->table('attribute.attribute_field')
             ->select();
 
         if (!empty($query['q'])) {
@@ -714,7 +714,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function loadAdminSectionPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('attribute.attribute_section')->select();
+        $select = app()->table('attribute.attribute_section')->select();
 
         if (!empty($query['content_id'])) {
             $select->where('content_id=?', (string)$query['content_id']);
@@ -742,7 +742,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function loadAdminCatalogPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('attribute.attribute_catalog')->select();
+        $select = app()->table('attribute.attribute_catalog')->select();
 
         if (!empty($query['content_id'])) {
             $select->where('content_id=?', (string)$query['content_id']);
@@ -761,7 +761,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function loadContentTypeOptions()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['attribute', 'loadContentTypeOptions'], 0, function () {
                 return $this->_loadContentTypeOptions();
             });
@@ -772,9 +772,9 @@ class CatalogService extends KernelServiceAgreement
      */
     public function _loadContentTypeOptions()
     {
-        $select = \App::table('platform_core_type')
+        $select = app()->table('platform_core_type')
             ->select()
-            ->where('module_name in ?', \App::packages()->getActiveModules())
+            ->where('module_name in ?', app()->packages()->getActiveModules())
             ->where('has_attribute_catalog=?', 1);
 
 
@@ -798,7 +798,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function loadAdminCatalogOptions()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['attribute', '_loadAdminCatalogOptions'], 0, function () {
                 return $this->_loadAdminCatalogOptions();
             });
@@ -809,7 +809,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function _loadAdminCatalogOptions()
     {
-        $select = \App::table('attribute.attribute_catalog')
+        $select = app()->table('attribute.attribute_catalog')
             ->select();
 
 
@@ -833,7 +833,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function loadAdminPluginOptions()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['attribute', 'loadAdminPluginOptions'], 0, function () {
                 return $this->_loadAdminPluginOptions();
             });
@@ -844,7 +844,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function _loadAdminPluginOptions()
     {
-        $select = \App::table('attribute.attribute_plugin')
+        $select = app()->table('attribute.attribute_plugin')
             ->select()
             ->order('plugin_name', 1);
 
@@ -871,7 +871,7 @@ class CatalogService extends KernelServiceAgreement
      */
     public function getListPluginByModuleName($moduleList)
     {
-        return \App::table('attribute.attribute_plugin')
+        return app()->table('attribute.attribute_plugin')
             ->select()
             ->where('module_name IN ?', $moduleList)
             ->toAssocs();

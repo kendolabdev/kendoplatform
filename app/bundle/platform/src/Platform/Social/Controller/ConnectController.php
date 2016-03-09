@@ -30,7 +30,7 @@ class ConnectController extends DefaultController
      */
     public function getUserService()
     {
-        return \App::instance()->make('platform_user');
+        return app()->instance()->make('platform_user');
     }
 
     /**
@@ -40,7 +40,7 @@ class ConnectController extends DefaultController
     {
         $service = $this->request->getString('service', 'facebook');
 
-        $socialService = \App::instance()->make('platform_social');
+        $socialService = app()->instance()->make('platform_social');
 
         if (!$socialService instanceof SocialService) ;
 
@@ -57,7 +57,7 @@ class ConnectController extends DefaultController
     {
         $service = $this->request->getString('service', 'facebook');
 
-        $socialService = \App::instance()->make('platform_social');
+        $socialService = app()->instance()->make('platform_social');
 
         if (!$socialService instanceof SocialService) ;
 
@@ -71,9 +71,9 @@ class ConnectController extends DefaultController
         $url = null;
 
         if ($token) {
-            $url = \App::routing()->getUrl('oauth_success', ['service' => $service]);
+            $url = app()->routing()->getUrl('oauth_success', ['service' => $service]);
         } else {
-            $url = \App::routing()->getUrl('oauth_failure', ['service' => $service]);
+            $url = app()->routing()->getUrl('oauth_failure', ['service' => $service]);
 
         }
         $this->request->redirectToUrl($url);
@@ -87,7 +87,7 @@ class ConnectController extends DefaultController
     {
         $service = $this->request->getString('service', 'facebook');
 
-        $socialService = \App::instance()->make('platform_social');
+        $socialService = app()->instance()->make('platform_social');
 
         if (!$socialService instanceof SocialService) ;
 
@@ -107,7 +107,7 @@ class ConnectController extends DefaultController
          * Select auth user from these information.
          */
 
-        $remote = \App::table('platform_user_auth_remote')
+        $remote = app()->table('platform_user_auth_remote')
             ->select()
             ->where('remote_uid=?', (string)$me['remote_uid'])
             ->where('remote_service=?', (string)$me['remote_service'])
@@ -124,9 +124,9 @@ class ConnectController extends DefaultController
             if ($user instanceof User) {
                 $this->getUserService()->addRemoteUser($user, $me['remote_uid'], $me['remote_service']);
 
-                \App::authService()->store($user, null, false);
+                app()->auth()->store($user, null, false);
 
-                \App::routing()->redirect('home');
+                app()->routing()->redirect('home');
 
             }
         }
@@ -138,8 +138,8 @@ class ConnectController extends DefaultController
         $gotoRegister = true;
 
 
-        if (\App::authService()->logged()) {
-            $this->getUserService()->addRemoteUser(\App::authService()->getUser(), $me['remote_uid'], $me['remote_service']);
+        if (app()->auth()->logged()) {
+            $this->getUserService()->addRemoteUser(app()->auth()->getUser(), $me['remote_uid'], $me['remote_service']);
 
             // try location redirect then exists
             $this->request->redirect('home');
@@ -151,19 +151,19 @@ class ConnectController extends DefaultController
                 // validate current user result
 
 
-                $user = \App::table('platform_user')
+                $user = app()->table('platform_user')
                     ->findById((string)$remote->__get('user_id'));
 
                 if ($user) {
                     // try to logged in with current user result
-                    $result = \App::authService()->login('remote', [
+                    $result = app()->auth()->login('remote', [
                         'identity'   => $me['remote_uid'],
                         'credential' => $me['remote_service'],
                     ]);
 
                     if ($result->isValid()) {
 
-                        \App::authService()->store($result->getUser(), null, false);
+                        app()->auth()->store($result->getUser(), null, false);
 
                         // try location redirect then exists
                         return $this->request->redirect('home');

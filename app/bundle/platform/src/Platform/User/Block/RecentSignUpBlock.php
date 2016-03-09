@@ -17,7 +17,7 @@ class RecentSignUpBlock extends BlockController
      */
     public function execute()
     {
-        $select = \App::table('platform_user')
+        $select = app()->table('platform_user')
             ->select('u')
             ->where('is_active=?', 1)
             ->where('is_published=?', 1)

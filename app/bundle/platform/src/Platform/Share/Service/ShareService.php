@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Share\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Feed\Model\Feed;
 use Kendo\Content\PosterInterface;
 use Platform\Share\Model\Share;
@@ -12,14 +12,14 @@ use Platform\Share\Model\Share;
  *
  * @package Share\Service
  */
-class ShareService extends KernelServiceAgreement
+class ShareService extends KernelService
 {
     /**
      * @return int
      */
     public function getAdminStatisticCount()
     {
-        return \App::table('platform_share')
+        return app()->table('platform_share')
             ->select()
             ->count();
     }
@@ -83,7 +83,7 @@ class ShareService extends KernelServiceAgreement
 
         $share->save();
 
-        $feed = \App::feedService()->addItemFeed('share', $share);
+        $feed = app()->feedService()->addItemFeed('share', $share);
 
         $share->setFeedId($feed->getId());
         $share->save();

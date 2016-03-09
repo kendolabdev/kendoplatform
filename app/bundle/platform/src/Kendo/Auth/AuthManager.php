@@ -4,7 +4,7 @@ namespace Kendo\Auth;
 
 use Kendo\Content\ContentInterface;
 use Kendo\Content\PosterInterface;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\User\Model\User;
 
 /**
@@ -15,7 +15,7 @@ use Platform\User\Model\User;
  *
  * @package Kendo\Auth
  */
-class AuthManager extends KernelServiceAgreement
+class AuthManager extends KernelService
 {
 
     /**

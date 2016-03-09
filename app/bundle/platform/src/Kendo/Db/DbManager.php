@@ -9,14 +9,14 @@
  */
 
 namespace Kendo\Db;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class Manager
  *
  * @package Kendo\Db
  */
-class DbManager extends KernelServiceAgreement
+class DbManager extends KernelService
 {
     /**
      * @var array

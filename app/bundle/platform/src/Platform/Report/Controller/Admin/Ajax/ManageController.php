@@ -20,7 +20,7 @@ class ManageController extends AjaxController
         $page = $this->request->getParam('page', 1);
         $query = $this->request->getArray('query');
 
-        $paging = \App::reportService()->loadAdminReportPaging($query, $page);
+        $paging = app()->reportService()->loadAdminReportPaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 

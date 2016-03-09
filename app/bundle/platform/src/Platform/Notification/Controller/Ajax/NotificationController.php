@@ -18,9 +18,9 @@ class NotificationController extends AjaxController
      */
     public function actionResetMitigated()
     {
-        $parent = \App::authService()->getViewer();
+        $parent = app()->auth()->getViewer();
 
-        \App::notificationService()
+        app()->notificationService()
             ->clearMitigatedNotificationState($parent);
 
     }
@@ -31,14 +31,14 @@ class NotificationController extends AjaxController
      */
     public function actionBearDialog()
     {
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
         $page = $this->request->getParam('page', 1);
         $query = $this->request->getArray('query');
 
-        $paging = \App::notificationService()->loadNotificationPaging($query, $page);
+        $paging = app()->notificationService()->loadNotificationPaging($query, $page);
 
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams('notification_ajax_bear_dialog');
 
         $this->response = [
@@ -61,7 +61,7 @@ class NotificationController extends AjaxController
         $page = $this->request->getParam('page', 1);
         $query = $this->request->getArray('query');
 
-        $paging = \App::notificationService()->loadNotificationPaging($query, $page);
+        $paging = app()->notificationService()->loadNotificationPaging($query, $page);
 
         $lp = new BlockParams($this->request->getParam('lp'));
 

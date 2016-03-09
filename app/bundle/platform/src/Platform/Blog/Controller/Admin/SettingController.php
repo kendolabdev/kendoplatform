@@ -21,7 +21,7 @@ class SettingController extends AdminController
 
         $form = new BlogSetting([]);
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName('admin_simple')
             ->setPageTitle('blog.manage_settings')
             ->setPageNote('These settings affected to all members')

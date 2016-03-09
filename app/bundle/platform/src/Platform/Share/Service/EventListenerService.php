@@ -7,7 +7,7 @@ use Kendo\Content\AtomInterface;
 use Kendo\Content\PosterInterface;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Share\Model\Share;
 
@@ -99,7 +99,7 @@ class EventListenerService extends EventListener
             $about->modify('share_count', 'share_count+1');
 
 
-        \App::notificationService()->notify('item_shared', $poster, $share);
+        app()->notificationService()->notify('item_shared', $poster, $share);
 
     }
 

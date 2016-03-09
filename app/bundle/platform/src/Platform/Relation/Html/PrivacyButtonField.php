@@ -186,7 +186,7 @@ class PrivacyButtonField extends HtmlElement implements FormField
     public function getForPoster()
     {
         if (null == $this->forPoster) {
-            $this->forPoster = \App::authService()->getViewer();
+            $this->forPoster = app()->auth()->getViewer();
         }
 
         return $this->forPoster;
@@ -242,7 +242,7 @@ class PrivacyButtonField extends HtmlElement implements FormField
     public function getForParent()
     {
         if (null == $this->forParent) {
-            $this->forParent = \App::authService()->getViewer();
+            $this->forParent = app()->auth()->getViewer();
         }
 
         return $this->forParent;
@@ -299,7 +299,7 @@ class PrivacyButtonField extends HtmlElement implements FormField
         }
 
         // privacy_view , blog_post_view, 18, 24; how to control following items.
-        $privacy = \App::relationService()->getRelationOptionForSelect($forParent, $forPoster, $forAction, $relationType, $relationValue);
+        $privacy = app()->relation()->getRelationOptionForSelect($forParent, $forPoster, $forAction, $relationType, $relationValue);
 
         $attrs = json_encode([
             'forAction'  => $forAction,

@@ -21,7 +21,7 @@ class HomeController extends DefaultController
 
         $filter = new FilterVideo();
 
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('video_main', null, 'video_browse')
             ->setPageFilter($filter)
             ->setPageTitle('video.videos');
@@ -30,9 +30,9 @@ class HomeController extends DefaultController
 
         $query = [];
 
-        $paging = \App::videoService()->loadVideoPaging([], $page);
+        $paging = app()->videoService()->loadVideoPaging([], $page);
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
@@ -50,19 +50,19 @@ class HomeController extends DefaultController
     public function actionMyVideo()
     {
 
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('video_main', null, 'video_my')
             ->setPageTitle('video.videos');
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
 
         $page = $this->request->getParam('page', 1);
 
         $query = ['posterId' => $poster->getId()];
 
-        $paging = \App::videoService()->loadVideoPaging($query, $page);
+        $paging = app()->videoService()->loadVideoPaging($query, $page);
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([
@@ -79,16 +79,16 @@ class HomeController extends DefaultController
     public function actionEmbedVideo()
     {
 
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('video_main', null, 'video_embed')
             ->setPageTitle('video.videos');
 
         $form = new VideoFromUrl([]);
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
         $parent = $poster;
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         if ($this->request->isPost()) {
 
@@ -99,15 +99,15 @@ class HomeController extends DefaultController
             $videoUrl = $data['videoUrl'];
 
 
-            $result = \App::videoService()->parseFromUrl($videoUrl);
+            $result = app()->videoService()->parseFromUrl($videoUrl);
 
-            $video = \App::videoService()->addVideo($poster, $parent, $result->toArray());
+            $video = app()->videoService()->addVideo($poster, $parent, $result->toArray());
 
             if ($video) {
 
-                \App::feedService()->addItemFeed('video_shared', $video);
+                app()->feedService()->addItemFeed('video_shared', $video);
 
-                \App::routing()->redirect('videos');
+                app()->routing()->redirect('videos');
             }
         }
 
@@ -123,16 +123,16 @@ class HomeController extends DefaultController
     public function actionUploadVideo()
     {
 
-        \App::layouts()
+        app()->layouts()
             ->setupSecondaryNavigation('video_main', null, 'video_create')
             ->setPageTitle('video.videos');
 
         $form = new VideoFromUrl([]);
 
-        $poster = \App::authService()->getViewer();
+        $poster = app()->auth()->getViewer();
         $parent = $poster;
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         if ($this->request->isPost()) {
             $form->setData($_POST);
@@ -141,13 +141,13 @@ class HomeController extends DefaultController
 
             $videoUrl = $data['videoUrl'];
 
-            $result = \App::videoService()->parseFromUrl($videoUrl);
+            $result = app()->videoService()->parseFromUrl($videoUrl);
 
-            $video = \App::videoService()->addVideo($poster, $parent, $result->toArray());
+            $video = app()->videoService()->addVideo($poster, $parent, $result->toArray());
 
-            \App::feedService()->addItemFeed('video_shared', $video);
+            app()->feedService()->addItemFeed('video_shared', $video);
 
-            \App::routing()->redirect('videos');
+            app()->routing()->redirect('videos');
 
         }
 
@@ -164,18 +164,18 @@ class HomeController extends DefaultController
     {
         $id = $this->request->getString('id');
 
-        $video = \App::videoService()->findVideo($id);
+        $video = app()->videoService()->findVideo($id);
 
         if (!$video instanceof Video)
             throw new \InvalidArgumentException("Video not found");
 
-        \App::assetService()
+        app()->assetService()
             ->setTitle($video->getTitle())
             ->setDescription($video->getDescription());
 
-        \App::registryService()->set('about', $video);
+        app()->registryService()->set('about', $video);
 
-        $lp = \App::layouts()->getContentLayoutParams();
+        $lp = app()->layouts()->getContentLayoutParams();
 
         $this->view->setScript($lp)
             ->assign([

@@ -2,7 +2,7 @@
 
 namespace Platform\Follow\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Follow\Model\Follow;
 use Kendo\Content\PosterInterface;
 
@@ -12,7 +12,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Activity\Service
  */
-class FollowService extends KernelServiceAgreement
+class FollowService extends KernelService
 {
     /**
      * Not following
@@ -33,7 +33,7 @@ class FollowService extends KernelServiceAgreement
      */
     public function loadFollowPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('platform_follow')->select();
+        $select = app()->table('platform_follow')->select();
 
         $isValid = false;
 
@@ -63,7 +63,7 @@ class FollowService extends KernelServiceAgreement
      */
     public function findFollow(PosterInterface $poster, PosterInterface $parent)
     {
-        return \App::table('platform_follow')
+        return app()->table('platform_follow')
             ->select()
             ->where('parent_id=?', $parent->getId())
             ->where('poster_id=?', $poster->getId())
@@ -179,7 +179,7 @@ class FollowService extends KernelServiceAgreement
      */
     public function getFollowedIdList($posterId)
     {
-        $response = \App::table('platform_follow')
+        $response = app()->table('platform_follow')
             ->select()
             ->where('poster_id=?', $posterId)
             ->toInts('parent_id');
@@ -198,7 +198,7 @@ class FollowService extends KernelServiceAgreement
      */
     public function getFollowedById($parentId)
     {
-        $response = \App::table('platform_follow')
+        $response = app()->table('platform_follow')
             ->select()
             ->where('parent_id=?', $parentId)
             ->one('poster_id');
@@ -215,7 +215,7 @@ class FollowService extends KernelServiceAgreement
      */
     public function getFollowedSelect($posterId)
     {
-        return \App::table('platform_follow')
+        return app()->table('platform_follow')
             ->select()
             ->where('poster_id=?', $posterId);
     }
@@ -240,7 +240,7 @@ class FollowService extends KernelServiceAgreement
 
         $posterId = $poster->getId();
 
-        $resultList = \App::table('platform_follow')
+        $resultList = app()->table('platform_follow')
             ->select()
             ->where('poster_id=?', $posterId)
             ->where('parent_id IN ?', $itemIdList)
@@ -265,7 +265,7 @@ class FollowService extends KernelServiceAgreement
             return self::NOT_FOLLOW;
         }
 
-        $result = \App::table('platform_follow')
+        $result = app()->table('platform_follow')
             ->select()
             ->where('poster_id=?', $poster->getId())
             ->where('parent_id = ?', $parentId)
@@ -285,7 +285,7 @@ class FollowService extends KernelServiceAgreement
      */
     public function getFollowedBySelect($parentId)
     {
-        return \App::table('platform_follow')
+        return app()->table('platform_follow')
             ->select()
             ->where('parent_id=?', $parentId);
     }
@@ -300,7 +300,7 @@ class FollowService extends KernelServiceAgreement
     {
         return strtr(':alias.poster_id=:viewerId OR :alias.poster_id IN (SELECT parent_id FROM :prefix_platform_follow WHERE poster_id=:viewerId)', [
             ':alias'    => $alias,
-            ':prefix_'  => \App::db()->getPrefix(),
+            ':prefix_'  => app()->db()->getPrefix(),
             ':viewerId' => (string)$viewerId
         ]);
     }
@@ -310,7 +310,7 @@ class FollowService extends KernelServiceAgreement
      */
     public function removeAllByPoster($poster)
     {
-        \App::table('platform_follow')
+        app()->table('platform_follow')
             ->delete()
             ->where('parent_id=?', $poster->getId())
             ->orWhere('poster_id=?', $poster->getId())

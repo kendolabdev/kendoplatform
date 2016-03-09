@@ -2,7 +2,7 @@
 
 namespace Platform\Blog\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Blog\Model\BlogCategory;
 use Platform\Blog\Model\BlogPost;
 use Kendo\Content\PosterInterface;
@@ -12,7 +12,7 @@ use Kendo\Content\PosterInterface;
  *
  * @package Base\Blog\Service
  */
-class BlogService extends KernelServiceAgreement
+class BlogService extends KernelService
 {
 
     /**
@@ -22,7 +22,7 @@ class BlogService extends KernelServiceAgreement
      */
     public function findCategoryById($id)
     {
-        return \App::table('platform_blog_category')
+        return app()->table('platform_blog_category')
             ->findById(intval($id));
     }
 
@@ -54,7 +54,7 @@ class BlogService extends KernelServiceAgreement
      */
     public function loadAdminCategoryPaging($query = [], $page = 1, $limit = 12)
     {
-        $select = \App::table('platform_blog_category')->select('t');
+        $select = app()->table('platform_blog_category')->select('t');
 
         if (!empty($query['q']))
             $select->where('category_name like ?', '%' . $query['q'] . '%');
@@ -72,7 +72,7 @@ class BlogService extends KernelServiceAgreement
     public function loadAdminPostPaging($query, $page = 1, $limit = 12)
     {
 
-        $select = \App::table('platform_blog_post')->select('t');
+        $select = app()->table('platform_blog_post')->select('t');
 
         if (!empty($query['q']))
             $select->where('title like :q OR description like :q or content like :q', [
@@ -99,7 +99,7 @@ class BlogService extends KernelServiceAgreement
     public function loadPostPaging($query, $page = 1, $limit = 12)
     {
 
-        $select = \App::table('platform_blog_post')->select('t');
+        $select = app()->table('platform_blog_post')->select('t');
 
         $isOwner = false;
         $inProfile = false;
@@ -109,7 +109,7 @@ class BlogService extends KernelServiceAgreement
 
             $select->where('t.poster_id=?', $posterId);
 
-            if ($posterId == \App::authService()->getId()) {
+            if ($posterId == app()->auth()->getId()) {
                 $isOwner = true;
             }
         }
@@ -120,7 +120,7 @@ class BlogService extends KernelServiceAgreement
 
             $select->where('t.user_id=?', $userId);
 
-            if ($userId == \App::authService()->getUserId()) {
+            if ($userId == app()->auth()->getUserId()) {
                 $isOwner = true;
             }
         }
@@ -135,23 +135,23 @@ class BlogService extends KernelServiceAgreement
         }
 
         if (!$inProfile) {
-            $browsingMode = \App::setting('blog', 'browsing_mode');
+            $browsingMode = app()->setting('blog', 'browsing_mode');
             switch ($browsingMode) {
                 case 0:
                     break;
                 case 1:
-                    $select->where(\App::followService()->getFollowingConditionForQuery(\App::authService()->getId(), 't'), null);
+                    $select->where(app()->followService()->getFollowingConditionForQuery(app()->auth()->getId(), 't'), null);
                     break;
             }
         }
 
         if (!$isOwner) {
-            switch (\App::setting('blog', 'browsing_filter')) {
+            switch (app()->setting('blog', 'browsing_filter')) {
                 case 0:
-                    $select->where(\App::relationService()->getPrivacyConditionForQuery(\App::authService()->getId(), 't'), null);
+                    $select->where(app()->relation()->getPrivacyConditionForQuery(app()->auth()->getId(), 't'), null);
                     break;
                 case 1:
-                    if (\App::authService()->logged())
+                    if (app()->auth()->logged())
                         $select->where('t.privacy_type IN ?', [1, 2]);
                     else
                         $select->where('t.privacy_type = ?', 1);
@@ -171,7 +171,7 @@ class BlogService extends KernelServiceAgreement
      */
     public function getActiveBlogCount()
     {
-        return \App::table('platform_blog_post')
+        return app()->table('platform_blog_post')
             ->select()
             ->count();
     }
@@ -185,7 +185,7 @@ class BlogService extends KernelServiceAgreement
      */
     public function findPostById($id)
     {
-        return \App::table('platform_blog_post')
+        return app()->table('platform_blog_post')
             ->findById($id);
     }
 
@@ -198,7 +198,7 @@ class BlogService extends KernelServiceAgreement
      */
     public function findPost($id)
     {
-        return \App::table('platform_blog_post')
+        return app()->table('platform_blog_post')
             ->findById($id);
     }
 
@@ -243,7 +243,7 @@ class BlogService extends KernelServiceAgreement
      */
     public function getAdminCategoryOptions()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['blog', 'getAdminCategoryOptions'], 0,
                 function () {
                     return $this->_getAdminCategoryOptions();
@@ -255,7 +255,7 @@ class BlogService extends KernelServiceAgreement
      */
     private function _getAdminCategoryOptions()
     {
-        $select = \App::table('platform_blog_category')
+        $select = app()->table('platform_blog_category')
             ->select()
             ->order('category_name', 1);
 
@@ -282,7 +282,7 @@ class BlogService extends KernelServiceAgreement
      */
     public function getCategoryOptions()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['blog', 'getCategoryOptions'], 0,
                 function () {
                     return $this->_getCategoryOptions();
@@ -296,7 +296,7 @@ class BlogService extends KernelServiceAgreement
      */
     private function _getCategoryOptions()
     {
-        $select = \App::table('platform_blog_category')
+        $select = app()->table('platform_blog_category')
             ->select()
             ->order('category_name', 1);
 

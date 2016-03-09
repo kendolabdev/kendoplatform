@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Comment\Service;
 
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Comment\Model\Comment;
 use Kendo\Hook\EventListener;
@@ -98,7 +98,7 @@ class EventListenerService extends EventListener
          * check to notify any subscribed members about this post
          */
 
-        \App::notificationService()
+        app()->notificationService()
             ->notify('item_commented', $cmt->getPoster(), $about, ['id' => $cmt->getId()]);
 
     }

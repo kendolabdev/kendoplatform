@@ -22,18 +22,18 @@ class GroupPermission extends BasePermission
 
         $role = $this->getRole();
 
-        \App::emitter()
+        app()->emitter()
             ->emit('onBeforeInitGroupPermissionForm', $this);
 
         /**
          * Add privacy options
          */
         if (!$role->isGuest() && $role->getModuleName() == 'group') {
-            $relationTypes = \App::relationService()->getAllSystemRelationType('group');
+            $relationTypes = app()->relation()->getAllSystemRelationType('group');
 
             $privacyOptions = [
-                ['value' => RELATION_TYPE_ANYONE, 'label' => \App::text('core.public'),],
-                ['value' => RELATION_TYPE_REGISTERED, 'label' => \App::text('core.registered')],
+                ['value' => RELATION_TYPE_ANYONE, 'label' => app()->text('core.public'),],
+                ['value' => RELATION_TYPE_REGISTERED, 'label' => app()->text('core.registered')],
             ];
 
             foreach ($relationTypes as $type) {
@@ -117,7 +117,7 @@ class GroupPermission extends BasePermission
                 'value'  => '10',
             ]);
 
-        \App::emitter()
+        app()->emitter()
             ->emit('onAfterInitGroupPermissionForm', $this);
     }
 }

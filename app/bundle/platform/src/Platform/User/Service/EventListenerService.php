@@ -2,8 +2,8 @@
 
 namespace Platform\User\Service;
 
-use Kendo\Http\RoutingResult;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingResult;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\Invitation\Model\Invitation;
 use Platform\Page\Model\Page;
@@ -148,7 +148,7 @@ class EventListenerService extends EventListener
             'delegate' => 'profile',
             'uri'      => 'profile/<name>(/<any>)',
             'uri_expr' => [
-                'stuff' => '.+',
+                'any' => '.+',
             ],
             'defaults' => [
                 'controller'  => 'Platform\User\Controller\ProfileController',
@@ -188,7 +188,7 @@ class EventListenerService extends EventListener
 
         $name = $result->get('name');
 
-        $entry = \App::table('platform_user')
+        $entry = app()->table('platform_user')
             ->select()
             ->where('profile_name=? or user_id=?', (string)$name)
             ->one();
@@ -256,7 +256,7 @@ class EventListenerService extends EventListener
 
         $parent = $invitation->getParent();
 
-        \App::relationService()->acceptMembershipRequest($poster, $parent, false);
+        app()->relation()->acceptMembershipRequest($poster, $parent, false);
     }
 
     /**
@@ -267,11 +267,11 @@ class EventListenerService extends EventListener
 
         $payload = $event->getPayload();
 
-        if (false == \App::authService()->logged()) return;
+        if (false == app()->auth()->logged()) return;
 
         if (!$payload instanceof PosterInterface) return;
 
-        $content = \App::viewHelper()->partial('platform/user/partial/composer-footer-add-people');
+        $content = app()->viewHelper()->partial('platform/user/partial/composer-footer-add-people');
 
         $event->append($content);
     }
@@ -283,7 +283,7 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemMembers($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         if ($profile instanceof User)
             return false;
@@ -295,7 +295,7 @@ class EventListenerService extends EventListener
             return false;
 
 
-        $item['href'] = $profile->toHref(['stuff' => 'members']);
+        $item['href'] = $profile->toHref(['any' => 'members']);
 
         return $item;
     }
@@ -312,8 +312,8 @@ class EventListenerService extends EventListener
         $stats = $payload->__get('stats');
 
         $stats['user'] = [
-            'label' => \App::text('user . members'),
-            'value' => \App::userService()->getActiveUserCount(),
+            'label' => app()->text('user . members'),
+            'value' => app()->user()->getActiveUserCount(),
         ];
 
         $payload->__set('stats', $stats);
@@ -326,9 +326,9 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemAbout($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
-        $item['href'] = $profile->toHref(['stuff' => 'about']);
+        $item['href'] = $profile->toHref(['any' => 'about']);
 
         return $item;
     }
@@ -340,7 +340,7 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemFriends($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         if (!$profile instanceof User)
             return false;
@@ -348,10 +348,10 @@ class EventListenerService extends EventListener
         if (!$profile->authorize('user__friend_tab_exists'))
             return false;
 
-        if (!\App::aclService()->pass($profile, 'user__friend_tab_view'))
+        if (!app()->aclService()->pass($profile, 'user__friend_tab_view'))
             return false;
 
-        $item['href'] = $profile->toHref(['stuff' => 'friends']);
+        $item['href'] = $profile->toHref(['any' => 'friends']);
 
         return $item;
     }
@@ -364,7 +364,7 @@ class EventListenerService extends EventListener
      */
     public function onUserCreated(HookEvent $event)
     {
-        $config = \App::setting('register');
+        $config = app()->setting('register');
 
         $user = $event->getPayload();
 

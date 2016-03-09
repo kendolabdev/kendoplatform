@@ -59,7 +59,7 @@ class SuggestField extends HtmlElement implements FormField
         if (!empty($values)) {
             foreach ($values as $value) {
                 list($id, $type) = explode('@', $value);
-                $item = \App::find($type, $id);
+                $item = app()->find($type, $id);
 
                 if (null != $item) {
                     $tokens[] = $item;
@@ -67,7 +67,7 @@ class SuggestField extends HtmlElement implements FormField
             }
         }
 
-        return \App::viewHelper()->partial('/layout/partial/form-render/suggest-field', [
+        return app()->viewHelper()->partial('/layout/partial/form-render/suggest-field', [
             'attrs'    => $this->_flat($this->attributes),
             'name'     => $this->getName(),
             'multiple' => $this->isMultiple(),

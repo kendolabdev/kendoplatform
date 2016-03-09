@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Core\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Core\Model\CoreExtension;
 use Kendo\Assets\Requirejs;
 
@@ -10,7 +10,7 @@ use Kendo\Assets\Requirejs;
  *
  * @package Core\Service
  */
-class ExtensionService extends KernelServiceAgreement
+class ExtensionService extends KernelService
 {
 
     /**
@@ -25,7 +25,7 @@ class ExtensionService extends KernelServiceAgreement
      */
     public function findExensionById($id)
     {
-        return \App::table('platform_core_extension')
+        return app()->table('platform_core_extension')
             ->select()
             ->where('id=?', (string)$id)
             ->one();
@@ -38,7 +38,7 @@ class ExtensionService extends KernelServiceAgreement
      */
     public function findExtensionByName($name)
     {
-        return \App::table('platform_core_extension')
+        return app()->table('platform_core_extension')
             ->select()
             ->where('name=?', (string)$name)
             ->one();
@@ -49,7 +49,7 @@ class ExtensionService extends KernelServiceAgreement
      */
     public function getModuleOptions()
     {
-        $items = \App::table('platform_core_extension')
+        $items = app()->table('platform_core_extension')
             ->select()
             ->where('extension_type=?', 'module')
             ->where('is_active=?', 1)
@@ -114,7 +114,7 @@ class ExtensionService extends KernelServiceAgreement
          */
         $packages = $this->collectListPackageInformation();
 
-        $items = \App::table('platform_core_extension')
+        $items = app()->table('platform_core_extension')
             ->select()
             ->toPairs('name', 'id');
 
@@ -145,17 +145,17 @@ class ExtensionService extends KernelServiceAgreement
         }
 
         foreach ($checked as $id => $item) {
-            \App::autoload()
+            app()->autoload()
                 ->register($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
 
             $serviceName = sprintf("%s.install_handler", $item['name']);
 
-            $service = \App::service($serviceName);
+            $service = app()->service($serviceName);
 
             if (!$service instanceof ModuleInstallHandler) continue;
             $service->install();
         }
-        \App::cacheService()
+        app()->cacheService()
             ->flush();
     }
 
@@ -173,10 +173,10 @@ class ExtensionService extends KernelServiceAgreement
         $item = $packages[ $name ];
         $serviceName = sprintf("%s.install_handler", $item['name']);
 
-        \App::autoload()
+        app()->autoload()
             ->register($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
 
-        $service = \App::service($serviceName);
+        $service = app()->service($serviceName);
 
         if (!$service instanceof ModuleInstallHandler)
             return true;
@@ -202,10 +202,10 @@ class ExtensionService extends KernelServiceAgreement
         $item = $packages[ $name ];
         $serviceName = sprintf("%s.install_handler", $item['name']);
 
-        \App::autoload()
+        app()->autoload()
             ->register($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
 
-        $service = \App::service($serviceName);
+        $service = app()->service($serviceName);
 
         if (!$service instanceof ModuleInstallHandler)
             return true;
@@ -230,10 +230,10 @@ class ExtensionService extends KernelServiceAgreement
         $item = $packages[ $name ];
         $serviceName = sprintf("%s.install_handler", $item['name']);
 
-        \App::autoload()
+        app()->autoload()
             ->register($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
 
-        $service = \App::service($serviceName);
+        $service = app()->service($serviceName);
 
         if (!$service instanceof ModuleInstallHandler)
             return true;
@@ -258,10 +258,10 @@ class ExtensionService extends KernelServiceAgreement
         $item = $packages[ $name ];
         $serviceName = sprintf("%s.install_handler", $item['name']);
 
-        \App::autoload()
+        app()->autoload()
             ->register($item['namespace'], KENDO_BUNDLE_DIR . $item['path']);
 
-        $service = \App::service($serviceName);
+        $service = app()->service($serviceName);
 
         if (!$service instanceof ModuleInstallHandler)
             return true;
@@ -355,7 +355,7 @@ class ExtensionService extends KernelServiceAgreement
 
         $requirejs = new Requirejs();
 
-        \App::emitter()
+        app()->emitter()
             ->emit('onBeforeBuildBundleJS', $requirejs);
 
         $config = [

@@ -2,13 +2,13 @@
 
 include '../init.php';
 
-\App::coreService()
+app()->coreService()
     ->hook()
     ->scanHookFromEnableModulesThenImportToRepository();
 
 echo 'Rebuild hook: DONE', PHP_EOL;
 
-\App::cacheService()
+app()->cacheService()
     ->flush();
 
 echo 'Flush cached: DONE', PHP_EOL;

@@ -19,10 +19,10 @@ class ButtonChat
     {
 
         if (!$item instanceof PosterInterface) return '';
-        if (!\App::authService()->logged()) return '';
-        if (!\App::aclService()->pass($item, 'message.chat')) return '';
+        if (!app()->auth()->logged()) return '';
+        if (!app()->aclService()->pass($item, 'message.chat')) return '';
 
-        return \App::viewHelper()->partial('platform/message/partial/button-chat', [
+        return app()->viewHelper()->partial('platform/message/partial/button-chat', [
             'item'  => $item,
             'attrs' => ['id' => $item->getId(), 'type' => $item->getType()],
         ]);

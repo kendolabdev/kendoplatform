@@ -2,14 +2,14 @@
 
 namespace Kendo\View;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Class ViewFinder
  *
  * @package Kendo\View
  */
-class ViewFinder extends KernelServiceAgreement
+class ViewFinder extends KernelService
 {
     /**
      * @var string
@@ -42,10 +42,10 @@ class ViewFinder extends KernelServiceAgreement
     public function __construct()
     {
         $this->paths = [
-            'default' => KENDO_TEMPLATE_DIR . '/default',
+            'default' => KENDO_TEMPLATE_DIR . '/default/template',
         ];
 
-        if (\App::requester()->isMobile() && !\App::requester()->isTablet()) {
+        if (app()->requester()->isMobile() && !app()->requester()->isTablet()) {
             $this->checkMobile = true;
         }
     }
@@ -132,7 +132,7 @@ class ViewFinder extends KernelServiceAgreement
 
         $this->paths = $paths;
 
-        $this->scripts = \App::cacheService()
+        $this->scripts = app()->cacheService()
             ->get($paths, 0, function () use ($paths) {
                 return $this->_buildScriptPaths($paths);
             });

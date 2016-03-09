@@ -47,7 +47,7 @@ class AddSection extends Form
             'label'    => 'manage_process_form_section.step_label',
             'note'     => 'manage_process_form_section.step_note',
             'required' => true,
-            'options'  => \App::instance()->make('platform_core_process')->getStepOptions($this->getContentType(), $this->getActionType()),
+            'options'  => app()->instance()->make('platform_core_process')->getStepOptions($this->getContentType(), $this->getActionType()),
         ]);
 
         $this->addElement([

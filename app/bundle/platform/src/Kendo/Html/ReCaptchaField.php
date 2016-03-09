@@ -40,7 +40,7 @@ class ReCaptchaField extends HtmlElement implements FormField
     {
         $this->beforeRender();
 
-        $key = \App::setting('recaptcha', 'public_key');
+        $key = app()->setting('recaptcha', 'public_key');
 
         return '<script src="//www.google.com/recaptcha/api.js"></script>'
         . '<div class="g-recaptcha" data-sitekey="' . $key . '"></div>';
@@ -60,7 +60,7 @@ class ReCaptchaField extends HtmlElement implements FormField
          * @codeCoverageIgnoreStart
          */
         if (!$result) {
-            $this->addErrors(\App::text('core.invalid_captcha_value'));
+            $this->addErrors(app()->text('core.invalid_captcha_value'));
         }
 
         return $result;
@@ -81,7 +81,7 @@ class ReCaptchaField extends HtmlElement implements FormField
         $ch = curl_init('//www.google.com/recaptcha/api/siteverify');
 
         $postFields = http_build_query([
-            'secret'   => \App::setting('recaptcha', 'private_key'),
+            'secret'   => app()->setting('recaptcha', 'private_key'),
             'response' => $value,
             'remoteip' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1',
         ], null, '&');

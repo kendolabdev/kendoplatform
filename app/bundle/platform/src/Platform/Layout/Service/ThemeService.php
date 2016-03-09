@@ -18,7 +18,7 @@ class ThemeService
      */
     public function findThemeByExtensionName($name)
     {
-        return \App::table('platform_layout_theme')
+        return app()->table('platform_layout_theme')
             ->select()
             ->where('extension_name=?', (string)$name)
             ->one();
@@ -29,7 +29,7 @@ class ThemeService
      */
     public function getDefaultTheme()
     {
-        return \App::table('platform_layout_theme')
+        return app()->table('platform_layout_theme')
             ->select()
             ->where('is_default=?', 1)
             ->one();
@@ -56,7 +56,7 @@ class ThemeService
      */
     public function findThemeById($themeId)
     {
-        return \App::table('platform_layout_theme')
+        return app()->table('platform_layout_theme')
             ->findById((string)$themeId);
     }
 
@@ -66,7 +66,7 @@ class ThemeService
     public function getDefaultThemeId()
     {
 
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['layout.theme', 'getDefaultThemeId'], 0, function () {
                 return $this->_getDefaultThemeId();
             });
@@ -85,7 +85,7 @@ class ThemeService
         $container->add('kendo/main', 'kendo/main');
         $container->add('layout/main', 'layout/main');
 
-        \App::emitter()
+        app()->emitter()
             ->emit('onBeforeBuildBundleStylesheet', $container);
 
         $container->add('customize', 'customize');
@@ -114,7 +114,7 @@ class ThemeService
      */
     public function rebuildStylesheetForAllActiveTheme()
     {
-        $themes = \App::table('platform_layout_theme')
+        $themes = app()->table('platform_layout_theme')
             ->select()
             ->where('is_active=?', 1)
             ->all();
@@ -129,7 +129,7 @@ class ThemeService
      */
     public function setDefaultTheme(LayoutTheme $theme)
     {
-        \App::table('platform_layout_theme')
+        app()->table('platform_layout_theme')
             ->update(['is_default' => 0])
             ->where('theme_id <> ?', $theme->getId())
             ->execute();
@@ -144,12 +144,12 @@ class ThemeService
     public function rebuildStylesheetForTheme($themeId = null)
     {
         if (empty($themeId)) {
-            $themeId = \App::layouts()
+            $themeId = app()->layouts()
                 ->theme()
                 ->getDefaultThemeId();
         }
 
-        $theme = \App::layouts()
+        $theme = app()->layouts()
             ->theme()
             ->findThemeById($themeId);
 
@@ -157,7 +157,7 @@ class ThemeService
 
         $variables = $theme->getVariables();
 
-        $sass = \App::styleService();
+        $sass = app()->sass();
 
         $content = $sass->compile(
             null, $variables, [

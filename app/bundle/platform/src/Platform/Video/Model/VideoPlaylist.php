@@ -21,173 +21,152 @@ class VideoPlaylist extends Model implements UniqueId
 
     //START_TABLE_GENERATOR
 
-
+    
     /**
      * @return null|string
      */
-    public function getId()
-    {
-        return $this->__get('playlist_id');
+    public function getId(){
+       return $this->__get('playlist_id');
     }
 
     /**
      * @param $value
      */
-    public function setId($value)
-    {
-        $this->__set('playlist_id', $value);
+    public function setId($value){
+       $this->__set('playlist_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPlaylistId()
-    {
-        return $this->__get('playlist_id');
+    public function getPlaylistId(){
+       return $this->__get('playlist_id');
     }
 
     /**
      * @param $value
      */
-    public function setPlaylistId($value)
-    {
-        $this->__set('playlist_id', $value);
+    public function setPlaylistId($value){
+       $this->__set('playlist_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPosterId()
-    {
-        return $this->__get('poster_id');
+    public function getPosterId(){
+       return $this->__get('poster_id');
     }
 
     /**
      * @param $value
      */
-    public function setPosterId($value)
-    {
-        $this->__set('poster_id', $value);
+    public function setPosterId($value){
+       $this->__set('poster_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getUserId()
-    {
-        return $this->__get('user_id');
+    public function getUserId(){
+       return $this->__get('user_id');
     }
 
     /**
      * @param $value
      */
-    public function setUserId($value)
-    {
-        $this->__set('user_id', $value);
+    public function setUserId($value){
+       $this->__set('user_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentId()
-    {
-        return $this->__get('parent_id');
+    public function getParentId(){
+       return $this->__get('parent_id');
     }
 
     /**
      * @param $value
      */
-    public function setParentId($value)
-    {
-        $this->__set('parent_id', $value);
+    public function setParentId($value){
+       $this->__set('parent_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentUserId()
-    {
-        return $this->__get('parent_user_id');
+    public function getParentUserId(){
+       return $this->__get('parent_user_id');
     }
 
     /**
      * @param $value
      */
-    public function setParentUserId($value)
-    {
-        $this->__set('parent_user_id', $value);
+    public function setParentUserId($value){
+       $this->__set('parent_user_id', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPosterType()
-    {
-        return $this->__get('poster_type');
+    public function getPosterType(){
+       return $this->__get('poster_type');
     }
 
     /**
      * @param $value
      */
-    public function setPosterType($value)
-    {
-        $this->__set('poster_type', $value);
+    public function setPosterType($value){
+       $this->__set('poster_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getParentType()
-    {
-        return $this->__get('parent_type');
+    public function getParentType(){
+       return $this->__get('parent_type');
     }
 
     /**
      * @param $value
      */
-    public function setParentType($value)
-    {
-        $this->__set('parent_type', $value);
+    public function setParentType($value){
+       $this->__set('parent_type', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getPlaylistTitle()
-    {
-        return $this->__get('playlist_title');
+    public function getPlaylistTitle(){
+       return $this->__get('playlist_title');
     }
 
     /**
      * @param $value
      */
-    public function setPlaylistTitle($value)
-    {
-        $this->__set('playlist_title', $value);
+    public function setPlaylistTitle($value){
+       $this->__set('playlist_title', $value);
     }
 
     /**
      * @return null|string
      */
-    public function getCreatedAt()
-    {
-        return $this->__get('created_at');
+    public function getCreatedAt(){
+       return $this->__get('created_at');
     }
 
     /**
      * @param $value
      */
-    public function setCreatedAt($value)
-    {
-        $this->__set('created_at', $value);
+    public function setCreatedAt($value){
+       $this->__set('created_at', $value);
     }
 
     /**
      * @return \Platform\Video\Model\VideoPlaylistTable
      */
-    public function table()
-    {
-        return \App::table('platform_video_playlist');
+    public function table(){
+        return app()->table('platform_video_playlist');
     }
     //END_TABLE_GENERATOR
 }

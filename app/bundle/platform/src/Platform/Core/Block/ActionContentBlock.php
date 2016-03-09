@@ -16,6 +16,6 @@ class ActionContentBlock extends BlockController
      */
     public function getContent()
     {
-        return \App::requester()->getResponse()->getContent();;
+        return app()->requester()->getResponse()->getContent();;
     }
 }

@@ -6,7 +6,7 @@ use Kendo\Assets\Requirejs;
 use Kendo\Content\PosterInterface;
 use Kendo\Hook\HookEvent;
 use Kendo\Hook\SimpleContainer;
-use Kendo\Http\RoutingManager;
+use Kendo\Routing\RoutingManager;
 use Kendo\View\ViewHelper;
 use Platform\User\Model\User;
 
@@ -105,13 +105,13 @@ class EventListenerService extends EventListener
      */
     public function onProfileMenuItemRequests($item)
     {
-        $profile = \App::registryService()->get('profile');
+        $profile = app()->registryService()->get('profile');
 
         if (!$profile instanceof PosterInterface) return false;
 
         if (!$profile->viewerIsParent()) return false;
 
-        $item['href'] = $profile->toHref(['stuff' => 'requests']);
+        $item['href'] = $profile->toHref(['any' => 'requests']);
 
         return $item;
     }
@@ -123,7 +123,7 @@ class EventListenerService extends EventListener
      */
     public function onMenuMainInvitations($item)
     {
-        if (!\App::authService()->logged())
+        if (!app()->auth()->logged())
             return false;
 
         $item['class'] = 'visible-xs ni-invitation';
@@ -141,13 +141,13 @@ class EventListenerService extends EventListener
 
         if (!$parent instanceof PosterInterface or !$poster instanceof PosterInterface) return;
 
-        \App::notificationService()->addAcceptMembershipNotification($parent, $poster);
+        app()->notificationService()->addAcceptMembershipNotification($parent, $poster);
 
-        \App::invitationService()
+        app()->invitationService()
             ->removeMembershipRequest($poster, $parent);
 
         if ($parent instanceof User)
-            \App::invitationService()
+            app()->invitationService()
                 ->removeMembershipRequest($parent, $poster);
     }
 
@@ -165,7 +165,7 @@ class EventListenerService extends EventListener
 
         if (!$poster instanceof PosterInterface or !$parent instanceof PosterInterface) return;
 
-        \App::invitationService()
+        app()->invitationService()
             ->addMembershipRequest($poster, $parent);
     }
 }

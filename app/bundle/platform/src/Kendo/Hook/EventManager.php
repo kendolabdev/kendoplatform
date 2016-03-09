@@ -2,7 +2,7 @@
 
 namespace Kendo\Hook;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 
 /**
@@ -10,7 +10,7 @@ use Kendo\Kernel\KernelServiceAgreement;
  *
  * @package Kendo\Hook
  */
-class EventManager extends KernelServiceAgreement
+class EventManager extends KernelService
 {
     /**
      * @var array
@@ -38,7 +38,7 @@ class EventManager extends KernelServiceAgreement
         if (empty($this->events[ $eventName ]))
             return null;
 
-        return \App::instance()->make($this->events[ $eventName ][0])->{$eventName}($payload);
+        return app()->instance()->make($this->events[ $eventName ][0])->{$eventName}($payload);
     }
 
     /**
@@ -61,7 +61,7 @@ class EventManager extends KernelServiceAgreement
 
         foreach ($this->events[ $eventName ] as $listener) {
             try {
-                $instance = \App::instance()
+                $instance = app()->instance()
                     ->make($listener);
 
                 if (!$instance instanceof EventListener)
@@ -134,7 +134,7 @@ class EventManager extends KernelServiceAgreement
      */
     public function loadAllHookEvents()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['Kendo', 'hook', 'loadAllEvents'], 0, function () {
                 return $this->loadAllHookEventFromRepository();
             });
@@ -150,7 +150,7 @@ class EventManager extends KernelServiceAgreement
 
         $items = $this->app->table('platform_core_hook')
             ->select()
-            ->where('module_name IN ?', \App::packages()->getActiveModules())
+            ->where('module_name IN ?', app()->packages()->getActiveModules())
             ->order('event_name, load_order', 1)
             ->toAssocs();
 

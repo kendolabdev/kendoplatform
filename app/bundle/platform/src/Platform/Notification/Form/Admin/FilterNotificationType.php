@@ -25,7 +25,7 @@ class FilterNotificationType extends Form
             'class'  => 'form-control',
         ]);
 
-        $moduleOptions = \App::service('platform_core_extension')->getModuleOptions();
+        $moduleOptions = app()->service('platform_core_extension')->getModuleOptions();
 
         $this->addElement([
             'plugin'   => 'select',

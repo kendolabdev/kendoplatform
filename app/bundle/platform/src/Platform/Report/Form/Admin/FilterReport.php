@@ -15,7 +15,7 @@ class FilterReport extends Form
      */
     protected function init()
     {
-        $categoryOptions = \App::reportService()->loadCategoryOptions();
+        $categoryOptions = app()->reportService()->loadCategoryOptions();
 
         $this->addElement([
             'plugin'  => 'select',

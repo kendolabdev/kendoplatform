@@ -1,6 +1,6 @@
 <?php
 namespace Platform\Rad\Service;
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 
 /**
  * Rapid application developement
@@ -8,7 +8,7 @@ use Kendo\Kernel\KernelServiceAgreement;
  *
  * @package Rad\Service
  */
-class RadService extends KernelServiceAgreement
+class RadService extends KernelService
 {
 
 }

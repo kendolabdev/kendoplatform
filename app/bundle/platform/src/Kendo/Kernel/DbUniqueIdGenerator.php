@@ -15,7 +15,7 @@ class DbUniqueIdGenerator implements UniqueIdGeneratorInterface
      */
     public function nextId()
     {
-        $db = \App::db();
+        $db = app()->db();
         $conn = $db->getMaster();
 
         $table = $db->getName('platform_core_uid_generator');
@@ -36,7 +36,7 @@ class DbUniqueIdGenerator implements UniqueIdGeneratorInterface
      */
     public function setNextId($value)
     {
-        $db = \App::db();
+        $db = app()->db();
         $conn = $db->getMaster();
 
         $table = $db->getName('core_uid_generator');

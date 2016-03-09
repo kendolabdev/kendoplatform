@@ -4,7 +4,7 @@
  * Security check constant. <br/>
  * defined('KENDO') or die("Access denied.");
  */
-define('KENDO',true);
+define('KENDO', true);
 
 /**
  * Check required version php
@@ -121,8 +121,9 @@ defined('KENDO_STATIC_DIR') or define('KENDO_STATIC_DIR', KENDO_ROOT_DIR . '/sta
 /**
  *
  */
-defined('KENDO_TEMPLATE_DIR') or define('KENDO_TEMPLATE_DIR', KENDO_ROOT_DIR . '/app/template');
+defined('KENDO_TEMPLATE_DIR') or define('KENDO_TEMPLATE_DIR', KENDO_ROOT_DIR . '/app/theme/default');
 
+KENDO_TEMPLATE_DIR;
 /**
  * Directory separator
  *
@@ -202,10 +203,10 @@ defined('RELATION_TYPE_REGISTERED') or define('RELATION_TYPE_REGISTERED', 2);
 
 /**
  * Member's of owner privacy
-RELATION_TYPE_MEMBER
-defined('RELATION_TYPE_MEMBER') or define('RELATION_TYPE_MEMBER', 4);
-
-/**
+ * RELATION_TYPE_MEMBER
+ * defined('RELATION_TYPE_MEMBER') or define('RELATION_TYPE_MEMBER', 4);
+ *
+ * /**
  * Member of member of owner privacy
  */
 defined('RELATION_TYPE_MEMBER_OF_MEMBER') or define('RELATION_TYPE_MEMBER_OF_MEMBER', 5);
@@ -317,15 +318,23 @@ function _htmlattrs($array)
     return implode($part);
 }
 
-include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Kernel/ServiceInterface.php';
-include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Kernel/KernelServiceAgreement.php';
+include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Kernel/KernelServiceInterface.php';
+include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Kernel/KernelService.php';
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Kernel/Application.php';
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Kernel/ClassAutoload.php';
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Registry/Manager.php';
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/Db/DbManager.php';
 include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/App.php';
 
-\App::instance()->start();
+\Kendo\Kernel\Application::instance()->start();
+
+/**
+ * @return \Kendo\Kernel\Application
+ */
+function app()
+{
+    return \Kendo\Kernel\Application::instance();
+}
 
 /**
  * @param mixed $desktop
@@ -336,8 +345,9 @@ include_once KENDO_BUNDLE_DIR . '/platform/src/Kendo/App.php';
  */
 function _screen($desktop, $tablet, $mobile)
 {
-    return \App::requester()->isMobile() ?
-        (\App::requester()->isTablet() ? $tablet : $mobile) :
+
+    return app()->requester()->isMobile() ?
+        (app()->requester()->isTablet() ? $tablet : $mobile) :
         $desktop;
 }
 

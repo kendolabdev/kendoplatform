@@ -18,14 +18,14 @@ class ThemeController extends AjaxController
         $id = $this->request->getParam('id');
 
         try {
-            $ext = \App::coreService()
+            $ext = app()->coreService()
                 ->extension()
                 ->findExensionById($id);
 
             if (!$ext->isTheme())
                 throw new \InvalidArgumentException("Invalid theme id");
 
-            $theme = \App::layouts()
+            $theme = app()->layouts()
                 ->theme()
                 ->findThemeByExtensionName($ext->getName());
 
@@ -35,7 +35,7 @@ class ThemeController extends AjaxController
             }
 
 
-            \App::layouts()
+            app()->layouts()
                 ->theme()
                 ->rebuildStylesheetForTheme($theme->getId());
 

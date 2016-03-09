@@ -2,7 +2,7 @@
 
 namespace Platform\Phrase\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Phrase\Model\PhraseLanguage;
 use Kendo\I18n\PhraseLoaderInterface;
 
@@ -11,7 +11,7 @@ use Kendo\I18n\PhraseLoaderInterface;
  *
  * @package Core\Service
  */
-class PhraseService extends KernelServiceAgreement implements PhraseLoaderInterface
+class PhraseService extends KernelService implements PhraseLoaderInterface
 {
 
     /**
@@ -23,9 +23,9 @@ class PhraseService extends KernelServiceAgreement implements PhraseLoaderInterf
     {
 
 
-        $valueTable = \App::table('platform_phrase_value')->getName();
+        $valueTable = app()->table('platform_phrase_value')->getName();
 
-        $select = \App::table('platform_phrase')
+        $select = app()->table('platform_phrase')
             ->select('p')
             ->leftJoin($valueTable, 'pv', 'p.phrase_id=pv.phrase_id and pv.language_id=:language', [':language' => $language])
             ->columns('pv.phrase_value, pv.language_id, p.*');
@@ -52,7 +52,7 @@ class PhraseService extends KernelServiceAgreement implements PhraseLoaderInterf
      */
     public function load($language)
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['phrase', 'load', 'language'], 0, function () use ($language) {
                 return $this->loadFromRepository($language);
             });
@@ -67,8 +67,8 @@ class PhraseService extends KernelServiceAgreement implements PhraseLoaderInterf
      */
     public function loadAdminPhrasePaging($query, $page = 1, $limit = 24)
     {
-        $tablePhrase = \App::table('platform_phrase');
-        $tableValue = \App::table('platform_phrase_value');
+        $tablePhrase = app()->table('platform_phrase');
+        $tableValue = app()->table('platform_phrase_value');
 
         if (empty($query['langId']))
             $query['langId'] = 'en';
@@ -100,7 +100,7 @@ class PhraseService extends KernelServiceAgreement implements PhraseLoaderInterf
      */
     public function getLanguageOptions()
     {
-        return \App::cacheService()
+        return app()->cacheService()
             ->get(['phrase', 'getLanguageOptions', ''], 0, function () {
                 return $this->getLanguageOptionsFromRepository();
             });
@@ -111,7 +111,7 @@ class PhraseService extends KernelServiceAgreement implements PhraseLoaderInterf
      */
     public function getLanguageOptionsFromRepository()
     {
-        $select = \App::table('platform_phrase_language')->select();
+        $select = app()->table('platform_phrase_language')->select();
 
         $items = $select->all();
 

@@ -19,7 +19,7 @@ class CardhoverController extends AjaxController
 
         list($id, $type) = explode('@', $cardInfo);
 
-        $item = \App::find($type, $id);
+        $item = app()->find($type, $id);
 
         $this->response['cardInfo'] = $cardInfo;
 

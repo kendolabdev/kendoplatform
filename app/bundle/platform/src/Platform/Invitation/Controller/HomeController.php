@@ -17,7 +17,7 @@ class HomeController extends DefaultController
      */
     public function actionBrowseInvitation()
     {
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
         $page = $this->request->getParam('page', 1);
 
@@ -26,10 +26,10 @@ class HomeController extends DefaultController
             'parentType' => $viewer->getType(),
         ];
 
-        $paging = \App::invitationService()
+        $paging = app()->invitationService()
             ->loadInvitationPaging($query, $page);
 
-        $lp = \App::layouts()
+        $lp = app()->layouts()
             ->getContentLayoutParams();
 
         $this->view

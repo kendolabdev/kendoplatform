@@ -25,7 +25,7 @@ class ListingPosterBlock extends BlockController
 
         $limit = $this->lp->get('limit', 5);
 
-        $select = \App::table('platform_blog_post')
+        $select = app()->table('platform_blog_post')
             ->select()
             ->where('poster_type=?', 'user')// fetch user only
             ->group('poster_id')
@@ -38,7 +38,7 @@ class ListingPosterBlock extends BlockController
 
         $userIdList = array_keys($agg);
 
-        $posters = \App::table('platform_user')
+        $posters = app()->table('platform_user')
             ->findByIdList($userIdList);
 
         // ordering posters by item_count

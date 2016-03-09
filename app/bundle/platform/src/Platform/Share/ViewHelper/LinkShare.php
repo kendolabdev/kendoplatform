@@ -19,7 +19,7 @@ class LinkShare
     {
         return strtr('<a role="button" data-toggle="btn-share" data-object=\':obj\'>:text</a>', [
             ':obj'  => $item->toTokenJson(),
-            ':text' => \App::text('core.share'),
+            ':text' => app()->text('core.share'),
         ]);
     }
 }

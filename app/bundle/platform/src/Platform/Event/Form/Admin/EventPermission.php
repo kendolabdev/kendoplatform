@@ -21,7 +21,7 @@ class EventPermission extends BasePermission
 
         $role = $this->getRole();
 
-        \App::emitter()
+        app()->emitter()
             ->emit('onBeforeInitEventPermissionForm', $this);
 
 
@@ -29,11 +29,11 @@ class EventPermission extends BasePermission
          * Add privacy options fields
          */
         if (!$role->isGuest() && $role->getModuleName() == 'event') {
-            $relationTypes = \App::relationService()->getAllSystemRelationType('event');
+            $relationTypes = app()->relation()->getAllSystemRelationType('event');
 
             $privacyOptions = [
-                ['value' => RELATION_TYPE_ANYONE, 'label' => \App::text('core.public'),],
-                ['value' => RELATION_TYPE_REGISTERED, 'label' => \App::text('core.registered')],
+                ['value' => RELATION_TYPE_ANYONE, 'label' => app()->text('core.public'),],
+                ['value' => RELATION_TYPE_REGISTERED, 'label' => app()->text('core.registered')],
             ];
 
             foreach ($relationTypes as $type) {
@@ -119,7 +119,7 @@ class EventPermission extends BasePermission
                 'value'  => '10',
             ]);
 
-        \App::emitter()
+        app()->emitter()
             ->emit('onAfterInitEventPermissionForm', $this);
     }
 

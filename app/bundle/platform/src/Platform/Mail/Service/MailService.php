@@ -1,7 +1,7 @@
 <?php
 namespace Platform\Mail\Service;
 
-use Kendo\Kernel\KernelServiceAgreement;
+use Kendo\Kernel\KernelService;
 use Platform\Mail\Model\MailTemplate;
 use Kendo\Exception;
 
@@ -10,7 +10,7 @@ use Kendo\Exception;
  *
  * @package Core\Service
  */
-class MailService extends KernelServiceAgreement
+class MailService extends KernelService
 {
 
     /**
@@ -20,7 +20,7 @@ class MailService extends KernelServiceAgreement
      */
     public function findTemplateByName($name)
     {
-        return \App::table('mail.mail_template')
+        return app()->table('mail.mail_template')
             ->select()
             ->where('template_name=?', (string)$name)
             ->one();
@@ -37,13 +37,13 @@ class MailService extends KernelServiceAgreement
     public function loadAdminTemplatePaging($query = [], $page = 1, $limit = 100)
     {
 
-        $select = \App::table('mail.mail_template')
+        $select = app()->table('mail.mail_template')
             ->select();
 
         if (!empty($query['module']))
             $select->where('module_name=?', (string)$query['module']);
 
-        $select->where('module_name in?', \App::packages()->getActiveModules());
+        $select->where('module_name in?', app()->packages()->getActiveModules());
 
         return $select->paging($page, $limit);
     }
@@ -57,7 +57,7 @@ class MailService extends KernelServiceAgreement
      */
     public function loadAdminTransportPaging($query = [], $page = 1, $limit = 100)
     {
-        $select = \App::table('mail.mail_adapter')->select();
+        $select = app()->table('platform_mail_adapter')->select();
 
         if (!empty($query)) ; // do nothing with query
 
@@ -107,7 +107,7 @@ class MailService extends KernelServiceAgreement
         }
 
 
-        $translate = \App::table('mail.mail_translate')
+        $translate = app()->table('mail.mail_translate')
             ->select()
             ->where('template_id=?', $template->getId())
             ->where('language_id=?', (string)$languageId)
@@ -117,7 +117,7 @@ class MailService extends KernelServiceAgreement
             return $translate;
         }
 
-        if (false == \App::instance()->make('mail.language')->hasLanguage($languageId)) {
+        if (false == app()->instance()->make('mail.language')->hasLanguage($languageId)) {
             throw new Exception("Language [$languageId] does not support.");
         }
 
@@ -139,7 +139,7 @@ class MailService extends KernelServiceAgreement
      */
     public function getTemplate($name, $languageId)
     {
-        $row = \App::table('mail.mail_translate')
+        $row = app()->table('mail.mail_translate')
             ->select('trans')
             ->rightJoin(':mail_template', 'tpl', 'trans.template_id=trans.template_id AND trans.language_id=:languageId', [':languageId' => $languageId], null)
             ->where('tpl.template_name=?', $name)
@@ -216,7 +216,7 @@ class MailService extends KernelServiceAgreement
      */
     public function getListTemplateByModuleName($moduleList = [])
     {
-        return \App::table('mail.mail_template')
+        return app()->table('mail.mail_template')
             ->select()
             ->where('module_name IN ?', $moduleList)
             ->toAssocs();

@@ -19,8 +19,8 @@ class SettingController extends AdminController
      */
     protected function onBeforeRender()
     {
-        \App::layouts()->setPageName('admin_simple');
-        \App::layouts()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_setting_notification');
+        app()->layouts()->setPageName('admin_simple');
+        app()->layouts()->setupSecondaryNavigation('admin', 'admin_setting', 'admin_setting_notification');
     }
 
     /**
@@ -72,7 +72,7 @@ class SettingController extends AdminController
             'base_path' => 'platform/notification/controller/admin/setting/browse-type'
         ]);
 
-        $paging = \App::notificationService()
+        $paging = app()->notificationService()
             ->loadAdminNotificationTypePaging($query, $page, $limit);
 
 
@@ -91,7 +91,7 @@ class SettingController extends AdminController
     {
         $id = $this->request->getString('id', 'accept_membership_user');
 
-        $notificationType = \App::notificationService()->findNotificationTypeById($id);
+        $notificationType = app()->notificationService()->findNotificationTypeById($id);
 
         $form = new NotificationTypeSetting([
             'notificationType' => $notificationType
@@ -104,7 +104,7 @@ class SettingController extends AdminController
         if ($this->request->isMethod('post')&& $form->isValid($_POST)) {
             $form->save();
 
-            \App::routing()->redirect('admin', ['stuff' => 'notification/setting/type']);
+            app()->routing()->redirect('admin', ['stuff' => 'notification/setting/type']);
         }
 
         $lp = new BlockParams([

@@ -20,13 +20,13 @@ class SettingsController extends DefaultController
     {
         parent::init();
 
-        \App::layouts()
+        app()->layouts()
             ->setPageName('user_settings');
 
-        if (!\App::authService()->logged())
+        if (!app()->auth()->logged())
             throw new AuthorizationRestrictException("");
 
-        $this->view->assign(['viewer' => \App::authService()->getViewer()]);
+        $this->view->assign(['viewer' => app()->auth()->getViewer()]);
     }
 
 
@@ -43,7 +43,7 @@ class SettingsController extends DefaultController
      */
     public function actionPrivacy()
     {
-        $form = new PosterPrivacySetting(['poster' => \App::authService()->getUser()]);
+        $form = new PosterPrivacySetting(['poster' => app()->auth()->getUser()]);
 
 
         $this->view->setScript('platform/user/controller/settings/edit-user-privacy')
@@ -56,7 +56,7 @@ class SettingsController extends DefaultController
     public function actionNotification()
     {
 
-        $user = \App::authService()->getUser();
+        $user = app()->auth()->getUser();
 
         $form = new PosterNotificationTypeSetting(['poster' => $user]);
 
@@ -96,7 +96,7 @@ class SettingsController extends DefaultController
      */
     public function actionBlock()
     {
-        $viewer = \App::authService()->getViewer();
+        $viewer = app()->auth()->getViewer();
 
         if (null == $viewer) {
             // required login
@@ -104,7 +104,7 @@ class SettingsController extends DefaultController
 
         $blockingItems = [];
 
-        $items = \App::table('core.block')
+        $items = app()->table('core.block')
             ->select()
             ->where('poster_id=?', $viewer->getId())
             ->all();
@@ -113,7 +113,7 @@ class SettingsController extends DefaultController
          * validate object is not null
          */
         foreach ($items as $item) {
-            if (null != ($object = \App::find($item->getObjectType(), $item->getObjectId()))) {
+            if (null != ($object = app()->find($item->getObjectType(), $item->getObjectId()))) {
                 $blockingItems[] = $object;
             }
         }

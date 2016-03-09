@@ -19,11 +19,11 @@ class SelectStorage extends Form
 
         $this->setMethod('get');
 
-        $this->setAction(\App::routing()->getUrl('admin', ['stuff' => 'storage/manage/create']));
+        $this->setAction(app()->routing()->getUrl('admin', ['stuff' => 'storage/manage/create']));
 
         $this->setTitle('core_form_storage_select.form_title');
 
-        $adapters = \App::table('platform_storage_adapter')
+        $adapters = app()->table('platform_storage_adapter')
             ->select()
             ->all();
 
@@ -48,7 +48,7 @@ class SelectStorage extends Form
         $this->addElement([
             'plugin' => 'submit',
             'name'   => '_submit',
-            'label'  => \App::text('core.continue'),
+            'label'  => app()->text('core.continue'),
             'class'  => 'btn btn-primary btn-sm'
         ]);
     }

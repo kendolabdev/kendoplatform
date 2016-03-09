@@ -25,7 +25,7 @@ class FilterFeedType extends Form
             'class'  => 'form-control',
         ]);
 
-        $moduleOptions = \App::instance()
+        $moduleOptions = app()->instance()
             ->make('platform_core_extension')
             ->getModuleOptions();
 

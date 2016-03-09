@@ -63,14 +63,14 @@ class DropdownDecorator extends Decorator
     {
         foreach ($this->items as $offset => $item) {
             if ($item['acl']) {
-                if (false == \App::aclService()->authorize($item['acl'])) {
+                if (false == app()->aclService()->authorize($item['acl'])) {
                     unset($this->items[ $offset ]);
                     continue;
                 }
             }
 
             if ($item['type'] == 'event') {
-                if (false == ($item = \App::emitter()->callback($item['event'], $item))) {
+                if (false == ($item = app()->emitter()->callback($item['event'], $item))) {
                     unset($this->items[ $offset ]);
                 } else {
                     $this->items[ $offset ] = $item;
@@ -136,7 +136,7 @@ class DropdownDecorator extends Decorator
         if ($item['type'] == 'separator') {
             return '<li class="divider"></li>';
         } else if ($item['type'] == 'route') {
-            $item['href'] = \App::routing()->getUrl($item['route'], $item['params']);
+            $item['href'] = app()->routing()->getUrl($item['route'], $item['params']);
         }
 
         if (is_string($item)) {
@@ -145,13 +145,13 @@ class DropdownDecorator extends Decorator
 
         if (empty($item['href'])) {
             if (!empty($item['route'])) {
-                $href = \App::routing()->getUrl($item['route'], $item['params']);
+                $href = app()->routing()->getUrl($item['route'], $item['params']);
             }
         } else {
             $href = $item['href'];
         }
 
-        $label = \App::trans()->text($item['label']);
+        $label = app()->trans()->text($item['label']);
 
         // process plugin but return false.
         if (!$item) {

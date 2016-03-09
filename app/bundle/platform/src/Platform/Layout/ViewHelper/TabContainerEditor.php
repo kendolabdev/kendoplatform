@@ -20,12 +20,12 @@ class TabContainerEditor
 
         if (!empty($data['locations']) && !empty($data['locations']['pos0'])) {
             foreach ($data['locations']['pos0'] as $blockData) {
-                $content .= \App::layouts()->renderBlockForEdit($blockData);
+                $content .= app()->layouts()->renderBlockForEdit($blockData);
             }
         }
 
 
-        return \App::viewHelper()->partial('platform/layout/partial/tab-container-editor',
+        return app()->viewHelper()->partial('platform/layout/partial/tab-container-editor',
             ['item' => $item, 'content' => $content]);
     }
 }
